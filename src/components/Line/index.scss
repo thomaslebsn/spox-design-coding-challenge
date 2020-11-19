@@ -1,0 +1,26 @@
+.wrapper_line {
+    text-align: center;
+    position: relative;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #D5D5D5;
+        margin: auto;
+    }
+}
+
+.text_line {
+    position: relative;
+    z-index: 3;
+    background-color: #fff;
+    display: inline-block;
+    padding-left: 7px;
+    padding-right: 7px;
+    color: rgba($color: #000000, $alpha: 0.8)
+}
