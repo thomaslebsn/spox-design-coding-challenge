@@ -11,15 +11,13 @@ class Button extends React.Component {
     }
 
     render() {
-        let { icon, text, link, className} = this.props;
+        let { icon, text, className} = this.props;
         return (
             <div className="main_btn">
-                <a 
-                    href={link} className={`link_btn ${className}`}
-                >
+                <button type="button" className={`btn btn-light link_btn ${className}`}>
                     <i className="icon_btn"><FontAwesomeIcon icon={icon} /></i>
                     <span className="text_btn">{text}</span>
-                </a>
+                </button>
             </div>
         )
     }

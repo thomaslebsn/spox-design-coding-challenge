@@ -1,6 +1,4 @@
 @import "./utils/bootstrap.scss";
-@import "./utils/variables.scss";
-@import "./utils/mixin.scss";
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -52,4 +50,89 @@ p {
     margin-left: 20%;
     display: flex;
     align-items: center;
+}
+
+.wrapper_text_link {
+    margin-bottom: 15px;
+}
+
+.text_link  {
+    a {
+        color: $color-blue-3;
+    }
+
+    &.text_link_color {
+        color: $color-blue-3;
+        text-align: center;
+    }
+}
+
+//FORM
+
+.wrapper_form {
+    .form-group {
+        .text_form {
+            font-size: 16px;
+            color: rgba($color: $black, $alpha: 0.8);
+            margin-bottom: 7px;
+            display: inline-block;
+        }
+
+        span {
+            color: rgba($color: $color-red, $alpha: 0.8);
+        }
+    }
+
+    .form-control {
+        height: 40px;
+        padding: 5px 15px;
+        border-radius: 5px;
+        border-color: $border-color;
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba($color: $color-green, $alpha: 0.25);
+        }
+    }
+}
+
+//SELECT
+
+.wrapper_select {
+    .css-yk16xz-control {
+        height: 40px;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        min-height: 40px;
+    }
+
+    .css-1wa3eu0-placeholder {
+        color: rgba($color: $black, $alpha: 0.8);
+    }
+
+    .css-1pahdxg-control {
+        min-height: 40px;
+        box-shadow: 0 0 0 0.2rem rgba($color: $color-green, $alpha: 0.25);
+        border-color: transparent;
+        &:hover {
+            border-color: transparent;
+        }
+    }
+
+    .css-1okebmr-indicatorSeparator {
+        display: none;
+    }
+
+    .css-tlfecz-indicatorContainer {
+        color: $color-green;
+        &:hover {
+            color: $color-green;
+        }
+    }
+
+    .css-1gtu0rj-indicatorContainer {
+        color: $color-green;
+        &:hover {
+            color: $color-green;
+        }
+    }
+    
 }

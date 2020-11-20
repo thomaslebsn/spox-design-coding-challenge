@@ -11,32 +11,39 @@ import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSqu
 import './index.scss';
 import Line from "../../components/Line";
 import ButtonNormal from "../../components/ButtomNormal";
-import Checkbox from "../../components/Checkbox";
-import BannerLeft from "../../components/BannerLeft";
 
-class LoginPage extends React.Component {
+const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+];
+
+class Signuppage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {                         
+        this.state = {
+            selectedOption: null                               
         }
     }
 
+    handleChange = (selectedOption) => {
+        this.setState({selectedOption})
+    }
 
     render() {
+        let { selectedOption } = this.state;
         return (
             <div className="wrapper_page_account">
                 <div className="row">
                     <div className="col-4">
-                        <div className="content_page_account">
-                            <BannerLeft />
-                        </div>
+                        <div className="main_page_account"></div>
                     </div>
                     <div className="col-8">
                         <div className="content_page_account content_page_account_right">
                             <div className="main_page_account">
                                 <TitleAccount
-                                    title="Welcome to Easii."
-                                    title_below="Sign In to see latest updates."
+                                    title="Welcome to our Easii."
+                                    title_below="Sign Up to getting started."
                                 />
                                 <div className="wrapper_btn_account">
                                     <div className="item_btn_account">
@@ -63,9 +70,13 @@ class LoginPage extends React.Component {
                                         />
                                     </div>
                                 </div>
-                                <Line text="Or Sign In with"/>
+                                <Line text="Or register with"/>
                                 <div className="wrapper_form">
                                     <form>
+                                        <div className="form-group">
+                                            <label className="text_form" htmlFor="username">Username <span>*</span></label>
+                                            <input type="text" className="form-control" id="username"/>
+                                        </div>
                                         <div className="form-group">
                                             <label className="text_form" htmlFor="email">Email <span>*</span></label>
                                             <input type="email" className="form-control" id="email"/>
@@ -74,21 +85,26 @@ class LoginPage extends React.Component {
                                             <label className="text_form" htmlFor="password">Password <span>*</span></label>
                                             <input type="password" className="form-control" id="password" />
                                         </div>
-                                        <div className="form-group form_group_check">
-                                            <Checkbox
-                                                text="Remember me"
-                                            />
-                                            <p className="text_link text_link_color">
-                                                <a href="/signup">Forgot password?</a>
-                                            </p>
+                                        <div className="form-group">
+                                            <label className="text_form">What is the main thing you want to manage?</label>
+                                            <div className="wrapper_select">
+                                                <Select
+                                                    value={selectedOption}
+                                                    onChange={this.handleChange}
+                                                    options={options}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="wrapper_text_link">
+                                            <p className="text_link">You agree to our <a href="#">terms of service </a> and <a href="#">privacy policy</a>.</p>
                                         </div>
                                         <div className="wrapper_btn_normal">
                                             <ButtonNormal 
-                                                text="Sign In"
+                                                text="Sign up"
                                             />
                                         </div>
                                         <div className="wrapper_text_link">
-                                            <p className="text_link text_link_color">Don’t have an account? <a href="/signup">Sign Up</a> </p>
+                                            <p className="text_link text_link_color">Already have an account? <a href="/login">Log in </a> </p>
                                         </div>
                                     </form>
                                 </div>
@@ -102,4 +118,4 @@ class LoginPage extends React.Component {
     }
 }
 
-export default LoginPage;
+export default Signuppage;

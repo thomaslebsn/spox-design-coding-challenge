@@ -1,25 +1,42 @@
+@import "../../scss/utils/variables.scss";
+
 .link_btn {
     min-width: 130px;
     height: 50px;
-    border: 1px solid #D5D5D5;
+    border: 1px solid $border-color;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    color: #081240;
+    color: $color-blue;
+    background-color: transparent;
+    @include transition(all 0.3s ease);
+    &:hover {
+        background-color: $color-green;
+        color: $white;
+    }
+
     .icon_btn {
         margin-right: 5px;
     }
 
     &.link_btn_fb {
-        background-color: #3B5998;
+        background-color: $color-blue-1;
         color: #fff;
-        border-color: #3B5998;
+        border-color: $color-blue-1;
+        &:hover {
+            background-color: transparent;
+            color: $color-blue-1;
+        }
     }
 
     &.link_btn_tt {
-        background-color: #00ACEE;
+        background-color: $color-blue-2;
         color: #fff;
-        border-color: #00ACEE;
+        border-color: $color-blue-2;
+        &:hover {
+            background-color: transparent;
+            color: $color-blue-2;
+        }
     }
 }
