@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./translations/i18n";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
 import {
     BrowserRouter,
     Router,
@@ -10,6 +10,7 @@ import {
     Switch
 } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+
 import HomePage from "./pages/Homepage";
 import LoginPage from "./pages/Loginpage";
 import Signuppage from "./pages/Signuppage";
