@@ -1,0 +1,29 @@
+@import "../../scss/utils/variables.scss";
+
+.wrapper_line {
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 1px;
+        background-color: $border-color;
+        margin: auto;
+    }
+}
+
+.text_line {
+    position: relative;
+    z-index: 3;
+    background-color: $white;
+    display: inline-block;
+    padding-left: 7px;
+    padding-right: 7px;
+    color: rgba($color: $black, $alpha: 0.8)
+}

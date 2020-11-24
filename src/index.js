@@ -1,13 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./translations/i18n";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import {
+    BrowserRouter,
+    Router,
+    Route,
+    Switch
+} from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
+import HomePage from "./pages/Homepage";
+import LoginPage from "./pages/Loginpage";
+import Signuppage from "./pages/Signuppage";
+
+const history = createBrowserHistory();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+    <BrowserRouter>
+        <Router history={history}>
+            <App>
+                <Switch>
+                    <Route exact path="/" component={HomePage} />
+                    <Route  path="/login" component={LoginPage} />
+                    <Route  path="/signup" component={Signuppage} />
+                </Switch>
+            </App>
+        </Router>
+    </BrowserRouter>,
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

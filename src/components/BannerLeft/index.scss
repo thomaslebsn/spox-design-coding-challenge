@@ -1,0 +1,41 @@
+@import "../../scss/utils/variables.scss";
+@import "../../scss/utils/mixin.scss";
+
+.wrapper_banner_left {
+    height: 100%;
+    @include bg;
+    background-image: url('./banner-left.png');
+}
+
+.content_banner_left {
+    padding: 50px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    .swiper-wrapper {
+        margin-bottom: 50px;
+    }
+
+    .swiper-pagination-bullet {
+        background: $white;
+        opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: $color-green;
+    }
+}
+
+.wrapper_text_slider {
+    color: $white;
+    .text_slider {
+        margin-bottom: 20px;
+        font-size: 22px;
+    }
+}
+
+.wrapper_icon_slider {
+    margin-bottom: 15px;
+}

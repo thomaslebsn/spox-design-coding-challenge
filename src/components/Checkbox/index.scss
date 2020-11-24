@@ -1,0 +1,55 @@
+@import "../../scss/utils/variables.scss";
+
+.form_check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        &:checked {
+            ~ .checkmark {
+                background-color: $color-green;
+                border-color: $color-green;
+                &:after {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .checkmark {
+        &:after {
+            left: 7px;
+            top: 3px;
+            width: 7px;
+            height: 10px;
+            border: solid $white;
+            border-width: 0 3px 3px 0;
+            @include transform(rotate(45deg));
+        }
+    }
+}
+  
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    border-radius: 3px;
+    border: 1px solid $border-color;
+    &:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+}
