@@ -14,7 +14,12 @@ class TitleAccount extends React.Component {
         return (
             <div className="wrapper_title_account">
                 <h3 className="title">{title}</h3>
-                <h3 className="title">{title_below}</h3>
+                {
+                    (title_below != undefined && title_below != "") && (
+                        <h3 className="title">{title_below}</h3>
+                    )
+                }
+                
             </div>
         )
     }

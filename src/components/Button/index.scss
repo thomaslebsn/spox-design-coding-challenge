@@ -20,6 +20,6 @@
 }
 
 .btn-google {
-    @include button-variant(#ffffff, $border-color);
+    @include button-variant($white, $border-color);
     color: $color-blue;
 }
