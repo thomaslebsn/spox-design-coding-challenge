@@ -2,17 +2,12 @@ import React from "react";
 import { withTranslation } from 'react-i18next';
 import Select from 'react-select';
 
-import Button from "../../components/Button";
 import TitleAccount from "../../components/TitlePageAccount";
-
-import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
-import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
-
 import './index.scss';
 import Line from "../../components/Line";
 import ButtonNormal from "../../components/ButtomNormal";
 import BannerLeft from "../../components/BannerLeft";
+import Social from "../../components/Social";
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -67,31 +62,7 @@ class Signuppage extends React.Component {
                                     title={t('txt_welcome_to_our_easii')}
                                     title_below={t('txt_sign_up_to_getting_started')}
                                 />
-                                <div className="wrapper_btn_account">
-                                    <div className="item_btn_account">
-                                        <Button 
-                                            link="#"
-                                            icon={faFacebookSquare}
-                                            text="Facebook"
-                                            className="link_btn_fb"
-                                        />
-                                    </div>
-                                    <div className="item_btn_account">
-                                        <Button 
-                                            link="#"
-                                            icon={faTwitterSquare}
-                                            text="Twitter"
-                                            className="link_btn_tt"
-                                        />
-                                    </div>
-                                    <div className="item_btn_account">
-                                        <Button 
-                                            link="#"
-                                            icon={faGoogle}
-                                            text="Google"
-                                        />
-                                    </div>
-                                </div>
+                                <Social />
                                 <Line text={t('txt_or_register_with')}/>
                                 <div className="wrapper_form">
                                     <form>

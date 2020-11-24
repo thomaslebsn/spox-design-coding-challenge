@@ -1,54 +1,25 @@
 @import "../../scss/utils/bootstrap.scss";
 
-.link_btn {
-  min-width: 130px;
-  height: 50px;
-  border: 1px solid $border-color;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  color: $color-blue;
-  background-color: transparent;
-  @include transition(all 0.3s ease);
-  &:hover {
-    background-color: $color-green;
-    color: $white;
-  }
+.main_btn {
+    .btn {
+        width: 100%;
+        height: 45px;
+    }
+}
 
-  .icon_btn {
+.icon_btn {
     margin-right: 5px;
-  }
 }
 
 .btn-facebook {
-  @include button-variant(#3b5998, #3b5998);
+    @include button-variant($color-blue-1, $color-blue-1);
 }
 
 .btn-twitter {
-  @include button-variant(#00acee, #00acee);
+    @include button-variant($color-blue-2, $color-blue-2);
 }
 
 .btn-google {
-  @include button-variant(#ffffff, #cccccc);
-}
-
-.link_btn_fb {
-  background-color: $color-blue-1;
-  color: #fff;
-  border-color: $color-blue-1;
-  &:hover {
-    background-color: transparent;
-    color: $color-blue-1;
-  }
-}
-
-.link_btn_tt {
-  background-color: $color-blue-2;
-  color: #fff;
-  border-color: $color-blue-2;
-  &:hover {
-    background-color: transparent;
-    color: $color-blue-2;
-  }
+    @include button-variant(#ffffff, $border-color);
+    color: $color-blue;
 }
