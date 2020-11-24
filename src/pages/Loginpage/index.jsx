@@ -74,7 +74,7 @@ class LoginPage extends React.Component {
                                     <div className="form-group form_group_check">
                                         <Checkbox text={t("txt_remember_me")} />
                                         <p className="text_link text_link_color">
-                                            <a href="/signup">{t("txt_forgot_password")}</a>
+                                            <a href="/forgot-password">{t("txt_forgot_password")}</a>
                                         </p>
                                     </div>
                                     <div className="wrapper_btn_normal">

@@ -14,6 +14,7 @@ import { createBrowserHistory } from 'history';
 import HomePage from "./pages/Homepage";
 import LoginPage from "./pages/Loginpage";
 import Signuppage from "./pages/Signuppage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 const history = createBrowserHistory();
 
@@ -25,6 +26,7 @@ ReactDOM.render(
                     <Route exact path="/" component={HomePage} />
                     <Route  path="/login" component={LoginPage} />
                     <Route  path="/signup" component={Signuppage} />
+                    <Route  path="/forgot-password" component={ForgotPasswordPage} />
                 </Switch>
             </App>
         </Router>
