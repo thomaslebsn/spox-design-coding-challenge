@@ -1,16 +1,16 @@
-@import "../../fonts/fontface.scss";
+$primary: #16b979 !default;
 
 //FONT
-$font-family-base: 'SVN-Sofia Pro';
+$font-family-base: "SVN-Sofia Pro";
 
-//COLOR 
+//COLOR
 $color: #3c3c3c;
 
 $white: #fff;
 $black: #000;
 
 //MAIN COLOR RED
-$color-red: #C60202;
+$color-red: #c60202;
 
 //MAIN COLOR GREEN
 $color-green: #16b979;
@@ -18,26 +18,9 @@ $color-green: #16b979;
 //MAIN COLOR BLUE
 
 $color-blue: #081240;
-$color-blue-1: #3B5998;
-$color-blue-2: #00ACEE;
-$color-blue-3: #005F89;
+$color-blue-1: #3b5998;
+$color-blue-2: #00acee;
+$color-blue-3: #005f89;
 
 //BORDER COLOR
-$border-color: #D5D5D5;
-
-
-@mixin transition($property...) {
-    transition: $property;
-    -ms-transition: $property;
-    -webkit-transition: $property;
-    -moz-transition: $property;
-    -o-transition: $property;
-}
-
-@mixin transform($property) {
-    transform: $property;
-    -webkit-transform: $property;
-    -moz-transform: $property;
-    -ms-transform: $property;
-    -o-transform: $property;
-}
+$border-color: #d5d5d5;

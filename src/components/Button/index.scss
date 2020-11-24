@@ -1,42 +1,54 @@
-@import "../../scss/utils/variables.scss";
+@import "../../scss/utils/bootstrap.scss";
 
 .link_btn {
-    min-width: 130px;
-    height: 50px;
-    border: 1px solid $border-color;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    color: $color-blue;
+  min-width: 130px;
+  height: 50px;
+  border: 1px solid $border-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: $color-blue;
+  background-color: transparent;
+  @include transition(all 0.3s ease);
+  &:hover {
+    background-color: $color-green;
+    color: $white;
+  }
+
+  .icon_btn {
+    margin-right: 5px;
+  }
+}
+
+.btn-facebook {
+  @include button-variant(#3b5998, #3b5998);
+}
+
+.btn-twitter {
+  @include button-variant(#00acee, #00acee);
+}
+
+.btn-google {
+  @include button-variant(#ffffff, #cccccc);
+}
+
+.link_btn_fb {
+  background-color: $color-blue-1;
+  color: #fff;
+  border-color: $color-blue-1;
+  &:hover {
     background-color: transparent;
-    @include transition(all 0.3s ease);
-    &:hover {
-        background-color: $color-green;
-        color: $white;
-    }
+    color: $color-blue-1;
+  }
+}
 
-    .icon_btn {
-        margin-right: 5px;
-    }
-
-    &.link_btn_fb {
-        background-color: $color-blue-1;
-        color: #fff;
-        border-color: $color-blue-1;
-        &:hover {
-            background-color: transparent;
-            color: $color-blue-1;
-        }
-    }
-
-    &.link_btn_tt {
-        background-color: $color-blue-2;
-        color: #fff;
-        border-color: $color-blue-2;
-        &:hover {
-            background-color: transparent;
-            color: $color-blue-2;
-        }
-    }
+.link_btn_tt {
+  background-color: $color-blue-2;
+  color: #fff;
+  border-color: $color-blue-2;
+  &:hover {
+    background-color: transparent;
+    color: $color-blue-2;
+  }
 }

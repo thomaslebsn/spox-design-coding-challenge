@@ -1,138 +1,127 @@
 @import "./utils/bootstrap.scss";
 
-*, *::before, *::after {
-    box-sizing: border-box;
-}
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/forms";
 
-body {
-    overflow-x: hidden;
-    color: $color;
-    margin: 0 auto;
-    padding: 0;
-    -wenkit-font-smoothing: subpixel-antialiased;
-    font-family: $font-family-base;
-    font-weight: normal; 
-    font-size: 16px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-}
+@import "../fonts/fontface.scss";
 
 a {
+  text-decoration: none;
+  &:hover,
+  &:focus {
     text-decoration: none;
-    &:hover,
-    &:focus {
-        text-decoration: none;
-    }
+  }
 }
 
 ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 p {
-    margin: 0;
+  margin: 0;
 }
 
 .content_page_account {
-    height: 100vh;
+  height: 100vh;
 }
 
 .content_page_account_right {
-    max-width: 430px;
-    margin-left: 20%;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wrapper_text_link {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
-.text_link  {
-    a {
-        color: $color-blue-3;
-    }
+.text_link {
+  a {
+    color: $color-blue-3;
+  }
 
-    &.text_link_color {
-        color: $color-blue-3;
-        text-align: center;
-    }
+  &.text_link_color {
+    color: $color-blue-3;
+    text-align: center;
+  }
 }
 
 //FORM
 
 .wrapper_form {
-    .form-group {
-        .text_form {
-            font-size: 16px;
-            color: rgba($color: $black, $alpha: 0.8);
-            margin-bottom: 7px;
-            display: inline-block;
-        }
-
-        span {
-            color: rgba($color: $color-red, $alpha: 0.8);
-        }
+  .form-group {
+    .text_form {
+      font-size: 16px;
+      color: rgba($color: $black, $alpha: 0.8);
+      margin-bottom: 7px;
+      display: inline-block;
     }
 
-    .form-control {
-        height: 40px;
-        padding: 5px 15px;
-        border-radius: 5px;
-        border-color: $border-color;
-        &:focus {
-            box-shadow: 0 0 0 0.2rem rgba($color: $color-green, $alpha: 0.25);
-        }
+    span {
+      color: rgba($color: $color-red, $alpha: 0.8);
     }
+  }
+
+  .form-control {
+    height: 40px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border-color: $border-color;
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($color: $color-green, $alpha: 0.25);
+    }
+  }
 }
 
 //SELECT
 
 .wrapper_select {
-    .css-yk16xz-control {
-        height: 40px;
-        border: 1px solid $border-color;
-        border-radius: 5px;
-        min-height: 40px;
-    }
+  .css-yk16xz-control {
+    height: 40px;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    min-height: 40px;
+  }
 
-    .css-1wa3eu0-placeholder {
-        color: rgba($color: $black, $alpha: 0.8);
-    }
+  .css-1wa3eu0-placeholder {
+    color: rgba($color: $black, $alpha: 0.8);
+  }
 
-    .css-1pahdxg-control {
-        min-height: 40px;
-        box-shadow: 0 0 0 0.2rem rgba($color: $color-green, $alpha: 0.25);
-        border-color: transparent;
-        &:hover {
-            border-color: transparent;
-        }
+  .css-1pahdxg-control {
+    min-height: 40px;
+    box-shadow: 0 0 0 0.2rem rgba($color: $color-green, $alpha: 0.25);
+    border-color: transparent;
+    &:hover {
+      border-color: transparent;
     }
+  }
 
-    .css-1okebmr-indicatorSeparator {
-        display: none;
-    }
+  .css-1okebmr-indicatorSeparator {
+    display: none;
+  }
 
-    .css-tlfecz-indicatorContainer {
-        color: $color-green;
-        &:hover {
-            color: $color-green;
-        }
+  .css-tlfecz-indicatorContainer {
+    color: $color-green;
+    &:hover {
+      color: $color-green;
     }
+  }
 
-    .css-1gtu0rj-indicatorContainer {
-        color: $color-green;
-        &:hover {
-            color: $color-green;
-        }
+  .css-1gtu0rj-indicatorContainer {
+    color: $color-green;
+    &:hover {
+      color: $color-green;
     }
+  }
 }
-
