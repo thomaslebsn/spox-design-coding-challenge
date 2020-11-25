@@ -11,5 +11,15 @@
 }
 
 .description_reset {
-    color: rgba($color: $black, $alpha: 0.8)
+    color: rgba($color: $black, $alpha: 0.8);
+    margin-bottom: 30px;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    
+    .text_account {
+        font-weight: 600;
+        color: $color-blue-3;
+        display: block;
+    }
 }
