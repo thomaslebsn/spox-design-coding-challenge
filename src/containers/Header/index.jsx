@@ -1,5 +1,4 @@
 import React from "react";
-import Menu from "../Menu";
 
 class Header extends React.Component {
     constructor(props) {
@@ -12,7 +11,6 @@ class Header extends React.Component {
     render() {
         return (
             <div className="wrapper_header">
-                <Menu />
             </div>
         )
     }
