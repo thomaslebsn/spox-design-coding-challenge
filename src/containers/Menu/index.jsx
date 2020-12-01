@@ -1,6 +1,9 @@
 import React from "react";
-
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee, faMagic } from '@fortawesome/free-solid-svg-icons';
+
+import "./index.scss";
 
 class Menu extends React.Component {
     constructor(props) {
@@ -11,12 +14,14 @@ class Menu extends React.Component {
                 {
                     name: 'home',
                     text: 'Home',
-                    link: '/'
+                    link: '/',
+                    icons: faCoffee
                 },
                 {
-                    name: 'login',
-                    text: 'Login',
-                    link: '/login'
+                    name: 'wizard',
+                    text: 'Wizard',
+                    link: '/wizard',
+                    icons: faMagic
                 }
             ]                  
         }
@@ -34,6 +39,7 @@ class Menu extends React.Component {
                                 return (
                                     <li key={key} className={`item_menu`}>
                                         <Link to={value.link} className={`link_menu ${pathName === value.link ? 'active' : ''}`} >
+                                            <i><FontAwesomeIcon icon={value.icons} /></i>
                                             <span className="text_menu">{value.text}</span>
                                         </Link>
                                     </li>

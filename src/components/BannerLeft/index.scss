@@ -1,5 +1,4 @@
-@import "../../scss/utils/variables.scss";
-@import "../../scss/utils/mixin.scss";
+@import "../../scss/utils/bootstrap.scss";
 
 .wrapper_banner_left {
     height: 100%;
@@ -24,7 +23,7 @@
     }
 
     .swiper-pagination-bullet-active {
-        background: $color-green;
+        background: $primary;
     }
 }
 
@@ -38,4 +37,8 @@
 
 .wrapper_icon_slider {
     margin-bottom: 15px;
+}
+
+.link_logo {
+    display: inline-block;
 }
