@@ -1,44 +1,35 @@
 @import "../../scss/utils/bootstrap.scss";
 
 .wrapper_banner_left {
-    height: 100%;
-    @include bg;
-    background-image: url('./banner-left.png');
+  @include bg;
+  background-image: url("./banner-left.png");
 }
 
 .content_banner_left {
-    padding: 50px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    justify-content: space-between;
-    .swiper-wrapper {
-        margin-bottom: 50px;
-    }
+  padding: 50px;
 
-    .swiper-pagination-bullet {
-        background: $white;
-        opacity: 1;
-    }
+  .swiper-wrapper {
+    margin-bottom: 50px;
+  }
 
-    .swiper-pagination-bullet-active {
-        background: $primary;
-    }
+  .swiper-pagination-bullet {
+    background: $white;
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: $primary;
+  }
 }
 
 .wrapper_text_slider {
-    color: $white;
-    .text_slider {
-        margin-bottom: 20px;
-        font-size: 22px;
-    }
+  color: $white;
+  .text_slider {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+  }
 }
 
 .wrapper_icon_slider {
-    margin-bottom: 15px;
-}
-
-.link_logo {
-    display: inline-block;
+  margin-bottom: 15px;
 }

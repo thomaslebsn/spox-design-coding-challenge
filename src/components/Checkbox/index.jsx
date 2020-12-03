@@ -1,17 +1,19 @@
 import React from "react";
 
-import './index.scss';
+import "./index.scss";
 
 class Checkbox extends React.Component {
-    render() {
-        let { text } = this.props;
-        return (
-            <label className="form_check">{text}
-                <input type="checkbox"  />
-                <span className="checkmark"></span>
-            </label>
-        )
-    }
+  render() {
+    let { text } = this.props;
+    return (
+      <div className="form-check">
+        <input className="form-check-input" type="checkbox" />
+        <label className="form-check-label" htmlFor="flexCheckChecked">
+          {text}
+        </label>
+      </div>
+    );
+  }
 }
 
 export default Checkbox;

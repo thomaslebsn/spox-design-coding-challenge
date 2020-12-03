@@ -1,22 +1,12 @@
 @import "../../scss/utils/bootstrap.scss";
 
-.link_menu {
-    display: block;
-    color: $color-blue;
-    padding: 12px 15px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    &.active {
-        background-color: $color-blue-3;
-        color: $white;
-        box-shadow: 0 10px 15px #005F894A;
-    }
+.link-menu {
+  transition: all 0.3s ease;
 
-    &:hover {
-        color: $color-blue-3;
-    }
-}
-
-.text_menu {
-    margin-left: 10px;
+  &.active,
+  &:hover {
+    background-color: $blue;
+    color: $white;
+    box-shadow: 0 10px 15px rgba($blue, 0.25);
+  }
 }
