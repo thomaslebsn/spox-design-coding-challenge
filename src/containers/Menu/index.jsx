@@ -39,7 +39,7 @@ class Menu extends React.Component {
                 <Link
                   to={value.link}
                   className={`d-block rounded-1 p-3 mb-2 link-menu ${
-                    pathName === value.link ? "active text-white" : "text-body"
+                    pathName === value.link ? "active" : ""
                   }`}
                 >
                   <i>

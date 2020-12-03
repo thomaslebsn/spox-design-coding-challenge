@@ -13,7 +13,7 @@ class WizardPage extends React.Component {
     return (
       <div className="row">
         <SbarLeft />
-        <div className="content_page">
+        <div className="col-6">
           <h2>Hello Wizard</h2>
           <Header />
         </div>
