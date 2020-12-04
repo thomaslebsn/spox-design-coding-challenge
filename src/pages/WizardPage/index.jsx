@@ -1,8 +1,5 @@
 import React from "react";
 
-import Header from "../../containers/Header";
-import SbarLeft from "../../containers/SbarLeft";
-
 class WizardPage extends React.Component {
   constructor(props) {
     super(props);
@@ -11,12 +8,8 @@ class WizardPage extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <SbarLeft />
-        <div className="col-6">
-          <h2>Hello Wizard</h2>
-          <Header />
-        </div>
+      <div className="col-6">
+        <h2>Wizard</h2>
       </div>
     );
   }

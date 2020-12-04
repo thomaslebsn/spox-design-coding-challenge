@@ -23,3 +23,9 @@ img {
 .btn-success {
   color: $white;
 }
+
+.main-panel > .content {
+  position: relative;
+  float: right;
+  width: calc(100% - 260px);
+}

@@ -12,8 +12,8 @@ class SbarLeft extends React.Component {
 
   render() {
     return (
-      <aside className="col-3">
-        <div className="mt-3 mb-3">
+      <aside className="sidebar vh-100 position-fixed">
+        <div className="mt-4 mb-4">
           <a href="/">
             <img src="/assets/images/logo/logo.svg" alt="logo" />
           </a>
