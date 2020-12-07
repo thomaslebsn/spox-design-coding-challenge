@@ -12,7 +12,7 @@ class Social extends React.Component {
   render() {
     return (
       <div className="row justify-content-around mb-3">
-        <div className="col-md mb-1">
+        <div className="col-md">
           <Button
             link="#"
             icon={faFacebookSquare}
@@ -20,7 +20,7 @@ class Social extends React.Component {
             className="btn-facebook"
           />
         </div>
-        <div className="col-md mb-1">
+        <div className="col-md">
           <Button
             link="#"
             icon={faTwitterSquare}
@@ -28,7 +28,7 @@ class Social extends React.Component {
             className="btn-twitter"
           />
         </div>
-        <div className="col-md mb-1">
+        <div className="col-md">
           <Button
             link="#"
             icon={faGoogle}
