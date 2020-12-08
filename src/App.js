@@ -8,24 +8,26 @@ import "./scss/app.scss";
 class App extends React.Component {
   render() {
     let pathName = window.location.pathname;
-    let checkPathName = (pathName == "/login" || pathName == "/signup" || pathName == "/forgot-password");
+    let checkPathName = (pathName == "/login" || pathName == "/signup" || pathName == "/forgot-password" || pathName == "/verify");
     return (
       <div className="main-panel">
         <div className="container-fluid">
             <div className="row">
-              <div>
+              <div className={`wrapper_content ${!(checkPathName) ? "p-0" : ""}`}>
                 {
-                  !checkPathName && (
-                    <SbarLeft />
+                  !(checkPathName) && (
+                    <Header />
                   )
                 }
-                <div className="content">
+                <div className={`main_content vh-100 ${!(checkPathName) ? "main_content_dashboard pd-t-80 d-flex" : ""}`}>
                   {
-                    !(checkPathName) && (
-                      <Header />
+                    !checkPathName && (
+                      <SbarLeft />
                     )
                   }
-                  {this.props.children}
+                  <div className={`content ${!checkPathName ? "flex-auto flex-1 border-l-1" : ""}`}>
+                    {this.props.children}
+                  </div>
                 </div>
               </div>
             </div>

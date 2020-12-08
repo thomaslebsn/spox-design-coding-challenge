@@ -1,0 +1,7 @@
+.item_notification {
+    &:last-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        border-bottom: 0 !important;
+    }
+}

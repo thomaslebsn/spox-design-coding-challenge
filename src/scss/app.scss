@@ -16,6 +16,30 @@
 
 @import "~bootstrap/scss/utilities/api";
 
+.white {
+  color: $white;
+}
+
+.green {
+  color: $green;
+}
+
+.blue {
+  color: $color-blue;
+}
+
+.black {
+  color: $black;
+}
+
+.bg-white {
+  background-color: $white;
+}
+
+.bg-orange {
+  background-color: $orange;
+}
+
 img {
   max-width: 100%;
 }
@@ -24,8 +48,72 @@ img {
   color: $white;
 }
 
-.main-panel > .content {
+.main-panel>.content {
   position: relative;
   float: right;
   width: calc(100% - 260px);
+}
+
+.w-260 {
+  width: 260px;
+}
+
+.pd-t-80 {
+  padding-top: 80px;
+}
+
+.border-t-1 {
+  border-top: 1px solid $border-color;
+}
+
+.border-l-1 {
+  border-left: 1px solid $border-color;
+}
+
+.border-b-1 {
+  border-bottom: 1px solid $border-color;
+}
+
+.border-r-1 {
+  border-right: 1px solid $border-color;
+}
+
+.border-1 {
+  border: 1px solid $border-color;
+}
+
+.flex-1 {
+  flex: 1
+}
+
+.text-spacing-nowrap {
+  white-space: nowrap;
+}
+
+.img-avatar {
+  width: 45px;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-15 {
+  font-size: 14px;
+}
+
+.opacity-05 {
+  opacity: 0.5;
+}
+
+.opacity-07 {
+  opacity: 0.7;
+}
+
+.opacity-08 {
+  opacity: 0.8;
 }

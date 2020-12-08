@@ -13,7 +13,7 @@ class Menu extends React.Component {
       dataMenu: [
         {
           name: "home",
-          text: "Home",
+          text: "Dashboard",
           link: "/",
           icons: faCoffee,
         },

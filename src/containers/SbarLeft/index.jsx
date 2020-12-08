@@ -12,12 +12,7 @@ class SbarLeft extends React.Component {
 
   render() {
     return (
-      <aside className="sidebar vh-100 position-fixed">
-        <div className="mt-4 mb-4">
-          <a href="/">
-            <img src="/assets/images/logo/logo.svg" alt="logo" />
-          </a>
-        </div>
+      <aside className="sidebar w-260 p-3 mt-0 position-relative bg-white">
         <Menu />
       </aside>
     );
