@@ -67,7 +67,7 @@ class Notifications extends React.Component {
           <Dropdown.Menu className="top-100 shadow border-0 p-3">
             <div className="d-flex justify-content-between align-items-center mb-2">
               <h5 className="blue">Notifications</h5>
-              <p className="text_heading_bell fs-12 mb-0 black opacity-05">Mark all as read</p>
+              <p className="text_heading_bell fs-sm mb-0 black opacity-50">Mark all as read</p>
             </div>
             <div className="wrapper_tabs">
               <Tabs defaultActiveKey="internal" id="noanim-tab-example">
@@ -82,9 +82,9 @@ class Notifications extends React.Component {
                               <img src={value.icon} className="img-avatar"/>
                               <span className="pl-2">{value.name}</span>
                             </div>
-                            <p className="mb-0 fs-14 black opacity-05">{value.time}</p>
+                            <p className="mb-0 fs-sm black opacity-50">{value.time}</p>
                           </div>
-                          <p className="mb-0 fs-15 black opacity-08">{value.text}</p>
+                          <p className="mb-0 fs-sm black opacity-75">{value.text}</p>
                         </li>
                       )
                     })
@@ -102,9 +102,9 @@ class Notifications extends React.Component {
                               <img src={value.icon} className="img-avatar"/>
                               <span className="pl-2">{value.name}</span>
                             </div>
-                            <p className="mb-0 fs-14 black opacity-05">{value.time}</p>
+                            <p className="mb-0 fs-sm black opacity-05">{value.time}</p>
                           </div>
-                          <p className="mb-0 fs-15 black opacity-08">{value.text}</p>
+                          <p className="mb-0 fs-sm black opacity-08">{value.text}</p>
                         </li>
                       )
                     })
