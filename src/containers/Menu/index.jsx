@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons/faCoffee";
+import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faMagic } from "@fortawesome/free-solid-svg-icons/faMagic";
+import { faFileAlt } from "@fortawesome/free-solid-svg-icons/faFileAlt";
 
 import "./index.scss";
 
@@ -16,7 +17,7 @@ class Menu extends React.Component {
           name: "home",
           text: "Dashboard",
           link: "/",
-          icons: faCoffee,
+          icons: faHome,
         },
         {
           name: "wizard",
@@ -28,7 +29,7 @@ class Menu extends React.Component {
           name: "projects",
           text: "Projects",
           link: "/projects",
-          icons: faMagic,
+          icons: faFileAlt,
         },
         {
           name: "campaigns",
@@ -97,7 +98,7 @@ class Menu extends React.Component {
               >
                 <Link
                   to={value.link}
-                  className={`d-block rounded-1 p-3 mb-2 link_menu text-blue-0 text-decoration-none`}>
+                  className={`d-block rounded-1 p-3 mb-1 link_menu text-blue-0 text-decoration-none`}>
                   <i>
                     <FontAwesomeIcon icon={value.icons} />
                   </i>

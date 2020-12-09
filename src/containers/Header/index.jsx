@@ -33,8 +33,8 @@ class Header extends React.Component {
     let { isMini } = this.state;
     return (
       <div className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm">
-        <div className="w-260 h-80">
-          <a href="/" className="header_logo d-block pl-3">
+        <div className="wrapper_header_logo w-260 h-80 d-flex align-items-center">
+          <a href="/" className={`header_logo d-block px-2`}>
             {
               isMini ? (
               <img className="logo_white" src="/assets/images/logo/logo-white.svg" alt="logo" />
@@ -44,7 +44,7 @@ class Header extends React.Component {
             }
           </a>
         </div>
-        <div className="content_header border-left-1 border-gray flex-1 d-flex align-items-center pl-4 pr-4 position-relative">
+        <div className="content_header h-80 border-left-1 border-gray flex-1 d-flex align-items-center pl-4 pr-4 position-relative">
           <a 
             href="#" 
             className="
@@ -56,6 +56,7 @@ class Header extends React.Component {
               rounded-circle 
               align-items-center 
               justify-content-center
+              fs-12
             "
             onClick={this.handleCollap}
           >

@@ -8,10 +8,21 @@
       background-color: $blue;
       color: $white !important;
       box-shadow: 0 10px 15px rgba($blue, 0.25);
+
+      i,
+      span {
+        color: $white !important;
+      }
     }
   }
 
   .link_menu {
     transition: all 0.3s ease;
+    white-space: nowrap;
+
+    i,
+    span {
+      transition: all 0.3s ease;
+    }
   }
 }
