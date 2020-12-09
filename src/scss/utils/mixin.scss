@@ -1,6 +1,7 @@
 @mixin bg_section {
   position: relative;
   text-align: center;
+
   &:before,
   &:after {
     content: "";

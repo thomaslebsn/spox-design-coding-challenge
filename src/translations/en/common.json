@@ -27,5 +27,18 @@
   "txt_a_verification_email_has_been_sent_to_your_email": "A verification email has been sent to your email",
   "txt_please_check_your_email": "Please check your email and click the link provided in the email to complete your account registration.",
   "txt_if_you_do_not_receive_the_email": "If you do not receive the email within the next 5 minutes, use the button below to resend verification email.",
-  "txt_resend_email": "Resend email"
+  "txt_resend_email": "Resend email",
+  "txt_search_for_something": "Search for something ...",
+  "txt_all_projects": "All projects",
+  "txt_recent": "Recent",
+  "txt_view_all_projects": "View all projects",
+  "txt_search_projects": "Search projects ...",
+  "txt_create_a_new_project": "Create a new project",
+  "txt_all_projects": "All projects",
+  "txt_help_center": "help center",
+  "txt_sign_out": "Sign Out",
+  "txt_notifications": "Notifications",
+  "txt_mark_all_as_read": "Mark all as read",
+  "txt_internal": "Internal",
+  "txt_client": "Client"
 }

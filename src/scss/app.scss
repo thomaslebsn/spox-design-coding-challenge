@@ -24,8 +24,20 @@ img {
   color: $white;
 }
 
-.main-panel > .content {
+.main-panel>.content {
   position: relative;
   float: right;
   width: calc(100% - 260px);
+}
+
+.w-260 {
+  width: 260px;
+}
+
+.pd-t-80 {
+  padding-top: 80px;
+}
+
+.img-avatar {
+  width: 45px;
 }

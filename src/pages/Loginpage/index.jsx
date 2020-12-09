@@ -41,7 +41,7 @@ class LoginPage extends React.Component {
         <div className="col-4 bg-primary p-0">
           <BannerLeft dataSlider={dataSlider} />
         </div>
-        <div className="col-8 d-flex flex-column justify-content-center align-items-center">
+        <div className="col-8 d-flex flex-column justify-content-center align-items-center ">
           <div className="d-block">
             <TitleAccount
               title={t("txt_welcome_to_easii")}
