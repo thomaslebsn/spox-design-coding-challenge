@@ -4,10 +4,6 @@
   width: 370px !important;
 }
 
-.content_header {
-  height: 80px;
-}
-
 .wrapper_dropdown {
   .dropdown-menu {
     &.show {
@@ -59,5 +55,67 @@
         outline: none;
       }
     }
+  }
+}
+
+.item_collap {
+  width: 24px;
+  height: 24px;
+  left: -12px;
+
+  svg {
+    transition: all 0.4s ease;
+  }
+}
+
+// MINI SBAR LEFT
+
+.mini_left {
+
+  .wrapper_header_logo {
+    background-color: $color-blue-3;
+  }
+
+  .w-260 {
+    width: 70px;
+  }
+
+  .header_logo {
+    color: $white;
+  }
+
+  .item_collap {
+    svg {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .item_menu {
+
+    &.active,
+    &:hover {
+      .link_menu {
+        background-color: $green;
+      }
+    }
+  }
+
+  .link_menu {
+    text-align: center;
+
+    span {
+      width: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      visibility: hidden;
+      height: 0;
+    }
+  }
+
+  .sidebar {
+    background-color: $color-blue-3 !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
 }
