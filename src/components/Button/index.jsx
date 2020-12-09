@@ -17,7 +17,7 @@ class Button extends React.Component {
           type="button"
           className={`d-flex justify-content-center  btn w-100 ${className}`}
         >
-          <i className="pr-1">
+          <i className="pe-1">
             <FontAwesomeIcon icon={icon} />
           </i>
           <span className="text_btn">{text}</span>

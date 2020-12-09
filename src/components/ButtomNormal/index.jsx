@@ -11,7 +11,7 @@ class ButtonNormal extends React.Component {
       <div>
         <button type="button" className={`btn btn-success w-100`}>
           {text}
-          <i className="ml-1">
+          <i className="ms-1">
             <FontAwesomeIcon icon={faChevronRight} />
           </i>
         </button>
