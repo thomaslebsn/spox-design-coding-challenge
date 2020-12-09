@@ -15,17 +15,17 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMini: false
+      isMini: false,
     };
   }
 
   handleCollap = () => {
     let { isMini } = this.state;
-    document.body.classList.toggle('mini_left');
+    document.body.classList.toggle("mini_left");
     this.setState({
-      isMini: !isMini
-    })
-  }
+      isMini: !isMini,
+    });
+  };
 
   render() {
     const { t, i18n } = this.props;
@@ -34,18 +34,24 @@ class Header extends React.Component {
       <div className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm">
         <div className="wrapper_header_logo w-260 h-80 d-flex align-items-center">
           <a href="/" className={`header_logo d-block px-2`}>
-            {
-              isMini ? (
-              <img className="logo_white" src="/assets/images/logo/logo-white.svg" alt="logo" />
-              ) : (
-                <img className="logo" src="/assets/images/logo/logo.svg" alt="logo" />
-              )
-            }
+            {isMini ? (
+              <img
+                className="logo_white"
+                src="/assets/images/logo/logo-white.svg"
+                alt="logo"
+              />
+            ) : (
+              <img
+                className="logo"
+                src="/assets/images/logo/logo.svg"
+                alt="logo"
+              />
+            )}
           </a>
         </div>
-        <div className="content_header h-80 border-left-1 border-gray flex-1 d-flex align-items-center pl-4 pr-4 position-relative">
-          <a 
-            href="#" 
+        <div className="content_header h-80 border-left-1 border-gray flex-1 d-flex align-items-center ps-4 pr-4 position-relative">
+          <a
+            href="#"
             className="
               item_collap 
               d-flex 
