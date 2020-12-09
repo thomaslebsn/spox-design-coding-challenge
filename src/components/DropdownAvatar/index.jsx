@@ -70,7 +70,7 @@ class DropdownAvatar extends React.Component {
                   data.map((value, index) => {
                     return (
                       <li key={index}>
-                        <a href="#" class="text-blue-0 d-block rounded-1 text-decoration-none p-2">{value.text}</a>
+                        <a href="#" className="text-blue-0 d-block rounded-1 text-decoration-none p-2">{value.text}</a>
                       </li>
                     )
                   })

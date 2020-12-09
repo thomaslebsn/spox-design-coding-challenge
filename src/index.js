@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import "./translations/i18n";
 import App from "./App";
@@ -11,12 +11,12 @@ import {
 } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
-import HomePage from "./pages/Homepage";
-import LoginPage from "./pages/Loginpage";
-import Signuppage from "./pages/Signuppage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-import VerifyEmailPage from "./pages/VerifyEmailPage";
-import WizardPage from "./pages/WizardPage";
+const HomePage = lazy(() => import('./pages/Homepage'));
+const LoginPage = lazy(() => import('./pages/Loginpage'));
+const Signuppage = lazy(() => import('./pages/Signuppage'));
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
+const VerifyEmailPage = lazy(() => import('./pages/VerifyEmailPage'));
+const WizardPage = lazy(() => import('./pages/WizardPage'));
 
 const history = createBrowserHistory();
 
@@ -24,14 +24,16 @@ ReactDOM.render(
     <BrowserRouter>
         <Router history={history}>
             <App>
-                <Switch>
-                    <Route exact path="/" component={HomePage} />
-                    <Route exact path="/login" component={LoginPage} />
-                    <Route  path="/signup" component={Signuppage} />
-                    <Route  path="/forgot-password" component={ForgotPasswordPage} />
-                    <Route  path="/verify" component={VerifyEmailPage} />
-                    <Route  path="/wizard" component={WizardPage} />
-                </Switch>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Switch>
+                        <Route exact path="/" component={HomePage} />
+                        <Route exact path="/login" component={LoginPage} />
+                        <Route  path="/signup" component={Signuppage} />
+                        <Route  path="/forgot-password" component={ForgotPasswordPage} />
+                        <Route  path="/verify" component={VerifyEmailPage} />
+                        <Route  path="/wizard" component={WizardPage} />
+                    </Switch>
+                </Suspense> 
             </App>
         </Router>
     </BrowserRouter>,

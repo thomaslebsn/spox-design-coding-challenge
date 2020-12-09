@@ -39,7 +39,7 @@ class Header extends React.Component {
               <div className="pl-3 pr-3">
                 <a href="#" className="item_help d-flex align-items-center text-blue-0">
                   <FontAwesomeIcon icon={faQuestionCircle} />
-                  <span className="text-spacing-nowrap pl-2">{t("txt_help_center")}</span>
+                  <span className="white-spacing-nowrap pl-2">{t("txt_help_center")}</span>
                 </a>
               </div>
               <div className="pl-3 pr-3">
