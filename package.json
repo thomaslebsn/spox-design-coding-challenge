@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.2",
     "@testing-library/user-event": "^12.2.2",
-    "bootstrap": "~5.0.0-alpha3",
+    "bootstrap": "~5.0.0-beta1",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "node-sass": "^4.12.0",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { withTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,27 +6,26 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCircle";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 
-import './index.scss';
-import Notifications from '../../components/Notifications';
-import DropdownAvatar from '../../components/DropdownAvatar';
-import AllProjects from '../../components/AllProjects';
-
+import "./index.scss";
+import Notifications from "../../components/Notifications";
+import DropdownAvatar from "../../components/DropdownAvatar";
+import AllProjects from "../../components/AllProjects";
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMini: false
+      isMini: false,
     };
   }
 
   handleCollap = () => {
     let { isMini } = this.state;
-    document.body.classList.toggle('mini_left');
+    document.body.classList.toggle("mini_left");
     this.setState({
-      isMini: !isMini
-    })
-  }
+      isMini: !isMini,
+    });
+  };
 
   render() {
     const { t, i18n } = this.props;
@@ -35,18 +34,24 @@ class Header extends React.Component {
       <div className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm">
         <div className="wrapper_header_logo w-260 h-80 d-flex align-items-center">
           <a href="/" className={`header_logo d-block px-2`}>
-            {
-              isMini ? (
-              <img className="logo_white" src="/assets/images/logo/logo-white.svg" alt="logo" />
-              ) : (
-                <img className="logo" src="/assets/images/logo/logo.svg" alt="logo" />
-              )
-            }
+            {isMini ? (
+              <img
+                className="logo_white"
+                src="/assets/images/logo/logo-white.svg"
+                alt="logo"
+              />
+            ) : (
+              <img
+                className="logo"
+                src="/assets/images/logo/logo.svg"
+                alt="logo"
+              />
+            )}
           </a>
         </div>
-        <div className="content_header h-80 border-left-1 border-gray flex-1 d-flex align-items-center pl-4 pr-4 position-relative">
-          <a 
-            href="#" 
+        <div className="content_header h-80 border-left-1 border-gray flex-1 d-flex align-items-center ps-4 pr-4 position-relative">
+          <a
+            href="#"
             className="
               item_collap 
               d-flex 
@@ -65,22 +70,36 @@ class Header extends React.Component {
           <div className="d-flex justify-content-between flex-1 align-items-center">
             <AllProjects />
             <div className="d-flex align-items-center">
-              <div className="input-group mb-0 pr-2 wr_input_search">
-                <input type="text" placeholder={t("txt_search_for_something")} aria-describedby="button-search" className="form-control border-right-0 pr-2"/>
-                <button type="button" id="button-search" className="btn btn_search border-1 border-left-0 border-gray text-green">
+              <div className="input-group mb-0 pe-2 wr_input_search">
+                <input
+                  type="text"
+                  placeholder={t("txt_search_for_something")}
+                  aria-describedby="button-search"
+                  className="form-control border-end-0 pe-2"
+                />
+                <button
+                  type="button"
+                  id="button-search"
+                  className="btn btn_search border-1 border-start-0 border-gray text-green"
+                >
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
               </div>
-              <div className="pl-3 pr-3">
-                <a href="#" className="item_help d-flex align-items-center text-blue-0">
+              <div className="ps-3 pe-3">
+                <a
+                  href="#"
+                  className="item_help d-flex align-items-center text-blue-0"
+                >
                   <FontAwesomeIcon icon={faQuestionCircle} />
-                  <span className="white-spacing-nowrap pl-2">{t("txt_help_center")}</span>
+                  <span className="white-spacing-nowrap ps-2">
+                    {t("txt_help_center")}
+                  </span>
                 </a>
               </div>
-              <div className="pl-3 pr-3">
+              <div className="ps-3 pe-3">
                 <Notifications />
               </div>
-              <div className="pl-3 pr-3">
+              <div className="ps-3 pe-3">
                 <DropdownAvatar />
               </div>
             </div>

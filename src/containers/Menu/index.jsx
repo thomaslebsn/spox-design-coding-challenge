@@ -102,7 +102,7 @@ class Menu extends React.Component {
                   <i>
                     <FontAwesomeIcon icon={value.icons} />
                   </i>
-                  <span className="ml-3">{value.text}</span>
+                  <span className="ms-3">{value.text}</span>
                 </Link>
               </li>
             );
