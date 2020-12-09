@@ -3,7 +3,7 @@ import { withTranslation } from "react-i18next";
 import { Dropdown, Tabs, Tab } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
+import { faBell } from "@fortawesome/free-regular-svg-icons/faBell";
 
 import "./index.scss";
 

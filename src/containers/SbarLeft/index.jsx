@@ -12,7 +12,7 @@ class SbarLeft extends React.Component {
 
   render() {
     return (
-      <aside className="sidebar w-260 p-3 mt-0 position-relative bg-white">
+      <aside className="sidebar w-260 p-3 mt-0 position-relative bg-white mh-100 overflow-hidden overflow-y-auto">
         <Menu />
       </aside>
     );

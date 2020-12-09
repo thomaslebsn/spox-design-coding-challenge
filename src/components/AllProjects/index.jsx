@@ -3,7 +3,9 @@ import { withTranslation } from "react-i18next";
 import { Dropdown, FormControl } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 
 const data = [
   {

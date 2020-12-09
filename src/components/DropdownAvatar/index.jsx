@@ -2,7 +2,7 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 
 import "./index.scss";
 

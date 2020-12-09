@@ -61,3 +61,21 @@
     }
   }
 }
+
+.item_collap {
+  width: 32px;
+  height: 32px;
+  left: -16px;
+}
+
+// MINI SBAR LEFT
+
+.mini_left {
+  .w-260 {
+    width: 70px;
+  }
+
+  .header_logo {
+    color: $white;
+  }
+}
