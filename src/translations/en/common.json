@@ -36,6 +36,9 @@
   "txt_create_a_new_project": "Create a new project",
   "txt_all_projects": "All projects",
   "txt_help_center": "help center",
-  "txt_sign_out": "Sign Out"
-
+  "txt_sign_out": "Sign Out",
+  "txt_notifications": "Notifications",
+  "txt_mark_all_as_read": "Mark all as read",
+  "txt_internal": "Internal",
+  "txt_client": "Client"
 }

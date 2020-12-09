@@ -25,7 +25,7 @@ class App extends React.Component {
                       <SbarLeft />
                     )
                   }
-                  <div className={`content ${!checkPathName ? "flex-auto flex-1 border-l-1" : ""}`}>
+                  <div className={`content ${!checkPathName ? "flex-auto flex-1 border-left-1 border-gray" : ""}`}>
                     {this.props.children}
                   </div>
                 </div>

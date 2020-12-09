@@ -26,18 +26,18 @@ class Header extends React.Component {
             <img src="/assets/images/logo/logo.svg" alt="logo" />
           </a>
         </div>
-        <div className="content_header border-l-1 flex-1 d-flex align-items-center pl-4 pr-4">
+        <div className="content_header border-left-1 border-gray flex-1 d-flex align-items-center pl-4 pr-4">
           <div className="d-flex justify-content-between flex-1 align-items-center">
             <AllProjects />
             <div className="d-flex align-items-center">
               <div className="input-group mb-0 pr-2 wr_input_search">
                 <input type="text" placeholder={t("txt_search_for_something")} aria-describedby="button-search" className="form-control border-right-0 pr-2"/>
-                <button type="button" id="button-search" className="btn btn_search border-1 border-left-0 green">
+                <button type="button" id="button-search" className="btn btn_search border-1 border-left-0 border-gray text-green">
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
               </div>
               <div className="pl-3 pr-3">
-                <a href="#" className="item_help d-flex align-items-center blue">
+                <a href="#" className="item_help d-flex align-items-center text-blue-0">
                   <FontAwesomeIcon icon={faQuestionCircle} />
                   <span className="text-spacing-nowrap pl-2">{t("txt_help_center")}</span>
                 </a>

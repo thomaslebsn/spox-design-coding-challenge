@@ -55,10 +55,10 @@ class AllProjects extends React.Component {
         onClick(e);
       }}
     >
-      <span className="mr-2 blue">
+      <span className="mr-2 text-blue-0">
         {children}
       </span>
-      <i className="green">
+      <i className="text-green">
         <FontAwesomeIcon icon={faChevronDown} />
       </i>
     </a>
@@ -90,7 +90,7 @@ class AllProjects extends React.Component {
               </i>
             </div>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <p className="mb-0 text-uppercase">{t("txt_recent")}</p>
+              <p className="mb-0 text-uppercase opacity-75">{t("txt_recent")}</p>
               <a href="#">{t("txt_view_all_projects")}</a>
             </div>
             <ul className="list-unstyled mb-0">
@@ -100,7 +100,7 @@ class AllProjects extends React.Component {
               )}
             </ul>
           </div>
-          <a href="#" className="d-flex align-items-center p-3 justify-content-center green border-t-1">
+          <a href="#" className="d-flex align-items-center p-3 justify-content-center text-green border-top-1 border-gray">
             <p className="mb-0 d-flex align-items-center">
               <span className="mr-1">{t("txt_create_a_new_project")}</span>
               <FontAwesomeIcon icon={faChevronRight} />

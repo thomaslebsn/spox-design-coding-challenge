@@ -48,8 +48,8 @@ class DropdownAvatar extends React.Component {
       
       <img src="/assets/images/avatar.png" alt="" className="img-avatar"/>
       <div className="pl-3 pr-3">
-        <p className="mb-0 blue fs-14 fw-bold">David William White</p>
-        <p className="mb-0 blue fs-14 opacity-07">Project Manager</p>
+        <p className="mb-0 text-blue-0 fs-14 fw-bold">David William White</p>
+        <p className="mb-0 text-blue-0 fs-14 opacity-75">Project Manager</p>
       </div>
       <i className="green">
         <FontAwesomeIcon icon={faChevronDown} />
@@ -70,14 +70,14 @@ class DropdownAvatar extends React.Component {
                   data.map((value, index) => {
                     return (
                       <li key={index}>
-                        <a href="#" class="blue d-block rounded-1 text-decoration-none p-2">{value.text}</a>
+                        <a href="#" class="text-blue-0 d-block rounded-1 text-decoration-none p-2">{value.text}</a>
                       </li>
                     )
                   })
                 }
               </ul>
             </div>
-            <a href="#" className="d-flex align-items-center p-3 green border-t-1">
+            <a href="#" className="d-flex align-items-center p-3 text-red border-top-1 border-gray">
               <span className="pl-2 pr-2">{t("txt_sign_out")}</span>
             </a>
           </Dropdown.Menu>
