@@ -162,7 +162,7 @@ class Complete extends React.Component {
       <div className="bg-white p-3">
         <div className="d-flex justify-content-between mb-2">
           <h4>{t("txt_task_complete")}</h4>
-          <p className="mb-0 fst-italic">{t("txt_more")}</p>
+          <p className="mb-0 fs-14">{t("txt_more")}</p>
         </div>
         <div className="wrapper_line_complete row d-flex flex-wrap">
           {

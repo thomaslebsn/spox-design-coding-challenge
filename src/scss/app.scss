@@ -26,7 +26,7 @@ img {
   color: $white;
 }
 
-.main-panel > .content {
+.main-panel>.content {
   position: relative;
   float: right;
   width: calc(100% - 260px);
@@ -47,4 +47,23 @@ img {
 
 .img-avatar {
   width: 45px;
+}
+
+.w-98 {
+  width: 98px;
+}
+
+.status-progress {
+  background-color: $color-green-2;
+  color: $green;
+}
+
+.status-to {
+  background-color: rgba($color: $yellow, $alpha: 0.4);
+  color: $yellow;
+}
+
+.status-stop {
+  background-color: $color-red-2;
+  color: $red;
 }
