@@ -34,6 +34,7 @@ class WizardSteps extends React.Component {
         {dataStep.map((value, key) => {
           return (
             <div
+              key={key}
               className={`position-absolute top-0 start-${
                 key * 50
               } translate-middle `}
