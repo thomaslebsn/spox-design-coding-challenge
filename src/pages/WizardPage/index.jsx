@@ -1,7 +1,9 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import { Tabs, Tab } from "react-bootstrap";
+
 import WizardSteps from "../../components/WizardSteps";
+import CreateProject from "../../components/CreateProject";
 
 class WizardPage extends React.Component {
   constructor(props) {
@@ -14,10 +16,7 @@ class WizardPage extends React.Component {
     return (
       <div className="">
         <WizardSteps />
-        <Tabs defaultActiveKey="internal" id="noanim-tab-example">
-          <Tab eventKey="internal" title={t("txt_internal")}></Tab>
-          <Tab eventKey="client" title={t("txt_client")}></Tab>
-        </Tabs>
+        <CreateProject />
       </div>
     );
   }
