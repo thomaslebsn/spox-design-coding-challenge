@@ -2,21 +2,6 @@
     border-radius: 0;
 }
 
-.progress-bar {
-
-    &.bg-color_1 {
-        background-color: #28a745 !important;
-    }
-
-    &.bg-color_2 {
-        background-color: #ffc107 !important;
-    }
-
-    &.bg-color_3 {
-        background-color: #dc3545 !important;
-    }
-}
-
 .item_line_complete {
     &:nth-last-child(-n + 3) {
         margin-bottom: 0 !important;
@@ -26,5 +11,4 @@
 .number_progre {
     width: 1.5rem;
     height: 1.5rem;
-    background-color: red;
 }
