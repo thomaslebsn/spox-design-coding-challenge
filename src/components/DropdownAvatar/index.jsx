@@ -84,7 +84,7 @@ class DropdownAvatar extends React.Component {
             </div>
             <a
               href="#"
-              className="d-flex align-items-center p-3 text-red border-top-1 border-gray"
+              className="d-flex align-items-center p-3 text-red-1 border-top-1 border-gray"
             >
               <span className="ps-2 pe-2">{t("txt_sign_out")}</span>
             </a>
