@@ -14,7 +14,8 @@ $gray-900: #212529 !default;
 $black: #000 !default;
 
 // fusv-disable
-$grays: ("100": $gray-100,
+$grays: (
+  "100": $gray-100,
   "200": $gray-200,
   "300": $gray-300,
   "400": $gray-400,
@@ -31,14 +32,15 @@ $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #d63384 !default;
 $red: #dc3545 !default;
-$orange: #F78464 !default;
+$orange: #f78464 !default;
 $yellow: #ffc107 !default;
 $green: #16b979 !default;
 $teal: #20c997 !default;
 $cyan: #0dcaf0 !default;
 
 // scss-docs-start colors-map
-$colors: ("blue": $blue,
+$colors: (
+  "blue": $blue,
   "indigo": $indigo,
   "purple": $purple,
   "pink": $pink,
@@ -64,7 +66,8 @@ $light: $gray-100 !default;
 $dark: $gray-900 !default;
 
 // scss-docs-start theme-colors-map
-$theme-colors: ("primary": $primary,
+$theme-colors: (
+  "primary": $primary,
   "secondary": $secondary,
   "success": $success,
   "info": $info,
@@ -90,9 +93,9 @@ $input-btn-padding-x: 0.75rem !default;
 
 // $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
 // $font-size-base effects the font size of the body text
-$font-size-root: null !default;
+$font-size-root: 16px !default;
 $font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
-$font-size-sm: $font-size-base * .875 !default;
+$font-size-sm: $font-size-base * 0.875 !default;
 $font-size-lg: $font-size-base * 1.25 !default;
 
 $h1-font-size: $font-size-base * 2.5 !default;
@@ -103,14 +106,15 @@ $h5-font-size: $font-size-base * 1.25 !default;
 $h6-font-size: $font-size-base !default;
 
 // scss-docs-start font-sizes
-$font-sizes: (1: $h1-font-size,
+$font-sizes: (
+  1: $h1-font-size,
   2: $h2-font-size,
   3: $h3-font-size,
   4: $h4-font-size,
   5: $h5-font-size,
   6: $h6-font-size,
-  12: $font-size-base * .75,
-  14: $font-size-base * .875,
+  12: $font-size-base * 0.75,
+  14: $font-size-base * 0.875,
   sm: $font-size-sm,
 ) !default;
 // scss-docs-end font-sizes
@@ -126,8 +130,8 @@ $color-blue: #081240;
 $color-blue-1: #3b5998;
 $color-blue-2: #00acee;
 $color-blue-3: #005f89;
-$color-blue-4: #F5F8FA;
-$color-blue-5: #E8F1F6;
+$color-blue-4: #f5f8fa;
+$color-blue-5: #e8f1f6;
 
 //BORDER COLOR
 $border-color: #d5d5d5;
