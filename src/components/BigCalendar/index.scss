@@ -1,0 +1,73 @@
+@import "../../scss/utils/bootstrap.scss";
+
+.back-next-buttons {
+  button {
+    width: 32px;
+    height: 32px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.sbar_calendar {
+  .rbc-month-view {
+    border: 0;
+  }
+
+  .rbc-month-header {
+    background-color: $color-blue-4;
+    border-radius: 5px;
+  }
+
+  .rbc-header {
+    border-bottom: 0;
+    padding: 12px 3px;
+    text-transform: uppercase;
+    font-weight: normal;
+
+    +.rbc-header {
+      border-left: 0;
+    }
+
+    span {
+      &::first-letter {
+        font-size: 200%;
+        color: #8A2BE2;
+      }
+    }
+  }
+
+  .rbc-day-bg {
+    border-radius: 5px;
+
+    +.rbc-day-bg {
+      border-left: 0;
+    }
+  }
+
+  .rbc-month-row {
+    justify-content: center;
+
+    +.rbc-month-row {
+      border-top: 0;
+    }
+  }
+
+  .rbc-date-cell {
+    text-align: center;
+  }
+
+  .rbc-off-range-bg {
+    background-color: transparent;
+  }
+
+  .rbc-today {
+    background-color: $color-blue-3;
+  }
+
+  .rbc-current {
+    color: $white;
+  }
+}

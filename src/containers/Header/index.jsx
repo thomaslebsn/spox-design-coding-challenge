@@ -31,7 +31,7 @@ class Header extends React.Component {
     const { t, i18n } = this.props;
     let { isMini } = this.state;
     return (
-      <div className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm">
+      <div className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white">
         <div className="wrapper_header_logo w-260 h-80 d-flex align-items-center">
           <a href="/" className={`header_logo d-block px-2`}>
             {isMini ? (
@@ -51,7 +51,7 @@ class Header extends React.Component {
         </div>
         <div className="content_header h-80 border-start-1 flex-1 d-flex align-items-center ps-4 pr-4 position-relative">
           <a
-            href="#"
+            href={void(0)} 
             className="
               item_collap 
               d-flex 
@@ -62,6 +62,7 @@ class Header extends React.Component {
               align-items-center 
               justify-content-center
               fs-12
+              cursor-pointer
             "
             onClick={this.handleCollap}
           >

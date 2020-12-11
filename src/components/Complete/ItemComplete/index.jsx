@@ -13,7 +13,7 @@ class ItemComplete extends React.Component {
     let { value } = this.props;
 
     return (
-      <div className="main_line_complete shadow rounded-2 overflow-hidden border-1">
+      <div className="main_line_complete shadow rounded-2 overflow-hidden border-1 h-100 d-flex flex-column justify-content-between">
         <div className="p-3">
           <p className="fw-bold text-blue-3">{value.title}</p>
           <div>
