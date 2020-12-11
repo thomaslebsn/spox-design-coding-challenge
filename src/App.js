@@ -28,7 +28,7 @@ class App extends React.Component {
                 <div
                   className={`content ${
                     !checkPathName
-                      ? "flex-1 border-left-1 border-gray bg-blue mh-100 overflow-hidden overflow-y-auto"
+                      ? "flex-1 border-start-1 border-gray bg-blue mh-100 overflow-hidden overflow-y-auto"
                       : ""
                   }`}
                 >

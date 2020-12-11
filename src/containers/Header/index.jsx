@@ -49,7 +49,7 @@ class Header extends React.Component {
             )}
           </a>
         </div>
-        <div className="content_header h-80 border-left-1 border-gray flex-1 d-flex align-items-center ps-4 pr-4 position-relative">
+        <div className="content_header h-80 border-start-1 flex-1 d-flex align-items-center ps-4 pr-4 position-relative">
           <a
             href="#"
             className="
