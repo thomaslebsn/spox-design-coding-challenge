@@ -13,7 +13,7 @@
 @import "~bootstrap/scss/spinners";
 @import "~bootstrap/scss/progress";
 @import "~bootstrap/scss/transitions";
-
+@import "~bootstrap/scss/nav";
 @import "../fonts/fontface.scss";
 
 @import "~bootstrap/scss/utilities/api";
@@ -26,7 +26,7 @@ img {
   color: $white;
 }
 
-.main-panel>.content {
+.main-panel > .content {
   position: relative;
   float: right;
   width: calc(100% - 260px);
@@ -79,4 +79,8 @@ img {
 
 .z-index-100 {
   z-index: 100;
+}
+
+.btn-light {
+  border-color: $secondary;
 }

@@ -5,7 +5,7 @@ import "./index.scss";
 
 import BannerLeft from "../../components/BannerLeft";
 import TitleAccount from "../../components/TitlePageAccount";
-import ButtonNormal from "../../components/ButtomNormal";
+import ButtonNormal from "../../components/ButtonNormal";
 
 const dataSlider = [
   {
