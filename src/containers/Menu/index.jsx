@@ -22,7 +22,7 @@ class Menu extends React.Component {
         {
           name: "wizard",
           text: "Wizard",
-          link: "/wizard",
+          link: "/wizardproject",
           icons: faMagic,
         },
         {
@@ -72,16 +72,16 @@ class Menu extends React.Component {
           text: "Digital Assets",
           link: "/digital",
           icons: faMagic,
-        }
+        },
       ],
     };
   }
 
   handleActionMenu = (name) => {
     this.setState({
-      activeMenu: name
-    })
-  }
+      activeMenu: name,
+    });
+  };
 
   render() {
     let { dataMenu, activeMenu } = this.state;
@@ -91,14 +91,19 @@ class Menu extends React.Component {
           {dataMenu.map((value, key) => {
             let pathName = window.location.pathname;
             return (
-              <li 
-                key={key} 
+              <li
+                key={key}
                 onClick={() => this.handleActionMenu(value.link)}
-                className={`item_menu ${(activeMenu == value.link || pathName === value.link) ? 'active' : ''}`}
+                className={`item_menu ${
+                  activeMenu == value.link || pathName === value.link
+                    ? "active"
+                    : ""
+                }`}
               >
                 <Link
                   to={value.link}
-                  className={`d-block rounded-1 p-3 mb-1 link_menu text-blue-0 text-decoration-none`}>
+                  className={`d-block rounded-1 p-3 mb-1 link_menu text-blue-0 text-decoration-none`}
+                >
                   <i>
                     <FontAwesomeIcon icon={value.icons} />
                   </i>

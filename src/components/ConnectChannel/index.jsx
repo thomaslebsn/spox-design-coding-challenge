@@ -29,7 +29,7 @@ class ConnectChannel extends React.Component {
         {tabs.map((value, key) => {
           return (
             <Tab eventKey={value.name} title={value.title}>
-              FB button
+              {value.title}
             </Tab>
           );
         })}
