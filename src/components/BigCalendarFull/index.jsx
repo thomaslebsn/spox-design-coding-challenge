@@ -21,37 +21,43 @@ class BigCalendarFull extends React.Component {
           id: 0,
           title: "08:00 AM | Ladies Night Video",
           start: new Date(new Date().setHours(new Date().getHours() - 3)),
-          end: new Date(new Date().setHours(new Date().getHours() + 3))
+          end: new Date(new Date().setHours(new Date().getHours() + 3)),
+          background: "blue"
         },
         {
           id: 1,
           title: "10:00 AM | Weekly Sports (19/10 - 25/10)",
           start: new Date(new Date().setHours(new Date().getHours() - 3)),
-          end: new Date(new Date().setHours(new Date().getHours() + 4))
+          end: new Date(new Date().setHours(new Date().getHours() + 4)),
+          background: "red"
         },
         {
           id: 2,
           title: "Today",
           start: new Date(new Date().setHours(new Date().getHours() - 3)),
-          end: new Date(new Date().setHours(new Date().getHours() + 5))
+          end: new Date(new Date().setHours(new Date().getHours() + 5)),
+          background: "purple"
         },
         {
           id: 3,
           title: "Today",
           start: new Date(new Date().setHours(new Date().getHours() - 3)),
-          end: new Date(new Date().setHours(new Date().getHours() + 6))
+          end: new Date(new Date().setHours(new Date().getHours() + 6)),
+          background: "green"
         },
         {
           id: 4,
           title: "Multi-day Event",
           start: new Date(2020, 11, 20, 19, 30, 0),
-          end: new Date(2020, 11, 22, 2, 0, 0)
+          end: new Date(2020, 11, 22, 2, 0, 0),
+          background: "orange"
         },
         {
           id: 5,
           title: "Multi-day Event",
           start: new Date(2020, 11, 24, 19, 30, 0),
-          end: new Date(2020, 11, 25, 2, 0, 0)
+          end: new Date(2020, 11, 25, 2, 0, 0),
+          background: "gray"
         }
       ],
       textBtnGroup: 'Month'
@@ -72,6 +78,24 @@ class BigCalendarFull extends React.Component {
       <FontAwesomeIcon icon={faChevronDown} />
     </a>
   ));
+
+  eventPropGetter = (event) => {
+    console.log('event', event);
+    let newStyle = {
+      backgroundColor: 'rgba(25, 156, 227, 0.25)',
+      color: '#199CE3',
+      border: "none"
+    };
+
+    if (event.isMine){
+      newStyle.backgroundColor = "lightgreen"
+    }
+
+    return {
+      className: "",
+      style: newStyle
+    };
+  }
 
   CustomToolbar = (toolbar) => {
     const goToBack = () => {
@@ -163,6 +187,7 @@ class BigCalendarFull extends React.Component {
           {toolbar : this.CustomToolbar}
         }
         views={['month', 'day', 'agenda', 'week']}
+        eventPropGetter={this.eventPropGetter}
       />
     );
   }
