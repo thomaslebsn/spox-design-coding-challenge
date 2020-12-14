@@ -1,7 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 
-import "./index.scss";
+import styles from "./index.module.scss";
 
 class WizardSteps extends React.Component {
   constructor(props) {
@@ -40,7 +40,9 @@ class WizardSteps extends React.Component {
                 key * 50
               } translate-middle `}
             >
-              <div className="bg-primary text-white text-center rounded-circle step">
+              <div
+                className={`bg-primary text-white text-center rounded-circle ${styles.step}`}
+              >
                 {key + 1}
               </div>
               <div className="position-absolute text-nowrap start-50 translate-middle-x">
@@ -50,7 +52,7 @@ class WizardSteps extends React.Component {
           );
         })}
 
-        <div className="progress">
+        <div className={`progress ${styles.progress}`}>
           <div className="progress-bar w-50"></div>
         </div>
       </div>
