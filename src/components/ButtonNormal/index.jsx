@@ -6,16 +6,21 @@ import "./index.scss";
 
 class ButtonNormal extends React.Component {
   render() {
-    let { text } = this.props;
+    let { icon, text, onClick, className } = this.props;
+
+    if (className == undefined) {
+      className = "btn-success w-100";
+    }
+
     return (
-      <div>
-        <button type="button" className={`btn btn-success w-100`}>
+      <>
+        <button type="button" className={`btn ${className}`} onClick={onClick}>
           {text}
           <i className="ms-1">
             <FontAwesomeIcon icon={faChevronRight} />
           </i>
         </button>
-      </div>
+      </>
     );
   }
 }

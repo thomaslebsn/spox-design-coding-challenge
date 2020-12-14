@@ -5,7 +5,7 @@ import TitleAccount from "../../components/TitlePageAccount";
 
 import "./index.scss";
 import Line from "../../components/Line";
-import ButtonNormal from "../../components/ButtomNormal";
+import ButtonNormal from "../../components/ButtonNormal";
 import Checkbox from "../../components/Checkbox";
 import BannerLeft from "../../components/BannerLeft";
 import Social from "../../components/Social";
