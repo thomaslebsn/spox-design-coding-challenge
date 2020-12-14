@@ -11,17 +11,17 @@ class WizardSteps extends React.Component {
         {
           name: "step1",
           text: "Create project",
-          link: "/wizard",
+          eventKey: "createproject",
         },
         {
           name: "step2",
           text: "Connect channel",
-          link: "/connectchannel",
+          eventKey: "connectchannel",
         },
         {
           name: "step3",
           text: "Create content",
-          link: "/createcontent",
+          eventKey: "createcontent",
         },
       ],
     };
@@ -30,11 +30,12 @@ class WizardSteps extends React.Component {
   render() {
     let { dataStep } = this.state;
     return (
-      <div className="position-relative mt-5 mb-5 w-50 top-0 start-50 translate-middle-x">
+      <div className="position-relative my-5 w-50 top-0 start-50 translate-middle-x">
         {dataStep.map((value, key) => {
           return (
             <div
               key={key}
+              eventKey={value.eventKey}
               className={`position-absolute top-0 start-${
                 key * 50
               } translate-middle `}
