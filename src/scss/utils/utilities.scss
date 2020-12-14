@@ -86,4 +86,8 @@ $utilities: ("opacity": (property: opacity,
       auto: auto)),
   "object-fit": (property: object-fit,
     class: object-fit,
-    values: cover));
+    values: cover),
+  "cursor": (property: cursor,
+    class: cursor,
+    values: none auto pointer,
+  ), );
