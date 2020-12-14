@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import "./index.scss";
+import styles from "./index.module.scss";
 
 class Button extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Button extends React.Component {
       <div className="main_btn">
         <button
           type="button"
-          className={`d-flex justify-content-center btn w-100 ${className}`}
+          className={`d-flex justify-content-center btn w-100 ${styles[className]}`}
         >
           <i className="pe-1">
             <FontAwesomeIcon icon={icon} />
