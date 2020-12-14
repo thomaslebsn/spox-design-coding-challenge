@@ -11,6 +11,8 @@ import UpcomingPosts from "../../components/UpcomingPosts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import BigCalendarFull from "../../components/BigCalendarFull";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class HomePage extends React.Component {
   render() {
     let { isFull } = this.state;
     return (
-      <div>
+      <div className="h-100">
         {
           isFull ? (
             <div className="d-flex">
@@ -50,10 +52,10 @@ class HomePage extends React.Component {
                   <Campaigns />
                 </div>
               </div>
-              <div className="sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400">
+              <div className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400`}>
                 <a
                   href={void(0)} 
-                  className="
+                  className={`
                     item_collap 
                     d-flex 
                     position-absolute
@@ -65,7 +67,7 @@ class HomePage extends React.Component {
                     fs-12
                     cursor-pointer
                     mt-5
-                  "
+                  `}
                   onClick={this.handleCollapFull}
                 >
                   <FontAwesomeIcon icon={faChevronLeft} />
@@ -77,13 +79,14 @@ class HomePage extends React.Component {
               </div>
             </div>
           ) : (
-            <div className="position-relative">
+            <div className="position-relative d-flex bg-white h-100">
               <a
                 href={void(0)} 
                 className="
                   item_collap 
+                  item_collap_fixed
                   d-flex 
-                  position-absolute
+                  position-fixed
                   text-green 
                   bg-blue-1 
                   rounded-circle 
@@ -98,12 +101,26 @@ class HomePage extends React.Component {
               >
                 <FontAwesomeIcon icon={faChevronRight} />
               </a>
-              sdfsdfdsfdsfdsfdsfds
+              <div className="py-4 px-3 pe-400 w-100">
+                <div className="wrapper_calendar wrapper_calendar_full h-100">
+                    <h2 className="mb-3 fw-normal text-blue-0">Schedule</h2>
+                  <BigCalendarFull />
+                </div>
+              </div>
+              <div className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400 `}>
+                <div className="w-100 bg-white h-100 overflow-hidden overflow-y-auto" >
+                  <div className="text-end p-4">
+                    <a href={void(0)} className="cursor-pointer btn btn-success">
+                      <i><FontAwesomeIcon icon={faPlus} /></i>
+                      <span className="ps-2">New Schedule</span>
+                    </a>
+                  </div>
+                  <UpcomingPosts />
+                </div>
+              </div>
             </div>
           )
         }
-        
-        
       </div>
     );
   }

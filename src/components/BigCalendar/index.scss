@@ -1,3 +1,4 @@
+@import "~react-big-calendar/lib/css/react-big-calendar.css";
 @import "../../scss/utils/bootstrap.scss";
 
 .back-next-buttons {
@@ -11,32 +12,42 @@
   }
 }
 
+.rbc-month-header {
+  background-color: $color-blue-4;
+}
+
+.rbc-header {
+  border-bottom: 0;
+  padding: 12px 3px;
+  text-transform: uppercase;
+
+  +.rbc-header {
+    border-left: 0;
+  }
+
+  span {
+    &::first-letter {
+      font-size: 200%;
+      color: #8A2BE2;
+    }
+  }
+}
+
+.rbc-off-range-bg {
+  background-color: transparent;
+}
+
 .sbar_calendar {
+  .rbc-month-header {
+    border-radius: 5px;
+  }
+
   .rbc-month-view {
     border: 0;
   }
 
-  .rbc-month-header {
-    background-color: $color-blue-4;
-    border-radius: 5px;
-  }
-
   .rbc-header {
-    border-bottom: 0;
-    padding: 12px 3px;
-    text-transform: uppercase;
     font-weight: normal;
-
-    +.rbc-header {
-      border-left: 0;
-    }
-
-    span {
-      &::first-letter {
-        font-size: 200%;
-        color: #8A2BE2;
-      }
-    }
   }
 
   .rbc-day-bg {
@@ -59,15 +70,15 @@
     text-align: center;
   }
 
-  .rbc-off-range-bg {
-    background-color: transparent;
-  }
-
   .rbc-today {
     background-color: $color-blue-3;
   }
 
   .rbc-current {
+    color: $green;
+  }
+
+  .rbc-date-cell.rbc-now {
     color: $white;
   }
 }

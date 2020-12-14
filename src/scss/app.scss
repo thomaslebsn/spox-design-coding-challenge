@@ -11,7 +11,6 @@
 @import "~bootstrap/scss/forms";
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/spinners";
-@import "~bootstrap/scss/progress";
 @import "~bootstrap/scss/transitions";
 
 @import "../fonts/fontface.scss";
@@ -38,7 +37,7 @@ img {
 }
 
 .w-400 {
-  width: 360px;
+  width: 400px;
   transition: all 0.4s ease;
 }
 
@@ -74,7 +73,7 @@ img {
 }
 
 .pe-400 {
-  padding-right: 360px !important;
+  padding-right: 400px !important;
 }
 
 .z-index-100 {
