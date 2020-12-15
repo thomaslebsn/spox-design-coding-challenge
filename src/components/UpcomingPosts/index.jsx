@@ -54,14 +54,25 @@ const data = [
 ]
 
 class UpcomingPosts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
   render() {
     return (
       <div className="p-4">
         <div className="d-flex align-items-center mb-3 justify-content-between">
           <h4 className="fs-4 text-blue-0">Upcoming Posts</h4>
-          <a href={void(0)} className="cursor-pointer text-green">
-            <FontAwesomeIcon icon={faTimes} />
-          </a>
+          {
+            this.props.isClose && (
+              <a href={void(0)} className="cursor-pointer text-green" onClick={this.props.handleFullCalender}>
+                <FontAwesomeIcon icon={faTimes} />
+              </a>
+            )
+          }
+          
         </div>
         <div>
           {
