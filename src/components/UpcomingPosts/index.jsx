@@ -1,5 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 import "./index.scss";
 
@@ -55,15 +57,20 @@ class UpcomingPosts extends React.Component {
   render() {
     return (
       <div className="p-4">
-        <h4 className="fs-4 mb-3">Upcoming Posts</h4>
+        <div className="d-flex align-items-center mb-3 justify-content-between">
+          <h4 className="fs-4 text-blue-0">Upcoming Posts</h4>
+          <a href={void(0)} className="cursor-pointer text-green">
+            <FontAwesomeIcon icon={faTimes} />
+          </a>
+        </div>
         <div>
           {
             data.map((value, key) => {
               return (
                 <div key={key} className="main_post rounded-2 shadow mb-3">
-                  <div className="bg-blue rounded-top-2 text-blue-0 fw-bold py-2 px-3 d-flex justify-content-between align-items-center">
-                    <span>{value.title}</span>
-                    <a href={void(0)} className="cursor-pointer text-blue-0 text-decoration-none">...</a>
+                  <div className="bg-blue-3 rounded-top-2 text-blue-0 fw-bold py-2 px-3 d-flex justify-content-between align-items-center rounded-top">
+                    <span className="opacity-75">{value.title}</span>
+                    <a href={void(0)} className="cursor-pointer text-blue-3 text-decoration-none">...</a>
                   </div>
                   <div className="p-3">
                     <ul className="list-unstyled post_list_text">

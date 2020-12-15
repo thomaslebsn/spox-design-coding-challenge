@@ -8,35 +8,35 @@ const data = [
     key: 1,
     image: "/assets/images/icon-pepsi.png",
     projectName: "Marketing Vietnam Suntory PepsiCo",
-    avatar: "/assets/images/avatar.png",
+    avatar: "/assets/images/avatar-1.png",
     leadName: "Ponnappa Priya"
   },
   {
     key: 2,
     image: "/assets/images/icon-nikon.png",
     projectName: "Marketing Vietnam Suntory PepsiCo",
-    avatar: "/assets/images/avatar.png",
+    avatar: "/assets/images/avatar-2.png",
     leadName: "Mia Wong"
   },
   {
     key: 3,
     image: "/assets/images/icon-adidas.png",
     projectName: "Marketing Vietnam Adidas",
-    avatar: "/assets/images/avatar.png",
+    avatar: "/assets/images/avatar-3.png",
     leadName: "Peter Stanbridge"
   },
   {
     key: 4,
     image: "/assets/images/icon-levis.png",
     projectName: "Marketing Vietnam Levi's",
-    avatar: "/assets/images/avatar.png",
+    avatar: "/assets/images/avatar-4.png",
     leadName: "Natalie Lee-Walsh"
   },
   {
     key: 5,
     image: "/assets/images/icon-gap.png",
     projectName: "MShop Gap for Casual Women's, Men's",
-    avatar: "/assets/images/avatar.png",
+    avatar: "/assets/images/avatar-5.png",
     leadName: "Salome Simoes"
   }
 ]
