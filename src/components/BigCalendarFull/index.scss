@@ -50,11 +50,135 @@
     }
   }
 
-  .rbc-ellipsis,
-  .rbc-event-label,
-  .rbc-row-segment .rbc-event-content,
-  .rbc-show-more {
-    white-space: inherit;
+  .rbc-event-content {
     font-size: $h8-font-size;
+  }
+
+  .rbc-day-slot {
+    .rbc-event {
+      border: 0;
+    }
+  }
+}
+
+.rbc-today {
+  background-color: transparent;
+}
+
+.rbc-event,
+.rbc-event-content {
+  &:focus {
+    outline: none;
+  }
+}
+
+.event-blue {
+  background-color: rgba($color: $color-blue-7, $alpha: 0.25);
+
+  &.rbc-selected {
+    background-color: rgba($color: $color-blue-7, $alpha: 0.25);
+  }
+
+  .rbc-event-content,
+  .wrapper_des_event span {
+    color: $color-blue-7;
+  }
+}
+
+.event-red {
+  background-color: rgba($color: $color-red-3, $alpha: 0.25);
+
+  &.rbc-selected {
+    background-color: rgba($color: $color-red-3, $alpha: 0.25);
+  }
+
+  .rbc-event-content,
+  .wrapper_des_event span {
+    color: $color-red-3;
+  }
+}
+
+.event-pink {
+  background-color: rgba($color: $color-pink, $alpha: 0.25);
+
+  &.rbc-selected {
+    background-color: rgba($color: $color-pink, $alpha: 0.25);
+  }
+
+  .rbc-event-content,
+  .wrapper_des_event span {
+    color: $color-pink;
+  }
+}
+
+.event-green {
+  background-color: rgba($color: $color-green-3, $alpha: 0.25);
+
+  &.rbc-selected {
+    background-color: rgba($color: $color-green-3, $alpha: 0.25);
+  }
+
+  .rbc-event-content,
+  .wrapper_des_event span {
+    color: $color-green-3;
+  }
+}
+
+.event-orange {
+  background-color: rgba($color: $color-orange, $alpha: 0.25);
+
+  &.rbc-selected {
+    background-color: rgba($color: $color-orange, $alpha: 0.25);
+  }
+
+  .rbc-event-content,
+  .wrapper_des_event span {
+    color: $color-orange;
+  }
+}
+
+.event-gray {
+  background-color: rgba($color: $color-gray, $alpha: 0.25);
+
+  &.rbc-selected {
+    background-color: rgba($color: $color-gray, $alpha: 0.25);
+  }
+
+  .rbc-event-content,
+  .wrapper_des_event span {
+    color: $color-gray;
+  }
+}
+
+.event-purple {
+  background-color: rgba($color: $color-purple, $alpha: 0.25);
+
+  &.rbc-selected {
+    background-color: rgba($color: $color-purple, $alpha: 0.25);
+  }
+
+  .rbc-event-content,
+  .wrapper_des_event span {
+    color: $color-purple;
+  }
+}
+
+.popover {
+  width: 350px;
+  margin-left: 10px !important;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 10px solid $color-blue-6;
+    border-bottom: 7px solid transparent;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 }

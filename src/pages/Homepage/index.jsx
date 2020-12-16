@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./index.scss";
+import styles from "./index.module.scss";
 import Complete from "../../components/Complete";
 import Projects from "../../components/Projects";
 import AssignedToMe from "../../components/AssignedToMe";
@@ -18,7 +18,8 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFull: true
+      isFull: true,
+      isFullcalendar: false
     };
   }
 
@@ -30,8 +31,24 @@ class HomePage extends React.Component {
     })
   }
 
+  handleFullCalender = () => {
+    document.body.classList.add('full_calender');
+    this.setState({
+      isFullcalendar: true
+    })
+  }
+  
+  newSchedule = () => {
+    return (
+      <a href={void(0)} className={`wrapper_new_schedule ${styles.wrapper_new_schedule} cursor-pointer btn btn-success`}>
+        <i><FontAwesomeIcon icon={faPlus} /></i>
+        <span className="ps-2">New Schedule</span>
+      </a>
+    )
+  }
+
   render() {
-    let { isFull } = this.state;
+    let { isFull, isFullcalendar } = this.state;
     return (
       <div className="h-100">
         {
@@ -82,9 +99,10 @@ class HomePage extends React.Component {
             <div className="position-relative d-flex bg-white h-100">
               <a
                 href={void(0)} 
-                className="
-                  item_collap 
+                className={`
+                  item_collap
                   item_collap_fixed
+                  ${styles.item_collap_fixed}
                   d-flex 
                   position-fixed
                   text-green 
@@ -96,28 +114,43 @@ class HomePage extends React.Component {
                   cursor-pointer
                   mt-5
                   z-index-100
-                "
+                `}
                 onClick={this.handleCollapFull}
               >
                 <FontAwesomeIcon icon={faChevronRight} />
               </a>
-              <div className="py-4 px-3 pe-400 w-100">
+              <div className={`py-4 px-3 ${isFullcalendar ? "" : "pe-400"} w-100`}>
                 <div className="wrapper_calendar wrapper_calendar_full h-100">
-                    <h2 className="mb-3 fw-normal text-blue-0">Schedule</h2>
+                  <div className="mb-3 d-flex align-items-center justify-content-between">
+                    <h2 className="fw-normal text-blue-0">Schedule</h2>
+                    {
+                      isFullcalendar && (
+                        this.newSchedule()
+                      )
+                    }
+                  </div>
                   <BigCalendarFull />
                 </div>
               </div>
-              <div className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400 `}>
-                <div className="w-100 bg-white h-100 overflow-hidden overflow-y-auto" >
-                  <div className="text-end p-4">
-                    <a href={void(0)} className="cursor-pointer btn btn-success">
-                      <i><FontAwesomeIcon icon={faPlus} /></i>
-                      <span className="ps-2">New Schedule</span>
-                    </a>
+              {
+                !isFullcalendar && (
+                  <div className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400 `}>
+                    <div className="w-100 bg-white h-100 overflow-hidden overflow-y-auto" >
+                      <div className="p-4 d-flex justify-content-end">
+                        {
+                          !isFullcalendar && (
+                            this.newSchedule()
+                          )
+                        }
+                      </div>
+                      <UpcomingPosts 
+                        isClose={true}
+                        handleFullCalender={this.handleFullCalender}
+                      />
+                    </div>
                   </div>
-                  <UpcomingPosts />
-                </div>
-              </div>
+                )
+              }
             </div>
           )
         }
