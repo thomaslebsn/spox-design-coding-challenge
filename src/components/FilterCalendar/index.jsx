@@ -227,7 +227,7 @@ class FilterCalendar extends React.Component {
 
     return (
       <div className={`wrapper_filter_calendar ${styles.wrapper_filter_calendar} position-fixed top-0 end-0 bottom-0 z-index-100 start-0 d-flex justify-content-end vh-100`}>
-        <div className="bg-white w-400 h-100 overflow-hidden overflow-y-auto">
+        <div className="bg-white w-400 h-100">
           <div className="d-flex align-items-center justify-content-between p-3 border-bottom-1">
             <h4 className="text-blue-0 fw-medium">Filter</h4>
             <a href={void(0)} className="cursor-pointer text-green" onClick={this.props.handleCloseFilterCalendar}>
@@ -237,7 +237,7 @@ class FilterCalendar extends React.Component {
               <span className="ms-2">Clear all</span>
             </a>
           </div>
-          <div className={`main_filter_calendar ${styles.main_filter_calendar}`}>
+          <div className={`main_filter_calendar ${styles.main_filter_calendar} overflow-hidden overflow-y-auto`}>
             {
               data.map((value, key) => {
                 return (
@@ -266,7 +266,7 @@ class FilterCalendar extends React.Component {
               })
             }
           </div>
-          <div className="px-3 pt-5 pb-3">
+          <div className="px-3 pt-4 pb-3">
             <Button 
               className="btn btn-success w-100"
             >
