@@ -26,7 +26,7 @@ img {
   color: $white;
 }
 
-.main-panel>.content {
+.main-panel > .content {
   position: relative;
   float: right;
   width: calc(100% - 260px);
@@ -83,4 +83,41 @@ img {
 
 .btn-light {
   border-color: $secondary;
+}
+
+//Change style tab
+.wrapper_tabs {
+  .nav-tabs {
+    .nav-link {
+      border: 0;
+      margin-bottom: 0;
+      color: rgba($color: $color-blue, $alpha: 0.5);
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        right: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $blue;
+        opacity: 0;
+      }
+
+      &.active,
+      &:hover {
+        color: $blue;
+
+        &:before {
+          opacity: 1;
+        }
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }

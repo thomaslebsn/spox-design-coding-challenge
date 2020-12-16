@@ -10,12 +10,17 @@ class Button extends React.Component {
   }
 
   render() {
-    let { icon, text, className } = this.props;
+    let { icon, text, className, onClick } = this.props;
+
+    if (className !== undefined && styles[className] !== undefined) {
+      className = styles[className];
+    }
     return (
       <div className="main_btn">
         <button
           type="button"
-          className={`d-flex justify-content-center btn w-100 ${styles[className]}`}
+          className={`d-flex justify-content-center btn ${className}`}
+          onClick={onClick}
         >
           <i className="pe-1">
             <FontAwesomeIcon icon={icon} />

@@ -5,13 +5,14 @@ import { Tab } from "react-bootstrap";
 import WizardSteps from "../../components/WizardSteps";
 import CreateProject from "../../components/CreateProject";
 import ConnectChannel from "../../components/ConnectChannel";
+import CreateContent from "../../components/CreateContent";
 import ButtonNormal from "../../components/ButtonNormal";
 
 class WizardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentStep: props.location.step != undefined ? props.location.step : 1,
+      currentStep: props.location.step != undefined ? props.location.step : 3,
     };
   }
 
@@ -51,11 +52,9 @@ class WizardPage extends React.Component {
       className += " m-auto w-40";
     }
 
-    if (currentStep < 3) {
-      return (
-        <ButtonNormal className={className} onClick={this._next} text="Next" />
-      );
-    }
+    return (
+      <ButtonNormal className={className} onClick={this._next} text="Next" />
+    );
   }
 
   render() {
@@ -73,14 +72,13 @@ class WizardPage extends React.Component {
             </Tab.Pane>
 
             <Tab.Pane id="3" active={(this.state.currentStep == "3") & true}>
-              createcontent
+              <CreateContent />
             </Tab.Pane>
           </Tab.Content>
-
-          <div className="d-flex justify-content-between">
-            {this.previousButton()}
-            {this.nextButton()}
-          </div>
+        </div>
+        <div className="d-flex justify-content-between mx-4 mb-4">
+          {this.previousButton()}
+          {this.nextButton()}
         </div>
       </>
     );
