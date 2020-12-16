@@ -9,14 +9,21 @@ import SelectComponent from "../Select";
 const optionAction = [
   { value: "action-1", label: "Action 1" },
   { value: "action-2", label: "Action 2" },
-  { value: "action-3", label: "Action 3" },
+  { value: "action-3", label: "Action 3" }
+]
+
+const optionColumns = [
+  { value: "columns-1", label: "Columns 1" },
+  { value: "columns-2", label: "Columns 2" },
+  { value: "columns-3", label: "Columns 3" }
 ]
 
 class ListThumb extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      anAction: null
+      anAction: null,
+      columns: null
     };
   }
 
@@ -26,10 +33,16 @@ class ListThumb extends React.Component {
     })
   }
 
+  handleColumns = (selectedOption) => {
+    this.setState({
+      columns: selectedOption
+    })
+  }
+
   render() {
     const { t, i18n } = this.props;
 
-    let { anAction } = this.state;
+    let { anAction, columns } = this.state;
 
     return (
       <div className="bg-white rounded-3">
@@ -52,24 +65,26 @@ class ListThumb extends React.Component {
                 </div>
               </div>
               <div className="col-2 border-end-1">
-                <div className="">
-                  <SelectComponent 
-                    value={anAction}
-                    onChange={this.handleAnAction}
-                    options={optionAction}
-                    className="mb-0 border-0 text-green"
-                    isBorder={false}
-                    placeholder='Choose an action'
-                  />
-                </div>
+                <SelectComponent 
+                  value={anAction}
+                  onChange={this.handleAnAction}
+                  options={optionAction}
+                  isBorder={false}
+                  placeholder='Choose an action'
+                />
               </div>
               <div className="col-2 border-end-1">
-                <div className="">
-                    hhhhhhhhhhhhhhhhh
-                </div>
+                <SelectComponent 
+                  value={columns}
+                  onChange={this.handleColumns}
+                  options={optionColumns}
+                  isBorder={false}
+                  placeholder='Columns'
+                />
               </div>
-              <div className="col-5">
-
+              <div className="col-5 justify-content-end d-flex">
+                <button type="button" className="btn">aaaaaaa</button>
+                <button type="button" className="btn">bbbbbbb</button>
               </div>
             </div>
           </div>
