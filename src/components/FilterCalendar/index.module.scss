@@ -1,0 +1,11 @@
+@import "../../scss/utils/bootstrap.scss";
+
+.wrapper_filter_calendar {
+    background-color: rgba($color: $black, $alpha: 0.7);
+}
+
+.item_check_list {
+    &:last-child {
+        margin-bottom: 0 !important;
+    }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import { Dropdown, Tooltip, OverlayTrigger, Overlay, Popover, Button  } from "react-bootstrap";
+import { Dropdown, OverlayTrigger, Popover  } from "react-bootstrap";
 import moment from 'moment';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +11,7 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons/faFilter";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 import "./index.scss";
+import FilterCalendar from "../FilterCalendar";
 
 const localizer = momentLocalizer(moment);
 
@@ -117,7 +118,8 @@ class BigCalendarFull extends React.Component {
         }
       ],
       textBtnGroup: 'Month',
-      textDayGroup: 'Today'
+      textDayGroup: 'Today',
+      isFilterCalendar: false
     };
   }
 
@@ -278,6 +280,7 @@ class BigCalendarFull extends React.Component {
             <a 
               href={void(0)} 
               className="cursor-pointer border-1 py-2 w-98 text-blue-0 opacity-75 d-flex rounded-1 align-items-center justify-content-center text-decoration-none"
+              onClick={this.handleFilterCalendar}
             >
               <i>
                 <FontAwesomeIcon icon={faFilter} /> 
@@ -290,7 +293,6 @@ class BigCalendarFull extends React.Component {
       </div >
     );
   };
-
 
   Event({ event }) {
     const popover = (
@@ -326,23 +328,43 @@ class BigCalendarFull extends React.Component {
     )
   }
 
+  handleFilterCalendar = () => {
+    this.setState({
+      isFilterCalendar: true
+    })
+  }
+
+  handleCloseFilterCalendar = () => {
+    this.setState({
+      isFilterCalendar: false
+    })
+  }
+
   render() {
     return (
-      <Calendar
-        popup
-        localizer={localizer}
-        events={this.state.renderEvents}
-        style={{ height: '90%' }}
-        showMultiDayTimes
-        components = {
-          {
-            toolbar : this.CustomToolbar,
-            event: this.Event
+      <>
+        <Calendar
+          popup
+          localizer={localizer}
+          events={this.state.renderEvents}
+          style={{ height: '90%' }}
+          showMultiDayTimes
+          components = {
+            {
+              toolbar : this.CustomToolbar,
+              event: this.Event
+            }
           }
+          views={['month', 'day', 'agenda', 'week']}
+          eventPropGetter={this.eventPropGetter}
+        />
+        {
+          this.state.isFilterCalendar && (
+            <FilterCalendar handleCloseFilterCalendar={this.handleCloseFilterCalendar}/>
+          )
         }
-        views={['month', 'day', 'agenda', 'week']}
-        eventPropGetter={this.eventPropGetter}
-      />
+        
+      </>
     );
   }
 }
