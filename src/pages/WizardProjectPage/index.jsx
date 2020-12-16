@@ -8,7 +8,8 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 import WizardSteps from "../../components/WizardSteps";
-import "./index.scss";
+
+import styles from "./index.module.scss";
 
 class WizardProjectPage extends React.Component {
   constructor(props) {
@@ -18,27 +19,27 @@ class WizardProjectPage extends React.Component {
         {
           name: "Marketing Vietnam Nikon",
           link: "/",
-          image: "../../assets/images/icon-nikon.png",
+          image: "/assets/images/icon-nikon.png",
         },
         {
           name: "Marketing Vietnam Nikon",
           link: "/",
-          image: "../../assets/images/icon-nikon.png",
+          image: "/assets/images/icon-nikon.png",
         },
         {
           name: "Marketing Vietnam Nikon",
           link: "/",
-          image: "../../assets/images/icon-nikon.png",
+          image: "/assets/images/icon-nikon.png",
         },
         {
           name: "Marketing Vietnam Nikon",
           link: "/",
-          image: "../../assets/images/icon-nikon.png",
+          image: "/assets/images/icon-nikon.png",
         },
         {
           name: "Marketing Vietnam Nikon",
           link: "/",
-          image: "../../assets/images/icon-nikon.png",
+          image: "/assets/images/icon-nikon.png",
         },
       ],
     };
@@ -52,7 +53,7 @@ class WizardProjectPage extends React.Component {
         <WizardSteps />
         <div className="bg-white d-flex flex-column m-4 p-4">
           <form>
-            <div className="input-group w-50 mx-auto my-5">
+            <div className="input-group w-25 mx-auto my-5">
               <input
                 type="text"
                 className="form-control border-end-0"
@@ -68,7 +69,7 @@ class WizardProjectPage extends React.Component {
               </button>
             </div>
           </form>
-          <div className="w-75 mx-auto my-5 py-4">
+          <div className="w-50 mx-auto my-5 py-4">
             <Row className="justify-content-center">
               <Col lg={6} className="mb-4">
                 <Link
