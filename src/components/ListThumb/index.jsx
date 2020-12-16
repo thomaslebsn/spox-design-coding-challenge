@@ -59,6 +59,7 @@ class ListThumb extends React.Component {
                     options={optionAction}
                     className="mb-0 border-0 text-green"
                     isBorder={false}
+                    placeholder='Choose an action'
                   />
                 </div>
               </div>
