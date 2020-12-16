@@ -13,6 +13,7 @@ const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const WizardProjectPage = lazy(() => import("./pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("./pages/WizardPage"));
+const Projects = lazy(() => import("./pages/Projects"));
 
 const history = createBrowserHistory();
 
@@ -35,6 +36,7 @@ ReactDOM.render(
             <Route path="/verify" component={VerifyEmailPage} />
             <Route path="/wizardproject" component={WizardProjectPage} />
             <Route path="/wizard" component={WizardPage} />
+            <Route path="/projects" component={Projects} />
           </Switch>
         </Suspense>
       </App>
