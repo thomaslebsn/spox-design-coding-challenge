@@ -30,7 +30,7 @@ textarea {
   color: $white;
 }
 
-.main-panel > .content {
+.main-panel>.content {
   position: relative;
   float: right;
   width: calc(100% - 260px);
@@ -60,6 +60,14 @@ textarea {
 
 .w-98 {
   width: 98px;
+}
+
+.w-150 {
+  width: 150px;
+}
+
+.w-180 {
+  width: 180px;
 }
 
 .status-progress {

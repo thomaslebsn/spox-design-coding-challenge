@@ -13,7 +13,7 @@ class SelectComponent extends React.Component {
 
   render() {
 
-    let { isBorder } = this.props;
+    let { isBorder, plColor } = this.props;
 
     const customStyles = {
       control: (provided, state) => ({
@@ -23,7 +23,8 @@ class SelectComponent extends React.Component {
         borderColor: isBorder ? "#ced4da" : "transparent",
         "&:hover": {
           borderColor: isBorder ? "#8bdcbc" : "transparent",
-        }
+        },
+        backgroundColor: "transparent"
       }),
       option: (provided, state) => ({
         ...provided,
@@ -37,10 +38,16 @@ class SelectComponent extends React.Component {
       dropdownIndicator: base => ({
         ...base,
         color: "text-green"
-      })
+      }),
+      placeholder: (defaultStyles) => {
+        return {
+          ...defaultStyles,
+          color: plColor,
+        }
+    }
     };
 
-    return <Select {...this.props} styles={customStyles} className="text-green" />;
+    return <Select {...this.props} styles={customStyles} />;
   }
 }
 

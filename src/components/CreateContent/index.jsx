@@ -123,8 +123,9 @@ class CreateContent extends React.Component {
             value={this.state.campaign}
             onChange={this.handleCampaign}
             options={campaigns}
-            className="mb-4"
+            className="text-green"
             isBorder={true}
+            plColor="rgba(8, 18, 64, 0.8)"
           />
 
           <div className="d-flex justify-content-between">
@@ -138,8 +139,9 @@ class CreateContent extends React.Component {
             onChange={this.handlePersona}
             options={personas}
             isMulti={true}
-            className="mb-4"
+            className="text-green"
             isBorder={true}
+            plColor="rgba(8, 18, 64, 0.8)"
           />
 
           <label className="form-label mb-2" htmlFor="email">
@@ -149,8 +151,9 @@ class CreateContent extends React.Component {
             value={this.state.theme}
             onChange={this.handleTheme}
             options={themes}
-            className="mb-4"
+            className="text-green"
             isBorder={true}
+            plColor="rgba(8, 18, 64, 0.8)"
           />
 
           <label className="form-label mb-2" htmlFor="email">
