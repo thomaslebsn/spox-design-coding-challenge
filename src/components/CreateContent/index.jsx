@@ -1,11 +1,23 @@
 import React from "react";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, OverlayTrigger } from "react-bootstrap";
 
 import { withTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import SelectComponent from "../Select";
 
+import Dropzone from "react-dropzone";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons/faImage";
+import { faVideo } from "@fortawesome/free-solid-svg-icons/faVideo";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
+
+import "emoji-mart/css/emoji-mart.css";
+import { Emoji, Picker } from "emoji-mart";
+
 import "./index.scss";
+
+import styles from "./index.module.scss";
 
 const campaigns = [
   { value: "campaigns1", label: "campaigns11" },
@@ -44,7 +56,20 @@ class CreateContent extends React.Component {
           title: "Advertising",
         },
       ],
+      files: [],
+      desc: "",
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
   }
 
   handleCampaign = (selectedOption) => {
@@ -59,8 +84,29 @@ class CreateContent extends React.Component {
     this.setState((state) => ({ theme: selectedOption }));
   };
 
+  handlePicker = (emoji) => {
+    this.setState({
+      desc: `${this.state.desc}${emoji.native}`,
+    });
+  };
+
+  onDrop = (acceptedFiles) => {
+    this.setState((state) => ({
+      files: [...this.state.files, ...acceptedFiles],
+    }));
+  };
+
   render() {
-    let { channels } = this.state;
+    let { channels, files, desc } = this.state;
+
+    const preview = files.map((file) => (
+      <div key={file.name} className="position-relative m-2">
+        <img
+          className={`img-thumbnail rounded ${styles.img}`}
+          src={URL.createObjectURL(file)}
+        />
+      </div>
+    ));
 
     return (
       <div className="col-6">
@@ -112,20 +158,72 @@ class CreateContent extends React.Component {
           <label className="form-label mb-2" htmlFor="email">
             Description
           </label>
-          <div className="wrapper_tabs">
+          <div className="wrapper_tabs border-1 rounded pad">
             <Tabs defaultActiveKey="1" id="desc-tab">
               {channels.map((value) => {
                 return (
-                  <Tab eventKey={value.id} title={value.title}>
+                  <Tab eventKey={value.id} title={value.title} className="p-1">
                     <textarea
-                      class="form-control"
+                      name="desc"
+                      class="form-control border-0 rounded-0"
                       id={value.id}
-                      rows="5"
+                      rows="7"
+                      onChange={this.handleInputChange}
+                      value={desc}
                     ></textarea>
                   </Tab>
                 );
               })}
-            </Tabs>{" "}
+            </Tabs>
+            <div className="d-flex justify-content-start p-3 border-top  ">
+              <Dropzone onDrop={this.onDrop} multiple={true} accept="image/*">
+                {({ getRootProps, getInputProps }) => (
+                  <div
+                    {...getRootProps({
+                      className: "cursor-pointer pe-3",
+                    })}
+                  >
+                    <input {...getInputProps()} />
+                    <FontAwesomeIcon icon={faImage} />
+                  </div>
+                )}
+              </Dropzone>
+
+              <Dropzone onDrop={this.onDrop} accept="video/*">
+                {({ getRootProps, getInputProps }) => (
+                  <div
+                    {...getRootProps({
+                      className: "cursor-pointer",
+                    })}
+                  >
+                    <input {...getInputProps()} />
+                    <FontAwesomeIcon icon={faVideo} />
+                  </div>
+                )}
+              </Dropzone>
+              <div className="ms-auto ">
+                {" "}
+                <OverlayTrigger
+                  placement="top-start"
+                  trigger="click"
+                  overlay={
+                    <Picker
+                      set="apple"
+                      onSelect={(emoji) => this.handlePicker(emoji)}
+                    />
+                  }
+                >
+                  <Emoji emoji="grinning" size={20} />
+                </OverlayTrigger>
+              </div>
+            </div>
+            <div
+              className={`d-flex justify-content-start ${
+                this.state.files.length > 0 && "border-top"
+              }`}
+            >
+              {preview}
+            </div>
           </div>
         </form>
       </div>
