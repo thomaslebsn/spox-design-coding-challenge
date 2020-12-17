@@ -14,6 +14,7 @@ const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const WizardProjectPage = lazy(() => import("./pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("./pages/WizardPage"));
 const Projects = lazy(() => import("./pages/Projects"));
+const CreateContentPage = lazy(() => import("./pages/CreateContentPage"));
 
 const history = createBrowserHistory();
 
@@ -31,12 +32,17 @@ ReactDOM.render(
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
-            <Route path="/signup" component={Signuppage} />
-            <Route path="/forgot-password" component={ForgotPasswordPage} />
-            <Route path="/verify" component={VerifyEmailPage} />
-            <Route path="/wizardproject" component={WizardProjectPage} />
-            <Route path="/wizard" component={WizardPage} />
-            <Route path="/projects" component={Projects} />
+            <Route exact path="/signup" component={Signuppage} />
+            <Route
+              exact
+              path="/forgot-password"
+              component={ForgotPasswordPage}
+            />
+            <Route exact path="/verify" component={VerifyEmailPage} />
+            <Route exact path="/wizardproject" component={WizardProjectPage} />
+            <Route exact path="/wizard" component={WizardPage} />
+            <Route exact path="/createcontent" component={CreateContentPage} />
+            <Route exact path="/projects" component={Projects} />
           </Switch>
         </Suspense>
       </App>

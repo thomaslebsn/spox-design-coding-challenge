@@ -19,15 +19,12 @@ class CreateProject extends React.Component {
   };
 
   render() {
-    const files = this.state.files.map((file) => (
+    const files = this.state.files.map((file, index) => (
       <div
         key={file.name}
         className="position-absolute position-absolute start-0 top-0 bottom-0 end-0"
       >
-        <img
-          src={URL.createObjectURL(file)}
-          className="w-100 h-100 object-fit-cover"
-        />
+        <img src={URL.createObjectURL(file)} />
       </div>
     ));
 
@@ -61,7 +58,7 @@ class CreateProject extends React.Component {
           <div className="border-da-1 mb-3">
             <Dropzone onDrop={this.onDrop}>
               {({ getRootProps, getInputProps }) => (
-                <div className="position-relative">
+                <div className="position-relative  cursor-pointer">
                   <div
                     {...getRootProps()}
                     className="d-flex align-items-center justify-content-center p-3"
