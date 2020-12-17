@@ -5,11 +5,30 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 
 import ListThumb from "../../components/ListThumb";
-import styles from "./index.module.scss";
+import "./index.scss";
+import List from "./List";
+import Thumb from "./Thumb";
 
 class Projects extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isList: true
+    };
+  }
+
+  _handleList = () => {
+    let { isList } = this.state;
+
+    this.setState({
+      isList: !isList
+    })
+
+  }
+
   render() {
     const { t, i18n } = this.props;
+    let { isList } = this.state;
 
     return (
       <div className="py-4 px-3">
@@ -21,7 +40,21 @@ class Projects extends React.Component {
           </a>
         </div>
         <div>
-          <ListThumb />
+          <div className="mb-4">
+            <ListThumb
+              _handleList={this._handleList}
+              isList={isList}
+            />
+          </div>
+          <div>
+            {
+              isList ? (
+                <List />
+              ) : (
+                <Thumb />
+              )
+            }
+          </div>
         </div>
       </div>
     );

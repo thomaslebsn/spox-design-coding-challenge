@@ -3,6 +3,8 @@ import { withTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
+import { faList } from "@fortawesome/free-solid-svg-icons/faList";
+import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
 
 import SelectComponent from "../Select";
 
@@ -43,6 +45,7 @@ class ListThumb extends React.Component {
     const { t, i18n } = this.props;
 
     let { anAction, columns } = this.state;
+    let { _handleList, isList } = this.props;
 
     return (
       <div className="bg-white rounded-3">
@@ -83,8 +86,17 @@ class ListThumb extends React.Component {
                 />
               </div>
               <div className="col-5 justify-content-end d-flex">
-                <button type="button" className="btn">aaaaaaa</button>
-                <button type="button" className="btn">bbbbbbb</button>
+                <button type="button" className={`btn text-blue-0 rounded-0 px-4 ${isList ? "bg-blue-3" : ""}`} onClick={_handleList}>
+                  <i>
+                    <FontAwesomeIcon icon={faList} />
+                  </i>
+                  <span className="ms-2 opacity-75">List</span>
+                </button>
+                <button type="button" className={`btn text-blue-0 rounded-0 px-4 ${!isList ? "bg-blue-3" : ""}`} onClick={_handleList}><i>
+                    <FontAwesomeIcon icon={faTh} />
+                  </i>
+                  <span className="ms-2 opacity-75">Thumb</span>
+                </button>
               </div>
             </div>
           </div>
