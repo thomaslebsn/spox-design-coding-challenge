@@ -23,7 +23,7 @@ class FilterCalendar extends React.Component {
             {
               name: "persona-1",
               groupName: "persona",
-              checked: false,
+              checked: true,
               value: "Hieu - Simple"
             },
             {
@@ -181,32 +181,16 @@ class FilterCalendar extends React.Component {
   }
 
   handleCheck = (name) => {
+
     let { data } = this.state;
 
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        const element = data[key];
-
-        let listCheck = element.listCheck;
-
-        for (const key in listCheck) {
-          if (listCheck.hasOwnProperty(key)) {
-            const item = listCheck[key];
-
-            let getName = item.name;
-            let getGroupName = item.groupName;
-
-            if(getName === name) {
-              item.checked = !item.checked
-            }
-
-            if(getGroupName === name) {
-              item.checked = true
-            }
-          }
-        }
-      }
-    }
+    data.map(value => {
+      value.listCheck.map((item) => ({
+        ...item,
+        checked: item.name === name ? item.checked = !item.checked : item.checked,
+        checked: item.groupName === name ? item.checked = true : item.checked
+      }))
+    })
 
     this.setState({
       data: data
@@ -254,7 +238,7 @@ class FilterCalendar extends React.Component {
                               <Checkbox 
                                 text={item.value}
                                 checked={item.checked}
-                                onCheckBoxChange={() => this.onCheckBoxChange(item.name, item.value)}
+                                onCheckBoxChange={() => this.onCheckBoxChange(item.name)}
                               />
                             </div>
                           )
