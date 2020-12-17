@@ -1,0 +1,27 @@
+@import "../../scss/utils/bootstrap.scss";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/pagination";
+
+.wrapper_pagination {
+  .page-item {
+    margin: 0 5px;
+
+    &.prev,
+    &.next {
+      .page-link {
+        color: $green;
+      }
+    }
+  }
+
+  .page-link {
+    color: rgba($color: $black, $alpha: 0.5);
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+}
