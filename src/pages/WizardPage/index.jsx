@@ -65,7 +65,7 @@ class WizardPage extends React.Component {
         <div className="bg-white d-flex flex-column p-4 m-4">
           <Tab.Content>
             <Tab.Pane id="1" active={(this.state.currentStep == "1") & true}>
-              <CreateProject />
+              <CreateProject isTitle={true}/>
             </Tab.Pane>
             <Tab.Pane id="2" active={(this.state.currentStep == "2") & true}>
               <ConnectChannel />

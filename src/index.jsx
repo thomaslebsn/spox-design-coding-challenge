@@ -13,6 +13,7 @@ const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const WizardProjectPage = lazy(() => import("./pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("./pages/WizardPage"));
+const Projects = lazy(() => import("./pages/Projects"));
 const CreateContentPage = lazy(() => import("./pages/CreateContentPage"));
 
 const history = createBrowserHistory();
@@ -41,6 +42,7 @@ ReactDOM.render(
             <Route exact path="/wizardproject" component={WizardProjectPage} />
             <Route exact path="/wizard" component={WizardPage} />
             <Route exact path="/createcontent" component={CreateContentPage} />
+            <Route exact path="/projects" component={Projects} />
           </Switch>
         </Suspense>
       </App>

@@ -20,11 +20,11 @@ class ModalComponent extends React.Component {
     return (
       <>
         <Modal {...this.props} centered>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton className="px-4">
             <Modal.Title>{header}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{body}</Modal.Body>
-          <Modal.Footer>{footer}</Modal.Footer>
+          <Modal.Body className="p-4">{body}</Modal.Body>
+          <Modal.Footer className="px-4">{footer}</Modal.Footer>
         </Modal>
       </>
     );

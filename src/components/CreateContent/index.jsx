@@ -124,6 +124,7 @@ class CreateContent extends React.Component {
             onChange={this.handleCampaign}
             options={campaigns}
             className="mb-4"
+            isBorder={true}
           />
 
           <div className="d-flex justify-content-between">
@@ -138,6 +139,7 @@ class CreateContent extends React.Component {
             options={personas}
             isMulti={true}
             className="mb-4"
+            isBorder={true}
           />
 
           <label className="form-label mb-2" htmlFor="email">
@@ -148,6 +150,7 @@ class CreateContent extends React.Component {
             onChange={this.handleTheme}
             options={themes}
             className="mb-4"
+            isBorder={true}
           />
 
           <label className="form-label mb-2" htmlFor="email">

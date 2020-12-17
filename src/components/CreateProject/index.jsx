@@ -22,17 +22,23 @@ class CreateProject extends React.Component {
     const files = this.state.files.map((file, index) => (
       <div
         key={file.name}
-        className="position-absolute position-absolute start-0 top-0 bottom-0 end-0"
+        className="position-absolute position-absolute start-0 top-0 bottom-0 end-0 bg-white"
       >
-        <img src={URL.createObjectURL(file)} />
+        <img src={URL.createObjectURL(file)} className="w-100 h-100 object-fit-cover"/>
       </div>
     ));
 
+    let { isTitle } = this.props;
+
     return (
-      <div className="w-40 m-auto">
-        <h3 className="fw-medium text-blue-0 mb-3 fs-2">
-          Create a new project
-        </h3>
+      <div className={` ${isTitle ? "w-40" : ""} m-auto `}>
+        {
+          isTitle && (
+            <h3 className="fw-medium text-blue-0 mb-3 fs-2">
+              Create a new project
+            </h3>
+          )
+        }
         <form>
           <label className="form-label mb-3" htmlFor="name">
             <span className="text-black opacity-75">Project name </span>
@@ -89,7 +95,7 @@ class CreateProject extends React.Component {
               Short description about project{" "}
             </span>
           </label>
-          <textarea className="form-control mb-4" id="shortdesc" rows={3} />
+          <textarea className="form-control" id="shortdesc" rows={3} />
         </form>
       </div>
     );
