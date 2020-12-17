@@ -42,12 +42,6 @@ class Projects extends React.Component {
     });
   };
 
-  bodyModal = () => {
-    return (
-      <CreateProject />
-    )
-  }
-
   footerModal = () => {
     return (
       <Button className="btn btn-success w-100">
@@ -90,7 +84,7 @@ class Projects extends React.Component {
         
         <ModalComponent
           header={"Create a new project"}
-          body={this.bodyModal()}
+          body={() => <CreateProject />}
           footer={this.footerModal()}
           show={showModal}
           onHide={() => this.handleModalShow(false)}
