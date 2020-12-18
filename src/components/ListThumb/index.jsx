@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
+import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
 
 import SelectComponent from "../Select";
 
@@ -74,16 +75,25 @@ class ListThumb extends React.Component {
                   options={optionAction}
                   isBorder={false}
                   placeholder='Choose an action'
+                  className="text-green"
+                  plColor="rgba(8, 18, 64, 0.8)"
                 />
               </div>
               <div className="col-2 border-end-1">
-                <SelectComponent 
-                  value={columns}
-                  onChange={this.handleColumns}
-                  options={optionColumns}
-                  isBorder={false}
-                  placeholder='Columns'
-                />
+                <div className="d-flex align-items-center">
+                  <i className="text-blue-0"><FontAwesomeIcon icon={faColumns} /></i>
+                  <div className="w-260">
+                    <SelectComponent 
+                      value={columns}
+                      onChange={this.handleColumns}
+                      options={optionColumns}
+                      isBorder={false}
+                      placeholder='Columns'
+                      className="text-green"
+                      plColor="rgba(8, 18, 64, 0.8)"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="col-5 justify-content-end d-flex">
                 <button type="button" className={`btn text-blue-0 rounded-0 px-4 ${isList ? "bg-blue-3" : ""}`} onClick={_handleList}>

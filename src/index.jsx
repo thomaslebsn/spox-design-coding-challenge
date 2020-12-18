@@ -15,6 +15,7 @@ const WizardProjectPage = lazy(() => import("./pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("./pages/WizardPage"));
 const Projects = lazy(() => import("./pages/Projects"));
 const CreateContentPage = lazy(() => import("./pages/CreateContentPage"));
+const Campaigns = lazy(() => import("./pages/Campaigns"));
 
 const history = createBrowserHistory();
 
@@ -43,6 +44,7 @@ ReactDOM.render(
             <Route exact path="/wizard" component={WizardPage} />
             <Route exact path="/createcontent" component={CreateContentPage} />
             <Route exact path="/projects" component={Projects} />
+            <Route exact path="/campaigns" component={Campaigns} />
           </Switch>
         </Suspense>
       </App>
