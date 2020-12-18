@@ -109,129 +109,135 @@ class CreateContent extends React.Component {
     ));
 
     return (
-      <div className="col-6">
-        <h3 className="mb-4">General</h3>
-        <form>
-          <div className="d-flex justify-content-between">
+      <div className="bg-white p-4">
+        <div className="col-6">
+          <h3 className="mb-4">General</h3>
+          <form>
+            <div className="d-flex justify-content-between">
+              <label className="form-label mb-2" htmlFor="email">
+                Choose the campaign <span>*</span>
+              </label>
+              <Link>Create new</Link>
+            </div>
+
+            <SelectComponent
+              value={this.state.campaign}
+              onChange={this.handleCampaign}
+              options={campaigns}
+              className="mb-4 text-green"
+              isBorder={true}
+              plColor="rgba(8, 18, 64, 0.8)"
+            />
+
+            <div className="d-flex justify-content-between">
+              <label className="form-label mb-2" htmlFor="email">
+                Choose the persona <span>*</span>
+              </label>
+              <Link>Create new</Link>
+            </div>
+            <SelectComponent
+              value={this.state.persona}
+              onChange={this.handlePersona}
+              options={personas}
+              isMulti={true}
+              className="mb-4 text-green"
+              isBorder={true}
+              plColor="rgba(8, 18, 64, 0.8)"
+            />
+
             <label className="form-label mb-2" htmlFor="email">
-              Choose the campaign <span>*</span>
+              Choose theme <span>*</span>
             </label>
-            <Link>Create new</Link>
-          </div>
+            <SelectComponent
+              value={this.state.theme}
+              onChange={this.handleTheme}
+              options={themes}
+              className="mb-4 text-green"
+              isBorder={true}
+              plColor="rgba(8, 18, 64, 0.8)"
+            />
 
-          <SelectComponent
-            value={this.state.campaign}
-            onChange={this.handleCampaign}
-            options={campaigns}
-            className="text-green"
-            isBorder={true}
-            plColor="rgba(8, 18, 64, 0.8)"
-          />
-
-          <div className="d-flex justify-content-between">
             <label className="form-label mb-2" htmlFor="email">
-              Choose the persona <span>*</span>
+              Headline
             </label>
-            <Link>Create new</Link>
-          </div>
-          <SelectComponent
-            value={this.state.persona}
-            onChange={this.handlePersona}
-            options={personas}
-            isMulti={true}
-            className="text-green"
-            isBorder={true}
-            plColor="rgba(8, 18, 64, 0.8)"
-          />
+            <input type="text" className="form-control mb-4" id="email" />
 
-          <label className="form-label mb-2" htmlFor="email">
-            Choose theme <span>*</span>
-          </label>
-          <SelectComponent
-            value={this.state.theme}
-            onChange={this.handleTheme}
-            options={themes}
-            className="text-green"
-            isBorder={true}
-            plColor="rgba(8, 18, 64, 0.8)"
-          />
+            <label className="form-label mb-2" htmlFor="email">
+              Description
+            </label>
+            <div className="wrapper_tabs border-1 rounded pad">
+              <Tabs defaultActiveKey="1" id="desc-tab">
+                {channels.map((value) => {
+                  return (
+                    <Tab
+                      eventKey={value.id}
+                      title={value.title}
+                      className="p-1"
+                    >
+                      <textarea
+                        name="desc"
+                        class="form-control border-0 rounded-0"
+                        id={value.id}
+                        rows="7"
+                        onChange={this.handleInputChange}
+                        value={desc}
+                      ></textarea>
+                    </Tab>
+                  );
+                })}
+              </Tabs>
+              <div className="d-flex justify-content-start p-3 border-top  ">
+                <Dropzone onDrop={this.onDrop} multiple={true} accept="image/*">
+                  {({ getRootProps, getInputProps }) => (
+                    <div
+                      {...getRootProps({
+                        className: "cursor-pointer pe-3",
+                      })}
+                    >
+                      <input {...getInputProps()} />
+                      <FontAwesomeIcon icon={faImage} />
+                    </div>
+                  )}
+                </Dropzone>
 
-          <label className="form-label mb-2" htmlFor="email">
-            Headline
-          </label>
-          <input type="text" className="form-control mb-4" id="email" />
-
-          <label className="form-label mb-2" htmlFor="email">
-            Description
-          </label>
-          <div className="wrapper_tabs border-1 rounded pad">
-            <Tabs defaultActiveKey="1" id="desc-tab">
-              {channels.map((value) => {
-                return (
-                  <Tab eventKey={value.id} title={value.title} className="p-1">
-                    <textarea
-                      name="desc"
-                      class="form-control border-0 rounded-0"
-                      id={value.id}
-                      rows="7"
-                      onChange={this.handleInputChange}
-                      value={desc}
-                    ></textarea>
-                  </Tab>
-                );
-              })}
-            </Tabs>
-            <div className="d-flex justify-content-start p-3 border-top  ">
-              <Dropzone onDrop={this.onDrop} multiple={true} accept="image/*">
-                {({ getRootProps, getInputProps }) => (
-                  <div
-                    {...getRootProps({
-                      className: "cursor-pointer pe-3",
-                    })}
+                <Dropzone onDrop={this.onDrop} accept="video/*">
+                  {({ getRootProps, getInputProps }) => (
+                    <div
+                      {...getRootProps({
+                        className: "cursor-pointer",
+                      })}
+                    >
+                      <input {...getInputProps()} />
+                      <FontAwesomeIcon icon={faVideo} />
+                    </div>
+                  )}
+                </Dropzone>
+                <div className="ms-auto ">
+                  {" "}
+                  <OverlayTrigger
+                    placement="top-start"
+                    trigger="click"
+                    overlay={
+                      <Picker
+                        set="apple"
+                        onSelect={(emoji) => this.handlePicker(emoji)}
+                      />
+                    }
                   >
-                    <input {...getInputProps()} />
-                    <FontAwesomeIcon icon={faImage} />
-                  </div>
-                )}
-              </Dropzone>
-
-              <Dropzone onDrop={this.onDrop} accept="video/*">
-                {({ getRootProps, getInputProps }) => (
-                  <div
-                    {...getRootProps({
-                      className: "cursor-pointer",
-                    })}
-                  >
-                    <input {...getInputProps()} />
-                    <FontAwesomeIcon icon={faVideo} />
-                  </div>
-                )}
-              </Dropzone>
-              <div className="ms-auto ">
-                {" "}
-                <OverlayTrigger
-                  placement="top-start"
-                  trigger="click"
-                  overlay={
-                    <Picker
-                      set="apple"
-                      onSelect={(emoji) => this.handlePicker(emoji)}
-                    />
-                  }
-                >
-                  <Emoji emoji="grinning" size={20} />
-                </OverlayTrigger>
+                    <Emoji emoji="grinning" size={20} />
+                  </OverlayTrigger>
+                </div>
+              </div>
+              <div
+                className={`d-flex justify-content-start ${
+                  this.state.files.length > 0 && "border-top"
+                }`}
+              >
+                {preview}
               </div>
             </div>
-            <div
-              className={`d-flex justify-content-start ${
-                this.state.files.length > 0 && "border-top"
-              }`}
-            >
-              {preview}
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }

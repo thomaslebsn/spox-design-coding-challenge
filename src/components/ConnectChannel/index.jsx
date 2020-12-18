@@ -51,7 +51,7 @@ class ConnectChannel extends React.Component {
 
     return (
       <>
-        <div className="wrapper_tabs">
+        <div className="wrapper_tabs bg-white ">
           <Tabs defaultActiveKey="1" id="connectContent-tab">
             {channels.map((value) => {
               return (
@@ -59,7 +59,7 @@ class ConnectChannel extends React.Component {
                   {value.items.map((item) => {
                     {
                       return (
-                        <div className="d-flex justify-content-between py-3">
+                        <div className="d-flex justify-content-between p-4">
                           <div className="align-self-center">
                             <Image
                               src={item.image}
