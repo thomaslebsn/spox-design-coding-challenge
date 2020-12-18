@@ -37,7 +37,8 @@ class SelectComponent extends React.Component {
       indicatorSeparator: (styles) => ({display:'none'}),
       dropdownIndicator: base => ({
         ...base,
-        color: "text-green"
+        color: "text-green",
+        padding: 0
       }),
       placeholder: (defaultStyles) => {
         return {
