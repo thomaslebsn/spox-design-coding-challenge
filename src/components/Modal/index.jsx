@@ -6,20 +6,12 @@ import styles from "./index.scss";
 import { Modal } from "react-bootstrap";
 
 class ModalComponent extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      show: true,
-    };
-  }
-
   render() {
-    let { header, footer, body } = this.props;
+    let { header, footer, body, show, onHide } = this.props;
 
     return (
       <>
-        <Modal {...this.props} centered>
+        <Modal show={show} onHide={onHide} centered>
           <Modal.Header closeButton className="px-4">
             <Modal.Title>{header}</Modal.Title>
           </Modal.Header>

@@ -13,9 +13,11 @@ const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const WizardProjectPage = lazy(() => import("./pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("./pages/WizardPage"));
-const Projects = lazy(() => import("./pages/Projects"));
+//const Projects = lazy(() => import("./pages/Projects"));
 const CreateContentPage = lazy(() => import("./pages/CreateContentPage"));
 const Campaigns = lazy(() => import("./pages/Campaigns"));
+
+const Projects = lazy(() => import("./containers/Projects"));
 
 const history = createBrowserHistory();
 
