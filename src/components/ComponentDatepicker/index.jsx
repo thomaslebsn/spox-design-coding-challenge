@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons/faCalendarDay";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 
 import "./index.scss";
 
@@ -52,7 +53,7 @@ class ComponentDatepicker extends React.Component {
     let { startDate, endDate } = this.state;
 
     return (
-      <div className="p-3 bg-white rounded-3">
+      <div className="p-3 bg-white rounded-3 shadow">
         <div className={className}>
           <div className="position-relative border-0">{children}</div>
         </div>
@@ -87,6 +88,7 @@ class ComponentDatepicker extends React.Component {
           placeholderText={selectDate}
           open={isOpen}
         />
+        {/* <i className="text-green"><FontAwesomeIcon icon={faChevronDown} /></i> */}
       </div>
     );
   }

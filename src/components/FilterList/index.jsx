@@ -7,6 +7,7 @@ import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
 import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
 
 import SelectComponent from "../Select";
+import ComponentDatepicker from "../ComponentDatepicker";
 
 const optionAction = [
   { value: "action-1", label: "Action 1" },
@@ -45,7 +46,7 @@ class ListThumb extends React.Component {
     let { anAction, columns } = this.state;
 
     return (
-      <div className="bg-white rounded-3">
+      <div className="bg-white rounded-3 mb-4">
         <div className="row">
           <div className="col-9">
             <div className="row">
@@ -94,7 +95,7 @@ class ListThumb extends React.Component {
                 </div>
               </div>
               <div className="col-2 border-end-1">
-                
+                <ComponentDatepicker />
               </div>
             </div>
           </div>

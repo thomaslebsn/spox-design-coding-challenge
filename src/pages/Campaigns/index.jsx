@@ -5,9 +5,9 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faFileExport } from "@fortawesome/free-solid-svg-icons/faFileExport";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 import ModalComponent from "../../components/Modal";
-import CreateProject from "../../components/CreateProject";
 
 import SelectComponent from "../../components/Select";
 import ComponentChart from "../../components/Chart";
@@ -15,6 +15,8 @@ import ListSocial from "../../components/ListSocial";
 import CampaignsTotalNumber from "../../components/CampaignsTotalNumber";
 import FilterList from "../../components/FilterList";
 import ComponentDatepicker from "../../components/ComponentDatepicker";
+import TableListCampaigns from "../../components/TableListCampaigns";
+import CreateCampaign from "../../components/CreateCampaign";
 
 const optionExport = [
   { value: "day-1", label: "Day 1" },
@@ -31,7 +33,7 @@ class Projects extends React.Component {
     };
   }
 
-  _handleShowModal = () => {
+  _handleShowModalCampaign = () => {
     this.setState({
       showModal: true
     })
@@ -46,7 +48,7 @@ class Projects extends React.Component {
   footerModal = () => {
     return (
       <Button className="btn btn-success w-100">
-        <span className="me-2">Create project</span>
+        <span className="me-2">Create campaign</span>
         <i><FontAwesomeIcon icon={faChevronRight} /></i>
       </Button>
     )
@@ -58,18 +60,21 @@ class Projects extends React.Component {
     })
   }
 
+  bodyCreateCampaign = () => {
+    return (
+      <CreateCampaign />
+    )
+  }
+
   render() {
     const { t, i18n } = this.props;
-    let { showModal, stateDay, stateExport } = this.state;
+    let { showModal, stateExport } = this.state;
 
     return (
       <div className="py-4 px-3">
         <div className="d-flex align-items-center justify-content-between mb-3">
           <h2 className="fs-2">Campaigns Statistics</h2>
           <div className="d-flex align-items-center">
-            {/* <a href={void(0)} className="cursor-pointer text-decoration-none btn btn-success" onClick={this._handleShowModal}>
-              <span className="ps-2">Create project</span>
-            </a> */}
             <div className="d-flex align-items-center border-1 bg-white rounded-2 w-180">
               <ComponentDatepicker />
             </div>
@@ -102,11 +107,19 @@ class Projects extends React.Component {
           </div>
         </div>
         <div>
+          <div className="d-flex justify-content-between mb-3">
+            <h2 className="fs-2">List Campaigns</h2>
+            <a href={void(0)} className="cursor-pointer text-decoration-none btn btn-success" onClick={this._handleShowModalCampaign}>
+              <i className="text-white"><FontAwesomeIcon icon={faPlus} /></i>
+              <span className="ps-2">Create campaign</span>
+            </a>
+          </div>
           <FilterList />
+          <TableListCampaigns />
         </div>
         <ModalComponent
-          header={"Create a new project"}
-          body={() => <CreateProject />}
+          header={"Create Campaign"}
+          body={(this.bodyCreateCampaign())}
           footer={this.footerModal()}
           show={showModal}
           onHide={() => this.handleModalShow(false)}
