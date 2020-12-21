@@ -37,13 +37,12 @@ class ComponentDatepicker extends React.Component {
 
     let { startDate, endDate } = this.state;
 
-    let startDay = moment(startDate).format('DD');
-    let endDay = moment(endDate).format('DD');
-
-    let totalDay = endDay - startDay;
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+    const differenceMs = Math.abs(startDate - endDate);
+    let dayCount =  Math.round((differenceMs / ONE_DAY) + 1);
 
     this.setState({
-      selectDate: "Last " + totalDay + " days",
+      selectDate: "Last " + dayCount + " days",
       isOpen: false
     })
 
