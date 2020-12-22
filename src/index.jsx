@@ -17,6 +17,7 @@ const Projects = lazy(() => import("./pages/Projects"));
 const CreateContentPage = lazy(() => import("./pages/CreateContentPage"));
 const CampaignsPage = lazy(() => import("./pages/CampaignsPage"));
 const WizardPopup = lazy(() => import("./pages/WizardPopup"));
+const ChannelsPage = lazy(() => import("./pages/ChannelsPage"));
 
 const history = createBrowserHistory();
 
@@ -47,6 +48,8 @@ ReactDOM.render(
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/campaigns" component={CampaignsPage} />
             <Route exact path="/wizard-popup" component={WizardPopup} />
+            <Route exact path="/channels" component={ChannelsPage} />
+            
           </Switch>
         </Suspense>
       </App>
