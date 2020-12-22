@@ -45,9 +45,7 @@ const leads = [
 ];
 
 export default class ProjectStore {
-
   async fetchProjects(callback) {
-    
     try {
       console.log("Project Store - Fetch Projects");
       const repondedDataFromLibrary = projects;
@@ -57,6 +55,24 @@ export default class ProjectStore {
       runInAction(() => {
         callback(projectDataTransformed);
       });
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        this.pageStatus = PAGE_STATUS.ERROR;
+        this.errorMessage = "Projects - fetchProjects - Error Log: " + error;
+      });
+    }
+  }
+
+  async saveProject(callbackOnSuccess) {
+    try {
+      console.log("Saving Project via call web service lib function");
+      const resultOnSave = true;
+      if (resultOnSave) {
+        runInAction(() => {
+          callbackOnSuccess();
+        });
+      }
     } catch (error) {
       console.log(error);
       runInAction(() => {

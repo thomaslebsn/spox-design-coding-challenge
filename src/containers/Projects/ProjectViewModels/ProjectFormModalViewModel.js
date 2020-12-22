@@ -1,8 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 class ProjectFormModalViewModel {
-  open = false;
-  dimmer = undefined;
+  show = false;
 
   constructor(projectStore) {
     makeAutoObservable(this);
@@ -10,14 +9,16 @@ class ProjectFormModalViewModel {
   }
 
   openModal = () => {
-    this.open = true;
-    this.dimmer = "blurring";
+    this.show = true;
   };
 
   closeModal = () => {
-    this.open = false;
-    this.dimmer = undefined;
+    this.show = false;
   };
+
+  saveModal = (callbackOnSuccess) => {
+    this.projectStore.saveProject(callbackOnSuccess);
+  }
 }
 
 export default ProjectFormModalViewModel;

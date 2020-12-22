@@ -7,11 +7,11 @@ import { Modal } from "react-bootstrap";
 
 class ModalComponent extends React.Component {
   render() {
-    let { header, footer, body, show, onHide } = this.props;
+    let { header, footer, body, show, onHide, onSave } = this.props;
 
     return (
       <>
-        <Modal show={show} onHide={onHide} centered>
+        <Modal show={show} onHide={onHide} centered onEntered={onSave}>
           <Modal.Header closeButton className="px-4">
             <Modal.Title>{header}</Modal.Title>
           </Modal.Header>

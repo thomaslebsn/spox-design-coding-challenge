@@ -3,19 +3,19 @@ import ProjectListViewModel from "./ProjectsListViewModel";
 
 class ProjectViewModel {
   projectListViewModel = null;
-  projectFormViewModel = null;
+  projectFormModalViewModel = null;
 
   constructor(projectStore) {
     if (projectStore) {
       console.log("ProjectViewModel - Abstract");
-      this.projectFormViewModel = new ProjectFormModalViewModel(projectStore);
+      this.projectFormModalViewModel = new ProjectFormModalViewModel(projectStore);
       this.projectListViewModel = new ProjectListViewModel(projectStore);
     }
   }
 
   getProjectListViewModel = () => this.projectListViewModel;
 
-  getProjectFormViewModel = () => this.projectFormViewModel;
+  getProjectFormModalViewModel = () => this.projectFormModalViewModel;
 }
 
 export default ProjectViewModel;

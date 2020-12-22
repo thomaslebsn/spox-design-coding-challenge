@@ -6,17 +6,25 @@ import ProjectFormModal from "./ProjectFormModal";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { withProjectFormViewModel } from "../ProjectViewModels/ProjectFormModalViewModel";
 import { withViewModel } from "../../../hoc/ContextProvider/ViewModelContextProvider";
+import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
 
 class ProjectActionBar extends Component {
+  projectFormModalViewModel = null;
   constructor(props) {
     super(props);
+      const { viewModel } = props;
+      console.log("ProjectActionBar - Debug View Model");
+      console.log(viewModel);
+      this.projectFormModalViewModel = viewModel
+        ? viewModel.getProjectFormModalViewModel()
+        : null;
 
-    const { viewModel } = this.props;
-    this.viewModel = viewModel;
+      console.log("ProjectActionBar - After binding class");
+      console.log(this.projectFormModalViewModel);
   }
 
-  addProjectHandler = (event) => {
-    this.viewModel.openModal();
+  createProjectHandler = (event) => {
+    this.projectFormModalViewModel.openModal();
   };
 
   render() {
@@ -25,7 +33,7 @@ class ProjectActionBar extends Component {
     return (
       <>
         <ButtonNormal
-          onClick={this.addProjectHandler}
+          onClick={this.createProjectHandler}
           text="Crete new project"
         />
         <ProjectFormModal />
@@ -33,4 +41,4 @@ class ProjectActionBar extends Component {
     );
   }
 }
-export default withViewModel(ProjectActionBar);
+export default withProjectViewModel(ProjectActionBar);
