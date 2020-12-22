@@ -3,6 +3,7 @@ import { withTranslation } from "react-i18next";
 
 import "./index.scss";
 import Menu from "../Menu";
+import Upgrade from "../../components/Upgrade";
 
 class SbarLeft extends React.Component {
   constructor(props) {
@@ -12,8 +13,9 @@ class SbarLeft extends React.Component {
 
   render() {
     return (
-      <aside className="sidebar w-260 p-3 mt-0 position-relative bg-white mh-100 overflow-hidden overflow-y-auto">
+      <aside className="sidebar w-260 p-3 mt-0 position-relative bg-white mh-100 overflow-hidden overflow-y-auto d-flex flex-column justify-content-between">
         <Menu />
+        <Upgrade />
       </aside>
     );
   }
