@@ -4,7 +4,8 @@ import ButtonNormal from "../../../components/ButtonNormal";
 import ProjectFormModal from "./ProjectFormModal";
 
 import PAGE_STATUS from "../../../constants/PageStatus";
-import { withProjectFormViewModel } from "./ProjectFormViewModel";
+import { withProjectFormViewModel } from "../ProjectViewModels/ProjectFormModalViewModel";
+import { withViewModel } from "../../../hoc/ContextProvider/ViewModelContextProvider";
 
 class ProjectActionBar extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ProjectActionBar extends Component {
     this.viewModel = viewModel;
   }
 
-  addProductHandler = (event) => {
+  addProjectHandler = (event) => {
     this.viewModel.openModal();
   };
 
@@ -24,7 +25,7 @@ class ProjectActionBar extends Component {
     return (
       <>
         <ButtonNormal
-          onClick={this.addProductHandler}
+          onClick={this.addProjectHandler}
           text="Crete new project"
         />
         <ProjectFormModal />
@@ -32,4 +33,4 @@ class ProjectActionBar extends Component {
     );
   }
 }
-export default withProjectFormViewModel(ProjectActionBar);
+export default withViewModel(ProjectActionBar);

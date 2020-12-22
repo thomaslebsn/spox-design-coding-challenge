@@ -2,7 +2,7 @@ import React from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
-import ProductUtils from "../ProjectUtils/ProjectUtils";
+import ProjectUtils from "../ProjectUtils/ProjectUtils";
 
 const projects = [
   {
@@ -45,41 +45,17 @@ const leads = [
 ];
 
 export default class ProjectStore {
-  pageStatus = PAGE_STATUS.LOADING;
-  errorMessage = "";
-  successMessage = "";
-  projects = null;
-  projectLead = null;
-  tableRowHeader = null;
 
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  setTableRowHeader = (tableRowHeader) => {
-    this.tableRowHeader = tableRowHeader;
-  };
-
-  initializeData = () => {
-    this.fetchProjects();
-  };
-
-  async fetchProjects() {
-    this.pageStatus = PAGE_STATUS.LOADING;
-    this.errorMessage = "";
-    this.projects = null;
+  async fetchProjects(callback) {
+    
     try {
-      const projectDataTransformed = ProductUtils.transformProjectResponseIntoModel(
-        projects
+      console.log("Project Store - Fetch Projects");
+      const repondedDataFromLibrary = projects;
+      const projectDataTransformed = ProjectUtils.transformProjectResponseIntoModel(
+        repondedDataFromLibrary
       );
-      const rowDataTransformed = ProductUtils.transformProjectModelIntoTableDataRow(
-        projectDataTransformed,
-        this.tableRowHeader
-      );
-
       runInAction(() => {
-        this.pageStatus = PAGE_STATUS.READY;
-        this.projects = rowDataTransformed;
+        callback(projectDataTransformed);
       });
     } catch (error) {
       console.log(error);
@@ -89,114 +65,4 @@ export default class ProjectStore {
       });
     }
   }
-
-  async fetchLead() {
-    this.pageStatus = PAGE_STATUS.LOADING;
-    this.errorMessage = "";
-    this.projectLead = null;
-    try {
-      const leadDataTransformed = ProductUtils.transformProjectLeadResponseIntoModel(
-        leads
-      );
-      console.log("Lead Data Transformed");
-      console.log(leadDataTransformed);
-      runInAction(() => {
-        this.projectLead = leadDataTransformed;
-      });
-    } catch (error) {
-      console.log(error);
-      runInAction(() => {
-        this.pageStatus = PAGE_STATUS.ERROR;
-        this.errorMessage = "Projects - fetchLead - Error Log: " + error;
-      });
-    }
-  }
-
-  async deleteProduct(productID) {
-    /*if (!productID) return false;
-
-    this.pageStatus = PAGE_STATUS.LOADING;
-    this.errorMessage = "";
-    this.successMessage = "";
-
-    try {
-      const results = await ProductApiService.deleteProduct(productID);
-      console.log("Deleting Product");
-      console.log(results);
-      runInAction(() => {
-        if (results && results.status === 200 && results.data) {
-          this.successMessage = `A product ${productID} has been deleted permanantly!`;
-          this.fetchProjects();
-        } else {
-          this.pageStatus = PAGE_STATUS.ERROR;
-          this.errorMessage =
-            "Quick Edit Product - Delete Product - Error Log when call WooCommerce API: " +
-            JSON.stringify({ results });
-        }
-      });
-    } catch (error) {
-      console.log(error);
-      runInAction(() => {
-        this.pageStatus = PAGE_STATUS.ERROR;
-        this.errorMessage =
-          "Quick Edit Product - Delete Product - Error Log when call WooCommerce API: " +
-          error;
-      });
-    }*/
-  }
-  async saveProject(productData) {
-    console.log("saveProject");
-    /*this.pageStatus = PAGE_STATUS.LOADING;
-    this.errorMessage = "";
-    this.successMessage = "";
-
-    try {
-      const convertedProductData = ProductModel.convertSubmittedDataToAPIService(
-        productData
-      );
-      console.log(convertedProductData);
-      const results = await ProductApiService.createProduct(
-        convertedProductData
-      );
-      console.log("Creating Product");
-      console.log(results);
-      runInAction(() => {
-        if (results && results.status === 201 && results.data) {
-          this.successMessage = "A new product has been created!";
-          this.fetchProjects();
-        } else {
-          this.pageStatus = PAGE_STATUS.ERROR;
-          this.errorMessage =
-            "Quick Edit Product - SaveProduct - Error Log when call WooCommerce API: " +
-            JSON.stringify({ results });
-        }
-      });
-    } catch (error) {
-      console.log(error);
-      runInAction(() => {
-        this.pageStatus = PAGE_STATUS.ERROR;
-        this.errorMessage =
-          "Quick Edit Product - loadProjectsDataHandler - Error Log when call WooCommerce API: " +
-          error;
-      });
-    }*/
-  }
 }
-
-const ProjectStoreContext = React.createContext();
-
-export const ProjectStoreContextProvider = ({ children, store }) => {
-  return (
-    <ProjectStoreContext.Provider value={store}>
-      {children}
-    </ProjectStoreContext.Provider>
-  );
-};
-
-/* Hook to use store in any functional component */
-export const useStore = () => React.useContext(ProjectStoreContext);
-
-/* HOC to inject store to any functional or class component */
-export const withProjectStore = (Component) => (props) => {
-  return <Component {...props} store={useStore()} />;
-};

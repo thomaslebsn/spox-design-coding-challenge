@@ -2,37 +2,22 @@ import React from "react";
 
 import ProjectsList from "./ProjectsList/ProjectsList";
 import ProjectActionBar from "./ProjectForm/ProjectActionBar";
+import ProjectStore from "./ProjectStore/ProjectStore";
+import ProjectViewModel from "./ProjectViewModels/ProjectViewModel";
+import { ProjectViewModelContextProvider } from "./ProjectViewModels/ProjectViewModelContextProvider";
 
-import ProjectsListViewModel, {
-  ProjectsListViewModelContextProvider,
-} from "./ProjectsList/ProjectsListViewModel";
-
-import ProjectFormViewModel, {
-  ProjectFormViewModelContextProvider,
-} from "./ProjectForm/ProjectFormViewModel";
-
-import ProjectStore, {
-  ProjectStoreContextProvider,
-} from "./ProjectStore/ProjectStore";
-
-const projectListViewModel = new ProjectsListViewModel();
-const projectFormViewModel = new ProjectFormViewModel();
-const projectsStore = new ProjectStore();
+const projectStore = new ProjectStore();
+const projectViewModel = new ProjectViewModel(projectStore);
 
 function Projects() {
+  console.log("Debugging Route Projects");
+  console.log(projectViewModel);
   return (
     <>
-      <ProjectFormViewModelContextProvider viewModel={projectFormViewModel}>
-        <ProjectStoreContextProvider store={projectsStore}>
-          <ProjectActionBar />
-        </ProjectStoreContextProvider>
-      </ProjectFormViewModelContextProvider>
-
-      <ProjectsListViewModelContextProvider viewModel={projectListViewModel}>
-        <ProjectStoreContextProvider store={projectsStore}>
-          <ProjectsList />
-        </ProjectStoreContextProvider>
-      </ProjectsListViewModelContextProvider>
+      <ProjectViewModelContextProvider viewModel={projectViewModel}>
+        <ProjectActionBar />
+        <ProjectsList />
+      </ProjectViewModelContextProvider>
     </>
   );
 }

@@ -1,49 +1,47 @@
 import React, { Component } from "react";
 
 import PAGE_STATUS from "../../../constants/PageStatus";
-import { withProjectStore } from "../ProjectStore/ProjectStore";
 
 import Table from "../../../components/Table";
 
 import { observer } from "mobx-react";
+import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
 
 const ProjectsList = observer(
   class ProjectsList extends Component {
+    projectListViewModel = null;
     constructor(props) {
       super(props);
 
-      this.tableRowHeader = ["name", "startdate", "enddate", "progress"];
+      const { viewModel } = props;
+      console.log("ProjectList - Debug View Model");
+      console.log(viewModel);
+      this.projectListViewModel =
+        viewModel ? viewModel.getProjectListViewModel() : null;
 
-      const { store } = this.props;
-      this.projectStore = store;
-
-      this.projectStore.setTableRowHeader(this.tableRowHeader);
+      console.log("After binding class");
+      console.log(this.projectListViewModel);  
     }
 
     componentDidMount() {
-      this.projectStore.initializeData();
+      this.projectListViewModel.initializeData();
     }
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
-      // const store = this.projectsListtore;
       const {
-        pageStatus,
-        errorMessage,
-        successMessage,
-        projects,
         tableRowHeader,
-      } = this.projectStore;
+        tableStatus,
+        projects,
+      } = this.projectListViewModel;
 
-      return pageStatus === PAGE_STATUS.LOADING ? (
+      return tableStatus === PAGE_STATUS.LOADING ? (
         <div>Load</div>
       ) : (
-        <div>
-          <Table rowData={projects} tableRowHeader={tableRowHeader}></Table>
-        </div>
+        <Table rowData={projects} tableRowHeader={tableRowHeader}></Table>
       );
     }
   }
 );
 
-export default withProjectStore(ProjectsList);
+export default withProjectViewModel(ProjectsList);

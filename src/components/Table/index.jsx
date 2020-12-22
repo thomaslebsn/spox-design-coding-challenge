@@ -5,20 +5,26 @@ import { useTable } from "react-table";
 function Table({ rowData }) {
   let columns = [];
   let data = [];
+  if (rowData) {
+    console.log("Rendering Table Row");
+    console.log(rowData);
+    rowData.forEach((row, index) => {
+      let currentRow = {};
+      console.log("Debuggin Each Row when renderring");
+      console.log(row);
+      row.forEach((item) => {
+        if (index === 0) {
+          columns.push({ Header: item.columnText, accessor: item.columnName });
+        }
 
-  rowData.forEach((row, index) => {
-    let currentRow = {};
+        Object.assign(currentRow, { [item.columnName]: item.value });
+      });
 
-    row.forEach((item) => {
-      if (index === 0) {
-        columns.push({ Header: item.columnText, accessor: item.columnName });
-      }
-
-      Object.assign(currentRow, { [item.columnName]: item.value });
+      data.push(currentRow);
     });
-
-    data.push(currentRow);
-  });
+  } else {
+    console.log("No Data Found");
+  }
 
   const {
     getTableProps,
