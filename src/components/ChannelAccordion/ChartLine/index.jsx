@@ -9,7 +9,7 @@ class ChartLine extends React.Component {
   }
 
   render() {
-    let { data } = this.props;
+    let { data, isChart } = this.props;
     return (
       <>
       {
@@ -23,54 +23,51 @@ class ChartLine extends React.Component {
                 </p>
                 <div className="d-flex align-items-center justify-content-between">
                   <p className="fs-2 mb-0 text-blue-0 opacity-75 fw-bold lh-1">150</p>
-                  <div style={{width: "68px", height: "26px"}}>
-                    <Chart
-                      width={"100%"}
-                      height={"100%"}
-                      chartType="LineChart"
-                      loader={<div>Loading Chart</div>}
-                      data={item.dataChart}
-                      options={{
-                        chartArea: { 
-                          width: "100%",
-                          height: "100%",
-                          backgroundColor: {
-                            fill:'transparent',
-                            stroke: 'transparent',
-                            strokeWidth: 0
-                          }
-                        },
-                        series: {
-                          0: { color: item.isNumber ? "#16B979" : "#FF2366" },
-                        },
-                        legend: { 
-                          position: "none"
-                        },
-                        vAxis: {
-                          baselineColor: "transparent",
-                          gridlines: {
-                            color: 'transparent',
-                            zeroLineColor: 'transparent'
-                          }
-                        },
-                        hAxis: {
-                          textPosition: 'none',
-                          baselineColor: "transparent",
-                          gridlines: {
-                            color: 'transparent',
-                            zeroLineColor: 'transparent'
-                          }
-                        },
-                        is3D: true,
-                        backgroundColor: {
-                          fill:'transparent',
-                          stroke: 'transparent',
-                          strokeWidth: 5
-                        }
-                      }}
-                      rootProps={{ 'data-testid': '1' }}
-                    />
-                  </div>
+                  {
+                    isChart && (
+                      <div style={{width: "68px", height: "26px"}} className="position-relative overflow-hidden">
+                        <Chart
+                          width={"100%"}
+                          height={"100%"}
+                          chartType="LineChart"
+                          loader={<div>Loading Chart</div>}
+                          data={item.dataChart}
+                          options={{
+                            chartArea: { 
+                              width: "100%",
+                              height: "100%",
+                              backgroundColor: "transparent"
+                            },
+                            series: {
+                              0: { color: item.isNumber ? "#16B979" : "#FF2366" },
+                            },
+                            legend: { 
+                              position: "none"
+                            },
+                            vAxis: {
+                              baselineColor: "transparent",
+                              gridlines: {
+                                color: 'transparent',
+                                zeroLineColor: 'transparent'
+                              }
+                            },
+                            hAxis: {
+                              textPosition: 'none',
+                              baselineColor: "transparent",
+                              gridlines: {
+                                color: 'transparent',
+                                zeroLineColor: 'transparent'
+                              }
+                            },
+                            is3D: true,
+                            backgroundColor: "transparent"
+                          }}
+                          rootProps={{ 'data-testid': '1' }}
+                        />
+                      </div>
+                    )
+                  }
+                  
                 </div>
               </div>
             </div>

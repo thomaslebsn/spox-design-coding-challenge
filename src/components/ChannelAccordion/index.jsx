@@ -13,18 +13,20 @@ class ChannelAccordion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      panelIndex: ""
+      panelIndex: "",
+      isChart: false
     };
   }
   
   render() {
-    let { panelIndex } = this.state;
+    let { panelIndex, isChart } = this.state;
     let { data } = this.props;
 
     const CustomToggle = ({ children, eventKey }) => {
       const customOnClick = useAccordionToggle(eventKey, () => {
         this.setState({
-          panelIndex: eventKey === panelIndex ? null : eventKey
+          panelIndex: eventKey === panelIndex ? null : eventKey,
+          isChart: eventKey === panelIndex ? null : !isChart
         })
       })
   
@@ -57,10 +59,11 @@ class ChannelAccordion extends React.Component {
                               <img className="img-avatar" src={item.images} alt="" />
                               <span className="ms-2">{item.title}</span>
                             </div>
-                            <div className="col-9">
+                            <div className={`col-9`}>
                               <div className="row">
                                 <ChartLine 
                                   data={item.chart}
+                                  isChart={isChart}
                                 />
                               </div>
                             </div>
