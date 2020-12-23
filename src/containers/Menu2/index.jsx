@@ -2,7 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
-import { faMagic } from "@fortawesome/free-solid-svg-icons/faMagic";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
+import { faUserMinus } from "@fortawesome/free-solid-svg-icons/faUserMinus";
+import { faFileAlt } from "@fortawesome/free-solid-svg-icons/faFileAlt";
+import { faNetworkWired } from "@fortawesome/free-solid-svg-icons/faNetworkWired";
+import { faUserFriends } from "@fortawesome/free-solid-svg-icons/faUserFriends";
+import { faUserTag } from "@fortawesome/free-solid-svg-icons/faUserTag";
+import { faHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
+import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons/faEnvelopeOpenText";
 
 class Menu2 extends React.Component {
   constructor(props) {
@@ -17,13 +24,13 @@ class Menu2 extends React.Component {
               name: "profile",
               text: "Profile",
               link: "/profile",
-              icons: faHome,
+              icons: faUserMinus,
             },
             {
               name: "billingplan",
               text: "Billing & Plan",
               link: "/billing-plan",
-              icons: faMagic,
+              icons: faFileAlt,
             }
           ]
         },
@@ -34,19 +41,19 @@ class Menu2 extends React.Component {
               name: "organisations",
               text: "Organisations",
               link: "/organisations",
-              icons: faHome,
+              icons: faNetworkWired,
             },
             {
               name: "teammembers",
               text: "Team Members",
               link: "/team-members",
-              icons: faMagic,
+              icons: faUserFriends,
             },
             {
               name: "roles",
               text: "Roles",
               link: "/roles",
-              icons: faMagic,
+              icons: faUserTag,
             }
           ]
         },
@@ -86,7 +93,18 @@ class Menu2 extends React.Component {
               name: "emailmarketing",
               text: "Email Marketing",
               link: "/emailmarketing",
-              icons: faHome
+              icons: faEnvelopeOpenText
+            }
+          ]
+        },
+        {
+          title: "miscellaneous",
+          listMenu: [
+            {
+              name: "mycollections",
+              text: "My collections",
+              link: "/my-collections",
+              icons: faHeart
             }
           ]
         }
@@ -107,7 +125,7 @@ class Menu2 extends React.Component {
         <div className="py-1 px-3 item_menu">
           <a href="/" className="d-flex align-items-center text-blue-0 p-3 link_menu rounded-2 text-decoration-none">
             <i>
-              <FontAwesomeIcon icon={faHome} />
+              <FontAwesomeIcon icon={faArrowLeft} />
             </i>
             <span className="ms-3">Back to Dashboard</span>
           </a>

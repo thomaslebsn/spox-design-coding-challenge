@@ -131,7 +131,7 @@ class BigCalendarFull extends React.Component {
         e.preventDefault();
         onClick(e);
       }}
-      className="d-flex align-items-center justify-content-center rounded-1 border-1 fs-12 text-green py-2 text-decoration-none text-green w-98"
+      className="bg-white d-flex align-items-center justify-content-center rounded-1 border-1 fs-12 text-green py-2 text-decoration-none text-green w-98"
     >
       <span className="fs-6 me-2 text-blue-0 opacity-75">{this.state.textBtnGroup}</span>
       <FontAwesomeIcon icon={faChevronDown} />
@@ -146,7 +146,7 @@ class BigCalendarFull extends React.Component {
         e.preventDefault();
         onClick(e);
       }}
-      className="d-flex align-items-center justify-content-center rounded-1 border-1 fs-12 text-green py-2 px-3 text-decoration-none text-green"
+      className="bg-white d-flex align-items-center justify-content-center rounded-1 border-1 fs-12 text-green py-2 px-3 text-decoration-none text-green"
     >
       <span className="fs-6 me-2 text-blue-0 opacity-75">{this.state.textDayGroup}</span>
       <FontAwesomeIcon icon={faChevronDown} />
@@ -279,7 +279,7 @@ class BigCalendarFull extends React.Component {
           <div className="ms-2">
             <a 
               href={void(0)} 
-              className="cursor-pointer border-1 py-2 w-98 text-blue-0 opacity-75 d-flex rounded-1 align-items-center justify-content-center text-decoration-none"
+              className="bg-white cursor-pointer border-1 py-2 w-98 text-blue-0 opacity-75 d-flex rounded-1 align-items-center justify-content-center text-decoration-none"
               onClick={this.handleFilterCalendar}
             >
               <i>
