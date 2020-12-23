@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faMagic } from "@fortawesome/free-solid-svg-icons/faMagic";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons/faFileAlt";
+import { faNetworkWired } from "@fortawesome/free-solid-svg-icons/faNetworkWired";
+import { faVolumeUp } from "@fortawesome/free-solid-svg-icons/faVolumeUp";
 
 import "./index.scss";
 
@@ -35,7 +37,7 @@ class Menu extends React.Component {
           name: "campaigns",
           text: "Campaigns",
           link: "/campaigns",
-          icons: faMagic,
+          icons: faVolumeUp,
         },
         {
           name: "personas",
@@ -53,7 +55,7 @@ class Menu extends React.Component {
           name: "channels",
           text: "Channels",
           link: "/channels",
-          icons: faMagic,
+          icons: faNetworkWired,
         },
         {
           name: "calendar",
@@ -102,7 +104,7 @@ class Menu extends React.Component {
               >
                 <Link
                   to={value.link}
-                  className={`d-block rounded-1 p-3 mb-1 link_menu text-blue-0 text-decoration-none`}
+                  className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none`}
                 >
                   <i>
                     <FontAwesomeIcon icon={value.icons} />

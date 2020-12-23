@@ -11,16 +11,16 @@ class Upgrade extends React.Component {
 
   render() {
     return (
-      <div className="text-center pb-3">
-        <div className="mb-2">
+      <div className="wrapper_upgrade text-center pb-3">
+        <div className="item_upgrade mb-2">
           <img src="/assets/images/annotation.png" alt="" />
         </div>
-        <p className="mb-2">
+        <p className="item_upgrade mb-2">
           <span>Unlock more features now! Upgrade to </span>
           <a href="#" className="text-uppercase text-green fw-bold">OTHER PLAN</a>
         </p>
         <div>
-          <a href="#" className="btn btn-success w-100">
+          <a href="#" className="link_upgrade btn btn-success w-100">
             <i><FontAwesomeIcon icon={faCog} /></i>
             <span className="ms-2">Upgrade</span>
           </a>

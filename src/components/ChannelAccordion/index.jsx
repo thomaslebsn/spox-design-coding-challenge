@@ -1,13 +1,448 @@
 import React from 'react';
 import { Nav, Accordion, useAccordionToggle } from 'react-bootstrap';
 
-import ChartLine from "./ChartLine";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 
+import ItemAccordion from './ItemAccordion';
 
-import styles from "./index.module.scss";
+const data = [
+  {
+    id: 1,
+    images: "assets/images/facebook.png",
+    title: "Facebook",
+    dataList: [
+      {
+        images: "assets/images/icon-adidas.png",
+        title: "Food Network",
+        chart: [
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Campaign",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Followers",
+            number: "-15",
+            isNumber: false,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Engagement",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          }
+        ]
+      },
+      {
+        images: "assets/images/icon-levis.png",
+        title: "Food Network",
+        chart: [
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Campaign",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "20",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          }
+        ]
+      },
+      {
+        images: "assets/images/icon-nikon.png",
+        title: "Food Network",
+        chart: [
+          {
+            title: "Posts",
+            number: "-15",
+            isNumber: false,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "15",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    images: "assets/images/instagram.png",
+    title: "Instagram",
+    dataList: [
+      {
+        images: "assets/images/icon-adidas.png",
+        title: "Food Network",
+        chart: [
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          }
+        ]
+      },
+      {
+        images: "assets/images/icon-levis.png",
+        title: "Food Network",
+        chart: [
+          {
+            title: "Posts",
+            number: "-20",
+            isNumber: false,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          }
+        ]
+      },
+      {
+        images: "assets/images/icon-nikon.png",
+        title: "Food Network",
+        chart: [
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          },
+          {
+            title: "Posts",
+            number: "5",
+            isNumber: true,
+            dataChart: [
+              ['x', 'dogs'],
+              [0, 0],
+              [1, 5],
+              [2, 15],
+              [3, 9],
+              [4, 10],
+              [5, 5],
+              [6, 3],
+              [7, 19],
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
 
 class ChannelAccordion extends React.Component {
   constructor(props) {
@@ -20,7 +455,6 @@ class ChannelAccordion extends React.Component {
   
   render() {
     let { panelIndex, isChart } = this.state;
-    let { data } = this.props;
 
     const CustomToggle = ({ children, eventKey }) => {
       const customOnClick = useAccordionToggle(eventKey, () => {
@@ -37,42 +471,24 @@ class ChannelAccordion extends React.Component {
         </Nav.Link>
       )
     }
+    
     return (
       <Accordion>
         {
           data.map((value, index) => {
             return (
               <div key={index} className="bg-white rounded-3 mb-4">
-                <CustomToggle eventKey={value.key}>
+                <CustomToggle eventKey={value.id}>
                   <div className="d-flex align-items-center">
                     <img className="img-avatar" src={value.images} alt="" />
                     <span className="ms-2 fs-4 text-blue-0">{value.title}</span>
                   </div>
                 </CustomToggle>
-                <Accordion.Collapse eventKey={value.key}>
-                  <div className="px-3">
-                    {
-                      value.dataList.map((item, key) => {
-                        return (
-                          <div key={key} className={`item_accordion ${styles.item_accordion} py-3 border-bottom-1 row align-items-center`}>
-                            <div className="d-flex align-items-center col-3">
-                              <img className="img-avatar" src={item.images} alt="" />
-                              <span className="ms-2">{item.title}</span>
-                            </div>
-                            <div className={`col-9`}>
-                              <div className="row">
-                                <ChartLine 
-                                  data={item.chart}
-                                  isChart={isChart}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
-                    
-                  </div>
+                <Accordion.Collapse eventKey={value.id}>
+                  <ItemAccordion 
+                    data={value.dataList}
+                    isChart={isChart}
+                  />
                 </Accordion.Collapse>
               </div>
             )

@@ -105,6 +105,7 @@ textarea {
       margin-bottom: 0;
       color: rgba($color: $color-blue, $alpha: 0.5);
       position: relative;
+      padding: 1rem;
 
       &:before {
         content: "";
