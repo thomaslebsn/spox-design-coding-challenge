@@ -1,16 +1,16 @@
-import React from "react";
 import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
+import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 class ProjectsListViewModel {
   projectStore = null;
 
   projects = null;
-  
+
   tableRowHeader = null;
 
   tableStatus = PAGE_STATUS.LOADING;
-   
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -18,24 +18,59 @@ class ProjectsListViewModel {
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.projectStore.fetchProjects(this.displayProjectListHandler);
-  }
+    this.projectStore.fetchProjects(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander
+    );
+  };
 
-  displayProjectListHandler = (ProjectModelData) => {
-    console.log("displayProjectHandler");
-    console.log(ProjectModelData);
-    if(ProjectModelData){
+  refreshTableProjectList = () => {
+    this.tableStatus = PAGE_STATUS.LOADING;
+    this.projectStore.fetchProjects(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander
+    );
+  };
+
+  callbackOnErrorHander = (error) => {
+    console.log("callbackOnErrorHander");
+    console.log(error);
+    alert(error);
+  };
+  callbackOnSuccessHandler = (projectModelData) => {
+    console.log("callbackOnSuccessHandler");
+    console.log(projectModelData);
+    if (projectModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-      this.tableRowHeader = ["name", "startdate", "enddate", "progress"];
+      this.tableRowHeader = [
+        {
+          Header: "Name",
+          accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
+        },
+        {
+          Header: "Start Date",
+          accessor: PROJECT_COLUMN_INDICATOR.START_DATE,
+        },
+        {
+          Header: "End Date",
+          accessor: PROJECT_COLUMN_INDICATOR.END_DATE,
+        },
+        {
+          Header: "Progress",
+          accessor: PROJECT_COLUMN_INDICATOR.PROGRESS,
+        },
+      ];
+
       const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
-        ProjectModelData,
-        this.tableRowHeader
+        projectModelData,
       );
+      console.log("Row Data is Formatted");
+      console.log(rowDataTransformed);
       this.projects = rowDataTransformed;
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
-  }
+  };
 }
 
 export default ProjectsListViewModel;

@@ -14,10 +14,12 @@ class ProjectUtils {
       }, []);
   };
 
-  transformProjectModelIntoTableDataRow = (productModels, tableRowHeader) => {
-    return productModels
+  transformProjectModelIntoTableDataRow = (projectModels) => {
+    return projectModels
       .map((item) => {
-        return item.toTableRowData(tableRowHeader);
+        console.log("Debug An Item");
+        console.log(item);
+        return item.toTableRowData();
       })
       .reduce((arr, el) => {
         return arr.concat(el);

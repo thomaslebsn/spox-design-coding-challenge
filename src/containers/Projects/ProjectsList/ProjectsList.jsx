@@ -34,7 +34,7 @@ const ProjectsList = observer(
         tableStatus,
         projects,
       } = this.projectListViewModel;
-
+      // console.log(projects);
       return tableStatus === PAGE_STATUS.LOADING ? (
         <div>Load</div>
       ) : (

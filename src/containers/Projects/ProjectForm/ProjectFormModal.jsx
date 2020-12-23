@@ -4,6 +4,7 @@ import ModalComponent from "../../../components/Modal";
 
 import { observer } from "mobx-react";
 import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
+import { Button } from "react-bootstrap";
 
 const ProjectFormModal = observer(
   class ProjectFormModal extends Component {
@@ -20,32 +21,24 @@ const ProjectFormModal = observer(
 
       console.log("ProjectFormModal - After binding class");
       console.log(this.projectFormModalViewModel);
-
-      console.log(
-        "Inject ProjectListViewModel is to hand-on when form is valid and call refresh table list project"
-      );
-      this.projectListViewModel = viewModel
-        ? viewModel.getProjectListViewModel()
-        : null;
-      console.log(this.projectListViewModel);
     }
 
     saveProjectHandler = () => {
-      //Validate Form 
-      //Form Valid 
+      //Validate Form
+      //Form Valid
       const isFormValid = true;
-      if(isFormValid){
+      if (isFormValid) {
         //Call projectFormModalViewModel.saveProject
-        this.projectFormModalViewModel.saveProject(this.saveProjectSuccessHandler);
+        this.projectFormModalViewModel.saveOnModal();
       } else {
         // Fail => show Error
       }
-
     };
-    saveProjectSuccessHandler = () => {
-      this.projectListViewModel.refreshProjectList();
-      this.getProjectFormModalViewModel.closeModal();
-    }
+
+    cancelSavingHandler = () => {
+      this.projectFormModalViewModel.closeModal();
+    };
+
     render() {
       console.log("[ProjectFormModal] - re-render .........");
       const { show } = this.projectFormModalViewModel;
@@ -53,9 +46,14 @@ const ProjectFormModal = observer(
         <ModalComponent
           show={show}
           onHide={this.projectFormModalViewModel.closeModal}
-          onSave={this.saveProjectHandler}
           header={"Create a new project"}
           body="test"
+          footer={
+            <div>
+              <Button onClick={this.saveProjectHandler}>Save</Button>{" "}
+              <Button onClick={this.cancelSavingHandler}>Cancel</Button>
+            </div>
+          }
         />
       );
     }

@@ -1,30 +1,12 @@
 import React from "react";
 
 import { useTable } from "react-table";
+import { useMemo } from "react";
 
-function Table({ rowData }) {
-  let columns = [];
-  let data = [];
-  if (rowData) {
-    console.log("Rendering Table Row");
-    console.log(rowData);
-    rowData.forEach((row, index) => {
-      let currentRow = {};
-      console.log("Debuggin Each Row when renderring");
-      console.log(row);
-      row.forEach((item) => {
-        if (index === 0) {
-          columns.push({ Header: item.columnText, accessor: item.columnName });
-        }
+function Table({ rowData, tableRowHeader }) {
+  const columns = useMemo(() => tableRowHeader, [tableRowHeader]);
 
-        Object.assign(currentRow, { [item.columnName]: item.value });
-      });
-
-      data.push(currentRow);
-    });
-  } else {
-    console.log("No Data Found");
-  }
+  const data = useMemo(() => rowData, [rowData]);
 
   const {
     getTableProps,

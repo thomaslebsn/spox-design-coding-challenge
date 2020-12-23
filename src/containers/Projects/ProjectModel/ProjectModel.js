@@ -1,5 +1,6 @@
 import { ProjectLeadItemModel } from "./ProjectLeadModel";
 import FIELD_TYPE from "../../../constants/FieldType";
+import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
 class ProjectModel {
   constructor(data) {
@@ -20,16 +21,16 @@ class ProjectModel {
       : null;
 
     this.createDate = data.createDate ?? "";
-    this.lastModifiedDate = data.list_modified_date ?? "";
+    this.lastModifiedDate = data.last_modified_date ?? "";
     this.createdBy = data.create_by ?? "";
-    this.lastModifiedBy = data.list_modified_by ?? "";
+    this.lastModifiedBy = data.last_modified_by ?? "";
   }
 
   getId = () => {
     return {
       value: this.id,
       type: FIELD_TYPE.READONLY,
-      columnName: "id",
+      columnName: PROJECT_COLUMN_INDICATOR.ID,
       columnText: "ID",
     };
   };
@@ -38,7 +39,7 @@ class ProjectModel {
     return {
       value: this.name,
       type: FIELD_TYPE.TEXT,
-      columnName: "name",
+      columnName: PROJECT_COLUMN_INDICATOR.NAME,
       columnText: "Name",
     };
   };
@@ -47,7 +48,7 @@ class ProjectModel {
     return {
       value: this.logoUrl,
       type: FIELD_TYPE.IMAGE,
-      columnName: "logoUrl",
+      columnName: PROJECT_COLUMN_INDICATOR.LOGO,
       columnText: "Logo Url",
     };
   };
@@ -56,7 +57,7 @@ class ProjectModel {
     return {
       value: this.startdate,
       type: FIELD_TYPE.DATE,
-      columnName: "startdate",
+      columnName: PROJECT_COLUMN_INDICATOR.START_DATE,
       columnText: "Start Date",
     };
   };
@@ -65,7 +66,7 @@ class ProjectModel {
     return {
       value: this.enddate,
       type: FIELD_TYPE.DATE,
-      columnName: "enddate",
+      columnName: PROJECT_COLUMN_INDICATOR.END_DATE,
       columnText: "End Date",
     };
   };
@@ -74,7 +75,7 @@ class ProjectModel {
     return {
       value: this.progress,
       type: FIELD_TYPE.TEXT,
-      columnName: "progress",
+      columnName: PROJECT_COLUMN_INDICATOR.PROGRESS,
       columnText: "Progress",
     };
   };
@@ -83,7 +84,7 @@ class ProjectModel {
     return {
       value: this.shortDescription,
       type: FIELD_TYPE.RICHTEXT,
-      columnName: "shortDescription",
+      columnName: PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
       columnText: "Short Description",
     };
   };
@@ -95,7 +96,7 @@ class ProjectModel {
     };
   };
 
-  toTableRowData = (headerColumns) => {
+  toTableRowData = () => {
     const id = this.getId(),
       name = this.getName(),
       shortDescription = this.getShortDescription(),
@@ -103,20 +104,14 @@ class ProjectModel {
       enddate = this.getEndDate(),
       progress = this.getProgress();
 
-    const mappedColIndex = {
-      [id.columnName]: id,
-      [name.columnName]: name,
-      [shortDescription.columnName]: shortDescription,
-      [startdate.columnName]: startdate,
-      [enddate.columnName]: enddate,
-      [progress.columnName]: progress,
+    return {
+      [id.columnName]: id.value,
+      [name.columnName]: name.value,
+      [shortDescription.columnName]: shortDescription.value,
+      [startdate.columnName]: startdate.value,
+      [enddate.columnName]: enddate.value,
+      [progress.columnName]: progress.value,
     };
-
-    return [
-      headerColumns.map((columnNameElement) => {
-        return mappedColIndex[columnNameElement];
-      }),
-    ];
   };
 
   toTableColumns = (headerColumns) => {};

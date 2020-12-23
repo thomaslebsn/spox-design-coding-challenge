@@ -45,26 +45,32 @@ const leads = [
 ];
 
 export default class ProjectStore {
-  async fetchProjects(callback) {
+  async fetchProjects(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Project Store - Fetch Projects");
       const repondedDataFromLibrary = projects;
-      const projectDataTransformed = ProjectUtils.transformProjectResponseIntoModel(
+      const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
         repondedDataFromLibrary
       );
-      runInAction(() => {
-        callback(projectDataTransformed);
-      });
+
+      if (projectDataModels) {
+        runInAction(() => {
+          callbackOnSuccess(projectDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
+      }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        this.pageStatus = PAGE_STATUS.ERROR;
-        this.errorMessage = "Projects - fetchProjects - Error Log: " + error;
+        callbackOnError(error);
       });
     }
   }
 
-  async saveProject(callbackOnSuccess) {
+  async saveProject(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Saving Project via call web service lib function");
       const resultOnSave = true;
@@ -72,12 +78,17 @@ export default class ProjectStore {
         runInAction(() => {
           callbackOnSuccess();
         });
+      } else {
+        runInAction(() => {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        });
       }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        this.pageStatus = PAGE_STATUS.ERROR;
-        this.errorMessage = "Projects - fetchProjects - Error Log: " + error;
+        callbackOnError(error);
       });
     }
   }

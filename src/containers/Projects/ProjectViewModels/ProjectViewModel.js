@@ -10,6 +10,9 @@ class ProjectViewModel {
       console.log("ProjectViewModel - Abstract");
       this.projectFormModalViewModel = new ProjectFormModalViewModel(projectStore);
       this.projectListViewModel = new ProjectListViewModel(projectStore);
+
+      // Inject dependencies together among ViewModels 
+      this.projectFormModalViewModel.setProjectListViewModel(this.projectListViewModel);
     }
   }
 

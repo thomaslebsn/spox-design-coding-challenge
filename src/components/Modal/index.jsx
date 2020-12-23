@@ -11,7 +11,7 @@ class ModalComponent extends React.Component {
 
     return (
       <>
-        <Modal show={show} onHide={onHide} centered onEntered={onSave}>
+        <Modal show={show} onHide={onHide} centered>
           <Modal.Header closeButton className="px-4">
             <Modal.Title>{header}</Modal.Title>
           </Modal.Header>
