@@ -1,7 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 
-import ComponentHeaderPage from "../../components/ComponentHeaderPage";
+import ComponentHeaderPageAction from "../../components/ComponentHeaderPageAction";
 import ChannelAccordion from "../../components/ChannelAccordion";
 import ComponentConnectaChannel from "../../components/ComponentConnectaChannel";
 
@@ -28,7 +28,7 @@ class ChannelsPage extends React.Component {
     return (
       <div className="py-4 px-3">
         <div className="mb-3">
-          <ComponentHeaderPage
+          <ComponentHeaderPageAction
             title={isCreate ? "Connect a Channel" : "Channel Statistics"}
             textBtn={isCreate ? "Close" : "Add channels"}
             handleCreate={this.handleCreate}
