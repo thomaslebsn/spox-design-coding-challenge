@@ -1,6 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import Dropzone from "react-dropzone";
+import { OverlayTrigger, Popover  } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons/faCloudUploadAlt";
@@ -26,12 +27,89 @@ const optionChannels = [
 ];
 
 const optionInterest = [
-  { value: "design", label: "Design" },
-  { value: "interior", label: "Interior design" },
-  { value: "fashion", label: "Fashion design" },
-  { value: "graphic", label: "Graphic design" },
-  { value: "industrial", label: "Industrial design" },
-  { value: "architecture", label: "Architecture design" }
+  { 
+    value: "design", 
+    label: (
+      <>
+      <OverlayTrigger trigger="hover" placement="right" overlay={(
+        <div id="popover-basic" className="bg-white py-3 px-4 w-260">
+          <p className="fs-14">
+            <span>Size:</span>
+            <span>496,890,422</span>
+          </p>
+          <p className="fs-14">
+            <span>Interest:</span>
+            <span>{"Fitness and wellness > Physical fitness"}</span>
+          </p>
+          <p className="fs-14">
+            <span>Description:</span>
+            <span>{"Aliquam quis lorem facilisis, molestie lectus sed, gravida felis. Morbi fringilla viverra magna. Cras laoreet metus sed posuere eleifend. Sed facilisis dictum"}</span>
+          </p>
+        </div>
+      )}>
+        <span className="d-flex align-items-center justify-content-between">
+          <span>Design</span>
+          <span className="opacity-75">Design design</span>
+        </span>
+      </OverlayTrigger>
+      </>
+    ) 
+  },
+  { 
+    value: "interior", 
+    label: (
+      <>
+        <span className="d-flex align-items-center justify-content-between">
+          <span>Interior</span>
+          <span className="opacity-75">Interior design</span>
+        </span>
+      </>
+    ) 
+  },
+  { 
+    value: "fashion", 
+    label: (
+      <>
+        <span className="d-flex align-items-center justify-content-between">
+          <span>Fashion</span>
+          <span className="opacity-75">Fashion design</span>
+        </span>
+      </>
+    ) 
+  },
+  { 
+    value: "graphic", 
+    label: (
+      <>
+        <span className="d-flex align-items-center justify-content-between">
+          <span>Graphic</span>
+          <span className="opacity-75">Graphic design</span>
+        </span>
+      </>
+    ) 
+  },
+  { 
+    value: "industrial", 
+    label: (
+      <>
+        <span className="d-flex align-items-center justify-content-between">
+          <span>Graphic</span>
+          <span className="opacity-75">Industrial design</span>
+        </span>
+      </>
+    ) 
+  },
+  { 
+    value: "architecture", 
+    label: (
+      <>
+        <span className="d-flex align-items-center justify-content-between">
+          <span>Architecture</span>
+          <span className="opacity-75">Architecture design</span>
+        </span>
+      </>
+    ) 
+  }
 ];
 
 class MakePersonaOverview extends React.Component {
@@ -42,7 +120,7 @@ class MakePersonaOverview extends React.Component {
       gender: { value: "male", label: "Male" },
       status: { value: "married", label: "Married" },
       channels: { value: "channels", label: "Channels" },
-      interest: { value: "design", label: "Design" }
+      interest: null
     };
   }
 
