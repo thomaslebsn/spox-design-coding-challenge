@@ -194,23 +194,3 @@
     color: $color-purple;
   }
 }
-
-.popover {
-  width: 350px;
-  margin-left: 10px !important;
-
-  &:before {
-    content: "";
-    position: absolute;
-    left: -10px;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-top: 7px solid transparent;
-    border-right: 10px solid $color-blue-6;
-    border-bottom: 7px solid transparent;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-}

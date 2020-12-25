@@ -319,7 +319,7 @@ class BigCalendarFull extends React.Component {
     
     return (
       <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-        <div className={`wrapper_des_event d-inline-block w-100`}>
+        <div className={`wrapper_des_event d-inline-block w-100 shadow`}>
           <a href={void(0)} className="w-100 text-decoration-none d-inline-block">
             <span>{event.title}</span>
           </a>

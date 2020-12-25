@@ -140,3 +140,25 @@ textarea {
     outline: none;
   }
 }
+
+//OverlayTrigger
+
+.popover {
+  width: 350px;
+  z-index: 10;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 8px solid $white;
+    border-bottom: 7px solid transparent;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}

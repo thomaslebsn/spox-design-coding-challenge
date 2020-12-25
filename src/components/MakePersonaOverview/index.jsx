@@ -1,7 +1,8 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import Dropzone from "react-dropzone";
-import { OverlayTrigger, Popover  } from "react-bootstrap";
+import { OverlayTrigger, Popover } from "react-bootstrap";
+import { components } from "react-select";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons/faCloudUploadAlt";
@@ -28,89 +29,98 @@ const optionChannels = [
 
 const optionInterest = [
   { 
-    value: "design", 
-    label: (
-      <>
-      <OverlayTrigger trigger="hover" placement="right" overlay={(
-        <div id="popover-basic" className="bg-white py-3 px-4 w-260">
-          <p className="fs-14">
-            <span>Size:</span>
-            <span>496,890,422</span>
-          </p>
-          <p className="fs-14">
-            <span>Interest:</span>
-            <span>{"Fitness and wellness > Physical fitness"}</span>
-          </p>
-          <p className="fs-14">
-            <span>Description:</span>
-            <span>{"Aliquam quis lorem facilisis, molestie lectus sed, gravida felis. Morbi fringilla viverra magna. Cras laoreet metus sed posuere eleifend. Sed facilisis dictum"}</span>
-          </p>
-        </div>
-      )}>
-        <span className="d-flex align-items-center justify-content-between">
-          <span>Design</span>
-          <span className="opacity-75">Design design</span>
-        </span>
-      </OverlayTrigger>
-      </>
-    ) 
+    value: "design",
+    label: "Design",
+    text: "Design",
+    type: "Interests",
+    size: "496,890,422",
+    interest: "Fitness and wellness > Physical fitness",
+    description: "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis. Morbi fringilla viverra magna. Cras laoreet metus sed posuere eleifend. Sed facilisis dictum"
   },
   { 
     value: "interior", 
-    label: (
-      <>
-        <span className="d-flex align-items-center justify-content-between">
-          <span>Interior</span>
-          <span className="opacity-75">Interior design</span>
-        </span>
-      </>
-    ) 
+    label: "Interior design",
+    text: "Interior design",
+    type: "Employers",
+    size: "196,890,422",
+    interest: "Fitness and wellness > Physical fitness",
+    description: "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis"
   },
   { 
     value: "fashion", 
-    label: (
-      <>
-        <span className="d-flex align-items-center justify-content-between">
-          <span>Fashion</span>
-          <span className="opacity-75">Fashion design</span>
-        </span>
-      </>
-    ) 
+    label: "Fashion design",
+    text: "Fashion design",
+    type: "Job Titles",
+    type: "Employers",
+    size: "342,890,422",
+    interest: "Fitness and wellness > Physical fitness",
+    description: "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis"
   },
   { 
     value: "graphic", 
-    label: (
-      <>
-        <span className="d-flex align-items-center justify-content-between">
-          <span>Graphic</span>
-          <span className="opacity-75">Graphic design</span>
-        </span>
-      </>
-    ) 
+    label: "Graphic design",
+    text: "Graphic design",
+    type: "Interests",
+    size: "888,890,453",
+    interest: "Fitness and wellness > Physical fitness",
+    description: "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis"
   },
   { 
     value: "industrial", 
-    label: (
-      <>
-        <span className="d-flex align-items-center justify-content-between">
-          <span>Graphic</span>
-          <span className="opacity-75">Industrial design</span>
-        </span>
-      </>
-    ) 
+    label: "Industrial design",
+    text: "Industrial design",
+    type: "Titles Titles",
+    size: "888,111,555",
+    interest: "Fitness and wellness > Physical fitness",
+    description: "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis"
   },
   { 
     value: "architecture", 
-    label: (
-      <>
-        <span className="d-flex align-items-center justify-content-between">
-          <span>Architecture</span>
-          <span className="opacity-75">Architecture design</span>
-        </span>
-      </>
-    ) 
+    label: "Architecture design",
+    text: "Architecture design",
+    type: "Interests",
+    size: "565,322,777",
+    interest: "Fitness and wellness > Physical fitness",
+    description: "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis"
   }
 ];
+
+const Option = props => {
+  let { text, type } = props.data;
+  return (
+    <OverlayTrigger placement="right" overlay={popover(props.data)}>
+      <div >
+        <components.Option {...props} className="d-flex align-items-center justify-content-between w-100">
+          <p className="mb-0">{text}</p>
+          <p className="mb-0 text-black-50">{type}</p>
+        </components.Option>
+      </div>
+    </OverlayTrigger>
+  )
+}
+
+const popover = props => {
+  let { size, interest, description } = props;
+  return (
+    <Popover id="popover-basic">
+      <div id="popover-basic" className="bg-white py-3 px-4 popover shadow">
+        <p className="fs-14 row">
+          <span className="col-4 d-flex">Size:</span>
+          <span className="col-8 d-flex">{size}</span>
+        </p>
+        <p className="fs-14 row">
+          <span className="col-4 d-flex">Interest:</span>
+          <span className="col-8 d-flex">{interest}</span>
+        </p>
+        <p className="mb-0 fs-14 row">
+          <span className="col-4 d-flex">Description:</span>
+          <span className="col-8 d-flex">{description}</span>
+        </p>
+      </div>
+    </Popover>
+  )
+  
+}
 
 class MakePersonaOverview extends React.Component {
   constructor(props) {
@@ -288,7 +298,7 @@ class MakePersonaOverview extends React.Component {
                   />
                   <ComponentLinkChannels />
                 </div>
-                <div className="border-start-5 bg-white p-2 mb-3 rounded-2">
+                <div className="border-start-5 bg-white p-2 mb-3 rounded-2 position-relative">
                   <label className="form-label mb-2" htmlFor="age">Interest</label>
                   <SelectComponent
                     value={interest}
@@ -298,6 +308,7 @@ class MakePersonaOverview extends React.Component {
                     isBorder={true}
                     plColor="rgba(8, 18, 64, 0.8)"
                     isMulti
+                    components={{ Option }}
                   />
                 </div>
               </div>
