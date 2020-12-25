@@ -1,13 +1,9 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import Dropzone from "react-dropzone";
 
-import ComponentHeaderPage from "../../components/ComponentHeaderPageAction";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ComponentHeaderPage from "../../components/ComponentHeaderPage";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSave } from "@fortawesome/free-regular-svg-icons/faSave";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons/faCloudUploadAlt";
 
 import styles from "./index.module.scss";
 import MakePersonaOverview from "../../components/MakePersonaOverview";

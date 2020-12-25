@@ -16,7 +16,7 @@ class ComponentHeaderPage extends React.Component {
         <h2 className="fs-2">{title}</h2>
         {
           textBtn && (
-            <a href="#" className={`cursor-pointer text-decoration-none btn ${isCreate ? "btn-light border-0" : "btn-success"}`} onClick={handleCreate}>
+            <a href="#" className={`cursor-pointer text-decoration-none btn btn-success`} onClick={handleCreate}>
               <i className={`text-white`}><FontAwesomeIcon icon={faIcons} /></i>
               <span className="ps-2">{textBtn}</span>
             </a>
