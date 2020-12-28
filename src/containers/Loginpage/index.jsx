@@ -1,20 +1,15 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import Select from "react-select";
 
 import TitleAccount from "../../components/TitlePageAccount";
+
 import "./index.scss";
+import Layout from "../../hoc/Layout";
 import Line from "../../components/Line";
 import ButtonNormal from "../../components/ButtonNormal";
+import Checkbox from "../../components/Checkbox";
 import BannerLeft from "../../components/BannerLeft";
 import Social from "../../components/Social";
-import Layout from "../../hoc/Layout";
-
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
 
 const dataSlider = [
   {
@@ -34,51 +29,36 @@ const dataSlider = [
   },
 ];
 
-class Signuppage extends React.Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedOption: null,
-    };
+    this.state = {};
   }
-
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-  };
 
   render() {
     const { t, i18n } = this.props;
-    let { selectedOption } = this.state;
     return (
       <Layout fullPage={true}>
         <div className="row">
           <div className="col-4 bg-primary p-0">
             <BannerLeft dataSlider={dataSlider} />
           </div>
-          <div className="col-8 d-flex flex-column justify-content-center align-items-center">
+          <div className="col-8 d-flex flex-column justify-content-center align-items-center ">
             <div className="d-block">
               <TitleAccount
-                title={t("txt_welcome_to_our_easii")}
-                title_below={t("txt_sign_up_to_getting_started")}
+                title={t("txt_welcome_to_easii")}
+                title_below={t("txt_sign_in_to_see_latest_updates")}
               />
+
               <Social />
-              <Line text={t("txt_or_register_with")} />
+
+              <Line text={t("txt_or_sign_in_with")} />
 
               <form>
-                <label className="form-label mb-3" htmlFor="username">
-                  {t("txt_username")} <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  className="form-control mb-4"
-                  id="username"
-                />
-
                 <label className="form-label mb-3" htmlFor="email">
                   {t("txt_email")} <span>*</span>
                 </label>
                 <input type="email" className="form-control mb-4" id="email" />
-
                 <label className="form-label mb-3" htmlFor="password">
                   {t("txt_password")} <span>*</span>
                 </label>
@@ -87,28 +67,16 @@ class Signuppage extends React.Component {
                   className="form-control mb-4"
                   id="password"
                 />
-
-                <label className="form-label mb-3">
-                  {t("txt_what_is_the_main_thing_you_want_to_manage")}
-                </label>
-
-                <Select
-                  className="mb-4"
-                  value={selectedOption}
-                  onChange={this.handleChange}
-                  options={options}
-                />
-
-                <ButtonNormal text="Sign up" />
-
-                <div className="mt-3">
-                  {t("txt_you_agree_to_our")}{" "}
-                  <a href="#">{t("txt_terms_of_service")} </a> {t("txt_and")}{" "}
-                  <a href="#">{t("txt_privacy_policy")}</a>.
+                <div className="mb-3 d-flex justify-content-between">
+                  <Checkbox text={t("txt_remember_me")} />
+                  <a href="/forgot-password">{t("txt_forgot_password")}</a>
                 </div>
-
-                <a href="/login" className="d-flex justify-content-center mt-4">
-                  {t("txt_already_have_an_account")}
+                <ButtonNormal text={t("txt_sign_in")} />
+                <a
+                  href="/signup"
+                  className="d-flex justify-content-center mt-4"
+                >
+                  {t("txt_do_not_have_an_account")}
                 </a>
               </form>
             </div>
@@ -119,4 +87,4 @@ class Signuppage extends React.Component {
   }
 }
 
-export default withTranslation("common")(Signuppage);
+export default withTranslation("common")(LoginPage);

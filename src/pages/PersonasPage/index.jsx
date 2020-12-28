@@ -2,6 +2,8 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 
 import ComponentHeaderPage from "../../components/ComponentHeaderPage";
+import Layout from "../../hoc/Layout";
+
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSave } from "@fortawesome/free-regular-svg-icons/faSave";
 
@@ -12,38 +14,35 @@ class PersonasPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCreate: false
+      isCreate: false,
     };
   }
 
   handleCreate = () => {
     this.setState({
-      isCreate: true
-    })
-  }
-
+      isCreate: true,
+    });
+  };
 
   render() {
     const { t, i18n } = this.props;
     let { isCreate } = this.state;
 
     return (
-      <div className="py-4 px-3">
-        {
-          !isCreate ? (
+      <Layout>
+        <div className="py-4 px-3">
+          {!isCreate ? (
             <div className="mb-3">
               <div className="mb-4">
                 <div className="mb-3">
-                  <ComponentHeaderPage 
-                    title={"Persona recommendations"}
-                  />
+                  <ComponentHeaderPage title={"Persona recommendations"} />
                 </div>
                 <div>
-                  <img src="assets/images/banner-template.png"/>
+                  <img src="assets/images/banner-template.png" />
                 </div>
               </div>
               <div>
-                <ComponentHeaderPage 
+                <ComponentHeaderPage
                   title={"List Personas"}
                   textBtn={"Create a new persona"}
                   handleCreate={this.handleCreate}
@@ -54,7 +53,7 @@ class PersonasPage extends React.Component {
           ) : (
             <div>
               <div className="mb-3">
-                <ComponentHeaderPage 
+                <ComponentHeaderPage
                   title={"Make Persona Overview"}
                   textBtn={"Save persona"}
                   handleCreate={this.handleSave}
@@ -63,9 +62,9 @@ class PersonasPage extends React.Component {
               </div>
               <MakePersonaOverview />
             </div>
-          )
-        }
-      </div>
+          )}
+        </div>
+      </Layout>
     );
   }
 }

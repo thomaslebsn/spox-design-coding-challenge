@@ -7,13 +7,13 @@ import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 const HomePage = lazy(() => import("./pages/Homepage"));
-const LoginPage = lazy(() => import("./pages/Loginpage"));
+
 const Signuppage = lazy(() => import("./pages/Signuppage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const WizardProjectPage = lazy(() => import("./pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("./pages/WizardPage"));
-//const Projects = lazy(() => import("./pages/Projects"));
+
 const CreateContentPage = lazy(() => import("./pages/CreateContentPage"));
 const CampaignsPage = lazy(() => import("./pages/CampaignsPage"));
 const WizardPopup = lazy(() => import("./pages/WizardPopup"));
@@ -24,6 +24,7 @@ const PersonasPage = lazy(() => import("./pages/PersonasPage"));
 const ContentPage = lazy(() => import("./pages/ContentPage"));
 
 const Projects = lazy(() => import("./containers/Projects"));
+const LoginPage = lazy(() => import("./containers/Loginpage"));
 
 const history = createBrowserHistory();
 
@@ -59,7 +60,6 @@ ReactDOM.render(
             <Route exact path="/calendar" component={CalendarPage} />
             <Route exact path="/personas" component={PersonasPage} />
             <Route exact path="/content" component={ContentPage} />
-            
           </Switch>
         </Suspense>
       </App>

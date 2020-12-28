@@ -9,6 +9,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 import WizardSteps from "../../components/WizardSteps";
 
+import Layout from "../../hoc/Layout";
+
 import styles from "./index.module.scss";
 
 class WizardProjectPage extends React.Component {
@@ -49,7 +51,7 @@ class WizardProjectPage extends React.Component {
     let { projects } = this.state;
 
     return (
-      <>
+      <Layout>
         <WizardSteps />
         <div className="bg-white d-flex flex-column m-4 p-4">
           <form>
@@ -99,7 +101,7 @@ class WizardProjectPage extends React.Component {
             </Row>
           </div>
         </div>
-      </>
+      </Layout>
     );
   }
 }

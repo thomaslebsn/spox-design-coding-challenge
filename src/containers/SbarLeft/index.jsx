@@ -13,32 +13,22 @@ class SbarLeft extends React.Component {
   }
 
   render() {
-    let pathName = window.location.pathname;
-    let checkPathName =
-      pathName == "/profile" ||
-      pathName == "/billing-plan" ||
-      pathName == "/organisations" ||
-      pathName == "/team-members" ||
-      pathName == "/roles" ||
-      pathName == "/workflow-schemes" ||
-      pathName == "/social-media" ||
-      pathName == "/advertising" ||
-      pathName == "/cms" ||
-      pathName == "/emailmarketing"
+    const { settingPage } = this.props;
 
     return (
-      <aside className={`sidebar w-260 ${!checkPathName ? "p-3" : ""} mt-0 position-relative bg-white mh-100 overflow-hidden overflow-y-auto d-flex flex-column justify-content-between z-index-100`}>
-        {
-          !checkPathName ? (
-            <>
-              <Menu />
-              <Upgrade />
-            </>
-          ) : (
-            <Menu2 />
-          )
-        }
-        
+      <aside
+        className={`sidebar w-260 ${
+          !settingPage ? "p-3" : ""
+        } mt-0 position-relative bg-white mh-100 overflow-hidden overflow-y-auto d-flex flex-column justify-content-between z-index-100`}
+      >
+        {!settingPage ? (
+          <>
+            <Menu />
+            <Upgrade />
+          </>
+        ) : (
+          <Menu2 />
+        )}
       </aside>
     );
   }

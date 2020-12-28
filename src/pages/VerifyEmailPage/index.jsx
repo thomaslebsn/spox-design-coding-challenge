@@ -4,6 +4,7 @@ import { withTranslation } from "react-i18next";
 import BannerLeft from "../../components/BannerLeft";
 import TitleAccount from "../../components/TitlePageAccount";
 import ButtonNormal from "../../components/ButtonNormal";
+import Layout from "../../hoc/Layout";
 
 const dataSlider = [
   {
@@ -28,29 +29,31 @@ class VerifyEmail extends React.Component {
     const { t, i18n } = this.props;
 
     return (
-      <div className="row">
-        <div className="col-4 bg-primary p-0">
-          <BannerLeft dataSlider={dataSlider} />
-        </div>
-        <div className="col-8 d-flex flex-column justify-content-center align-items-center">
-          <div className="d-block">
-            <TitleAccount title={t("txt_verify_your_email_address")} />
+      <Layout fullPage={true}>
+        <div className="row">
+          <div className="col-4 bg-primary p-0">
+            <BannerLeft dataSlider={dataSlider} />
+          </div>
+          <div className="col-8 d-flex flex-column justify-content-center align-items-center">
+            <div className="d-block">
+              <TitleAccount title={t("txt_verify_your_email_address")} />
 
-            <div className="mb-4">
-              {t("txt_a_verification_email_has_been_sent_to_your_email")}
-              <a className="d-block">your_account@gmail.com</a>
+              <div className="mb-4">
+                {t("txt_a_verification_email_has_been_sent_to_your_email")}
+                <a className="d-block">your_account@gmail.com</a>
+              </div>
+
+              <div className="mb-4">{t("txt_please_check_your_email")}</div>
+
+              <div className="mb-4">
+                {t("txt_if_you_do_not_receive_the_email")}
+              </div>
+
+              <ButtonNormal text={t("txt_resend_email")} />
             </div>
-
-            <div className="mb-4">{t("txt_please_check_your_email")}</div>
-
-            <div className="mb-4">
-              {t("txt_if_you_do_not_receive_the_email")}
-            </div>
-
-            <ButtonNormal text={t("txt_resend_email")} />
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

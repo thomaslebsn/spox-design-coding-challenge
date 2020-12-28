@@ -13,13 +13,14 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import BigCalendarFull from "../../components/BigCalendarFull";
+import Layout from "../../hoc/Layout";
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isFull: true,
-      isFullcalendar: false
+      isFullcalendar: false,
     };
   }
 
@@ -27,35 +28,43 @@ class HomePage extends React.Component {
     let { isFull } = this.state;
 
     this.setState({
-      isFull: !isFull
-    })
-  }
+      isFull: !isFull,
+    });
+  };
 
   handleFullCalender = () => {
-    document.body.classList.add('full_calender');
+    document.body.classList.add("full_calender");
     this.setState({
-      isFullcalendar: true
-    })
-  }
-  
+      isFullcalendar: true,
+    });
+  };
+
   newSchedule = () => {
     return (
-      <a href={void(0)} className={`wrapper_new_schedule ${styles.wrapper_new_schedule} cursor-pointer btn btn-success`}>
-        <i><FontAwesomeIcon icon={faPlus} /></i>
+      <a
+        href={void 0}
+        className={`wrapper_new_schedule ${styles.wrapper_new_schedule} cursor-pointer btn btn-success`}
+      >
+        <i>
+          <FontAwesomeIcon icon={faPlus} />
+        </i>
         <span className="ps-2">New Schedule</span>
       </a>
-    )
-  }
+    );
+  };
 
   render() {
     let { isFull, isFullcalendar } = this.state;
     return (
-      <div className="h-100">
-        {
-          isFull ? (
+      <Layout>
+        <div className="h-100">
+          {isFull ? (
             <div className="d-flex">
               <div className="py-4 px-3 pe-400">
-                <h2 className="mb-3 fw-normal text-blue-0">Good morning, <strong className="fw-bold">William White</strong></h2>
+                <h2 className="mb-3 fw-normal text-blue-0">
+                  Good morning,{" "}
+                  <strong className="fw-bold">William White</strong>
+                </h2>
                 <div className="mb-3">
                   <Complete />
                 </div>
@@ -69,9 +78,11 @@ class HomePage extends React.Component {
                   <Campaigns />
                 </div>
               </div>
-              <div className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400`}>
+              <div
+                className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400`}
+              >
                 <a
-                  href={void(0)} 
+                  href={void 0}
                   className={`
                     item_collap 
                     d-flex 
@@ -89,7 +100,7 @@ class HomePage extends React.Component {
                 >
                   <FontAwesomeIcon icon={faChevronLeft} />
                 </a>
-                <div className=" w-100 bg-white h-100 overflow-hidden overflow-y-auto" >
+                <div className=" w-100 bg-white h-100 overflow-hidden overflow-y-auto">
                   <BigCalendar />
                   <UpcomingPosts />
                 </div>
@@ -98,7 +109,7 @@ class HomePage extends React.Component {
           ) : (
             <div className="position-relative d-flex bg-white h-100">
               <a
-                href={void(0)} 
+                href={void 0}
                 className={`
                   item_collap
                   item_collap_fixed
@@ -119,42 +130,36 @@ class HomePage extends React.Component {
               >
                 <FontAwesomeIcon icon={faChevronRight} />
               </a>
-              <div className={`py-4 px-3 ${isFullcalendar ? "" : "pe-400"} w-100`}>
+              <div
+                className={`py-4 px-3 ${isFullcalendar ? "" : "pe-400"} w-100`}
+              >
                 <div className="wrapper_calendar wrapper_calendar_full h-100">
                   <div className="mb-3 d-flex align-items-center justify-content-between">
                     <h2 className="fw-normal text-blue-0">Schedule</h2>
-                    {
-                      isFullcalendar && (
-                        this.newSchedule()
-                      )
-                    }
+                    {isFullcalendar && this.newSchedule()}
                   </div>
                   <BigCalendarFull />
                 </div>
               </div>
-              {
-                !isFullcalendar && (
-                  <div className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400 `}>
-                    <div className="w-100 bg-white h-100 overflow-hidden overflow-y-auto" >
-                      <div className="p-4 d-flex justify-content-end">
-                        {
-                          !isFullcalendar && (
-                            this.newSchedule()
-                          )
-                        }
-                      </div>
-                      <UpcomingPosts 
-                        isClose={true}
-                        handleFullCalender={this.handleFullCalender}
-                      />
+              {!isFullcalendar && (
+                <div
+                  className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400 `}
+                >
+                  <div className="w-100 bg-white h-100 overflow-hidden overflow-y-auto">
+                    <div className="p-4 d-flex justify-content-end">
+                      {!isFullcalendar && this.newSchedule()}
                     </div>
+                    <UpcomingPosts
+                      isClose={true}
+                      handleFullCalender={this.handleFullCalender}
+                    />
                   </div>
-                )
-              }
+                </div>
+              )}
             </div>
-          )
-        }
-      </div>
+          )}
+        </div>
+      </Layout>
     );
   }
 }
