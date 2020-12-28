@@ -16,16 +16,26 @@ const ProjectsList = observer(
       const { viewModel } = props;
       console.log("ProjectList - Debug View Model");
       console.log(viewModel);
-      this.projectListViewModel =
-        viewModel ? viewModel.getProjectListViewModel() : null;
+      this.projectListViewModel = viewModel
+        ? viewModel.getProjectListViewModel()
+        : null;
 
       console.log("After binding class");
-      console.log(this.projectListViewModel);  
+      console.log(this.projectListViewModel);
+
+      this.projectFormModalViewModel = viewModel
+        ? viewModel.getProjectFormModalViewModel()
+        : null;
     }
 
     componentDidMount() {
       this.projectListViewModel.initializeData();
     }
+
+    handerEditProject = (row) => {
+      this.projectFormModalViewModel.setData(row);
+      this.projectFormModalViewModel.openModal();
+    };
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
@@ -38,7 +48,11 @@ const ProjectsList = observer(
       return tableStatus === PAGE_STATUS.LOADING ? (
         <div>Load</div>
       ) : (
-        <Table rowData={projects} tableRowHeader={tableRowHeader}></Table>
+        <Table
+          rowData={projects}
+          tableRowHeader={tableRowHeader}
+          onEdit={this.handerEditProject}
+        ></Table>
       );
     }
   }

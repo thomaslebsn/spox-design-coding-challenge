@@ -3,7 +3,7 @@ import React from "react";
 import { useTable } from "react-table";
 import { useMemo } from "react";
 
-function Table({ rowData, tableRowHeader }) {
+function Table({ rowData, tableRowHeader, onEdit }) {
   const columns = useMemo(() => tableRowHeader, [tableRowHeader]);
 
   const data = useMemo(() => rowData, [rowData]);
@@ -35,7 +35,7 @@ function Table({ rowData, tableRowHeader }) {
         {rows.map((row, i) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <tr {...row.getRowProps()} onClick={() => onEdit(row.original)}>
               {row.cells.map((cell) => {
                 return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}

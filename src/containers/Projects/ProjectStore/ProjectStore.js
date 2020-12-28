@@ -3,35 +3,24 @@ import { makeAutoObservable, runInAction } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
+import ProjectModel from "../ProjectModel/ProjectModel";
 
-const projects = [
+let projects = [
   {
     id: 1,
     name: "Marketing Vietnam Suntory PepsiCo1",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: 1,
-    created_date: "20/09/2020",
-    list_modified_date: "20/09/2020",
-    progress: 70,
-  },
-  {
-    id: 2,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
-    project_lead: 1,
-    created_date: "20/09/2020",
-    list_modified_date: "20/09/2020",
+    created_date: "20/09/2020 06:08:06",
+    list_modified_date: "20/09/2020 06:08:06",
     progress: 70,
   },
 ];
 
-const leads = [
+let leads = [
   {
     id: 1,
     name: "Ponnappa Priya",
@@ -70,10 +59,17 @@ export default class ProjectStore {
     }
   }
 
-  async saveProject(callbackOnSuccess, callbackOnError) {
+  async saveProject(projectData, callbackOnSuccess, callbackOnError) {
     try {
       console.log("Saving Project via call web service lib function");
-      const resultOnSave = true;
+      console.log(projectData);
+
+      const convertedProjectData = ProjectModel.convertSubmittedDataToAPIService(
+        projectData
+      );
+
+      const resultOnSave = await projects.push(convertedProjectData);
+
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess();

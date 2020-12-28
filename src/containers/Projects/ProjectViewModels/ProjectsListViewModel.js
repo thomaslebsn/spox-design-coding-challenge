@@ -48,6 +48,10 @@ class ProjectsListViewModel {
           accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
         },
         {
+          Header: "Logo",
+          accessor: PROJECT_COLUMN_INDICATOR.LOGO,
+        },
+        {
           Header: "Start Date",
           accessor: PROJECT_COLUMN_INDICATOR.START_DATE,
         },
@@ -61,8 +65,11 @@ class ProjectsListViewModel {
         },
       ];
 
+      console.log("Row Data is tableRowHeader");
+      console.log(this.tableRowHeader);
+
       const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
-        projectModelData,
+        projectModelData
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);

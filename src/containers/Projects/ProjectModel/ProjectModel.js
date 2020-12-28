@@ -1,6 +1,9 @@
 import { ProjectLeadItemModel } from "./ProjectLeadModel";
 import FIELD_TYPE from "../../../constants/FieldType";
+import { FORMAT_DATE_API } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
+
+import moment from "moment";
 
 class ProjectModel {
   constructor(data) {
@@ -102,7 +105,8 @@ class ProjectModel {
       shortDescription = this.getShortDescription(),
       startdate = this.getStartDate(),
       enddate = this.getEndDate(),
-      progress = this.getProgress();
+      progress = this.getProgress(),
+      logo = this.getLogoUrl();
 
     return {
       [id.columnName]: id.value,
@@ -111,13 +115,26 @@ class ProjectModel {
       [startdate.columnName]: startdate.value,
       [enddate.columnName]: enddate.value,
       [progress.columnName]: progress.value,
+      [logo.columnName]: logo.value,
     };
   };
 
-  toTableColumns = (headerColumns) => {};
-
   static convertSubmittedDataToAPIService(projectData) {
-    console.log("convertSubmittedDataToAPIService");
+    const result = projectData
+      ? {
+          name: projectData[PROJECT_COLUMN_INDICATOR.NAME],
+          start_date: moment(
+            projectData[PROJECT_COLUMN_INDICATOR.START_DATE]
+          ).format(FORMAT_DATE_API),
+          end_date: moment(
+            projectData[PROJECT_COLUMN_INDICATOR.END_DATE]
+          ).format(FORMAT_DATE_API),
+          logo_url: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
+          short_description:
+            projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],
+        }
+      : null;
+    return result;
   }
 }
 

@@ -1,16 +1,118 @@
 import React, { Component } from "react";
 
-import Dropzone from "react-dropzone";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons/faCloudUploadAlt";
+import FormComponent from "../../../components/Form";
+import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
+import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
 class ProjectForm extends Component {
+  formPropsData = {
+    [PROJECT_COLUMN_INDICATOR.NAME]: "",
+    [PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION]: "",
+    [PROJECT_COLUMN_INDICATOR.START_DATE]: "",
+    [PROJECT_COLUMN_INDICATOR.END_DATE]: "",
+    [PROJECT_COLUMN_INDICATOR.LOGO]: "",
+  };
+
+  isEditMode = false;
+
   constructor(props) {
     super(props);
     this.state = {
       files: [],
     };
+
+    this.viewModel = this.props.viewModel;
+
+    this.isEditMode = this.viewModel.editMode === true;
+
+    if (this.isEditMode) {
+      this.populatingFormDataHandler(this.viewModel.projectEditdata);
+    }
   }
+
+  generateFormSetting = () => {
+    console.log("re generate Form Setting");
+    return [
+      {
+        fields: [
+          {
+            label: "Name",
+            key: PROJECT_COLUMN_INDICATOR.NAME,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME] =
+                event.target.value;
+            },
+          },
+          {
+            label: "Start Date",
+            key: PROJECT_COLUMN_INDICATOR.START_DATE,
+            type: FORM_FIELD_TYPE.DATE,
+            value: this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE],
+            required: true,
+            validation: "required",
+            changed: (date) => {
+              this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE] = date;
+            },
+          },
+          {
+            label: "End Date",
+            key: PROJECT_COLUMN_INDICATOR.END_DATE,
+            type: FORM_FIELD_TYPE.DATE,
+            value: this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE],
+            required: true,
+            validation: "required",
+            changed: (date) => {
+              this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] = date;
+            },
+          },
+          {
+            label: "Project Logo",
+            key: PROJECT_COLUMN_INDICATOR.LOGO,
+            type: FORM_FIELD_TYPE.IMAGE,
+            value: this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] =
+                event.target.value;
+            },
+          },
+          {
+            label: "Short description about project",
+            key: PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
+            type: FORM_FIELD_TYPE.TEXTAREA,
+            value: this.formPropsData[
+              PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION
+            ],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] =
+                event.target.value;
+            },
+          },
+        ],
+      },
+    ];
+  };
+
+  populatingFormDataHandler = (data) => {
+    if (!data) return false;
+    this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME] =
+      data[PROJECT_COLUMN_INDICATOR.NAME] ?? "";
+    this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE] =
+      data[PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
+    this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] =
+      data[PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
+    this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] =
+      data[PROJECT_COLUMN_INDICATOR.LOGO] ?? "";
+    this.formPropsData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] =
+      data[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? "";
+  };
 
   onDrop = (files) => {
     this.setState({ files });
@@ -19,79 +121,13 @@ class ProjectForm extends Component {
   render() {
     console.log("[Project - Form] - re-render .........");
 
-    const files = this.state.files.map((file, index) => (
-      <div
-        key={file.name}
-        className="position-absolute position-absolute start-0 top-0 bottom-0 end-0 bg-white"
-      >
-        <img
-          src={URL.createObjectURL(file)}
-          className="w-100 h-100 object-fit-cover"
-        />
-      </div>
-    ));
-
     return (
-      <div>
-        <form>
-          <label className="form-label mb-3" htmlFor="name">
-            <span className="text-black opacity-75">Project name </span>
-            <span className="text-red-1">*</span>
-          </label>
-          <input type="text" className="form-control mb-4" id="name" />
-
-          <label className="form-label mb-3" htmlFor="startdate">
-            <span className="text-black opacity-75">Start date </span>
-            <span className="text-red-1">*</span>
-          </label>
-          <input type="text" className="form-control mb-4" id="startdate" />
-
-          <label className="form-label mb-3" htmlFor="enddate">
-            <span className="text-black opacity-75">End date </span>
-            <span className="text-red-1">*</span>
-          </label>
-          <input type="text" className="form-control mb-4" id="enddate" />
-
-          <label className="form-label mb-3">
-            <span className="text-black opacity-75">Project logo </span>
-          </label>
-          <div className="border-da-1 mb-3">
-            <Dropzone onDrop={this.onDrop}>
-              {({ getRootProps, getInputProps }) => (
-                <div className="position-relative  cursor-pointer">
-                  <div
-                    {...getRootProps()}
-                    className="d-flex align-items-center justify-content-center p-3"
-                  >
-                    <input
-                      {...getInputProps()}
-                      className="position-absolute start-0 top-0 bottom-0 end-0"
-                    />
-                    <div className="d-flex align-items-center p-3">
-                      <i className="fs-1 text-blue-0 opacity-25">
-                        <FontAwesomeIcon icon={faCloudUploadAlt} />
-                      </i>
-                      <div className="text-center ms-1">
-                        <p className="mb-0">Drag and drop a file here </p>
-                        <p className="mb-0">
-                          or <strong>Choose file</strong>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  {files}
-                </div>
-              )}
-            </Dropzone>
-          </div>
-          <label className="form-label mb-3" htmlFor="shortdesc">
-            <span className="text-black opacity-75">
-              Short description about project{" "}
-            </span>
-          </label>
-          <textarea className="form-control mb-4" id="shortdesc" rows={3} />
-        </form>
-      </div>
+      <FormComponent
+        generateFormSetting={() => this.generateFormSetting()}
+        formPropsData={this.formPropsData}
+        viewModel={this.viewModel}
+        key={Math.random(40, 200)}
+      />
     );
   }
 }
