@@ -4,21 +4,19 @@ import { Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import { faCalendarDay } from "@fortawesome/free-solid-svg-icons/faCalendarDay";
 import { faFileExport } from "@fortawesome/free-solid-svg-icons/faFileExport";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 import ModalComponent from "../../components/Modal";
-import CreateProject from "../../components/CreateProject";
 
 import SelectComponent from "../../components/Select";
 import ComponentChart from "../../components/Chart";
-
-
-const optionDay = [
-  { value: "day-1", label: "Day 1" },
-  { value: "day-2", label: "Day 2" },
-  { value: "day-3", label: "Day 3" }
-]
+import ListSocial from "../../components/ListSocial";
+import CampaignsTotalNumber from "../../components/CampaignsTotalNumber";
+import FilterList from "../../components/FilterList";
+import ComponentDatepicker from "../../components/ComponentDatepicker";
+import TableListCampaigns from "../../components/TableListCampaigns";
+import CreateCampaign from "../../components/CreateCampaign";
 
 const optionExport = [
   { value: "day-1", label: "Day 1" },
@@ -26,17 +24,16 @@ const optionExport = [
   { value: "day-3", label: "Day 3" }
 ]
 
-class Projects extends React.Component {
+class CampaignsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      stateDay: null,
       stateExport: null
     };
   }
 
-  _handleShowModal = () => {
+  _handleShowModalCampaign = () => {
     this.setState({
       showModal: true
     })
@@ -51,16 +48,10 @@ class Projects extends React.Component {
   footerModal = () => {
     return (
       <Button className="btn btn-success w-100">
-        <span className="me-2">Create project</span>
+        <span className="me-2">Create campaign</span>
         <i><FontAwesomeIcon icon={faChevronRight} /></i>
       </Button>
     )
-  }
-
-  handleDay = (optionSelected) => {
-    this.setState({
-      stateDay: optionSelected
-    })
   }
 
   handleExport = (optionSelected) => {
@@ -69,31 +60,23 @@ class Projects extends React.Component {
     })
   }
 
+  bodyCreateCampaign = () => {
+    return (
+      <CreateCampaign />
+    )
+  }
+
   render() {
     const { t, i18n } = this.props;
-    let { showModal, stateDay, stateExport } = this.state;
+    let { showModal, stateExport } = this.state;
 
     return (
       <div className="py-4 px-3">
         <div className="d-flex align-items-center justify-content-between mb-3">
           <h2 className="fs-2">Campaigns Statistics</h2>
           <div className="d-flex align-items-center">
-            {/* <a href={void(0)} className="cursor-pointer text-decoration-none btn btn-success" onClick={this._handleShowModal}>
-              <span className="ps-2">Create project</span>
-            </a> */}
-            <div className="d-flex align-items-center border-1 bg-white rounded-2 ps-3 w-180">
-              <i className="text-blue-0"><FontAwesomeIcon icon={faCalendarDay} /></i>
-              <div className="flex-1">
-                <SelectComponent 
-                  value={stateDay}
-                  onChange={this.handleDay}
-                  options={optionDay}
-                  isBorder={false}
-                  placeholder='Last 30 days'
-                  className="text-green"
-                  plColor="rgba(8, 18, 64, 0.8)"
-                />
-              </div>
+            <div className="d-flex align-items-center border-1 bg-white rounded-2 w-180">
+              <ComponentDatepicker />
             </div>
             <div className="d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 w-150 ms-2">
               <i className="text-white"><FontAwesomeIcon icon={faFileExport} /></i>
@@ -110,18 +93,33 @@ class Projects extends React.Component {
             </div>
           </div>
         </div>
-        <div>
+        <div className="mb-4">
           <div className="row">
             <div className="col-6">
               <ComponentChart />
             </div>
-            <div className="col-3">sdfsdf</div>
-            <div className="col-3">sdfsdf sdf asdf ádfe</div>
+            <div className="col-3">
+              <ListSocial />
+            </div>
+            <div className="col-3">
+              <CampaignsTotalNumber />
+            </div>
           </div>
         </div>
+        <div>
+          <div className="d-flex justify-content-between mb-3">
+            <h2 className="fs-2">List Campaigns</h2>
+            <a href={void(0)} className="cursor-pointer text-decoration-none btn btn-success" onClick={this._handleShowModalCampaign}>
+              <i className="text-white"><FontAwesomeIcon icon={faPlus} /></i>
+              <span className="ps-2">Create campaign</span>
+            </a>
+          </div>
+          <FilterList />
+          <TableListCampaigns />
+        </div>
         <ModalComponent
-          header={"Create a new project"}
-          body={() => <CreateProject />}
+          header={"Create Campaign"}
+          body={(this.bodyCreateCampaign())}
           footer={this.footerModal()}
           show={showModal}
           onHide={() => this.handleModalShow(false)}
@@ -131,4 +129,4 @@ class Projects extends React.Component {
   }
 }
 
-export default withTranslation("common")(Projects);
+export default withTranslation("common")(CampaignsPage);

@@ -1,6 +1,19 @@
 import React from "react";
 import Chart from "react-google-charts";
 
+const data = [
+  ['', 'Comments', 'Followers', 'Posts', 'Engagement'],
+  ['Facebook', 1000, 400, 200, 100],
+  ['Youtube', 1170, 460, 250, 800],
+  ['Joomla', 660, 1120, 300, 700],
+  ['Twitter', 1030, 540, 350, 50],
+  ['Pinterest', 1030, 540, 350, 2000],
+  ['Instagram', 1030, 540, 350, 1200],
+  ['Linkedin', 1030, 540, 350, 600],
+]
+
+const colorsLine = ["#4791FF", "#FF2366", "#02BC77", "#FFD950"]
+
 class ComponentChart extends React.Component {
   constructor(props) {
     super(props);
@@ -9,33 +22,56 @@ class ComponentChart extends React.Component {
 
   render() {
     return (
-      <div className="bg-white p-3">
-        <Chart
-          width={'500px'}
-          height={'300px'}
-          chartType="Bar"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ['Year', 'Sales', 'Expenses', 'Profit', 'a'],
-            ['Facebook', 1000, 400, 200, 100],
-            ['Youtube', 1170, 460, 250, 800],
-            ['Joomla', 660, 1120, 300, 700],
-            ['Twitter', 1030, 540, 350, 50],
-            ['Pinterest', 1030, 540, 350, 2000],
-            ['Instagram', 1030, 540, 350, 1200],
-            ['Linkedin', 1030, 540, 350, 600],
-          ]}
-          options={{
-            chart: {
-              title: 'Engagement / Posts Published'
-            },
-            legend: { position: 'bottom' , maxLines: 2},
-            vAxis: {
-              minValue: 0
-            },
-          }}
-          // rootProps={{ 'data-testid': '2' }}
-        />
+      <div className="bg-white shadow-sm rounded-2 h-100">
+        <h6 className="text-blue-0 opacity-75 border-bottom-1 p-3 mb-0">Engagement / Posts Published</h6>
+        <div className="p-3">
+          <Chart
+            width={'100%'}
+            height={'340px'}
+            chartType="ColumnChart"
+            loader={<div>Loading Chart</div>}
+            data={data}
+            options={{
+              chartArea: { 
+                width: '92%',
+                right: 0
+              },
+              color: "red",
+              legend: { 
+                position: "bottom",
+                textStyle: {
+                  color: '#081240',
+                  fontName: 'SVN-Sofia Pro'
+                }
+              },
+              colors: colorsLine,
+              vAxis: {
+                textStyle: {
+                  color: '#081240',
+                  fontName: 'SVN-Sofia Pro'
+                },
+                baselineColor: "#EFEFEF",
+                gridlines: {
+                  color: '#EFEFEF',
+                  zeroLineColor: '#EFEFEF'
+                }
+              },
+              hAxis: {
+                textStyle: {
+                  fontSize: 12,
+                  fontName: 'SVN-Sofia Pro',
+                  color: "#081240"
+                },
+                baselineColor: "#EFEFEF",
+                gridlines: {
+                  color: '#EFEFEF',
+                  zeroLineColor: '#EFEFEF'
+                }
+              }
+            }}
+            rootProps={{ 'data-testid': '2' }}
+          />
+        </div>
       </div>
     );
   }

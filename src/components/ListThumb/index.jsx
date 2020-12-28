@@ -51,47 +51,51 @@ class ListThumb extends React.Component {
     return (
       <div className="bg-white rounded-3">
             <div className="row">
-              <div className="col-3 border-end-1">
-                <div className="input-group mb-0">
-                  <input
-                    type="text"
-                    placeholder="Search your projects"
-                    aria-describedby="button-search"
-                    className="form-control border-end-0 pe-2 border-0"
-                  />
-                  <button
-                    type="button"
-                    id="button-search"
-                    className="btn btn_search border-0 border-start-0 border-gray text-green"
-                  >
-                    <FontAwesomeIcon icon={faSearch} />
-                  </button>
-                </div>
-              </div>
-              <div className="col-2 border-end-1">
-                <SelectComponent 
-                  value={anAction}
-                  onChange={this.handleAnAction}
-                  options={optionAction}
-                  isBorder={false}
-                  placeholder='Choose an action'
-                  className="text-green"
-                  plColor="rgba(8, 18, 64, 0.8)"
-                />
-              </div>
-              <div className="col-2 border-end-1">
-                <div className="d-flex align-items-center">
-                  <i className="text-blue-0"><FontAwesomeIcon icon={faColumns} /></i>
-                  <div className="w-260">
+              <div className="col-7">
+                <div className="row">
+                  <div className="col-6 border-end-1">
+                    <div className="input-group mb-0">
+                      <input
+                        type="text"
+                        placeholder="Search your projects"
+                        aria-describedby="button-search"
+                        className="form-control border-end-0 pe-2 border-0"
+                      />
+                      <button
+                        type="button"
+                        id="button-search"
+                        className="btn btn_search border-0 border-start-0 border-gray text-green"
+                      >
+                        <FontAwesomeIcon icon={faSearch} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-3 border-end-1">
                     <SelectComponent 
-                      value={columns}
-                      onChange={this.handleColumns}
-                      options={optionColumns}
+                      value={anAction}
+                      onChange={this.handleAnAction}
+                      options={optionAction}
                       isBorder={false}
-                      placeholder='Columns'
+                      placeholder='Choose an action'
                       className="text-green"
                       plColor="rgba(8, 18, 64, 0.8)"
                     />
+                  </div>
+                  <div className="col-3 border-end-1">
+                    <div className="d-flex align-items-center">
+                      <i className="text-blue-0"><FontAwesomeIcon icon={faColumns} /></i>
+                      <div className="w-260">
+                        <SelectComponent 
+                          value={columns}
+                          onChange={this.handleColumns}
+                          options={optionColumns}
+                          isBorder={false}
+                          placeholder='Columns'
+                          className="text-green"
+                          plColor="rgba(8, 18, 64, 0.8)"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

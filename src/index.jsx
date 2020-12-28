@@ -15,7 +15,13 @@ const WizardProjectPage = lazy(() => import("./pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("./pages/WizardPage"));
 //const Projects = lazy(() => import("./pages/Projects"));
 const CreateContentPage = lazy(() => import("./pages/CreateContentPage"));
-const Campaigns = lazy(() => import("./pages/Campaigns"));
+const CampaignsPage = lazy(() => import("./pages/CampaignsPage"));
+const WizardPopup = lazy(() => import("./pages/WizardPopup"));
+const ChannelsPage = lazy(() => import("./pages/ChannelsPage"));
+const SocialMediaPage = lazy(() => import("./pages/SocialMediaPage"));
+const CalendarPage = lazy(() => import("./pages/CalendarPage"));
+const PersonasPage = lazy(() => import("./pages/PersonasPage"));
+const ContentPage = lazy(() => import("./pages/ContentPage"));
 
 const Projects = lazy(() => import("./containers/Projects"));
 
@@ -46,7 +52,14 @@ ReactDOM.render(
             <Route exact path="/wizard" component={WizardPage} />
             <Route exact path="/createcontent" component={CreateContentPage} />
             <Route exact path="/projects" component={Projects} />
-            <Route exact path="/campaigns" component={Campaigns} />
+            <Route exact path="/campaigns" component={CampaignsPage} />
+            <Route exact path="/wizard-popup" component={WizardPopup} />
+            <Route exact path="/channels" component={ChannelsPage} />
+            <Route exact path="/social-media" component={SocialMediaPage} />
+            <Route exact path="/calendar" component={CalendarPage} />
+            <Route exact path="/personas" component={PersonasPage} />
+            <Route exact path="/content" component={ContentPage} />
+            
           </Switch>
         </Suspense>
       </App>
