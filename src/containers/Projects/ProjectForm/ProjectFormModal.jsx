@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import ModalComponent from "../../../components/Modal";
+import ProjectForm from "./ProjectForm";
 
 import { observer } from "mobx-react";
 import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
@@ -47,7 +48,7 @@ const ProjectFormModal = observer(
           show={show}
           onHide={this.projectFormModalViewModel.closeModal}
           header={"Create a new project"}
-          body="test"
+          body={<ProjectForm />}
           footer={
             <div>
               <Button onClick={this.saveProjectHandler}>Save</Button>{" "}

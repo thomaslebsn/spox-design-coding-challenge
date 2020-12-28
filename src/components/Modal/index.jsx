@@ -7,7 +7,7 @@ import { Modal } from "react-bootstrap";
 
 class ModalComponent extends React.Component {
   render() {
-    let { header, footer, body, show, onHide, onSave } = this.props;
+    let { header, footer, body, show, onHide } = this.props;
 
     return (
       <>
