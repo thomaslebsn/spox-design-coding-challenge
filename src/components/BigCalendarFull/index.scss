@@ -1,6 +1,23 @@
 @import "~react-big-calendar/lib/css/react-big-calendar.css";
 @import "../../scss/utils/bootstrap.scss";
 
+.rbc-header {
+  border-bottom: 0;
+  padding: 12px 3px;
+  text-transform: uppercase;
+
+  +.rbc-header {
+    border-left: 0;
+  }
+
+  span {
+    &::first-letter {
+      font-size: 200%;
+      color: #8A2BE2;
+    }
+  }
+}
+
 .wrapper_calendar_full {
   .back-next-buttons {
     .btn-today {
@@ -17,12 +34,27 @@
     }
   }
 
+  .rbc-month-view,
+  .rbc-time-view {
+    background-color: $white;
+  }
+
   .rbc-month-view {
     border: 0;
   }
 
-  .rbc-month-header {
+  .rbc-allday-cell {
+
+    .rbc-day-bg {
+      border-left: 0;
+    }
+  }
+
+  .rbc-month-header,
+  .rbc-time-header {
     background-color: $color-blue-6;
+
+
   }
 
   .rbc-day-bg {
@@ -160,25 +192,5 @@
   .rbc-event-content,
   .wrapper_des_event span {
     color: $color-purple;
-  }
-}
-
-.popover {
-  width: 350px;
-  margin-left: 10px !important;
-
-  &:before {
-    content: "";
-    position: absolute;
-    left: -10px;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-top: 7px solid transparent;
-    border-right: 10px solid $color-blue-6;
-    border-bottom: 7px solid transparent;
-    margin-top: auto;
-    margin-bottom: auto;
   }
 }

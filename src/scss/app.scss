@@ -58,6 +58,10 @@ textarea {
   width: 45px;
 }
 
+.w-80 {
+  width: 80px;
+}
+
 .w-98 {
   width: 98px;
 }
@@ -105,6 +109,7 @@ textarea {
       margin-bottom: 0;
       color: rgba($color: $color-blue, $alpha: 0.5);
       position: relative;
+      padding: 1rem;
 
       &:before {
         content: "";
@@ -131,5 +136,33 @@ textarea {
         outline: none;
       }
     }
+  }
+}
+
+.outline-none {
+  &:focus {
+    outline: none;
+  }
+}
+
+//OverlayTrigger
+
+.popover {
+  width: 350px;
+  z-index: 10;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 8px solid $white;
+    border-bottom: 7px solid transparent;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 }

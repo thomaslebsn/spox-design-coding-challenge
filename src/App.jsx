@@ -12,7 +12,9 @@ class App extends React.Component {
       pathName == "/login" ||
       pathName == "/signup" ||
       pathName == "/forgot-password" ||
-      pathName == "/verify";
+      pathName == "/verify" ||
+      pathName == "/wizard-popup"
+      
     return (
       <div className="main-panel">
         <div className="container-fluid">

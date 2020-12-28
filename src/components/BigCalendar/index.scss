@@ -16,23 +16,6 @@
   background-color: $color-blue-4;
 }
 
-.rbc-header {
-  border-bottom: 0;
-  padding: 12px 3px;
-  text-transform: uppercase;
-
-  +.rbc-header {
-    border-left: 0;
-  }
-
-  span {
-    &::first-letter {
-      font-size: 200%;
-      color: #8A2BE2;
-    }
-  }
-}
-
 .rbc-off-range-bg {
   background-color: transparent;
 }

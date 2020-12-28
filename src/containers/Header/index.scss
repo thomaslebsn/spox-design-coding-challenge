@@ -52,6 +52,7 @@
   }
 
   .item_menu {
+
     &.active,
     &:hover {
       .link_menu {
@@ -77,5 +78,15 @@
     background-color: $color-blue-3 !important;
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
+  }
+
+  .item_upgrade {
+    display: none;
+  }
+
+  .link_upgrade {
+    span {
+      display: none;
+    }
   }
 }

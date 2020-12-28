@@ -17,7 +17,7 @@ class ItemComplete extends React.Component {
         <div className="p-3">
           <p className="fw-bold text-blue-3">{value.title}</p>
           <div>
-            <ul className="list-unstyled d-flex align-items-center">
+            <ul className="list-unstyled d-flex align-items-center mb-0 flex-wrap">
               {
                 value.complete.map((item, index) => {
                   return (
