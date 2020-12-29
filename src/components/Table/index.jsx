@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Dropdown } from "react-bootstrap";
 
 import {
   useTable,
@@ -13,40 +14,10 @@ import { useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
-
-import SelectComponent from "../Select";
+import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
 import styles from "./index.module.scss";
-
-const optionColums = [
-  { value: "10", label: "10" },
-  { value: "20", label: "20" },
-  { value: "30", label: "30" },
-  { value: "40", label: "40" },
-  { value: "50", label: "50" },
-];
-
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
-    const resolvedRef = ref || defaultRef;
-
-    useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
-
-    return (
-      <>
-        <input
-          className="form-check-input p-0"
-          type="checkbox"
-          ref={resolvedRef}
-          {...rest}
-        />
-      </>
-    );
-  }
-);
 
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -123,6 +94,28 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
     }
   };
 
+  const IndeterminateCheckbox = React.forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef();
+      const resolvedRef = ref || defaultRef;
+
+      useEffect(() => {
+        resolvedRef.current.indeterminate = indeterminate;
+      }, [resolvedRef, indeterminate]);
+
+      return (
+        <>
+          <input
+            className="form-check-input p-0"
+            type="checkbox"
+            ref={resolvedRef}
+            {...rest}
+          />
+        </>
+      );
+    }
+  );
+
   const columns = useMemo(() => tableRowHeader, [tableRowHeader]);
 
   const data = useMemo(() => rowData, [rowData]);
@@ -137,7 +130,8 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
     visibleColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
-
+    allColumns,
+    getToggleHideAllColumnsProps,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -203,18 +197,40 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
           setGlobalFilter={setGlobalFilter}
         />
 
-        <div className="px-3 border-end-1">
-          <SelectComponent
-            value={pageSize}
-            onChange={(e) => {
-              setPageSize(Number(e.value));
-            }}
-            options={optionColums}
-            isBorder={false}
-            placeholder="Columns"
-            className="text-green w-150"
-            plColor="rgba(8, 18, 64, 0.8)"
-          />
+        <div className="px-2 border-end-1">
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="info"
+              id="actions"
+              className={`btn_toggle ${styles.btn_toggle}`}
+            >
+              <i>
+                <FontAwesomeIcon icon={faColumns} />
+              </i>
+              <span className="ps-2 pe-5 text-blue-0 opacity-75">Columns</span>
+              <i className="text-green">
+                <FontAwesomeIcon icon={faChevronDown} />
+              </i>
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
+              <div className="mb-2">
+                <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
+                <span className="ps-2">All</span>
+              </div>
+              {allColumns.map((column) => (
+                <div key={column.id} className="mb-2">
+                  <label>
+                    <input
+                      type="checkbox"
+                      {...column.getToggleHiddenProps()}
+                      className="form-check-input p-0"
+                    />
+                    <span className="ps-2">{column.id}</span>
+                  </label>
+                </div>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
       <div className="bg-white p-3 rounded-3">

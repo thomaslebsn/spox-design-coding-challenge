@@ -7,3 +7,9 @@
         margin-right: 0;
     }
 }
+
+.btn_toggle {
+    &:after {
+        display: none;
+    }
+}
