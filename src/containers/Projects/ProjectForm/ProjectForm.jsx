@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, lazy } from "react";
 
-import FormComponent from "../../../components/Form";
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
-
 import moment from "moment";
+
+const FormComponent = lazy(() => import("../../../components/Form"));
 
 class ProjectForm extends Component {
   formPropsData = {
