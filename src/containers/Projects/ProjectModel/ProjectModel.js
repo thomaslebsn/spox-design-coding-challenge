@@ -1,6 +1,6 @@
 import { ProjectLeadItemModel } from "./ProjectLeadModel";
 import FIELD_TYPE from "../../../constants/FieldType";
-import { FORMAT_DATE_API } from "../../../constants/FormFieldType";
+import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
 import moment from "moment";
@@ -125,10 +125,10 @@ class ProjectModel {
           name: projectData[PROJECT_COLUMN_INDICATOR.NAME],
           start_date: moment(
             projectData[PROJECT_COLUMN_INDICATOR.START_DATE]
-          ).format(FORMAT_DATE_API),
+          ).format(FORMAT_DATE),
           end_date: moment(
             projectData[PROJECT_COLUMN_INDICATOR.END_DATE]
-          ).format(FORMAT_DATE_API),
+          ).format(FORMAT_DATE),
           logo_url: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
           short_description:
             projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],

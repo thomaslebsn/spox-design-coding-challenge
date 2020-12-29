@@ -4,6 +4,8 @@ import FormComponent from "../../../components/Form";
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
+import moment from "moment";
+
 class ProjectForm extends Component {
   formPropsData = {
     [PROJECT_COLUMN_INDICATOR.NAME]: "",
@@ -48,26 +50,29 @@ class ProjectForm extends Component {
             },
           },
           {
-            label: "Start Date",
-            key: PROJECT_COLUMN_INDICATOR.START_DATE,
-            type: FORM_FIELD_TYPE.DATE,
-            value: this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE],
+            type: FORM_FIELD_TYPE.DATERANGE,
+            startField: {
+              label: "Start Date",
+              key: PROJECT_COLUMN_INDICATOR.START_DATE,
+              value: this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE],
+              changed: (date) => {
+                this.formPropsData[
+                  PROJECT_COLUMN_INDICATOR.START_DATE
+                ] = moment(date).format(FORMAT_DATE);
+              },
+            },
+            endField: {
+              label: "End Date",
+              key: PROJECT_COLUMN_INDICATOR.END_DATE,
+              value: this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE],
+              changed: (date) => {
+                this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] = moment(
+                  date
+                ).format(FORMAT_DATE);
+              },
+            },
             required: true,
             validation: "required",
-            changed: (date) => {
-              this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE] = date;
-            },
-          },
-          {
-            label: "End Date",
-            key: PROJECT_COLUMN_INDICATOR.END_DATE,
-            type: FORM_FIELD_TYPE.DATE,
-            value: this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE],
-            required: true,
-            validation: "required",
-            changed: (date) => {
-              this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] = date;
-            },
           },
           {
             label: "Project Logo",

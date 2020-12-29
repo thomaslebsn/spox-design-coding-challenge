@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 
-import Dropzone from "react-dropzone";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons/faCloudUploadAlt";
-
-import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../constants/FormFieldType";
+import { FORM_FIELD_TYPE } from "../../constants/FormFieldType";
 
 import SimpleReactValidator from "simple-react-validator";
 import { Form } from "react-bootstrap";
 import Label from "./Label";
+import FormDateRangePicker from "./FormDateRangePicker";
+import FormImage from "./FormImage";
 
 class FormComponent extends Component {
   formPropsData = null;
@@ -23,10 +18,6 @@ class FormComponent extends Component {
   constructor(props) {
     console.log("re initialize");
     super(props);
-
-    this.state = {
-      files: [],
-    };
 
     this.isEditMode = props.editMode === true;
     this.validator = new SimpleReactValidator();
@@ -97,29 +88,12 @@ class FormComponent extends Component {
                   </Form.Group>
                 );
 
-              case FORM_FIELD_TYPE.DATE:
+              case FORM_FIELD_TYPE.DATERANGE:
                 return (
-                  <Form.Group key={Math.random(40, 200)} className="mb-4">
-                    <Label
-                      text={field.label}
-                      required={field.required ?? false}
-                    />
-
-                    <DatePicker
-                      value={field.value && new Date(field.value)}
-                      // selected={field.value && new Date(field.value)}
-                      required={field.required ?? false}
-                      onChange={field.changed ?? undefined}
-                    />
-
-                    {field.validation &&
-                      this.validator.message(
-                        field.label,
-                        field.value,
-                        field.validation,
-                        { className: "text-danger" }
-                      )}
-                  </Form.Group>
+                  <FormDateRangePicker
+                    key={Math.random(40, 200)}
+                    field={field}
+                  />
                 );
               case FORM_FIELD_TYPE.IMAGE:
                 return (
@@ -128,55 +102,8 @@ class FormComponent extends Component {
                       text={field.label}
                       required={field.required ?? false}
                     />
-                    <Dropzone onDrop={this.onDrop}>
-                      {({ getRootProps, getInputProps }) => (
-                        <div className="position-relative  cursor-pointer">
-                          <div
-                            {...getRootProps()}
-                            className="d-flex align-items-center justify-content-center p-3"
-                          >
-                            <input
-                              {...getInputProps()}
-                              className="position-absolute start-0 top-0 bottom-0 end-0"
-                            />
-                            <div className="d-flex align-items-center p-3">
-                              <i className="fs-1 text-blue-0 opacity-25">
-                                <FontAwesomeIcon icon={faCloudUploadAlt} />
-                              </i>
-                              <div className="text-center ms-1">
-                                <p className="mb-0">
-                                  Drag and drop a file here{" "}
-                                </p>
-                                <p className="mb-0">
-                                  or <strong>Choose file</strong>
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                          {field.value && (
-                            <div
-                              key={field.value}
-                              className="position-absolute position-absolute start-0 top-0 bottom-0 end-0 bg-white"
-                            >
-                              <img
-                                src={field.value}
-                                className="w-100 h-100 object-fit-cover"
-                                alt={field.value}
-                              />
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </Dropzone>
 
-                    {field.validation
-                      ? this.validator.message(
-                          field.label,
-                          field.value,
-                          field.validation,
-                          { className: "text-danger" }
-                        )
-                      : ""}
+                    <FormImage key={Math.random(40, 200)} field={field} />
                   </Form.Group>
                 );
 

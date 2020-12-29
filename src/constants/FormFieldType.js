@@ -6,9 +6,9 @@ const FORM_FIELD_TYPE = {
   DROPDOWN: 5,
   IMAGE: 6,
   DATE: 7,
+  DATERANGE: 8,
 };
 
-const FORMAT_DATE = "DD/MM/yyyy";
-const FORMAT_DATE_API = "DD/MM/yyyy hh:mm:ss";
+const FORMAT_DATE = "dd/MM/yyyy";
 
-export { FORM_FIELD_TYPE, FORMAT_DATE, FORMAT_DATE_API };
+export { FORM_FIELD_TYPE, FORMAT_DATE };
