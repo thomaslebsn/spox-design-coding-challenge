@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { useTable, usePagination, useRowSelect, useFilters, useGlobalFilter, useAsyncDebounce } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useRowSelect,
+  useFilters,
+  useGlobalFilter,
+  useAsyncDebounce,
+} from "react-table";
 import { useMemo } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,49 +16,54 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 
 import SelectComponent from "../Select";
-import styles from './index.module.scss';
+import styles from "./index.module.scss";
 
 const optionColums = [
   { value: "10", label: "10" },
   { value: "20", label: "20" },
   { value: "30", label: "30" },
   { value: "40", label: "40" },
-  { value: "50", label: "50" }
+  { value: "50", label: "50" },
 ];
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
+    const defaultRef = React.useRef();
+    const resolvedRef = ref || defaultRef;
 
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
+    useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate;
+    }, [resolvedRef, indeterminate]);
 
     return (
       <>
-        <input className="form-check-input p-0" type="checkbox" ref={resolvedRef} {...rest} />
+        <input
+          className="form-check-input p-0"
+          type="checkbox"
+          ref={resolvedRef}
+          {...rest}
+        />
       </>
-    )
+    );
   }
-)
+);
 
 function GlobalFilter({
   preGlobalFilteredRows,
   globalFilter,
   setGlobalFilter,
 }) {
-  const count = preGlobalFilteredRows.length
-  const [value, setValue] = React.useState(globalFilter)
-  const onChange = useAsyncDebounce(value => {
-    setGlobalFilter(value || undefined)
-  }, 200)
+  const count = preGlobalFilteredRows.length;
+  const [value, setValue] = React.useState(globalFilter);
+  const onChange = useAsyncDebounce((value) => {
+    setGlobalFilter(value || undefined);
+  }, 200);
 
   return (
     <span className="d-flex align-items-center position-relative pe-3 border-end-1 w-400">
       <input
         value={value || ""}
-        onChange={e => {
+        onChange={(e) => {
           setValue(e.target.value);
           onChange(e.target.value);
         }}
@@ -62,48 +74,58 @@ function GlobalFilter({
         <FontAwesomeIcon icon={faSearch} />
       </i>
     </span>
-  )
+  );
 }
 
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter },
 }) {
-  const count = preFilteredRows.length
+  const count = preFilteredRows.length;
 
   return (
     <input
-      value={filterValue || ''}
-      onChange={e => {
-        setFilter(e.target.value || undefined)
+      value={filterValue || ""}
+      onChange={(e) => {
+        setFilter(e.target.value || undefined);
       }}
       placeholder={`Search ${count} records...`}
     />
-  )
+  );
 }
 
-function Table({ rowData, tableRowHeader }) {
+function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
   const filterTypes = React.useMemo(
     () => ({
       text: (rows, id, filterValue) => {
-        return rows.filter(row => {
-          const rowValue = row.values[id]
+        return rows.filter((row) => {
+          const rowValue = row.values[id];
           return rowValue !== undefined
             ? String(rowValue)
                 .toLowerCase()
                 .startsWith(String(filterValue).toLowerCase())
-            : true
-        })
+            : true;
+        });
       },
     }),
     []
-  )
+  );
 
   const defaultColumn = React.useMemo(
     () => ({
       Filter: DefaultColumnFilter,
     }),
     []
-  )
+  );
+
+  const handerEdit = (e, row) => {
+    if (e.target.type !== "checkbox") {
+      onEdit(row);
+    }
+  };
+
+  const handerSelect = () => {
+    console.log(JSON.stringify(selectedRowIds));
+  };
 
   const columns = useMemo(() => tableRowHeader, [tableRowHeader]);
 
@@ -137,15 +159,16 @@ function Table({ rowData, tableRowHeader }) {
       data,
       defaultColumn,
       filterTypes,
+      onSelect,
     },
     useFilters,
     useGlobalFilter,
     usePagination,
     useRowSelect,
-    hooks => {
-      hooks.visibleColumns.push(columns => [
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
         {
-          id: 'selection',
+          id: "selection",
           Header: ({ getToggleAllPageRowsSelectedProps }) => (
             <div>
               <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
@@ -158,10 +181,23 @@ function Table({ rowData, tableRowHeader }) {
           ),
         },
         ...columns,
-      ])
+      ]);
     }
   );
-  
+
+  useEffect(() => {
+    const selectedIds = Object.keys(selectedRowIds);
+
+    if (selectedIds.length > 0) {
+      var selectedRowsData = selectedIds
+        .map((x) => data[x])
+        .filter(function (x) {
+          return x != null;
+        });
+      onSelect(selectedRowsData);
+    }
+  }, [selectedRowIds, onSelect, data]);
+
   return (
     <>
       <div className="bg-white rounded-3 mb-4 d-flex align-items-center">
@@ -170,16 +206,16 @@ function Table({ rowData, tableRowHeader }) {
           globalFilter={state.globalFilter}
           setGlobalFilter={setGlobalFilter}
         />
-        
+
         <div className="px-3 border-end-1">
           <SelectComponent
             value={pageSize}
-            onChange={e => {
-              setPageSize(Number(e.value))
+            onChange={(e) => {
+              setPageSize(Number(e.value));
             }}
             options={optionColums}
             isBorder={false}
-            placeholder='Columns'
+            placeholder="Columns"
             className="text-green w-150"
             plColor="rgba(8, 18, 64, 0.8)"
           />
@@ -191,42 +227,64 @@ function Table({ rowData, tableRowHeader }) {
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()} className="bg-blue">
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()} className="fw-normal px-2 py-3">{column.render("Header")}</th>
+                  <th
+                    {...column.getHeaderProps()}
+                    className="fw-normal px-2 py-3"
+                  >
+                    {column.render("Header")}
+                  </th>
                 ))}
               </tr>
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
             {page.map((row, i) => {
-              prepareRow(row)
+              prepareRow(row);
               return (
                 <tr {...row.getRowProps()} className="border-bottom-1">
-                  {row.cells.map(cell => {
-                    return <td {...cell.getCellProps()} className="fw-normal px-2 py-3">{cell.render('Cell')}</td>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        className="fw-normal px-2 py-3"
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    );
                   })}
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
         <div className="pagination d-flex align-items-center justify-content-center">
-          <button onClick={() => previousPage()} disabled={!canPreviousPage} className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}>
+          <button
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+            className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+          >
             <FontAwesomeIcon icon={faChevronLeft} />
-          </button>{' '}
-          {
-            pageOptions.map((item, key) => {
-              return (
-                <button 
-                  key={key} 
-                  onClick={() => gotoPage(item)} 
-                  className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${item === state.pageIndex ? "bg-green text-white border-green" : "text-black-50"}`}
-                >
-                  {item + 1}
-                </button>
-              )
-            })
-          }
-          <button onClick={() => nextPage()} disabled={!canNextPage} className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}>
+          </button>{" "}
+          {pageOptions.map((item, key) => {
+            return (
+              <button
+                key={key}
+                onClick={() => gotoPage(item)}
+                className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
+                  item === state.pageIndex
+                    ? "bg-green text-white border-green"
+                    : "text-black-50"
+                }`}
+              >
+                {item + 1}
+              </button>
+            );
+          })}
+          <button
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+            className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+          >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>
@@ -237,12 +295,12 @@ function Table({ rowData, tableRowHeader }) {
 
 // Define a custom filter filter function!
 function filterGreaterThan(rows, id, filterValue) {
-  return rows.filter(row => {
-    const rowValue = row.values[id]
-    return rowValue >= filterValue
-  })
+  return rows.filter((row) => {
+    const rowValue = row.values[id];
+    return rowValue >= filterValue;
+  });
 }
 
-filterGreaterThan.autoRemove = val => typeof val !== 'number'
+filterGreaterThan.autoRemove = (val) => typeof val !== "number";
 
 export default Table;

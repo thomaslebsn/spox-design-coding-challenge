@@ -16,16 +16,38 @@ const ProjectsList = observer(
       const { viewModel } = props;
       console.log("ProjectList - Debug View Model");
       console.log(viewModel);
-      this.projectListViewModel =
-        viewModel ? viewModel.getProjectListViewModel() : null;
+      this.projectListViewModel = viewModel
+        ? viewModel.getProjectListViewModel()
+        : null;
 
       console.log("After binding class");
-      console.log(this.projectListViewModel);  
+      console.log(this.projectListViewModel);
+
+      this.projectFormModalViewModel = viewModel
+        ? viewModel.getProjectFormModalViewModel()
+        : null;
     }
 
     componentDidMount() {
       this.projectListViewModel.initializeData();
     }
+
+    handerEditProject = (row) => {
+      this.projectFormModalViewModel.setData(row);
+      this.projectFormModalViewModel.openModal();
+    };
+
+    handerSelectProject = (data) => {
+      this.projectListViewModel.projectIdsSelected = data
+        .map((item) => {
+          console.log("Debug An Item");
+          console.log(item);
+          return item.id;
+        })
+        .reduce((arr, el) => {
+          return arr.concat(el);
+        }, []);
+    };
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
@@ -34,11 +56,18 @@ const ProjectsList = observer(
         tableStatus,
         projects,
       } = this.projectListViewModel;
-      // console.log(projects);
+      console.log(projects);
       return tableStatus === PAGE_STATUS.LOADING ? (
         <div>Load</div>
       ) : (
-        <Table rowData={projects} tableRowHeader={tableRowHeader}></Table>
+        <div className="bg-white p-3 rounded-3">
+          <Table
+            rowData={projects}
+            tableRowHeader={tableRowHeader}
+            onEdit={this.handerEditProject}
+            onSelect={this.handerSelectProject}
+          ></Table>
+        </div>
       );
     }
   }

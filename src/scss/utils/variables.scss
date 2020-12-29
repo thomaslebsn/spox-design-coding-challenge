@@ -1,5 +1,5 @@
 //FONT
-$font-family-sans-serif: "SVN-Sofia Pro" !default;
+$font-family-sans-serif: "SVN-Sofia Pro", sans-serif !default;
 
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
@@ -14,7 +14,8 @@ $gray-900: #212529 !default;
 $black: #000 !default;
 
 // fusv-disable
-$grays: ("100": $gray-100,
+$grays: (
+  "100": $gray-100,
   "200": $gray-200,
   "300": $gray-300,
   "400": $gray-400,
@@ -38,7 +39,8 @@ $teal: #20c997 !default;
 $cyan: #0dcaf0 !default;
 
 // scss-docs-start colors-map
-$colors: ("blue": $blue,
+$colors: (
+  "blue": $blue,
   "indigo": $indigo,
   "purple": $purple,
   "pink": $pink,
@@ -57,14 +59,15 @@ $colors: ("blue": $blue,
 $primary: $blue !default;
 $secondary: $gray-600 !default;
 $success: $green !default;
-$info: $cyan !default;
+$info: $white !default;
 $warning: $yellow !default;
 $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $gray-900 !default;
 
 // scss-docs-start theme-colors-map
-$theme-colors: ("primary": $primary,
+$theme-colors: (
+  "primary": $primary,
   "secondary": $secondary,
   "success": $success,
   "info": $info,
@@ -113,7 +116,8 @@ $h7-font-size: $font-size-base * 0.75 !default;
 $h8-font-size: $font-size-base * 0.875 !default;
 
 // scss-docs-start font-sizes
-$font-sizes: (1: $h1-font-size,
+$font-sizes: (
+  1: $h1-font-size,
   2: $h2-font-size,
   3: $h3-font-size,
   4: $h4-font-size,
@@ -130,7 +134,8 @@ $font-sizes: (1: $h1-font-size,
 // Define common padding and border radius sizes and more.
 
 $border-width: 1px !default;
-$border-widths: (0: 0,
+$border-widths: (
+  0: 0,
   1: 1px,
   2: 2px,
   3: 3px,
@@ -159,22 +164,20 @@ $color: #3c3c3c;
 //MAIN COLOR RED
 $color-red: #c60202;
 $color-red-2: #ef373780 !default;
-$color-red-3: #D30011 !default;
-$color-red-4: #FF2366 !default;
+$color-red-3: #d30011 !default;
+$color-red-4: #ff2366 !default;
 
-$color-pink: #8D25A8 !default;
+$color-pink: #8d25a8 !default;
 
 $color-green-2: #7ce7ac75 !default;
-$color-green-3: #39B67A !default;
+$color-green-3: #39b67a !default;
 
-$color-orange: #F24F29 !default;
+$color-orange: #f24f29 !default;
 
 $color-gray: #616161 !default;
-$color-gray-2: #F2F2F2 !default;
+$color-gray-2: #f2f2f2 !default;
 
-
-
-$color-purple: #4052B3 !default;
+$color-purple: #4052b3 !default;
 
 //MAIN COLOR BLUE
 $color-blue: #081240;
@@ -183,8 +186,8 @@ $color-blue-2: #00acee;
 $color-blue-3: #005f89;
 $color-blue-4: #f5f8fa;
 $color-blue-5: #e8f1f6;
-$color-blue-6: #DCE6EB;
-$color-blue-7: #199CE3;
+$color-blue-6: #dce6eb;
+$color-blue-7: #199ce3;
 
 //BORDER COLOR
 $border-color: #d5d5d5;

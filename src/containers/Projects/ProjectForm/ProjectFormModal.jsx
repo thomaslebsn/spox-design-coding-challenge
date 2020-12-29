@@ -25,15 +25,7 @@ const ProjectFormModal = observer(
     }
 
     saveProjectHandler = () => {
-      //Validate Form
-      //Form Valid
-      const isFormValid = true;
-      if (isFormValid) {
-        //Call projectFormModalViewModel.saveProject
-        this.projectFormModalViewModel.saveOnModal();
-      } else {
-        // Fail => show Error
-      }
+      this.projectFormModalViewModel.saveOnModal();
     };
 
     cancelSavingHandler = () => {
@@ -48,13 +40,9 @@ const ProjectFormModal = observer(
           show={show}
           onHide={this.projectFormModalViewModel.closeModal}
           header={"Create a new project"}
-          body={<ProjectForm />}
-          footer={
-            <div>
-              <Button onClick={this.saveProjectHandler}>Save</Button>{" "}
-              <Button onClick={this.cancelSavingHandler}>Cancel</Button>
-            </div>
-          }
+          body={<ProjectForm viewModel={this.projectFormModalViewModel} />}
+          footer={<Button onClick={this.saveProjectHandler}>Save</Button>}
+          key={Math.random(40, 200)}
         />
       );
     }

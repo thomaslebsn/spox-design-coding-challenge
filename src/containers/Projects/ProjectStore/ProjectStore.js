@@ -1,17 +1,16 @@
 import React from "react";
-import {
-  makeAutoObservable,
-  runInAction
-} from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
+import ProjectModel from "../ProjectModel/ProjectModel";
 
-const projects = [{
+let projects = [
+  {
     id: 1,
-    name: "Marketing Vietnam Suntory PepsiCo1",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    name: "Marketing ",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -26,8 +25,8 @@ const projects = [{
   {
     id: 2,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -42,8 +41,8 @@ const projects = [{
   {
     id: 3,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -58,8 +57,8 @@ const projects = [{
   {
     id: 4,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -74,8 +73,8 @@ const projects = [{
   {
     id: 5,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -90,8 +89,8 @@ const projects = [{
   {
     id: 6,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -106,8 +105,8 @@ const projects = [{
   {
     id: 7,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -122,8 +121,8 @@ const projects = [{
   {
     id: 8,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -138,8 +137,8 @@ const projects = [{
   {
     id: 9,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -154,8 +153,8 @@ const projects = [{
   {
     id: 10,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -170,8 +169,8 @@ const projects = [{
   {
     id: 11,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
+    start_date: "2020-10-13 06:08:06",
+    end_date: "2020-12-13 06:08:06",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -181,24 +180,8 @@ const projects = [{
     },
     created_date: "20/09/2020",
     list_modified_date: "20/09/2020",
-    progress: 75,
+    progress: 35,
   },
-  {
-    id: 12,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "31/08/2020",
-    end_date: "20/09/2020",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
-    project_lead: {
-      id: 12,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "20/09/2020",
-    list_modified_date: "20/09/2020",
-    progress: 45,
-  }
 ];
 
 export default class ProjectStore {
@@ -227,10 +210,17 @@ export default class ProjectStore {
     }
   }
 
-  async saveProject(callbackOnSuccess, callbackOnError) {
+  async saveProject(projectData, callbackOnSuccess, callbackOnError) {
     try {
       console.log("Saving Project via call web service lib function");
-      const resultOnSave = true;
+      console.log(projectData);
+
+      const convertedProjectData = ProjectModel.convertSubmittedDataToAPIService(
+        projectData
+      );
+
+      const resultOnSave = await projects.push(convertedProjectData);
+
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess();
@@ -239,6 +229,48 @@ export default class ProjectStore {
         runInAction(() => {
           callbackOnError({
             message: "Something went wrong from Server response",
+          });
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async deleteProjects(ids, callbackOnSuccess, callbackOnError) {
+    if (!ids) return false;
+
+    try {
+      const results = true;
+
+      projects = projects.filter(function (e) {
+        return ids.indexOf(e.id) === -1;
+      });
+
+      if (results) {
+        const repondedDataFromLibrary = projects;
+        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
+          repondedDataFromLibrary
+        );
+
+        if (projectDataModels) {
+          runInAction(() => {
+            callbackOnSuccess(projectDataModels);
+          });
+        } else {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        }
+
+        console.log(`Deleting Project ids: ${ids}`);
+        console.log(results);
+        runInAction(() => {
+          runInAction(() => {
+            callbackOnSuccess();
           });
         });
       }
