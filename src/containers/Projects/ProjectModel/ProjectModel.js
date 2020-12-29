@@ -1,4 +1,5 @@
 import { ProjectLeadModel } from "./ProjectLeadModel";
+import { ProjectNameModel } from "./ProjectNameModel";
 import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
@@ -15,7 +16,11 @@ class ProjectModel {
     this.progress = data.progress ?? 0;
     this.shortDescription = data.short_description ?? "";
 
-    this.projectName = data;
+    this.projectName =
+      data.name && data.logo_url
+        ? new ProjectNameModel(data.name && data.logo_url)
+        : null;
+
     this.projectLead = data.project_lead
       ? new ProjectLeadModel(data.project_lead)
       : null;
@@ -37,7 +42,7 @@ class ProjectModel {
 
   getName = () => {
     return {
-      value: this.name,
+      value: this.projectName,
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.NAME,
       columnText: "Name",

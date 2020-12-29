@@ -72,10 +72,10 @@ class ProjectsListViewModel {
           Header: "End Date",
           accessor: PROJECT_COLUMN_INDICATOR.END_DATE,
         },
-        {
-          Header: "Lead",
-          accessor: PROJECT_COLUMN_INDICATOR.LEAD,
-        },
+        // {
+        //   Header: "Lead",
+        //   accessor: PROJECT_COLUMN_INDICATOR.LEAD,
+        // },
         {
           Header: "Progress",
           accessor: PROJECT_COLUMN_INDICATOR.PROGRESS,
