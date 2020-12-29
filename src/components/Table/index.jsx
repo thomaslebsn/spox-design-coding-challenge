@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   useTable,
@@ -16,7 +16,7 @@ const IndeterminateCheckbox = React.forwardRef(
     const defaultRef = React.useRef();
     const resolvedRef = ref || defaultRef;
 
-    React.useEffect(() => {
+    useEffect(() => {
       resolvedRef.current.indeterminate = indeterminate;
     }, [resolvedRef, indeterminate]);
 
@@ -79,7 +79,7 @@ function DefaultColumnFilter({
   );
 }
 
-function Table({ rowData, tableRowHeader, onEdit }) {
+function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
   const filterTypes = React.useMemo(
     () => ({
       text: (rows, id, filterValue) => {
@@ -102,6 +102,16 @@ function Table({ rowData, tableRowHeader, onEdit }) {
     }),
     []
   );
+
+  const handerEdit = (e, row) => {
+    if (e.target.type !== "checkbox") {
+      onEdit(row);
+    }
+  };
+
+  const handerSelect = () => {
+    console.log(JSON.stringify(selectedRowIds));
+  };
 
   const columns = useMemo(() => tableRowHeader, [tableRowHeader]);
 
@@ -135,6 +145,7 @@ function Table({ rowData, tableRowHeader, onEdit }) {
       data,
       defaultColumn,
       filterTypes,
+      onSelect,
     },
     useFilters,
     useGlobalFilter,
@@ -159,6 +170,19 @@ function Table({ rowData, tableRowHeader, onEdit }) {
       ]);
     }
   );
+
+  useEffect(() => {
+    const selectedIds = Object.keys(selectedRowIds);
+
+    if (selectedIds.length > 0) {
+      var selectedRowsData = selectedIds
+        .map((x) => data[x])
+        .filter(function (x) {
+          return x != null;
+        });
+      onSelect(selectedRowsData);
+    }
+  }, [selectedRowIds, onSelect, data]);
 
   return (
     <>
@@ -191,7 +215,7 @@ function Table({ rowData, tableRowHeader, onEdit }) {
               <tr
                 {...row.getRowProps()}
                 className="border-bottom-1"
-                onClick={() => onEdit(row.original)}
+                onClick={(e) => handerEdit(e, row.original)}
               >
                 {row.cells.map((cell) => {
                   return (

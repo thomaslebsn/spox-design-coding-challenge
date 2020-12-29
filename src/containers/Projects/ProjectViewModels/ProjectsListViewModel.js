@@ -1,11 +1,7 @@
-import {
-  makeAutoObservable
-} from "mobx";
+import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
-import {
-  PROJECT_COLUMN_INDICATOR
-} from "../../../constants/ProjectModule";
+import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 class ProjectsListViewModel {
   projectStore = null;
 
@@ -14,6 +10,8 @@ class ProjectsListViewModel {
   tableRowHeader = null;
 
   tableStatus = PAGE_STATUS.LOADING;
+
+  projectIdsSelected = null;
 
   constructor(projectStore) {
     makeAutoObservable(this);
@@ -36,17 +34,29 @@ class ProjectsListViewModel {
     );
   };
 
+  deleteProjects = () => {
+    this.tableStatus = PAGE_STATUS.LOADING;
+
+    this.projectStore.deleteProjects(
+      this.projectIdsSelected,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander
+    );
+  };
+
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
     alert(error);
   };
+
   callbackOnSuccessHandler = (projectModelData) => {
     console.log("callbackOnSuccessHandler");
     console.log(projectModelData);
     if (projectModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-      this.tableRowHeader = [{
+      this.tableRowHeader = [
+        {
           Header: "Project Name",
           accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
         },

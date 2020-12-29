@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import DatePicker from "react-datepicker";
 import { Form } from "react-bootstrap";
 
@@ -13,10 +14,10 @@ const FormDateRangePicker = ({ field }) => {
   let { startField, endField } = field;
 
   const [startDate, setStartDate] = useState(
-    startField.value && new Date(startField.value)
+    startField.original && new Date(startField.original)
   );
   const [endDate, setEndDate] = useState(
-    endField.value && new Date(endField.value)
+    endField.original && new Date(endField.original)
   );
 
   return (

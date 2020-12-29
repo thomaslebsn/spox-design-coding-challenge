@@ -55,7 +55,8 @@ class ProjectModel {
 
   getStartDate = () => {
     return {
-      value: this.startdate,
+      value: moment(this.startdate).format(FORMAT_DATE),
+      original: this.startdate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.START_DATE,
       columnText: "Start Date",
@@ -64,7 +65,8 @@ class ProjectModel {
 
   getEndDate = () => {
     return {
-      value: this.enddate,
+      value: moment(this.enddate).format(FORMAT_DATE),
+      original: this.enddate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.END_DATE,
       columnText: "End Date",

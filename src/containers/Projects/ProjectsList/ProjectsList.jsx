@@ -37,6 +37,18 @@ const ProjectsList = observer(
       this.projectFormModalViewModel.openModal();
     };
 
+    handerSelectProject = (data) => {
+      this.projectListViewModel.projectIdsSelected = data
+        .map((item) => {
+          console.log("Debug An Item");
+          console.log(item);
+          return item.id;
+        })
+        .reduce((arr, el) => {
+          return arr.concat(el);
+        }, []);
+    };
+
     render() {
       console.log("[Quick Edit Product] - re-render .........");
       const {
@@ -53,6 +65,7 @@ const ProjectsList = observer(
             rowData={projects}
             tableRowHeader={tableRowHeader}
             onEdit={this.handerEditProject}
+            onSelect={this.handerSelectProject}
           ></Table>
         </div>
       );
