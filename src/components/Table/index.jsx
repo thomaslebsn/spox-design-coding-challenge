@@ -17,6 +17,8 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
+import { faList } from "@fortawesome/free-solid-svg-icons/faList";
+import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
 import styles from "./index.module.scss";
 
 function GlobalFilter({
@@ -64,7 +66,14 @@ function DefaultColumnFilter({
   );
 }
 
-function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
+function Table({
+  rowData,
+  tableRowHeader,
+  onEdit,
+  onSelect,
+  isList,
+  _handleList,
+}) {
   const filterTypes = React.useMemo(
     () => ({
       text: (rows, id, filterValue) => {
@@ -190,47 +199,77 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
 
   return (
     <>
-      <div className="bg-white rounded-3 mb-4 d-flex align-items-center">
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-
-        <div className="px-2 border-end-1">
-          <Dropdown>
-            <Dropdown.Toggle
-              variant="info"
-              id="actions"
-              className={`btn_toggle ${styles.btn_toggle}`}
-            >
-              <i>
-                <FontAwesomeIcon icon={faColumns} />
-              </i>
-              <span className="ps-2 pe-5 text-blue-0 opacity-75">Columns</span>
-              <i className="text-green">
-                <FontAwesomeIcon icon={faChevronDown} />
-              </i>
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
-              <div className="mb-2">
-                <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
-                <span className="ps-2">All</span>
-              </div>
-              {allColumns.map((column) => (
-                <div key={column.id} className="mb-2">
-                  <label>
-                    <input
-                      type="checkbox"
-                      {...column.getToggleHiddenProps()}
-                      className="form-check-input p-0"
-                    />
-                    <span className="ps-2">{column.id}</span>
-                  </label>
+      <div className="bg-white rounded-3 mb-4 d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center">
+          <GlobalFilter
+            preGlobalFilteredRows={preGlobalFilteredRows}
+            globalFilter={state.globalFilter}
+            setGlobalFilter={setGlobalFilter}
+          />
+          <div className="px-2 border-end-1">
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="info"
+                id="actions"
+                className={`btn_toggle ${styles.btn_toggle}`}
+              >
+                <i>
+                  <FontAwesomeIcon icon={faColumns} />
+                </i>
+                <span className="ps-2 pe-5 text-blue-0 opacity-75">
+                  Columns
+                </span>
+                <i className="text-green">
+                  <FontAwesomeIcon icon={faChevronDown} />
+                </i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
+                <div className="mb-2">
+                  <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
+                  <span className="ps-2">All</span>
                 </div>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+                {allColumns.map((column) => (
+                  <div key={column.id} className="mb-2">
+                    <label>
+                      <input
+                        type="checkbox"
+                        {...column.getToggleHiddenProps()}
+                        className="form-check-input p-0"
+                      />
+                      <span className="ps-2">{column.id}</span>
+                    </label>
+                  </div>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div className="d-flex align-items-center">
+          <button
+            type="button"
+            className={`btn text-blue-0 rounded-0 px-4 ${
+              isList ? "bg-blue-3" : ""
+            }`}
+            onClick={_handleList}
+          >
+            <i>
+              <FontAwesomeIcon icon={faList} />
+            </i>
+            <span className="ms-2 opacity-75">List</span>
+          </button>
+          <button
+            type="button"
+            className={`btn text-blue-0 rounded-0 px-4 ${
+              !isList ? "bg-blue-3" : ""
+            }`}
+            onClick={_handleList}
+          >
+            <i>
+              <FontAwesomeIcon icon={faTh} />
+            </i>
+            <span className="ms-2 opacity-75">Thumb</span>
+          </button>
         </div>
       </div>
       <div className="bg-white p-3 rounded-3">
