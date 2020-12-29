@@ -44,15 +44,17 @@ const ProjectsList = observer(
         tableStatus,
         projects,
       } = this.projectListViewModel;
-      // console.log(projects);
+      console.log(projects);
       return tableStatus === PAGE_STATUS.LOADING ? (
         <div>Load</div>
       ) : (
-        <Table
-          rowData={projects}
-          tableRowHeader={tableRowHeader}
-          onEdit={this.handerEditProject}
-        ></Table>
+        <div className="bg-white p-3 rounded-3">
+          <Table
+            rowData={projects}
+            tableRowHeader={tableRowHeader}
+            onEdit={this.handerEditProject}
+          ></Table>
+        </div>
       );
     }
   }

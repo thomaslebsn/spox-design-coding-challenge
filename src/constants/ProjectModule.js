@@ -4,8 +4,11 @@ const PROJECT_COLUMN_INDICATOR = {
   SHORT_DESCRIPTION: "shortDescription",
   START_DATE: "startDate",
   END_DATE: "endDate",
+  LEAD: "lead",
   PROGRESS: "progress",
   LOGO: "logo",
 };
 
-export { PROJECT_COLUMN_INDICATOR };
+export {
+  PROJECT_COLUMN_INDICATOR
+};

@@ -1,4 +1,4 @@
-import { ProjectLeadItemModel } from "./ProjectLeadModel";
+import { ProjectLeadModel } from "./ProjectLeadModel";
 import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
@@ -15,12 +15,9 @@ class ProjectModel {
     this.progress = data.progress ?? 0;
     this.shortDescription = data.short_description ?? "";
 
-    this.projectLeadItemModel = data.project_lead
-      ? new ProjectLeadItemModel(data.project_lead)
-      : null;
-
-    this.projectLead = this.projectLeadItemModel
-      ? this.projectLeadItemModel.toDropdownOption()
+    this.projectName = data;
+    this.projectLead = data.project_lead
+      ? new ProjectLeadModel(data.project_lead)
       : null;
 
     this.createDate = data.createDate ?? "";
@@ -94,8 +91,10 @@ class ProjectModel {
 
   getLead = () => {
     return {
-      value: this.projectLead,
-      type: FIELD_TYPE.MULTIPLE_SELECTION,
+      value: this.projectLead.getName(),
+      type: FIELD_TYPE.TEXT,
+      columnName: PROJECT_COLUMN_INDICATOR.LEAD,
+      columnText: "Lead",
     };
   };
 
@@ -105,8 +104,9 @@ class ProjectModel {
       shortDescription = this.getShortDescription(),
       startdate = this.getStartDate(),
       enddate = this.getEndDate(),
-      progress = this.getProgress(),
-      logo = this.getLogoUrl();
+      logo = this.getLogoUrl(),
+      lead = this.getLead(),
+      progress = this.getProgress();
 
     return {
       [id.columnName]: id.value,
@@ -114,6 +114,7 @@ class ProjectModel {
       [shortDescription.columnName]: shortDescription.value,
       [startdate.columnName]: startdate.value,
       [enddate.columnName]: enddate.value,
+      [lead.columnName]: lead.value,
       [progress.columnName]: progress.value,
       [logo.columnName]: logo.value,
     };

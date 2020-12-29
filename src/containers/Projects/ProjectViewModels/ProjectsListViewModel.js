@@ -1,7 +1,11 @@
-import { makeAutoObservable } from "mobx";
+import {
+  makeAutoObservable
+} from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
-import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
+import {
+  PROJECT_COLUMN_INDICATOR
+} from "../../../constants/ProjectModule";
 class ProjectsListViewModel {
   projectStore = null;
 
@@ -42,9 +46,8 @@ class ProjectsListViewModel {
     console.log(projectModelData);
     if (projectModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-      this.tableRowHeader = [
-        {
-          Header: "Name",
+      this.tableRowHeader = [{
+          Header: "Project Name",
           accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
         },
         {
@@ -58,6 +61,10 @@ class ProjectsListViewModel {
         {
           Header: "End Date",
           accessor: PROJECT_COLUMN_INDICATOR.END_DATE,
+        },
+        {
+          Header: "Lead",
+          accessor: PROJECT_COLUMN_INDICATOR.LEAD,
         },
         {
           Header: "Progress",
