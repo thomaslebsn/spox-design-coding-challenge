@@ -123,10 +123,6 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
     }
   };
 
-  const handerSelect = () => {
-    console.log(JSON.stringify(selectedRowIds));
-  };
-
   const columns = useMemo(() => tableRowHeader, [tableRowHeader]);
 
   const data = useMemo(() => rowData, [rowData]);
@@ -241,7 +237,11 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()} className="border-bottom-1">
+                <tr
+                  {...row.getRowProps()}
+                  className="border-bottom-1"
+                  onClick={(e) => handerEdit(e, row.original)}
+                >
                   {row.cells.map((cell) => {
                     return (
                       <td
