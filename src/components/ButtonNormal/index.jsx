@@ -9,7 +9,7 @@ class ButtonNormal extends React.Component {
     let { icon, text, onClick, className } = this.props;
 
     if (className == undefined) {
-      className = "btn-success w-100";
+      className = "btn-success";
     }
 
     return (

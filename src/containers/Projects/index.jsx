@@ -16,8 +16,13 @@ function Projects() {
   return (
     <Layout>
       <ProjectViewModelContextProvider viewModel={projectViewModel}>
-        <ProjectActionBar />
-        <ProjectsList />
+        <div className="py-4 px-3">
+          <div className="d-flex align-items-center justify-content-between mb-4">
+            <h2 className="text-blue-0">Projects</h2>
+            <ProjectActionBar />
+          </div>
+          <ProjectsList />
+        </div>
       </ProjectViewModelContextProvider>
     </Layout>
   );

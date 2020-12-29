@@ -1,18 +1,24 @@
 import React from "react";
-import { makeAutoObservable, runInAction } from "mobx";
+import {
+  makeAutoObservable,
+  runInAction
+} from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
 
-const projects = [
-  {
+const projects = [{
     id: 1,
     name: "Marketing Vietnam Suntory PepsiCo1",
     start_date: "31/08/2020",
     end_date: "20/09/2020",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
-    project_lead: 1,
+    project_lead: {
+      id: 1,
+      name: "Ponnappa Priya",
+      avatar_url: "/assets/images/avatar-5.png",
+    },
     created_date: "20/09/2020",
     list_modified_date: "20/09/2020",
     progress: 70,
@@ -24,24 +30,159 @@ const projects = [
     end_date: "20/09/2020",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
-    project_lead: 1,
+    project_lead: {
+      id: 2,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
     created_date: "20/09/2020",
     list_modified_date: "20/09/2020",
-    progress: 70,
-  },
-];
-
-const leads = [
-  {
-    id: 1,
-    name: "Ponnappa Priya",
-    avatar_url: "/assets/images/avatar-5.png",
+    progress: 90,
   },
   {
-    id: 2,
-    name: "Natalie Lee-Walsh",
-    avatar_url: "/assets/images/avatar-4.png",
+    id: 3,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 3,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 40,
   },
+  {
+    id: 4,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 4,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 60,
+  },
+  {
+    id: 5,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 5,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 30,
+  },
+  {
+    id: 6,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 6,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 55,
+  },
+  {
+    id: 7,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 7,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 75,
+  },
+  {
+    id: 8,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 8,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 80,
+  },
+  {
+    id: 9,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 9,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 10,
+  },
+  {
+    id: 10,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 10,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 20,
+  },
+  {
+    id: 11,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 11,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 35,
+  }
 ];
 
 export default class ProjectStore {
