@@ -181,7 +181,23 @@ const projects = [{
     },
     created_date: "20/09/2020",
     list_modified_date: "20/09/2020",
-    progress: 35,
+    progress: 75,
+  },
+  {
+    id: 12,
+    name: "Marketing Vietnam Suntory PepsiCo2",
+    start_date: "31/08/2020",
+    end_date: "20/09/2020",
+    logo_url: "/assets/images/icon-pepsi.png",
+    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
+    project_lead: {
+      id: 12,
+      name: "Natalie Lee-Walsh",
+      avatar_url: "/assets/images/avatar-4.png",
+    },
+    created_date: "20/09/2020",
+    list_modified_date: "20/09/2020",
+    progress: 45,
   }
 ];
 

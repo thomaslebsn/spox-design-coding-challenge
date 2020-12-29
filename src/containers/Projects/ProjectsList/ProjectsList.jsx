@@ -38,9 +38,7 @@ const ProjectsList = observer(
       return tableStatus === PAGE_STATUS.LOADING ? (
         <div>Load</div>
       ) : (
-        <div className="bg-white p-3 rounded-3">
-          <Table rowData={projects} tableRowHeader={tableRowHeader}></Table>
-        </div>
+        <Table rowData={projects} tableRowHeader={tableRowHeader}></Table>
       );
     }
   }

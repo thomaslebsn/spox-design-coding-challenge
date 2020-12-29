@@ -1,8 +1,23 @@
 import React from "react";
 
 import { useTable, usePagination, useRowSelect, useFilters, useGlobalFilter, useAsyncDebounce } from "react-table";
-import BTable from 'react-bootstrap/Table';
 import { useMemo } from "react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
+
+import SelectComponent from "../Select";
+import styles from './index.module.scss';
+
+const optionColums = [
+  { value: "10", label: "10" },
+  { value: "20", label: "20" },
+  { value: "30", label: "30" },
+  { value: "40", label: "40" },
+  { value: "50", label: "50" }
+];
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -33,20 +48,19 @@ function GlobalFilter({
   }, 200)
 
   return (
-    <span>
-      Search:{' '}
+    <span className="d-flex align-items-center position-relative pe-3 border-end-1 w-400">
       <input
         value={value || ""}
         onChange={e => {
           setValue(e.target.value);
           onChange(e.target.value);
         }}
-        placeholder={`${count} records...`}
-        style={{
-          fontSize: '1.1rem',
-          border: '0',
-        }}
+        placeholder={`Search your projects`}
+        className="form-control border-end-0 pe-2 border-0 pe-4"
       />
+      <i className="text-green position-absolute top-0 bottom-0 end-0 pe-4 d-flex align-items-center">
+        <FontAwesomeIcon icon={faSearch} />
+      </i>
     </span>
   )
 }
@@ -150,81 +164,72 @@ function Table({ rowData, tableRowHeader }) {
   
   return (
     <>
-    <div>
-      <GlobalFilter
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        globalFilter={state.globalFilter}
-        setGlobalFilter={setGlobalFilter}
-      />
-    </div>
-      <BTable striped {...getTableProps()} className="w-100 mb-4">
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()} className="bg-blue">
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()} className="fw-normal px-2 py-3">{column.render("Header")}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row)
-            return (
-              <tr {...row.getRowProps()} className="border-bottom-1">
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()} className="fw-normal px-2 py-3">{cell.render('Cell')}</td>
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </BTable>
-      <div className="pagination">
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        {
-          pageOptions.map((item, key) => {
-            return (
-              <button key={key} onClick={() => gotoPage(page)}>{item + 1}</button>
-            )
-          })
-        }
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <span>
-          Page{' '}
-          
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
+      <div className="bg-white rounded-3 mb-4 d-flex align-items-center">
+        <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+        
+        <div className="px-3 border-end-1">
+          <SelectComponent
+            value={pageSize}
             onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
+              setPageSize(Number(e.value))
             }}
-            style={{ width: '100px' }}
+            options={optionColums}
+            isBorder={false}
+            placeholder='Columns'
+            className="text-green w-150"
+            plColor="rgba(8, 18, 64, 0.8)"
           />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value))
-          }}
-        >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+        </div>
+      </div>
+      <div className="bg-white p-3 rounded-3">
+        <table {...getTableProps()} className="w-100 mb-4">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()} className="bg-blue">
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()} className="fw-normal px-2 py-3">{column.render("Header")}</th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, i) => {
+              prepareRow(row)
+              return (
+                <tr {...row.getRowProps()} className="border-bottom-1">
+                  {row.cells.map(cell => {
+                    return <td {...cell.getCellProps()} className="fw-normal px-2 py-3">{cell.render('Cell')}</td>
+                  })}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        <div className="pagination d-flex align-items-center justify-content-center">
+          <button onClick={() => previousPage()} disabled={!canPreviousPage} className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}>
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>{' '}
+          {
+            pageOptions.map((item, key) => {
+              return (
+                <button 
+                  key={key} 
+                  onClick={() => gotoPage(item)} 
+                  className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${item === state.pageIndex ? "bg-green text-white border-green" : "text-black-50"}`}
+                >
+                  {item + 1}
+                </button>
+              )
+            })
+          }
+          <button onClick={() => nextPage()} disabled={!canNextPage} className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
       </div>
     </>
   );
