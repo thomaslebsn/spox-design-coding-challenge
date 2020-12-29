@@ -1,5 +1,6 @@
 import { ProjectLeadModel } from "./ProjectLeadModel";
 import { ProjectNameModel } from "./ProjectNameModel";
+import { ProgressModel } from "./ProgressModel";
 import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
@@ -13,17 +14,16 @@ class ProjectModel {
     this.logoUrl = data.logo_url ?? "";
     this.startdate = data.start_date ?? "";
     this.enddate = data.end_date ?? "";
-    this.progress = data.progress ?? 0;
     this.shortDescription = data.short_description ?? "";
 
     this.projectName =
-      data.name && data.logo_url
-        ? new ProjectNameModel(data.name && data.logo_url)
-        : null;
+      data.name && data.logo_url ? new ProjectNameModel(data) : null;
 
     this.projectLead = data.project_lead
       ? new ProjectLeadModel(data.project_lead)
       : null;
+
+    this.progress = data.progress ? new ProgressModel(data) : 0;
 
     this.createDate = data.createDate ?? "";
     this.lastModifiedDate = data.last_modified_date ?? "";
@@ -42,7 +42,7 @@ class ProjectModel {
 
   getName = () => {
     return {
-      value: this.projectName,
+      value: this.projectName.getProjectName(),
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.NAME,
       columnText: "Name",
@@ -80,7 +80,7 @@ class ProjectModel {
 
   getProgress = () => {
     return {
-      value: this.progress,
+      value: this.progress.getProgress(),
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.PROGRESS,
       columnText: "Progress",
