@@ -41,7 +41,7 @@ class ProjectActionBar extends Component {
 
     return (
       <div className="d-flex justify-content-end">
-        <Dropdown>
+        <Dropdown className="me-3">
           <Dropdown.Toggle variant="info" id="actions">
             Choose an action
           </Dropdown.Toggle>

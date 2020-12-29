@@ -60,10 +60,10 @@ class ProjectsListViewModel {
           Header: "Project Name",
           accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
         },
-        {
-          Header: "Logo",
-          accessor: PROJECT_COLUMN_INDICATOR.LOGO,
-        },
+        // {
+        //   Header: "Logo",
+        //   accessor: PROJECT_COLUMN_INDICATOR.LOGO,
+        // },
         {
           Header: "Start Date",
           accessor: PROJECT_COLUMN_INDICATOR.START_DATE,
