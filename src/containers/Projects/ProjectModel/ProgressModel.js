@@ -16,7 +16,7 @@ class ProgressModel {
             style={{ height: "5px" }}
             className="bg-green rounded-2 fs-14"
           />
-          <span className="fs-12 text-blue-0 opacity-75 position-absolute start-0 end-0 bottom-0 text-center pb-2">
+          <span className="fs-12 text-blue-0 opacity-75 position-absolute start-0 end-0 bottom-0 text-center pb-2 mb-0">
             {this.progress}%
           </span>
         </ProgressBar>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 
 import {
@@ -66,14 +66,12 @@ function DefaultColumnFilter({
   );
 }
 
-function Table({
-  rowData,
-  tableRowHeader,
-  onEdit,
-  onSelect,
-  isList,
-  _handleList,
-}) {
+function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
+  const [getState, setState] = useState({
+    isList: true,
+    isName: "list",
+  });
+
   const filterTypes = React.useMemo(
     () => ({
       text: (rows, id, filterValue) => {
@@ -197,6 +195,13 @@ function Table({
     }
   }, [selectedRowIds, onSelect, data]);
 
+  const _handleList = (name) => {
+    setState({
+      ...getState,
+      isList: getState.isName === name ? true : false,
+    });
+  };
+
   return (
     <>
       <div className="bg-white rounded-3 mb-4 d-flex align-items-center justify-content-between">
@@ -249,9 +254,9 @@ function Table({
           <button
             type="button"
             className={`btn text-blue-0 rounded-0 px-4 ${
-              isList ? "bg-blue-3" : ""
+              getState.isList ? "bg-blue-3" : ""
             }`}
-            onClick={_handleList}
+            onClick={() => _handleList("list")}
           >
             <i>
               <FontAwesomeIcon icon={faList} />
@@ -261,9 +266,9 @@ function Table({
           <button
             type="button"
             className={`btn text-blue-0 rounded-0 px-4 ${
-              !isList ? "bg-blue-3" : ""
+              !getState.isList ? "bg-blue-3" : ""
             }`}
-            onClick={_handleList}
+            onClick={() => _handleList("thumb")}
           >
             <i>
               <FontAwesomeIcon icon={faTh} />
@@ -272,78 +277,132 @@ function Table({
           </button>
         </div>
       </div>
-      <div className="bg-white p-3 rounded-3">
-        <table {...getTableProps()} className="w-100 mb-4">
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()} className="bg-blue">
-                {headerGroup.headers.map((column) => (
-                  <th
-                    {...column.getHeaderProps()}
-                    className="fw-normal px-2 py-3"
+      {getState.isList ? (
+        <div className="bg-white p-3 rounded-3">
+          <table {...getTableProps()} className="w-100 mb-4">
+            <thead>
+              {headerGroups.map((headerGroup) => {
+                let arrayHeadersFilter = headerGroup.headers.filter(
+                  (item) =>
+                    item !== headerGroup.headers[2] &&
+                    item !== headerGroup.headers[6]
+                );
+                return (
+                  <tr
+                    {...headerGroup.getHeaderGroupProps()}
+                    className="bg-blue"
                   >
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row, i) => {
-              prepareRow(row);
+                    {arrayHeadersFilter.map((column) => {
+                      return (
+                        <th
+                          {...column.getHeaderProps()}
+                          className="fw-normal px-2 py-3 flex-1"
+                        >
+                          {column.render("Header")}
+                        </th>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, i) => {
+                prepareRow(row);
+                let arrayCells = row.cells.filter(
+                  (item) => item !== row.cells[2] && item !== row.cells[6]
+                );
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    className="border-bottom-1"
+                    onClick={(e) => handerEdit(e, row.original)}
+                  >
+                    {arrayCells.map((cell) => {
+                      return (
+                        <td
+                          {...cell.getCellProps()}
+                          className="fw-normal px-2 py-3"
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div className="pagination d-flex align-items-center justify-content-center">
+            <button
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+              className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>{" "}
+            {pageOptions.map((item, key) => {
               return (
-                <tr
-                  {...row.getRowProps()}
-                  className="border-bottom-1"
-                  onClick={(e) => handerEdit(e, row.original)}
+                <button
+                  key={key}
+                  onClick={() => gotoPage(item)}
+                  className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
+                    item === state.pageIndex
+                      ? "bg-green text-white border-green"
+                      : "text-black-50"
+                  }`}
                 >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        className="fw-normal px-2 py-3"
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
+                  {item + 1}
+                </button>
               );
             })}
-          </tbody>
-        </table>
-        <div className="pagination d-flex align-items-center justify-content-center">
-          <button
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-            className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-          >
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </button>{" "}
-          {pageOptions.map((item, key) => {
+            <button
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div {...getTableBodyProps()} className="row">
+          {page.map((row, i) => {
+            prepareRow(row);
+            let arrayCells = row.cells.filter(
+              (item) =>
+                item !== row.cells[0] &&
+                item !== row.cells[3] &&
+                item !== row.cells[4]
+            );
+
             return (
-              <button
-                key={key}
-                onClick={() => gotoPage(item)}
-                className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
-                  item === state.pageIndex
-                    ? "bg-green text-white border-green"
-                    : "text-black-50"
-                }`}
-              >
-                {item + 1}
-              </button>
+              <>
+                {arrayCells.length > 0 && (
+                  <div
+                    {...row.getRowProps()}
+                    className={`col_thumb ${styles.col_thumb} col-3 mb-4`}
+                    onClick={(e) => handerEdit(e, row.original)}
+                  >
+                    <div className="bg-white shadow-sm h-100 p-3 rounded-2">
+                      {arrayCells.map((cell) => {
+                        return (
+                          <div
+                            {...cell.getCellProps()}
+                            className={`ct_cell ${styles.ct_cell} d-block`}
+                          >
+                            {cell.render("Cell")}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </>
             );
           })}
-          <button
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-            className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-          >
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
         </div>
-      </div>
+      )}
     </>
   );
 }
