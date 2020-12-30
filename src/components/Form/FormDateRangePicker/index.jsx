@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, lazy } from "react";
 
-import DatePicker from "react-datepicker";
 import { Form } from "react-bootstrap";
 
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
@@ -10,14 +9,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../ComponentDatepicker/index.scss";
 import "./index.scss";
 
+const DatePicker = lazy(() => import("react-datepicker"));
+
 const FormDateRangePicker = ({ field }) => {
   let { startField, endField } = field;
 
+  console.log(startField);
+
   const [startDate, setStartDate] = useState(
-    startField.original && new Date(startField.original)
+    startField.value && new Date(startField.value)
   );
   const [endDate, setEndDate] = useState(
-    endField.original && new Date(endField.original)
+    endField.value && new Date(endField.value)
   );
 
   return (

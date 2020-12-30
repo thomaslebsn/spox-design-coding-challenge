@@ -1,12 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, lazy } from "react";
 
 import { FORM_FIELD_TYPE } from "../../constants/FormFieldType";
 
 import SimpleReactValidator from "simple-react-validator";
 import { Form } from "react-bootstrap";
 import Label from "./Label";
-import FormDateRangePicker from "./FormDateRangePicker";
-import FormImage from "./FormImage";
+
+const FormDateRangePicker = lazy(() => import("./FormDateRangePicker"));
+const FormImage = lazy(() => import("./FormImage"));
 
 class FormComponent extends Component {
   formPropsData = null;

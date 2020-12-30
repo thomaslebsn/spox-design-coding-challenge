@@ -5,7 +5,7 @@ import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
-import moment from "moment";
+import { format } from "date-fns";
 
 class ProjectModel {
   constructor(data) {
@@ -42,7 +42,7 @@ class ProjectModel {
 
   getName = () => {
     return {
-      value: this.projectName.getProjectName(),
+      value: this.name,
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.NAME,
       columnText: "Name",
@@ -60,7 +60,7 @@ class ProjectModel {
 
   getStartDate = () => {
     return {
-      value: moment(this.startdate).format(FORMAT_DATE),
+      value: format(new Date(this.startdate), FORMAT_DATE),
       original: this.startdate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.START_DATE,
@@ -70,7 +70,7 @@ class ProjectModel {
 
   getEndDate = () => {
     return {
-      value: moment(this.enddate).format(FORMAT_DATE),
+      value: format(new Date(this.enddate), FORMAT_DATE),
       original: this.enddate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.END_DATE,
@@ -107,7 +107,7 @@ class ProjectModel {
 
   getCreateDate = () => {
     return {
-      value: moment(this.createdate).format(FORMAT_DATE),
+      value: format(new Date(this.createdate), FORMAT_DATE),
       original: this.createdate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
@@ -128,7 +128,7 @@ class ProjectModel {
 
     return {
       [id.columnName]: id.value,
-      [name.columnName]: name.value,
+      [name.columnName]: this.projectName.getProjectName(),
       [shortDescription.columnName]: shortDescription.value,
       [startdate.columnName]: startdate.value,
       [enddate.columnName]: enddate.value,
@@ -143,18 +143,12 @@ class ProjectModel {
     const result = projectData
       ? {
           name: projectData[PROJECT_COLUMN_INDICATOR.NAME],
-          start_date: moment(
-            projectData[PROJECT_COLUMN_INDICATOR.START_DATE]
-          ).format(FORMAT_DATE),
-          end_date: moment(
-            projectData[PROJECT_COLUMN_INDICATOR.END_DATE]
-          ).format(FORMAT_DATE),
+          start_date: projectData[PROJECT_COLUMN_INDICATOR.START_DATE],
+          end_date: projectData[PROJECT_COLUMN_INDICATOR.END_DATE],
           logo_url: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
           short_description:
             projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],
-          created_date: moment(
-            projectData[PROJECT_COLUMN_INDICATOR.CREATED_DATE]
-          ).format(FORMAT_DATE),
+          created_date: projectData[PROJECT_COLUMN_INDICATOR.CREATED_DATE],
         }
       : null;
     return result;

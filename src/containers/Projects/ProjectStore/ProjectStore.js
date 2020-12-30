@@ -26,8 +26,8 @@ let projects = [
   {
     id: 2,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description:
       "Embrace the adventure that life offers, whist making a difference in the world.",
@@ -110,8 +110,8 @@ let projects = [
   {
     id: 7,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description:
       "McDonald's Corporation is an American fast food company, founded in 1940 as a restaurant operated by Richard and Maurice McDonald,",
@@ -144,8 +144,8 @@ let projects = [
   {
     id: 9,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description:
       "Phasellus scelerisque commodo nunc, sit amet blandit est tincidunt vitae.",
@@ -161,8 +161,8 @@ let projects = [
   {
     id: 10,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description:
       "Donec at maximus nulla, ac molestie purus. Aliquam nunc lacus, lobortis ut placerat eu, suscipit at erat. Sed at mi diam. Sed aliquam diam ac",
@@ -178,8 +178,8 @@ let projects = [
   {
     id: 11,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description:
       "Donec at maximus nulla, ac molestie purus. Aliquam nunc lacus, lobortis ut placerat eu, suscipit at erat. Sed at mi diam. Sed aliquam diam ac",
@@ -277,12 +277,40 @@ export default class ProjectStore {
         }
 
         console.log(`Deleting Project ids: ${ids}`);
-        console.log(results);
-        runInAction(() => {
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getProject(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const results = true;
+
+      const editProject = projects.filter(function (e) {
+        return id === e.id;
+      });
+
+      if (results) {
+        const repondedDataFromLibrary = editProject;
+        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
+          repondedDataFromLibrary
+        );
+
+        if (projectDataModels) {
           runInAction(() => {
-            callbackOnSuccess();
+            callbackOnSuccess(projectDataModels);
           });
-        });
+        } else {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        }
       }
     } catch (error) {
       console.log(error);

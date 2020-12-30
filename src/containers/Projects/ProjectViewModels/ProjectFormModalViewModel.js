@@ -22,9 +22,18 @@ class ProjectFormModalViewModel {
     this.projectFormComponent = projectFormComponent;
   };
 
-  setData = (data) => {
+  setEditProject = (data) => {
     this.editMode = true;
     this.projectEditdata = data;
+  };
+
+  getProject = (id) => {
+    this.editMode = true;
+    this.projectStore.getProject(
+      id,
+      this.setEditProject,
+      this.callbackOnErrorHander
+    );
   };
 
   openModal = () => {

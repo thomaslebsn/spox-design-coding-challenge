@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-
-import ModalComponent from "../../../components/Modal";
-import ProjectForm from "./ProjectForm";
+import React, { Component, lazy } from "react";
 
 import { observer } from "mobx-react";
 import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
 import { Button } from "react-bootstrap";
+
+const ModalComponent = lazy(() => import("../../../components/Modal"));
+const ProjectForm = lazy(() => import("./ProjectForm"));
 
 const ProjectFormModal = observer(
   class ProjectFormModal extends Component {

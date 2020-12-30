@@ -34,7 +34,7 @@ const ProjectsList = observer(
     }
 
     handerEditProject = (row) => {
-      this.projectFormModalViewModel.setData(row);
+      this.projectFormModalViewModel.getProject(row.id);
       this.projectFormModalViewModel.openModal();
     };
 

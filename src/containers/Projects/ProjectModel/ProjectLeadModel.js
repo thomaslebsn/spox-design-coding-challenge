@@ -1,3 +1,5 @@
+import React from "react";
+
 class ProjectLeadModel {
   constructor(data) {
     this.id = data.id ?? null;
@@ -11,10 +13,8 @@ class ProjectLeadModel {
         <img src={this.avatarUrl} className="img-avatar me-2" />
         {this.name}
       </>
-    )
-  }
+    );
+  };
 }
 
-export {
-  ProjectLeadModel
-};
+export { ProjectLeadModel };

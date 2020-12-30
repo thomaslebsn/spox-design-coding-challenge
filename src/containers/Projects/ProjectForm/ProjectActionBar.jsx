@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, lazy } from "react";
 
 import ButtonNormal from "../../../components/ButtonNormal";
 
-import ProjectFormModal from "./ProjectFormModal";
 import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
 import { Dropdown } from "react-bootstrap";
+
+const ProjectFormModal = lazy(() => import("./ProjectFormModal"));
 
 class ProjectActionBar extends Component {
   projectFormModalViewModel = null;

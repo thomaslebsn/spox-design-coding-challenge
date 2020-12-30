@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
+import Spinner from "./components/Spinner";
+
 const HomePage = lazy(() => import("./pages/Homepage"));
 
 const Signuppage = lazy(() => import("./pages/Signuppage"));
@@ -32,13 +34,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Router history={history}>
       <App>
-        <Suspense
-          fallback={
-            <div className="position-fixed top-50 start-50 translate-middle">
-              <div className="spinner-border" role="status"></div>
-            </div>
-          }
-        >
+        <Suspense fallback={<Spinner />}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
