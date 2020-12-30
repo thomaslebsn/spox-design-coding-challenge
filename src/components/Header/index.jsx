@@ -7,9 +7,9 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCi
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 
 import "./index.scss";
-import Notifications from "../../components/Notifications";
-import DropdownAvatar from "../../components/DropdownAvatar";
-import AllProjects from "../../components/AllProjects";
+import Notifications from "../Notifications";
+import DropdownAvatar from "../DropdownAvatar";
+import AllProjects from "../AllProjects";
 
 class Header extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class Header extends React.Component {
         </div>
         <div className="content_header h-80 border-start-1 flex-1 d-flex align-items-center ps-4 pr-4 position-relative">
           <a
-            href={void(0)} 
+            href={void 0}
             className="
               item_collap 
               d-flex 

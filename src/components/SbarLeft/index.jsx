@@ -4,7 +4,7 @@ import { withTranslation } from "react-i18next";
 import "./index.scss";
 import Menu from "../Menu";
 import Menu2 from "../Menu2";
-import Upgrade from "../../components/Upgrade";
+import Upgrade from "../Upgrade";
 
 class SbarLeft extends React.Component {
   constructor(props) {

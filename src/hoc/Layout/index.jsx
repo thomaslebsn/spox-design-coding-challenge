@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import Aux from "../Aux/Aux";
-import Header from "../../containers/Header";
-import SbarLeft from "../../containers/SbarLeft";
+import Header from "../../components/Header";
+import SbarLeft from "../../components/SbarLeft";
 
 class Layout extends Component {
   render() {
