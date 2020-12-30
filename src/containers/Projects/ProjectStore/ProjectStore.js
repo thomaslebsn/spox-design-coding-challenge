@@ -9,8 +9,8 @@ let projects = [
   {
     id: 1,
     name: "Marketing ",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -25,8 +25,8 @@ let projects = [
   {
     id: 2,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -41,8 +41,8 @@ let projects = [
   {
     id: 3,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -57,8 +57,8 @@ let projects = [
   {
     id: 4,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -73,8 +73,8 @@ let projects = [
   {
     id: 5,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -89,8 +89,8 @@ let projects = [
   {
     id: 6,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -105,8 +105,8 @@ let projects = [
   {
     id: 7,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -121,8 +121,8 @@ let projects = [
   {
     id: 8,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -137,8 +137,8 @@ let projects = [
   {
     id: 9,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -153,8 +153,8 @@ let projects = [
   {
     id: 10,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -169,8 +169,8 @@ let projects = [
   {
     id: 11,
     name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
+    start_date: "2020-10-13",
+    end_date: "2020-12-13",
     logo_url: "/assets/images/icon-pepsi.png",
     short_description: "short_description Marketing Vietnam Suntory PepsiCo",
     project_lead: {
@@ -267,12 +267,40 @@ export default class ProjectStore {
         }
 
         console.log(`Deleting Project ids: ${ids}`);
-        console.log(results);
-        runInAction(() => {
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getProject(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const results = true;
+
+      const editProject = projects.filter(function (e) {
+        return id === e.id;
+      });
+
+      if (results) {
+        const repondedDataFromLibrary = editProject;
+        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
+          repondedDataFromLibrary
+        );
+
+        if (projectDataModels) {
           runInAction(() => {
-            callbackOnSuccess();
+            callbackOnSuccess(projectDataModels);
           });
-        });
+        } else {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        }
       }
     } catch (error) {
       console.log(error);

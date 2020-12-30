@@ -2,7 +2,8 @@ import React, { Component, lazy } from "react";
 
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
-import moment from "moment";
+
+import { format } from "date-fns";
 
 const FormComponent = lazy(() => import("../../../components/Form"));
 
@@ -28,7 +29,7 @@ class ProjectForm extends Component {
     this.isEditMode = this.viewModel.editMode === true;
 
     if (this.isEditMode) {
-      this.populatingFormDataHandler(this.viewModel.projectEditdata);
+      this.populatingFormDataHandler(this.viewModel.projectEditdata[0]);
     }
   }
 
@@ -56,9 +57,7 @@ class ProjectForm extends Component {
               key: PROJECT_COLUMN_INDICATOR.START_DATE,
               value: this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE],
               changed: (date) => {
-                this.formPropsData[
-                  PROJECT_COLUMN_INDICATOR.START_DATE
-                ] = moment(date).format(FORMAT_DATE);
+                this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE] = date;
               },
             },
             endField: {
@@ -66,9 +65,7 @@ class ProjectForm extends Component {
               key: PROJECT_COLUMN_INDICATOR.END_DATE,
               value: this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE],
               changed: (date) => {
-                this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] = moment(
-                  date
-                ).format(FORMAT_DATE);
+                this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] = date;
               },
             },
             required: true,
@@ -107,16 +104,17 @@ class ProjectForm extends Component {
 
   populatingFormDataHandler = (data) => {
     if (!data) return false;
-    this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME] =
-      data[PROJECT_COLUMN_INDICATOR.NAME] ?? "";
-    this.formPropsData[PROJECT_COLUMN_INDICATOR.START_DATE] =
-      data[PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
-    this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] =
-      data[PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
-    this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] =
-      data[PROJECT_COLUMN_INDICATOR.LOGO] ?? "";
-    this.formPropsData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] =
-      data[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? "";
+    this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME] = data.getName().value;
+    this.formPropsData[
+      PROJECT_COLUMN_INDICATOR.START_DATE
+    ] = data.getStartDate().original;
+    this.formPropsData[
+      PROJECT_COLUMN_INDICATOR.END_DATE
+    ] = data.getEndDate().original;
+    this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] = data.getLogoUrl().value;
+    this.formPropsData[
+      PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION
+    ] = data.getShortDescription().value;
   };
 
   onDrop = (files) => {

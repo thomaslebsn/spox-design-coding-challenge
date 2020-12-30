@@ -14,11 +14,13 @@ const DatePicker = lazy(() => import("react-datepicker"));
 const FormDateRangePicker = ({ field }) => {
   let { startField, endField } = field;
 
+  console.log(startField);
+
   const [startDate, setStartDate] = useState(
-    startField.original && new Date(startField.original)
+    startField.value && new Date(startField.value)
   );
   const [endDate, setEndDate] = useState(
-    endField.original && new Date(endField.original)
+    endField.value && new Date(endField.value)
   );
 
   return (
