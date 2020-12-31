@@ -9,7 +9,7 @@ const WizardProjectPage = lazy(() => import("../pages/WizardProjectPage"));
 const WizardPage = lazy(() => import("../pages/WizardPage"));
 
 const CreateContentPage = lazy(() => import("../pages/CreateContentPage"));
-const CampaignsPage = lazy(() => import("../pages/CampaignsPage"));
+// const CampaignsPage = lazy(() => import("../pages/CampaignsPage"));
 const WizardPopup = lazy(() => import("../pages/WizardPopup"));
 const ChannelsPage = lazy(() => import("../pages/ChannelsPage"));
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
@@ -19,6 +19,7 @@ const ContentPage = lazy(() => import("../pages/ContentPage"));
 const Projects = lazy(() => import("../containers/Projects"));
 const LoginPage = lazy(() => import("../containers/LoginPage"));
 const PersonasPage = lazy(() => import("../containers/PersonasPage"));
+const CampaignsPage = lazy(() => import("../containers/CampaignsPage"));
 
 const routes = [
   {

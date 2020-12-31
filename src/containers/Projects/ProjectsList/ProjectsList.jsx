@@ -67,6 +67,11 @@ const ProjectsList = observer(
           onEdit={this.handerEditProject}
           onSelect={this.handerSelectProject}
           isProject={true}
+          dataList={[
+            PROJECT_COLUMN_INDICATOR.CREATED_DATE,
+            PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
+          ]}
+          dataThumb=""
         ></Table>
       );
     }
