@@ -4,7 +4,7 @@ import { withTranslation } from "react-i18next";
 import TitleAccount from "../../components/TitlePageAccount";
 
 import "./index.scss";
-import Layout from "../../hoc/Layout";
+
 import Line from "../../components/Line";
 import ButtonNormal from "../../components/ButtonNormal";
 import Checkbox from "../../components/Checkbox";

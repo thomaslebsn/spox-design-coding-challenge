@@ -8,7 +8,6 @@ import Line from "../../components/Line";
 import ButtonNormal from "../../components/ButtonNormal";
 import BannerLeft from "../../components/BannerLeft";
 import Social from "../../components/Social";
-import Layout from "../../hoc/Layout";
 
 const options = [
   { value: "chocolate", label: "Chocolate" },
@@ -50,71 +49,65 @@ class Signuppage extends React.Component {
     const { t, i18n } = this.props;
     let { selectedOption } = this.state;
     return (
-      <Layout fullPage={true}>
-        <div className="row">
-          <div className="col-4 bg-primary p-0">
-            <BannerLeft dataSlider={dataSlider} />
-          </div>
-          <div className="col-8 d-flex flex-column justify-content-center align-items-center">
-            <div className="d-block">
-              <TitleAccount
-                title={t("txt_welcome_to_our_easii")}
-                title_below={t("txt_sign_up_to_getting_started")}
+      <div className="row">
+        <div className="col-4 bg-primary p-0">
+          <BannerLeft dataSlider={dataSlider} />
+        </div>
+        <div className="col-8 d-flex flex-column justify-content-center align-items-center">
+          <div className="d-block">
+            <TitleAccount
+              title={t("txt_welcome_to_our_easii")}
+              title_below={t("txt_sign_up_to_getting_started")}
+            />
+            <Social />
+            <Line text={t("txt_or_register_with")} />
+
+            <form>
+              <label className="form-label mb-3" htmlFor="username">
+                {t("txt_username")} <span>*</span>
+              </label>
+              <input type="text" className="form-control mb-4" id="username" />
+
+              <label className="form-label mb-3" htmlFor="email">
+                {t("txt_email")} <span>*</span>
+              </label>
+              <input type="email" className="form-control mb-4" id="email" />
+
+              <label className="form-label mb-3" htmlFor="password">
+                {t("txt_password")} <span>*</span>
+              </label>
+              <input
+                type="password"
+                className="form-control mb-4"
+                id="password"
               />
-              <Social />
-              <Line text={t("txt_or_register_with")} />
 
-              <form>
-                <label className="form-label mb-3" htmlFor="username">
-                  {t("txt_username")} <span>*</span>
-                </label>
-                <input
-                  type="text"
-                  className="form-control mb-4"
-                  id="username"
-                />
+              <label className="form-label mb-3">
+                {t("txt_what_is_the_main_thing_you_want_to_manage")}
+              </label>
 
-                <label className="form-label mb-3" htmlFor="email">
-                  {t("txt_email")} <span>*</span>
-                </label>
-                <input type="email" className="form-control mb-4" id="email" />
+              <Select
+                className="mb-4"
+                value={selectedOption}
+                onChange={this.handleChange}
+                options={options}
+              />
 
-                <label className="form-label mb-3" htmlFor="password">
-                  {t("txt_password")} <span>*</span>
-                </label>
-                <input
-                  type="password"
-                  className="form-control mb-4"
-                  id="password"
-                />
+              <ButtonNormal text="Sign up" />
 
-                <label className="form-label mb-3">
-                  {t("txt_what_is_the_main_thing_you_want_to_manage")}
-                </label>
+              <div className="mt-3">
+                {t("txt_you_agree_to_our")}{" "}
+                <a href="#">{t("txt_terms_of_service")} </a> {t("txt_and")}{" "}
+                <a href="#">{t("txt_privacy_policy")}</a>.
+              </div>
 
-                <Select
-                  className="mb-4"
-                  value={selectedOption}
-                  onChange={this.handleChange}
-                  options={options}
-                />
-
-                <ButtonNormal text="Sign up" />
-
-                <div className="mt-3">
-                  {t("txt_you_agree_to_our")}{" "}
-                  <a href="#">{t("txt_terms_of_service")} </a> {t("txt_and")}{" "}
-                  <a href="#">{t("txt_privacy_policy")}</a>.
-                </div>
-
-                <a href="/login" className="d-flex justify-content-center mt-4">
-                  {t("txt_already_have_an_account")}
-                </a>
-              </form>
-            </div>
+              <a href="/login" className="d-flex justify-content-center mt-4">
+                {t("txt_already_have_an_account")}
+              </a>
+            </form>
           </div>
         </div>
-      </Layout>
+      </div>
     );
   }
 }

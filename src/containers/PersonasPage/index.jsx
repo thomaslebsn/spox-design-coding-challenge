@@ -4,7 +4,7 @@ import PersonaActionBar from "./PersonaForm/PersonaActionBar";
 import PersonaStore from "./PersonaStore/PersonaStore";
 import PersonaViewModel from "./PersonaViewModels/PersonaViewModel";
 import { PersonaViewModelContextProvider } from "./PersonaViewModels/PersonaViewModelContextProvider";
-import Layout from "../../hoc/Layout";
+
 
 const PersonaFormPage = lazy(() => import("./PersonaForm/PersonaFormPage"));
 const PersonasList = lazy(() => import("./PersonasList/PersonasList"));

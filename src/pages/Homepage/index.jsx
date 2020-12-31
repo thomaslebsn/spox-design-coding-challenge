@@ -13,7 +13,6 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import BigCalendarFull from "../../components/BigCalendarFull";
-import Layout from "../../hoc/Layout";
 
 class HomePage extends React.Component {
   constructor(props) {
