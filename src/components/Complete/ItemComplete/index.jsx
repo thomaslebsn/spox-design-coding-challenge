@@ -2,7 +2,6 @@ import React from "react";
 import { ProgressBar } from "react-bootstrap";
 
 import "../index.scss";
-import styles from "../index.module.scss";
 
 class ItemComplete extends React.Component {
   constructor(props) {
@@ -45,7 +44,7 @@ class ItemComplete extends React.Component {
             </ul>
           </div>
         </div>
-        <ProgressBar className={`progress ${styles.progress}`}>
+        <ProgressBar className={`progress`}>
           {value.complete.map((item, index) => {
             return (
               <ProgressBar
