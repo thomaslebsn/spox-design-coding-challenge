@@ -14,11 +14,11 @@ const WizardPopup = lazy(() => import("../pages/WizardPopup"));
 const ChannelsPage = lazy(() => import("../pages/ChannelsPage"));
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
 const CalendarPage = lazy(() => import("../pages/CalendarPage"));
-const ContentPage = lazy(() => import("../pages/ContentPage"));
 
 const Projects = lazy(() => import("../containers/Projects"));
 const LoginPage = lazy(() => import("../containers/LoginPage"));
 const PersonasPage = lazy(() => import("../containers/PersonasPage"));
+const ContentPage = lazy(() => import("../containers/ContentPage"));
 
 const authRoutes = [
   {
@@ -103,8 +103,8 @@ const mainRoutes = [
     ),
   },
   {
-    path: "/content",
-    exact: false,
+    path: ["/content", "/content/create", "/content/edit/:id"],
+    exact: true,
     main: ({ match, location }) => (
       <ContentPage match={match} location={location} />
     ),
