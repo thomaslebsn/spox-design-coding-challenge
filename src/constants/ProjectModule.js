@@ -7,8 +7,7 @@ const PROJECT_COLUMN_INDICATOR = {
   LEAD: "lead",
   PROGRESS: "progress",
   LOGO: "logo",
+  CREATED_DATE: "createdDate",
 };
 
-export {
-  PROJECT_COLUMN_INDICATOR
-};
+export { PROJECT_COLUMN_INDICATOR };

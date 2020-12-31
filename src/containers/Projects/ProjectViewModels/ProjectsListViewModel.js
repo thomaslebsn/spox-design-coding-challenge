@@ -65,6 +65,10 @@ class ProjectsListViewModel {
         //   accessor: PROJECT_COLUMN_INDICATOR.LOGO,
         // },
         {
+          Header: "Short Description",
+          accessor: PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
+        },
+        {
           Header: "Start Date",
           accessor: PROJECT_COLUMN_INDICATOR.START_DATE,
         },
@@ -79,6 +83,10 @@ class ProjectsListViewModel {
         {
           Header: "Progress",
           accessor: PROJECT_COLUMN_INDICATOR.PROGRESS,
+        },
+        {
+          Header: "Created Date",
+          accessor: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
         },
       ];
 

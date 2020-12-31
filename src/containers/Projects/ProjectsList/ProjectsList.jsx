@@ -6,6 +6,7 @@ import Table from "../../../components/Table";
 
 import { observer } from "mobx-react";
 import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
+import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
 const ProjectsList = observer(
   class ProjectsList extends Component {
@@ -65,6 +66,7 @@ const ProjectsList = observer(
           tableRowHeader={tableRowHeader}
           onEdit={this.handerEditProject}
           onSelect={this.handerSelectProject}
+          isProject={true}
         ></Table>
       );
     }
