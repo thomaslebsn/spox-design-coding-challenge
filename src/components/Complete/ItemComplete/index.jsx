@@ -1,7 +1,8 @@
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
 
-import '../index.scss';
+import "../index.scss";
+import styles from "../index.module.scss";
 
 class ItemComplete extends React.Component {
   constructor(props) {
@@ -18,12 +19,14 @@ class ItemComplete extends React.Component {
           <p className="fw-bold text-blue-3">{value.title}</p>
           <div>
             <ul className="list-unstyled d-flex align-items-center mb-0 flex-wrap">
-              {
-                value.complete.map((item, index) => {
-                  return (
-                    <li key={index} className="col-4 fs-12 d-flex align-items-center">
-                      <span 
-                        className={`
+              {value.complete.map((item, index) => {
+                return (
+                  <li
+                    key={index}
+                    className="col-4 fs-12 d-flex align-items-center"
+                  >
+                    <span
+                      className={`
                           number_progre 
                           d-flex 
                           align-items-center 
@@ -32,23 +35,27 @@ class ItemComplete extends React.Component {
                           text-white
                           bg-${item.name}
                         `}
-                      >{item.number}</span>
-                      <span className="ps-2">{item.text}</span>
-                    </li>
-                  )
-                })
-              }
+                    >
+                      {item.number}
+                    </span>
+                    <span className="ps-2">{item.text}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
-        <ProgressBar>
-          {
-            value.complete.map((item, index) => {
-              return (
-                <ProgressBar key={index} variant={`${item.name}`} now={item.number} key={item.key} />
-              )
-            })
-          }
+        <ProgressBar className={`progress ${styles.progress}`}>
+          {value.complete.map((item, index) => {
+            return (
+              <ProgressBar
+                key={index}
+                variant={`${item.name}`}
+                now={item.number}
+                key={item.key}
+              />
+            );
+          })}
         </ProgressBar>
       </div>
     );
