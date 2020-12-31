@@ -73,70 +73,68 @@ class CampaignsPage extends React.Component {
     let { showModal, stateExport } = this.state;
 
     return (
-      <Layout>
-        <div className="py-4 px-3">
-          <div className="d-flex align-items-center justify-content-between mb-3">
-            <h2 className="fs-2">Campaigns Statistics</h2>
-            <div className="d-flex align-items-center">
-              <div className="d-flex align-items-center border-1 bg-white rounded-2 w-180">
-                <ComponentDatepicker />
-              </div>
-              <div className="d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 w-150 ms-2">
-                <i className="text-white">
-                  <FontAwesomeIcon icon={faFileExport} />
-                </i>
-                <div className="flex-1">
-                  <SelectComponent
-                    value={stateExport}
-                    onChange={this.handleExport}
-                    options={optionExport}
-                    isBorder={false}
-                    placeholder="Export"
-                    className="text-white"
-                  />
-                </div>
+      <div className="py-4 px-3">
+        <div className="d-flex align-items-center justify-content-between mb-3">
+          <h2 className="fs-2">Campaigns Statistics</h2>
+          <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center border-1 bg-white rounded-2 w-180">
+              <ComponentDatepicker />
+            </div>
+            <div className="d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 w-150 ms-2">
+              <i className="text-white">
+                <FontAwesomeIcon icon={faFileExport} />
+              </i>
+              <div className="flex-1">
+                <SelectComponent
+                  value={stateExport}
+                  onChange={this.handleExport}
+                  options={optionExport}
+                  isBorder={false}
+                  placeholder="Export"
+                  className="text-white"
+                />
               </div>
             </div>
           </div>
-          <div className="mb-4">
-            <div className="row">
-              <div className="col-6">
-                <ComponentChart />
-              </div>
-              <div className="col-3">
-                <ListSocial />
-              </div>
-              <div className="col-3">
-                <CampaignsTotalNumber />
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="d-flex justify-content-between mb-3">
-              <h2 className="fs-2">List Campaigns</h2>
-              <a
-                href={void 0}
-                className="cursor-pointer text-decoration-none btn btn-success"
-                onClick={this._handleShowModalCampaign}
-              >
-                <i className="text-white">
-                  <FontAwesomeIcon icon={faPlus} />
-                </i>
-                <span className="ps-2">Create campaign</span>
-              </a>
-            </div>
-            <FilterList />
-            <TableListCampaigns />
-          </div>
-          <ModalComponent
-            header={"Create Campaign"}
-            body={this.bodyCreateCampaign()}
-            footer={this.footerModal()}
-            show={showModal}
-            onHide={() => this.handleModalShow(false)}
-          />
         </div>
-      </Layout>
+        <div className="mb-4">
+          <div className="row">
+            <div className="col-6">
+              <ComponentChart />
+            </div>
+            <div className="col-3">
+              <ListSocial />
+            </div>
+            <div className="col-3">
+              <CampaignsTotalNumber />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="d-flex justify-content-between mb-3">
+            <h2 className="fs-2">List Campaigns</h2>
+            <a
+              href={void 0}
+              className="cursor-pointer text-decoration-none btn btn-success"
+              onClick={this._handleShowModalCampaign}
+            >
+              <i className="text-white">
+                <FontAwesomeIcon icon={faPlus} />
+              </i>
+              <span className="ps-2">Create campaign</span>
+            </a>
+          </div>
+          <FilterList />
+          <TableListCampaigns />
+        </div>
+        <ModalComponent
+          header={"Create Campaign"}
+          body={this.bodyCreateCampaign()}
+          footer={this.footerModal()}
+          show={showModal}
+          onHide={() => this.handleModalShow(false)}
+        />
+      </div>
     );
   }
 }

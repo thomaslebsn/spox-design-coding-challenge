@@ -20,12 +20,7 @@ const Projects = lazy(() => import("../containers/Projects"));
 const LoginPage = lazy(() => import("../containers/LoginPage"));
 const PersonasPage = lazy(() => import("../containers/PersonasPage"));
 
-const routes = [
-  {
-    path: "/",
-    exact: true,
-    main: () => <HomePage />,
-  },
+const authRoutes = [
   {
     path: "/login",
     exact: true,
@@ -37,7 +32,7 @@ const routes = [
     main: () => <Signuppage />,
   },
   {
-    path: "/forgot-passwordgnup",
+    path: "/forgot-password",
     exact: true,
     main: () => <ForgotPasswordPage />,
   },
@@ -45,6 +40,14 @@ const routes = [
     path: "/verify",
     exact: true,
     main: () => <VerifyEmailPage />,
+  },
+];
+
+const mainRoutes = [
+  {
+    path: "/",
+    exact: true,
+    main: () => <HomePage />,
   },
   {
     path: "/wizardproject",
@@ -64,8 +67,8 @@ const routes = [
     ),
   },
   {
-    path: ["/personas", "/personas/create", "/personas/edit/:id"],
-    exact: true,
+    path: "/personas",
+    exact: false,
     main: ({ match, location }) => (
       <PersonasPage match={match} location={location} />
     ),
@@ -108,4 +111,4 @@ const routes = [
   },
 ];
 
-export default routes;
+export { authRoutes, mainRoutes };
