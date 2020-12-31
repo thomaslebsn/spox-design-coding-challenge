@@ -17,8 +17,10 @@ const MainLayout = () => {
             <SbarLeft />
             <div className="flex-1 border-start-1 border-gray bg-blue mh-100 overflow-hidden overflow-y-auto">
               <Suspense fallback={<Spinner />}>
-                {mainRoutes.map(({ path, exact, main }) => {
-                  return <Route exact={exact} path={path} component={main} />;
+                {mainRoutes.map(({ path, exact, main }, i) => {
+                  return (
+                    <Route key={i} exact={exact} path={path} component={main} />
+                  );
                 })}
               </Suspense>
             </div>

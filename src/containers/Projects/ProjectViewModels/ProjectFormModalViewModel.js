@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-
+import { notify } from "../../../components/Toast";
 class ProjectFormModalViewModel {
   show = false;
   projectEditdata = null;
@@ -63,7 +63,7 @@ class ProjectFormModalViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    alert(error);
+    notify(error.message);
   };
 
   callbackOnSuccessHandler = () => {

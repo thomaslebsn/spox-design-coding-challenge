@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import { notify } from "../../../components/Toast";
 
 class PersonaFormViewModel {
   show = false;
@@ -56,7 +57,7 @@ class PersonaFormViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    alert(error);
+    notify(error.message);
   };
 
   callbackOnSuccessHandler = () => {

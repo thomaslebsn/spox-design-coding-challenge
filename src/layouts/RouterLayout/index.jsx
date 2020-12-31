@@ -8,6 +8,8 @@ import MainLayout from "../MainLayout";
 
 import history from "../../routes/history";
 
+import { Toast } from "../../components/Toast";
+
 const RouterLayout = () => {
   const authPath = authRoutes
     .map((item) => {
@@ -26,18 +28,21 @@ const RouterLayout = () => {
     }, []);
 
   return (
-    <BrowserRouter>
-      <Router history={history}>
-        <Switch>
-          <Route exact path={authPath}>
-            <AuthLayout />
-          </Route>
-          <Route exact path={mainPath}>
-            <MainLayout />
-          </Route>
-        </Switch>
-      </Router>
-    </BrowserRouter>
+    <>
+      <Toast />
+      <BrowserRouter>
+        <Router history={history}>
+          <Switch>
+            <Route exact path={authPath}>
+              <AuthLayout />
+            </Route>
+            <Route exact path={mainPath}>
+              <MainLayout />
+            </Route>
+          </Switch>
+        </Router>
+      </BrowserRouter>
+    </>
   );
 };
 

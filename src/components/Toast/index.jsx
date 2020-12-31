@@ -1,28 +1,29 @@
 import React from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+
 import "./index.scss";
 
-class Toast extends React.Component {
-  render() {
-    return (
-      <div className="toast-container position-fixed top-0 end-0 p-3">
-        <div
-          class="toast d-flex align-items-center text-white bg-primary border-0"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div class="toast-body">Hello, world! This is a toast message.</div>
-          <button
-            type="button"
-            class="btn-close btn-close-white ms-auto me-2"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
-    );
-  }
-}
+const Toast = () => {
+  return <ToastContainer />;
+};
 
-export default Toast;
+const notify = (msg, type = "success") => {
+  switch (type) {
+    case "error":
+      toast.error(msg);
+      break;
+    case "warn":
+      toast.warn(msg);
+      break;
+    case "success":
+      toast.success(msg);
+      break;
+
+    default:
+      toast.info(msg);
+      break;
+  }
+};
+
+export { Toast, notify };

@@ -2,6 +2,9 @@ import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import PersonaUtils from "../PersonaUtils/PersonaUtils";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
+
+import { notify } from "../../../components/Toast";
+
 class PersonasListViewModel {
   personaStore = null;
 
@@ -47,7 +50,7 @@ class PersonasListViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    alert(error);
+    notify(error.message);
   };
 
   callbackOnSuccessHandler = (personaModelData) => {
