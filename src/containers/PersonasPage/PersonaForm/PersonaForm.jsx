@@ -33,7 +33,7 @@ class PersonaForm extends Component {
       {
         fields: [
           {
-            label: "Name",
+            label: "Persona Name",
             key: PERSONA_FIELD_KEY.NAME,
             type: FORM_FIELD_TYPE.INPUT,
             value: this.formPropsData[PERSONA_FIELD_KEY.NAME],
