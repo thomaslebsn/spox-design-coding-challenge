@@ -12,7 +12,8 @@ const data = [
     avatar: "/assets/images/avatar-1.png",
     progress: 70,
     day: "31/08/2020",
-    text: "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory"
+    text:
+      "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory",
   },
   {
     key: 2,
@@ -21,7 +22,8 @@ const data = [
     avatar: "/assets/images/avatar-2.png",
     progress: 50,
     day: "31/08/2020",
-    text: "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory"
+    text:
+      "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory",
   },
   {
     key: 3,
@@ -30,7 +32,8 @@ const data = [
     avatar: "/assets/images/avatar-3.png",
     progress: 70,
     day: "31/08/2020",
-    text: "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory"
+    text:
+      "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory",
   },
   {
     key: 4,
@@ -39,7 +42,8 @@ const data = [
     avatar: "/assets/images/avatar-4.png",
     progress: 50,
     day: "31/08/2020",
-    text: "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory"
+    text:
+      "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory",
   },
   {
     key: 5,
@@ -48,7 +52,8 @@ const data = [
     avatar: "/assets/images/avatar-5.png",
     progress: 90,
     day: "31/08/2020",
-    text: "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory"
+    text:
+      "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory",
   },
   {
     key: 6,
@@ -57,7 +62,8 @@ const data = [
     avatar: "/assets/images/avatar-5.png",
     progress: 50,
     day: "31/08/2020",
-    text: "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory"
+    text:
+      "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory",
   },
   {
     key: 7,
@@ -66,7 +72,8 @@ const data = [
     avatar: "/assets/images/avatar-5.png",
     progress: 70,
     day: "31/08/2020",
-    text: "Samsung Galaxy Note20 Ultra 5G. The Samsung Galaxy Note 20 Ultra 5G sets the pace for 2020 smartphones with a huge screen."
+    text:
+      "Samsung Galaxy Note20 Ultra 5G. The Samsung Galaxy Note 20 Ultra 5G sets the pace for 2020 smartphones with a huge screen.",
   },
   {
     key: 8,
@@ -75,7 +82,8 @@ const data = [
     avatar: "/assets/images/avatar-5.png",
     progress: 80,
     day: "31/08/2020",
-    text: "Phasellus scelerisque commodo nunc, sit amet blandit est tincidunt vitae."
+    text:
+      "Phasellus scelerisque commodo nunc, sit amet blandit est tincidunt vitae.",
   },
   {
     key: 9,
@@ -84,9 +92,10 @@ const data = [
     avatar: "/assets/images/avatar-5.png",
     progress: 90,
     day: "31/08/2020",
-    text: "Donec at maximus nulla, ac molestie purus. Aliquam nunc lacus, lobortis ut placerat eu, suscipit at erat. Sed at mi diam. Sed aliquam diam ac"
-  }
-]
+    text:
+      "Donec at maximus nulla, ac molestie purus. Aliquam nunc lacus, lobortis ut placerat eu, suscipit at erat. Sed at mi diam. Sed aliquam diam ac",
+  },
+];
 
 class List extends React.Component {
   constructor(props) {
@@ -99,28 +108,30 @@ class List extends React.Component {
     return (
       <div>
         <div className="row">
-          {
-            data.map((value, key) => {
-              return (
-                <div key={key} className="item_thumb col-3 mb-3">
-                  <div className="main_thumb bg-white p-3 rounded-2 h-100">
-                    <div className="mb-2">
-                      <img src={value.image} alt="" className="img-avatar ms-2"/>
-                    </div>
-                    <h6 className="fw-bold mb-2">{value.projectName}</h6>
-                    <p className="mb-3">{value.text}</p>
-                    <ProgressBar className="mb-3">
-                      <ProgressBar variant="success" now={value.progress} label={`${value.progress}%`}/>
-                    </ProgressBar>
-                    <div className="d-flex align-items-center justify-content-between">
-                      <p className="mb-0">{value.day}</p>
-                      <img src={value.avatar} alt="" className="img-avatar"/>
-                    </div>
+          {data.map((value, key) => {
+            return (
+              <div key={key} className="item_thumb col-3 mb-3">
+                <div className="main_thumb bg-white p-3 rounded-2 h-100">
+                  <div className="mb-2">
+                    <img src={value.image} alt="" className="img-avatar ms-2" />
+                  </div>
+                  <h6 className="fw-bold mb-2">{value.projectName}</h6>
+                  <p className="mb-3">{value.text}</p>
+                  <ProgressBar className="mb-3">
+                    <ProgressBar
+                      variant="success"
+                      now={value.progress}
+                      label={`${value.progress}%`}
+                    />
+                  </ProgressBar>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <p className="mb-0">{value.day}</p>
+                    <img src={value.avatar} alt="" className="img-avatar" />
                   </div>
                 </div>
-              )
-            })
-          }
+              </div>
+            );
+          })}
         </div>
       </div>
     );

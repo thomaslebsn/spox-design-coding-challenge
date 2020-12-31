@@ -25,7 +25,7 @@ class ProjectModel {
 
     this.progress = data.progress ? new ProgressModel(data) : 0;
 
-    this.createDate = data.createDate ?? "";
+    this.createdate = data.created_date ?? "";
     this.lastModifiedDate = data.last_modified_date ?? "";
     this.createdBy = data.create_by ?? "";
     this.lastModifiedBy = data.last_modified_by ?? "";
@@ -105,6 +105,16 @@ class ProjectModel {
     };
   };
 
+  getCreateDate = () => {
+    return {
+      value: format(new Date(this.createdate), FORMAT_DATE),
+      original: this.createdate,
+      type: FIELD_TYPE.DATE,
+      columnName: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
+      columnText: "Create Date",
+    };
+  };
+
   toTableRowData = () => {
     const id = this.getId(),
       name = this.getName(),
@@ -113,7 +123,8 @@ class ProjectModel {
       enddate = this.getEndDate(),
       logo = this.getLogoUrl(),
       lead = this.getLead(),
-      progress = this.getProgress();
+      progress = this.getProgress(),
+      createdate = this.getCreateDate();
 
     return {
       [id.columnName]: id.value,
@@ -124,6 +135,7 @@ class ProjectModel {
       [lead.columnName]: lead.value,
       [progress.columnName]: progress.value,
       [logo.columnName]: logo.value,
+      [createdate.columnName]: createdate.value,
     };
   };
 
@@ -136,6 +148,7 @@ class ProjectModel {
           logo_url: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
           short_description:
             projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],
+          created_date: projectData[PROJECT_COLUMN_INDICATOR.CREATED_DATE],
         }
       : null;
     return result;
