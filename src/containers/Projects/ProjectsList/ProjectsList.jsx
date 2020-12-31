@@ -66,6 +66,7 @@ const ProjectsList = observer(
           tableRowHeader={tableRowHeader}
           onEdit={this.handerEditProject}
           onSelect={this.handerSelectProject}
+          isProject={true}
         ></Table>
       );
     }

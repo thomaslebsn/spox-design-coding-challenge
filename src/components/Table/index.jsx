@@ -66,7 +66,7 @@ function DefaultColumnFilter({
   );
 }
 
-function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
+function Table({ rowData, tableRowHeader, onEdit, onSelect, isProject }) {
   const [getState, setState] = useState({
     isList: true,
     isName: "list",
@@ -249,89 +249,140 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect }) {
             </Dropdown>
           </div>
         </div>
-
-        <div className="d-flex align-items-center">
-          <button
-            type="button"
-            className={`btn text-blue-0 rounded-0 px-4 ${
-              getState.isList ? "bg-blue-3" : ""
-            }`}
-            onClick={() => _handleList("list")}
-          >
-            <i>
-              <FontAwesomeIcon icon={faList} />
-            </i>
-            <span className="ms-2 opacity-75">List</span>
-          </button>
-          <button
-            type="button"
-            className={`btn text-blue-0 rounded-0 px-4 ${
-              !getState.isList ? "bg-blue-3" : ""
-            }`}
-            onClick={() => _handleList("thumb")}
-          >
-            <i>
-              <FontAwesomeIcon icon={faTh} />
-            </i>
-            <span className="ms-2 opacity-75">Thumb</span>
-          </button>
-        </div>
+        {isProject && (
+          <div className="d-flex align-items-center">
+            <button
+              type="button"
+              className={`btn text-blue-0 rounded-0 px-4 ${
+                getState.isList ? "bg-blue-3" : ""
+              }`}
+              onClick={() => _handleList("list")}
+            >
+              <i>
+                <FontAwesomeIcon icon={faList} />
+              </i>
+              <span className="ms-2 opacity-75">List</span>
+            </button>
+            <button
+              type="button"
+              className={`btn text-blue-0 rounded-0 px-4 ${
+                !getState.isList ? "bg-blue-3" : ""
+              }`}
+              onClick={() => _handleList("thumb")}
+            >
+              <i>
+                <FontAwesomeIcon icon={faTh} />
+              </i>
+              <span className="ms-2 opacity-75">Thumb</span>
+            </button>
+          </div>
+        )}
       </div>
       {getState.isList ? (
         <div className="bg-white p-3 rounded-3">
           <table {...getTableProps()} className="w-100 mb-4">
-            <thead>
-              {headerGroups.map((headerGroup) => {
-                let arrayHeadersFilter = headerGroup.headers.filter(
-                  (item) =>
-                    item !== headerGroup.headers[2] &&
-                    item !== headerGroup.headers[6]
-                );
-                return (
-                  <tr
-                    {...headerGroup.getHeaderGroupProps()}
-                    className="bg-blue"
-                  >
-                    {arrayHeadersFilter.map((column) => {
-                      return (
-                        <th
-                          {...column.getHeaderProps()}
-                          className="fw-normal px-2 py-3 flex-1"
-                        >
-                          {column.render("Header")}
-                        </th>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {page.map((row, i) => {
-                prepareRow(row);
-                let arrayCells = row.cells.filter(
-                  (item) => item !== row.cells[2] && item !== row.cells[6]
-                );
-                return (
-                  <tr
-                    {...row.getRowProps()}
-                    className="border-bottom-1"
-                    onClick={(e) => handerEdit(e, row.original)}
-                  >
-                    {arrayCells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          className="fw-normal px-2 py-3"
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
+            {isProject ? (
+              <thead>
+                {headerGroups.map((headerGroup) => {
+                  let arrayHeadersFilter = headerGroup.headers.filter(
+                    (item) =>
+                      item !== headerGroup.headers[2] &&
+                      item !== headerGroup.headers[6]
+                  );
+                  return (
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      className="bg-blue"
+                    >
+                      {arrayHeadersFilter.map((column) => {
+                        return (
+                          <th
+                            {...column.getHeaderProps()}
+                            className="fw-normal px-2 py-3 flex-1"
+                          >
+                            {column.render("Header")}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </thead>
+            ) : (
+              <thead>
+                {headerGroups.map((headerGroup) => {
+                  return (
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      className="bg-blue"
+                    >
+                      {headerGroup.headers.map((column) => {
+                        return (
+                          <th
+                            {...column.getHeaderProps()}
+                            className="fw-normal px-2 py-3 flex-1"
+                          >
+                            {column.render("Header")}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </thead>
+            )}
+            {isProject ? (
+              <tbody {...getTableBodyProps()}>
+                {page.map((row, i) => {
+                  prepareRow(row);
+                  let arrayCells = row.cells.filter(
+                    (item) => item !== row.cells[2] && item !== row.cells[6]
+                  );
+                  return (
+                    <tr
+                      {...row.getRowProps()}
+                      className="border-bottom-1"
+                      onClick={(e) => handerEdit(e, row.original)}
+                    >
+                      {arrayCells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            className="fw-normal px-2 py-3"
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            ) : (
+              <tbody {...getTableBodyProps()}>
+                {page.map((row, i) => {
+                  prepareRow(row);
+                  return (
+                    <tr
+                      {...row.getRowProps()}
+                      className="border-bottom-1"
+                      onClick={(e) => handerEdit(e, row.original)}
+                    >
+                      {row.cells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            className="fw-normal px-2 py-3"
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            )}
           </table>
           <div className="pagination d-flex align-items-center justify-content-center">
             <button
