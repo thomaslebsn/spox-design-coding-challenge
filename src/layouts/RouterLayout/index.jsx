@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 
 import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
 import { authRoutes, mainRoutes } from "../../routes/routes";
@@ -6,29 +6,36 @@ import { authRoutes, mainRoutes } from "../../routes/routes";
 import AuthLayout from "../AuthLayout";
 import MainLayout from "../MainLayout";
 
-import Spinner from "../../components/Spinner";
 import history from "../../routes/history";
 
 const RouterLayout = () => {
-  const authPath = authRoutes.map((x) => x.path);
-  const mainPath = mainRoutes.map((x) => x.path);
+  const authPath = authRoutes
+    .map((item) => {
+      return item.path;
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el);
+    }, []);
 
-  console.log(mainPath);
+  const mainPath = mainRoutes
+    .map((item) => {
+      return item.path;
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el);
+    }, []);
 
   return (
     <BrowserRouter>
       <Router history={history}>
-        <Suspense fallback={<Spinner />}>
-          <Switch>
-            <Route exact path={authPath}>
-              <AuthLayout />
-            </Route>
-
-            <Route exact path={mainPath}>
-              <MainLayout />
-            </Route>
-          </Switch>
-        </Suspense>
+        <Switch>
+          <Route exact path={authPath}>
+            <AuthLayout />
+          </Route>
+          <Route exact path={mainPath}>
+            <MainLayout />
+          </Route>
+        </Switch>
       </Router>
     </BrowserRouter>
   );

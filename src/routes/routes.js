@@ -67,8 +67,8 @@ const mainRoutes = [
     ),
   },
   {
-    path: "/personas",
-    exact: false,
+    path: ["/personas", "/personas/create", "/personas/edit/:id"],
+    exact: true,
     main: ({ match, location }) => (
       <PersonasPage match={match} location={location} />
     ),

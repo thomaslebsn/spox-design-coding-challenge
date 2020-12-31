@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React, { Suspense } from "react";
 
-import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
-import { authRoutes, mainRoutes } from "../../routes/routes";
+import { Route } from "react-router-dom";
+import { mainRoutes } from "../../routes/routes";
 
+import Spinner from "../../components/Spinner";
 import Header from "../../components/Header";
 import SbarLeft from "../../components/SbarLeft";
 
 const MainLayout = () => {
-  console.log("MainLayout");
   return (
     <div className="container-fluid">
       <div className="row">
@@ -16,9 +16,11 @@ const MainLayout = () => {
           <div className="main_content vh-100 main_content_dashboard pd-t-80 d-flex">
             <SbarLeft />
             <div className="flex-1 border-start-1 border-gray bg-blue mh-100 overflow-hidden overflow-y-auto">
-              {mainRoutes.map(({ path, exact, main }) => {
-                return <Route exact={exact} path={path} component={main} />;
-              })}
+              <Suspense fallback={<Spinner />}>
+                {mainRoutes.map(({ path, exact, main }) => {
+                  return <Route exact={exact} path={path} component={main} />;
+                })}
+              </Suspense>
             </div>
           </div>
         </main>
