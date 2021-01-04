@@ -9,15 +9,25 @@ import ContentModel from "../ContentModel/ContentModel";
 let contents = [
   {
     id: 1,
-    name: "Hieu - simple",
-    created_date: "2020-10-13",
-    updated_date: "2020-10-13",
+    name: "Post 1 - simple",
+    description: "Lorem",
+    channels: "Test",
+    status: 1,
   },
   {
     id: 2,
-    name: "Hieu - simple",
-    created_date: "2020-10-13",
-    updated_date: "2020-10-13",
+    name: "Post 2 - simple",
+    description: "Lorem",
+    channels: "Test",
+    status: 2,
+  },
+
+  {
+    id: 3,
+    name: "Post 3 - simple",
+    description: "Lorem",
+    channels: "Test",
+    status: 3,
   },
 ];
 

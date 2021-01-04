@@ -1,5 +1,6 @@
 const CONTENT_FIELD_KEY = {
   ID: "content-id",
+  NAME: "content-name",
   DESCRIPTION: "content-description",
   THEME: "content-theme",
   CUSTOMIZE_SCHEDULE_FOR_EACH_CHANNEL:
@@ -12,6 +13,26 @@ const CONTENT_FIELD_KEY = {
   TIME: "content-time",
   PERSONA: "content-persona",
   CAMPAIGN: "content-campaign",
+  CHANNELS: "content-channels",
+  STATUS: "content-status",
 };
 
-export { CONTENT_FIELD_KEY };
+const CONTENT_STATUS = {
+  POSTED: {
+    id: 1,
+    text: "Posted",
+    className: "bg-success",
+  },
+  SCHEDULED: {
+    id: 2,
+    text: "Scheduled",
+    className: "bg-secondary",
+  },
+  DRAFT: {
+    id: 3,
+    text: "Draft",
+    className: "bg-warning",
+  },
+};
+
+export { CONTENT_FIELD_KEY, CONTENT_STATUS };

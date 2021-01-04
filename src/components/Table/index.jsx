@@ -7,66 +7,24 @@ import {
   useRowSelect,
   useFilters,
   useGlobalFilter,
-  useAsyncDebounce,
 } from "react-table";
+
 import { useMemo } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
-import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
+
 import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
 import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
 import styles from "./index.module.scss";
+import "./index.scss";
 
-function GlobalFilter({
-  preGlobalFilteredRows,
-  globalFilter,
-  setGlobalFilter,
-}) {
-  const count = preGlobalFilteredRows.length;
-  const [value, setValue] = React.useState(globalFilter);
-  const onChange = useAsyncDebounce((value) => {
-    setGlobalFilter(value || undefined);
-  }, 200);
+import GlobalFilter from "./GlobalFilter";
 
-  return (
-    <span className="d-flex align-items-center position-relative pe-3 border-end-1 w-400">
-      <input
-        value={value || ""}
-        onChange={(e) => {
-          setValue(e.target.value);
-          onChange(e.target.value);
-        }}
-        placeholder={`Search your projects`}
-        className="form-control border-end-0 pe-2 border-0 pe-4"
-      />
-      <i className="text-green position-absolute top-0 bottom-0 end-0 pe-4 d-flex align-items-center">
-        <FontAwesomeIcon icon={faSearch} />
-      </i>
-    </span>
-  );
-}
-
-function DefaultColumnFilter({
-  column: { filterValue, preFilteredRows, setFilter },
-}) {
-  const count = preFilteredRows.length;
-
-  return (
-    <input
-      value={filterValue || ""}
-      onChange={(e) => {
-        setFilter(e.target.value || undefined);
-      }}
-      placeholder={`Search ${count} records...`}
-    />
-  );
-}
-
-function Table({
+const Table = ({
   rowData,
   tableRowHeader,
   onEdit,
@@ -74,7 +32,8 @@ function Table({
   isThumb,
   dataList,
   dataThumb,
-}) {
+  searchText = "Search...",
+}) => {
   const [getState, setState] = useState({
     isList: true,
     isName: "list",
@@ -92,13 +51,6 @@ function Table({
             : true;
         });
       },
-    }),
-    []
-  );
-
-  const defaultColumn = React.useMemo(
-    () => ({
-      Filter: DefaultColumnFilter,
     }),
     []
   );
@@ -162,7 +114,6 @@ function Table({
     {
       columns,
       data,
-      defaultColumn,
       filterTypes,
       onSelect,
     },
@@ -218,6 +169,7 @@ function Table({
             preGlobalFilteredRows={preGlobalFilteredRows}
             globalFilter={state.globalFilter}
             setGlobalFilter={setGlobalFilter}
+            searchText={searchText}
           />
           <div className="px-2 border-end-1">
             <Dropdown>
@@ -237,22 +189,21 @@ function Table({
                 </i>
               </Dropdown.Toggle>
               <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
-                <div className="mb-2">
-                  <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
-                  <span className="ps-2">All</span>
-                </div>
-                {allColumns.map((column) => (
-                  <div key={column.id} className="mb-2">
-                    <label>
-                      <input
-                        type="checkbox"
-                        {...column.getToggleHiddenProps()}
-                        className="form-check-input p-0"
-                      />
-                      <span className="ps-2">{column.id}</span>
-                    </label>
-                  </div>
-                ))}
+                {allColumns.map(
+                  (column) =>
+                    column.id !== "selection" && (
+                      <div key={column.id} className="mb-2">
+                        <label>
+                          <input
+                            type="checkbox"
+                            {...column.getToggleHiddenProps()}
+                            className="form-check-input p-0"
+                          />
+                          <span className="ps-2">{column.Header}</span>
+                        </label>
+                      </div>
+                    )
+                )}
               </Dropdown.Menu>
             </Dropdown>
           </div>
@@ -293,13 +244,11 @@ function Table({
               {headerGroups.map((headerGroup) => {
                 let newHeaderGroup = "";
 
-                {
-                  dataList
-                    ? (newHeaderGroup = headerGroup.headers.filter(
-                        (item) => !dataList.some((other) => item.id == other)
-                      ))
-                    : (newHeaderGroup = headerGroup.headers);
-                }
+                dataList
+                  ? (newHeaderGroup = headerGroup.headers.filter(
+                      (item) => !dataList.some((other) => item.id === other)
+                    ))
+                  : (newHeaderGroup = headerGroup.headers);
 
                 return (
                   <tr
@@ -326,14 +275,12 @@ function Table({
 
                 let newRowCells = "";
 
-                {
-                  dataList
-                    ? (newRowCells = row.cells.filter(
-                        (item) =>
-                          !dataList.some((other) => item.column.id == other)
-                      ))
-                    : (newRowCells = row.cells);
-                }
+                dataList
+                  ? (newRowCells = row.cells.filter(
+                      (item) =>
+                        !dataList.some((other) => item.column.id === other)
+                    ))
+                  : (newRowCells = row.cells);
 
                 return (
                   <tr
@@ -363,7 +310,7 @@ function Table({
               className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
             >
               <FontAwesomeIcon icon={faChevronLeft} />
-            </button>{" "}
+            </button>
             {pageOptions.map((item, key) => {
               return (
                 <button
@@ -428,7 +375,7 @@ function Table({
       )}
     </>
   );
-}
+};
 
 // Define a custom filter filter function!
 function filterGreaterThan(rows, id, filterValue) {

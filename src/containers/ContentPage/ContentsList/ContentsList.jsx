@@ -3,12 +3,16 @@ import React, { Component } from "react";
 import history from "../../../routes/history";
 
 import PAGE_STATUS from "../../../constants/PageStatus";
-import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+import {
+  CONTENT_FIELD_KEY,
+  CONTENT_STATUS,
+} from "../../../constants/ContentModule";
 
 import Table from "../../../components/Table";
 
 import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
+import ContentModel from "../ContentModel/ContentModel";
 
 const ContentsList = observer(
   class ContentsList extends Component {
@@ -56,12 +60,40 @@ const ContentsList = observer(
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
-      const {
-        tableRowHeader,
-        tableStatus,
-        contents,
-      } = this.contentListViewModel;
-      console.log(contents);
+      const { tableStatus, contents } = this.contentListViewModel;
+
+      const tableRowHeader = [
+        {
+          Header: "Name",
+          accessor: CONTENT_FIELD_KEY.NAME,
+        },
+
+        {
+          Header: "Description",
+          accessor: CONTENT_FIELD_KEY.DESCRIPTION,
+        },
+        {
+          Header: "Channels",
+          accessor: CONTENT_FIELD_KEY.CHANNELS,
+        },
+        {
+          Header: "Status",
+          accessor: CONTENT_FIELD_KEY.STATUS,
+          className: "status",
+          Cell: ({ value }) => {
+            return (
+              <span
+                className={`badge ${
+                  ContentModel.getStatusObject(value.id).className
+                }`}
+              >
+                {value.text}
+              </span>
+            );
+          },
+        },
+      ];
+
       return tableStatus === PAGE_STATUS.LOADING ? (
         <div>Load</div>
       ) : (

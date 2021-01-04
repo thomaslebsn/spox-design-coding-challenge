@@ -1,16 +1,17 @@
 import FIELD_TYPE from "../../../constants/FieldType";
-import { FORMAT_DATE } from "../../../constants/FormFieldType";
-import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 
-import { format } from "date-fns";
+import {
+  CONTENT_FIELD_KEY,
+  CONTENT_STATUS,
+} from "../../../constants/ContentModule";
 
 class ContentModel {
   constructor(data) {
     this.id = data.id ?? 0;
     this.name = data.name ?? "";
-
-    this.createdDate = data.created_date ?? "";
-    this.updatedDate = data.updated_date ?? "";
+    this.channels = data.channels ?? "";
+    this.status = data.status ?? "";
+    this.description = data.description ?? "";
   }
 
   getId = () => {
@@ -31,39 +32,63 @@ class ContentModel {
     };
   };
 
-  getCreatedDate = () => {
+  getDescription = () => {
     return {
-      value: format(new Date(this.createdDate), FORMAT_DATE),
-      original: this.createdDate,
-      type: FIELD_TYPE.DATE,
-      columnName: CONTENT_FIELD_KEY.CREATED_DATE,
-      columnText: "Created Date",
+      value: this.description,
+      type: FIELD_TYPE.RICHTEXT,
+      columnName: CONTENT_FIELD_KEY.DESCRIPTION,
+      columnText: "Description",
     };
   };
 
-  getUpdatedDate = () => {
+  getChannels = () => {
     return {
-      value: format(new Date(this.updatedDate), FORMAT_DATE),
-      original: this.updatedDate,
-      type: FIELD_TYPE.DATE,
-      columnName: CONTENT_FIELD_KEY.UPDATED_DATE,
-      columnText: "Updated",
+      value: this.channels,
+      type: FIELD_TYPE.TEXT,
+      columnName: CONTENT_FIELD_KEY.CHANNELS,
+      columnText: "Channels",
+    };
+  };
+
+  getStatus = () => {
+    return {
+      value: ContentModel.getStatusObject(this.status),
+      type: FIELD_TYPE.TEXT,
+      columnName: CONTENT_FIELD_KEY.STATUS,
+      columnText: "Status",
     };
   };
 
   toTableRowData = () => {
     const id = this.getId(),
       name = this.getName(),
-      createdDate = this.getCreatedDate(),
-      updatedDate = this.getUpdatedDate();
+      description = this.getDescription(),
+      status = this.getStatus(),
+      channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
-      [createdDate.columnName]: createdDate.value,
-      [updatedDate.columnName]: updatedDate.value,
+      [description.columnName]: description.value,
+      [status.columnName]: status.value,
+      [channels.columnName]: channels.value,
     };
   };
+
+  static getStatusObject(status) {
+    return Object.keys(CONTENT_STATUS)
+      .filter((index) => CONTENT_STATUS[index].id === status)
+      .reduce((obj, key) => {
+        obj = CONTENT_STATUS[key];
+        return obj;
+      }, {});
+  }
+
+  static getClassStatus(status) {
+    return Object.keys(CONTENT_STATUS).filter(
+      (index) => CONTENT_STATUS[index] === status
+    );
+  }
 
   static convertSubmittedDataToAPIService(contentData) {
     const result = contentData
