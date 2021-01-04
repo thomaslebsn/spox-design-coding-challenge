@@ -56,43 +56,6 @@ class ProjectsListViewModel {
     console.log(projectModelData);
     if (projectModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-      this.tableRowHeader = [
-        {
-          Header: "Project Name",
-          accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
-        },
-        // {
-        //   Header: "Logo",
-        //   accessor: PROJECT_COLUMN_INDICATOR.LOGO,
-        // },
-        {
-          Header: "Short Description",
-          accessor: PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
-        },
-        {
-          Header: "Start Date",
-          accessor: PROJECT_COLUMN_INDICATOR.START_DATE,
-        },
-        {
-          Header: "End Date",
-          accessor: PROJECT_COLUMN_INDICATOR.END_DATE,
-        },
-        // {
-        //   Header: "Lead",
-        //   accessor: PROJECT_COLUMN_INDICATOR.LEAD,
-        // },
-        {
-          Header: "Progress",
-          accessor: PROJECT_COLUMN_INDICATOR.PROGRESS,
-        },
-        {
-          Header: "Created Date",
-          accessor: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
-        },
-      ];
-
-      console.log("Row Data is tableRowHeader");
-      console.log(this.tableRowHeader);
 
       const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
         projectModelData

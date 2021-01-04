@@ -1,9 +1,7 @@
 import FIELD_TYPE from "../../../constants/FieldType";
 
-import {
-  CONTENT_FIELD_KEY,
-  CONTENT_STATUS,
-} from "../../../constants/ContentModule";
+import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+import getStatus from "../../../utils/status";
 
 class ContentModel {
   constructor(data) {
@@ -52,7 +50,7 @@ class ContentModel {
 
   getStatus = () => {
     return {
-      value: ContentModel.getStatusObject(this.status),
+      value: getStatus(this.status),
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.STATUS,
       columnText: "Status",
@@ -74,21 +72,6 @@ class ContentModel {
       [channels.columnName]: channels.value,
     };
   };
-
-  static getStatusObject(status) {
-    return Object.keys(CONTENT_STATUS)
-      .filter((index) => CONTENT_STATUS[index].id === status)
-      .reduce((obj, key) => {
-        obj = CONTENT_STATUS[key];
-        return obj;
-      }, {});
-  }
-
-  static getClassStatus(status) {
-    return Object.keys(CONTENT_STATUS).filter(
-      (index) => CONTENT_STATUS[index] === status
-    );
-  }
 
   static convertSubmittedDataToAPIService(contentData) {
     const result = contentData

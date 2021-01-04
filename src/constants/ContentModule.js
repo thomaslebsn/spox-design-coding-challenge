@@ -17,22 +17,4 @@ const CONTENT_FIELD_KEY = {
   STATUS: "content-status",
 };
 
-const CONTENT_STATUS = {
-  POSTED: {
-    id: 1,
-    text: "Posted",
-    className: "bg-success",
-  },
-  SCHEDULED: {
-    id: 2,
-    text: "Scheduled",
-    className: "bg-secondary",
-  },
-  DRAFT: {
-    id: 3,
-    text: "Draft",
-    className: "bg-warning",
-  },
-};
-
-export { CONTENT_FIELD_KEY, CONTENT_STATUS };
+export { CONTENT_FIELD_KEY };

@@ -8,6 +8,8 @@ import { observer } from "mobx-react";
 import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
+import Spinner from "../../../components/Spinner";
+
 const ProjectsList = observer(
   class ProjectsList extends Component {
     projectListViewModel = null;
@@ -52,14 +54,49 @@ const ProjectsList = observer(
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
-      const {
-        tableRowHeader,
-        tableStatus,
-        projects,
-      } = this.projectListViewModel;
+      const { tableStatus, projects } = this.projectListViewModel;
       console.log(projects);
+
+      const tableRowHeader = [
+        {
+          Header: "Project Name",
+          accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
+        },
+        // {
+        //   Header: "Logo",
+        //   accessor: PROJECT_COLUMN_INDICATOR.LOGO,
+        // },
+        {
+          Header: "Short Description",
+          accessor: PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
+        },
+        {
+          Header: "Start Date",
+          accessor: PROJECT_COLUMN_INDICATOR.START_DATE,
+        },
+        {
+          Header: "End Date",
+          accessor: PROJECT_COLUMN_INDICATOR.END_DATE,
+        },
+        // {
+        //   Header: "Lead",
+        //   accessor: PROJECT_COLUMN_INDICATOR.LEAD,
+        // },
+        {
+          Header: "Progress",
+          accessor: PROJECT_COLUMN_INDICATOR.PROGRESS,
+        },
+        {
+          Header: "Created Date",
+          accessor: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
+        },
+      ];
+
+      console.log("Row Data is tableRowHeader");
+      console.log(this.tableRowHeader);
+
       return tableStatus === PAGE_STATUS.LOADING ? (
-        <div>Load</div>
+        <Spinner />
       ) : (
         <Table
           rowData={projects}

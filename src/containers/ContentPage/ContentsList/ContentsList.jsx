@@ -3,16 +3,14 @@ import React, { Component } from "react";
 import history from "../../../routes/history";
 
 import PAGE_STATUS from "../../../constants/PageStatus";
-import {
-  CONTENT_FIELD_KEY,
-  CONTENT_STATUS,
-} from "../../../constants/ContentModule";
+import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 
 import Table from "../../../components/Table";
 
 import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
-import ContentModel from "../ContentModel/ContentModel";
+
+import Spinner from "../../../components/Spinner";
 
 const ContentsList = observer(
   class ContentsList extends Component {
@@ -82,20 +80,14 @@ const ContentsList = observer(
           className: "status",
           Cell: ({ value }) => {
             return (
-              <span
-                className={`badge ${
-                  ContentModel.getStatusObject(value.id).className
-                }`}
-              >
-                {value.text}
-              </span>
+              <span className={`badge ${value.className}`}>{value.text}</span>
             );
           },
         },
       ];
 
       return tableStatus === PAGE_STATUS.LOADING ? (
-        <div>Load</div>
+        <Spinner />
       ) : (
         <Table
           rowData={contents}

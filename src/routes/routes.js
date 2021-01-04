@@ -15,7 +15,7 @@ const ChannelsPage = lazy(() => import("../pages/ChannelsPage"));
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
 const CalendarPage = lazy(() => import("../pages/CalendarPage"));
 
-const Projects = lazy(() => import("../containers/Projects"));
+const Projects = lazy(() => import("../containers/ProjectsPage"));
 const LoginPage = lazy(() => import("../containers/LoginPage"));
 const PersonasPage = lazy(() => import("../containers/PersonasPage"));
 const CampaignsPage = lazy(() => import("../containers/CampaignsPage"));
