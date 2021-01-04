@@ -66,7 +66,15 @@ function DefaultColumnFilter({
   );
 }
 
-function Table({ rowData, tableRowHeader, onEdit, onSelect, isProject }) {
+function Table({
+  rowData,
+  tableRowHeader,
+  onEdit,
+  onSelect,
+  isThumb,
+  dataList,
+  dataThumb,
+}) {
   const [getState, setState] = useState({
     isList: true,
     isName: "list",
@@ -249,7 +257,7 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect, isProject }) {
             </Dropdown>
           </div>
         </div>
-        {isProject && (
+        {isThumb && (
           <div className="d-flex align-items-center">
             <button
               type="button"
@@ -281,108 +289,72 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect, isProject }) {
       {getState.isList ? (
         <div className="bg-white p-3 rounded-3">
           <table {...getTableProps()} className="w-100 mb-4">
-            {isProject ? (
-              <thead>
-                {headerGroups.map((headerGroup) => {
-                  let arrayHeadersFilter = headerGroup.headers.filter(
-                    (item) =>
-                      item !== headerGroup.headers[2] &&
-                      item !== headerGroup.headers[6]
-                  );
-                  return (
-                    <tr
-                      {...headerGroup.getHeaderGroupProps()}
-                      className="bg-blue"
-                    >
-                      {arrayHeadersFilter.map((column) => {
-                        return (
-                          <th
-                            {...column.getHeaderProps()}
-                            className="fw-normal px-2 py-3 flex-1"
-                          >
-                            {column.render("Header")}
-                          </th>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              </thead>
-            ) : (
-              <thead>
-                {headerGroups.map((headerGroup) => {
-                  return (
-                    <tr
-                      {...headerGroup.getHeaderGroupProps()}
-                      className="bg-blue"
-                    >
-                      {headerGroup.headers.map((column) => {
-                        return (
-                          <th
-                            {...column.getHeaderProps()}
-                            className="fw-normal px-2 py-3 flex-1"
-                          >
-                            {column.render("Header")}
-                          </th>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              </thead>
-            )}
-            {isProject ? (
-              <tbody {...getTableBodyProps()}>
-                {page.map((row, i) => {
-                  prepareRow(row);
-                  let arrayCells = row.cells.filter(
-                    (item) => item !== row.cells[2] && item !== row.cells[6]
-                  );
-                  return (
-                    <tr
-                      {...row.getRowProps()}
-                      className="border-bottom-1"
-                      onClick={(e) => handerEdit(e, row.original)}
-                    >
-                      {arrayCells.map((cell) => {
-                        return (
-                          <td
-                            {...cell.getCellProps()}
-                            className="fw-normal px-2 py-3"
-                          >
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            ) : (
-              <tbody {...getTableBodyProps()}>
-                {page.map((row, i) => {
-                  prepareRow(row);
-                  return (
-                    <tr
-                      {...row.getRowProps()}
-                      className="border-bottom-1"
-                      onClick={(e) => handerEdit(e, row.original)}
-                    >
-                      {row.cells.map((cell) => {
-                        return (
-                          <td
-                            {...cell.getCellProps()}
-                            className="fw-normal px-2 py-3"
-                          >
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            )}
+            <thead>
+              {headerGroups.map((headerGroup) => {
+                let newHeaderGroup = "";
+
+                {
+                  dataList
+                    ? (newHeaderGroup = headerGroup.headers.filter(
+                        (item) => !dataList.some((other) => item.id == other)
+                      ))
+                    : (newHeaderGroup = headerGroup.headers);
+                }
+
+                return (
+                  <tr
+                    {...headerGroup.getHeaderGroupProps()}
+                    className="bg-blue"
+                  >
+                    {newHeaderGroup.map((column) => {
+                      return (
+                        <th
+                          {...column.getHeaderProps()}
+                          className="fw-normal px-2 py-3 flex-1"
+                        >
+                          {column.render("Header")}
+                        </th>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, i) => {
+                prepareRow(row);
+
+                let newRowCells = "";
+
+                {
+                  dataList
+                    ? (newRowCells = row.cells.filter(
+                        (item) =>
+                          !dataList.some((other) => item.column.id == other)
+                      ))
+                    : (newRowCells = row.cells);
+                }
+
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    className="border-bottom-1"
+                    onClick={(e) => handerEdit(e, row.original)}
+                  >
+                    {newRowCells.map((cell) => {
+                      return (
+                        <td
+                          {...cell.getCellProps()}
+                          className="fw-normal px-2 py-3"
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <div className="pagination d-flex align-items-center justify-content-center">
             <button
@@ -420,23 +392,23 @@ function Table({ rowData, tableRowHeader, onEdit, onSelect, isProject }) {
         <div {...getTableBodyProps()} className="row">
           {page.map((row, i) => {
             prepareRow(row);
-            let arrayCells = row.cells.filter(
-              (item) =>
-                item !== row.cells[0] &&
-                item !== row.cells[3] &&
-                item !== row.cells[4]
-            );
+            let newRowCells = row.cells;
+            if (dataThumb.length > 0) {
+              newRowCells = row.cells.filter(
+                (item) => !dataThumb.some((other) => item.column.id == other)
+              );
+            }
 
             return (
               <>
-                {arrayCells.length > 0 && (
+                {newRowCells.length > 0 && (
                   <div
                     {...row.getRowProps()}
                     className={`col_thumb ${styles.col_thumb} col-3 mb-4`}
                     onClick={(e) => handerEdit(e, row.original)}
                   >
                     <div className="bg-white shadow-sm h-100 p-3 rounded-2">
-                      {arrayCells.map((cell) => {
+                      {newRowCells.map((cell) => {
                         return (
                           <div
                             {...cell.getCellProps()}
