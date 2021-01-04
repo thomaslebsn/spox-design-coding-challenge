@@ -66,7 +66,7 @@ const ProjectsList = observer(
           tableRowHeader={tableRowHeader}
           onEdit={this.handerEditProject}
           onSelect={this.handerSelectProject}
-          isProject={true}
+          isThumb={true}
           dataList={[
             PROJECT_COLUMN_INDICATOR.CREATED_DATE,
             PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,

@@ -71,7 +71,7 @@ function Table({
   tableRowHeader,
   onEdit,
   onSelect,
-  isProject,
+  isThumb,
   dataList,
   dataThumb,
 }) {
@@ -257,7 +257,7 @@ function Table({
             </Dropdown>
           </div>
         </div>
-        {isProject && (
+        {isThumb && (
           <div className="d-flex align-items-center">
             <button
               type="button"
@@ -300,14 +300,6 @@ function Table({
                       ))
                     : (newHeaderGroup = headerGroup.headers);
                 }
-
-                // if (dataList.length > 0) {
-                //   newHeaderGroup = headerGroup.headers.filter(
-                //     (item) => !dataList.some((other) => item.id == other)
-                //   );
-                // } else {
-                //   newHeaderGroup = headerGroup.headers;
-                // }
 
                 return (
                   <tr
