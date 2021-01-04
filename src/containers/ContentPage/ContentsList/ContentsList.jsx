@@ -11,6 +11,7 @@ import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 
 import Spinner from "../../../components/Spinner";
+import { Image } from "react-bootstrap";
 
 const ContentsList = observer(
   class ContentsList extends Component {
@@ -73,6 +74,20 @@ const ContentsList = observer(
         {
           Header: "Channels",
           accessor: CONTENT_FIELD_KEY.CHANNELS,
+          Cell: ({ value }) => (
+            <div className="d-flex">
+              {value.map((item) => (
+                <div className="position-relative me-2">
+                  <Image
+                    src={item.icon}
+                    width="20"
+                    className="position-absolute bottom-0 end-0"
+                  />
+                  <Image src={item.image} rounded width="50" />
+                </div>
+              ))}
+            </div>
+          ),
         },
         {
           Header: "Status",

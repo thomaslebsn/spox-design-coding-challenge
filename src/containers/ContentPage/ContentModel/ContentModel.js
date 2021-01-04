@@ -3,12 +3,19 @@ import FIELD_TYPE from "../../../constants/FieldType";
 import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 import getStatus from "../../../utils/status";
 
+import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
+
 class ContentModel {
   constructor(data) {
     this.id = data.id ?? 0;
     this.name = data.name ?? "";
     this.channels = data.channels ?? "";
-    this.status = data.status ?? "";
+
+    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
+      this.channels
+    );
+
+    this.channelsData = this.status = data.status ?? "";
     this.description = data.description ?? "";
   }
 
@@ -41,7 +48,7 @@ class ContentModel {
 
   getChannels = () => {
     return {
-      value: this.channels,
+      value: this.channelsModel,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.CHANNELS,
       columnText: "Channels",

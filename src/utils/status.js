@@ -7,12 +7,12 @@ const STATUS = {
   SCHEDULED: {
     id: 2,
     text: "Scheduled",
-    className: "bg-secondary",
+    className: "bg-warning",
   },
   DRAFT: {
     id: 3,
     text: "Draft",
-    className: "bg-warning",
+    className: "bg-red",
   },
 };
 

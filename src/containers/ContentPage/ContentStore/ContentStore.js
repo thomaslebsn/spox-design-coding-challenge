@@ -1,7 +1,4 @@
-import React from "react";
 import { runInAction } from "mobx";
-
-import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 
 import ContentUtils from "../ContentUtils/ContentUtils";
 import ContentModel from "../ContentModel/ContentModel";
@@ -11,23 +8,93 @@ let contents = [
     id: 1,
     name: "Post 1 - simple",
     description: "Lorem",
-    channels: "Test",
     status: 1,
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+      {
+        id: 2,
+        name: "instagram 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/instagram.png",
+      },
+    ],
+    campain: {
+      id: 1,
+      name: "Campain 1",
+    },
+    persona: [
+      {
+        id: 1,
+        name: "Hieu simple",
+      },
+      {
+        id: 2,
+        name: "Hieu simple 2",
+      },
+    ],
   },
   {
     id: 2,
     name: "Post 2 - simple",
     description: "Lorem",
-    channels: "Test",
     status: 2,
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+    ],
+    campain: {
+      id: 1,
+      name: "Campain 1",
+    },
+    persona: [
+      {
+        id: 1,
+        name: "Hieu simple",
+      },
+      {
+        id: 2,
+        name: "Hieu simple 2",
+      },
+    ],
   },
 
   {
     id: 3,
     name: "Post 3 - simple",
     description: "Lorem",
-    channels: "Test",
+
     status: 3,
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+    ],
+    campain: {
+      id: 1,
+      name: "Campain 1",
+    },
+    persona: [
+      {
+        id: 1,
+        name: "Hieu simple",
+      },
+      {
+        id: 2,
+        name: "Hieu simple 2",
+      },
+    ],
   },
 ];
 

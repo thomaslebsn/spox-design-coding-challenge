@@ -33,10 +33,10 @@ class ContentForm extends Component {
       {
         fields: [
           {
-            label: "Content Name",
-            key: CONTENT_FIELD_KEY.NAME,
-            type: FORM_FIELD_TYPE.INPUT,
-            value: this.formPropsData[CONTENT_FIELD_KEY.NAME],
+            label: "Choose the campaign",
+            key: CONTENT_FIELD_KEY.CAMPAIGN,
+            type: FORM_FIELD_TYPE.SINGLE_SELECTION,
+            value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
             required: true,
             validation: "required",
             changed: (event) => {
