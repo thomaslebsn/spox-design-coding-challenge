@@ -14,19 +14,14 @@ const WizardPopup = lazy(() => import("../pages/WizardPopup"));
 const ChannelsPage = lazy(() => import("../pages/ChannelsPage"));
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
 const CalendarPage = lazy(() => import("../pages/CalendarPage"));
-const ContentPage = lazy(() => import("../pages/ContentPage"));
 
 const Projects = lazy(() => import("../containers/Projects"));
 const LoginPage = lazy(() => import("../containers/LoginPage"));
 const PersonasPage = lazy(() => import("../containers/PersonasPage"));
 const CampaignsPage = lazy(() => import("../containers/CampaignsPage"));
+const ContentPage = lazy(() => import("../containers/ContentPage"));
 
-const routes = [
-  {
-    path: "/",
-    exact: true,
-    main: () => <HomePage />,
-  },
+const authRoutes = [
   {
     path: "/login",
     exact: true,
@@ -38,7 +33,7 @@ const routes = [
     main: () => <Signuppage />,
   },
   {
-    path: "/forgot-passwordgnup",
+    path: "/forgot-password",
     exact: true,
     main: () => <ForgotPasswordPage />,
   },
@@ -46,6 +41,14 @@ const routes = [
     path: "/verify",
     exact: true,
     main: () => <VerifyEmailPage />,
+  },
+];
+
+const mainRoutes = [
+  {
+    path: "/",
+    exact: true,
+    main: () => <HomePage />,
   },
   {
     path: "/wizardproject",
@@ -101,12 +104,12 @@ const routes = [
     ),
   },
   {
-    path: "/content",
-    exact: false,
+    path: ["/content", "/content/create", "/content/edit/:id"],
+    exact: true,
     main: ({ match, location }) => (
       <ContentPage match={match} location={location} />
     ),
   },
 ];
 
-export default routes;
+export { authRoutes, mainRoutes };

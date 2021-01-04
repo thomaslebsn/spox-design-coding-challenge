@@ -2,7 +2,6 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 
 import ComponentHeaderPage from "../../components/ComponentHeaderPage";
-import Layout from "../../hoc/Layout";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSave } from "@fortawesome/free-regular-svg-icons/faSave";
@@ -29,42 +28,40 @@ class PersonasPage extends React.Component {
     let { isCreate } = this.state;
 
     return (
-      <Layout>
-        <div className="py-4 px-3">
-          {!isCreate ? (
-            <div className="mb-3">
-              <div className="mb-4">
-                <div className="mb-3">
-                  <ComponentHeaderPage title={"Persona recommendations"} />
-                </div>
-                <div>
-                  <img src="assets/images/banner-template.png" />
-                </div>
+      <div className="py-4 px-3">
+        {!isCreate ? (
+          <div className="mb-3">
+            <div className="mb-4">
+              <div className="mb-3">
+                <ComponentHeaderPage title={"Persona recommendations"} />
               </div>
               <div>
-                <ComponentHeaderPage
-                  title={"List Personas"}
-                  textBtn={"Create a new persona"}
-                  handleCreate={this.handleCreate}
-                  faIcons={faPlus}
-                />
+                <img src="assets/images/banner-template.png" />
               </div>
             </div>
-          ) : (
             <div>
-              <div className="mb-3">
-                <ComponentHeaderPage
-                  title={"Make Persona Overview"}
-                  textBtn={"Save persona"}
-                  handleCreate={this.handleSave}
-                  faIcons={faSave}
-                />
-              </div>
-              <MakePersonaOverview />
+              <ComponentHeaderPage
+                title={"List Personas"}
+                textBtn={"Create a new persona"}
+                handleCreate={this.handleCreate}
+                faIcons={faPlus}
+              />
             </div>
-          )}
-        </div>
-      </Layout>
+          </div>
+        ) : (
+          <div>
+            <div className="mb-3">
+              <ComponentHeaderPage
+                title={"Make Persona Overview"}
+                textBtn={"Save persona"}
+                handleCreate={this.handleSave}
+                faIcons={faSave}
+              />
+            </div>
+            <MakePersonaOverview />
+          </div>
+        )}
+      </div>
     );
   }
 }

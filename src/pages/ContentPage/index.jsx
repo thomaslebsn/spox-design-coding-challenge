@@ -4,7 +4,6 @@ import ComponentHeaderPage from "../../components/ComponentHeaderPage";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import CreateContent from "../../components/CreateContent";
 import ContentSbarRight from "../../components/ContentSbarRight";
-import Layout from "../../hoc/Layout";
 
 class ContentPage extends React.Component {
   constructor(props) {
@@ -23,23 +22,21 @@ class ContentPage extends React.Component {
   render() {
     let { isCreate } = this.state;
     return (
-      <Layout>
-        <div className="py-4 px-3">
-          {!isCreate ? (
-            <ComponentHeaderPage
-              title="List posts"
-              textBtn={"Create post"}
-              handleCreate={this.handleCreate}
-              faIcons={faPlus}
-            />
-          ) : (
-            <div>
-              <CreateContent />
-              <ContentSbarRight />
-            </div>
-          )}
-        </div>
-      </Layout>
+      <div className="py-4 px-3">
+        {!isCreate ? (
+          <ComponentHeaderPage
+            title="List posts"
+            textBtn={"Create post"}
+            handleCreate={this.handleCreate}
+            faIcons={faPlus}
+          />
+        ) : (
+          <div>
+            <CreateContent />
+            <ContentSbarRight />
+          </div>
+        )}
+      </div>
     );
   }
 }

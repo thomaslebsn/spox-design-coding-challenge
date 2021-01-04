@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
+import { notify } from "../../../components/Toast";
 class ProjectsListViewModel {
   projectStore = null;
 
@@ -47,7 +48,7 @@ class ProjectsListViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    alert(error);
+    notify(error.message);
   };
 
   callbackOnSuccessHandler = (projectModelData) => {

@@ -73,6 +73,7 @@ function Table({
   onSelect,
   isProject,
   dataList,
+  dataThumb,
 }) {
   const [getState, setState] = useState({
     isList: true,
@@ -290,23 +291,30 @@ function Table({
           <table {...getTableProps()} className="w-100 mb-4">
             <thead>
               {headerGroups.map((headerGroup) => {
-                headerGroup.headers.filter(
-                  (item) => !dataList.some((other) => item.id == other)
-                );
+                let newHeaderGroup = "";
+
+                {
+                  dataList
+                    ? (newHeaderGroup = headerGroup.headers.filter(
+                        (item) => !dataList.some((other) => item.id == other)
+                      ))
+                    : (newHeaderGroup = headerGroup.headers);
+                }
+
+                // if (dataList.length > 0) {
+                //   newHeaderGroup = headerGroup.headers.filter(
+                //     (item) => !dataList.some((other) => item.id == other)
+                //   );
+                // } else {
+                //   newHeaderGroup = headerGroup.headers;
+                // }
+
                 return (
                   <tr
                     {...headerGroup.getHeaderGroupProps()}
                     className="bg-blue"
                   >
-                    {headerGroup.headers.map((column) => {
-                      console.log("column column column", column);
-                      // console.log("column column column id ", column.id);
-                      // console.log("dataList", dataList);
-                      // let shortDescription = dataList.indexOf(
-                      //   "shortDescription"
-                      // );
-                      // console.log("shortDescription", shortDescription);
-
+                    {newHeaderGroup.map((column) => {
                       return (
                         <th
                           {...column.getHeaderProps()}
@@ -323,13 +331,25 @@ function Table({
             <tbody {...getTableBodyProps()}>
               {page.map((row, i) => {
                 prepareRow(row);
+
+                let newRowCells = "";
+
+                {
+                  dataList
+                    ? (newRowCells = row.cells.filter(
+                        (item) =>
+                          !dataList.some((other) => item.column.id == other)
+                      ))
+                    : (newRowCells = row.cells);
+                }
+
                 return (
                   <tr
                     {...row.getRowProps()}
                     className="border-bottom-1"
                     onClick={(e) => handerEdit(e, row.original)}
                   >
-                    {row.cells.map((cell) => {
+                    {newRowCells.map((cell) => {
                       return (
                         <td
                           {...cell.getCellProps()}
@@ -380,17 +400,23 @@ function Table({
         <div {...getTableBodyProps()} className="row">
           {page.map((row, i) => {
             prepareRow(row);
+            let newRowCells = row.cells;
+            if (dataThumb.length > 0) {
+              newRowCells = row.cells.filter(
+                (item) => !dataThumb.some((other) => item.column.id == other)
+              );
+            }
 
             return (
               <>
-                {row.cells.length > 0 && (
+                {newRowCells.length > 0 && (
                   <div
                     {...row.getRowProps()}
                     className={`col_thumb ${styles.col_thumb} col-3 mb-4`}
                     onClick={(e) => handerEdit(e, row.original)}
                   >
                     <div className="bg-white shadow-sm h-100 p-3 rounded-2">
-                      {row.cells.map((cell) => {
+                      {newRowCells.map((cell) => {
                         return (
                           <div
                             {...cell.getCellProps()}

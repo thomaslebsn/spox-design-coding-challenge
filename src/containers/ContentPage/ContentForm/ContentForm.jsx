@@ -1,15 +1,15 @@
 import React, { Component, lazy } from "react";
 
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
-import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
+import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 
 const FormComponent = lazy(() => import("../../../components/Form"));
 
-class PersonaForm extends Component {
+class ContentForm extends Component {
   formPropsData = {
-    [PERSONA_FIELD_KEY.NAME]: "",
-    [PERSONA_FIELD_KEY.CREATED_DATE]: "",
-    [PERSONA_FIELD_KEY.UPDATED_DATE]: "",
+    [CONTENT_FIELD_KEY.NAME]: "",
+    [CONTENT_FIELD_KEY.CREATED_DATE]: "",
+    [CONTENT_FIELD_KEY.UPDATED_DATE]: "",
   };
 
   isEditMode = false;
@@ -23,7 +23,7 @@ class PersonaForm extends Component {
     this.isEditMode = this.viewModel.editMode === true;
 
     if (this.isEditMode) {
-      this.populatingFormDataHandler(this.viewModel.personaEditdata[0]);
+      this.populatingFormDataHandler(this.viewModel.contentEditdata[0]);
     }
   }
 
@@ -33,14 +33,14 @@ class PersonaForm extends Component {
       {
         fields: [
           {
-            label: "Persona Name",
-            key: PERSONA_FIELD_KEY.NAME,
+            label: "Content Name",
+            key: CONTENT_FIELD_KEY.NAME,
             type: FORM_FIELD_TYPE.INPUT,
-            value: this.formPropsData[PERSONA_FIELD_KEY.NAME],
+            value: this.formPropsData[CONTENT_FIELD_KEY.NAME],
             required: true,
             validation: "required",
             changed: (event) => {
-              this.formPropsData[PERSONA_FIELD_KEY.NAME] = event.target.value;
+              this.formPropsData[CONTENT_FIELD_KEY.NAME] = event.target.value;
             },
           },
         ],
@@ -50,11 +50,11 @@ class PersonaForm extends Component {
 
   populatingFormDataHandler = (data) => {
     if (!data) return false;
-    this.formPropsData[PERSONA_FIELD_KEY.NAME] = data.getName().value;
+    this.formPropsData[CONTENT_FIELD_KEY.NAME] = data.getName().value;
   };
 
   render() {
-    console.log("[Persona - Form] - re-render .........");
+    console.log("[Content - Form] - re-render .........");
 
     return (
       <FormComponent
@@ -66,4 +66,4 @@ class PersonaForm extends Component {
     );
   }
 }
-export default PersonaForm;
+export default ContentForm;

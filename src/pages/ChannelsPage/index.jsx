@@ -4,7 +4,6 @@ import { withTranslation } from "react-i18next";
 import ComponentHeaderPageAction from "../../components/ComponentHeaderPageAction";
 import ChannelAccordion from "../../components/ChannelAccordion";
 import ComponentConnectaChannel from "../../components/ComponentConnectaChannel";
-import Layout from "../../hoc/Layout";
 
 class ChannelsPage extends React.Component {
   constructor(props) {
@@ -27,21 +26,19 @@ class ChannelsPage extends React.Component {
     let { isCreate } = this.state;
 
     return (
-      <Layout>
-        <div className="py-4 px-3">
-          <div className="mb-3">
-            <ComponentHeaderPageAction
-              title={isCreate ? "Connect a Channel" : "Channel Statistics"}
-              textBtn={isCreate ? "Close" : "Add channels"}
-              handleCreate={this.handleCreate}
-              isCreate={isCreate}
-            />
-          </div>
-          <div>
-            {!isCreate ? <ChannelAccordion /> : <ComponentConnectaChannel />}
-          </div>
+      <div className="py-4 px-3">
+        <div className="mb-3">
+          <ComponentHeaderPageAction
+            title={isCreate ? "Connect a Channel" : "Channel Statistics"}
+            textBtn={isCreate ? "Close" : "Add channels"}
+            handleCreate={this.handleCreate}
+            isCreate={isCreate}
+          />
         </div>
-      </Layout>
+        <div>
+          {!isCreate ? <ChannelAccordion /> : <ComponentConnectaChannel />}
+        </div>
+      </div>
     );
   }
 }

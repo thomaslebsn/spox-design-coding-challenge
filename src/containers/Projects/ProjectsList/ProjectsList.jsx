@@ -71,7 +71,11 @@ const ProjectsList = observer(
             PROJECT_COLUMN_INDICATOR.CREATED_DATE,
             PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
           ]}
-          dataThumb=""
+          dataThumb={[
+            "selection",
+            PROJECT_COLUMN_INDICATOR.START_DATE,
+            PROJECT_COLUMN_INDICATOR.END_DATE,
+          ]}
         ></Table>
       );
     }

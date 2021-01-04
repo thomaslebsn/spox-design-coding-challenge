@@ -1,47 +1,44 @@
 import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
-import PersonaUtils from "../PersonaUtils/PersonaUtils";
-import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
+import ContentUtils from "../ContentUtils/ContentUtils";
+import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+class ContentsListViewModel {
+  contentStore = null;
 
-import { notify } from "../../../components/Toast";
-
-class PersonasListViewModel {
-  personaStore = null;
-
-  personas = null;
+  contents = null;
 
   tableRowHeader = null;
 
   tableStatus = PAGE_STATUS.LOADING;
 
-  personaIdsSelected = null;
+  contentIdsSelected = null;
 
-  constructor(personaStore) {
+  constructor(contentStore) {
     makeAutoObservable(this);
-    this.personaStore = personaStore;
+    this.contentStore = contentStore;
   }
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.personaStore.fetchPersonas(
+    this.contentStore.fetchContents(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
   };
 
-  refreshTablePersonaList = () => {
+  refreshTableContentList = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.personaStore.fetchPersonas(
+    this.contentStore.fetchContents(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
   };
 
-  deletePersonas = () => {
+  deleteContents = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
 
-    this.personaStore.deletePersonas(
-      this.personaIdsSelected,
+    this.contentStore.deleteContents(
+      this.contentIdsSelected,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -50,43 +47,43 @@ class PersonasListViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    notify(error.message);
+    alert(error);
   };
 
-  callbackOnSuccessHandler = (personaModelData) => {
+  callbackOnSuccessHandler = (contentModelData) => {
     console.log("callbackOnSuccessHandler");
-    console.log(personaModelData);
-    if (personaModelData) {
+    console.log(contentModelData);
+    if (contentModelData) {
       this.tableStatus = PAGE_STATUS.READY;
       this.tableRowHeader = [
         {
           Header: "Name",
-          accessor: PERSONA_FIELD_KEY.NAME, // accessor is the "key" in the data
+          accessor: CONTENT_FIELD_KEY.NAME, // accessor is the "key" in the data
         },
 
         {
           Header: "Created Date",
-          accessor: PERSONA_FIELD_KEY.CREATED_DATE,
+          accessor: CONTENT_FIELD_KEY.CREATED_DATE,
         },
         {
           Header: "Updated Date",
-          accessor: PERSONA_FIELD_KEY.UPDATED_DATE,
+          accessor: CONTENT_FIELD_KEY.UPDATED_DATE,
         },
       ];
 
       console.log("Row Data is tableRowHeader");
       console.log(this.tableRowHeader);
 
-      const rowDataTransformed = PersonaUtils.transformPersonaModelIntoTableDataRow(
-        personaModelData
+      const rowDataTransformed = ContentUtils.transformContentModelIntoTableDataRow(
+        contentModelData
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
-      this.personas = rowDataTransformed;
+      this.contents = rowDataTransformed;
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
 }
 
-export default PersonasListViewModel;
+export default ContentsListViewModel;
