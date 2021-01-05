@@ -14,16 +14,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
-
 import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
 import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
+import { faFilter } from "@fortawesome/free-solid-svg-icons/faFilter";
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons/faChevronUp";
+
 import styles from "./index.module.scss";
 import "./index.scss";
 
 import GlobalFilter from "./GlobalFilter";
 import SubRowAsync from "./RowSubComponent";
 import ComponentDatepicker from "../ComponentDatepicker";
+import ComponentFilter from "../ComponentFilter";
 
 const Table = ({
   rowData,
@@ -34,11 +37,12 @@ const Table = ({
   dataList,
   dataThumb,
   searchText = "Search...",
-  isDatePicker,
+  isFilter,
 }) => {
   const [getState, setState] = useState({
     isList: true,
     isName: "list",
+    isFilter: false,
   });
 
   const filterTypes = React.useMemo(
@@ -175,85 +179,123 @@ const Table = ({
     []
   );
 
+  const handleFilter = () => {
+    setState({
+      ...getState,
+      isFilter: !getState.isFilter,
+    });
+  };
+
   return (
     <>
-      <div className="bg-white rounded-3 mb-4 d-flex align-items-center justify-content-between">
-        <div className="d-flex align-items-center">
-          <GlobalFilter
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            globalFilter={state.globalFilter}
-            setGlobalFilter={setGlobalFilter}
-            searchText={searchText}
-          />
-          <div className="px-2 border-end-1">
-            <Dropdown>
-              <Dropdown.Toggle
-                variant="info"
-                id="actions"
-                className={`btn_toggle ${styles.btn_toggle}`}
+      <div className="mb-4">
+        <div className="bg-white rounded-3 d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center">
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+              searchText={searchText}
+            />
+            <div className="px-2 border-end-1">
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="info"
+                  id="actions"
+                  className={`btn_toggle ${styles.btn_toggle}`}
+                >
+                  <i>
+                    <FontAwesomeIcon icon={faColumns} />
+                  </i>
+                  <span className="ps-2 pe-5 text-blue-0 opacity-75">
+                    Columns
+                  </span>
+                  <i className="text-green">
+                    <FontAwesomeIcon icon={faChevronDown} />
+                  </i>
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
+                  {allColumns.map(
+                    (column) =>
+                      column.id !== "selection" && (
+                        <div key={column.id} className="mb-2">
+                          <label>
+                            <input
+                              type="checkbox"
+                              {...column.getToggleHiddenProps()}
+                              className="form-check-input p-0"
+                            />
+                            <span className="ps-2">{column.Header}</span>
+                          </label>
+                        </div>
+                      )
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+            {isFilter && (
+              <>
+                <div className="px-2 border-end-1 w-200">
+                  <ComponentDatepicker isDown={true} />
+                </div>
+                <div className="rounded-0">
+                  <button
+                    className={`btn ${getState.isFilter ? "bg-blue-3" : ""}`}
+                    onClick={handleFilter}
+                  >
+                    <i>
+                      <FontAwesomeIcon icon={faFilter} />
+                    </i>
+                    <span className="ps-2 pe-5 text-blue-0 opacity-75">
+                      Filter
+                    </span>
+                    <i className="text-green">
+                      <FontAwesomeIcon
+                        icon={getState.isFilter ? faChevronUp : faChevronDown}
+                      />
+                    </i>
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+          {isThumb && (
+            <div className="d-flex align-items-center">
+              <button
+                type="button"
+                className={`btn text-blue-0 rounded-0 px-4 ${
+                  getState.isList ? "bg-blue-3" : ""
+                }`}
+                onClick={() => _handleList("list")}
               >
                 <i>
-                  <FontAwesomeIcon icon={faColumns} />
+                  <FontAwesomeIcon icon={faList} />
                 </i>
-                <span className="ps-2 pe-5 text-blue-0 opacity-75">
-                  Columns
-                </span>
-                <i className="text-green">
-                  <FontAwesomeIcon icon={faChevronDown} />
+                <span className="ms-2 opacity-75">List</span>
+              </button>
+              <button
+                type="button"
+                className={`btn text-blue-0 rounded-0 px-4 ${
+                  !getState.isList ? "bg-blue-3" : ""
+                }`}
+                onClick={() => _handleList("thumb")}
+              >
+                <i>
+                  <FontAwesomeIcon icon={faTh} />
                 </i>
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
-                {allColumns.map(
-                  (column) =>
-                    column.id !== "selection" && (
-                      <div key={column.id} className="mb-2">
-                        <label>
-                          <input
-                            type="checkbox"
-                            {...column.getToggleHiddenProps()}
-                            className="form-check-input p-0"
-                          />
-                          <span className="ps-2">{column.Header}</span>
-                        </label>
-                      </div>
-                    )
-                )}
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-          {isDatePicker && (
-            <div className="px-2 border-end-1 w-200">
-              <ComponentDatepicker isDown={true} />
+                <span className="ms-2 opacity-75">Thumb</span>
+              </button>
             </div>
           )}
         </div>
-        {isThumb && (
-          <div className="d-flex align-items-center">
-            <button
-              type="button"
-              className={`btn text-blue-0 rounded-0 px-4 ${
-                getState.isList ? "bg-blue-3" : ""
-              }`}
-              onClick={() => _handleList("list")}
-            >
-              <i>
-                <FontAwesomeIcon icon={faList} />
-              </i>
-              <span className="ms-2 opacity-75">List</span>
-            </button>
-            <button
-              type="button"
-              className={`btn text-blue-0 rounded-0 px-4 ${
-                !getState.isList ? "bg-blue-3" : ""
-              }`}
-              onClick={() => _handleList("thumb")}
-            >
-              <i>
-                <FontAwesomeIcon icon={faTh} />
-              </i>
-              <span className="ms-2 opacity-75">Thumb</span>
-            </button>
-          </div>
+        {isFilter && (
+          <>
+            {getState.isFilter && (
+              <div className="py-2 px-1 bg-blue-3">
+                <ComponentFilter />
+              </div>
+            )}
+          </>
         )}
       </div>
       {getState.isList ? (

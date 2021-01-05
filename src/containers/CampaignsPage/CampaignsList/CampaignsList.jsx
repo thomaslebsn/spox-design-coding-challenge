@@ -39,12 +39,12 @@ const CampaignsList = observer(
       this.campaignsListViewModel.initializeData();
     }
 
-    // handerEditCampaigns = (row) => {
-    //   history.push(`/campaigns/edit/${row[CAMPAIGNS_FIELD_KEY.ID]}`, {
-    //     form: true,
-    //     id: row[CAMPAIGNS_FIELD_KEY.ID],
-    //   });
-    // };
+    handerEditCampaigns = (row) => {
+      history.push(`/campaigns/edit/${row[CAMPAIGNS_FIELD_KEY.ID]}`, {
+        form: true,
+        id: row[CAMPAIGNS_FIELD_KEY.ID],
+      });
+    };
 
     handerSelectCampaigns = (data) => {
       this.campaignsListViewModel.campaignsIdsSelected = data
@@ -140,9 +140,9 @@ const CampaignsList = observer(
           <Table
             rowData={campaigns}
             tableRowHeader={tableRowHeader}
-            // onEdit={this.handerEditCampaigns}
+            onEdit={this.handerEditCampaigns}
             onSelect={this.handerSelectCampaigns}
-            isDatePicker={true}
+            isFilter={true}
           ></Table>
         </div>
       );
