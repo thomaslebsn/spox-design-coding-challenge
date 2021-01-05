@@ -56,19 +56,6 @@ class CampaignsListViewModel {
     console.log(campaignsModelData);
     if (campaignsModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-      this.tableRowHeader = [
-        {
-          Header: "Name",
-          accessor: CAMPAIGNS_FIELD_KEY.NAME, // accessor is the "key" in the data
-        },
-        {
-          Header: "Created Date",
-          accessor: CAMPAIGNS_FIELD_KEY.CREATED_DATE,
-        },
-      ];
-
-      console.log("Row Data is tableRowHeader");
-      console.log(this.tableRowHeader);
 
       const rowDataTransformed = CampaignsUtils.transformCampaignsModelIntoTableDataRow(
         campaignsModelData

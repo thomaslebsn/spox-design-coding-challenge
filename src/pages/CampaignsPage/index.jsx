@@ -18,7 +18,6 @@ import ComponentDatepicker from "../../components/ComponentDatepicker";
 import TableListCampaigns from "../../components/TableListCampaigns";
 import CreateCampaign from "../../components/CreateCampaign";
 
-
 const optionExport = [
   { value: "day-1", label: "Day 1" },
   { value: "day-2", label: "Day 2" },
