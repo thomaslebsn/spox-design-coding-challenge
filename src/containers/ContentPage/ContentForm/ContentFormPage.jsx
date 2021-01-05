@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 
 const ContentFormGeneral = lazy(() => import("./ContentFormGeneral"));
+const ContentFormPublish = lazy(() => import("./ContentFormPublish"));
 
 const ContentFormPage = observer(
   class ContentFormPage extends Component {
@@ -34,6 +35,7 @@ const ContentFormPage = observer(
       return (
         <>
           <ContentFormGeneral viewModel={this.contentFormViewModel} />
+          <ContentFormPublish viewModel={this.contentFormViewModel} />
         </>
       );
     }
