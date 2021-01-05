@@ -1,7 +1,7 @@
 const PERSONA_FIELD_KEY = {
   ID: "personal-id",
   NAME: "personal-name",
-  CHANNEL: "personal-channel",
+  CHANNELS: "personal-channel",
   AGE: "personal-age",
   GENDER: "personal-gender",
   LOCATION: "personal-location",
@@ -19,6 +19,7 @@ const PERSONA_FIELD_KEY = {
   BIO: "personal-bio",
   CREATED_DATE: "created-date",
   UPDATED_DATE: "updated-date",
+  IMAGE: "personal-image",
 };
 
 export { PERSONA_FIELD_KEY };

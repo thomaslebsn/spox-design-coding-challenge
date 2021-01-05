@@ -2,6 +2,8 @@ import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
+import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
+
 import { format } from "date-fns";
 
 class PersonaModel {
@@ -11,6 +13,13 @@ class PersonaModel {
 
     this.createdDate = data.created_date ?? "";
     this.updatedDate = data.updated_date ?? "";
+
+    this.image = data.image ?? "";
+
+    this.channels = data.channels ?? "";
+    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
+      this.channels
+    );
   }
 
   getId = () => {
@@ -28,6 +37,24 @@ class PersonaModel {
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.NAME,
       columnText: "Name",
+    };
+  };
+
+  getImage = () => {
+    return {
+      value: this.image,
+      type: FIELD_TYPE.IMAGE,
+      columnName: PERSONA_FIELD_KEY.IMAGE,
+      columnText: "Name",
+    };
+  };
+
+  getChannels = () => {
+    return {
+      value: this.channelsModel,
+      type: FIELD_TYPE.TEXT,
+      columnName: PERSONA_FIELD_KEY.CHANNELS,
+      columnText: "Channels",
     };
   };
 
@@ -55,13 +82,17 @@ class PersonaModel {
     const id = this.getId(),
       name = this.getName(),
       createdDate = this.getCreatedDate(),
-      updatedDate = this.getUpdatedDate();
+      updatedDate = this.getUpdatedDate(),
+      image = this.getImage(),
+      channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
       [createdDate.columnName]: createdDate.value,
       [updatedDate.columnName]: updatedDate.value,
+      [image.columnName]: image.value,
+      [channels.columnName]: channels.value,
     };
   };
 

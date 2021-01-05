@@ -3,7 +3,8 @@ import React, { Component, lazy } from "react";
 import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 
-const ContentForm = lazy(() => import("./ContentForm"));
+const ContentFormGeneral = lazy(() => import("./ContentFormGeneral"));
+const ContentFormPublish = lazy(() => import("./ContentFormPublish"));
 
 const ContentFormPage = observer(
   class ContentFormPage extends Component {
@@ -28,18 +29,15 @@ const ContentFormPage = observer(
       console.log(this.contentFormViewModel);
     }
 
-    saveContentHandler = () => {
-      this.contentFormViewModel.saveOnModal();
-    };
-
-    cancelSavingHandler = () => {
-      this.contentFormViewModel.closeModal();
-    };
-
     render() {
       console.log("[ContentFormPage] - re-render .........");
 
-      return <ContentForm viewModel={this.contentFormViewModel} />;
+      return (
+        <>
+          <ContentFormGeneral viewModel={this.contentFormViewModel} />
+          <ContentFormPublish viewModel={this.contentFormViewModel} />
+        </>
+      );
     }
   }
 );

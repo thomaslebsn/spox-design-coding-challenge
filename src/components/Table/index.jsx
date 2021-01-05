@@ -38,9 +38,12 @@ const Table = ({
   dataThumb,
   searchText = "Search...",
   isFilter,
+  noSelection = false,
+  isList = true,
+  noColumns = false,
 }) => {
   const [getState, setState] = useState({
-    isList: true,
+    isList: isList,
     isName: "list",
     isFilter: false,
   });
@@ -126,22 +129,25 @@ const Table = ({
     useFilters,
     useGlobalFilter,
     (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        {
-          id: "selection",
-          Header: ({ getToggleAllPageRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-            </div>
-          ),
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ]);
+      !noSelection &&
+        hooks.visibleColumns.push((columns) => [
+          {
+            id: "selection",
+            Header: ({ getToggleAllPageRowsSelectedProps }) => (
+              <div>
+                <IndeterminateCheckbox
+                  {...getToggleAllPageRowsSelectedProps()}
+                />
+              </div>
+            ),
+            Cell: ({ row }) => (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            ),
+          },
+          ...columns,
+        ]);
     },
     useExpanded,
     usePagination,
@@ -197,42 +203,44 @@ const Table = ({
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
             />
-            <div className="px-2 border-end-1">
-              <Dropdown>
-                <Dropdown.Toggle
-                  variant="info"
-                  id="actions"
-                  className={`btn_toggle ${styles.btn_toggle}`}
-                >
-                  <i>
-                    <FontAwesomeIcon icon={faColumns} />
-                  </i>
-                  <span className="ps-2 pe-5 text-blue-0 opacity-75">
-                    Columns
-                  </span>
-                  <i className="text-green">
-                    <FontAwesomeIcon icon={faChevronDown} />
-                  </i>
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
-                  {allColumns.map(
-                    (column) =>
-                      column.id !== "selection" && (
-                        <div key={column.id} className="mb-2">
-                          <label>
-                            <input
-                              type="checkbox"
-                              {...column.getToggleHiddenProps()}
-                              className="form-check-input p-0"
-                            />
-                            <span className="ps-2">{column.Header}</span>
-                          </label>
-                        </div>
-                      )
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
+            {!noColumns && (
+              <div className="px-2 border-end-1">
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant="info"
+                    id="actions"
+                    className={`btn_toggle ${styles.btn_toggle}`}
+                  >
+                    <i>
+                      <FontAwesomeIcon icon={faColumns} />
+                    </i>
+                    <span className="ps-2 pe-5 text-blue-0 opacity-75">
+                      Columns
+                    </span>
+                    <i className="text-green">
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </i>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
+                    {allColumns.map(
+                      (column) =>
+                        column.id !== "selection" && (
+                          <div key={column.id} className="mb-2">
+                            <label>
+                              <input
+                                type="checkbox"
+                                {...column.getToggleHiddenProps()}
+                                className="form-check-input p-0"
+                              />
+                              <span className="ps-2">{column.Header}</span>
+                            </label>
+                          </div>
+                        )
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            )}
             {isFilter && (
               <>
                 <div className="px-2 border-end-1 w-200">
@@ -409,7 +417,7 @@ const Table = ({
           {page.map((row, i) => {
             prepareRow(row);
             let newRowCells = row.cells;
-            if (dataThumb.length > 0) {
+            if (dataThumb && dataThumb.length > 0) {
               newRowCells = row.cells.filter(
                 (item) => !dataThumb.some((other) => item.column.id == other)
               );
@@ -420,7 +428,7 @@ const Table = ({
                 {newRowCells.length > 0 && (
                   <div
                     {...row.getRowProps()}
-                    className={`col_thumb ${styles.col_thumb} col-3 mb-4`}
+                    className={`col_thumb cursor-pointer ${styles.col_thumb} col-3 mb-4`}
                     onClick={(e) => handerEdit(e, row.original)}
                   >
                     <div className="bg-white shadow-sm h-100 p-3 rounded-2">

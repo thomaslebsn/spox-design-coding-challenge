@@ -39,6 +39,15 @@ class PersonaFormViewModel {
     );
   };
 
+  openModal = () => {
+    this.show = true;
+  };
+
+  closeModal = () => {
+    this.editMode = false;
+    this.show = false;
+  };
+
   saveOnModal = () => {
     const isFormValid = this.personaFormComponent.isFormValid();
 

@@ -1,13 +1,9 @@
 import React, { Component, lazy } from "react";
 
-import { FORM_FIELD_TYPE } from "../../constants/FormFieldType";
-
 import SimpleReactValidator from "simple-react-validator";
 import { Form } from "react-bootstrap";
-import Label from "./Label";
 
-const FormDateRangePicker = lazy(() => import("./FormDateRangePicker"));
-const FormImage = lazy(() => import("./FormImage"));
+import { renderingGroupFieldHandler } from "../../utils/form";
 
 class FormComponent extends Component {
   formPropsData = null;
@@ -32,93 +28,6 @@ class FormComponent extends Component {
     this.viewModel.setForm(this);
   }
 
-  renderingGroupFieldHandler = (group) => {
-    return Object.keys(group.fields)
-      .map((fieldIndex) => {
-        return [...Array(group.fields[fieldIndex])].map((field) => {
-          return (() => {
-            switch (field.type) {
-              case FORM_FIELD_TYPE.INPUT:
-                return (
-                  <Form.Group key={Math.random(40, 200)} className="mb-4">
-                    <Label
-                      text={field.label}
-                      required={field.required ?? false}
-                    />
-
-                    <Form.Control
-                      as="input"
-                      defaultValue={field.value}
-                      required={field.required ?? false}
-                      id={field.key}
-                      onChange={field.changed ?? undefined}
-                    />
-
-                    {field.validation
-                      ? this.validator.message(
-                          field.label,
-                          field.value,
-                          field.validation,
-                          { className: "text-danger" }
-                        )
-                      : ""}
-                  </Form.Group>
-                );
-              case FORM_FIELD_TYPE.TEXTAREA:
-                return (
-                  <Form.Group key={Math.random(40, 200)} className="mb-4">
-                    <Label
-                      text={field.label}
-                      required={field.required ?? false}
-                    />
-                    <Form.Control
-                      as="textarea"
-                      defaultValue={field.value}
-                      required={field.required ?? false}
-                      id={field.key}
-                      onChange={field.changed ?? undefined}
-                    />
-
-                    {field.validation &&
-                      this.validator.message(
-                        field.label,
-                        field.value,
-                        field.validation,
-                        { className: "text-danger" }
-                      )}
-                  </Form.Group>
-                );
-
-              case FORM_FIELD_TYPE.DATERANGE:
-                return (
-                  <FormDateRangePicker
-                    key={Math.random(40, 200)}
-                    field={field}
-                  />
-                );
-              case FORM_FIELD_TYPE.IMAGE:
-                return (
-                  <Form.Group key={Math.random(40, 200)} className="mb-4">
-                    <Label
-                      text={field.label}
-                      required={field.required ?? false}
-                    />
-
-                    <FormImage key={Math.random(40, 200)} field={field} />
-                  </Form.Group>
-                );
-
-              default:
-                return null;
-            }
-          })();
-        });
-      })
-      .reduce((arr, el) => {
-        return arr.concat(el);
-      }, []);
-  };
-
   isFormValid = () => {
     console.log("isFormValid");
     if (this.validator.allValid()) {
@@ -141,7 +50,7 @@ class FormComponent extends Component {
         {Object.keys(formSetting)
           .map((groupIndex) => {
             return [...Array(formSetting[groupIndex])].map((group) => {
-              return this.renderingGroupFieldHandler(group);
+              return renderingGroupFieldHandler(group);
             });
           })
           .reduce((arr, el) => {
