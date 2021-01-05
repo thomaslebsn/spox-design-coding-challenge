@@ -68,23 +68,20 @@ const CampaignsList = observer(
           accessor: CAMPAIGNS_FIELD_KEY.NAME,
           id: "expander",
           Cell: ({ row }) => (
-            console.log("row row header", row),
-            (
-              <div {...row.getToggleRowExpandedProps()} className="d-flex">
-                {row.isExpanded ? (
-                  <i className="text-green">
-                    <FontAwesomeIcon icon={faMinus} />
-                  </i>
-                ) : (
-                  <i className="text-green">
-                    <FontAwesomeIcon icon={faPlus} />
-                  </i>
-                )}
-                <span className="ms-2 fw-bold text-black opacity-75">
-                  {row.values.expander}
-                </span>
-              </div>
-            )
+            <div {...row.getToggleRowExpandedProps()} className="d-flex">
+              {row.isExpanded ? (
+                <i className="text-green">
+                  <FontAwesomeIcon icon={faMinus} />
+                </i>
+              ) : (
+                <i className="text-green">
+                  <FontAwesomeIcon icon={faPlus} />
+                </i>
+              )}
+              <span className="ms-2 fw-bold text-black opacity-75">
+                {row.values.expander}
+              </span>
+            </div>
           ),
           SubCell: ({ cellProps, row }) => <>{row.original.name}</>,
         },
