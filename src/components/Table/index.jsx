@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
-
 import {
   useTable,
-  usePagination,
   useRowSelect,
   useFilters,
   useGlobalFilter,
+  useExpanded,
+  usePagination,
 } from "react-table";
-
 import { useMemo } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,6 +22,164 @@ import styles from "./index.module.scss";
 import "./index.scss";
 
 import GlobalFilter from "./GlobalFilter";
+
+let contents = [
+  {
+    id: 1,
+    name: "Post 1 - simple",
+    description: "Lorem",
+    status: 1,
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+      {
+        id: 2,
+        name: "instagram 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/instagram.png",
+      },
+    ],
+    campain: {
+      id: 1,
+      name: "Campain 1",
+    },
+    persona: [
+      {
+        id: 1,
+        name: "Hieu simple",
+      },
+      {
+        id: 2,
+        name: "Hieu simple 2",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Post 2 - simple",
+    description: "Lorem",
+    status: 2,
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+    ],
+    campain: {
+      id: 1,
+      name: "Campain 1",
+    },
+    persona: [
+      {
+        id: 1,
+        name: "Hieu simple",
+      },
+      {
+        id: 2,
+        name: "Hieu simple 2",
+      },
+    ],
+  },
+
+  {
+    id: 3,
+    name: "Post 3 - simple",
+    description: "Lorem",
+
+    status: 3,
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+    ],
+    campain: {
+      id: 1,
+      name: "Campain 1",
+    },
+    persona: [
+      {
+        id: 1,
+        name: "Hieu simple",
+      },
+      {
+        id: 2,
+        name: "Hieu simple 2",
+      },
+    ],
+  },
+];
+
+function SubRows({ row, rowProps, visibleColumns, data, loading }) {
+  if (loading) {
+    return (
+      <tr>
+        <td />
+        <td colSpan={visibleColumns.length - 1}>Loading...</td>
+      </tr>
+    );
+  }
+
+  return (
+    <>
+      {data.map((x, i) => {
+        return (
+          <tr
+            {...rowProps}
+            key={`${rowProps.key}-expanded-${i}`}
+            className="border-bottom-1"
+          >
+            {row.cells.map((cell) => {
+              console.log("cell cell", cell);
+              return (
+                <td {...cell.getCellProps()} className="px-2 py-3">
+                  {cell.render(cell.column.SubCell ? "SubCell" : "Cell", {
+                    value: cell.column.accessor && cell.column.accessor(x, i),
+                    row: { ...row, original: x },
+                  })}
+                </td>
+              );
+            })}
+          </tr>
+        );
+      })}
+    </>
+  );
+}
+
+function SubRowAsync({ row, rowProps, visibleColumns }) {
+  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setData(contents);
+      setLoading(false);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  return (
+    <SubRows
+      row={row}
+      rowProps={rowProps}
+      visibleColumns={visibleColumns}
+      data={data}
+      loading={loading}
+    />
+  );
+}
 
 const Table = ({
   rowData,
@@ -57,7 +214,7 @@ const Table = ({
 
   const handerEdit = (e, row) => {
     if (e.target.type !== "checkbox") {
-      onEdit(row);
+      // onEdit(row);
     }
   };
 
@@ -119,8 +276,6 @@ const Table = ({
     },
     useFilters,
     useGlobalFilter,
-    usePagination,
-    useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
         {
@@ -138,7 +293,10 @@ const Table = ({
         },
         ...columns,
       ]);
-    }
+    },
+    useExpanded,
+    usePagination,
+    useRowSelect
   );
 
   useEffect(() => {
@@ -160,6 +318,17 @@ const Table = ({
       isList: getState.isName === name ? true : false,
     });
   };
+
+  const renderRowSubComponent = React.useCallback(
+    ({ row, rowProps, visibleColumns }) => (
+      <SubRowAsync
+        row={row}
+        rowProps={rowProps}
+        visibleColumns={visibleColumns}
+      />
+    ),
+    []
+  );
 
   return (
     <>
@@ -272,7 +441,7 @@ const Table = ({
             <tbody {...getTableBodyProps()}>
               {page.map((row, i) => {
                 prepareRow(row);
-
+                const rowProps = row.getRowProps();
                 let newRowCells = "";
 
                 dataList
@@ -283,22 +452,30 @@ const Table = ({
                   : (newRowCells = row.cells);
 
                 return (
-                  <tr
-                    {...row.getRowProps()}
-                    className="border-bottom-1"
-                    onClick={(e) => handerEdit(e, row.original)}
-                  >
-                    {newRowCells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          className="fw-normal px-2 py-3"
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
+                  <React.Fragment key={row.getRowProps().key}>
+                    <tr
+                      {...row.getRowProps()}
+                      className="border-bottom-1"
+                      onClick={(e) => handerEdit(e, row.original)}
+                    >
+                      {newRowCells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            className="fw-normal px-2 py-3"
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                    {row.isExpanded &&
+                      renderRowSubComponent({
+                        row,
+                        rowProps,
+                        visibleColumns,
+                      })}
+                  </React.Fragment>
                 );
               })}
             </tbody>

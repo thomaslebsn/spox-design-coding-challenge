@@ -4,9 +4,18 @@ import history from "../../../routes/history";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
 import Table from "../../../components/Table";
+import ComponentChart from "../../../components/Chart";
+import ListSocial from "../../../components/ListSocial";
+import CampaignsTotalNumber from "../../../components/CampaignsTotalNumber";
 
 import { observer } from "mobx-react";
 import { withCampaignsViewModel } from "../CampaignsViewModels/CampaignsViewModelContextProvider";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
+
+import Spinner from "../../../components/Spinner";
 
 const CampaignsList = observer(
   class CampaignsList extends Component {
@@ -51,21 +60,91 @@ const CampaignsList = observer(
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
-      const {
-        tableRowHeader,
-        tableStatus,
-        campaigns,
-      } = this.campaignsListViewModel;
-      console.log(campaigns);
+      const { tableStatus, campaigns } = this.campaignsListViewModel;
+
+      const tableRowHeader = [
+        {
+          Header: "Campaign Name",
+          accessor: CAMPAIGNS_FIELD_KEY.NAME,
+          id: "expander",
+          Cell: ({ row }) => (
+            console.log("row row header", row),
+            (
+              <div {...row.getToggleRowExpandedProps()} className="d-flex">
+                {row.isExpanded ? (
+                  <i className="text-green">
+                    <FontAwesomeIcon icon={faMinus} />
+                  </i>
+                ) : (
+                  <i className="text-green">
+                    <FontAwesomeIcon icon={faPlus} />
+                  </i>
+                )}
+                <span className="ms-2 fw-bold text-black opacity-75">
+                  {row.values.expander}
+                </span>
+              </div>
+            )
+          ),
+          SubCell: ({ cellProps, row }) => <>{row.original.name}</>,
+        },
+        {
+          Header: "Status",
+          accessor: CAMPAIGNS_FIELD_KEY.STATUS,
+        },
+        {
+          Header: "Start date",
+          accessor: CAMPAIGNS_FIELD_KEY.START_DATE,
+        },
+        {
+          Header: "End date",
+          accessor: CAMPAIGNS_FIELD_KEY.END_DATE,
+        },
+        {
+          Header: "Number of post that need to do",
+          accessor: CAMPAIGNS_FIELD_KEY.NEED_TO_DO,
+        },
+        {
+          Header: "Number of the schedude post",
+          accessor: CAMPAIGNS_FIELD_KEY.SCHEDUDE_POST,
+        },
+        {
+          Header: "Number of the published content",
+          accessor: CAMPAIGNS_FIELD_KEY.PUBLISHED_CONTENT,
+        },
+        {
+          Header: "Percentage campaign complete (%)",
+          accessor: CAMPAIGNS_FIELD_KEY.PROGRESS,
+        },
+      ];
+
+      console.log("Row Data is tableRowHeader");
+      console.log(this.tableRowHeader);
+
       return tableStatus === PAGE_STATUS.LOADING ? (
-        <div>Load</div>
+        <Spinner />
       ) : (
-        <Table
-          rowData={campaigns}
-          tableRowHeader={tableRowHeader}
-          // onEdit={this.handerEditCampaigns}
-          onSelect={this.handerSelectCampaigns}
-        ></Table>
+        <div>
+          <div className="mb-4">
+            <div className="row">
+              <div className="col-6">
+                <ComponentChart />
+              </div>
+              <div className="col-3">
+                <ListSocial />
+              </div>
+              <div className="col-3">
+                <CampaignsTotalNumber />
+              </div>
+            </div>
+          </div>
+          <Table
+            rowData={campaigns}
+            tableRowHeader={tableRowHeader}
+            // onEdit={this.handerEditCampaigns}
+            onSelect={this.handerSelectCampaigns}
+          ></Table>
+        </div>
       );
     }
   }
