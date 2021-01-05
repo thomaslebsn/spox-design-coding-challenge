@@ -8,6 +8,8 @@ import Label from "./Label";
 
 const FormDateRangePicker = lazy(() => import("./FormDateRangePicker"));
 const FormImage = lazy(() => import("./FormImage"));
+const FormSelection = lazy(() => import("./FormSelection"));
+const FormTab = lazy(() => import("./FormTab"));
 
 class FormComponent extends Component {
   formPropsData = null;
@@ -105,6 +107,36 @@ class FormComponent extends Component {
                     />
 
                     <FormImage key={Math.random(40, 200)} field={field} />
+                  </Form.Group>
+                );
+
+              case FORM_FIELD_TYPE.SELECTION:
+                return (
+                  <Form.Group key={Math.random(40, 200)} className="mb-4">
+                    <FormSelection key={Math.random(40, 200)} field={field} />
+
+                    {field.validation &&
+                      this.validator.message(
+                        field.label,
+                        field.value,
+                        field.validation,
+                        { className: "text-danger" }
+                      )}
+                  </Form.Group>
+                );
+
+              case FORM_FIELD_TYPE.TAB:
+                return (
+                  <Form.Group key={Math.random(40, 200)} className="mb-4">
+                    <FormTab key={Math.random(40, 200)} field={field} />
+
+                    {field.validation &&
+                      this.validator.message(
+                        field.label,
+                        field.value,
+                        field.validation,
+                        { className: "text-danger" }
+                      )}
                   </Form.Group>
                 );
 

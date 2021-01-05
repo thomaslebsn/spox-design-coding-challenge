@@ -13,10 +13,10 @@ class ModalComponent extends React.Component {
       <>
         <Modal show={show} onHide={onHide} centered>
           <Modal.Header closeButton className="px-4">
-            <Modal.Title>{header}</Modal.Title>
+            {header && <Modal.Title>{header}</Modal.Title>}
           </Modal.Header>
           <Modal.Body className="p-4">{body}</Modal.Body>
-          <Modal.Footer className="px-4">{footer}</Modal.Footer>
+          {footer && <Modal.Footer className="px-4">{footer}</Modal.Footer>}
         </Modal>
       </>
     );

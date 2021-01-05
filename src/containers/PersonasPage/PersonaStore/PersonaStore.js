@@ -12,12 +12,26 @@ let personas = [
     name: "Hieu - simple",
     created_date: "2020-10-13",
     updated_date: "2020-10-13",
+    image: "/assets/images/annotation.png",
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+      },
+    ],
   },
   {
     id: 2,
-    name: "Hieu - simple",
+    name: "Hieu - simple 2",
     created_date: "2020-10-13",
     updated_date: "2020-10-13",
+    image: "/assets/images/annotation.png",
+    channels: [
+      {
+        id: 1,
+        name: "facebook 1",
+      },
+    ],
   },
 ];
 

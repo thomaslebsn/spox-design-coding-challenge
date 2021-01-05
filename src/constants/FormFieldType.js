@@ -7,6 +7,8 @@ const FORM_FIELD_TYPE = {
   IMAGE: 6,
   DATE: 7,
   DATERANGE: 8,
+  SELECTION: 9,
+  TAB: 10,
 };
 
 const FORMAT_DATE = "dd/MM/yyyy";
