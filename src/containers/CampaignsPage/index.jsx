@@ -22,7 +22,7 @@ function Campaigns({ match, location }) {
             <h2 className="text-blue-0">List Campaigns</h2>
             <div className="d-flex align-items-center">
               <div className="d-flex align-items-center border-1 bg-white rounded-2 w-180">
-                <ComponentDatepicker />
+                <ComponentDatepicker isDown={true} />
               </div>
               <button className="btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2 w-150 ms-2">
                 <i className="text-white">

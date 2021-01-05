@@ -23,6 +23,7 @@ import "./index.scss";
 
 import GlobalFilter from "./GlobalFilter";
 import SubRowAsync from "./RowSubComponent";
+import ComponentDatepicker from "../ComponentDatepicker";
 
 const Table = ({
   rowData,
@@ -33,6 +34,7 @@ const Table = ({
   dataList,
   dataThumb,
   searchText = "Search...",
+  isDatePicker,
 }) => {
   const [getState, setState] = useState({
     isList: true,
@@ -219,6 +221,11 @@ const Table = ({
               </Dropdown.Menu>
             </Dropdown>
           </div>
+          {isDatePicker && (
+            <div className="px-2 border-end-1 w-200">
+              <ComponentDatepicker isDown={true} />
+            </div>
+          )}
         </div>
         {isThumb && (
           <div className="d-flex align-items-center">

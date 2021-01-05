@@ -142,6 +142,7 @@ const CampaignsList = observer(
             tableRowHeader={tableRowHeader}
             // onEdit={this.handerEditCampaigns}
             onSelect={this.handerSelectCampaigns}
+            isDatePicker={true}
           ></Table>
         </div>
       );
