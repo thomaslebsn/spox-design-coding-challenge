@@ -83,7 +83,9 @@ const CampaignsList = observer(
               </span>
             </div>
           ),
-          SubCell: ({ cellProps, row }) => <>{row.original.name}</>,
+          SubCell: ({ row }) => (
+            <span className="ps-4">{row.original.name}</span>
+          ),
         },
         {
           Header: "Status",
