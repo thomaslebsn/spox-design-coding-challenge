@@ -7,7 +7,7 @@ const data = [
     campaignsName: "Independence day 2/9",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: 1,
+    status: "In progress",
     statusName: "progress",
   },
   {
@@ -15,7 +15,7 @@ const data = [
     campaignsName: "Trung thu 2020",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: 2,
+    status: "In progress",
     statusName: "progress",
   },
   {
@@ -23,7 +23,7 @@ const data = [
     campaignsName: "Christmas 2020",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: 3,
+    status: "In progress",
     statusName: "progress",
   },
   {
@@ -31,7 +31,7 @@ const data = [
     campaignsName: "New year's",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: 1,
+    status: "To do",
     statusName: "to",
   },
   {
@@ -39,7 +39,7 @@ const data = [
     campaignsName: "Lunar new year",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: 2,
+    status: "To do",
     statusName: "to",
   },
 ];
