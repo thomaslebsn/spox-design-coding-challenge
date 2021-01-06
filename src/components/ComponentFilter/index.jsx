@@ -89,6 +89,7 @@ class ComponentFilter extends React.Component {
                 className="text-green bg-white rounded-2"
                 isBorder={true}
                 plColor="rgba(8, 18, 64, 0.8)"
+                isMulti={true}
               />
             </div>
           );

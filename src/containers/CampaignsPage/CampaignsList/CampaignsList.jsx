@@ -90,6 +90,16 @@ const CampaignsList = observer(
         {
           Header: "Status",
           accessor: CAMPAIGNS_FIELD_KEY.STATUS,
+          className: "status",
+          Cell: ({ value }) => {
+            return (
+              <span
+                className={`badge ${value.className} mw-100 h-35 d-table-cell align-middle`}
+              >
+                {value.text}
+              </span>
+            );
+          },
         },
         {
           Header: "Start date",

@@ -7,42 +7,42 @@ const data = [
     campaignsName: "Independence day 2/9",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: "In progress",
-    statusName: "progress"
+    status: 1,
+    statusName: "progress",
   },
   {
     key: 2,
     campaignsName: "Trung thu 2020",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: "In progress",
-    statusName: "progress"
+    status: 2,
+    statusName: "progress",
   },
   {
     key: 3,
     campaignsName: "Christmas 2020",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: "In progress",
-    statusName: "progress"
+    status: 3,
+    statusName: "progress",
   },
   {
     key: 4,
     campaignsName: "New year's",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: "To do",
-    statusName: "to"
+    status: 1,
+    statusName: "to",
   },
   {
     key: 5,
     campaignsName: "Lunar new year",
     startDate: "31/08/2020",
     endDate: "31/08/2020",
-    status: "To do",
-    statusName: "to"
-  }
-]
+    status: 2,
+    statusName: "to",
+  },
+];
 
 class AssignedToMe extends React.Component {
   constructor(props) {
@@ -75,28 +75,30 @@ class AssignedToMe extends React.Component {
           </div>
         </div>
         <div className="px-3">
-          {
-            data.map((value, key) => {
-              return (
-                <div key={key} className="row py-3 border-bottom-1 item_project">
-                  <div className="col-6">
-                    <div className="d-flex align-items-center">
-                      <span className="ps-3">{value.campaignsName}</span>
-                    </div>
-                  </div>
-                  <div className="col-2">
-                    <span>{value.startDate}</span>
-                  </div>
-                  <div className="col-2">
-                    <span>{value.endDate}</span>
-                  </div>
-                  <div className="col-2">
-                    <span className={`w-98 fs-14 d-block py-2 text-center rounded-2 status-${value.statusName}`}>{value.status}</span>
+          {data.map((value, key) => {
+            return (
+              <div key={key} className="row py-3 border-bottom-1 item_project">
+                <div className="col-6">
+                  <div className="d-flex align-items-center">
+                    <span className="ps-3">{value.campaignsName}</span>
                   </div>
                 </div>
-              )
-            })
-          }
+                <div className="col-2">
+                  <span>{value.startDate}</span>
+                </div>
+                <div className="col-2">
+                  <span>{value.endDate}</span>
+                </div>
+                <div className="col-2">
+                  <span
+                    className={`w-98 fs-14 d-block py-2 text-center rounded-2 status-${value.statusName}`}
+                  >
+                    {value.status}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );

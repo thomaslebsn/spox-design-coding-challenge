@@ -8,6 +8,7 @@ let campaigns = [
   {
     id: 1,
     name: "Hieu - simple",
+    status: 1,
     start_date: "2020-10-13",
     end_date: "2020-10-13",
     need_to_do: 8,
@@ -18,6 +19,7 @@ let campaigns = [
   {
     id: 2,
     name: "Hieu - simple 2",
+    status: 2,
     start_date: "2020-10-13",
     end_date: "2020-10-13",
     need_to_do: 8,
@@ -28,6 +30,7 @@ let campaigns = [
   {
     id: 3,
     name: "Hieu - simple 3",
+    status: 3,
     start_date: "2020-10-13",
     end_date: "2020-10-13",
     need_to_do: 8,
