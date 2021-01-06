@@ -13,6 +13,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import BigCalendarFull from "../../components/BigCalendarFull";
+import "./index.scss";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class HomePage extends React.Component {
     this.state = {
       isFull: true,
       isFullcalendar: false,
+      isSbarRight: false,
     };
   }
 
@@ -52,10 +54,41 @@ class HomePage extends React.Component {
     );
   };
 
+  handleMenuRight = () => {
+    document.body.classList.toggle("show_menu_right");
+    this.setState({
+      isSbarRight: !this.state.isSbarRight,
+    });
+  };
+
   render() {
-    let { isFull, isFullcalendar } = this.state;
+    let { isFull, isFullcalendar, isSbarRight } = this.state;
     return (
-      <div className="h-100">
+      <div className="h-100 position-relative">
+        <a
+          href={void 0}
+          className={`
+              item_hambuger_icon
+              d-none 
+              position-absolute
+              text-green 
+              bg-blue-1 
+              rounded-circle 
+              align-items-center 
+              justify-content-center
+              fs-12
+              cursor-pointer
+              mt-1
+              left-auto
+              top-0
+              z-index-100
+            `}
+          onClick={this.handleMenuRight}
+        >
+          <FontAwesomeIcon
+            icon={!isSbarRight ? faChevronLeft : faChevronRight}
+          />
+        </a>
         {isFull ? (
           <div className="d-flex">
             <div className="py-4 px-3 pe-400">

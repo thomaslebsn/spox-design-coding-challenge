@@ -428,7 +428,7 @@ const Table = ({
                 {newRowCells.length > 0 && (
                   <div
                     {...row.getRowProps()}
-                    className={`col_thumb cursor-pointer ${styles.col_thumb} col-3 mb-4`}
+                    className={`col_thumb cursor-pointer ${styles.col_thumb} col-md-6 col-lg-3 mb-4`}
                     onClick={(e) => handerEdit(e, row.original)}
                   >
                     <div className="bg-white shadow-sm h-100 p-3 rounded-2">

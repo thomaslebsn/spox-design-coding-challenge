@@ -148,13 +148,13 @@ const CampaignsList = observer(
         <div>
           <div className="mb-4">
             <div className="row">
-              <div className="col-6">
+              <div className="col-lg-12 col-xl-6 mb-3 mb-xl-0">
                 <ComponentChart />
               </div>
-              <div className="col-3">
+              <div className="col-md-6 col-xl-3 ">
                 <ListSocial />
               </div>
-              <div className="col-3">
+              <div className="col-md-6 col-xl-3">
                 <CampaignsTotalNumber />
               </div>
             </div>
