@@ -17,6 +17,8 @@ import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 
 import Spinner from "../../../components/Spinner";
 
+import getStatus from "../../../utils/status";
+
 const CampaignsList = observer(
   class CampaignsList extends Component {
     campaignsListViewModel = null;
@@ -92,6 +94,7 @@ const CampaignsList = observer(
           accessor: CAMPAIGNS_FIELD_KEY.STATUS,
           className: "status",
           Cell: ({ value }) => {
+            console.log("value value sub", value);
             return (
               <span
                 className={`badge ${value.className} mw-100 h-35 d-table-cell align-middle`}
@@ -100,6 +103,15 @@ const CampaignsList = observer(
               </span>
             );
           },
+          SubCell: ({ row }) => (
+            <span
+              className={`badge ${
+                getStatus(row.original.status).className
+              }  mw-100 h-35 d-table-cell align-middle`}
+            >
+              {getStatus(row.original.status).text}
+            </span>
+          ),
         },
         {
           Header: "Start date",
