@@ -10,7 +10,7 @@ const data = [
     projectName: "Shop Gap for Casual Women's, Men's",
     task: "[Design_EN] Credential Digital Marketing",
     status: "In progress",
-    statusName: "progress"
+    statusName: "bg-status-1",
   },
   {
     key: 2,
@@ -18,7 +18,7 @@ const data = [
     projectName: "Shop Gap for Casual Women's, Men's",
     task: "[Design] Post 15 - Video Introduction",
     status: "In progress",
-    statusName: "progress"
+    statusName: "bg-status-1",
   },
   {
     key: 3,
@@ -26,7 +26,7 @@ const data = [
     projectName: "[Design] Facebook - F&B Solution - Multi Photos",
     task: "[Design] Post 15 - Video Introduction",
     status: "In progress",
-    statusName: "progress"
+    statusName: "bg-status-1",
   },
   {
     key: 4,
@@ -34,9 +34,9 @@ const data = [
     projectName: "[Design] Facebook - F&B Solution - Multi Photos",
     task: "Upload Motion graphics Demo",
     status: "To do",
-    statusName: "to"
-  }
-]
+    statusName: "bg-status-2",
+  },
+];
 
 class AssignedToMe extends React.Component {
   constructor(props) {
@@ -66,26 +66,28 @@ class AssignedToMe extends React.Component {
           </div>
         </div>
         <div className="px-3">
-          {
-            data.map((value, key) => {
-              return (
-                <div key={key} className="row py-3 border-bottom-1 item_project">
-                  <div className="col-4">
-                    <div className="d-flex align-items-center">
-                      <img src={value.image} alt="" className="img-avatar"/>
-                      <span className="ps-3">{value.projectName}</span>
-                    </div>
-                  </div>
-                  <div className="col-6">
-                    <span>{value.task}</span>
-                  </div>
-                  <div className="col-2">
-                    <span className={`w-98 fs-14 d-block py-2 text-center rounded-2 status-${value.statusName}`}>{value.status}</span>
+          {data.map((value, key) => {
+            return (
+              <div key={key} className="row py-3 border-bottom-1 item_project">
+                <div className="col-4">
+                  <div className="d-flex align-items-center">
+                    <img src={value.image} alt="" className="img-avatar" />
+                    <span className="ps-3">{value.projectName}</span>
                   </div>
                 </div>
-              )
-            })
-          }
+                <div className="col-6">
+                  <span>{value.task}</span>
+                </div>
+                <div className="col-2">
+                  <span
+                    className={`mw-100 h-35 fs-14 d-table-cell align-middle text-center rounded-2 ${value.statusName}`}
+                  >
+                    {value.status}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );

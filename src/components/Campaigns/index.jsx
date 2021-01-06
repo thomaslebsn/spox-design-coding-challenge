@@ -8,7 +8,7 @@ const data = [
     startDate: "31/08/2020",
     endDate: "31/08/2020",
     status: "In progress",
-    statusName: "progress",
+    statusName: "bg-status-1",
   },
   {
     key: 2,
@@ -16,7 +16,7 @@ const data = [
     startDate: "31/08/2020",
     endDate: "31/08/2020",
     status: "In progress",
-    statusName: "progress",
+    statusName: "bg-status-1",
   },
   {
     key: 3,
@@ -24,7 +24,7 @@ const data = [
     startDate: "31/08/2020",
     endDate: "31/08/2020",
     status: "In progress",
-    statusName: "progress",
+    statusName: "bg-status-1",
   },
   {
     key: 4,
@@ -32,7 +32,7 @@ const data = [
     startDate: "31/08/2020",
     endDate: "31/08/2020",
     status: "To do",
-    statusName: "to",
+    statusName: "bg-status-2",
   },
   {
     key: 5,
@@ -40,7 +40,7 @@ const data = [
     startDate: "31/08/2020",
     endDate: "31/08/2020",
     status: "To do",
-    statusName: "to",
+    statusName: "bg-status-2",
   },
 ];
 
@@ -91,7 +91,7 @@ class AssignedToMe extends React.Component {
                 </div>
                 <div className="col-2">
                   <span
-                    className={`w-98 fs-14 d-block py-2 text-center rounded-2 status-${value.statusName}`}
+                    className={`mw-100 h-35 fs-14 d-table-cell align-middle text-center rounded-2 ${value.statusName}`}
                   >
                     {value.status}
                   </span>
