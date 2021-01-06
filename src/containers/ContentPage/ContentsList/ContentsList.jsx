@@ -95,7 +95,11 @@ const ContentsList = observer(
           className: "status",
           Cell: ({ value }) => {
             return (
-              <span className={`badge ${value.className}`}>{value.text}</span>
+              <span
+                className={`badge ${value.className} mw-100 h-35 d-table-cell align-middle`}
+              >
+                {value.text}
+              </span>
             );
           },
         },

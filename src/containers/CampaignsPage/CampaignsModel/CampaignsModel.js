@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { ProgressModel } from "./ProgressModel";
+import getStatus from "../../../utils/status";
 
 import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
 
@@ -10,12 +11,12 @@ class CampaignsModel {
   constructor(data) {
     this.id = data.id ?? 0;
     this.name = data.name ?? "";
+    this.status = data.status ?? "";
     this.startdate = data.start_date ?? "";
     this.enddate = data.end_date ?? "";
     this.needtodo = data.need_to_do ?? "";
     this.schedudepost = data.schedude_post ?? "";
     this.publishedcontent = data.publish_content ?? "";
-
     this.progress = data.progress ? new ProgressModel(data) : 0;
   }
 
@@ -34,6 +35,15 @@ class CampaignsModel {
       type: FIELD_TYPE.TEXT,
       columnName: CAMPAIGNS_FIELD_KEY.NAME,
       columnText: "Name",
+    };
+  };
+
+  getStatus = () => {
+    return {
+      value: getStatus(this.status),
+      type: FIELD_TYPE.TEXT,
+      columnName: CAMPAIGNS_FIELD_KEY.STATUS,
+      columnText: "Status",
     };
   };
 
@@ -96,6 +106,7 @@ class CampaignsModel {
   toTableRowData = () => {
     const id = this.getId(),
       name = this.getName(),
+      status = this.getStatus(),
       startDate = this.getStartDate(),
       endDate = this.getEndDate(),
       needToDo = this.getNeedToDo(),
@@ -106,6 +117,7 @@ class CampaignsModel {
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
+      [status.columnName]: status.value,
       [startDate.columnName]: startDate.value,
       [endDate.columnName]: endDate.value,
       [needToDo.columnName]: needToDo.value,

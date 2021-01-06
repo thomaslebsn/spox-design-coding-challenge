@@ -2,17 +2,17 @@ const STATUS = {
   POSTED: {
     id: 1,
     text: "Posted",
-    className: "bg-success",
+    className: "bg-status-1",
   },
   SCHEDULED: {
     id: 2,
     text: "Scheduled",
-    className: "bg-warning",
+    className: "bg-status-2",
   },
   DRAFT: {
     id: 3,
     text: "Draft",
-    className: "bg-red",
+    className: "bg-status-3",
   },
 };
 
