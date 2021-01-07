@@ -94,8 +94,8 @@
 @include media-breakpoint-down(xl) {
   .sidebar {
     position: fixed !important;
-    left: -100%;
-    top: 80px;
+    left: -260px;
+    top: 0;
     bottom: 0;
   }
 
@@ -121,9 +121,7 @@
   }
 
   .show_menu_left {
-    .sidebar {
-      left: 0;
-    }
+    transform: translateX(260px);
 
     .wrapper_header {
       .item_hambuger {
