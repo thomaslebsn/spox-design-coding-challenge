@@ -24,6 +24,7 @@ const FormTab = observer(
 
       this.state = {
         files: [],
+        desc: "",
       };
 
       this.field = this.props.field;
@@ -40,12 +41,12 @@ const FormTab = observer(
       this.setState({
         [name]: value,
       });
+
+      this.field.changed(event);
     }
 
     handlePicker = (emoji) => {
-      this.setState({
-        desc: `${this.state.desc}${emoji.native}`,
-      });
+      this.setState({ desc: `${this.state.desc}${emoji.native}` });
     };
 
     onDrop = (acceptedFiles) => {
@@ -57,7 +58,7 @@ const FormTab = observer(
     render() {
       console.log("[FormTab] render");
 
-      let { files } = this.state;
+      let { files, desc } = this.state;
 
       const preview = files.map((file) => (
         <div key={file.name} className="position-relative m-2">
@@ -70,14 +71,13 @@ const FormTab = observer(
 
       const personaSelectionData = this.viewModel.personaSelectionData;
 
+      const { field, validator } = this.props;
+
       console.log(personaSelectionData);
       return (
         personaSelectionData.length > 0 && (
           <>
-            <Label
-              text={this.field.label}
-              required={this.field.required ?? false}
-            />
+            <Label text={field.label} required={field.required ?? false} />
             <div className="wrapper_tabs border-1 rounded pad">
               <Tabs defaultActiveKey="1" id="desc-tab">
                 {personaSelectionData.map((item) => {
@@ -91,11 +91,23 @@ const FormTab = observer(
                         className="p-1"
                       >
                         <Form.Control
+                          name="desc"
                           as="textarea"
                           className="form-control border-0 rounded-0"
-                          required={this.field.required ?? false}
+                          required={field.required ?? false}
+                          defaultValue={field.value}
                           id={value.id}
+                          onChange={this.handleInputChange}
+                          onBlur={field.blurred ?? undefined}
                         />
+
+                        {field.validation &&
+                          this.props.validator.message(
+                            field.label,
+                            field.value,
+                            field.validation,
+                            { className: "text-danger" }
+                          )}
                       </Tab>
                     );
                   });

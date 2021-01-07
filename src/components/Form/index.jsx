@@ -50,7 +50,7 @@ class FormComponent extends Component {
         {Object.keys(formSetting)
           .map((groupIndex) => {
             return [...Array(formSetting[groupIndex])].map((group) => {
-              return renderingGroupFieldHandler(group);
+              return renderingGroupFieldHandler(group, this.validator);
             });
           })
           .reduce((arr, el) => {

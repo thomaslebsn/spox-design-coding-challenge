@@ -1,28 +1,26 @@
 import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
-import PersonaUtils from "../PersonaUtils/PersonaUtils";
-import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
+import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
+import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
 
 import { notify } from "../../../components/Toast";
 
-class PersonasSelectionViewModel {
+class CampaignsSelectionViewModel {
   show = false;
 
   multi = false;
 
-  personaStore = null;
+  campaignStore = null;
 
-  personas = null;
+  campaigns = null;
 
   tableStatus = PAGE_STATUS.LOADING;
 
-  personaSelectionData = [];
+  campaignSelectionData = [];
 
-  channelSelectionData = [];
-
-  constructor(personaStore) {
+  constructor(campaignStore) {
     makeAutoObservable(this);
-    this.personaStore = personaStore;
+    this.campaignStore = campaignStore;
   }
 
   openModal = () => {
@@ -40,10 +38,10 @@ class PersonasSelectionViewModel {
     console.log(data);
 
     if (!this.multi) {
-      this.personaSelectionData = [];
+      this.campaignSelectionData = [];
     }
 
-    this.personaSelectionData.push(data);
+    this.campaignSelectionData.push(data);
   };
 
   setMulti = (multi) => {
@@ -51,11 +49,11 @@ class PersonasSelectionViewModel {
   };
 
   getSectionsValue = () => {
-    return this.personaSelectionData
+    return this.campaignSelectionData
       .map((item) => {
         return {
-          value: item[PERSONA_FIELD_KEY.ID],
-          label: item[PERSONA_FIELD_KEY.NAME],
+          value: item[CAMPAIGNS_FIELD_KEY.ID],
+          label: item[CAMPAIGNS_FIELD_KEY.NAME],
         };
       })
       .reduce((arr, el) => {
@@ -71,12 +69,12 @@ class PersonasSelectionViewModel {
   };
 
   getSelectionData = () => {
-    return this.personaSelectionData;
+    return this.campaignSelectionData;
   };
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.personaStore.fetchPersonas(
+    this.campaignStore.fetchCampaigns(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -88,22 +86,22 @@ class PersonasSelectionViewModel {
     notify(error.message);
   };
 
-  callbackOnSuccessHandler = (personaModelData) => {
+  callbackOnSuccessHandler = (campaignModelData) => {
     console.log("callbackOnSuccessHandler");
-    console.log(personaModelData);
-    if (personaModelData) {
+    console.log(campaignModelData);
+    if (campaignModelData) {
       this.tableStatus = PAGE_STATUS.READY;
 
-      const rowDataTransformed = PersonaUtils.transformPersonaModelIntoTableDataRow(
-        personaModelData
+      const rowDataTransformed = CampaignsUtils.transformCampaignsModelIntoTableDataRow(
+        campaignModelData
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
-      this.personas = rowDataTransformed;
+      this.campaigns = rowDataTransformed;
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
 }
 
-export default PersonasSelectionViewModel;
+export default CampaignsSelectionViewModel;

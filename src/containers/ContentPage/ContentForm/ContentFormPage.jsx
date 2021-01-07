@@ -1,7 +1,13 @@
 import React, { Component, lazy } from "react";
 
+import StepWizard from "react-step-wizard";
+
 import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
+
+import { PersonalSelectionPage } from "./PersonalSelectionPage";
+
+import { CampaignSelectionPage } from "./CampaignSelectionPage";
 
 const ContentFormGeneral = lazy(() => import("./ContentFormGeneral"));
 const ContentFormPublish = lazy(() => import("./ContentFormPublish"));
@@ -32,11 +38,19 @@ const ContentFormPage = observer(
     render() {
       console.log("[ContentFormPage] - re-render .........");
 
+      const { step } = this.contentFormViewModel;
+
       return (
-        <>
-          <ContentFormGeneral viewModel={this.contentFormViewModel} />
-          <ContentFormPublish viewModel={this.contentFormViewModel} />
-        </>
+        <StepWizard>
+          <ContentFormGeneral
+            viewModel={this.contentFormViewModel}
+            hashKey={"general"}
+          />
+          <ContentFormPublish
+            viewModel={this.contentFormViewModel}
+            hashKey={"publish"}
+          />
+        </StepWizard>
       );
     }
   }

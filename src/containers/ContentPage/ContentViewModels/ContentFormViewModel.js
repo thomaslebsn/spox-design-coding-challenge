@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 
 class ContentFormViewModel {
-  show = false;
+  step = 1;
   contentEditdata = null;
   editMode = false;
   contentListViewModel = null;
@@ -22,35 +22,8 @@ class ContentFormViewModel {
     this.contentFormComponent = contentFormComponent;
   };
 
-  setEditContent = (data) => {
-    console.log("setEditContent");
-    console.log(data);
-    this.editMode = true;
-    this.contentEditdata = data;
-  };
-
-  getContent = (id) => {
-    this.editMode = true;
-    this.contentStore.getContent(
-      id,
-      this.setEditContent,
-      this.callbackOnErrorHander
-    );
-  };
-
   saveOnModal = () => {
-    const isFormValid = this.contentFormComponent.isFormValid();
-
-    if (isFormValid) {
-      this.contentStore.saveContent(
-        this.contentFormComponent.formPropsData,
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHander
-      );
-
-      this.closeModal();
-    } else {
-    }
+    console.log("here");
   };
 
   callbackOnErrorHander = (error) => {

@@ -2,16 +2,21 @@ import React from "react";
 
 import { withTranslation } from "react-i18next";
 
-import styles from "./index.scss";
+import "./index.scss";
 import { Modal } from "react-bootstrap";
 
 class ModalComponent extends React.Component {
   render() {
-    let { header, footer, body, show, onHide } = this.props;
+    let { header, footer, body, show, onHide, dialogClassName } = this.props;
 
     return (
       <>
-        <Modal show={show} onHide={onHide} centered>
+        <Modal
+          show={show}
+          onHide={onHide}
+          centered
+          dialogClassName={dialogClassName}
+        >
           <Modal.Header closeButton className="px-4">
             {header && <Modal.Title>{header}</Modal.Title>}
           </Modal.Header>

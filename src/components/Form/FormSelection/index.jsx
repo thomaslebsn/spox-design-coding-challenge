@@ -15,6 +15,10 @@ const FormSelection = observer(
       this.field = this.props.field;
 
       this.viewModel = this.field.viewModel;
+
+      console.log("FormSelection - viewModel");
+      console.log(this.viewModel);
+
       this.viewModel.setMulti(this.field.multi);
     }
 
@@ -22,34 +26,23 @@ const FormSelection = observer(
       this.viewModel.openModal();
     };
 
-    handleHideModal = () => {
-      this.viewModel.closeModal();
-    };
-
     render() {
-      const { show, multi } = this.viewModel;
+      const { multi } = this.viewModel;
 
-      const data = this.viewModel.getSectionsValue();
+      const value = this.viewModel.getSectionsValue();
 
       return (
-        <>
-          <SelectComponent
-            value={data}
-            className="mb-3 text-green"
-            isBorder={true}
-            plColor="rgba(8, 18, 64, 0.8)"
-            menuIsOpen={false}
-            onMenuOpen={this.handleOnMenuOpen}
-            isMulti={multi}
-          />
-          <ModalComponent
-            show={show}
-            header="Choose"
-            body={this.field.component}
-            key={Math.random(40, 200)}
-            onHide={this.handleHideModal}
-          />
-        </>
+        <SelectComponent
+          value={value}
+          className="mb-3 text-green"
+          isBorder={true}
+          plColor="rgba(8, 18, 64, 0.8)"
+          menuIsOpen={false}
+          onMenuOpen={this.handleOnMenuOpen}
+          onFocus={this.field.changed}
+          onBlur={this.field.blurred}
+          isMulti={multi}
+        />
       );
     }
   }

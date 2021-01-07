@@ -66,7 +66,7 @@ const Table = ({
 
   const handerEdit = (e, row) => {
     if (e.target.type !== "checkbox") {
-      // onEdit(row);
+      onEdit(row);
     }
   };
 
@@ -355,7 +355,7 @@ const Table = ({
                   <React.Fragment key={row.getRowProps().key}>
                     <tr
                       {...row.getRowProps()}
-                      className="border-bottom-1"
+                      className="border-bottom-1 cursor-pointer"
                       onClick={(e) => handerEdit(e, row.original)}
                     >
                       {newRowCells.map((cell) => {
@@ -424,28 +424,31 @@ const Table = ({
             }
 
             return (
-              <>
-                {newRowCells.length > 0 && (
+              newRowCells.length > 0 && (
+                <div
+                  {...row.getRowProps()}
+                  className={`col_thumb cursor-pointer ${styles.col_thumb} col-3 mb-4`}
+                  onClick={(e) => handerEdit(e, row.original)}
+                  key={Math.random(40, 200)}
+                >
                   <div
-                    {...row.getRowProps()}
-                    className={`col_thumb cursor-pointer ${styles.col_thumb} col-3 mb-4`}
-                    onClick={(e) => handerEdit(e, row.original)}
+                    className="bg-white shadow-sm h-100 p-3 rounded-2"
+                    key={Math.random(40, 200)}
                   >
-                    <div className="bg-white shadow-sm h-100 p-3 rounded-2">
-                      {newRowCells.map((cell) => {
-                        return (
-                          <div
-                            {...cell.getCellProps()}
-                            className={`ct_cell ${styles.ct_cell} d-block`}
-                          >
-                            {cell.render("Cell")}
-                          </div>
-                        );
-                      })}
-                    </div>
+                    {newRowCells.map((cell) => {
+                      return (
+                        <div
+                          {...cell.getCellProps()}
+                          className={`ct_cell ${styles.ct_cell} d-block`}
+                          key={Math.random(40, 200)}
+                        >
+                          {cell.render("Cell")}
+                        </div>
+                      );
+                    })}
                   </div>
-                )}
-              </>
+                </div>
+              )
             );
           })}
         </div>
