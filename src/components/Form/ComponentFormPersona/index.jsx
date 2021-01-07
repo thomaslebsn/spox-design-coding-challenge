@@ -3,9 +3,9 @@ import React, { Component, lazy } from "react";
 import SimpleReactValidator from "simple-react-validator";
 import { Form } from "react-bootstrap";
 
-import { renderingGroupFieldHandler } from "../../utils/form";
+import { renderingGroupFieldHandlerPersona } from "../../../utils/formPersona";
 
-class FormComponent extends Component {
+class ComponentFormPersona extends Component {
   formPropsData = null;
 
   isEditMode = false;
@@ -51,7 +51,8 @@ class FormComponent extends Component {
         {Object.keys(formSetting)
           .map((groupIndex) => {
             return [...Array(formSetting[groupIndex])].map((group) => {
-              return renderingGroupFieldHandler(group);
+              console.log("group group", group);
+              return renderingGroupFieldHandlerPersona(group);
             });
           })
           .reduce((arr, el) => {
@@ -72,4 +73,4 @@ class FormComponent extends Component {
   }
 }
 
-export default FormComponent;
+export default ComponentFormPersona;

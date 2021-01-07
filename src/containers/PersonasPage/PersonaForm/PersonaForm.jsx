@@ -3,7 +3,9 @@ import React, { Component, lazy } from "react";
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
-const FormComponent = lazy(() => import("../../../components/Form"));
+const ComponentFormPersona = lazy(() =>
+  import("../../../components/Form/ComponentFormPersona")
+);
 
 class PersonaForm extends Component {
   formPropsData = {
@@ -42,6 +44,90 @@ class PersonaForm extends Component {
             changed: (event) => {
               this.formPropsData[PERSONA_FIELD_KEY.NAME] = event.target.value;
             },
+            className: "border-start-5 bg-white p-2 rounded-2",
+            classNameInput: "border-0",
+          },
+          {
+            label: "Avatar",
+            key: PERSONA_FIELD_KEY.AVATAR,
+            type: FORM_FIELD_TYPE.IMAGE,
+            value: this.formPropsData[PERSONA_FIELD_KEY.AVATAR],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.AVATAR] = event.target.value;
+            },
+            className: "border-start-5 bg-white p-2 rounded-2",
+          },
+        ],
+        demographic: [
+          {
+            label: "Name",
+            key: PERSONA_FIELD_KEY.NAME,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[PERSONA_FIELD_KEY.NAME],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.NAME] = event.target.value;
+            },
+          },
+          {
+            label: "Age",
+            key: PERSONA_FIELD_KEY.AGE,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[PERSONA_FIELD_KEY.AGE],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.AGE] = event.target.value;
+            },
+          },
+          // {
+          //   label: "Gender",
+          //   key: PERSONA_FIELD_KEY.GENDER,
+          //   type: FORM_FIELD_TYPE.SELECTION,
+          //   value: this.formPropsData[PERSONA_FIELD_KEY.GENDER],
+          //   required: true,
+          //   validation: "required",
+          //   changed: (event) => {
+          //     this.formPropsData[PERSONA_FIELD_KEY.GENDER] = event.target.value;
+          //   },
+          // },
+          {
+            label: "Location",
+            key: PERSONA_FIELD_KEY.LOCATION,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[PERSONA_FIELD_KEY.LOCATION],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.LOCATION] =
+                event.target.value;
+            },
+          },
+          {
+            label: "Job Title",
+            key: PERSONA_FIELD_KEY.JOB_TITLE,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[PERSONA_FIELD_KEY.JOB_TITLE],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.JOB_TITLE] =
+                event.target.value;
+            },
+          },
+          {
+            label: "Sector",
+            key: PERSONA_FIELD_KEY.SECTOR,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[PERSONA_FIELD_KEY.SECTOR],
+            required: true,
+            validation: "required",
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.SECTOR] = event.target.value;
+            },
           },
         ],
       },
@@ -57,11 +143,12 @@ class PersonaForm extends Component {
     console.log("[Persona - Form] - re-render .........");
 
     return (
-      <FormComponent
+      <ComponentFormPersona
         generateFormSetting={() => this.generateFormSetting()}
         formPropsData={this.formPropsData}
         viewModel={this.viewModel}
         key={Math.random(40, 200)}
+        formClassName={"personalFormCreate"}
       />
     );
   }

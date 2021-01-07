@@ -21,7 +21,10 @@ const renderingGroupFieldHandler = (group) => {
           switch (field.type) {
             case FORM_FIELD_TYPE.INPUT:
               return (
-                <Form.Group key={Math.random(40, 200)} className="mb-4">
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${field.className}`}
+                >
                   <Label
                     text={field.label}
                     required={field.required ?? false}
@@ -33,6 +36,7 @@ const renderingGroupFieldHandler = (group) => {
                     required={field.required ?? false}
                     id={field.key}
                     onChange={field.changed ?? undefined}
+                    className={`${field.classNameInput}`}
                   />
 
                   {field.validation &&
@@ -75,7 +79,10 @@ const renderingGroupFieldHandler = (group) => {
               );
             case FORM_FIELD_TYPE.IMAGE:
               return (
-                <Form.Group key={Math.random(40, 200)} className="mb-4">
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${field.className}`}
+                >
                   <Label
                     text={field.label}
                     required={field.required ?? false}

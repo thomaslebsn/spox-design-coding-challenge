@@ -4,7 +4,8 @@ import PersonaActionBar from "./PersonaForm/PersonaActionBar";
 import PersonaStore from "./PersonaStore/PersonaStore";
 import PersonaViewModel from "./PersonaViewModels/PersonaViewModel";
 import { PersonaViewModelContextProvider } from "./PersonaViewModels/PersonaViewModelContextProvider";
-
+import ComponentHeaderPage from "../../components/ComponentHeaderPage";
+import { faSave } from "@fortawesome/free-regular-svg-icons/faSave";
 
 const PersonaFormPage = lazy(() => import("./PersonaForm/PersonaFormPage"));
 const PersonasList = lazy(() => import("./PersonasList/PersonasList"));
@@ -31,7 +32,15 @@ function Personas({ match, location }) {
     <PersonaViewModelContextProvider viewModel={personaViewModel}>
       <div className="py-4 px-3">
         {form ? (
-          <PersonaFormPage id={id} />
+          <>
+            <ComponentHeaderPage
+              title={"Make Persona Overview"}
+              textBtn={"Save persona"}
+              // handleCreate={this.handleSave}
+              faIcons={faSave}
+            />
+            <PersonaFormPage id={id} />
+          </>
         ) : (
           <>
             <div className="d-flex align-items-center justify-content-between mb-4">
