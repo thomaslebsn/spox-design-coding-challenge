@@ -17,6 +17,14 @@ let personas = [
       {
         id: 1,
         name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+      {
+        id: 2,
+        name: "instagram 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/instagram.png",
       },
     ],
   },
@@ -30,6 +38,14 @@ let personas = [
       {
         id: 1,
         name: "facebook 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/facebook.png",
+      },
+      {
+        id: 2,
+        name: "instagram 1",
+        image: "/assets/images/icon-pepsi.png",
+        icon: "/assets/images/instagram.png",
       },
     ],
   },

@@ -11,9 +11,7 @@ const FormImage = lazy(() => import("../components/Form/FormImage"));
 const FormSelection = lazy(() => import("../components/Form/FormSelection"));
 const FormTab = lazy(() => import("../components/Form/FormTab"));
 
-const validator = new SimpleReactValidator();
-
-const renderingGroupFieldHandler = (group) => {
+const renderingGroupFieldHandler = (group, validator) => {
   return Object.keys(group.fields)
     .map((fieldIndex) => {
       return [...Array(group.fields[fieldIndex])].map((field) => {
@@ -37,6 +35,7 @@ const renderingGroupFieldHandler = (group) => {
                     id={field.key}
                     onChange={field.changed ?? undefined}
                     className={`${field.classNameInput}`}
+                    onBlur={field.blurred ?? undefined}
                   />
 
                   {field.validation &&
@@ -61,6 +60,7 @@ const renderingGroupFieldHandler = (group) => {
                     required={field.required ?? false}
                     id={field.key}
                     onChange={field.changed ?? undefined}
+                    onBlur={field.blurred ?? undefined}
                   />
 
                   {field.validation &&
@@ -95,6 +95,11 @@ const renderingGroupFieldHandler = (group) => {
             case FORM_FIELD_TYPE.SELECTION:
               return (
                 <Form.Group key={Math.random(40, 200)} className="mb-4">
+                  <Label
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
+
                   <FormSelection key={Math.random(40, 200)} field={field} />
 
                   {field.validation &&
@@ -110,15 +115,11 @@ const renderingGroupFieldHandler = (group) => {
             case FORM_FIELD_TYPE.TAB:
               return (
                 <Form.Group key={Math.random(40, 200)} className="mb-4">
-                  <FormTab key={Math.random(40, 200)} field={field} />
-
-                  {field.validation &&
-                    validator.message(
-                      field.label,
-                      field.value,
-                      field.validation,
-                      { className: "text-danger" }
-                    )}
+                  <FormTab
+                    key={Math.random(40, 200)}
+                    field={field}
+                    validator={validator}
+                  />
                 </Form.Group>
               );
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, lazy } from "react";
 
 import { Image } from "react-bootstrap";
 
@@ -9,6 +9,10 @@ import Table from "../../../components/Table";
 
 import { observer } from "mobx-react";
 import { withPersonaViewModel } from "../PersonaViewModels/PersonaViewModelContextProvider";
+
+import Spinner from "../../../components/Spinner";
+
+const ModalComponent = lazy(() => import("../../../components/Modal"));
 
 const PersonasSelection = observer(
   class PersonasSelection extends Component {
@@ -37,8 +41,12 @@ const PersonasSelection = observer(
     };
 
     render() {
-      console.log("[Quick Edit Product] - re-render .........");
-      const { tableStatus, personas } = this.personaSelectionViewModel;
+      const { tableStatus, personas, show } = this.personaSelectionViewModel;
+
+      if (!show) return null;
+
+      console.log("[PersonasSelection] - re-render .........");
+
       console.log(personas);
 
       const tableRowHeader = [
@@ -54,16 +62,25 @@ const PersonasSelection = observer(
       ];
 
       return tableStatus === PAGE_STATUS.LOADING ? (
-        <div>Load</div>
+        <Spinner />
       ) : (
-        <Table
-          rowData={personas}
-          tableRowHeader={tableRowHeader}
-          onEdit={this.handerEditPersona}
-          noSelection={true}
-          noColumns={true}
-          isList={false}
-        ></Table>
+        <ModalComponent
+          show={show}
+          onHide={this.personaSelectionViewModel.closeModal}
+          header={"Choose Persona"}
+          dialogClassName="modal-lg"
+          body={
+            <Table
+              rowData={personas}
+              tableRowHeader={tableRowHeader}
+              onEdit={this.handerEditPersona}
+              noSelection={true}
+              noColumns={true}
+              isList={false}
+            ></Table>
+          }
+          key={Math.random(40, 200)}
+        />
       );
     }
   }
