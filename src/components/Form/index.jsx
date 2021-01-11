@@ -45,7 +45,6 @@ class FormComponent extends Component {
   getFormPropsData = () => this.formPropsData;
 
   renderingFormHandler = (formSetting) => {
-    console.log("formSetting formSetting", formSetting);
     return (
       <Form key={Math.random(40, 200)} className={this.props.formClassName}>
         {Object.keys(formSetting)

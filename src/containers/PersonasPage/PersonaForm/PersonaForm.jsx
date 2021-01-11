@@ -3,9 +3,7 @@ import React, { Component, lazy } from "react";
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
-const ComponentFormPersona = lazy(() =>
-  import("../../../components/Form/ComponentFormPersona")
-);
+const FormComponentPersona = lazy(() => import("../FormComponentPersona"));
 
 class PersonaForm extends Component {
   formPropsData = {
@@ -34,33 +32,6 @@ class PersonaForm extends Component {
     return [
       {
         fields: [
-          {
-            label: "Persona Name",
-            key: PERSONA_FIELD_KEY.NAME,
-            type: FORM_FIELD_TYPE.INPUT,
-            value: this.formPropsData[PERSONA_FIELD_KEY.NAME],
-            required: true,
-            validation: "required",
-            changed: (event) => {
-              this.formPropsData[PERSONA_FIELD_KEY.NAME] = event.target.value;
-            },
-            className: "border-start-5 bg-white p-2 rounded-2",
-            classNameInput: "border-0",
-          },
-          {
-            label: "Avatar",
-            key: PERSONA_FIELD_KEY.AVATAR,
-            type: FORM_FIELD_TYPE.IMAGE,
-            value: this.formPropsData[PERSONA_FIELD_KEY.AVATAR],
-            required: true,
-            validation: "required",
-            changed: (event) => {
-              this.formPropsData[PERSONA_FIELD_KEY.AVATAR] = event.target.value;
-            },
-            className: "border-start-5 bg-white p-2 rounded-2",
-          },
-        ],
-        demographic: [
           {
             label: "Name",
             key: PERSONA_FIELD_KEY.NAME,
@@ -143,12 +114,12 @@ class PersonaForm extends Component {
     console.log("[Persona - Form] - re-render .........");
 
     return (
-      <ComponentFormPersona
+      <FormComponentPersona
         generateFormSetting={() => this.generateFormSetting()}
         formPropsData={this.formPropsData}
         viewModel={this.viewModel}
         key={Math.random(40, 200)}
-        formClassName={"personalFormCreate"}
+        formClassName={"personalFormCreate row"}
       />
     );
   }
