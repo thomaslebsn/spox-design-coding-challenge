@@ -19,6 +19,10 @@
 @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/utilities/api";
 
+body {
+  transition: all 0.4s ease;
+}
+
 img {
   max-width: 100%;
 }
@@ -177,5 +181,11 @@ textarea {
     border-bottom: 7px solid transparent;
     margin-top: auto;
     margin-bottom: auto;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .w-400 {
+    width: 250px;
   }
 }

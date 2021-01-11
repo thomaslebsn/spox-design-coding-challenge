@@ -43,3 +43,12 @@
         }
     }
 }
+
+@include media-breakpoint-down(xl) {
+    .main_line_complete {
+        li {
+            width: 33.33%;
+            margin-bottom: 0;
+        }
+    }
+}

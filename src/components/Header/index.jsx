@@ -10,6 +10,8 @@ import "./index.scss";
 import Notifications from "../Notifications";
 import DropdownAvatar from "../DropdownAvatar";
 import AllProjects from "../AllProjects";
+import ComponentHambuger from "../ComponentHambuger";
+import { th } from "date-fns/locale";
 
 class Header extends React.Component {
   constructor(props) {
@@ -27,11 +29,16 @@ class Header extends React.Component {
     });
   };
 
+  handleMenuLeft = () => {
+    document.body.classList.toggle("show_menu_left");
+  };
+
   render() {
     const { t, i18n } = this.props;
     let { isMini } = this.state;
     return (
       <div className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white">
+        <ComponentHambuger handleAction={this.handleMenuLeft} />
         <div className="wrapper_header_logo w-260 h-80 d-flex align-items-center">
           <a href="/" className={`header_logo d-block px-2`}>
             {isMini ? (
@@ -86,13 +93,13 @@ class Header extends React.Component {
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
               </div>
-              <div className="ps-3 pe-3">
+              <div className="wr_help_center ps-3 pe-3">
                 <a
                   href="#"
                   className="item_help d-flex align-items-center text-blue-0"
                 >
                   <FontAwesomeIcon icon={faQuestionCircle} />
-                  <span className="white-spacing-nowrap ps-2">
+                  <span className="text white-spacing-nowrap ps-2">
                     {t("txt_help_center")}
                   </span>
                 </a>
