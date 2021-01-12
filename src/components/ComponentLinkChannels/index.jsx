@@ -6,22 +6,22 @@ class ComponentLinkChannels extends React.Component {
     this.state = {
       data: [
         {
-          icon: "assets/images/ic-facebook.svg",
-          link: "#"
+          icon: "/assets/images/ic-facebook.svg",
+          link: "#",
         },
         {
-          icon: "assets/images/ic-facebook.svg",
-          link: "#"
+          icon: "/assets/images/ic-facebook.svg",
+          link: "#",
         },
         {
-          icon: "assets/images/ic-facebook.svg",
-          link: "#"
+          icon: "/assets/images/ic-facebook.svg",
+          link: "#",
         },
         {
-          icon: "assets/images/ic-facebook.svg",
-          link: "#"
-        }
-      ]
+          icon: "/assets/images/ic-facebook.svg",
+          link: "#",
+        },
+      ],
     };
   }
 
@@ -30,18 +30,15 @@ class ComponentLinkChannels extends React.Component {
 
     return (
       <ul className="list-unstyled d-flex align-items-center">
-        {
-          data.map((value, key) => {
-            return (
-              <li key={key}>
-                <a href={void(0)} href={value.link}>
-                  <img src={value.icon} alt="" />
-                </a>
-              </li>
-            )
-          })
-        }
-        
+        {data.map((value, key) => {
+          return (
+            <li key={key}>
+              <a href={void 0} href={value.link}>
+                <img src={value.icon} alt="" className="img-avatar" />
+              </a>
+            </li>
+          );
+        })}
       </ul>
     );
   }
