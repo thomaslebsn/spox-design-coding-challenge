@@ -57,7 +57,7 @@ const mainRoutes = [
   },
   {
     path: "/wizard",
-    exact: false,
+    exact: true,
     main: ({ match, location }) => (
       <WizardPage match={match} location={location} />
     ),

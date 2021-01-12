@@ -34,8 +34,15 @@ const ContentFormPage = observer(
     render() {
       console.log("[ContentFormPage] - re-render .........");
 
+      let custom = {
+        enterRight: "",
+        enterLeft: "",
+        exitRight: "",
+        exitLeft: "",
+      };
+
       return (
-        <StepWizard isLazyMount={true}>
+        <StepWizard isLazyMount={true} transitions={custom}>
           <ContentFormGeneral
             viewModel={this.contentFormViewModel}
             hashKey={"general"}
