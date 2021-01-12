@@ -24,7 +24,7 @@ class Menu extends React.Component {
         {
           name: "wizard",
           text: "Wizard",
-          link: "/wizardproject",
+          link: "/wizard",
           icons: faMagic,
         },
         {
