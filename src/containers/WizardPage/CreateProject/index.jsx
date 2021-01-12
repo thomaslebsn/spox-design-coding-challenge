@@ -1,15 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, lazy } from "react";
 
-import { withWizardViewModel } from "../WizardViewModels/WizardViewModelContextProvider";
-import ProjectsList from "./ProjectsList";
+const ProjectsListWizard = lazy(() => import("./ProjectsListWizard"));
+const ProjectFormWizard = lazy(() => import("./ProjectFormWizard"));
 
 class CreateProject extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    return <ProjectsList />;
+    return (
+      <div className="bg-white d-flex flex-column m-4 p-4">
+        <div className="w-50 mx-auto my-5 py-4">
+          <ProjectsListWizard />
+          <ProjectFormWizard />
+        </div>
+      </div>
+    );
   }
 }
+
 export default CreateProject;

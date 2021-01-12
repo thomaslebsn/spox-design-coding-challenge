@@ -36,11 +36,12 @@ const Table = ({
   isThumb,
   dataList,
   dataThumb,
+  thumbColumnsNumber,
   searchText = "Search...",
   isFilter,
   noSelection = false,
   isList = true,
-  noColumns = false,
+  noDropDownColumns = false,
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -203,7 +204,7 @@ const Table = ({
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
             />
-            {!noColumns && (
+            {!noDropDownColumns && (
               <div className="px-2 border-end-1">
                 <Dropdown>
                   <Dropdown.Toggle
@@ -427,7 +428,9 @@ const Table = ({
               newRowCells.length > 0 && (
                 <div
                   {...row.getRowProps()}
-                  className={`col_thumb cursor-pointer ${styles.col_thumb} col-3 mb-4`}
+                  className={`col_thumb cursor-pointer ${
+                    styles.col_thumb
+                  } col-${!thumbColumnsNumber ? "3" : thumbColumnsNumber} mb-4`}
                   onClick={(e) => handerEdit(e, row.original)}
                   key={Math.random(40, 200)}
                 >

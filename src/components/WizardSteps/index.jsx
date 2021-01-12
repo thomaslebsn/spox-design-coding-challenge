@@ -1,63 +1,57 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 
+import "./index.scss";
 import styles from "./index.module.scss";
 
-class WizardSteps extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataStep: [
-        {
-          name: "step1",
-          text: "Create project",
-          eventKey: "createproject",
-        },
-        {
-          name: "step2",
-          text: "Connect channel",
-          eventKey: "connectchannel",
-        },
-        {
-          name: "step3",
-          text: "Create content",
-          eventKey: "createcontent",
-        },
-      ],
-    };
-  }
+const WizardSteps = (props) => {
+  const steps = [
+    {
+      key: 1,
+      text: "Create project",
+    },
+    {
+      key: 2,
+      text: "Connect channel",
+    },
+    {
+      key: 3,
+      text: "Create content",
+    },
+  ];
 
-  render() {
-    let { dataStep } = this.state;
-    return (
-      <div className="position-relative my-5 w-50 top-0 start-50 translate-middle-x">
-        {dataStep.map((value, key) => {
-          return (
+  const { currentStep } = props;
+  let isActive = 0;
+
+  return (
+    <div className="position-relative my-5 w-50 top-0 start-50 translate-middle-x">
+      {steps.map(({ key, text }) => {
+        isActive = currentStep === key;
+        return (
+          <div
+            key={key}
+            className={`position-absolute top-0 start-${
+              (key - 1) * 50
+            } translate-middle`}
+          >
             <div
-              key={key}
-              eventKey={value.eventKey}
-              className={`position-absolute top-0 start-${
-                key * 50
-              } translate-middle `}
+              className={`${
+                isActive ? "bg-primary" : "bg-secondary"
+              } text-white text-center rounded-circle ${styles.step}`}
             >
-              <div
-                className={`bg-primary text-white text-center rounded-circle ${styles.step}`}
-              >
-                {key + 1}
-              </div>
-              <div className="position-absolute text-nowrap start-50 translate-middle-x">
-                {value.text}
-              </div>
+              {key}
             </div>
-          );
-        })}
-
-        <div className={`progress ${styles.progress}`}>
-          <div className="progress-bar w-50"></div>
-        </div>
+            <div className="position-absolute text-nowrap start-50 translate-middle-x">
+              {text}
+            </div>
+          </div>
+        );
+      })}
+      <div className={`progress ${styles.progress}`}>
+        <div className={`progress-bar w-${isActive * 50}`}></div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default withTranslation("common")(WizardSteps);
