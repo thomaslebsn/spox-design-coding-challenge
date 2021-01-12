@@ -25,7 +25,7 @@ class ContentFormPublish extends Component {
 
   post = () => {
     if (this.isFormValid()) {
-      console.log("go");
+      this.viewModel.post();
     }
   };
 

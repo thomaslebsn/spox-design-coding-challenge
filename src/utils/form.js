@@ -2,7 +2,6 @@ import React, { lazy } from "react";
 import Label from "../components/Form/Label";
 import { FORM_FIELD_TYPE } from "../constants/FormFieldType";
 import { Form } from "react-bootstrap";
-import SimpleReactValidator from "simple-react-validator";
 
 const FormDateRangePicker = lazy(() =>
   import("../components/Form/FormDateRangePicker")

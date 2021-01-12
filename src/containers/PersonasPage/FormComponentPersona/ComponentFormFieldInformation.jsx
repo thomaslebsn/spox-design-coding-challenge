@@ -59,6 +59,7 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
               onChange={field.changed ?? undefined}
               onBlur={field.blurred ?? undefined}
               rows={5}
+              className="border-0 bg-transparent"
             />
 
             {field.validation &&
