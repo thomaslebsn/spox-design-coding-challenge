@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
 import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
+import { notify } from "../../../components/Toast";
 
 class CampaignsListViewModel {
   campaignsStore = null;
@@ -38,7 +39,7 @@ class CampaignsListViewModel {
   deleteCampaigns = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
 
-    this.campaignsStore.deletePersonas(
+    this.campaignsStore.deleteCampaigns(
       this.campaignsIdsSelected,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
@@ -48,7 +49,7 @@ class CampaignsListViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    alert(error);
+    notify(error.message);
   };
 
   callbackOnSuccessHandler = (campaignsModelData) => {
