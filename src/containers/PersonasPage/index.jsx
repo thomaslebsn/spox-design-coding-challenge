@@ -33,12 +33,14 @@ function Personas({ match, location }) {
       <div className="py-4 px-3">
         {form ? (
           <>
-            <ComponentHeaderPage
-              title={"Make Persona Overview"}
-              textBtn={"Save persona"}
-              // handleCreate={this.handleSave}
-              faIcons={faSave}
-            />
+            <div className="mb-4">
+              <ComponentHeaderPage
+                title={"Make Persona Overview"}
+                textBtn={"Save persona"}
+                // handleCreate={this.handleSave}
+                faIcons={faSave}
+              />
+            </div>
             <PersonaFormPage id={id} />
           </>
         ) : (
