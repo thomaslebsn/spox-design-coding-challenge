@@ -9,7 +9,7 @@ import { withWizardViewModel } from "../../WizardViewModels/WizardViewModelConte
 import { PROJECT_COLUMN_INDICATOR } from "../../../../constants/ProjectModule";
 
 import Spinner from "../../../../components/Spinner";
-import { Link } from "react-router-dom";
+
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -34,9 +34,13 @@ const ProjectsListWizard = observer(
       this.projectListViewModel.initializeData();
     }
 
-    handerEditProject = (row) => {};
-
-    handerSelectProject = (data) => {};
+    handerEditProject = ({ id }) => {
+      if (id > 0) {
+        this.props.goToStep(3);
+      } else {
+        this.props.nextStep();
+      }
+    };
 
     render() {
       console.log("[ProjectsList] - re-render .........");
@@ -44,15 +48,12 @@ const ProjectsListWizard = observer(
       const createNew = {
         id: 0,
         name: (
-          <Link
-            className="border-da-1 p-4 h-100 text-center position-relative d-block text-body text-decoration-none"
-            onClick={this.props.nextStep}
-          >
+          <div className="border-da-1 p-4 h-100 text-center position-relative d-block text-body text-decoration-none">
             <div className="position-absolute top-50 start-50 translate-middle">
               <FontAwesomeIcon icon={faPlus} />
               <span className="ps-2">Create projects</span>
             </div>
-          </Link>
+          </div>
         ),
       };
 
@@ -75,7 +76,6 @@ const ProjectsListWizard = observer(
               rowData={[createNew, ...projects]}
               tableRowHeader={tableRowHeader}
               onEdit={this.handerEditProject}
-              onSelect={this.handerSelectProject}
               noSelection={true}
               noDropDownColumns={true}
               isList={false}

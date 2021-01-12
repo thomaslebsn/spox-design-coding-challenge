@@ -28,6 +28,27 @@ const ProjectFormWizard = observer(
       console.log(this.projectFormModalViewModel);
     }
 
+    isFormValid = () => {
+      console.log("isFormValid");
+      console.log(this.formPropsData);
+      if (this.validator.allValid()) {
+        console.log("[is Form Valid]");
+
+        return true;
+      } else {
+        this.validator.showMessages();
+        // rerender to show messages for the first time
+        this.forceUpdate();
+        return false;
+      }
+    };
+
+    next = () => {
+      if (this.projectFormModalViewModel.projectFormComponent.isFormValid()) {
+        this.props.nextStep();
+      }
+    };
+
     render() {
       console.log("[ProjectFormWizard] - re-render .........");
 
@@ -36,17 +57,20 @@ const ProjectFormWizard = observer(
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
-        <div className="w-40 m-auto">
-          <h3 className="fw-medium text-blue-0 mb-3 fs-2">
-            Create a new project
-          </h3>
-          <ProjectForm viewModel={this.projectFormModalViewModel} />
-
-          <ButtonNormal
-            className="btn btn-success"
-            text="Next"
-            onClick={this.props.nextStep}
-          ></ButtonNormal>
+        <div className="bg-white d-flex flex-column m-4 p-4">
+          <div className="w-40 m-auto">
+            <h3 className="fw-medium text-blue-0 mb-3 fs-2">
+              Create a new project
+            </h3>
+            <ProjectForm viewModel={this.projectFormModalViewModel} />
+            <div className="d-flex justify-content-end">
+              <ButtonNormal
+                className="btn btn-success"
+                text="Next"
+                onClick={this.next}
+              ></ButtonNormal>
+            </div>
+          </div>
         </div>
       );
     }
