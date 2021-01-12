@@ -1,8 +1,11 @@
 import React, { Component, lazy } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 import { Dropdown } from "react-bootstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
 class ContentActionBar extends Component {
   contentFormViewModel = null;
@@ -54,7 +57,10 @@ class ContentActionBar extends Component {
           }}
           className="btn btn-success"
         >
-          Create a new content
+          <i className="me-1">
+            <FontAwesomeIcon icon={faPlus} />
+          </i>
+          <span>Create post</span>
         </Link>
       </div>
     );

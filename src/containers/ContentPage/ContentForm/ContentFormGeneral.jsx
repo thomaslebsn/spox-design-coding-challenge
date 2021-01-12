@@ -150,9 +150,9 @@ class ContentFormGeneral extends Component {
 
     return (
       <>
-        <div className="bg-white p-4">
-          <div className="col-6">
-            <h3 className="mb-4">General</h3>
+        <div className="col-6">
+          <h3 className="mb-4">General</h3>
+          <div className="bg-white p-4">
             <Form key={Math.random(40, 200)}>
               {Object.keys(formSetting)
                 .map((groupIndex) => {

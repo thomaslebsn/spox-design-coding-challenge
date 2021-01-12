@@ -113,6 +113,7 @@ const ContentsList = observer(
           tableRowHeader={tableRowHeader}
           onEdit={this.handerEditContent}
           onSelect={this.handerSelectContent}
+          isFilter={true}
         ></Table>
       );
     }

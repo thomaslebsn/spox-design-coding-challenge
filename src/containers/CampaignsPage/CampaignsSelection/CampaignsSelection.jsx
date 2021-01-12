@@ -84,7 +84,7 @@ const CampaignsSelection = observer(
           show={show}
           onHide={this.campaignsSelectionViewModel.closeModal}
           header={"Choose campaign"}
-          dialogClassName="modal-lg"
+          dialogClassName="modal-lg modal_content_general"
           body={
             <Table
               rowData={campaigns}
@@ -92,6 +92,7 @@ const CampaignsSelection = observer(
               onEdit={this.handerEditCampaign}
               noSelection={true}
               noColumns={true}
+              noDropDownColumns={true}
             ></Table>
           }
           key={Math.random(40, 200)}
