@@ -4,6 +4,72 @@ import Label from "../../../components/Form/Label";
 
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
+import ComponentLinkChannels from "../../../components/ComponentLinkChannels";
+import FormSelectDropdown from "../../../components/Form/FormSelectDropdown";
+
+const optionInterest = [
+  {
+    value: "design",
+    label: "Design",
+    text: "Design",
+    type: "Interests",
+    size: "496,890,422",
+    interest: "Fitness and wellness > Physical fitness",
+    description:
+      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis. Morbi fringilla viverra magna. Cras laoreet metus sed posuere eleifend. Sed facilisis dictum",
+  },
+  {
+    value: "interior",
+    label: "Interior design",
+    text: "Interior design",
+    type: "Employers",
+    size: "196,890,422",
+    interest: "Fitness and wellness > Physical fitness",
+    description:
+      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
+  },
+  {
+    value: "fashion",
+    label: "Fashion design",
+    text: "Fashion design",
+    type: "Job Titles",
+    type: "Employers",
+    size: "342,890,422",
+    interest: "Fitness and wellness > Physical fitness",
+    description:
+      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
+  },
+  {
+    value: "graphic",
+    label: "Graphic design",
+    text: "Graphic design",
+    type: "Interests",
+    size: "888,890,453",
+    interest: "Fitness and wellness > Physical fitness",
+    description:
+      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
+  },
+  {
+    value: "industrial",
+    label: "Industrial design",
+    text: "Industrial design",
+    type: "Titles Titles",
+    size: "888,111,555",
+    interest: "Fitness and wellness > Physical fitness",
+    description:
+      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
+  },
+  {
+    value: "architecture",
+    label: "Architecture design",
+    text: "Architecture design",
+    type: "Interests",
+    size: "565,322,777",
+    interest: "Fitness and wellness > Physical fitness",
+    description:
+      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
+  },
+];
 
 const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
   let information = [
@@ -42,6 +108,38 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
     },
   ];
 
+  let fieldChannels = {
+    label: "Channels",
+    key: PERSONA_FIELD_KEY.CHALLENGES,
+    type: FORM_FIELD_TYPE.DROPDOWN,
+    value: formPropsData[PERSONA_FIELD_KEY.CHALLENGES],
+    required: true,
+    validation: "required",
+    option: [
+      { value: "Linkedin", label: "Linkedin" },
+      { value: "Linkedin1", label: "Linkedin 1" },
+    ],
+    changed: (event) => {
+      formPropsData[PERSONA_FIELD_KEY.CHALLENGES] = event.value;
+    },
+    isMulti: false,
+  };
+
+  let fieldInterest = {
+    label: "Channels",
+    key: PERSONA_FIELD_KEY.CHALLENGES,
+    type: FORM_FIELD_TYPE.DROPDOWN,
+    value: formPropsData[PERSONA_FIELD_KEY.CHALLENGES],
+    required: true,
+    validation: "required",
+    option: optionInterest,
+    changed: (event) => {
+      formPropsData[PERSONA_FIELD_KEY.CHALLENGES] = event.value;
+    },
+    isMulti: true,
+    isComponents: true,
+  };
+
   return (
     <>
       {information.map((field) => {
@@ -69,6 +167,21 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
           </Form.Group>
         );
       })}
+      <Form.Group
+        key={Math.random(40, 200)}
+        className={`mb-4 border-start-5 bg-white p-2 px-3 rounded-2`}
+      >
+        <Label text={"Channels"} required={true} />
+        <FormSelectDropdown field={fieldChannels} />
+        <ComponentLinkChannels />
+      </Form.Group>
+      <Form.Group
+        key={Math.random(40, 200)}
+        className={`mb-4 border-start-5 bg-white p-2 px-3 rounded-2`}
+      >
+        <Label text={"Interest"} required={true} />
+        <FormSelectDropdown field={fieldInterest} />
+      </Form.Group>
     </>
   );
 };

@@ -9,6 +9,9 @@ const FormDateRangePicker = lazy(() =>
 const FormImage = lazy(() => import("../components/Form/FormImage"));
 const FormSelection = lazy(() => import("../components/Form/FormSelection"));
 const FormTab = lazy(() => import("../components/Form/FormTab"));
+const FormSelectDropdown = lazy(() =>
+  import("../components/Form/FormSelectDropdown")
+);
 
 const renderingGroupFieldHandler = (group, validator) => {
   return Object.keys(group.fields)
@@ -119,6 +122,16 @@ const renderingGroupFieldHandler = (group, validator) => {
                     field={field}
                     validator={validator}
                   />
+                </Form.Group>
+              );
+            case FORM_FIELD_TYPE.DROPDOWN:
+              return (
+                <Form.Group key={Math.random(40, 200)} className="mb-4">
+                  <Label
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
+                  <FormSelectDropdown field={field} />
                 </Form.Group>
               );
 

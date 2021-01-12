@@ -54,17 +54,22 @@ class PersonaForm extends Component {
               this.formPropsData[PERSONA_FIELD_KEY.AGE] = event.target.value;
             },
           },
-          // {
-          //   label: "Gender",
-          //   key: PERSONA_FIELD_KEY.GENDER,
-          //   type: FORM_FIELD_TYPE.SELECTION,
-          //   value: this.formPropsData[PERSONA_FIELD_KEY.GENDER],
-          //   required: true,
-          //   validation: "required",
-          //   changed: (event) => {
-          //     this.formPropsData[PERSONA_FIELD_KEY.GENDER] = event.target.value;
-          //   },
-          // },
+          {
+            label: "Gender",
+            key: PERSONA_FIELD_KEY.GENDER,
+            type: FORM_FIELD_TYPE.DROPDOWN,
+            value: this.formPropsData[PERSONA_FIELD_KEY.GENDER],
+            required: true,
+            validation: "required",
+            option: [
+              { value: "male", label: "Male" },
+              { value: "female", label: "Female" },
+            ],
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.GENDER] = event.value;
+            },
+            isMulti: false,
+          },
           {
             label: "Location",
             key: PERSONA_FIELD_KEY.LOCATION,
@@ -98,6 +103,22 @@ class PersonaForm extends Component {
             validation: "required",
             changed: (event) => {
               this.formPropsData[PERSONA_FIELD_KEY.SECTOR] = event.target.value;
+            },
+          },
+          {
+            label: "Marital Status",
+            key: PERSONA_FIELD_KEY.MARITAL_STATUS,
+            type: FORM_FIELD_TYPE.DROPDOWN,
+            value: this.formPropsData[PERSONA_FIELD_KEY.MARITAL_STATUS],
+            required: true,
+            validation: "required",
+            option: [
+              { value: "maritalStatus", label: "Marital Status" },
+              { value: "maritalStatus1", label: "Marital Status 1" },
+            ],
+            changed: (event) => {
+              this.formPropsData[PERSONA_FIELD_KEY.MARITAL_STATUS] =
+                event.value;
             },
           },
         ],
