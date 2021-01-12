@@ -6,7 +6,6 @@ const Signuppage = lazy(() => import("../pages/Signuppage"));
 const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("../pages/VerifyEmailPage"));
 const WizardProjectPage = lazy(() => import("../pages/WizardProjectPage"));
-const WizardPage = lazy(() => import("../pages/WizardPage"));
 
 const CreateContentPage = lazy(() => import("../pages/CreateContentPage"));
 // const CampaignsPage = lazy(() => import("../pages/CampaignsPage"));
@@ -20,6 +19,7 @@ const LoginPage = lazy(() => import("../containers/LoginPage"));
 const PersonasPage = lazy(() => import("../containers/PersonasPage"));
 const CampaignsPage = lazy(() => import("../containers/CampaignsPage"));
 const ContentPage = lazy(() => import("../containers/ContentPage"));
+const WizardPage = lazy(() => import("../containers/WizardPage"));
 
 const authRoutes = [
   {
@@ -57,8 +57,10 @@ const mainRoutes = [
   },
   {
     path: "/wizard",
-    exact: true,
-    main: () => <WizardPage />,
+    exact: false,
+    main: ({ match, location }) => (
+      <WizardPage match={match} location={location} />
+    ),
   },
   {
     path: "/projects",
