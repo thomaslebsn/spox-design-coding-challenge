@@ -68,7 +68,7 @@ const PersonasSelection = observer(
           show={show}
           onHide={this.personaSelectionViewModel.closeModal}
           header={"Choose Persona"}
-          dialogClassName="modal-lg"
+          dialogClassName="modal-lg modal_content_general"
           body={
             <Table
               rowData={personas}
@@ -77,6 +77,7 @@ const PersonasSelection = observer(
               noSelection={true}
               noColumns={true}
               isList={false}
+              noDropDownColumns={true}
             ></Table>
           }
           key={Math.random(40, 200)}

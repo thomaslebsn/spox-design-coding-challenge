@@ -18,6 +18,7 @@ import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 import Spinner from "../../../components/Spinner";
 
 import getStatus from "../../../utils/status";
+import CampaignsActionBar from "../CampaignsForm/CampaignsActionBar";
 
 const CampaignsList = observer(
   class CampaignsList extends Component {
@@ -158,6 +159,10 @@ const CampaignsList = observer(
                 <CampaignsTotalNumber />
               </div>
             </div>
+          </div>
+          <div className="d-flex align-items-center justify-content-between mb-4">
+            <h2 className="text-blue-0">List Campaigns</h2>
+            <CampaignsActionBar />
           </div>
           <Table
             rowData={campaigns}

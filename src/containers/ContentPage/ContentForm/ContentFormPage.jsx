@@ -4,6 +4,7 @@ import StepWizard from "react-step-wizard";
 
 import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
+import ContentSbarRight from "../../../components/ContentSbarRight";
 
 const ContentFormGeneral = lazy(() => import("./ContentFormGeneral"));
 const ContentFormPublish = lazy(() => import("./ContentFormPublish"));
@@ -42,16 +43,19 @@ const ContentFormPage = observer(
       };
 
       return (
-        <StepWizard isLazyMount={true} transitions={custom}>
-          <ContentFormGeneral
-            viewModel={this.contentFormViewModel}
-            hashKey={"general"}
-          />
-          <ContentFormPublish
-            viewModel={this.contentFormViewModel}
-            hashKey={"publish"}
-          />
-        </StepWizard>
+        <>
+          <StepWizard isLazyMount={true} transitions={custom}>
+            <ContentFormGeneral
+              viewModel={this.contentFormViewModel}
+              hashKey={"general"}
+            />
+            <ContentFormPublish
+              viewModel={this.contentFormViewModel}
+              hashKey={"publish"}
+            />
+          </StepWizard>
+          <ContentSbarRight />
+        </>
       );
     }
   }

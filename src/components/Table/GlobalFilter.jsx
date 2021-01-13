@@ -16,7 +16,7 @@ const GlobalFilter = ({
   }, 200);
 
   return (
-    <span className="d-flex align-items-center position-relative pe-3 border-end-1 w-400">
+    <span className=" d-flex align-items-center position-relative pe-3 border-end-1 w-400">
       <input
         value={value || ""}
         onChange={(e) => {

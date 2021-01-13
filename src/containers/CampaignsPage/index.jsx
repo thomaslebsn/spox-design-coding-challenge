@@ -19,7 +19,7 @@ function Campaigns({ match, location }) {
       <div className="py-4 px-3">
         <>
           <div className="d-flex align-items-center justify-content-between mb-4">
-            <h2 className="text-blue-0">List Campaigns</h2>
+            <h2 className="text-blue-0">Campaigns Statistics</h2>
             <div className="d-flex align-items-center">
               <div className="d-flex align-items-center border-1 bg-white rounded-2 w-180">
                 <ComponentDatepicker isDown={true} />

@@ -1,2 +1,14 @@
 @import "../../scss/utils/bootstrap.scss";
 @import "~bootstrap/scss/badge";
+
+.modal_content_general {
+  .wrapper_search_global {
+    width: 100%;
+
+    .w-400 {
+      width: 100%;
+      border-right: 0 !important;
+      border-bottom: 1px solid $border-color
+    }
+  }
+}

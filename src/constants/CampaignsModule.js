@@ -1,5 +1,6 @@
 const CAMPAIGNS_FIELD_KEY = {
   ID: "campaigns-id",
+  PROJECT: "campaigns-project",
   NAME: "campaigns-name",
   STATUS: "campaigns-status",
   START_DATE: "startDate",
