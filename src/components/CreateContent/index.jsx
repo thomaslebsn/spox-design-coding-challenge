@@ -10,7 +10,6 @@ import Dropzone from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons/faImage";
 import { faVideo } from "@fortawesome/free-solid-svg-icons/faVideo";
-import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 import "emoji-mart/css/emoji-mart.css";
 import { Emoji, Picker } from "emoji-mart";
@@ -104,6 +103,7 @@ class CreateContent extends React.Component {
         <img
           className={`img-thumbnail rounded ${styles.img}`}
           src={URL.createObjectURL(file)}
+          alt=""
         />
       </div>
     ));
@@ -176,7 +176,7 @@ class CreateContent extends React.Component {
                     >
                       <textarea
                         name="desc"
-                        class="form-control border-0 rounded-0"
+                        className="form-control border-0 rounded-0"
                         id={value.id}
                         rows="7"
                         onChange={this.handleInputChange}

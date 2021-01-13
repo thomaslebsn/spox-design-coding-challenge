@@ -10,12 +10,12 @@ class ComponentHambuger extends React.Component {
     let { handleAction, className } = this.props;
     return (
       <div
-        class={`wrapper_hambuger d-none cursor-pointer ps-3 pe-2 ${className}`}
+        className={`wrapper_hambuger d-none cursor-pointer ps-3 pe-2 ${className}`}
         onClick={handleAction}
       >
-        <div class="item_hambuger"></div>
-        <div class="item_hambuger"></div>
-        <div class="item_hambuger"></div>
+        <div className="item_hambuger"></div>
+        <div className="item_hambuger"></div>
+        <div className="item_hambuger"></div>
       </div>
     );
   }

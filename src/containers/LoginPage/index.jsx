@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-
+import SimpleReactValidator from "simple-react-validator";
 import TitleAccount from "../../components/TitlePageAccount";
 
 import "./index.scss";
@@ -10,6 +10,10 @@ import ButtonNormal from "../../components/ButtonNormal";
 import Checkbox from "../../components/Checkbox";
 import BannerLeft from "../../components/BannerLeft";
 import Social from "../../components/Social";
+
+import { login } from "../../auth";
+
+import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 
 const dataSlider = [
   {
@@ -32,8 +36,46 @@ const dataSlider = [
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { username: "", password: "" };
+
+    this.validator = new SimpleReactValidator();
+
+    this.usernameInput = React.createRef();
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    this.usernameInput.current.focus();
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleSubmit() {
+    if (this.validator.allValid()) {
+      console.log("[is Form Valid]");
+      login(this.state);
+    } else {
+      this.validator.showMessages();
+      // rerender to show messages for the first time
+      this.forceUpdate();
+      return false;
+    }
+  }
+
+  onKeyPress = (e) => {
+    if (e.which === 13) {
+      this.handleSubmit();
+    }
+  };
 
   render() {
     const { t, i18n } = this.props;
@@ -55,22 +97,47 @@ class LoginPage extends React.Component {
 
             <form>
               <label className="form-label mb-3" htmlFor="email">
-                {t("txt_email")} <span>*</span>
+                Username <span>*</span>
               </label>
-              <input type="email" className="form-control mb-4" id="email" />
-              <label className="form-label mb-3" htmlFor="password">
+              <input
+                type="text"
+                className="form-control"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                ref={this.usernameInput}
+              />
+              {this.validator.message(
+                "username",
+                this.state.username,
+                "required",
+                { className: "text-danger" }
+              )}
+              <label className="form-label mt-4 mb-3" htmlFor="password">
                 {t("txt_password")} <span>*</span>
               </label>
               <input
                 type="password"
-                className="form-control mb-4"
-                id="password"
+                className="form-control"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                onKeyPress={this.onKeyPress}
               />
-              <div className="mb-3 d-flex justify-content-between">
+              {this.validator.message(
+                "password",
+                this.state.password,
+                "required",
+                { className: "text-danger" }
+              )}
+              <div className="mt-4 mb-3 d-flex justify-content-between">
                 <Checkbox text={t("txt_remember_me")} />
                 <a href="/forgot-password">{t("txt_forgot_password")}</a>
               </div>
-              <ButtonNormal text={t("txt_sign_in")} />
+              <ButtonNormal
+                text={t("txt_sign_in")}
+                onClick={this.handleSubmit}
+              />
               <a href="/signup" className="d-flex justify-content-center mt-4">
                 {t("txt_do_not_have_an_account")}
               </a>

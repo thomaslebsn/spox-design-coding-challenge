@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import PAGE_STATUS from "../../../../constants/PageStatus";
+import history from "../../../../routes/history";
 
 import Table from "../../../../components/Table";
 
@@ -36,9 +37,10 @@ const ProjectsListWizard = observer(
 
     handerEditProject = ({ id }) => {
       if (id > 0) {
-        this.props.goToStep(3);
+        history.push(`/wizard/project/${id}`);
+        //this.props.goToStep(3);
       } else {
-        this.props.nextStep();
+        history.push(`/wizard/createproject`);
       }
     };
 

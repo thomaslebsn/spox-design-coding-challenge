@@ -13,7 +13,7 @@ const CampaignsList = lazy(() => import("./CampaignsList/CampaignsList"));
 const campaignsStore = new CampaignsStore();
 const campaignsViewModel = new CampaignsViewModel(campaignsStore);
 
-function Campaigns({ match, location }) {
+function Campaigns() {
   return (
     <CampaignsViewModelContextProvider viewModel={campaignsViewModel}>
       <div className="py-4 px-3">

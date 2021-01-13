@@ -1,14 +1,16 @@
 import React, { Suspense } from "react";
 
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { mainRoutes } from "../../routes/routes";
 
 import Spinner from "../../components/Spinner";
 import Header from "../../components/Header";
 import SbarLeft from "../../components/SbarLeft";
 
+import { isLogin } from "../../auth";
+
 const MainLayout = () => {
-  return (
+  return isLogin() ? (
     <div className="container-fluid">
       <div className="row">
         <main className="p-0">
@@ -28,6 +30,8 @@ const MainLayout = () => {
         </main>
       </div>
     </div>
+  ) : (
+    <Redirect to="/login" />
   );
 };
 

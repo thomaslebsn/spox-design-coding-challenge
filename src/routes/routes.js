@@ -5,11 +5,7 @@ const HomePage = lazy(() => import("../pages/Homepage"));
 const Signuppage = lazy(() => import("../pages/Signuppage"));
 const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("../pages/VerifyEmailPage"));
-const WizardProjectPage = lazy(() => import("../pages/WizardProjectPage"));
 
-const CreateContentPage = lazy(() => import("../pages/CreateContentPage"));
-// const CampaignsPage = lazy(() => import("../pages/CampaignsPage"));
-const WizardPopup = lazy(() => import("../pages/WizardPopup"));
 const ChannelsPage = lazy(() => import("../pages/ChannelsPage"));
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
 const CalendarPage = lazy(() => import("../pages/CalendarPage"));
@@ -51,12 +47,12 @@ const mainRoutes = [
     main: () => <HomePage />,
   },
   {
-    path: "/wizardproject",
-    exact: true,
-    main: () => <WizardProjectPage />,
-  },
-  {
-    path: "/wizard",
+    path: [
+      "/wizard",
+      "/wizard/createproject",
+      "/wizard/project/:id",
+      "/wizard/project/:id/content",
+    ],
     exact: true,
     main: ({ match, location }) => (
       <WizardPage match={match} location={location} />

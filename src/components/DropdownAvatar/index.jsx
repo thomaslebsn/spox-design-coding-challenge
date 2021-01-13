@@ -6,6 +6,8 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 
 import "./index.scss";
 
+import { logout } from "../../auth";
+
 const data = [
   {
     key: 1,
@@ -82,12 +84,12 @@ class DropdownAvatar extends React.Component {
                 })}
               </ul>
             </div>
-            <a
-              href="#"
-              className="d-flex align-items-center p-3 text-red-1 border-top-1 border-gray"
+            <div
+              onClick={logout}
+              className="d-flex align-items-center p-3 text-red-1 border-top-1 border-gray cursor-pointer"
             >
               <span className="ps-2 pe-2">{t("txt_sign_out")}</span>
-            </a>
+            </div>
           </Dropdown.Menu>
         </Dropdown>
       </div>
