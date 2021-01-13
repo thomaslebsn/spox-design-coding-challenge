@@ -53,7 +53,7 @@ const PersonasSelection = observer(
         {
           Header: "Image",
           accessor: PERSONA_FIELD_KEY.IMAGE,
-          Cell: ({ value }) => <Image src={value} rounded width="50" />,
+          Cell: ({ value }) => <Image src={value} rounded height="250" />,
         },
         {
           Header: "Name",

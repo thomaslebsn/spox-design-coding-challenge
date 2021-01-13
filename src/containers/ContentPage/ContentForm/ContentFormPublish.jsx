@@ -7,6 +7,7 @@ import ButtonNormal from "../../../components/ButtonNormal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons/faCheckCircle";
 
 import { personaSelectionViewModal } from "./PersonalSelectionPage";
 
@@ -44,6 +45,44 @@ class ContentFormPublish extends Component {
     }
   };
 
+  handleCheck = (name) => {
+    const { personaSelectionData } = personaSelectionViewModal;
+
+    personaSelectionData.map((item) => {
+      const channels = item[PERSONA_FIELD_KEY.CHANNELS];
+
+      channels.map(
+        (channel) => (
+          console.log("channel channel", channel),
+          {
+            ...channel,
+            checked:
+              channel.name === name
+                ? (channel.checked = !channel.checked)
+                : channel.checked,
+            checked:
+              name === "deselectAll"
+                ? (channel.checked = false)
+                : channel.checked,
+          }
+        )
+      );
+    });
+
+    this.setState({
+      personaSelectionData,
+    });
+  };
+
+  handleDeselect = (name) => {
+    this.handleCheck(name);
+  };
+
+  handleItemCheck = (name) => {
+    console.log("name", name);
+    this.handleCheck(name);
+  };
+
   render() {
     console.log("[Content - FormPublish] - re-render .........");
 
@@ -59,14 +98,14 @@ class ContentFormPublish extends Component {
     console.log(channelSelectionData);
 
     return (
-      <div className="bg-white p-4">
-        <div className="col-6">
-          <h3 className="mb-4">Publish</h3>
-          <Accordion defaultActiveKey="0" className="mb-3">
+      <div className="col-6">
+        <h3 className="mb-4">Publish</h3>
+        <div className="bg-white p-4">
+          <Accordion defaultActiveKey="0" className="">
             {personaSelectionData.map((item) => {
               const channels = item[PERSONA_FIELD_KEY.CHANNELS];
               const name = item[PERSONA_FIELD_KEY.NAME];
-
+              console.log("channels", channels);
               return (
                 <div key={Math.random(40, 200)}>
                   <div className="mb-2">
@@ -86,26 +125,42 @@ class ContentFormPublish extends Component {
                     </Accordion.Toggle>
                   </div>
                   <Accordion.Collapse eventKey="0">
-                    <div className="py-4 d-flex">
-                      {channels.map((channel) => {
-                        return (
-                          <div
-                            className="position-relative me-2"
-                            key={Math.random(40, 200)}
-                          >
-                            <Image
-                              data-channel={channel.id}
-                              src={channel.icon}
-                              width="30"
-                              className="position-absolute bottom-0 end-0"
-                            />
-                            <Image
-                              src={channel.image}
-                              className="rounded-circle border-1 cursor-pointer"
-                            />
-                          </div>
-                        );
-                      })}
+                    <div className="py-4 d-flex align-items-center justify-content-between">
+                      <div className="d-flex">
+                        {channels.map((channel) => {
+                          return (
+                            <div
+                              className={`position-relative me-2`}
+                              key={Math.random(40, 200)}
+                              onClick={() => this.handleItemCheck(channel.name)}
+                            >
+                              {channel.checked && (
+                                <i className="text-green position-absolute start-0 bottom-0">
+                                  <FontAwesomeIcon icon={faCheckCircle} />
+                                </i>
+                              )}
+
+                              <Image
+                                data-channel={channel.id}
+                                src={channel.icon}
+                                width="18"
+                                className="position-absolute bottom-0 end-0"
+                              />
+                              <Image
+                                src={channel.image}
+                                className="rounded-circle border-1 cursor-pointer img-avatar"
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <a
+                        href={void 0}
+                        className="cursor-pointer text-black opacity-75 text-decoration-none"
+                        onClick={() => this.handleDeselect("deselectAll")}
+                      >
+                        Deselect all
+                      </a>
                     </div>
                   </Accordion.Collapse>
                 </div>
@@ -113,7 +168,7 @@ class ContentFormPublish extends Component {
             })}
           </Accordion>
 
-          <h3>When to publish this?</h3>
+          <h3 className="mb-3">When to publish this?</h3>
 
           <Accordion defaultActiveKey="0" className="mb-3">
             <div className="mb-2">

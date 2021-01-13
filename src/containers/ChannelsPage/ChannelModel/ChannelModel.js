@@ -4,6 +4,7 @@ class ChannelModel {
     this.name = data.name ?? "";
     this.image = data.image ?? "";
     this.icon = data.icon ?? "";
+    this.checked = data.checked ?? "";
   }
 }
 
