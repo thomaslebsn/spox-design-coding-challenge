@@ -1,11 +1,15 @@
 import React, { Suspense } from "react";
 
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { authRoutes } from "../../routes/routes";
 import Spinner from "../../components/Spinner";
 
+import { isLogin } from "../../auth";
+
 const AuthLayout = () => {
-  return (
+  return isLogin() ? (
+    <Redirect to="/" />
+  ) : (
     <div className="container-fluid">
       <div className="row">
         <main>

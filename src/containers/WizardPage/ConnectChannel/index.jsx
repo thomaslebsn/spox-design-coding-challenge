@@ -5,6 +5,7 @@ import { withTranslation } from "react-i18next";
 
 import Button from "../../../components/Button";
 import ModalComponent from "../../../components/Modal";
+import history from "../../../routes/history";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import ButtonNormal from "../../../components/ButtonNormal";
@@ -43,6 +44,10 @@ class ConnectChannel extends React.Component {
 
   handleModalShow = (s) => {
     this.setState((state) => ({ showModal: s }));
+  };
+
+  next = () => {
+    history.push(`${history.location.pathname}/content`);
   };
 
   render() {
@@ -95,7 +100,7 @@ class ConnectChannel extends React.Component {
             <ButtonNormal
               className="btn btn-success"
               text="Next"
-              onClick={this.props.nextStep}
+              onClick={this.next}
             ></ButtonNormal>
           </div>
         </div>

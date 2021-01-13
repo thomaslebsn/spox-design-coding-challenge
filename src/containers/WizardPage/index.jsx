@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Route } from "react-router-dom";
 import StepWizard from "react-step-wizard";
 
 import ProjectStore from "../ProjectsPage/ProjectStore/ProjectStore";
@@ -20,7 +20,11 @@ const contentStore = new ContentStore();
 const wizardViewModel = new WizardViewModel(projectStore, contentStore);
 
 class WizardPage extends Component {
+  initialStep = 1;
+
   render() {
+    console.log("[WizardPage] render...");
+
     let custom = {
       enterRight: "",
       enterLeft: "",
@@ -30,18 +34,23 @@ class WizardPage extends Component {
 
     return (
       <WizardViewModelContextProvider viewModel={wizardViewModel}>
-        <StepWizard
-          nav={<WizardSteps />}
-          isLazyMount={true}
-          transitions={custom}
-          isHashEnabled={true}
-        >
-          <ProjectsListWizard hashKey={"projects"} />
+        <Route exact path="/wizard">
+          <ProjectsListWizard hashKey={"createproject"} />
+        </Route>
+        <Route exact path={["/wizard/createproject"]}>
           <ProjectFormWizard hashKey={"createproject"} />
+        </Route>
+
+        <Route exact path={["/wizard/project/:id"]}>
           <ConnectChannel hashKey={"connectchannel"} />
-          <ContentFormGeneralWizard hashKey={"contentgeneral"} />
-          <ContentFormPublishWizard hashKey={"contentpublish"} />
-        </StepWizard>
+        </Route>
+
+        <Route exact path={["/wizard/project/:id/content"]}>
+          <StepWizard isLazyMount={true} transitions={custom}>
+            <ContentFormGeneralWizard hashKey={"contentgeneral"} />
+            <ContentFormPublishWizard hashKey={"contentpublish"} />
+          </StepWizard>
+        </Route>
       </WizardViewModelContextProvider>
     );
   }
