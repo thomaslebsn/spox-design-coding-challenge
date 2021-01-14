@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import Label from "../../../components/Form/Label";
 
-import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
+import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 import ComponentLinkChannels from "../../../components/ComponentLinkChannels";
 import FormSelectDropdown from "../../../components/Form/FormSelectDropdown";
@@ -127,14 +127,14 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
 
   let fieldInterest = {
     label: "Channels",
-    key: PERSONA_FIELD_KEY.CHALLENGES,
+    key: PERSONA_FIELD_KEY.INTEREST,
     type: FORM_FIELD_TYPE.DROPDOWN,
-    value: formPropsData[PERSONA_FIELD_KEY.CHALLENGES],
+    value: formPropsData[PERSONA_FIELD_KEY.INTEREST],
     required: true,
     validation: "required",
     option: optionInterest,
     changed: (event) => {
-      formPropsData[PERSONA_FIELD_KEY.CHALLENGES] = event.value;
+      formPropsData[PERSONA_FIELD_KEY.INTEREST] = event.value;
     },
     isMulti: true,
     isComponents: true,

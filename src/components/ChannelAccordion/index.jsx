@@ -1,11 +1,11 @@
-import React from 'react';
-import { Nav, Accordion, useAccordionToggle } from 'react-bootstrap';
+import React from "react";
+import { Nav, Accordion, useAccordionToggle } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 
-import ItemAccordion from './ItemAccordion';
+import ItemAccordion from "./ItemAccordion";
 
 const data = [
   {
@@ -22,7 +22,7 @@ const data = [
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -31,14 +31,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Campaign",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -47,14 +47,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Followers",
             number: "-15",
             isNumber: false,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -63,14 +63,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Engagement",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -79,9 +79,9 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       },
       {
         images: "assets/images/icon-levis.png",
@@ -92,7 +92,7 @@ const data = [
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -101,14 +101,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Campaign",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -117,14 +117,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "20",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -133,14 +133,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -149,9 +149,9 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       },
       {
         images: "assets/images/icon-nikon.png",
@@ -162,7 +162,7 @@ const data = [
             number: "-15",
             isNumber: false,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -171,14 +171,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -187,14 +187,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -203,14 +203,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "15",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -219,11 +219,11 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
-          }
-        ]
-      }
-    ]
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 2,
@@ -239,7 +239,7 @@ const data = [
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -248,14 +248,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -264,14 +264,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -280,14 +280,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -296,9 +296,9 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       },
       {
         images: "assets/images/icon-levis.png",
@@ -309,7 +309,7 @@ const data = [
             number: "-20",
             isNumber: false,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -318,14 +318,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -334,14 +334,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -350,14 +350,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -366,9 +366,9 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       },
       {
         images: "assets/images/icon-nikon.png",
@@ -379,7 +379,7 @@ const data = [
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -388,14 +388,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -404,14 +404,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -420,14 +420,14 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
+            ],
           },
           {
             title: "Posts",
             number: "5",
             isNumber: true,
             dataChart: [
-              ['x', 'dogs'],
+              ["x", "dogs"],
               [0, 0],
               [1, 5],
               [2, 15],
@@ -436,23 +436,23 @@ const data = [
               [5, 5],
               [6, 3],
               [7, 19],
-            ]
-          }
-        ]
-      }
-    ]
-  }
-]
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
 
 class ChannelAccordion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       panelIndex: "",
-      isChart: false
+      isChart: false,
     };
   }
-  
+
   render() {
     let { panelIndex, isChart } = this.state;
 
@@ -460,43 +460,46 @@ class ChannelAccordion extends React.Component {
       const customOnClick = useAccordionToggle(eventKey, () => {
         this.setState({
           panelIndex: eventKey === panelIndex ? null : eventKey,
-          isChart: eventKey === panelIndex ? null : !isChart
-        })
-      })
-  
+          isChart: eventKey === panelIndex ? null : !isChart,
+        });
+      });
+
       return (
-        <Nav.Link onClick={customOnClick} className={`d-flex align-items-center justify-content-between p-3 ${eventKey === panelIndex ? "border-bottom-1" : ""}`}>
+        <Nav.Link
+          onClick={customOnClick}
+          className={`d-flex align-items-center justify-content-between p-3 ${
+            eventKey === panelIndex ? "border-bottom-1" : ""
+          }`}
+        >
           {children}
-          <i className="text-green fs-5"><FontAwesomeIcon icon={eventKey === panelIndex ? faMinus : faPlus} /></i>
+          <i className="text-green fs-5">
+            <FontAwesomeIcon
+              icon={eventKey === panelIndex ? faMinus : faPlus}
+            />
+          </i>
         </Nav.Link>
-      )
-    }
-    
+      );
+    };
+
     return (
       <Accordion>
-        {
-          data.map((value, index) => {
-            return (
-              <div key={index} className="bg-white rounded-3 mb-4">
-                <CustomToggle eventKey={value.id}>
-                  <div className="d-flex align-items-center">
-                    <img className="img-avatar" src={value.images} alt="" />
-                    <span className="ms-2 fs-4 text-blue-0">{value.title}</span>
-                  </div>
-                </CustomToggle>
-                <Accordion.Collapse eventKey={value.id}>
-                  <ItemAccordion 
-                    data={value.dataList}
-                    isChart={isChart}
-                  />
-                </Accordion.Collapse>
-              </div>
-            )
-          })
-        }
-        
+        {data.map((value, index) => {
+          return (
+            <div key={index} className="bg-white rounded-3 mb-4">
+              <CustomToggle eventKey={value.id}>
+                <div className="d-flex align-items-center">
+                  <img className="img-avatar" src={value.images} alt="" />
+                  <span className="ms-2 fs-4 text-blue-0">{value.title}</span>
+                </div>
+              </CustomToggle>
+              <Accordion.Collapse eventKey={value.id}>
+                <ItemAccordion data={value.dataList} isChart={isChart} />
+              </Accordion.Collapse>
+            </div>
+          );
+        })}
       </Accordion>
-    )
+    );
   }
 }
 export default ChannelAccordion;
