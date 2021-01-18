@@ -17,7 +17,7 @@ class Social extends React.Component {
             link="#"
             icon={faFacebookSquare}
             text="Facebook"
-            className="btn-facebook"
+            className="w-100 btn-facebook mb-2"
           />
         </div>
         <div className="col-md">
@@ -25,7 +25,7 @@ class Social extends React.Component {
             link="#"
             icon={faTwitterSquare}
             text="Twitter"
-            className="btn-twitter"
+            className="w-100 btn-twitter mb-2"
           />
         </div>
         <div className="col-md">
@@ -33,7 +33,7 @@ class Social extends React.Component {
             link="#"
             icon={faGoogle}
             text="Google"
-            className="btn-google"
+            className="w-100 btn-google mb-2"
           />
         </div>
       </div>

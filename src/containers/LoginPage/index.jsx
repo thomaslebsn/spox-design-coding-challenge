@@ -13,8 +13,6 @@ import Social from "../../components/Social";
 
 import { login } from "../../auth";
 
-import { faSleigh } from "@fortawesome/free-solid-svg-icons";
-
 const dataSlider = [
   {
     text:
@@ -36,7 +34,7 @@ const dataSlider = [
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "" };
+    this.state = { username: "", password: "", remember: false };
 
     this.validator = new SimpleReactValidator();
 
@@ -52,7 +50,7 @@ class LoginPage extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState({
       [name]: value,
@@ -62,6 +60,7 @@ class LoginPage extends React.Component {
   handleSubmit() {
     if (this.validator.allValid()) {
       console.log("[is Form Valid]");
+
       login(this.state);
     } else {
       this.validator.showMessages();
@@ -79,6 +78,9 @@ class LoginPage extends React.Component {
 
   render() {
     const { t, i18n } = this.props;
+
+    console.log("[LoginPage] render...");
+
     return (
       <div className="row">
         <div className="col-4 bg-primary p-0">
@@ -131,12 +133,18 @@ class LoginPage extends React.Component {
                 { className: "text-danger" }
               )}
               <div className="mt-4 mb-3 d-flex justify-content-between">
-                <Checkbox text={t("txt_remember_me")} />
+                <Checkbox
+                  name="remember"
+                  text={t("txt_remember_me")}
+                  checked={this.state.remember}
+                  onCheckBoxChange={this.handleInputChange}
+                />
                 <a href="/forgot-password">{t("txt_forgot_password")}</a>
               </div>
               <ButtonNormal
                 text={t("txt_sign_in")}
                 onClick={this.handleSubmit}
+                className="w-100 btn-success"
               />
               <a href="/signup" className="d-flex justify-content-center mt-4">
                 {t("txt_do_not_have_an_account")}

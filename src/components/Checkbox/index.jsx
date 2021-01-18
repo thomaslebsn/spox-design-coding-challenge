@@ -4,10 +4,19 @@ import "./index.scss";
 
 class Checkbox extends React.Component {
   render() {
-    let { text, checked, onCheckBoxChange } = this.props;
+    let { name, text, checked, onCheckBoxChange } = this.props;
+    console.log("[Checkbox] render...");
+
+    console.log(checked);
     return (
       <div className="form-check">
-        <input className="form-check-input" type="checkbox" checked={checked} onChange={onCheckBoxChange}/>
+        <input
+          name={name}
+          className="form-check-input"
+          type="checkbox"
+          checked={checked}
+          onChange={onCheckBoxChange}
+        />
         <label className="form-check-label" htmlFor="flexCheckChecked">
           {text}
         </label>

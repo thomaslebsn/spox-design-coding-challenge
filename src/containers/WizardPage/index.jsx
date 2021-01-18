@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import StepWizard from "react-step-wizard";
 
@@ -8,12 +8,19 @@ import WizardViewModel from "./WizardViewModels/WizardViewModel";
 import { WizardViewModelContextProvider } from "./WizardViewModels/WizardViewModelContextProvider";
 
 import WizardSteps from "../../components/WizardSteps";
+import Spinner from "../../components/Spinner";
 
-import ProjectsListWizard from "./CreateProject/ProjectsListWizard";
-import ProjectFormWizard from "./CreateProject/ProjectFormWizard";
-import ConnectChannel from "./ConnectChannel";
-import ContentFormGeneralWizard from "./CreareContent/ContentFormGeneralWizard";
-import ContentFormPublishWizard from "./CreareContent/ContentFormPublishWizard";
+const ProjectsListWizard = lazy(() =>
+  import("./CreateProject/ProjectsListWizard")
+);
+
+const ProjectFormWizard = lazy(() =>
+  import("./CreateProject/ProjectFormWizard")
+);
+
+const ConnectChannel = lazy(() => import("./ConnectChannel"));
+
+const CreareContent = lazy(() => import("./CreareContent"));
 
 const projectStore = new ProjectStore();
 const contentStore = new ContentStore();
@@ -25,33 +32,30 @@ class WizardPage extends Component {
   render() {
     console.log("[WizardPage] render...");
 
-    let custom = {
-      enterRight: "",
-      enterLeft: "",
-      exitRight: "",
-      exitLeft: "",
-    };
-
     return (
-      <WizardViewModelContextProvider viewModel={wizardViewModel}>
-        <Route exact path="/wizard">
-          <ProjectsListWizard hashKey={"createproject"} />
-        </Route>
-        <Route exact path={["/wizard/createproject"]}>
-          <ProjectFormWizard hashKey={"createproject"} />
-        </Route>
+      <>
+        <WizardSteps />
 
-        <Route exact path={["/wizard/project/:id"]}>
-          <ConnectChannel hashKey={"connectchannel"} />
-        </Route>
+        <WizardViewModelContextProvider viewModel={wizardViewModel}>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path="/wizard">
+              <ProjectsListWizard />
+            </Route>
 
-        <Route exact path={["/wizard/project/:id/content"]}>
-          <StepWizard isLazyMount={true} transitions={custom}>
-            <ContentFormGeneralWizard hashKey={"contentgeneral"} />
-            <ContentFormPublishWizard hashKey={"contentpublish"} />
-          </StepWizard>
-        </Route>
-      </WizardViewModelContextProvider>
+            <Route exact path={["/wizard/createproject"]}>
+              <ProjectFormWizard />
+            </Route>
+
+            <Route exact path={["/wizard/project/:id"]}>
+              <ConnectChannel />
+            </Route>
+
+            <Route exact path={["/wizard/project/:id/content"]}>
+              <CreareContent />
+            </Route>
+          </Suspense>
+        </WizardViewModelContextProvider>
+      </>
     );
   }
 }

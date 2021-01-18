@@ -2,25 +2,27 @@ import history from "../routes/history";
 import { notify } from "../components/Toast";
 
 // LOGIN
-export const login = ({ username, password }) => {
+const login = ({ username, password, remember }) => {
   if (username === "demo" && password === "demo") {
-    localStorage.setItem("auth", { username, password });
+    localStorage.setItem("auth", true);
     history.push("/");
+    return true;
   } else {
     notify("The username or password is incorrect", "error");
-
-    return true;
+    return false;
   }
 };
 
 // LOGOUT
-export const logout = () => {
+const logout = () => {
   localStorage.removeItem("auth");
   history.push("/login");
 };
 
 // LOGIN STATUS
-export const isLogin = () => {
+const isLogin = () => {
   if (localStorage.getItem("auth")) return true;
   return false;
 };
+
+export { login, logout, isLogin };
