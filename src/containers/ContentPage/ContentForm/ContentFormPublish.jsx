@@ -159,8 +159,9 @@ class ContentFormPublish extends Component {
   };
 
   handleChangeSwitch = (checked) => {
+    console.log("isSwitch isSwitch", this.state.isSwitch);
     this.setState({
-      isSwitch: checked,
+      isSwitch: !this.state.isSwitch,
     });
   };
 
@@ -321,6 +322,7 @@ class ContentFormPublish extends Component {
                       checked={isSwitch}
                       handleChange={this.handleChangeSwitch}
                       text={"Customize schedule for each channel"}
+                      id="customize_schedule"
                     />
                   </div>
                   <ComponentSchedule isSwitch={isSwitch} />

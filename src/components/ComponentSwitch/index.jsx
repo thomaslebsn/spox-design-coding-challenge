@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Switch from "react-switch";
 
 class ComponentSwitch extends Component {
   constructor() {
@@ -7,21 +6,20 @@ class ComponentSwitch extends Component {
   }
 
   render() {
-    let { handleChange, checked, text } = this.props;
+    let { handleChange, checked, text, id } = this.props;
     return (
-      <label className="d-flex align-items-center">
-        <span className="text-black opacity-75 pe-2">{text}</span>
-        <Switch
-          onChange={handleChange}
+      <div className="form-check form-switch">
+        <input
+          className="form-check-input w-98"
+          type="checkbox"
+          id={id}
           checked={checked}
-          onColor="#16b979"
-          onHandleColor="#fff"
-          uncheckedIcon={false}
-          checkedIcon={false}
-          height={22}
-          width={40}
+          onChange={handleChange}
         />
-      </label>
+        <label className="form-check-label" htmlFor={id}>
+          {text}
+        </label>
+      </div>
     );
   }
 }

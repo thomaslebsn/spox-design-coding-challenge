@@ -13,42 +13,47 @@ class ContentSbarRight extends React.Component {
         {
           id: 0,
           icon: faUserCog,
-          name: "Persona"
+          name: "Persona",
         },
         {
           id: 1,
           icon: faUserCheck,
-          name: "Assign"
+          name: "Assign",
         },
         {
           id: 2,
           icon: faHistory,
-          name: "History"
-        }
-      ]
+          name: "History",
+        },
+      ],
     };
   }
 
   render() {
     let { data } = this.state;
     return (
-      <div className="position-fixed top-0 end-0 bottom-0 w-80 vh-100 bg-white pd-t-80 shadow">
+      <div className="position-fixed top-0 end-0 bottom-0 w-80 vh-100 bg-white pd-t-80 shadow z-index-10">
         <ul className="list-unstyled py-3 px-2">
-          {
-            data.map((value, key) => {
-              return (
-                <li key={key} className="py-3 border-bottom-1">
-                  <a href="#" className="d-block text-center text-decoration-none">
-                    <i className="text-black"><FontAwesomeIcon icon={value.icon} /></i>
-                    <span className="fs-14 text-black opacity-75 d-block">{value.name}</span>
-                  </a>
-                </li>
-              )
-            })
-          }
+          {data.map((value, key) => {
+            return (
+              <li key={key} className="py-3 border-bottom-1">
+                <a
+                  href="#"
+                  className="d-block text-center text-decoration-none"
+                >
+                  <i className="text-black">
+                    <FontAwesomeIcon icon={value.icon} />
+                  </i>
+                  <span className="fs-14 text-black opacity-75 d-block">
+                    {value.name}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
-    )
+    );
   }
 }
 

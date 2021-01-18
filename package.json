@@ -80,7 +80,6 @@
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.1",
     "react-step-wizard": "^5.3.5",
-    "react-switch": "^6.0.0",
     "react-table": "^7.6.2",
     "react-toastify": "^6.2.0",
     "resolve": "1.18.1",
