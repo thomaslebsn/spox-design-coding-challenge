@@ -23,6 +23,7 @@ import CampaignsActionBar from "../CampaignsForm/CampaignsActionBar";
 const CampaignsList = observer(
   class CampaignsList extends Component {
     campaignsListViewModel = null;
+    campaignsFormModalViewModal = null;
 
     constructor(props) {
       super(props);
@@ -34,6 +35,10 @@ const CampaignsList = observer(
         ? viewModel.getCampaignsListViewModel()
         : null;
 
+      this.campaignsFormModalViewModal = viewModel
+        ? viewModel.getCampainsFormModalViewModel()
+        : null;
+
       console.log("After binding class");
       console.log(this.campaignsListViewModel);
     }
@@ -43,10 +48,10 @@ const CampaignsList = observer(
     }
 
     handerEditCampaigns = (row) => {
-      history.push(`/campaigns/edit/${row[CAMPAIGNS_FIELD_KEY.ID]}`, {
-        form: true,
-        id: row[CAMPAIGNS_FIELD_KEY.ID],
-      });
+      this.campaignsFormModalViewModal.getCampaigns(
+        row[CAMPAIGNS_FIELD_KEY.ID]
+      );
+      this.campaignsFormModalViewModal.openModal();
     };
 
     handerSelectCampaigns = (data) => {
