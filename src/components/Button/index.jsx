@@ -16,18 +16,16 @@ class Button extends React.Component {
       className = styles[className];
     }
     return (
-      <div className="main_btn">
-        <button
-          type="button"
-          className={`d-flex justify-content-center btn ${className}`}
-          onClick={onClick}
-        >
-          <i className="pe-1">
-            <FontAwesomeIcon icon={icon} />
-          </i>
-          <span className="text_btn">{text}</span>
-        </button>
-      </div>
+      <button
+        type="button"
+        className={`d-flex justify-content-center btn ${className}`}
+        onClick={onClick}
+      >
+        <i className="pe-1">
+          <FontAwesomeIcon icon={icon} />
+        </i>
+        <span className="text_btn">{text}</span>
+      </button>
     );
   }
 }

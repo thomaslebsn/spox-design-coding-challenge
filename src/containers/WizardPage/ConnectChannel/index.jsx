@@ -9,7 +9,7 @@ import history from "../../../routes/history";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import ButtonNormal from "../../../components/ButtonNormal";
-
+import WizardSteps from "../../../components/WizardSteps";
 class ConnectChannel extends React.Component {
   constructor(props) {
     super(props);

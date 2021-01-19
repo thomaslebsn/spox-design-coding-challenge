@@ -11,11 +11,11 @@ const WizardSteps = (props) => {
       text: "Create project",
     },
     {
-      key: 3,
+      key: 2,
       text: "Connect channel",
     },
     {
-      key: 4,
+      key: 3,
       text: "Create content",
     },
   ];
@@ -26,23 +26,17 @@ const WizardSteps = (props) => {
   return (
     <div className="position-relative my-5 w-50 top-0 start-50 translate-middle-x">
       {steps.map(({ key, text }) => {
-        let w = key;
-
-        if (key > 1) {
-          w = key - 1;
-        }
-
         let isActive = currentStep >= key;
 
         if (isActive) {
-          processW = (w - 1) * 50;
+          processW = (key - 1) * 50;
         }
 
         return (
           <div
-            key={w}
+            key={key}
             className={`position-absolute top-0 start-${
-              (w - 1) * 50
+              (key - 1) * 50
             } translate-middle`}
           >
             <div
@@ -50,7 +44,7 @@ const WizardSteps = (props) => {
                 isActive ? "bg-primary" : "bg-secondary"
               } text-white text-center rounded-circle ${styles.step}`}
             >
-              {w}
+              {key}
             </div>
             <div className="position-absolute text-nowrap start-50 translate-middle-x">
               {text}
