@@ -24,7 +24,7 @@ const WizardSteps = (props) => {
   let processW = 0;
 
   return (
-    <div className="position-relative my-5 w-50 top-0 start-50 translate-middle-x">
+    <div className="wr_wizard_step position-relative my-5 w-50 top-0 start-50 translate-middle-x">
       {steps.map(({ key, text }) => {
         let isActive = currentStep >= key;
 

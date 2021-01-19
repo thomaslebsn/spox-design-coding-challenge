@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { Tab, Row, Nav, Col } from "react-bootstrap";
+import { Tab, Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCog } from "@fortawesome/free-solid-svg-icons/faUserCog";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons/faUserCheck";

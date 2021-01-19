@@ -36,3 +36,39 @@
     }
   }
 }
+
+.wr_wizard_content {
+  .bg-white {
+    justify-content: center !important;
+  }
+
+  .wrapper_search_global {
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+  }
+
+  .w-400 {
+    padding-right: 0 !important;
+    border-right: 0 !important;
+  }
+
+  .item_thumb {
+    position: relative;
+    // padding: 0 !important;
+
+    .ct_cell {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      display: flex !important;
+      align-items: center;
+      font-weight: 400;
+      opacity: 1;
+    }
+  }
+
+  .col-6 {
+    width: 33.33%
+  }
+}

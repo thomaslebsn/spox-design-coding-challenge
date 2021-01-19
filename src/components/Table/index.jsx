@@ -435,7 +435,7 @@ const Table = ({
                   key={Math.random(40, 200)}
                 >
                   <div
-                    className="bg-white shadow-sm h-100 p-3 rounded-2"
+                    className="item_thumb bg-white shadow-sm h-100 p-3 rounded-2"
                     key={Math.random(40, 200)}
                   >
                     {newRowCells.map((cell) => {
