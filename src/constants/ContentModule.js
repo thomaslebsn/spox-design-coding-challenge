@@ -15,6 +15,9 @@ const CONTENT_FIELD_KEY = {
   CAMPAIGN: "content-campaign",
   CHANNELS: "content-channels",
   STATUS: "content-status",
+  START_DATE: "startDate",
+  END_DATE: "endDate",
+  APPROVAL: "content-approval",
 };
 
 export { CONTENT_FIELD_KEY };

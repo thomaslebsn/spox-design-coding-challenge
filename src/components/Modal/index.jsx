@@ -17,7 +17,7 @@ class ModalComponent extends React.Component {
           centered
           dialogClassName={dialogClassName}
         >
-          <Modal.Header closeButton className="px-4">
+          <Modal.Header closeButton className="px-4 border-bottom-0">
             {header && <Modal.Title>{header}</Modal.Title>}
           </Modal.Header>
           <Modal.Body className="p-4">{body}</Modal.Body>

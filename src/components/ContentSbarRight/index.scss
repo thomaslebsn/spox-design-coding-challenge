@@ -1,0 +1,14 @@
+@import "../../scss/utils/bootstrap.scss";
+
+.wr_sbar_right {
+  .nav-pills {
+    .nav-link {
+      color: $black;
+
+      &.active {
+        color: $color-blue-3 !important;
+        background-color: transparent !important;
+      }
+    }
+  }
+}
