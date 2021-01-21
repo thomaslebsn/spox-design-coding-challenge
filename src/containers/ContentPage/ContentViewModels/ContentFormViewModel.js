@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-
+import { notify } from "../../../components/Toast";
 class ContentFormViewModel {
   contentEditdata = null;
   editMode = false;
@@ -9,6 +9,8 @@ class ContentFormViewModel {
   contentFormComponent = null;
 
   constructor(contentStore) {
+    console.log("[ContentFormViewModel] ...constructor ");
+    console.log(contentStore);
     makeAutoObservable(this);
     this.contentStore = contentStore;
   }
@@ -21,19 +23,24 @@ class ContentFormViewModel {
     this.contentFormComponent = contentFormComponent;
   };
 
-  post = () => {
-    console.log("post");
+  post = (data) => {
+    this.contentStore.saveContent(
+      data,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander
+    );
   };
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    alert(error);
+    notify(error);
   };
 
   callbackOnSuccessHandler = () => {
     console.log("callbackOnSuccessHandler");
-    this.closeModal();
+    // Return list page
+    // ...
     this.contentListViewModel.refreshTableContentList();
   };
 }
