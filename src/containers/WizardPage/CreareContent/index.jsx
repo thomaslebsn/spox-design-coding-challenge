@@ -18,7 +18,7 @@ class CreareContent extends Component {
     console.log("[CreareContent] - re-render .........");
 
     return (
-      <StepWizard isLazyMount={true} transitions={this.custom}>
+      <StepWizard isLazyMount={true} transitions={this.custom} className="px-3">
         <ContentFormGeneralWizard hashKey={"contentgeneral"} />
         <ContentFormPublishWizard hashKey={"contentpublish"} />
       </StepWizard>

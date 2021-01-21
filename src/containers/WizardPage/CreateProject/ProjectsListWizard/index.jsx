@@ -51,10 +51,10 @@ const ProjectsListWizard = observer(
       const createNew = {
         id: 0,
         name: (
-          <div className="border-da-1 p-4 h-100 text-center position-relative d-block text-body text-decoration-none">
-            <div className="position-absolute top-50 start-50 translate-middle">
-              <FontAwesomeIcon icon={faPlus} />
-              <span className="ps-2">Create projects</span>
+          <div className="border-da-1 h-100 w-100 text-center position-absolute top-0 start-0 bottom-0 end-0 text-decoration-none d-flex align-items-center justify-content-center rounded-3">
+            <div className="d-flex w-100 align-items-center justify-content-center">
+              <FontAwesomeIcon icon={faPlus} className="text-green" />
+              <span className="ps-2">New projects</span>
             </div>
           </div>
         ),
@@ -73,8 +73,8 @@ const ProjectsListWizard = observer(
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
-        <div className="bg-white d-flex flex-column m-4 p-4">
-          <div className="w-50 mx-auto my-5 py-4">
+        <div className="bg-white d-flex flex-column m-4 px-4 py-5">
+          <div className="wr_wizard_content w-75 mx-auto ">
             <Table
               rowData={[createNew, ...projects]}
               tableRowHeader={tableRowHeader}

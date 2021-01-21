@@ -27,11 +27,12 @@ const contentStore = new ContentStore();
 const wizardViewModel = new WizardViewModel(projectStore, contentStore);
 
 class WizardPage extends Component {
-  initialStep = 1;
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     console.log("[WizardPage] render...");
-
     return (
       <>
         <WizardSteps />
@@ -42,15 +43,15 @@ class WizardPage extends Component {
               <ProjectsListWizard />
             </Route>
 
-            <Route exact path={["/wizard/createproject"]}>
+            <Route exact path="/wizard/createproject">
               <ProjectFormWizard />
             </Route>
 
-            <Route exact path={["/wizard/project/:id"]}>
+            <Route exact path="/wizard/project/:id">
               <ConnectChannel />
             </Route>
 
-            <Route exact path={["/wizard/project/:id/content"]}>
+            <Route exact path="/wizard/project/:id/content">
               <CreareContent />
             </Route>
           </Suspense>

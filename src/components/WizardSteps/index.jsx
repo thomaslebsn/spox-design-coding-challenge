@@ -1,5 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
+import history from "../../routes/history";
 
 import "./index.scss";
 import styles from "./index.module.scss";
@@ -20,17 +21,27 @@ const WizardSteps = (props) => {
     },
   ];
 
-  const { currentStep } = props;
   let processW = 0;
+  let currentStep = 1;
+
+  if (history.location.pathname === `/wizard/project/1`) {
+    currentStep = currentStep + 1;
+  } else if (history.location.pathname === "/wizard/project/1/content") {
+    currentStep = currentStep + 2;
+  } else {
+    currentStep = currentStep;
+  }
 
   return (
-    <div className="position-relative my-5 w-50 top-0 start-50 translate-middle-x">
+    <div className="wr_wizard_step position-relative my-5 w-50 top-0 start-50 translate-middle-x">
       {steps.map(({ key, text }) => {
         let isActive = currentStep >= key;
 
         if (isActive) {
           processW = (key - 1) * 50;
         }
+
+        console.log("processW processW", processW);
 
         return (
           <div

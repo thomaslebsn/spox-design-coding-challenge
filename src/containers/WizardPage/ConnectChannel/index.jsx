@@ -10,6 +10,8 @@ import history from "../../../routes/history";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import ButtonNormal from "../../../components/ButtonNormal";
 import WizardSteps from "../../../components/WizardSteps";
+import styles from "./index.module.scss";
+
 class ConnectChannel extends React.Component {
   constructor(props) {
     super(props);
@@ -54,8 +56,8 @@ class ConnectChannel extends React.Component {
     let { channels, showModal } = this.state;
 
     return (
-      <div className="bg-white d-flex flex-column m-4 p-4">
-        <div className="wrapper_tabs bg-white ">
+      <div className="d-flex flex-column m-4 p-4">
+        <div className="wrapper_tabs bg-white rounded-3 mb-4">
           <Tabs defaultActiveKey="1" id="connectContent-tab">
             {channels.map((value) => {
               return (
@@ -63,7 +65,9 @@ class ConnectChannel extends React.Component {
                   {value.items.map((item) => {
                     {
                       return (
-                        <div className="d-flex justify-content-between p-4">
+                        <div
+                          className={`item_accordion ${styles.item_accordion} d-flex justify-content-between p-4 border-bottom-1`}
+                        >
                           <div className="align-self-center">
                             <Image
                               src={item.image}
@@ -89,20 +93,19 @@ class ConnectChannel extends React.Component {
               );
             })}
           </Tabs>
+        </div>
+        <div className="d-flex justify-content-between">
+          <Button
+            className="btn btn-light border-success"
+            onClick={() => this.props.goToStep(1)}
+            text="Back"
+          />
 
-          <div className="d-flex justify-content-between">
-            <Button
-              className="btn btn-light border-success"
-              onClick={() => this.props.goToStep(1)}
-              text="Back"
-            />
-
-            <ButtonNormal
-              className="btn btn-success"
-              text="Next"
-              onClick={this.next}
-            ></ButtonNormal>
-          </div>
+          <ButtonNormal
+            className="btn btn-success"
+            text="Next"
+            onClick={this.next}
+          ></ButtonNormal>
         </div>
         <ModalComponent
           body="test"

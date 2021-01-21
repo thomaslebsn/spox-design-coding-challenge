@@ -1,5 +1,6 @@
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
+import styles from "../index.module.scss";
 
 class ProgressModel {
   constructor(data) {
@@ -11,7 +12,9 @@ class ProgressModel {
     return (
       <>
         <div className="position-relative ">
-          <ProgressBar className="bg-blue-1 rounded-2 position-relative">
+          <ProgressBar
+            className={`progress_bar ${styles.progress_bar} bg-blue-1 rounded-2 position-relative`}
+          >
             <ProgressBar
               key={this.id}
               now={this.progress}
