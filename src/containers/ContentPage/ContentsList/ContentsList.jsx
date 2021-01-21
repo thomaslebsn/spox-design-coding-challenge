@@ -61,6 +61,8 @@ const ContentsList = observer(
       console.log("[Quick Edit Product] - re-render .........");
       const { tableStatus, contents } = this.contentListViewModel;
 
+      console.log("contents api, contents api", contents);
+
       const tableRowHeader = [
         {
           Header: "Name",

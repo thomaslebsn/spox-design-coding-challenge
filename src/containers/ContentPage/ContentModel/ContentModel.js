@@ -7,6 +7,7 @@ import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
 
 class ContentModel {
   constructor(data) {
+    console.log("data data data data data", data);
     this.id = data.id ?? 0;
     this.name = data.name ?? "";
     this.channels = data.channels ?? "";

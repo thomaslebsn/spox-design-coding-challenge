@@ -3,6 +3,8 @@ import { runInAction } from "mobx";
 import ContentUtils from "../ContentUtils/ContentUtils";
 import ContentModel from "../ContentModel/ContentModel";
 
+import { EasiiContentApiService } from "easii-io-web-service-library";
+
 let contents = [
   {
     id: 1,
@@ -101,9 +103,16 @@ let contents = [
 export default class ContentStore {
   async fetchContents(callbackOnSuccess, callbackOnError) {
     try {
-      console.log("Content Store - Fetch Contents");
-      const repondedDataFromLibrary = contents;
+      console.log("Content Store - Fetch Content");
+      const contentAPIService = new EasiiContentApiService();
+
+      const repondedDataFromLibrary = await contentAPIService.getContents(1, 2);
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
+        repondedDataFromLibrary
+      );
+
+      console.log(
+        "repondedDataFromLibrary repondedDataFromLibrary",
         repondedDataFromLibrary
       );
 

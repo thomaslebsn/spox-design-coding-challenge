@@ -55,14 +55,13 @@ class ProjectsListViewModel {
     console.log("callbackOnSuccessHandler");
     console.log(projectModelData);
     if (projectModelData) {
-      this.tableStatus = PAGE_STATUS.READY;
-
       const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
         projectModelData
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
       this.projects = rowDataTransformed;
+      this.tableStatus = PAGE_STATUS.READY;
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }

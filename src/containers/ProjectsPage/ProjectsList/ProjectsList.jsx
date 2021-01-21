@@ -92,9 +92,6 @@ const ProjectsList = observer(
         },
       ];
 
-      console.log("Row Data is tableRowHeader");
-      console.log(this.tableRowHeader);
-
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (

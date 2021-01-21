@@ -1,9 +1,14 @@
 import history from "../routes/history";
 import { notify } from "../components/Toast";
+import { EasiiAuthenticationApiService } from "easii-io-web-service-library";
 
 // LOGIN
-const login = ({ username, password, remember }) => {
-  if (username === "demo" && password === "demo") {
+const login = async ({ username, password, remember }) => {
+  const authService = new EasiiAuthenticationApiService();
+  const result = await authService.login(username,password);
+  console.log("==== Debugging Login Function ====");
+  console.log(result);
+  if (result) {
     localStorage.setItem("auth", true);
     history.push("/");
     return true;
