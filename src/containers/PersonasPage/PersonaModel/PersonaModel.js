@@ -9,7 +9,7 @@ import { format } from "date-fns";
 class PersonaModel {
   constructor(data) {
     this.id = data.id ?? 0;
-    this.name = data.name ?? "";
+    this.name = data.title ?? "";
 
     this.createdDate = data.created_date ?? "";
     this.updatedDate = data.updated_date ?? "";

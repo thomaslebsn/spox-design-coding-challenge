@@ -5,6 +5,7 @@ import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
 import PersonaUtils from "../PersonaUtils/PersonaUtils";
 import PersonaModel from "../PersonaModel/PersonaModel";
+import { EasiiPersonaApiService } from "easii-io-web-service-library";
 
 let personas = [
   {
@@ -59,7 +60,10 @@ export default class PersonaStore {
   async fetchPersonas(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Persona Store - Fetch Personas");
-      const repondedDataFromLibrary = personas;
+      const service = new EasiiPersonaApiService();
+      const repondedDataFromLibrary = await service.getPersonas(1,2);
+      console.log("repondedDataFromLibrary");
+      console.log(repondedDataFromLibrary)
       const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
         repondedDataFromLibrary
       );
