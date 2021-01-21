@@ -61,7 +61,7 @@ class LoginPage extends React.Component {
     if (this.validator.allValid()) {
       console.log("[is Form Valid]");
 
-      login(this.state);
+      login(this.state);   
     } else {
       this.validator.showMessages();
       // rerender to show messages for the first time

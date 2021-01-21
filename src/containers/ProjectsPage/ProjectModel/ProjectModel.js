@@ -10,20 +10,20 @@ import { format } from "date-fns";
 class ProjectModel {
   constructor(data) {
     this.id = data.id ?? 0;
-    this.name = data.name ?? "";
-    this.logoUrl = data.logo_url ?? "";
+    this.name = data.title ?? "";
+    this.logoUrl = data.logo ?? "";
     this.startdate = data.start_date ?? "";
     this.enddate = data.end_date ?? "";
     this.shortDescription = data.short_description ?? "";
 
     this.projectName =
-      data.name && data.logo_url ? new ProjectNameModel(data) : null;
+      data.title && data.logo ? new ProjectNameModel(data) : null;
 
     this.projectLead = data.project_lead
       ? new ProjectLeadModel(data.project_lead)
       : null;
 
-    this.progress = data.progress ? new ProgressModel(data) : 0;
+    this.progress = data.progress ? new ProgressModel(data) : null;
 
     this.createdate = data.created_date ?? "";
     this.lastModifiedDate = data.last_modified_date ?? "";
@@ -60,7 +60,9 @@ class ProjectModel {
 
   getStartDate = () => {
     return {
-      value: format(new Date(this.startdate), FORMAT_DATE),
+      value: this.startdate
+        ? format(new Date(this.startdate), FORMAT_DATE)
+        : "",
       original: this.startdate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.START_DATE,
@@ -70,7 +72,7 @@ class ProjectModel {
 
   getEndDate = () => {
     return {
-      value: format(new Date(this.enddate), FORMAT_DATE),
+      value: this.enddate ? format(new Date(this.enddate), FORMAT_DATE) : "",
       original: this.enddate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.END_DATE,
@@ -80,7 +82,7 @@ class ProjectModel {
 
   getProgress = () => {
     return {
-      value: this.progress.getProgress(),
+      value: this.progress ? this.progress.getProgress() : 0,
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.PROGRESS,
       columnText: "Progress",
@@ -98,7 +100,7 @@ class ProjectModel {
 
   getLead = () => {
     return {
-      value: this.projectLead.getName(),
+      value: this.projectLead ? this.projectLead.getName() : null,
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.LEAD,
       columnText: "Lead",
@@ -107,7 +109,9 @@ class ProjectModel {
 
   getCreateDate = () => {
     return {
-      value: format(new Date(this.createdate), FORMAT_DATE),
+      value: this.createdate
+        ? format(new Date(this.createdate), FORMAT_DATE)
+        : "",
       original: this.createdate,
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
@@ -148,7 +152,6 @@ class ProjectModel {
           logo_url: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
           short_description:
             projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],
-          created_date: projectData[PROJECT_COLUMN_INDICATOR.CREATED_DATE],
         }
       : null;
     return result;

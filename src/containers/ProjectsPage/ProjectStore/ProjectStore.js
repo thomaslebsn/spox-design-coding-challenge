@@ -4,6 +4,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
 import ProjectModel from "../ProjectModel/ProjectModel";
+import { EasiiProjectApiService } from "easii-io-web-service-library";
 
 let projects = [
   {
@@ -198,7 +199,10 @@ export default class ProjectStore {
   async fetchProjects(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Project Store - Fetch Projects");
-      const repondedDataFromLibrary = projects;
+      const projectAPIService = new EasiiProjectApiService();
+      const repondedDataFromLibrary = await projectAPIService.getProjects(1,2);
+      console.log("Debugging ---- fetchProjects");
+      console.log(repondedDataFromLibrary);
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
         repondedDataFromLibrary
       );
@@ -228,8 +232,8 @@ export default class ProjectStore {
       const convertedProjectData = ProjectModel.convertSubmittedDataToAPIService(
         projectData
       );
-
-      const resultOnSave = await projects.push(convertedProjectData);
+      const projectAPIService = new EasiiProjectApiService();    
+      const resultOnSave = await projectAPIService.createProject(convertedProjectData);
 
       if (resultOnSave) {
         runInAction(() => {
