@@ -9,6 +9,7 @@ const CAMPAIGNS_FIELD_KEY = {
   SCHEDUDE_POST: "campaigns-schedude-post",
   PUBLISHED_CONTENT: "campaigns-published-content",
   PROGRESS: "campaigns-progress",
+  PERCENT_COMPLETE: "campaigns-percent-complete"
 };
 
 export { CAMPAIGNS_FIELD_KEY };
