@@ -14,14 +14,22 @@ const DatePicker = lazy(() => import("react-datepicker"));
 const FormDateRangePicker = ({ field }) => {
   let { startField, endField } = field;
 
-  console.log(startField);
-
   const [startDate, setStartDate] = useState(
     startField.value && new Date(startField.value)
   );
   const [endDate, setEndDate] = useState(
     endField.value && new Date(endField.value)
   );
+
+  const handleStartDate = (date) => {
+    setStartDate(date);
+    startField.changed(date);
+  }
+
+  const handleEndDate = (date) => {
+    setEndDate(date);
+    endField.changed(date);
+  }
 
   return (
     <>
@@ -30,7 +38,7 @@ const FormDateRangePicker = ({ field }) => {
         <DatePicker
           dateFormat={FORMAT_DATE}
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => handleStartDate(date)}
           selectsStart
           startDate={startDate}
           endDate={endDate}
@@ -42,7 +50,7 @@ const FormDateRangePicker = ({ field }) => {
         <DatePicker
           dateFormat={FORMAT_DATE}
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => handleEndDate(date)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}

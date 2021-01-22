@@ -1,5 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
+import ProjectUtils from "../../ProjectsPage/ProjectUtils/ProjectUtils";
+import ProjectStore from "../../ProjectsPage/ProjectStore/ProjectStore";
 
 class CampaignsFormModalViewModel {
   show = false;
@@ -9,6 +11,8 @@ class CampaignsFormModalViewModel {
 
   campaignsStore = null;
   campaignsFormComponent = null;
+
+  projects = null;
 
   constructor(campaignsStore) {
     makeAutoObservable(this);
@@ -37,6 +41,36 @@ class CampaignsFormModalViewModel {
     );
   };
 
+  getProjects = () => {
+    console.log("campaign get project");
+    ProjectStore.fetchProjects(
+      this.callbackProjectOnSuccessHandler,
+      this.callbackProjectOnErrorHander
+    );
+    // console.log('=================');
+    // return this.projects;
+  };
+
+  callbackProjectOnErrorHander = (error) => {
+    console.log("callbackOnErrorHander");
+    console.log(error);
+    notify(error.message);
+  };
+
+  callbackProjectOnSuccessHandler = (projectModelData) => {
+    console.log("callbackOnSuccessHandler");
+    console.log(projectModelData);
+    if (projectModelData) {
+      const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
+        projectModelData
+      );
+
+      console.log("Row Data is Formatted");
+      console.log(rowDataTransformed);
+      this.projects = rowDataTransformed;
+    }
+  };
+
   openModal = () => {
     this.show = true;
   };
@@ -47,8 +81,9 @@ class CampaignsFormModalViewModel {
   };
 
   saveOnModal = () => {
-    const isFormValid = this.campaignsFormComponent.isFormValid();
-
+    console.log("Campaign saveOnModal debug");
+    // const isFormValid = this.campaignsFormComponent.isFormValid();
+    const isFormValid = true;
     if (isFormValid) {
       this.campaignsStore.saveCampaigns(
         this.campaignsFormComponent.formPropsData,
@@ -70,7 +105,7 @@ class CampaignsFormModalViewModel {
   callbackOnSuccessHandler = () => {
     console.log("callbackOnSuccessHandler");
     this.closeModal();
-    this.campaignsListViewModel.refreshTableProjectList();
+    this.campaignsListViewModel.refreshTableCampaignsList();
   };
 }
 
