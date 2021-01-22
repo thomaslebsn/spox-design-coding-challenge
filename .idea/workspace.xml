@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea7c18e7-23df-4c2f-b0df-66688c95f2e5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaModel/PersonaModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaModel/PersonaModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaStore/PersonaStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaStore/PersonaStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,10 +42,22 @@
       <updated>1611214834613</updated>
       <workItem from="1611214840486" duration="63000" />
       <workItem from="1611214919967" duration="2836000" />
+      <workItem from="1611286501720" duration="810000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

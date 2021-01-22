@@ -4,8 +4,6 @@ import { PERSONA_FIELD_KEY,  ESI_PERSONA_FIELD_KEY} from "../../../constants/Per
 
 import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
 
-//import {ESI_PERSONA_FIELD_KEY} from "easii-io-web-service-library";
-
 import { format } from "date-fns";
 
 class PersonaModel {
@@ -33,9 +31,12 @@ class PersonaModel {
     this.createdDate = data[ESI_PERSONA_FIELD_KEY.CREATED_DATE] ?? "";
     this.updatedDate = data[ESI_PERSONA_FIELD_KEY.MODIFIED_DATE] ?? "";
 
-    // this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
-    //   this.channels
-    // );
+    this.image = data.image ?? "";
+
+    this.channels = data.channels ?? "";
+    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
+      this.channels
+    );
   }
 
   getId = () => {
@@ -77,7 +78,6 @@ class PersonaModel {
   getCreatedDate = () => {
     return {
       value: format(new Date(this.createdDate), FORMAT_DATE),
-      //value: this.createdDate,
       original: this.createdDate,
       type: FIELD_TYPE.DATE,
       columnName: PERSONA_FIELD_KEY.CREATED_DATE,
@@ -88,7 +88,6 @@ class PersonaModel {
   getUpdatedDate = () => {
     return {
       value: format(new Date(this.updatedDate), FORMAT_DATE),
-      //value: this.updatedDate,
       original: this.updatedDate,
       type: FIELD_TYPE.DATE,
       columnName: PERSONA_FIELD_KEY.UPDATED_DATE,
@@ -100,17 +99,17 @@ class PersonaModel {
     const id = this.getId(),
       name = this.getName(),
       createdDate = this.getCreatedDate(),
-      updatedDate = this.getUpdatedDate();
-      // image = this.getImage();
-      //channels = this.getChannels();
+      updatedDate = this.getUpdatedDate(),
+      image = this.getImage(),
+      channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
       [createdDate.columnName]: createdDate.value,
       [updatedDate.columnName]: updatedDate.value,
-      //[image.columnName]: image.value,
-      //[channels.columnName]: channels.value,
+      [image.columnName]: image.value,
+      [channels.columnName]: channels.value,
     };
   };
 

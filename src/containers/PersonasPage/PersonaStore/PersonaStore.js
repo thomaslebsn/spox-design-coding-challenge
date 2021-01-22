@@ -60,11 +60,10 @@ export default class PersonaStore {
   async fetchPersonas(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Persona Store - Fetch Personas");
-      //const repondedDataFromLibrary = personas;
-      const PersonaService = new EasiiPersonaApiService();
-      const repondedDataFromLibrary = await PersonaService.getPersonas(1, 2);
-      console.log('-Personal log---');
-      console.log(repondedDataFromLibrary);
+      const service = new EasiiPersonaApiService();
+      const repondedDataFromLibrary = await service.getPersonas(1,2);
+      console.log("repondedDataFromLibrary");
+      console.log(repondedDataFromLibrary)
       const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
         repondedDataFromLibrary
       );
@@ -163,6 +162,12 @@ export default class PersonaStore {
       const editPersona = personas.filter(
         (persona) => persona.id !== parseInt(id)
       );
+
+      // const PersonaService = new EasiiPersonaApiService();
+      // const editPersona = PersonaService.getPersona(id);
+
+      console.log('--- edit Persona ---');
+      console.log(editPersona);
 
       if (results) {
         const repondedDataFromLibrary = editPersona;

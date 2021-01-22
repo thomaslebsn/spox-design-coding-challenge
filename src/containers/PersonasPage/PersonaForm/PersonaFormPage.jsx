@@ -13,12 +13,16 @@ const PersonaFormPage = observer(
       super(props);
       const { viewModel, id } = props;
 
+      console.log('---persona id 111---');
       console.log(id);
       console.log("PersonaFormPage - Debug View Model");
       console.log(viewModel);
       this.personaFormViewModel = viewModel
         ? viewModel.getPersonaFormViewModel()
         : null;
+
+      console.log('---persona id---');
+      console.log(id);
 
       if (id) {
         this.personaFormViewModel.getPersona(id);
