@@ -1,23 +1,35 @@
 import FIELD_TYPE from "../../../constants/FieldType";
 
-import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+import {
+  CONTENT_FIELD_KEY,
+  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
+} from "../../../constants/ContentModule";
 import getStatus from "../../../utils/status";
+import { DescriptionsModel } from "./DescriptionsModel";
 
 import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
 
 class ContentModel {
   constructor(data) {
     console.log("data data data data data", data);
-    this.id = data.id ?? 0;
-    this.name = data.name ?? "";
-    this.channels = data.channels ?? "";
+    this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
+    this.name = data[[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]] ?? "";
+    this.channels = data.channel_descriptions ?? "";
 
     this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
       this.channels
     );
 
     this.channelsData = this.status = data.status ?? "";
-    this.description = data.description ?? "";
+
+    this.descriptions =
+      data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
+
+    this.descriptionsModel = this.descriptions
+      ? new DescriptionsModel(
+          data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
+        )
+      : null;
   }
 
   getId = () => {
@@ -40,7 +52,7 @@ class ContentModel {
 
   getDescription = () => {
     return {
-      value: this.description,
+      value: this.descriptionsModel.getChannelDescriptions(),
       type: FIELD_TYPE.RICHTEXT,
       columnName: CONTENT_FIELD_KEY.DESCRIPTION,
       columnText: "Description",
@@ -84,9 +96,26 @@ class ContentModel {
   static convertSubmittedDataToAPIService(contentData) {
     const result = contentData
       ? {
-          name: contentData[CONTENT_FIELD_KEY.NAME],
-          created_date: contentData[CONTENT_FIELD_KEY.CREATED_DATE],
-          updated_date: contentData[CONTENT_FIELD_KEY.UPDATED_DATE],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
+            contentData[CONTENT_FIELD_KEY.NAME],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME]: 1,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CUSTOMIZE_SCHEDULE_FOR_EACH_CHANNEL]: 1,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PUBLISH_DATE]:
+            "2020-11-02T00:00:00+00:00",
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PUBLISH_REGULARLY]: 1,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.SCHEDULE_CHANNEL]: 1,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_FROM]: new Date(),
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_UNTIL]: new Date(),
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.TIME]: new Date(),
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: 366,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS]: [
+            {
+              channel_id: 215,
+              description: contentData[CONTENT_FIELD_KEY.DESCRIPTION],
+            },
+          ],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: 7,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.STATUS]: 1,
         }
       : null;
     return result;

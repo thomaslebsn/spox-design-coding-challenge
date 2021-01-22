@@ -3,7 +3,14 @@ import { runInAction } from "mobx";
 import ContentUtils from "../ContentUtils/ContentUtils";
 import ContentModel from "../ContentModel/ContentModel";
 
-import { EasiiContentApiService } from "easii-io-web-service-library";
+import {
+  EasiiContentApiService,
+  EasiiProjectChannelApiService,
+} from "easii-io-web-service-library";
+import {
+  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
+  CONTENT_FIELD_KEY,
+} from "../../../constants/ContentModule";
 
 let contents = [
   {
@@ -106,13 +113,16 @@ export default class ContentStore {
       console.log("Content Store - Fetch Content");
       const contentAPIService = new EasiiContentApiService();
 
-      const repondedDataFromLibrary = await contentAPIService.getContents(1, 2);
-      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
+      const repondedDataFromLibrary = await contentAPIService.getContents(
+        1,
+        100
+      );
+      console.log(
+        "repondedDataFromLibrary repondedDataFromLibrary",
         repondedDataFromLibrary
       );
 
-      console.log(
-        "repondedDataFromLibrary repondedDataFromLibrary",
+      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
         repondedDataFromLibrary
       );
 
@@ -142,9 +152,22 @@ export default class ContentStore {
         contentData
       );
 
-      const resultOnSave = await contents.push(convertedContentData);
+      console.log("convertedContentData");
+      console.log(convertedContentData);
 
-      if (resultOnSave) {
+      // Save Content
+      const contentService = new EasiiContentApiService();
+      const resultContent = await contentService.createContent(
+        convertedContentData
+      );
+
+      // Post channel
+      const channelService = new EasiiProjectChannelApiService();
+      const resultPost = await channelService.postToFanpage(
+        contentData[CONTENT_FIELD_KEY.DESCRIPTION]
+      );
+
+      if (resultContent && resultPost) {
         runInAction(() => {
           callbackOnSuccess();
         });
