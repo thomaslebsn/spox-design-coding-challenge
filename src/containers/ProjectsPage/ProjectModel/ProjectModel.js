@@ -3,9 +3,10 @@ import { ProjectNameModel } from "./ProjectNameModel";
 import { ProgressModel } from "./ProgressModel";
 import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
-import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
+import { PROJECT_COLUMN_INDICATOR, ESI_PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
 import { format } from "date-fns";
+import { ESI_PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
 class ProjectModel {
   constructor(data) {
@@ -146,12 +147,13 @@ class ProjectModel {
   static convertSubmittedDataToAPIService(projectData) {
     const result = projectData
       ? {
-          name: projectData[PROJECT_COLUMN_INDICATOR.NAME],
-          start_date: projectData[PROJECT_COLUMN_INDICATOR.START_DATE],
-          end_date: projectData[PROJECT_COLUMN_INDICATOR.END_DATE],
-          logo_url: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
-          short_description:
+          [ESI_PROJECT_COLUMN_INDICATOR.NAME]: projectData[PROJECT_COLUMN_INDICATOR.NAME],
+          [ESI_PROJECT_COLUMN_INDICATOR.START_DATE]: projectData[PROJECT_COLUMN_INDICATOR.START_DATE],
+          [ESI_PROJECT_COLUMN_INDICATOR.END_DATE]: projectData[PROJECT_COLUMN_INDICATOR.END_DATE],
+          [ESI_PROJECT_COLUMN_INDICATOR.LOGO]: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
+          [ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION]:
             projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],
+            [ESI_PROJECT_COLUMN_INDICATOR.LEAD]: JSON.stringify([1]),
         }
       : null;
     return result;
