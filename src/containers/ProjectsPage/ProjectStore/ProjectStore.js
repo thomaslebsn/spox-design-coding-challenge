@@ -200,7 +200,7 @@ export default class ProjectStore {
     try {
       console.log("Project Store - Fetch Projects");
       const projectAPIService = new EasiiProjectApiService();
-      const repondedDataFromLibrary = await projectAPIService.getProjects(1,2);
+      const repondedDataFromLibrary = await projectAPIService.getProjects(1,20);
       console.log("Debugging ---- fetchProjects");
       console.log(repondedDataFromLibrary);
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
@@ -232,8 +232,15 @@ export default class ProjectStore {
       const convertedProjectData = ProjectModel.convertSubmittedDataToAPIService(
         projectData
       );
+
+      console.log('Project Converted Data');
+      console.log(convertedProjectData);
+
       const projectAPIService = new EasiiProjectApiService();    
       const resultOnSave = await projectAPIService.createProject(convertedProjectData);
+
+      console.log("---- ABC ----");
+      console.log(resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {
