@@ -137,8 +137,12 @@ export default class CampaignsStore {
         campaignsData
       );
 
-      const resultOnSave = await campaigns.push(convertedCampaignsData);
+      console.log('convertedCampaignsData');
+      console.log(convertedCampaignsData);
 
+      const campaignService = new EasiiCampaignApiService();
+      const resultOnSave = await campaignService.createCampaign(convertedCampaignsData);
+        console.log(resultOnSave);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess();

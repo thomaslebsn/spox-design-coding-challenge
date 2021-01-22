@@ -5,9 +5,11 @@ import { FORMAT_DATE } from "../../../constants/FormFieldType";
 import { ProgressModel } from "./ProgressModel";
 import getStatus from "../../../utils/status";
 
-import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
+import {
+  CAMPAIGNS_FIELD_KEY,
+  CAMPAIGN_API_FIELD_KEY,
+} from "../../../constants/CampaignsModule";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
-
 
 class CampaignsModel {
   constructor(data) {
@@ -19,7 +21,7 @@ class CampaignsModel {
     this.needtodo = data.no_to_do_post ?? "";
     this.schedudepost = data.no_scheduled_posts ?? "";
     this.publishedcontent = data.publish_content ?? "";
-    
+
     this.project = data.project ?? "";
 
     this.percentComplete = data.percentComplete ?? "";
@@ -153,17 +155,29 @@ class CampaignsModel {
   };
 
   static convertSubmittedDataToAPIService(campaignsData) {
+    campaignsData[CAMPAIGNS_FIELD_KEY.PROJECT] = 199;
+
     const result = campaignsData
       ? {
-          name: campaignsData[CAMPAIGNS_FIELD_KEY.NAME],
-          start_date: campaignsData[CAMPAIGNS_FIELD_KEY.START_DATE],
-          end_date: campaignsData[CAMPAIGNS_FIELD_KEY.END_DATE],
-          need_to_do: campaignsData[CAMPAIGNS_FIELD_KEY.NEED_TO_DO],
-          schedude_post: campaignsData[CAMPAIGNS_FIELD_KEY.SCHEDUDE_POST],
-          publish_content: campaignsData[CAMPAIGNS_FIELD_KEY.PUBLISHED_CONTENT],
-          progress: campaignsData[CAMPAIGNS_FIELD_KEY.PROGRESS],
+          [CAMPAIGN_API_FIELD_KEY.NAME]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.NAME] ?? "",
+          [CAMPAIGN_API_FIELD_KEY.START_DATE]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.START_DATE] ?? "",
+          [CAMPAIGN_API_FIELD_KEY.END_DATE]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.END_DATE] ?? "",
+          [CAMPAIGN_API_FIELD_KEY.PROJECT]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.PROJECT] ?? "",
+          [CAMPAIGN_API_FIELD_KEY.NEED_TO_DO]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.NEED_TO_DO] ?? "",
+          [CAMPAIGN_API_FIELD_KEY.SCHEDUDE_POST]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.SCHEDUDE_POST] ?? "",
+          [CAMPAIGN_API_FIELD_KEY.PUBLISHED_CONTENT]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.PUBLISHED_CONTENT] ?? "",
+          [CAMPAIGN_API_FIELD_KEY.PROGRESS]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.PROGRESS] ?? "",
         }
       : null;
+
     return result;
   }
 }
