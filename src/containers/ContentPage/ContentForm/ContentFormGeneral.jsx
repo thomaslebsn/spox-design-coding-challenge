@@ -53,7 +53,7 @@ const ContentFormGeneral = observer(
     }
 
     generateFormSetting = () => {
-      console.log("re generate Form Setting");
+      console.log("re generate Form Setting", this.formPropsData);
       return [
         {
           fields: [
@@ -158,6 +158,9 @@ const ContentFormGeneral = observer(
     render() {
       console.log("[Content - FormGeneral] - re-render .........");
 
+      if (this.contentFormViewModel.contentEditdata) {
+        this.formPropsData = this.contentFormViewModel.contentEditdata;
+      }
       const formSetting = this.generateFormSetting();
 
       return (
