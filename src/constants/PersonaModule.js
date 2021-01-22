@@ -1,6 +1,7 @@
 const PERSONA_FIELD_KEY = {
   ID: "personal-id",
   NAME: "personal-name",
+  DG_NAME: "personal-dg-name",
   CHANNELS: "personal-channel",
   AGE: "personal-age",
   GENDER: "personal-gender",
@@ -25,7 +26,8 @@ const PERSONA_FIELD_KEY = {
 const ESI_PERSONA_FIELD_KEY = {
   ID: "id",
   NAME: "title",
-  CHANNEL: "channel",
+  DG_NAME: "name",
+  CHANNEL: "channels",
   AGE: "age",
   GENDER: "gender",
   LOCATION: "location",
@@ -45,4 +47,16 @@ const ESI_PERSONA_FIELD_KEY = {
   MODIFIED_DATE: "modified_date",
 };
 
-export { PERSONA_FIELD_KEY, ESI_PERSONA_FIELD_KEY };
+// Todo: get from API
+const GENDER = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
+];
+
+// Todo: get from API
+const MARITAL_STATUS = [
+  { value: "maritalStatus", label: "Marital Status" },
+  { value: "maritalStatus2", label: "Marital Status2" },
+];
+
+export { PERSONA_FIELD_KEY, ESI_PERSONA_FIELD_KEY, GENDER, MARITAL_STATUS };
