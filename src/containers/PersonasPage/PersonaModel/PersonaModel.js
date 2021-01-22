@@ -1,25 +1,41 @@
 import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
-import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
+import { PERSONA_FIELD_KEY,  ESI_PERSONA_FIELD_KEY} from "../../../constants/PersonaModule";
 
 import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
+
+//import {ESI_PERSONA_FIELD_KEY} from "easii-io-web-service-library";
 
 import { format } from "date-fns";
 
 class PersonaModel {
   constructor(data) {
-    this.id = data.id ?? 0;
-    this.name = data.name ?? "";
+    this.id = data[ESI_PERSONA_FIELD_KEY.ID] ?? 0;
+    this.name = data[ESI_PERSONA_FIELD_KEY.NAME] ?? "";
+    this.channels = data[ESI_PERSONA_FIELD_KEY.CHANNELS] ?? "";
+    this.age = data[ESI_PERSONA_FIELD_KEY.AGE] ?? 0;
+    this.gender = data[ESI_PERSONA_FIELD_KEY.GENDER] ?? "";
+    this.location = data[ESI_PERSONA_FIELD_KEY.LOCATION] ?? "";
+    this.tools = data[ESI_PERSONA_FIELD_KEY.TOOLS] ?? "";
+    this.job_title = data[ESI_PERSONA_FIELD_KEY.JOB_TITLE] ?? "";
+    this.website = data[ESI_PERSONA_FIELD_KEY.WEBSITE] ?? "";
+    this.sector = data[ESI_PERSONA_FIELD_KEY.SECTOR] ?? "";
+    this.vendor_research = data[ESI_PERSONA_FIELD_KEY.VENDOR_RESEARCH] ?? "";
+    this.interest = data[ESI_PERSONA_FIELD_KEY.INTEREST] ?? [];
+    this.goals = data[ESI_PERSONA_FIELD_KEY.GOALS] ?? "";
+    this.marital_status = data[ESI_PERSONA_FIELD_KEY.MARITAL_STATUS] ?? "";
+    this.paint_point = data[ESI_PERSONA_FIELD_KEY.PAINT_POINT] ?? "";
+    this.avatar = data[ESI_PERSONA_FIELD_KEY.AVATAR] ?? "";
+    this.challenges = data[ESI_PERSONA_FIELD_KEY.CHANNELS] ?? "";
+    this.bio = data[ESI_PERSONA_FIELD_KEY.BIO] ?? "";
+    this.image = data[ESI_PERSONA_FIELD_KEY.IMAGE] ?? "";
 
-    this.createdDate = data.created_date ?? "";
-    this.updatedDate = data.updated_date ?? "";
+    this.createdDate = data[ESI_PERSONA_FIELD_KEY.CREATED_DATE] ?? "";
+    this.updatedDate = data[ESI_PERSONA_FIELD_KEY.MODIFIED_DATE] ?? "";
 
-    this.image = data.image ?? "";
-
-    this.channels = data.channels ?? "";
-    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
-      this.channels
-    );
+    // this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
+    //   this.channels
+    // );
   }
 
   getId = () => {
@@ -61,6 +77,7 @@ class PersonaModel {
   getCreatedDate = () => {
     return {
       value: format(new Date(this.createdDate), FORMAT_DATE),
+      //value: this.createdDate,
       original: this.createdDate,
       type: FIELD_TYPE.DATE,
       columnName: PERSONA_FIELD_KEY.CREATED_DATE,
@@ -71,6 +88,7 @@ class PersonaModel {
   getUpdatedDate = () => {
     return {
       value: format(new Date(this.updatedDate), FORMAT_DATE),
+      //value: this.updatedDate,
       original: this.updatedDate,
       type: FIELD_TYPE.DATE,
       columnName: PERSONA_FIELD_KEY.UPDATED_DATE,
@@ -82,17 +100,17 @@ class PersonaModel {
     const id = this.getId(),
       name = this.getName(),
       createdDate = this.getCreatedDate(),
-      updatedDate = this.getUpdatedDate(),
-      image = this.getImage(),
-      channels = this.getChannels();
+      updatedDate = this.getUpdatedDate();
+      // image = this.getImage();
+      //channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
       [createdDate.columnName]: createdDate.value,
       [updatedDate.columnName]: updatedDate.value,
-      [image.columnName]: image.value,
-      [channels.columnName]: channels.value,
+      //[image.columnName]: image.value,
+      //[channels.columnName]: channels.value,
     };
   };
 
