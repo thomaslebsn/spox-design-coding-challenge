@@ -200,7 +200,7 @@ export default class ProjectStore {
     try {
       console.log("Project Store - Fetch Projects");
       const projectAPIService = new EasiiProjectApiService();
-      const repondedDataFromLibrary = await projectAPIService.getProjects(1,20);
+      const repondedDataFromLibrary = await projectAPIService.getProjects(1,100);
       console.log("Debugging ---- fetchProjects");
       console.log(repondedDataFromLibrary);
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
