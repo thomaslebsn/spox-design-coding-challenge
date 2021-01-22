@@ -104,7 +104,7 @@ export default class CampaignsStore {
     try {
       console.log("Persona Store - Fetch Personas");
       const campaignService = new EasiiCampaignApiService();
-      const repondedDataFromLibrary = await campaignService.getCampaigns(1, 2);
+      const repondedDataFromLibrary = await campaignService.getCampaigns(1, 100);
       // console.log(repondedDataFromLibrary);
       // const repondedDataFromLibrary = campaigns;
       const CampaignsModels = CampaignsUtils.transformCampaignsResponseIntoModel(
