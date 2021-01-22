@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Accordion, Image, Spinner } from "react-bootstrap";
+import { Button, Accordion, Image } from "react-bootstrap";
 
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
@@ -22,6 +22,7 @@ import SimpleReactValidator from "simple-react-validator";
 import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 import PAGE_STATUS from "../../../constants/PageStatus";
+import Spinner from "../../../components/Spinner";
 
 const optionApproval = [
   {
@@ -191,8 +192,9 @@ const ContentFormPublish = observer(
       const {
         personaSelectionData,
         channelSelectionData,
-        formStatus,
       } = personaSelectionViewModal;
+
+      const { formStatus } = this.contentFormViewModel;
 
       console.log("[Content - FormPublish] personaSelectionData");
       console.log(personaSelectionData);
@@ -213,7 +215,7 @@ const ContentFormPublish = observer(
         isComponents: true,
       };
 
-      return formStatus == PAGE_STATUS.READY ? (
+      return formStatus == PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
         <div className="col-6">

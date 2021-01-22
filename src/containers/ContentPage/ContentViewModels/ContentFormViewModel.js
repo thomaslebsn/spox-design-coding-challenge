@@ -12,7 +12,7 @@ class ContentFormViewModel {
   contentStore = null;
   contentFormComponent = null;
 
-  formStatus = PAGE_STATUS.LOADING;
+  formStatus = PAGE_STATUS.READY;
 
   constructor(contentStore) {
     console.log("[ContentFormViewModel] ...constructor ");
