@@ -7,10 +7,8 @@ import {
   EasiiContentApiService,
   EasiiProjectChannelApiService,
 } from "easii-io-web-service-library";
-import {
-  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
-  CONTENT_FIELD_KEY,
-} from "../../../constants/ContentModule";
+import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+import { ESI_CONTENT_FIELD_KEY } from "easii-io-web-service-library";
 
 let contents = [
   {

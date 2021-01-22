@@ -1,18 +1,17 @@
 import FIELD_TYPE from "../../../constants/FieldType";
 
-import {
-  CONTENT_FIELD_KEY,
-  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
-} from "../../../constants/ContentModule";
+import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 import getStatus from "../../../utils/status";
 
 import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
 
+import { ESI_CONTENT_FIELD_KEY } from "easii-io-web-service-library";
+
 class ContentModel {
   constructor(data) {
     console.log("data data data data data", data);
-    this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
-    this.name = data[[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]] ?? "";
+    this.id = data[ESI_CONTENT_FIELD_KEY.ID] ?? 0;
+    this.name = data[[ESI_CONTENT_FIELD_KEY.HEADLINE]] ?? "";
     this.channels = data.channel_descriptions ?? "";
 
     this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
@@ -87,8 +86,7 @@ class ContentModel {
   static convertSubmittedDataToAPIService(contentData) {
     const result = contentData
       ? {
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
-            contentData[CONTENT_FIELD_KEY.NAME],
+          [ESI_CONTENT_FIELD_KEY.HEADLINE]: contentData[CONTENT_FIELD_KEY.NAME],
           created_date: contentData[CONTENT_FIELD_KEY.CREATED_DATE],
           updated_date: contentData[CONTENT_FIELD_KEY.UPDATED_DATE],
         }

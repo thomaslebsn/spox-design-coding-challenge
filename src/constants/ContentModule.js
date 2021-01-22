@@ -20,22 +20,4 @@ const CONTENT_FIELD_KEY = {
   APPROVAL: "content-approval",
 };
 
-const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {
-  ID: "id",
-  HEADLINE: "headline",
-  CHANNEL_DESCRIPTIONS: "channel_descriptions",
-  THEME: "theme",
-  CUSTOMIZE_SCHEDULE_FOR_EACH_CHANNEL: "customize_schedule_for_each_channel",
-  PUBLISH_DATE: "publish_date",
-  PUBLISH_REGULARLY: "publish_regularly",
-  SCHEDULE_CHANNEL: "schedule_channel",
-  DATE_FROM: "date_from",
-  DATE_UNTIL: "date_until",
-  TIME: "time",
-  PERSONA: "persona",
-  CAMPAIGN: "campaign",
-  STATUS: "status",
-  CHANNEL_ATTACHMENTS: "channel_attachments",
-};
-
-export { CONTENT_FIELD_KEY, ESI_CONTENT_API_RESPONSE_FIELD_KEY };
+export { CONTENT_FIELD_KEY };
