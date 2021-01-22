@@ -1,5 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { notify } from "../../../components/Toast";
+import history from "../../../routes/history";
+
 class ContentFormViewModel {
   contentEditdata = null;
   editMode = false;
@@ -40,7 +42,7 @@ class ContentFormViewModel {
   callbackOnSuccessHandler = () => {
     console.log("callbackOnSuccessHandler");
     // Return list page
-    // ...
+    history.push("/content");
     this.contentListViewModel.refreshTableContentList();
   };
 }

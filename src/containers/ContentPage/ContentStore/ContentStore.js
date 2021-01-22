@@ -7,8 +7,10 @@ import {
   EasiiContentApiService,
   EasiiProjectChannelApiService,
 } from "easii-io-web-service-library";
-import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
-import { ESI_CONTENT_FIELD_KEY } from "easii-io-web-service-library";
+import {
+  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
+  CONTENT_FIELD_KEY,
+} from "../../../constants/ContentModule";
 
 let contents = [
   {
@@ -152,13 +154,17 @@ export default class ContentStore {
 
       // Save Content
       const contentService = new EasiiContentApiService();
-      const resultContent = await contentService.createContent(contentData);
+      const resultContent = await contentService.createContent(
+        convertedContentData
+      );
 
       // Post channel
       const channelService = new EasiiProjectChannelApiService();
       const resultPost = await channelService.postToFanpage(
         contentData[CONTENT_FIELD_KEY.DESCRIPTION]
       );
+
+      // const resultPost = true;
 
       if (resultContent && resultPost) {
         runInAction(() => {

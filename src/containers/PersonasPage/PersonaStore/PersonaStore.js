@@ -61,9 +61,9 @@ export default class PersonaStore {
     try {
       console.log("Persona Store - Fetch Personas");
       const service = new EasiiPersonaApiService();
-      const repondedDataFromLibrary = await service.getPersonas(1,2);
+      const repondedDataFromLibrary = await service.getPersonas(1, 2);
       console.log("repondedDataFromLibrary");
-      console.log(repondedDataFromLibrary)
+      console.log(repondedDataFromLibrary);
       const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
         repondedDataFromLibrary
       );

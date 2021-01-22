@@ -374,9 +374,9 @@ const ContentFormPublish = observer(
               >
                 Back
               </Button>
-              <div className="w-180">
+              {/* <div className="w-180">
                 <FormSelectDropdown field={fieldApproval} />
-              </div>
+              </div> */}
               <ButtonNormal
                 className="btn btn-success"
                 text="Post"
