@@ -57,7 +57,7 @@ const FormSelectDropdown = observer(
     render() {
       return (
         <SelectComponent
-          value={this.field.value}
+          defaultValue={this.field.value}
           onChange={this.field.changed}
           options={this.field.option}
           className="mb-3 text-green"

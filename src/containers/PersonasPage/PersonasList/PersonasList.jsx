@@ -6,6 +6,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
 import Table from "../../../components/Table";
+import Spinner from "../../../components/Spinner";
 
 import { observer } from "mobx-react";
 import { withPersonaViewModel } from "../PersonaViewModels/PersonaViewModelContextProvider";
@@ -36,10 +37,7 @@ const PersonasList = observer(
     }
 
     handerEditPersona = (row) => {
-      history.push(`/personas/edit/${row[PERSONA_FIELD_KEY.ID]}`, {
-        form: true,
-        id: row[PERSONA_FIELD_KEY.ID],
-      });
+      history.push(`/personas/edit/${row[PERSONA_FIELD_KEY.ID]}`);
     };
 
     handerSelectPersona = (data) => {
@@ -63,7 +61,7 @@ const PersonasList = observer(
       } = this.personaListViewModel;
       console.log(personas);
       return tableStatus === PAGE_STATUS.LOADING ? (
-        <div>Load</div>
+        <Spinner />
       ) : (
         <Table
           rowData={personas}
