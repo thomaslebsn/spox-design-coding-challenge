@@ -113,7 +113,10 @@ export default class ContentStore {
       console.log("Content Store - Fetch Content");
       const contentAPIService = new EasiiContentApiService();
 
-      const repondedDataFromLibrary = await contentAPIService.getContents(1, 2);
+      const repondedDataFromLibrary = await contentAPIService.getContents(
+        1,
+        100
+      );
       console.log(
         "repondedDataFromLibrary repondedDataFromLibrary",
         repondedDataFromLibrary
@@ -163,8 +166,6 @@ export default class ContentStore {
       const resultPost = await channelService.postToFanpage(
         contentData[CONTENT_FIELD_KEY.DESCRIPTION]
       );
-
-      // const resultPost = true;
 
       if (resultContent && resultPost) {
         runInAction(() => {

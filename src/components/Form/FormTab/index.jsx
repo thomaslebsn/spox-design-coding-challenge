@@ -81,7 +81,24 @@ const FormTab = observer(
             <div className="wrapper_tabs border-1 rounded pad">
               <Tabs defaultActiveKey="1" id="desc-tab">
                 {personaSelectionData.map((item) => {
-                  const channels = item[PERSONA_FIELD_KEY.CHANNELS];
+                  // const channels = item[PERSONA_FIELD_KEY.CHANNELS];
+
+                  const channels = [
+                    {
+                      id: 1,
+                      name: "facebook 1",
+                      image: "/assets/images/icon-pepsi.png",
+                      icon: "/assets/images/facebook.png",
+                      checked: true,
+                    },
+                    {
+                      id: 2,
+                      name: "instagram 1",
+                      image: "/assets/images/icon-pepsi.png",
+                      icon: "/assets/images/instagram.png",
+                      checked: true,
+                    },
+                  ];
 
                   return channels.map((value) => {
                     return (

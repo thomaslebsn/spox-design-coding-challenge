@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Accordion, Image } from "react-bootstrap";
+import { Button, Accordion, Image, Spinner } from "react-bootstrap";
 
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
@@ -21,6 +21,7 @@ import SimpleReactValidator from "simple-react-validator";
 
 import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
+import PAGE_STATUS from "../../../constants/PageStatus";
 
 const optionApproval = [
   {
@@ -190,6 +191,7 @@ const ContentFormPublish = observer(
       const {
         personaSelectionData,
         channelSelectionData,
+        formStatus,
       } = personaSelectionViewModal;
 
       console.log("[Content - FormPublish] personaSelectionData");
@@ -211,14 +213,32 @@ const ContentFormPublish = observer(
         isComponents: true,
       };
 
-      return (
+      return formStatus == PAGE_STATUS.READY ? (
+        <Spinner />
+      ) : (
         <div className="col-6">
           <h3 className="mb-4">Publish</h3>
           <div className="bg-white p-4">
             <Accordion defaultActiveKey="0" className="">
               {personaSelectionData.map((item) => {
-                const channels = item[PERSONA_FIELD_KEY.CHANNELS];
+                //const channels = item[PERSONA_FIELD_KEY.CHANNELS];
                 const name = item[PERSONA_FIELD_KEY.NAME];
+                const channels = [
+                  {
+                    id: 1,
+                    name: "facebook 1",
+                    image: "/assets/images/icon-pepsi.png",
+                    icon: "/assets/images/facebook.png",
+                    checked: true,
+                  },
+                  {
+                    id: 2,
+                    name: "instagram 1",
+                    image: "/assets/images/icon-pepsi.png",
+                    icon: "/assets/images/instagram.png",
+                    checked: true,
+                  },
+                ];
                 return (
                   <div key={Math.random(40, 200)}>
                     <div className="mb-2">

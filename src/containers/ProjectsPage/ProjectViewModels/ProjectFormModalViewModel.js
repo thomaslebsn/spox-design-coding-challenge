@@ -46,7 +46,11 @@ class ProjectFormModalViewModel {
   };
 
   saveOnModal = () => {
-    const isFormValid = this.projectFormComponent.isFormValid();
+    //const isFormValid = this.projectFormComponent.isFormValid();
+    const isFormValid = true;
+
+    console.log('Project Creation - isFormValid:');
+    console.log(isFormValid);
 
     if (isFormValid) {
       this.projectStore.saveProject(

@@ -2,6 +2,8 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { notify } from "../../../components/Toast";
 import history from "../../../routes/history";
 
+import PAGE_STATUS from "../../../constants/PageStatus";
+
 class ContentFormViewModel {
   contentEditdata = null;
   editMode = false;
@@ -9,6 +11,8 @@ class ContentFormViewModel {
 
   contentStore = null;
   contentFormComponent = null;
+
+  formStatus = PAGE_STATUS.LOADING;
 
   constructor(contentStore) {
     console.log("[ContentFormViewModel] ...constructor ");
@@ -26,6 +30,7 @@ class ContentFormViewModel {
   };
 
   post = (data) => {
+    this.formStatus = PAGE_STATUS.LOADING;
     this.contentStore.saveContent(
       data,
       this.callbackOnSuccessHandler,
@@ -41,9 +46,9 @@ class ContentFormViewModel {
 
   callbackOnSuccessHandler = () => {
     console.log("callbackOnSuccessHandler");
+    this.formStatus = PAGE_STATUS.READY;
     // Return list page
     history.push("/content");
-    this.contentListViewModel.refreshTableContentList();
   };
 }
 

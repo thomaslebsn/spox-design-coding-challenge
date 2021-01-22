@@ -10,4 +10,17 @@ const PROJECT_COLUMN_INDICATOR = {
   CREATED_DATE: "createdDate",
 };
 
-export { PROJECT_COLUMN_INDICATOR };
+const ESI_PROJECT_COLUMN_INDICATOR = {
+  ID: "id",
+  NAME: "title",
+  SHORT_DESCRIPTION: "short_description",
+  START_DATE: "start_date",
+  END_DATE: "end_date",
+  LEAD: "project_lead",
+  PROGRESS: "progress",
+  LOGO: "logo",
+  CREATED_DATE: "created_date",
+  MEMBERS: "members",
+};
+
+export { PROJECT_COLUMN_INDICATOR, ESI_PROJECT_COLUMN_INDICATOR };
