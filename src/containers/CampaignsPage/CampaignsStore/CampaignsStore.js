@@ -3,6 +3,8 @@ import { runInAction } from "mobx";
 
 import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
 import CampaignsModel from "../CampaignsModel/CampaignsModel";
+import { EasiiCampaignApiService } from "easii-io-web-service-library";
+
 
 let campaigns = [
   {
@@ -101,7 +103,10 @@ export default class CampaignsStore {
   async fetchCampaigns(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Persona Store - Fetch Personas");
-      const repondedDataFromLibrary = campaigns;
+      const campaignService = new EasiiCampaignApiService();
+      const repondedDataFromLibrary = await campaignService.getCampaigns(1, 2);
+      // console.log(repondedDataFromLibrary);
+      // const repondedDataFromLibrary = campaigns;
       const CampaignsModels = CampaignsUtils.transformCampaignsResponseIntoModel(
         repondedDataFromLibrary
       );

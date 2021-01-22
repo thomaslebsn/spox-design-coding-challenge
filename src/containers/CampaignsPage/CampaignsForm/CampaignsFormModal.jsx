@@ -26,7 +26,7 @@ const CampaignsFormModal = observer(
     }
 
     saveCampaignsHandler = () => {
-      this.CampaignsFormModalViewModal.closeModal();
+      this.CampaignsFormModalViewModal.saveOnModal();
     };
 
     render() {

@@ -31,6 +31,7 @@ class CampaignsForm extends Component {
 
   generateFormSetting = () => {
     console.log("re generate Form Setting");
+
     return [
       {
         fields: [
@@ -67,6 +68,7 @@ class CampaignsForm extends Component {
               key: CAMPAIGNS_FIELD_KEY.START_DATE,
               value: this.formPropsData[CAMPAIGNS_FIELD_KEY.START_DATE],
               changed: (date) => {
+                console.log(date);
                 this.formPropsData[CAMPAIGNS_FIELD_KEY.START_DATE] = date;
               },
             },

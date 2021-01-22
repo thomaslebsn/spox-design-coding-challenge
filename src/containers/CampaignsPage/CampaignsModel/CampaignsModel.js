@@ -6,17 +6,23 @@ import { ProgressModel } from "./ProgressModel";
 import getStatus from "../../../utils/status";
 
 import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+
 
 class CampaignsModel {
   constructor(data) {
     this.id = data.id ?? 0;
-    this.name = data.name ?? "";
+    this.name = data.title ?? "";
     this.status = data.status ?? "";
     this.startdate = data.start_date ?? "";
     this.enddate = data.end_date ?? "";
-    this.needtodo = data.need_to_do ?? "";
-    this.schedudepost = data.schedude_post ?? "";
+    this.needtodo = data.no_to_do_post ?? "";
+    this.schedudepost = data.no_scheduled_posts ?? "";
     this.publishedcontent = data.publish_content ?? "";
+    
+    this.project = data.project ?? "";
+
+    this.percentComplete = data.percentComplete ?? "";
     this.progress = data.progress ? new ProgressModel(data) : 0;
   }
 
@@ -38,6 +44,15 @@ class CampaignsModel {
     };
   };
 
+  getPercentComplete = () => {
+    return {
+      value: this.percentComplete,
+      type: FIELD_TYPE.TEXT,
+      columnName: CAMPAIGNS_FIELD_KEY.PERCENT_COMPLETE,
+      columnText: "Percent Complete",
+    };
+  };
+
   getStatus = () => {
     return {
       value: getStatus(this.status),
@@ -49,7 +64,9 @@ class CampaignsModel {
 
   getStartDate = () => {
     return {
-      value: format(new Date(this.startdate), FORMAT_DATE),
+      value: this.startdate
+        ? format(new Date(this.startdate), FORMAT_DATE)
+        : "",
       original: this.startdate,
       type: FIELD_TYPE.DATE,
       columnName: CAMPAIGNS_FIELD_KEY.START_DATE,
@@ -59,7 +76,7 @@ class CampaignsModel {
 
   getEndDate = () => {
     return {
-      value: format(new Date(this.enddate), FORMAT_DATE),
+      value: this.enddate ? format(new Date(this.enddate), FORMAT_DATE) : "",
       original: this.enddate,
       type: FIELD_TYPE.DATE,
       columnName: CAMPAIGNS_FIELD_KEY.END_DATE,
@@ -96,7 +113,7 @@ class CampaignsModel {
 
   getProgress = () => {
     return {
-      value: this.progress.getProgress(),
+      value: this.progress ? this.progress.getProgress() : "",
       type: FIELD_TYPE.TEXT,
       columnName: CAMPAIGNS_FIELD_KEY.PROGRESS,
       columnText: "Progress",
@@ -104,27 +121,35 @@ class CampaignsModel {
   };
 
   toTableRowData = () => {
-    const id = this.getId(),
-      name = this.getName(),
-      status = this.getStatus(),
-      startDate = this.getStartDate(),
-      endDate = this.getEndDate(),
-      needToDo = this.getNeedToDo(),
-      schedudePost = this.getSchedudePost(),
-      publishedContent = this.getPublishedContent(),
-      progress = this.getProgress();
-
-    return {
-      [id.columnName]: id.value,
-      [name.columnName]: name.value,
-      [status.columnName]: status.value,
-      [startDate.columnName]: startDate.value,
-      [endDate.columnName]: endDate.value,
-      [needToDo.columnName]: needToDo.value,
-      [schedudePost.columnName]: schedudePost.value,
-      [publishedContent.columnName]: publishedContent.value,
-      [progress.columnName]: progress.value,
-    };
+    try {
+      const id = this.getId(),
+        name = this.getName(),
+        status = this.getStatus(),
+        startDate = this.getStartDate(),
+        endDate = this.getEndDate(),
+        needToDo = this.getNeedToDo(),
+        schedudePost = this.getSchedudePost(),
+        publishedContent = this.getPublishedContent(),
+        progress = this.getProgress();
+      const result = {
+        [id.columnName]: id.value,
+        [name.columnName]: name.value,
+        [status.columnName]: status.value,
+        [startDate.columnName]: startDate.value,
+        [endDate.columnName]: endDate.value,
+        [needToDo.columnName]: needToDo.value,
+        [schedudePost.columnName]: schedudePost.value,
+        [publishedContent.columnName]: publishedContent.value,
+        [progress.columnName]: progress.value,
+      };
+      console.log("Campaign - toTableRowData");
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.log("Campaign - toTableRowData = ERROR ");
+      console.log(error);
+      return null;
+    }
   };
 
   static convertSubmittedDataToAPIService(campaignsData) {
