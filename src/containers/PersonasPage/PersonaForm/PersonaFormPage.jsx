@@ -118,10 +118,7 @@ const PersonaFormPage = observer(
     };
 
     generateFormSetting = () => {
-      console.log(
-        "re generate Form Setting",
-        this.formPropsData[PERSONA_FIELD_KEY.GENDER]
-      );
+      console.log("re generate Form Setting");
       return [
         {
           fields: [
@@ -156,8 +153,8 @@ const PersonaFormPage = observer(
               required: true,
               validation: "required",
               option: GENDER,
-              changed: (event) => {
-                this.formPropsData[PERSONA_FIELD_KEY.GENDER] = event.value;
+              changed: (value) => {
+                this.formPropsData[PERSONA_FIELD_KEY.GENDER] = value;
               },
               isMulti: false,
             },
@@ -205,9 +202,8 @@ const PersonaFormPage = observer(
               required: true,
               validation: "required",
               option: MARITAL_STATUS,
-              changed: (event) => {
-                this.formPropsData[PERSONA_FIELD_KEY.MARITAL_STATUS] =
-                  event.value;
+              changed: (value) => {
+                this.formPropsData[PERSONA_FIELD_KEY.MARITAL_STATUS] = value;
               },
             },
           ],

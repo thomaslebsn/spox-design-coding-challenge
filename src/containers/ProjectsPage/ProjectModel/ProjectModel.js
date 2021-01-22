@@ -9,17 +9,19 @@ import {
 } from "../../../constants/ProjectModule";
 
 import { format } from "date-fns";
-import { ESI_PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
 class ProjectModel {
   constructor(data) {
-    this.id = data.id ?? 0;
-    this.name = data.title ?? "";
+    this.id = data[ESI_PROJECT_COLUMN_INDICATOR.ID] ?? 0;
+    this.name = data[ESI_PROJECT_COLUMN_INDICATOR.NAME] ?? "";
     this.logoUrl =
-      data[ESI_PERSONA_FIELD_KEY.LOGO] ?? "/assets/images/icon-pepsi.png";
-    this.startdate = data.start_date ?? "";
-    this.enddate = data.end_date ?? "";
-    this.shortDescription = data.short_description ?? "";
+      JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO]).length > 0
+        ? JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO])[0]
+        : "/assets/images/icon-pepsi.png";
+    this.startdate = data[ESI_PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
+    this.enddate = data[ESI_PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
+    this.shortDescription =
+      data[ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? "";
 
     this.projectName = new ProjectNameModel(this.name, this.logoUrl);
 

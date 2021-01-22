@@ -55,6 +55,7 @@ const FormSelectDropdown = observer(
     }
 
     render() {
+      console.log("[FormSelectDropdown] render", this.field);
       return (
         <SelectComponent
           defaultValue={this.field.value}
