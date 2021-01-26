@@ -56,6 +56,11 @@ class ProjectFormModalViewModel {
     console.log("Project Creation - isFormValid:");
     console.log(isFormValid);
 
+    if (this.editMode) {
+      const projectID = this.projectEditdata.getId();
+      this.projectFormComponent.formPropsData.id = projectID.value;
+    }
+
     if (isFormValid) {
       this.projectStore.saveProject(
         this.projectFormComponent.formPropsData,

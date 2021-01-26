@@ -236,11 +236,20 @@ export default class ProjectStore {
       console.log('Project Converted Data');
       console.log(convertedProjectData);
 
-      const projectAPIService = new EasiiProjectApiService();    
-      const resultOnSave = await projectAPIService.createProject(convertedProjectData);
+      const projectAPIService = new EasiiProjectApiService();
 
-      console.log("---- ABC ----");
-      console.log(resultOnSave);
+      var resultOnSave;
+
+      if (projectData.id == undefined) {
+        console.log('CREATE PROJECT');
+        resultOnSave = await projectAPIService.createProject(convertedProjectData);
+      } else {
+        console.log('UPDATE PROJECT', convertedProjectData);
+        convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        resultOnSave = await projectAPIService.updateProject(convertedProjectData);
+      }
+
+      console.log('resultOnSave', resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {

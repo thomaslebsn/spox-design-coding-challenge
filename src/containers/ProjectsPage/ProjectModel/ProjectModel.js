@@ -12,6 +12,7 @@ import { format } from "date-fns";
 
 class ProjectModel {
   constructor(data) {
+    console.log("-- data input for construct Project Model --", data);
     console.log('data input for project model');
     console.log(data);
     this.id = data[ESI_PROJECT_COLUMN_INDICATOR.ID] ?? 0;
@@ -20,8 +21,8 @@ class ProjectModel {
       JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO]).length > 0
         ? JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO])[0]
         : "/assets/images/icon-pepsi.png";
-    this.startdate = data[ESI_PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
-    this.enddate = data[ESI_PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
+    this.startdate = data[PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
+    this.enddate = data[PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
     this.shortDescription =
       data[ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? "";
 
@@ -154,6 +155,8 @@ class ProjectModel {
   static convertSubmittedDataToAPIService(projectData) {
     const result = projectData
       ? {
+          [ESI_PROJECT_COLUMN_INDICATOR.ID]:
+            projectData[PROJECT_COLUMN_INDICATOR.ID],
           [ESI_PROJECT_COLUMN_INDICATOR.NAME]:
             projectData[PROJECT_COLUMN_INDICATOR.NAME],
           [ESI_PROJECT_COLUMN_INDICATOR.START_DATE]:
@@ -164,7 +167,7 @@ class ProjectModel {
             projectData[PROJECT_COLUMN_INDICATOR.LOGO],
           [ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION]:
             projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],
-          [ESI_PROJECT_COLUMN_INDICATOR.LEAD]: JSON.stringify([1]),
+          [ESI_PROJECT_COLUMN_INDICATOR.LEAD]: 4,
         }
       : null;
     return result;
