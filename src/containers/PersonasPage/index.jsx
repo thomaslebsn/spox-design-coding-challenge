@@ -14,7 +14,7 @@ const PersonasList = lazy(() => import("./PersonasList/PersonasList"));
 const personaStore = new PersonaStore();
 const personaViewModel = new PersonaViewModel(personaStore);
 
-function Personas() {
+function Personas({ match }) {
   console.log("Debugging Route Personas");
   console.log(personaViewModel);
   return (
@@ -30,15 +30,7 @@ function Personas() {
 
         <Route exact path={["/personas/create", "/personas/edit/:id"]}>
           <div className="py-4 px-3">
-            <div className="mb-4">
-              <ComponentHeaderPage
-                title={"Make Persona Overview"}
-                textBtn={"Save persona"}
-                // handleCreate={this.handleSave}
-                faIcons={faSave}
-              />
-            </div>
-            <PersonaFormPage />
+            <PersonaFormPage match={match} />
           </div>
         </Route>
       </div>

@@ -1,14 +1,16 @@
 import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
+import history from "../../../routes/history";
+
+import PAGE_STATUS from "../../../constants/PageStatus";
 
 class PersonaFormViewModel {
-  show = false;
-  personaEditdata = null;
-  editMode = false;
   personaListViewModel = null;
 
   personaStore = null;
   personaFormComponent = null;
+
+  formStatus = PAGE_STATUS.LOADING;
 
   constructor(personaStore) {
     makeAutoObservable(this);
@@ -24,14 +26,12 @@ class PersonaFormViewModel {
   };
 
   setEditPersona = (data) => {
-    console.log("setEditPersona");
-    console.log(data);
-    this.editMode = true;
-    this.personaEditdata = data;
+    this.formStatus = PAGE_STATUS.READY;
+    this.personaFormComponent.populatingFormDataHandler(data[0]);
   };
 
   getPersona = (id) => {
-    this.editMode = true;
+    this.formStatus = PAGE_STATUS.LOADING;
     this.personaStore.getPersona(
       id,
       this.setEditPersona,
@@ -39,27 +39,16 @@ class PersonaFormViewModel {
     );
   };
 
-  openModal = () => {
-    this.show = true;
-  };
-
-  closeModal = () => {
-    this.editMode = false;
-    this.show = false;
-  };
-
-  saveOnModal = () => {
+  savePersona = () => {
     const isFormValid = this.personaFormComponent.isFormValid();
 
     if (isFormValid) {
+      this.formStatus = PAGE_STATUS.LOADING;
       this.personaStore.savePersona(
         this.personaFormComponent.formPropsData,
         this.callbackOnSuccessHandler,
         this.callbackOnErrorHander
       );
-
-      this.closeModal();
-    } else {
     }
   };
 
@@ -71,8 +60,8 @@ class PersonaFormViewModel {
 
   callbackOnSuccessHandler = () => {
     console.log("callbackOnSuccessHandler");
-    this.closeModal();
-    this.personaListViewModel.refreshTablePersonaList();
+    this.formStatus = PAGE_STATUS.READY;
+    history.push("/personas");
   };
 }
 

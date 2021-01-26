@@ -29,7 +29,7 @@ class ProjectForm extends Component {
     this.isEditMode = this.viewModel.editMode === true;
 
     if (this.isEditMode) {
-      this.populatingFormDataHandler(this.viewModel.projectEditdata[0]);
+      this.populatingFormDataHandler(this.viewModel.projectEditdata);
     }
   }
 

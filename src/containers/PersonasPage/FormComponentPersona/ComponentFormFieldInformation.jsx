@@ -119,22 +119,25 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
       { value: "Linkedin", label: "Linkedin" },
       { value: "Linkedin1", label: "Linkedin 1" },
     ],
-    changed: (event) => {
-      formPropsData[PERSONA_FIELD_KEY.CHALLENGES] = event.value;
+    changed: (value) => {
+      formPropsData[PERSONA_FIELD_KEY.CHALLENGES] = value;
     },
     isMulti: false,
   };
 
   let fieldInterest = {
-    label: "Channels",
+    label: "Interest",
     key: PERSONA_FIELD_KEY.INTEREST,
     type: FORM_FIELD_TYPE.DROPDOWN,
     value: formPropsData[PERSONA_FIELD_KEY.INTEREST],
     required: true,
     validation: "required",
     option: optionInterest,
-    changed: (event) => {
-      formPropsData[PERSONA_FIELD_KEY.INTEREST] = event.value;
+    changed: (value) => {
+      console.log("OnChange", value);
+      formPropsData[PERSONA_FIELD_KEY.INTEREST] = value;
+
+      console.log("formPropsData", formPropsData);
     },
     isMulti: true,
     isComponents: true,

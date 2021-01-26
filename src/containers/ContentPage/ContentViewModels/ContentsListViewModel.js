@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import ContentUtils from "../ContentUtils/ContentUtils";
 import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+import history from "../../../routes/history";
 class ContentsListViewModel {
   contentStore = null;
 
@@ -47,7 +48,6 @@ class ContentsListViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    alert(error);
   };
 
   callbackOnSuccessHandler = (contentModelData) => {

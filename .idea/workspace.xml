@@ -2,10 +2,45 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea7c18e7-23df-4c2f-b0df-66688c95f2e5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentModel/DescriptionsModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form/FormDateRangePicker/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/FormDateRangePicker/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form/FormSelectDropdown/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/FormSelectDropdown/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form/FormTab/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/FormTab/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/CampaignsModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/CampaignsModule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/ContentModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ContentModule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/PersonaModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/PersonaModule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/ProjectModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/ProjectModule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsForm/CampaignsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsForm/CampaignsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsForm/CampaignsFormModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsForm/CampaignsFormModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsModel/CampaignsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsModel/CampaignsModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsStore/CampaignsStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsStore/CampaignsStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsViewModels/CampaignsFormModalViewModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/CampaignsPage/CampaignsViewModels/CampaignsFormModalViewModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ContentPage/ContentForm/ContentFormGeneral.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentForm/ContentFormGeneral.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ContentPage/ContentForm/ContentFormPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentForm/ContentFormPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ContentPage/ContentForm/ContentFormPublish.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentForm/ContentFormPublish.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ContentPage/ContentModel/ContentModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentModel/ContentModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ContentPage/ContentStore/ContentStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentStore/ContentStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ContentPage/ContentViewModels/ContentFormViewModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentViewModels/ContentFormViewModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ContentPage/ContentViewModels/ContentsListViewModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ContentPage/ContentViewModels/ContentsListViewModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/FormComponentPersona/ComponentFormFieldGCP.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/FormComponentPersona/ComponentFormFieldGCP.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/FormComponentPersona/ComponentFormFieldInformation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/FormComponentPersona/ComponentFormFieldInformation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/FormComponentPersona/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaForm/PersonaForm.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaForm/PersonaFormPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaForm/PersonaFormPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaModel/PersonaModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaModel/PersonaModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaStore/PersonaStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaStore/PersonaStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaViewModels/PersonaFormViewModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/PersonaViewModels/PersonaFormViewModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/PersonasList/PersonasList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/PersonasList/PersonasList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/PersonasPage/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/PersonasPage/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectForm/ProjectForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectForm/ProjectForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectForm/ProjectFormModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectForm/ProjectFormModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectModel/ProjectModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectModel/ProjectModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectModel/ProjectNameModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectModel/ProjectNameModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectStore/ProjectStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectStore/ProjectStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectUtils/ProjectUtils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectUtils/ProjectUtils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectViewModels/ProjectFormModalViewModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ProjectsPage/ProjectViewModels/ProjectFormModalViewModel.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +78,7 @@
       <workItem from="1611214840486" duration="63000" />
       <workItem from="1611214919967" duration="2836000" />
       <workItem from="1611286501720" duration="810000" />
+      <workItem from="1611585312556" duration="2760000" />
     </task>
     <servers />
   </component>
@@ -59,5 +95,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

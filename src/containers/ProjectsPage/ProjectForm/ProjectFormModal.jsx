@@ -33,6 +33,8 @@ const ProjectFormModal = observer(
     };
 
     render() {
+      console.log('project form model modal');
+      console.log(this.projectFormModalViewModel);
       console.log("[ProjectFormModal] - re-render .........");
       const { show } = this.projectFormModalViewModel;
       return (

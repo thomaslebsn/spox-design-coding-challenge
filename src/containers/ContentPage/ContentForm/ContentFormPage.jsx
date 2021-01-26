@@ -9,56 +9,27 @@ import ContentSbarRight from "../../../components/ContentSbarRight";
 const ContentFormGeneral = lazy(() => import("./ContentFormGeneral"));
 const ContentFormPublish = lazy(() => import("./ContentFormPublish"));
 
-const ContentFormPage = observer(
-  class ContentFormPage extends Component {
-    contentFormViewModel = null;
-    contentListViewModel = null;
-    constructor(props) {
-      super(props);
-      const { viewModel, id } = props;
+class ContentFormPage extends Component {
+  render() {
+    console.log("[ContentFormPage] - re-render .........");
 
-      console.log(id);
-      console.log("ContentFormPage - Debug View Model");
-      console.log(viewModel);
-      this.contentFormViewModel = viewModel
-        ? viewModel.getContentFormViewModel()
-        : null;
+    let custom = {
+      enterRight: "",
+      enterLeft: "",
+      exitRight: "",
+      exitLeft: "",
+    };
 
-      if (id) {
-        this.contentFormViewModel.getContent(id);
-      }
-
-      console.log("ContentFormPage - After binding class");
-      console.log(this.contentFormViewModel);
-    }
-
-    render() {
-      console.log("[ContentFormPage] - re-render .........");
-
-      let custom = {
-        enterRight: "",
-        enterLeft: "",
-        exitRight: "",
-        exitLeft: "",
-      };
-
-      return (
-        <>
-          <StepWizard isLazyMount={true} transitions={custom}>
-            <ContentFormGeneral
-              viewModel={this.contentFormViewModel}
-              hashKey={"general"}
-            />
-            <ContentFormPublish
-              viewModel={this.contentFormViewModel}
-              hashKey={"publish"}
-            />
-          </StepWizard>
-          <ContentSbarRight />
-        </>
-      );
-    }
+    return (
+      <>
+        <StepWizard isLazyMount={true} transitions={custom}>
+          <ContentFormGeneral hashKey={"general"} />
+          <ContentFormPublish hashKey={"publish"} />
+        </StepWizard>
+        <ContentSbarRight />
+      </>
+    );
   }
-);
+}
 
-export default withContentViewModel(ContentFormPage);
+export default ContentFormPage;

@@ -60,24 +60,28 @@ export default class PersonaStore {
   async fetchPersonas(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Persona Store - Fetch Personas");
-      const service = new EasiiPersonaApiService();
-      const repondedDataFromLibrary = await service.getPersonas(1,2);
-      console.log("repondedDataFromLibrary");
-      console.log(repondedDataFromLibrary)
-      const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
-        repondedDataFromLibrary
-      );
+      //const repondedDataFromLibrary = personas;
+      const PersonaService = new EasiiPersonaApiService();
+      const repondedDataFromLibrary = await PersonaService.getPersonas(1, 100);
+      console.log("-Personal log---");
+      console.log(repondedDataFromLibrary);
 
-      console.log(personaDataModels);
+      if (repondedDataFromLibrary) {
+        const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
+          repondedDataFromLibrary
+        );
 
-      if (personaDataModels) {
-        runInAction(() => {
-          callbackOnSuccess(personaDataModels);
-        });
-      } else {
-        callbackOnError({
-          message: "Something went wrong from Server response",
-        });
+        console.log(personaDataModels);
+
+        if (personaDataModels) {
+          runInAction(() => {
+            callbackOnSuccess(personaDataModels);
+          });
+        } else {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        }
       }
     } catch (error) {
       console.log(error);
@@ -96,7 +100,11 @@ export default class PersonaStore {
         personaData
       );
 
-      const resultOnSave = await personas.push(convertedPersonaData);
+      const personaService = new EasiiPersonaApiService();
+
+      const resultOnSave = await personaService.createPersona(
+        convertedPersonaData
+      );
 
       if (resultOnSave) {
         runInAction(() => {
@@ -157,22 +165,16 @@ export default class PersonaStore {
     if (!id) return false;
 
     try {
-      const results = true;
+      const personaService = new EasiiPersonaApiService();
 
-      const editPersona = personas.filter(
-        (persona) => persona.id !== parseInt(id)
-      );
+      const repondedDataFromLibrary = await personaService.getPersona(id);
 
-      // const PersonaService = new EasiiPersonaApiService();
-      // const editPersona = PersonaService.getPersona(id);
+      console.log("Persona Store - getPersona");
+      console.log(repondedDataFromLibrary);
 
-      console.log('--- edit Persona ---');
-      console.log(editPersona);
-
-      if (results) {
-        const repondedDataFromLibrary = editPersona;
+      if (repondedDataFromLibrary) {
         const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
-          repondedDataFromLibrary
+          [repondedDataFromLibrary]
         );
 
         if (personaDataModels) {

@@ -7,6 +7,9 @@ import ButtonNormal from "../../../components/ButtonNormal";
 
 import SimpleReactValidator from "simple-react-validator";
 
+import { observer } from "mobx-react";
+import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
+
 import {
   PersonalSelectionPage,
   personaSelectionViewModal,
@@ -21,163 +24,177 @@ import { renderingGroupFieldHandler } from "../../../utils/form";
 
 import { Form } from "react-bootstrap";
 
-class ContentFormGeneral extends Component {
-  formPropsData = {
-    [CONTENT_FIELD_KEY.NAME]: "",
-    [CONTENT_FIELD_KEY.CAMPAIGN]: "",
-    [CONTENT_FIELD_KEY.PERSONA]: "",
-    [CONTENT_FIELD_KEY.DESCRIPTION]: "",
-  };
+const ContentFormGeneral = observer(
+  class ContentFormGeneral extends Component {
+    formPropsData = {
+      [CONTENT_FIELD_KEY.NAME]: "",
+      [CONTENT_FIELD_KEY.CAMPAIGN]: "",
+      [CONTENT_FIELD_KEY.PERSONA]: "",
+      [CONTENT_FIELD_KEY.DESCRIPTION]: "",
+    };
 
-  validator = null;
-  isEditMode = false;
+    validator = null;
+    isEditMode = false;
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+      super(props);
 
-    this.validator = new SimpleReactValidator();
-    this.viewModel = this.props.viewModel;
+      this.validator = new SimpleReactValidator();
+      const { viewModel, id } = props;
 
-    this.viewModel.setForm(this);
-  }
+      console.log(id);
+      console.log("ContentFormPage - Debug View Model");
+      console.log(viewModel);
+      this.contentFormViewModel = viewModel
+        ? viewModel.getContentFormViewModel()
+        : null;
 
-  generateFormSetting = () => {
-    console.log("re generate Form Setting");
-    return [
-      {
-        fields: [
-          {
-            label: "Choose the Campaign",
-            key: CONTENT_FIELD_KEY.CAMPAIGN,
-            type: FORM_FIELD_TYPE.SELECTION,
-            value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
-            required: true,
-            validation: "required",
-            viewModel: campaignSelectionViewModal,
-            changed: () => {
-              this.formPropsData[
-                CONTENT_FIELD_KEY.CAMPAIGN
-              ] = campaignSelectionViewModal.getSelectionData();
-            },
-            clicked: () => {
-              campaignSelectionViewModal.openModal();
-            },
-          },
-          {
-            label: "Choose the Persona",
-            key: CONTENT_FIELD_KEY.PERSONA,
-            type: FORM_FIELD_TYPE.SELECTION,
-            value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
-            required: true,
-            validation: "required",
-            viewModel: personaSelectionViewModal,
-            changed: () => {
-              this.formPropsData[
-                CONTENT_FIELD_KEY.PERSONA
-              ] = personaSelectionViewModal.getSelectionData();
-            },
-            clicked: () => {
-              personaSelectionViewModal.openModal();
-            },
-          },
-          {
-            label: "Headline",
-            key: CONTENT_FIELD_KEY.NAME,
-            type: FORM_FIELD_TYPE.INPUT,
-            value: this.formPropsData[CONTENT_FIELD_KEY.NAME],
-            required: true,
-            validation: "required",
-            changed: (event) => {
-              this.formPropsData[CONTENT_FIELD_KEY.NAME] = event.target.value;
-            },
-            blurred: this.blurringFieldHandler,
-          },
-          {
-            label: "Description",
-            key: CONTENT_FIELD_KEY.DESCRIPTION,
-            type: FORM_FIELD_TYPE.TAB,
-            value: this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION],
-            viewModel: personaSelectionViewModal,
-            required: true,
-            validation: "required",
-            changed: (event) => {
-              console.log("[Description] changed");
-              this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] =
-                event.target.value;
-            },
-            blurred: this.blurringFieldHandler,
-          },
-        ],
-      },
-    ];
-  };
-
-  populatingFormDataHandler = (data) => {
-    if (!data) return false;
-    this.formPropsData[CONTENT_FIELD_KEY.NAME] = data.getName().value;
-  };
-
-  next = () => {
-    if (this.isFormValid()) {
-      this.props.nextStep();
+      this.contentFormViewModel.setForm(this);
     }
-  };
 
-  blurringFieldHandler = () => {
-    console.log("blurringFieldHandler");
-    this.isFormValid();
-  };
+    generateFormSetting = () => {
+      console.log("re generate Form Setting", this.formPropsData);
+      return [
+        {
+          fields: [
+            {
+              label: "Choose the Campaign",
+              key: CONTENT_FIELD_KEY.CAMPAIGN,
+              type: FORM_FIELD_TYPE.SELECTION,
+              value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
+              required: true,
+              validation: "required",
+              viewModel: campaignSelectionViewModal,
+              changed: () => {
+                this.formPropsData[
+                  CONTENT_FIELD_KEY.CAMPAIGN
+                ] = campaignSelectionViewModal.getSelectionData();
+              },
+              clicked: () => {
+                campaignSelectionViewModal.openModal();
+              },
+            },
+            {
+              label: "Choose the Persona",
+              key: CONTENT_FIELD_KEY.PERSONA,
+              type: FORM_FIELD_TYPE.SELECTION,
+              value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
+              required: true,
+              validation: "required",
+              viewModel: personaSelectionViewModal,
+              changed: () => {
+                this.formPropsData[
+                  CONTENT_FIELD_KEY.PERSONA
+                ] = personaSelectionViewModal.getSelectionData();
+              },
+              clicked: () => {
+                personaSelectionViewModal.openModal();
+              },
+            },
+            {
+              label: "Headline",
+              key: CONTENT_FIELD_KEY.NAME,
+              type: FORM_FIELD_TYPE.INPUT,
+              value: this.formPropsData[CONTENT_FIELD_KEY.NAME],
+              required: true,
+              validation: "required",
+              changed: (event) => {
+                this.formPropsData[CONTENT_FIELD_KEY.NAME] = event.target.value;
+              },
+              blurred: this.blurringFieldHandler,
+            },
+            {
+              label: "Description",
+              key: CONTENT_FIELD_KEY.DESCRIPTION,
+              type: FORM_FIELD_TYPE.TAB,
+              value: this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION],
+              viewModel: personaSelectionViewModal,
+              required: true,
+              validation: "required",
+              changed: (event) => {
+                console.log("[Description] changed");
+                this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] =
+                  event.target.value;
+              },
+              blurred: this.blurringFieldHandler,
+            },
+          ],
+        },
+      ];
+    };
 
-  isFormValid = () => {
-    console.log("isFormValid");
-    console.log(this.formPropsData);
-    if (this.validator.allValid()) {
-      console.log("[is Form Valid]");
+    populatingFormDataHandler = (data) => {
+      if (!data) return false;
+      this.formPropsData[CONTENT_FIELD_KEY.NAME] = data.getName().value;
+    };
 
-      return true;
-    } else {
-      this.validator.showMessages();
-      // rerender to show messages for the first time
-      this.forceUpdate();
-      return false;
-    }
-  };
+    next = () => {
+      if (this.isFormValid()) {
+        this.props.nextStep();
+        this.contentFormViewModel.contentEditdata = this.formPropsData;
+      }
+    };
 
-  render() {
-    console.log("[Content - FormGeneral] - re-render .........");
+    blurringFieldHandler = () => {
+      console.log("blurringFieldHandler");
+      this.isFormValid();
+    };
 
-    const formSetting = this.generateFormSetting();
+    isFormValid = () => {
+      console.log("isFormValid");
+      console.log(this.formPropsData);
+      if (this.validator.allValid()) {
+        console.log("[is Form Valid]");
 
-    return (
-      <>
-        <div className="col-6">
-          <h3 className="mb-4">General</h3>
-          <div className="bg-white p-4">
-            <Form key={Math.random(40, 200)}>
-              {Object.keys(formSetting)
-                .map((groupIndex) => {
-                  return [...Array(formSetting[groupIndex])].map((group) => {
-                    return renderingGroupFieldHandler(group, this.validator);
-                  });
-                })
-                .reduce((arr, el) => {
-                  return arr.concat(el);
-                }, [])}
-            </Form>
-            <div className="d-flex justify-content-end">
-              <ButtonNormal
-                className="btn btn-success"
-                text="Next"
-                onClick={this.next}
-              ></ButtonNormal>
+        return true;
+      } else {
+        this.validator.showMessages();
+        // rerender to show messages for the first time
+        this.forceUpdate();
+        return false;
+      }
+    };
+
+    render() {
+      console.log("[Content - FormGeneral] - re-render .........");
+
+      if (this.contentFormViewModel.contentEditdata) {
+        this.formPropsData = this.contentFormViewModel.contentEditdata;
+      }
+      const formSetting = this.generateFormSetting();
+
+      return (
+        <>
+          <div className="col-6">
+            <h3 className="mb-4">General</h3>
+            <div className="bg-white p-4">
+              <Form key={Math.random(40, 200)}>
+                {Object.keys(formSetting)
+                  .map((groupIndex) => {
+                    return [...Array(formSetting[groupIndex])].map((group) => {
+                      return renderingGroupFieldHandler(group, this.validator);
+                    });
+                  })
+                  .reduce((arr, el) => {
+                    return arr.concat(el);
+                  }, [])}
+              </Form>
+              <div className="d-flex justify-content-end">
+                <ButtonNormal
+                  className="btn btn-success"
+                  text="Next"
+                  onClick={this.next}
+                ></ButtonNormal>
+              </div>
             </div>
           </div>
-        </div>
 
-        <PersonalSelectionPage />
-        <CampaignSelectionPage />
-      </>
-    );
+          <PersonalSelectionPage />
+          <CampaignSelectionPage />
+        </>
+      );
+    }
   }
-}
-export default ContentFormGeneral;
+);
+
+export default withContentViewModel(ContentFormGeneral);

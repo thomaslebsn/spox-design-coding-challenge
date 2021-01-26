@@ -29,6 +29,7 @@ const ComponentFormFieldGCP = ({ validator, formPropsData }) => {
       required: true,
       validation: "required",
       changed: (event) => {
+        console.log(event);
         formPropsData[PERSONA_FIELD_KEY.CHALLENGES] = event.target.value;
       },
       className:

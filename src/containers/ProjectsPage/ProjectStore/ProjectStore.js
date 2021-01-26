@@ -200,11 +200,11 @@ export default class ProjectStore {
     try {
       console.log("Project Store - Fetch Projects");
       const projectAPIService = new EasiiProjectApiService();
-      const repondedDataFromLibrary = await projectAPIService.getProjects(1,2);
+      const respondedDataFromLibrary = await projectAPIService.getProjects(1,100);
       console.log("Debugging ---- fetchProjects");
-      console.log(repondedDataFromLibrary);
+      console.log(respondedDataFromLibrary);
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-        repondedDataFromLibrary
+        respondedDataFromLibrary
       );
 
       if (projectDataModels) {
@@ -232,8 +232,15 @@ export default class ProjectStore {
       const convertedProjectData = ProjectModel.convertSubmittedDataToAPIService(
         projectData
       );
+
+      console.log('Project Converted Data');
+      console.log(convertedProjectData);
+
       const projectAPIService = new EasiiProjectApiService();    
       const resultOnSave = await projectAPIService.createProject(convertedProjectData);
+
+      console.log("---- ABC ----");
+      console.log(resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {
@@ -265,9 +272,9 @@ export default class ProjectStore {
       });
 
       if (results) {
-        const repondedDataFromLibrary = projects;
+        const respondedDataFromLibrary = projects;
         const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-          repondedDataFromLibrary
+          respondedDataFromLibrary
         );
 
         if (projectDataModels) {
@@ -296,15 +303,21 @@ export default class ProjectStore {
     try {
       const results = true;
 
-      const editProject = projects.filter(function (e) {
-        return id === e.id;
-      });
+      // const editProject = projects.filter(function (e) {
+      //   return id === e.id;
+      // });
 
       if (results) {
-        const repondedDataFromLibrary = editProject;
+        const projectAPIService = new EasiiProjectApiService();
+        const respondedDataFromLibrary = await projectAPIService.getProjectItem(id, false);
+        console.log('PROJECT RESPONDED ITEM');
+        console.log(id);
+        console.log(respondedDataFromLibrary);
         const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-          repondedDataFromLibrary
+          [respondedDataFromLibrary]
         );
+
+        console.log(projectDataModels);
 
         if (projectDataModels) {
           runInAction(() => {
