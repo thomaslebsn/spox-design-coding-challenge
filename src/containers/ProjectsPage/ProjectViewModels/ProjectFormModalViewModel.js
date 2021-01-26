@@ -1,9 +1,11 @@
 import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
+import PAGE_STATUS from "../../../constants/PageStatus";
+
 class ProjectFormModalViewModel {
   show = false;
   projectEditdata = null;
-  editMode = false;
+  editMode = null;
   projectListViewModel = null;
 
   projectStore = null;
@@ -23,8 +25,12 @@ class ProjectFormModalViewModel {
   };
 
   setEditProject = (data) => {
+    // this.editMode = true;
+    // this.projectEditdata = data;
+    this.formStatus = PAGE_STATUS.READY;
     this.editMode = true;
     this.projectEditdata = data;
+    //this.projectFormComponent.populatingFormDataHandler(data[0]);
   };
 
   getProject = (id) => {
