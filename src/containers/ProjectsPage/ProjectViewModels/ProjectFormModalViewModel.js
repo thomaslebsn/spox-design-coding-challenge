@@ -7,6 +7,7 @@ class ProjectFormModalViewModel {
   projectEditdata = null;
   editMode = null;
   projectListViewModel = null;
+  formStatus = PAGE_STATUS.READY;
 
   projectStore = null;
   projectFormComponent = null;
@@ -25,16 +26,13 @@ class ProjectFormModalViewModel {
   };
 
   setEditProject = (data) => {
-    // this.editMode = true;
-    // this.projectEditdata = data;
-    this.formStatus = PAGE_STATUS.READY;
     this.editMode = true;
+    this.formStatus = PAGE_STATUS.READY;
     this.projectEditdata = data[0];
-    //this.projectFormComponent.populatingFormDataHandler(data[0]);
   };
 
   getProject = (id) => {
-    this.editMode = true;
+    this.formStatus = PAGE_STATUS.LOADING;
     this.projectStore.getProject(
       id,
       this.setEditProject,
