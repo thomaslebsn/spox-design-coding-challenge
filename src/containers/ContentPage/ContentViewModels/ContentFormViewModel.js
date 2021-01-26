@@ -3,6 +3,7 @@ import { notify } from "../../../components/Toast";
 import history from "../../../routes/history";
 
 import PAGE_STATUS from "../../../constants/PageStatus";
+import { compare } from "semver";
 
 class ContentFormViewModel {
   contentEditdata = null;
@@ -27,6 +28,20 @@ class ContentFormViewModel {
 
   setForm = (contentFormComponent) => {
     this.contentFormComponent = contentFormComponent;
+  };
+
+  setEditContent = (data) => {
+    this.formStatus = PAGE_STATUS.READY;
+    this.contentFormComponent.populatingFormDataHandler(data[0]);
+  };
+
+  getContent = (id) => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.contentStore.getContent(
+      id,
+      this.setEditContent,
+      this.callbackOnErrorHander
+    );
   };
 
   post = (data) => {

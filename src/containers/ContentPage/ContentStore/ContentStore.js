@@ -226,16 +226,15 @@ export default class ContentStore {
     if (!id) return false;
 
     try {
-      const results = true;
+      const contentService = new EasiiContentApiService();
+      const repondedDataFromLibrary = await contentService.getContentItem(id);
 
-      const editContent = contents.filter(
-        (content) => content.id !== parseInt(id)
-      );
+      console.log("Content Store - getContent");
+      console.log(repondedDataFromLibrary);
 
-      if (results) {
-        const repondedDataFromLibrary = editContent;
+      if (repondedDataFromLibrary) {
         const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-          repondedDataFromLibrary
+          [repondedDataFromLibrary]
         );
 
         if (contentDataModels) {

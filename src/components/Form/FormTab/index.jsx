@@ -73,7 +73,9 @@ const FormTab = observer(
 
       const { field, validator } = this.props;
 
+      console.log("personaSelectionData tab");
       console.log(personaSelectionData);
+
       return (
         personaSelectionData.length > 0 && (
           <>
