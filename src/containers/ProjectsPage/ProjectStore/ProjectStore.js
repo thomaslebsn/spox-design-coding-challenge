@@ -273,31 +273,29 @@ export default class ProjectStore {
   async deleteProjects(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE PROJECT IDS")
+    console.log(ids);
+
     try {
-      const results = true;
+      const projectAPIService = new EasiiProjectApiService();
+      let respondedFromApi;
 
-      projects = projects.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
+      let result = await Promise.all(ids.map(async (id) => {
+        respondedFromApi = await projectAPIService.deleteProject(id);
+        return respondedFromApi.result;
+      }));
 
-      if (results) {
-        const respondedDataFromLibrary = projects;
-        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-          respondedDataFromLibrary
-        );
+      console.log(`Delete projects: ${ids}`);
 
-        if (projectDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(projectDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
+      let checker = result.every(Boolean);
 
-        console.log(`Deleting Project ids: ${ids}`);
+      if (checker === true) {
+        await this.fetchProjects(
+          callbackOnSuccess,
+          callbackOnError
+        )
       }
+
     } catch (error) {
       console.log(error);
       runInAction(() => {
