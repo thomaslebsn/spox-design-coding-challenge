@@ -29,7 +29,7 @@ class ProjectFormModalViewModel {
     // this.projectEditdata = data;
     this.formStatus = PAGE_STATUS.READY;
     this.editMode = true;
-    this.projectEditdata = data;
+    this.projectEditdata = data[0];
     //this.projectFormComponent.populatingFormDataHandler(data[0]);
   };
 
@@ -55,7 +55,7 @@ class ProjectFormModalViewModel {
     //const isFormValid = this.projectFormComponent.isFormValid();
     const isFormValid = true;
 
-    console.log('Project Creation - isFormValid:');
+    console.log("Project Creation - isFormValid:");
     console.log(isFormValid);
 
     if (isFormValid) {

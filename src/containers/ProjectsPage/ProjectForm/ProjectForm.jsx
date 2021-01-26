@@ -1,10 +1,12 @@
 import React, { Component, lazy } from "react";
 
+import { observer } from "mobx-react";
+
 import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
 import { format } from "date-fns";
-import PAGE_STATUS from '../../../constants/PageStatus'
+import PAGE_STATUS from "../../../constants/PageStatus";
 
 const FormComponent = lazy(() => import("../../../components/Form"));
 
@@ -27,9 +29,10 @@ class ProjectForm extends Component {
 
     this.viewModel = this.props.viewModel;
 
-    console.log('----!!!!!!!!!------');
+    console.log("----!!!!!!!!!------");
     console.log(this.props.viewModel);
-    console.log(this.id);
+
+    this.isEditMode = this.viewModel.editMode;
 
     this.isEditMode = this.viewModel.editMode === true;
 
@@ -38,12 +41,8 @@ class ProjectForm extends Component {
     }
   }
 
-  componentDidMount() {
-    //this.formPropsData = this.ProjectItemModel
-  }
-
   generateFormSetting = () => {
-    console.log("re generate Form Setting");
+    console.log("re generate Form Setting", this.formPropsData);
     return [
       {
         fields: [
@@ -112,8 +111,7 @@ class ProjectForm extends Component {
   };
 
   populatingFormDataHandler = (data) => {
-    console.log('????????????');
-    console.log(data);
+    console.log("populatingFormDataHandler", data);
 
     if (!data) return false;
 
@@ -129,7 +127,7 @@ class ProjectForm extends Component {
       PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION
     ] = data.getShortDescription().value;
 
-    console.log('-- is DATA POPu ---');
+    console.log("-- is DATA POPu ---");
     console.log(this.formPropsData);
   };
 
