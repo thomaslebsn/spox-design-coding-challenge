@@ -1,57 +1,34 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
+import { format } from "date-fns";
 
-const data = [
-  {
-    key: 1,
-    campaignsName: "Independence day 2/9",
-    startDate: "31/08/2020",
-    endDate: "31/08/2020",
-    status: "In progress",
-    statusName: "bg-status-1",
-  },
-  {
-    key: 2,
-    campaignsName: "Trung thu 2020",
-    startDate: "31/08/2020",
-    endDate: "31/08/2020",
-    status: "In progress",
-    statusName: "bg-status-1",
-  },
-  {
-    key: 3,
-    campaignsName: "Christmas 2020",
-    startDate: "31/08/2020",
-    endDate: "31/08/2020",
-    status: "In progress",
-    statusName: "bg-status-1",
-  },
-  {
-    key: 4,
-    campaignsName: "New year's",
-    startDate: "31/08/2020",
-    endDate: "31/08/2020",
-    status: "To do",
-    statusName: "bg-status-2",
-  },
-  {
-    key: 5,
-    campaignsName: "Lunar new year",
-    startDate: "31/08/2020",
-    endDate: "31/08/2020",
-    status: "To do",
-    statusName: "bg-status-2",
-  },
-];
+import CampaignsStore from "../../containers/CampaignsPage/CampaignsStore/CampaignsStore";
+import { FORMAT_DATE } from "../../constants/FormFieldType";
+import getStatus from "../../utils/status";
+
+const campaignsStore = new CampaignsStore();
 
 class AssignedToMe extends React.Component {
+  getDataCampaigns = [];
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      getDataCampaigns: [],
+    };
   }
+
+  componentDidMount = () => {
+    campaignsStore.fetchCampaigns((data) => {
+      this.getDataCampaigns = data;
+      this.setState({
+        getDataCampaigns: data,
+      });
+    });
+  };
 
   render() {
     const { t, i18n } = this.props;
+
     return (
       <div className="bg-white p-3">
         <div className="d-flex justify-content-between mb-2">
@@ -75,25 +52,33 @@ class AssignedToMe extends React.Component {
           </div>
         </div>
         <div className="px-3">
-          {data.map((value, key) => {
+          {this.state.getDataCampaigns.map((value, key) => {
             return (
               <div key={key} className="row py-3 border-bottom-1 item_project">
                 <div className="col-6">
                   <div className="d-flex align-items-center">
-                    <span className="ps-3">{value.campaignsName}</span>
+                    <span>{value.name}</span>
                   </div>
                 </div>
                 <div className="col-2">
-                  <span>{value.startDate}</span>
+                  <span>
+                    {value.startdate
+                      ? format(new Date(value.startdate), FORMAT_DATE)
+                      : ""}
+                  </span>
                 </div>
                 <div className="col-2">
-                  <span>{value.endDate}</span>
+                  <span>
+                    {value.enddate
+                      ? format(new Date(value.enddate), FORMAT_DATE)
+                      : ""}
+                  </span>
                 </div>
                 <div className="col-2">
                   <span
-                    className={`mw-100 h-35 fs-14 d-table-cell align-middle text-center rounded-2 ${value.statusName}`}
+                    className={`mw-100 h-35 fs-14 d-table-cell align-middle text-center rounded-2 bg-status-${value.status}`}
                   >
-                    {value.status}
+                    {value.status ? getStatus(value.status) : ""}
                   </span>
                 </div>
               </div>
