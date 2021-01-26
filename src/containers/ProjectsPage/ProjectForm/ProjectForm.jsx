@@ -4,6 +4,7 @@ import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
 import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
 
 import { format } from "date-fns";
+import PAGE_STATUS from '../../../constants/PageStatus'
 
 const FormComponent = lazy(() => import("../../../components/Form"));
 
@@ -26,11 +27,19 @@ class ProjectForm extends Component {
 
     this.viewModel = this.props.viewModel;
 
+    console.log('----!!!!!!!!!------');
+    console.log(this.props.viewModel);
+    console.log(this.id);
+
     this.isEditMode = this.viewModel.editMode === true;
 
     if (this.isEditMode) {
       this.populatingFormDataHandler(this.viewModel.projectEditdata);
     }
+  }
+
+  componentDidMount() {
+    //this.formPropsData = this.ProjectItemModel
   }
 
   generateFormSetting = () => {
@@ -103,7 +112,11 @@ class ProjectForm extends Component {
   };
 
   populatingFormDataHandler = (data) => {
+    console.log('????????????');
+    console.log(data);
+
     if (!data) return false;
+
     this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME] = data.getName().value;
     this.formPropsData[
       PROJECT_COLUMN_INDICATOR.START_DATE
@@ -115,6 +128,9 @@ class ProjectForm extends Component {
     this.formPropsData[
       PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION
     ] = data.getShortDescription().value;
+
+    console.log('-- is DATA POPu ---');
+    console.log(this.formPropsData);
   };
 
   onDrop = (files) => {
@@ -123,6 +139,7 @@ class ProjectForm extends Component {
 
   render() {
     console.log("[Project - Form] - re-render .........");
+    console.log(this.formPropsData);
 
     return (
       <FormComponent
