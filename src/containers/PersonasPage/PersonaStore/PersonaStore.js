@@ -102,9 +102,22 @@ export default class PersonaStore {
 
       const personaService = new EasiiPersonaApiService();
 
-      const resultOnSave = await personaService.createPersona(
-        convertedPersonaData
-      );
+      // const resultOnSave = await personaService.createPersona(
+      //   convertedPersonaData
+      // );
+
+      var resultOnSave;
+
+      if (personaData.id == undefined) {
+        console.log('CREATE PERSONA');
+        resultOnSave = await personaService.createPersona(convertedPersonaData);
+      } else {
+        console.log('UPDATE PERSONA', convertedPersonaData);
+        //convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        resultOnSave = await personaData.updatePersona(convertedPersonaData);
+      }
+
+      console.log('resultOnSave', resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {
@@ -128,31 +141,29 @@ export default class PersonaStore {
   async deletePersonas(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE PERSONA IDS")
+    console.log(ids);
+
     try {
-      const results = true;
+      const personaService = new EasiiPersonaApiService();
+      let respondedFromApi;
 
-      personas = personas.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
+      let result = await Promise.all(ids.map(async (id) => {
+        respondedFromApi = await personaService.deletePersona(id);
+        return respondedFromApi.result;
+      }));
 
-      if (results) {
-        const repondedDataFromLibrary = personas;
-        const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
-          repondedDataFromLibrary
-        );
+      console.log(`Delete persona: ${ids}`);
 
-        if (personaDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(personaDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
+      let checker = result.every(Boolean);
 
-        console.log(`Deleting Persona ids: ${ids}`);
+      if (checker === true) {
+        await this.fetchPersonas(
+          callbackOnSuccess,
+          callbackOnError
+        )
       }
+
     } catch (error) {
       console.log(error);
       runInAction(() => {

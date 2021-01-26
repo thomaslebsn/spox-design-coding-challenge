@@ -40,7 +40,17 @@ class PersonaFormViewModel {
   };
 
   savePersona = () => {
-    const isFormValid = this.personaFormComponent.isFormValid();
+    //const isFormValid = this.personaFormComponent.isFormValid();
+
+    const isFormValid = true;
+
+    console.log("Persona Creation - isFormValid:");
+    console.log(isFormValid);
+
+    if (this.editMode) {
+      const personaId = this.personaEditdata.getId();
+      this.personaFormComponent.formPropsData.id = personaId.value;
+    }
 
     if (isFormValid) {
       this.formStatus = PAGE_STATUS.LOADING;
