@@ -1,10 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
+import PAGE_STATUS from "../../../constants/PageStatus";
+
 class ProjectFormModalViewModel {
   show = false;
   projectEditdata = null;
-  editMode = false;
+  editMode = null;
   projectListViewModel = null;
+  formStatus = PAGE_STATUS.READY;
 
   projectStore = null;
   projectFormComponent = null;
@@ -23,12 +26,17 @@ class ProjectFormModalViewModel {
   };
 
   setEditProject = (data) => {
+    console.log('Set edit data for project:', typeof data[0]);
     this.editMode = true;
-    this.projectEditdata = data;
+    this.formStatus = PAGE_STATUS.READY;
+
+    if(data[0] !== undefined && (typeof data) == 'object') {
+      this.projectEditdata = data[0];
+    }
   };
 
   getProject = (id) => {
-    this.editMode = true;
+    this.formStatus = PAGE_STATUS.LOADING;
     this.projectStore.getProject(
       id,
       this.setEditProject,
@@ -49,8 +57,13 @@ class ProjectFormModalViewModel {
     //const isFormValid = this.projectFormComponent.isFormValid();
     const isFormValid = true;
 
-    console.log('Project Creation - isFormValid:');
+    console.log("Project Creation - isFormValid:");
     console.log(isFormValid);
+
+    if (this.editMode) {
+      const projectID = this.projectEditdata.getId();
+      this.projectFormComponent.formPropsData.id = projectID.value;
+    }
 
     if (isFormValid) {
       this.projectStore.saveProject(

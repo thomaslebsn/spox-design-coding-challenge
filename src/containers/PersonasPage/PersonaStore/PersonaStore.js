@@ -102,9 +102,22 @@ export default class PersonaStore {
 
       const personaService = new EasiiPersonaApiService();
 
-      const resultOnSave = await personaService.createPersona(
-        convertedPersonaData
-      );
+      // const resultOnSave = await personaService.createPersona(
+      //   convertedPersonaData
+      // );
+
+      let resultOnSave;
+
+      if (personaData.id == undefined) {
+        console.log('CREATE PERSONA');
+        resultOnSave = await personaService.createPersona(convertedPersonaData);
+      } else {
+        console.log('UPDATE PERSONA', convertedPersonaData);
+        //convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        resultOnSave = await personaData.updatePersona(convertedPersonaData);
+      }
+
+      console.log('resultOnSave', resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {
@@ -128,31 +141,21 @@ export default class PersonaStore {
   async deletePersonas(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE PERSONA IDS")
+    console.log(ids);
+
     try {
-      const results = true;
+      const personaService = new EasiiPersonaApiService();
+      let deleteIds = ids.join();
+      let respondedFromApi = await personaService.deletePersona(deleteIds);
 
-      personas = personas.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
-
-      if (results) {
-        const repondedDataFromLibrary = personas;
-        const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
-          repondedDataFromLibrary
-        );
-
-        if (personaDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(personaDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
-
-        console.log(`Deleting Persona ids: ${ids}`);
+      if (respondedFromApi.result === true) {
+        await this.fetchPersonas(
+          callbackOnSuccess,
+          callbackOnError
+        )
       }
+
     } catch (error) {
       console.log(error);
       runInAction(() => {
