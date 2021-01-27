@@ -67,6 +67,8 @@ class ProjectModel {
     };
   };
 
+  getLogoUrlValue = () => this.getLogoUrl().value;
+
   getStartDate = () => {
     return {
       value: this.startdate
@@ -79,6 +81,8 @@ class ProjectModel {
     };
   };
 
+  getStartDateOriginal = () => this.getStartDate().original;
+
   getEndDate = () => {
     return {
       value: this.enddate ? format(new Date(this.enddate), FORMAT_DATE) : "",
@@ -89,6 +93,8 @@ class ProjectModel {
     };
   };
 
+  getOriginalStartDate = () => this.getStartDate().original;
+
   getProgress = () => {
     return {
       value: this.progress ? this.progress.getProgress() : 0,
@@ -98,6 +104,8 @@ class ProjectModel {
     };
   };
 
+  getOriginalEndDate = () => this.getEndDate().original;
+
   getShortDescription = () => {
     return {
       value: this.shortDescription,
@@ -106,6 +114,8 @@ class ProjectModel {
       columnText: "Short Description",
     };
   };
+
+  getShortDescriptionValue = () => this.getShortDescription().value;
 
   getLead = () => {
     return {

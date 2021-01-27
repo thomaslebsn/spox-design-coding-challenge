@@ -116,16 +116,16 @@ const ProjectForm = observer(
       this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME] = data.getName().value;
       this.formPropsData[
         PROJECT_COLUMN_INDICATOR.START_DATE
-      ] = data.getStartDate().original;
+      ] = data.getOriginalStartDate();
       this.formPropsData[
         PROJECT_COLUMN_INDICATOR.END_DATE
-      ] = data.getEndDate().original;
+      ] = data.getOriginalEndDate();
       this.formPropsData[
         PROJECT_COLUMN_INDICATOR.LOGO
-      ] = data.getLogoUrl().value;
+      ] = data.getLogoUrlValue();
       this.formPropsData[
         PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION
-      ] = data.getShortDescription().value;
+      ] = data.getShortDescriptionValue();
 
       console.log("-- is DATA POPu ---");
       console.log(this.formPropsData);

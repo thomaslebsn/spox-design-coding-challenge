@@ -106,7 +106,7 @@ export default class PersonaStore {
       //   convertedPersonaData
       // );
 
-      var resultOnSave;
+      let resultOnSave;
 
       if (personaData.id == undefined) {
         console.log('CREATE PERSONA');
@@ -146,18 +146,10 @@ export default class PersonaStore {
 
     try {
       const personaService = new EasiiPersonaApiService();
-      let respondedFromApi;
+      let deleteIds = ids.join();
+      let respondedFromApi = await personaService.deletePersona(deleteIds);
 
-      let result = await Promise.all(ids.map(async (id) => {
-        respondedFromApi = await personaService.deletePersona(id);
-        return respondedFromApi.result;
-      }));
-
-      console.log(`Delete persona: ${ids}`);
-
-      let checker = result.every(Boolean);
-
-      if (checker === true) {
+      if (respondedFromApi.result === true) {
         await this.fetchPersonas(
           callbackOnSuccess,
           callbackOnError
