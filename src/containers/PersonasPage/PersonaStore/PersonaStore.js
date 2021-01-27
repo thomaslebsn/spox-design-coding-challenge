@@ -146,8 +146,8 @@ export default class PersonaStore {
 
     try {
       const personaService = new EasiiPersonaApiService();
-      let deleteIds = ids.join();
-      let respondedFromApi = await personaService.deletePersona(deleteIds);
+      const deleteIds = ids.join();
+      const respondedFromApi = await personaService.deletePersona(deleteIds);
 
       if (respondedFromApi.result === true) {
         runInAction(() => {
