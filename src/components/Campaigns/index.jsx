@@ -9,7 +9,6 @@ import getStatus from "../../utils/status";
 const campaignsStore = new CampaignsStore();
 
 class AssignedToMe extends React.Component {
-  getDataCampaigns = [];
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +18,6 @@ class AssignedToMe extends React.Component {
 
   componentDidMount = () => {
     campaignsStore.fetchCampaigns((data) => {
-      this.getDataCampaigns = data;
       this.setState({
         getDataCampaigns: data,
       });
