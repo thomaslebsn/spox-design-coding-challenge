@@ -165,30 +165,19 @@ export default class CampaignsStore {
   async deleteCampaigns(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE CAMPAIGN IDS")
+    console.log(ids);
+
     try {
-      const results = true;
+      const campaignService = new EasiiCampaignApiService();
+      const deleteIds = ids.join();
+      console.log('Prepare ids for delete: ', deleteIds);
+      const respondedFromApi = await campaignService.deleteCampaign(deleteIds);
 
-      campaigns = campaigns.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
-
-      if (results) {
-        const repondedDataFromLibrary = campaigns;
-        const campaignsDataModels = CampaignsUtils.transformCampaignsResponseIntoModel(
-          repondedDataFromLibrary
-        );
-
-        if (campaignsDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(campaignsDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
-
-        console.log(`Deleting Persona ids: ${ids}`);
+      if (respondedFromApi.result === true) {
+        runInAction(() => {
+          callbackOnSuccess();
+        })
       }
     } catch (error) {
       console.log(error);

@@ -59,7 +59,7 @@ const CampaignsList = observer(
         .map((item) => {
           console.log("Debug An Item");
           console.log(item);
-          return item.id;
+          return item[CAMPAIGNS_FIELD_KEY.ID];
         })
         .reduce((arr, el) => {
           return arr.concat(el);
