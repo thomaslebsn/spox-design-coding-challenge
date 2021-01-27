@@ -45,7 +45,7 @@ class PersonaModel {
 
   getId = () => {
     return {
-      value: this.id,
+      value: this.id ?? 0,
       type: FIELD_TYPE.READONLY,
       columnName: PERSONA_FIELD_KEY.ID,
       columnText: "ID",
@@ -54,7 +54,7 @@ class PersonaModel {
 
   getName = () => {
     return {
-      value: this.name,
+      value: this.name ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.NAME,
       columnText: "Name",
@@ -63,7 +63,7 @@ class PersonaModel {
 
   getDgName = () => {
     return {
-      value: this.dgname,
+      value: this.dgname ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.DG_NAME,
       columnText: "Name",
@@ -72,7 +72,7 @@ class PersonaModel {
 
   getImage = () => {
     return {
-      value: this.image,
+      value: this.image ?? "",
       type: FIELD_TYPE.IMAGE,
       columnName: PERSONA_FIELD_KEY.IMAGE,
       columnText: "Name",
@@ -81,7 +81,7 @@ class PersonaModel {
 
   getAvatar = () => {
     return {
-      value: this.avatar,
+      value: this.avatar ?? "",
       type: FIELD_TYPE.AVATAR,
       columnName: PERSONA_FIELD_KEY.AVATAR,
       columnText: "Name",
@@ -90,7 +90,7 @@ class PersonaModel {
 
   getChannels = () => {
     return {
-      value: this.channelsModel,
+      value: this.channelsModel ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.CHANNELS,
       columnText: "Channels",
@@ -99,9 +99,8 @@ class PersonaModel {
 
   getCreatedDate = () => {
     return {
-      value: format(new Date(this.createdDate), FORMAT_DATE),
-      //value: this.createdDate,
-      original: this.createdDate,
+      value: this.createdDate? format(new Date(this.createdDate), FORMAT_DATE): "",
+      original: this.createdDate ?? "",
       type: FIELD_TYPE.DATE,
       columnName: PERSONA_FIELD_KEY.CREATED_DATE,
       columnText: "Created Date",
@@ -110,9 +109,9 @@ class PersonaModel {
 
   getUpdatedDate = () => {
     return {
-      value: format(new Date(this.updatedDate), FORMAT_DATE),
+      value: this.updatedDate ? format(new Date(this.updatedDate), FORMAT_DATE): "",
       //value: this.updatedDate,
-      original: this.updatedDate,
+      original: this.updatedDate ?? "",
       type: FIELD_TYPE.DATE,
       columnName: PERSONA_FIELD_KEY.UPDATED_DATE,
       columnText: "Updated",
@@ -121,7 +120,7 @@ class PersonaModel {
 
   getTools = () => {
     return {
-      value: this.tools,
+      value: this.tools ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.TOOLS,
       columnText: "Tools",
@@ -130,7 +129,7 @@ class PersonaModel {
 
   getBio = () => {
     return {
-      value: this.bio,
+      value: this.bio ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.BIO,
       columnText: "Tools",
@@ -139,7 +138,7 @@ class PersonaModel {
 
   getGoals = () => {
     return {
-      value: this.goals,
+      value: this.goals ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.GOALS,
       columnText: "Goals",
@@ -148,7 +147,7 @@ class PersonaModel {
 
   getAge = () => {
     return {
-      value: this.age,
+      value: this.age ?? 0,
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.AGE,
       columnText: "Goals",
@@ -157,7 +156,7 @@ class PersonaModel {
 
   getGender = () => {
     return {
-      value: this.gender,
+      value: this.gender ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.GENDER,
       columnText: "Gender",
@@ -166,7 +165,7 @@ class PersonaModel {
 
   getLocation = () => {
     return {
-      value: this.location,
+      value: this.location ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.LOCATION,
       columnText: "Location",
@@ -175,7 +174,7 @@ class PersonaModel {
 
   getJobTitle = () => {
     return {
-      value: this.job_title,
+      value: this.job_title ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.JOB_TITLE,
       columnText: "Job title",
@@ -184,7 +183,7 @@ class PersonaModel {
 
   getSector = () => {
     return {
-      value: this.sector,
+      value: this.sector ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.SECTOR,
       columnText: "SECTOR",
@@ -202,7 +201,7 @@ class PersonaModel {
 
   getWebsite = () => {
     return {
-      value: this.website,
+      value: this.website ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.WEBSITE,
       columnText: "WEBSITE",
@@ -211,7 +210,7 @@ class PersonaModel {
 
   getVendorResearch = () => {
     return {
-      value: this.vendor_research,
+      value: this.vendor_research ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.VENDOR_RESEARCH,
       columnText: "Vendor research",
@@ -220,7 +219,7 @@ class PersonaModel {
 
   getInterest = () => {
     return {
-      value: this.interest,
+      value: this.interest ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.INTEREST,
       columnText: "Interest",
@@ -229,7 +228,7 @@ class PersonaModel {
 
   getChallenges = () => {
     return {
-      value: this.challenges,
+      value: this.challenges ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.CHALLENGES,
       columnText: "Challenges",
@@ -238,7 +237,7 @@ class PersonaModel {
 
   getPaintpoint = () => {
     return {
-      value: this.paint_point,
+      value: this.paint_point ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PERSONA_FIELD_KEY.PAINT_POINT,
       columnText: "Paint point",
