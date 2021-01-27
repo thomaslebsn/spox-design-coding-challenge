@@ -200,11 +200,11 @@ export default class ProjectStore {
     try {
       console.log("Project Store - Fetch Projects");
       const projectAPIService = new EasiiProjectApiService();
-      const repondedDataFromLibrary = await projectAPIService.getProjects(1,100);
+      const respondedDataFromLibrary = await projectAPIService.getProjects(1,100);
       console.log("Debugging ---- fetchProjects");
-      console.log(repondedDataFromLibrary);
+      console.log(respondedDataFromLibrary);
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-        repondedDataFromLibrary
+        respondedDataFromLibrary
       );
 
       if (projectDataModels) {
@@ -236,11 +236,20 @@ export default class ProjectStore {
       console.log('Project Converted Data');
       console.log(convertedProjectData);
 
-      const projectAPIService = new EasiiProjectApiService();    
-      const resultOnSave = await projectAPIService.createProject(convertedProjectData);
+      const projectAPIService = new EasiiProjectApiService();
 
-      console.log("---- ABC ----");
-      console.log(resultOnSave);
+      var resultOnSave;
+
+      if (projectData.id == undefined) {
+        console.log('CREATE PROJECT');
+        resultOnSave = await projectAPIService.createProject(convertedProjectData);
+      } else {
+        console.log('UPDATE PROJECT', convertedProjectData);
+        convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        resultOnSave = await projectAPIService.updateProject(convertedProjectData);
+      }
+
+      console.log('resultOnSave', resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {
@@ -264,30 +273,20 @@ export default class ProjectStore {
   async deleteProjects(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE PROJECT IDS")
+    console.log(ids);
+
     try {
-      const results = true;
+      const projectAPIService = new EasiiProjectApiService();
+      let deleteIds = ids.join();
+      console.log('Prepare ids for delete: ', deleteIds);
+      let respondedFromApi = await projectAPIService.deleteProject(deleteIds);
 
-      projects = projects.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
-
-      if (results) {
-        const repondedDataFromLibrary = projects;
-        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-          repondedDataFromLibrary
-        );
-
-        if (projectDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(projectDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
-
-        console.log(`Deleting Project ids: ${ids}`);
+      if (respondedFromApi.result === true) {
+        await this.fetchProjects(
+          callbackOnSuccess,
+          callbackOnError
+        )
       }
     } catch (error) {
       console.log(error);
@@ -303,15 +302,21 @@ export default class ProjectStore {
     try {
       const results = true;
 
-      const editProject = projects.filter(function (e) {
-        return id === e.id;
-      });
+      // const editProject = projects.filter(function (e) {
+      //   return id === e.id;
+      // });
 
       if (results) {
-        const repondedDataFromLibrary = editProject;
+        const projectAPIService = new EasiiProjectApiService();
+        const respondedDataFromLibrary = await projectAPIService.getProjectItem(id, false);
+        console.log('PROJECT RESPONDED ITEM');
+        console.log(id);
+        console.log(respondedDataFromLibrary);
         const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-          repondedDataFromLibrary
+          [respondedDataFromLibrary]
         );
+
+        console.log(projectDataModels);
 
         if (projectDataModels) {
           runInAction(() => {

@@ -202,7 +202,9 @@ export default class ContentStore {
       );
 
       if (repondedDataFromLibrary.result === true) {
-        await this.fetchContents(callbackOnSuccess, callbackOnError);
+        runInAction(() => {
+          callbackOnSuccess();
+        });
       }
     } catch (error) {
       console.log(error);
