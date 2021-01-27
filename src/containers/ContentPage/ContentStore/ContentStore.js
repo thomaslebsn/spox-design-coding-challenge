@@ -194,10 +194,10 @@ export default class ContentStore {
 
     try {
       const contentAPIService = new EasiiContentApiService();
-      let deleteIds = ids.join();
+      const deleteIds = ids.join();
       console.log("Prepare ids for delete: ", deleteIds);
 
-      let repondedDataFromLibrary = await contentAPIService.deleteContent(
+      const repondedDataFromLibrary = await contentAPIService.deleteContent(
         deleteIds
       );
 

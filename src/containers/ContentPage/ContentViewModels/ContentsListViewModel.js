@@ -46,7 +46,7 @@ class ContentsListViewModel {
 
       this.contentStore.deleteContents(
         this.contentIdsSelected,
-        this.callbackOnSuccessHandler,
+        this.refreshTableContentList,
         this.callbackOnErrorHander
       );
     }
