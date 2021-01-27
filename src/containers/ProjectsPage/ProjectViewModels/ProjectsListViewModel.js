@@ -38,7 +38,7 @@ class ProjectsListViewModel {
   deleteProjects = () => {
     let getArrayId = this.contentIdsSelected;
 
-    if (getArrayId == null) {
+    if (getArrayId === null) {
       notify("Please true add list an item for delete");
     } else {
       this.tableStatus = PAGE_STATUS.LOADING;
