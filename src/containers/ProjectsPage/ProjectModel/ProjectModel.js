@@ -42,7 +42,7 @@ class ProjectModel {
 
   getId = () => {
     return {
-      value: this.id,
+      value: this.id ?? 0,
       type: FIELD_TYPE.READONLY,
       columnName: PROJECT_COLUMN_INDICATOR.ID,
       columnText: "ID",
@@ -51,7 +51,7 @@ class ProjectModel {
 
   getName = () => {
     return {
-      value: this.name,
+      value: this.name ?? "",
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.NAME,
       columnText: "Name",
@@ -60,7 +60,7 @@ class ProjectModel {
 
   getLogoUrl = () => {
     return {
-      value: this.logoUrl,
+      value: this.logoUrl ?? "",
       type: FIELD_TYPE.IMAGE,
       columnName: PROJECT_COLUMN_INDICATOR.LOGO,
       columnText: "Logo Url",
@@ -74,7 +74,7 @@ class ProjectModel {
       value: this.startdate
         ? format(new Date(this.startdate), FORMAT_DATE)
         : "",
-      original: this.startdate,
+      original: this.startdate ?? "",
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.START_DATE,
       columnText: "Start Date",
@@ -86,7 +86,7 @@ class ProjectModel {
   getEndDate = () => {
     return {
       value: this.enddate ? format(new Date(this.enddate), FORMAT_DATE) : "",
-      original: this.enddate,
+      original: this.enddate ?? "",
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.END_DATE,
       columnText: "End Date",
@@ -108,7 +108,7 @@ class ProjectModel {
 
   getShortDescription = () => {
     return {
-      value: this.shortDescription,
+      value: this.shortDescription ?? "",
       type: FIELD_TYPE.RICHTEXT,
       columnName: PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
       columnText: "Short Description",
@@ -131,7 +131,7 @@ class ProjectModel {
       value: this.createdate
         ? format(new Date(this.createdate), FORMAT_DATE)
         : "",
-      original: this.createdate,
+      original: this.createdate ?? "",
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
       columnText: "Create Date",

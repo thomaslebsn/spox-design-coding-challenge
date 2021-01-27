@@ -278,15 +278,14 @@ export default class ProjectStore {
 
     try {
       const projectAPIService = new EasiiProjectApiService();
-      let deleteIds = ids.join();
+      const deleteIds = ids.join();
       console.log('Prepare ids for delete: ', deleteIds);
-      let respondedFromApi = await projectAPIService.deleteProject(deleteIds);
+      const respondedFromApi = await projectAPIService.deleteProject(deleteIds);
 
       if (respondedFromApi.result === true) {
-        await this.fetchProjects(
-          callbackOnSuccess,
-          callbackOnError
-        )
+        runInAction(() => {
+          callbackOnSuccess();
+        })
       }
     } catch (error) {
       console.log(error);
