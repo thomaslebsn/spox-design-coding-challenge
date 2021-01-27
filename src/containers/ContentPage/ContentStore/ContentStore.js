@@ -189,30 +189,20 @@ export default class ContentStore {
   async deleteContents(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE CONTENT IDS");
+    console.log(ids);
+
     try {
-      const results = true;
+      const contentAPIService = new EasiiContentApiService();
+      let deleteIds = ids.join();
+      console.log("Prepare ids for delete: ", deleteIds);
 
-      contents = contents.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
+      let repondedDataFromLibrary = await contentAPIService.deleteContent(
+        deleteIds
+      );
 
-      if (results) {
-        const repondedDataFromLibrary = contents;
-        const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-          repondedDataFromLibrary
-        );
-
-        if (contentDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(contentDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
-
-        console.log(`Deleting Content ids: ${ids}`);
+      if (repondedDataFromLibrary.result === true) {
+        await this.fetchContents(callbackOnSuccess, callbackOnError);
       }
     } catch (error) {
       console.log(error);

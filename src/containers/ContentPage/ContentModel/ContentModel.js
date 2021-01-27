@@ -13,7 +13,6 @@ import PersonaStore from "../../PersonasPage/PersonaStore/PersonaStore";
 
 class ContentModel {
   constructor(data) {
-    console.log("datadatadatadatadatadatadatadata", data);
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
     this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? "";
     this.channels = data.channel_descriptions ?? "";

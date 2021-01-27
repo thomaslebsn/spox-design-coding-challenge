@@ -3,7 +3,6 @@ import { notify } from "../../../components/Toast";
 import history from "../../../routes/history";
 
 import PAGE_STATUS from "../../../constants/PageStatus";
-import { compare } from "semver";
 
 class ContentFormViewModel {
   contentEditdata = null;

@@ -3,6 +3,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 import ContentUtils from "../ContentUtils/ContentUtils";
 import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 import history from "../../../routes/history";
+import { notify } from "../../../components/Toast";
 class ContentsListViewModel {
   contentStore = null;
 
@@ -36,13 +37,19 @@ class ContentsListViewModel {
   };
 
   deleteContents = () => {
-    this.tableStatus = PAGE_STATUS.LOADING;
+    let getArrayId = this.contentIdsSelected;
 
-    this.contentStore.deleteContents(
-      this.contentIdsSelected,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
-    );
+    if (getArrayId == null) {
+      notify("Please true add list an item for delete");
+    } else {
+      this.tableStatus = PAGE_STATUS.LOADING;
+
+      this.contentStore.deleteContents(
+        this.contentIdsSelected,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHander
+      );
+    }
   };
 
   callbackOnErrorHander = (error) => {

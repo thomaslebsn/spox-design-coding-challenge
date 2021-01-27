@@ -32,7 +32,6 @@ class ContentActionBar extends Component {
   };
 
   handerDeleteContent = () => {
-    console.log("handerDeleteContent");
     this.contentsListViewModel.deleteContents();
   };
 
