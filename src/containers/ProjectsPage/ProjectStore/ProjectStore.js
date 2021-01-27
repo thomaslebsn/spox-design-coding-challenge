@@ -283,10 +283,9 @@ export default class ProjectStore {
       let respondedFromApi = await projectAPIService.deleteProject(deleteIds);
 
       if (respondedFromApi.result === true) {
-        await this.fetchProjects(
-          callbackOnSuccess,
-          callbackOnError
-        )
+        runInAction(() => {
+          callbackOnSuccess();
+        })
       }
     } catch (error) {
       console.log(error);

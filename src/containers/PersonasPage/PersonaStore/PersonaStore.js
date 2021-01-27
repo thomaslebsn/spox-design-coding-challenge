@@ -150,10 +150,9 @@ export default class PersonaStore {
       let respondedFromApi = await personaService.deletePersona(deleteIds);
 
       if (respondedFromApi.result === true) {
-        await this.fetchPersonas(
-          callbackOnSuccess,
-          callbackOnError
-        )
+        runInAction(() => {
+          callbackOnSuccess();
+        })
       }
 
     } catch (error) {
