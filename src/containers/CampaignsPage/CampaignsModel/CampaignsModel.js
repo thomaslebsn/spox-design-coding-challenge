@@ -13,19 +13,20 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 class CampaignsModel {
   constructor(data) {
-    this.id = data.id ?? 0;
-    this.name = data.title ?? "";
-    this.status = data.status ?? "";
-    this.startdate = data.start_date ?? "";
-    this.enddate = data.end_date ?? "";
-    this.needtodo = data.no_to_do_post ?? "";
-    this.schedudepost = data.no_scheduled_posts ?? "";
-    this.publishedcontent = data.publish_content ?? "";
+    console.log('----- DATA -----', data[CAMPAIGN_API_FIELD_KEY.ID]);
+    this.id = data[CAMPAIGN_API_FIELD_KEY.ID];
+    this.name = data[CAMPAIGN_API_FIELD_KEY.NAME] ?? "";
+    this.status = data[CAMPAIGN_API_FIELD_KEY.STATUS] ?? "";
+    this.startdate = data[CAMPAIGN_API_FIELD_KEY.START_DATE] ?? "";
+    this.enddate = data[CAMPAIGN_API_FIELD_KEY.END_DATE] ?? "";
+    this.needtodo = data.[CAMPAIGN_API_FIELD_KEY.NEED_TO_DO] ?? "";
+    this.schedudepost = data[CAMPAIGN_API_FIELD_KEY.SCHEDUDE_POST] ?? "";
+    this.publishedcontent = data[CAMPAIGN_API_FIELD_KEY.PUBLISHED_CONTENT] ?? "";
 
-    this.project = data.project ?? "";
+    this.project = data[CAMPAIGN_API_FIELD_KEY.PROJECT] ?? "";
 
-    this.percentComplete = data.percentComplete ?? "";
-    this.progress = data.progress ? new ProgressModel(data) : 0;
+    this.percentComplete = data[CAMPAIGN_API_FIELD_KEY.PERCENT_COMPLETE] ?? "";
+    this.progress = data[CAMPAIGN_API_FIELD_KEY.PROGRESS] ? new ProgressModel(data) : 0;
   }
 
   getId = () => {
@@ -159,6 +160,8 @@ class CampaignsModel {
 
     const result = campaignsData
       ? {
+          [CAMPAIGN_API_FIELD_KEY.ID]:
+            campaignsData[CAMPAIGNS_FIELD_KEY.ID] ?? "",
           [CAMPAIGN_API_FIELD_KEY.NAME]:
             campaignsData[CAMPAIGNS_FIELD_KEY.NAME] ?? "",
           [CAMPAIGN_API_FIELD_KEY.START_DATE]:

@@ -1,11 +1,15 @@
 import CampaignsModel from "../CampaignsModel/CampaignsModel";
 
 class CampaignsUtils {
-  transformCampaignsResponseIntoModel = (response) => {
+  transformCampaignResponseIntoModel = (response) => {
+    console.log(response);
     return Object.keys(response)
       .map((index) => {
         return [...Array(response[index])].map((item) => {
-          return new CampaignsModel(item);
+          console.log('Campaign Model:', item);
+          const model = new CampaignsModel(item); 
+          
+          return model;
         });
       })
       .reduce((arr, el) => {

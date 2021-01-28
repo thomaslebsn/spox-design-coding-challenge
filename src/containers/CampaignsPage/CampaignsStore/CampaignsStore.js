@@ -104,11 +104,11 @@ export default class CampaignsStore {
     try {
       console.log("Persona Store - Fetch Personas");
       const campaignService = new EasiiCampaignApiService();
-      const repondedDataFromLibrary = await campaignService.getCampaigns(1, 100);
-      // console.log(repondedDataFromLibrary);
-      // const repondedDataFromLibrary = campaigns;
-      const CampaignsModels = CampaignsUtils.transformCampaignsResponseIntoModel(
-        repondedDataFromLibrary
+      const respondedDataFromLibrary = await campaignService.getCampaigns(1, 100);
+      // console.log(respondedDataFromLibrary);
+      // const respondedDataFromLibrary = campaigns;
+      const CampaignsModels = await CampaignsUtils.transformCampaignResponseIntoModel(
+        respondedDataFromLibrary
       );
 
       if (CampaignsModels) {
@@ -187,21 +187,28 @@ export default class CampaignsStore {
     }
   }
 
-  async getCampaigns(id, callbackOnSuccess, callbackOnError) {
+  async getCampaign(id, callbackOnSuccess, callbackOnError) {
+    console.log('ID for get Campaign', id);
     if (!id) return false;
 
-    try {
+    // try {
       const results = true;
 
-      const editCampaigns = campaigns.filter(
-        (campaigns) => campaigns.id !== parseInt(id)
-      );
+      // const editCampaigns = campaigns.filter(
+      //   (campaigns) => campaigns.id !== parseInt(id)
+      // );
 
       if (results) {
-        const repondedDataFromLibrary = editCampaigns;
-        const campaignsDataModels = CampaignsUtils.transformCampaignsResponseIntoModel(
-          repondedDataFromLibrary
+        const campaignService = new EasiiCampaignApiService();
+        const respondedDataFromLibrary = await campaignService.getCampaign(id, false);
+        
+        console.log('Campaign - getCampain from API', respondedDataFromLibrary);
+
+        const campaignsDataModels = CampaignsUtils.transformCampaignResponseIntoModel(
+          [respondedDataFromLibrary]
         );
+
+        console.log(campaignsDataModels);
 
         if (campaignsDataModels) {
           runInAction(() => {
@@ -213,11 +220,11 @@ export default class CampaignsStore {
           });
         }
       }
-    } catch (error) {
-      console.log(error);
-      runInAction(() => {
-        callbackOnError(error);
-      });
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //   runInAction(() => {
+    //     callbackOnError(error);
+    //   });
+    // }
   }
 }

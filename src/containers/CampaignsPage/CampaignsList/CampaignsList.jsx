@@ -47,10 +47,8 @@ const CampaignsList = observer(
       this.campaignsListViewModel.initializeData();
     }
 
-    handerEditCampaigns = (row) => {
-      this.campaignsFormModalViewModal.getCampaigns(
-        row[CAMPAIGNS_FIELD_KEY.ID]
-      );
+    handerEditCampaign = (row) => {
+      this.campaignsFormModalViewModal.getCampaign(row[CAMPAIGNS_FIELD_KEY.ID]);
       this.campaignsFormModalViewModal.openModal();
     };
 
@@ -172,7 +170,7 @@ const CampaignsList = observer(
           <Table
             rowData={campaigns}
             tableRowHeader={tableRowHeader}
-            onEdit={this.handerEditCampaigns}
+            onEdit={this.handerEditCampaign}
             onSelect={this.handerSelectCampaigns}
             isFilter={true}
           ></Table>
