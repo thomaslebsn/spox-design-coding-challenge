@@ -90,12 +90,13 @@ class CampaignsFormModalViewModel {
   };
 
   saveOnModal = () => {
-    console.log("Campaign saveOnModal debug");
+    console.log("Campaign saveOnModal debug", this.editMode);
     // const isFormValid = this.campaignsFormComponent.isFormValid();
     const isFormValid = true;
 
     if (this.editMode) {
       const campaignId = this.campaignEditdata.getId();
+      console.log('CAMPAIGN ID NE', campaignId);
       this.campaignsFormComponent.formPropsData.id = campaignId.value;
     }
 

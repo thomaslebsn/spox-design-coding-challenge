@@ -141,8 +141,17 @@ export default class CampaignsStore {
       console.log(convertedCampaignsData);
 
       const campaignService = new EasiiCampaignApiService();
-      const resultOnSave = await campaignService.createCampaign(convertedCampaignsData);
-        console.log(resultOnSave);
+      let resultOnSave = false;
+
+      if (campaignsData.id === undefined) {
+        console.log('CREATE CAMPAIGN');
+        resultOnSave = await campaignService.createCampaign(convertedCampaignsData);
+      } else {
+        console.log('UPDATE CAMPAIGN', convertedCampaignsData);
+        //convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        resultOnSave = await campaignService.updateCampaign(convertedCampaignsData);
+      }
+      
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess();

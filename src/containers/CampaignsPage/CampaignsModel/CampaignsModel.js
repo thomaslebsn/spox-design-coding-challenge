@@ -156,12 +156,11 @@ class CampaignsModel {
   };
 
   static convertSubmittedDataToAPIService(campaignsData) {
-    campaignsData[CAMPAIGNS_FIELD_KEY.PROJECT] = 199;
-
+    console.log('convertSubmittedDataToCampaignAPIService', campaignsData);
     const result = campaignsData
       ? {
           [CAMPAIGN_API_FIELD_KEY.ID]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.ID] ?? "",
+            campaignsData[CAMPAIGN_API_FIELD_KEY.ID] ?? "",
           [CAMPAIGN_API_FIELD_KEY.NAME]:
             campaignsData[CAMPAIGNS_FIELD_KEY.NAME] ?? "",
           [CAMPAIGN_API_FIELD_KEY.START_DATE]:
