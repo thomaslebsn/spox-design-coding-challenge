@@ -183,10 +183,6 @@ const ContentFormGeneral = observer(
     render() {
       console.log("[Content - FormGeneral] - re-render .........");
 
-      // if (this.contentFormViewModel) {
-      //   this.formPropsData = this.contentFormViewModel;
-      // }
-
       const formSetting = this.generateFormSetting();
 
       // const { formStatus } = this.personaFormViewModel;
