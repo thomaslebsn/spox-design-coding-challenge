@@ -62,9 +62,17 @@ export default class ContentStore {
 
       // Save Content
       const contentService = new EasiiContentApiService();
-      const resultContent = await contentService.createContent(
-        convertedContentData
-      );
+      let resultContent;
+
+      if (convertedContentData.id == undefined) {
+        resultContent = await contentService.createContent(
+          convertedContentData
+        );
+      } else {
+        resultContent = await contentService.updateContent(
+          convertedContentData
+        );
+      }
 
       // Post channel
       const channelService = new EasiiProjectChannelApiService();

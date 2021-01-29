@@ -22,7 +22,8 @@ const ContentFormGeneralWizard = observer(
     }
 
     render() {
-      console.log("[ContentFormGeneralWizard] - re-render .........");
+      console.log("[ContentFormGeneralWizard] - re-render ......... wwwwưư");
+      console.log(this.contentFormViewModel);
 
       return (
         <ContentFormGeneral

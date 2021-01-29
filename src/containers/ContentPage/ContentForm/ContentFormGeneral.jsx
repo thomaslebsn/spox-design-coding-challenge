@@ -41,6 +41,7 @@ const ContentFormGeneral = observer(
       super(props);
 
       this.validator = new SimpleReactValidator();
+      console.log("propspropspropspropsprops", props);
       const { viewModel, id } = props;
 
       console.log(id);
@@ -56,7 +57,7 @@ const ContentFormGeneral = observer(
     componentDidMount = () => {
       const { match } = this.props;
 
-      if (match.params.id) {
+      if (match) {
         this.contentFormViewModel.getContent(match.params.id);
       } else {
         this.contentFormViewModel.formStatus = PAGE_STATUS.READY;
@@ -137,6 +138,7 @@ const ContentFormGeneral = observer(
     populatingFormDataHandler = (data) => {
       console.log("populatingFormDataHandler", data);
       if (!data) return false;
+      this.formPropsData[CONTENT_FIELD_KEY.ID] = data.id ?? 0;
       this.formPropsData[CONTENT_FIELD_KEY.NAME] = data.getName().value;
       this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = [
         { value: 438, label: "Et et aut incidunt labore." },

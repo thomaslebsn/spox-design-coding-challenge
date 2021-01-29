@@ -131,6 +131,8 @@ class ContentModel {
   static convertSubmittedDataToAPIService(contentData) {
     const result = contentData
       ? {
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]:
+            contentData[CONTENT_FIELD_KEY.ID],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
             contentData[CONTENT_FIELD_KEY.NAME],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME]: 1,
