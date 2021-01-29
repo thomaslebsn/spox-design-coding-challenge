@@ -41,7 +41,6 @@ const ContentFormGeneral = observer(
       super(props);
 
       this.validator = new SimpleReactValidator();
-      console.log("propspropspropspropsprops", props);
       const { viewModel, id } = props;
 
       console.log(id);
@@ -57,7 +56,7 @@ const ContentFormGeneral = observer(
     componentDidMount = () => {
       const { match } = this.props;
 
-      if (match) {
+      if (match.params.id) {
         this.contentFormViewModel.getContent(match.params.id);
       } else {
         this.contentFormViewModel.formStatus = PAGE_STATUS.READY;
