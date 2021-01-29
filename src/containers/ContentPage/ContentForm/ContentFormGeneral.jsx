@@ -21,6 +21,7 @@ import {
 } from "./CampaignSelectionPage";
 
 import { renderingGroupFieldHandler } from "../../../utils/form";
+import PAGE_STATUS from "../../../constants/PageStatus";
 
 import { Form } from "react-bootstrap";
 
@@ -40,6 +41,7 @@ const ContentFormGeneral = observer(
       super(props);
 
       this.validator = new SimpleReactValidator();
+      console.log("propspropspropspropsprops", props);
       const { viewModel, id } = props;
 
       console.log(id);
@@ -51,6 +53,16 @@ const ContentFormGeneral = observer(
 
       this.contentFormViewModel.setForm(this);
     }
+
+    componentDidMount = () => {
+      const { match } = this.props;
+
+      if (match) {
+        this.contentFormViewModel.getContent(match.params.id);
+      } else {
+        this.contentFormViewModel.formStatus = PAGE_STATUS.READY;
+      }
+    };
 
     generateFormSetting = () => {
       console.log("re generate Form Setting", this.formPropsData);
@@ -124,8 +136,23 @@ const ContentFormGeneral = observer(
     };
 
     populatingFormDataHandler = (data) => {
+      console.log("populatingFormDataHandler", data);
       if (!data) return false;
+      this.formPropsData[CONTENT_FIELD_KEY.ID] = data.id ?? 0;
       this.formPropsData[CONTENT_FIELD_KEY.NAME] = data.getName().value;
+      this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = [
+        { value: 438, label: "Et et aut incidunt labore." },
+      ];
+
+      this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = [
+        { value: 424, label: "Persona 10" },
+      ];
+
+      this.formPropsData[
+        CONTENT_FIELD_KEY.DESCRIPTION
+      ] = data.getDescription().value.props.children;
+
+      this.blurringFieldHandler();
     };
 
     next = () => {
@@ -158,10 +185,9 @@ const ContentFormGeneral = observer(
     render() {
       console.log("[Content - FormGeneral] - re-render .........");
 
-      if (this.contentFormViewModel.contentEditdata) {
-        this.formPropsData = this.contentFormViewModel.contentEditdata;
-      }
       const formSetting = this.generateFormSetting();
+
+      // const { formStatus } = this.personaFormViewModel;
 
       return (
         <>

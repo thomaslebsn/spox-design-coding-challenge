@@ -2,53 +2,29 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 
 import "./index.scss";
+import ProjectStore from "../../containers/ProjectsPage/ProjectStore/ProjectStore";
 
-const data = [
-  {
-    key: 1,
-    image: "/assets/images/icon-pepsi.png",
-    projectName: "Marketing Vietnam Suntory PepsiCo",
-    avatar: "/assets/images/avatar-1.png",
-    leadName: "Ponnappa Priya"
-  },
-  {
-    key: 2,
-    image: "/assets/images/icon-nikon.png",
-    projectName: "Marketing Vietnam Suntory PepsiCo",
-    avatar: "/assets/images/avatar-2.png",
-    leadName: "Mia Wong"
-  },
-  {
-    key: 3,
-    image: "/assets/images/icon-adidas.png",
-    projectName: "Marketing Vietnam Adidas",
-    avatar: "/assets/images/avatar-3.png",
-    leadName: "Peter Stanbridge"
-  },
-  {
-    key: 4,
-    image: "/assets/images/icon-levis.png",
-    projectName: "Marketing Vietnam Levi's",
-    avatar: "/assets/images/avatar-4.png",
-    leadName: "Natalie Lee-Walsh"
-  },
-  {
-    key: 5,
-    image: "/assets/images/icon-gap.png",
-    projectName: "MShop Gap for Casual Women's, Men's",
-    avatar: "/assets/images/avatar-5.png",
-    leadName: "Salome Simoes"
-  }
-]
+const projectStore = new ProjectStore();
 
 class Projects extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      getDataProjects: [],
+    };
   }
+
+  componentDidMount = () => {
+    projectStore.fetchProjects((data) => {
+      this.setState({
+        getDataProjects: data,
+      });
+    });
+  };
 
   render() {
     const { t, i18n } = this.props;
+
     return (
       <div className="bg-white p-3">
         <div className="d-flex justify-content-between mb-2">
@@ -66,26 +42,28 @@ class Projects extends React.Component {
           </div>
         </div>
         <div className="px-3">
-          {
-            data.map((value, key) => {
-              return (
-                <div key={key} className="row py-3 border-bottom-1 item_project">
-                  <div className="col-9">
-                    <div className="d-flex align-items-center">
-                      <img src={value.image} alt="" className="img-avatar"/>
-                      <span className="ps-3">{value.projectName}</span>
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <div className="d-flex align-items-center">
-                      <img src={value.avatar} alt="" className="img-avatar"/>
-                      <span className="ps-3">{value.leadName}</span>
-                    </div>
+          {this.state.getDataProjects.map((value, key) => {
+            return (
+              <div key={key} className="row py-3 border-bottom-1 item_project">
+                <div className="col-9">
+                  <div className="d-flex align-items-center">
+                    <img src={value.logoUrl} alt="" className="img-avatar" />
+                    <span className="ps-3">{value.name}</span>
                   </div>
                 </div>
-              )
-            })
-          }
+                <div className="col-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      src={"/assets/images/avatar-4.png"}
+                      alt=""
+                      className="img-avatar"
+                    />
+                    <span className="ps-3">Peter Stanbridge</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );

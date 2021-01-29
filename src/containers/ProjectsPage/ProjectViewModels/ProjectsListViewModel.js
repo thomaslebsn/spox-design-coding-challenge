@@ -36,13 +36,19 @@ class ProjectsListViewModel {
   };
 
   deleteProjects = () => {
-    this.tableStatus = PAGE_STATUS.LOADING;
+    let getArrayId = this.contentIdsSelected;
 
-    this.projectStore.deleteProjects(
-      this.projectIdsSelected,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
-    );
+    if (getArrayId === null) {
+      notify("Please true add list an item for delete");
+    } else {
+      this.tableStatus = PAGE_STATUS.LOADING;
+
+      this.projectStore.deleteProjects(
+        this.projectIdsSelected,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHander
+      );
+    }
   };
 
   callbackOnErrorHander = (error) => {

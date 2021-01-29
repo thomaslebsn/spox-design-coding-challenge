@@ -23,7 +23,7 @@ class ContentFormPage extends Component {
     return (
       <>
         <StepWizard isLazyMount={true} transitions={custom}>
-          <ContentFormGeneral hashKey={"general"} />
+          <ContentFormGeneral hashKey={"general"} match={this.props.match} />
           <ContentFormPublish hashKey={"publish"} />
         </StepWizard>
         <ContentSbarRight />

@@ -45,7 +45,7 @@ const ProjectsList = observer(
         .map((item) => {
           console.log("Debug An Item");
           console.log(item);
-          return item.id;
+          return item[PROJECT_COLUMN_INDICATOR.ID];
         })
         .reduce((arr, el) => {
           return arr.concat(el);

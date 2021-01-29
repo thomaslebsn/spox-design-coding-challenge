@@ -44,72 +44,72 @@ class ComponentConnectaChannel extends React.Component {
                 },
               ],
             },
-            {
-              id: 2,
-              name: "Twitter",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Fanpage",
-                },
-              ],
-            },
-            {
-              id: 3,
-              name: "Google My Business",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Fanpage",
-                },
-              ],
-            },
-            {
-              id: 4,
-              name: "Instagram",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Fanpage",
-                },
-              ],
-            },
+            // {
+            //   id: 2,
+            //   name: "Twitter",
+            //   image: "/assets/images/icon-nikon.png",
+            //   list: [
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "Food Network",
+            //       type: "Fanpage",
+            //     },
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "BuzzFeed Food",
+            //       type: "Fanpage",
+            //     },
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "12 Tomatoes",
+            //       type: "Fanpage",
+            //     },
+            //   ],
+            // },
+            // {
+            //   id: 3,
+            //   name: "Google My Business",
+            //   image: "/assets/images/icon-nikon.png",
+            //   list: [
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "Food Network",
+            //       type: "Fanpage",
+            //     },
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "BuzzFeed Food",
+            //       type: "Fanpage",
+            //     },
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "12 Tomatoes",
+            //       type: "Fanpage",
+            //     },
+            //   ],
+            // },
+            // {
+            //   id: 4,
+            //   name: "Instagram",
+            //   image: "/assets/images/icon-nikon.png",
+            //   list: [
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "Food Network",
+            //       type: "Fanpage",
+            //     },
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "BuzzFeed Food",
+            //       type: "Fanpage",
+            //     },
+            //     {
+            //       image: "/assets/images/icon-pepsi.png",
+            //       name: "12 Tomatoes",
+            //       type: "Fanpage",
+            //     },
+            //   ],
+            // },
           ],
         },
         {

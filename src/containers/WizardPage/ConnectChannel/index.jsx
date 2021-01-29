@@ -9,6 +9,8 @@ import history from "../../../routes/history";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import ButtonNormal from "../../../components/ButtonNormal";
+import ComponentConnectaChannel from "../../../components/ComponentConnectaChannel";
+
 import WizardSteps from "../../../components/WizardSteps";
 import styles from "./index.module.scss";
 
@@ -57,7 +59,7 @@ class ConnectChannel extends React.Component {
 
     return (
       <div className="d-flex flex-column m-4 p-4">
-        <div className="wrapper_tabs bg-white rounded-3 mb-4">
+        {/* <div className="wrapper_tabs bg-white rounded-3 mb-4">
           <Tabs defaultActiveKey="1" id="connectContent-tab">
             {channels.map((value) => {
               return (
@@ -93,7 +95,8 @@ class ConnectChannel extends React.Component {
               );
             })}
           </Tabs>
-        </div>
+        </div> */}
+        <ComponentConnectaChannel />
         <div className="d-flex justify-content-between">
           <Button
             className="btn btn-light border-success"
