@@ -29,7 +29,11 @@ const FormSelection = observer(
     render() {
       const { multi } = this.viewModel;
 
-      const value = this.viewModel.getSectionsValue();
+      console.log("this.field this.field", this.field);
+
+      const value = this.field.value
+        ? this.field.value
+        : this.viewModel.getSectionsValue();
 
       return (
         <SelectComponent

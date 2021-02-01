@@ -44,7 +44,6 @@ class ContentFormViewModel {
   };
 
   post = (data) => {
-    console.log("data data data data", data);
     this.formStatus = PAGE_STATUS.LOADING;
     this.contentStore.saveContent(
       data,

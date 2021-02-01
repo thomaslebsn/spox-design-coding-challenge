@@ -7,9 +7,6 @@ import ButtonNormal from "../../../components/ButtonNormal";
 
 import SimpleReactValidator from "simple-react-validator";
 
-import { observer } from "mobx-react";
-import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
-
 import {
   PersonalSelectionPage,
   personaSelectionViewModal,
@@ -25,7 +22,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 
 import { Form } from "react-bootstrap";
 
-class ComponentContentFormGeneralWizard extends Component {
+class ComponentContentFormGeneral extends Component {
   formPropsData = {
     [CONTENT_FIELD_KEY.NAME]: "",
     [CONTENT_FIELD_KEY.CAMPAIGN]: "",
@@ -45,18 +42,18 @@ class ComponentContentFormGeneralWizard extends Component {
     console.log("ContentFormPage - Debug View Model");
     console.log(this.viewModel);
 
-    //this.viewModel = viewModel ? viewModel.getContentFormViewModel() : null;
-
     this.viewModel.setForm(this);
   }
 
   componentDidMount = () => {
-    // const { match } = this.props;
-    // if (match.params.id) {
-    //   this.contentFormViewModel.getContent(match.params.id);
-    // } else {
-    //   this.contentFormViewModel.formStatus = PAGE_STATUS.READY;
-    // }
+    const { match } = this.props;
+    if (match) {
+      if (match.params.id) {
+        this.viewModel.getContent(match.params.id);
+      } else {
+        this.viewModel.formStatus = PAGE_STATUS.READY;
+      }
+    }
   };
 
   generateFormSetting = () => {
@@ -136,11 +133,11 @@ class ComponentContentFormGeneralWizard extends Component {
     this.formPropsData[CONTENT_FIELD_KEY.ID] = data.id ?? 0;
     this.formPropsData[CONTENT_FIELD_KEY.NAME] = data.getName().value;
     this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = [
-      { value: 438, label: "Et et aut incidunt labore." },
+      { value: 366, label: "Et et aut incidunt labore." },
     ];
 
     this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = [
-      { value: 424, label: "Persona 10" },
+      { value: 7, label: "Persona 10" },
     ];
 
     this.formPropsData[
@@ -217,4 +214,4 @@ class ComponentContentFormGeneralWizard extends Component {
   }
 }
 
-export default ComponentContentFormGeneralWizard;
+export default ComponentContentFormGeneral;

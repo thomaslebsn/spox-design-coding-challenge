@@ -88,7 +88,7 @@ const optionApproval = [
   },
 ];
 
-class ComponentContentFormPublishWizard extends Component {
+class ComponentContentFormPublish extends Component {
   formPropsData = {};
 
   validator = null;
@@ -401,4 +401,4 @@ class ComponentContentFormPublishWizard extends Component {
   }
 }
 
-export default ComponentContentFormPublishWizard;
+export default ComponentContentFormPublish;

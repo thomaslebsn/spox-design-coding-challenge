@@ -6,8 +6,12 @@ import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 import ContentSbarRight from "../../../components/ContentSbarRight";
 
-const ContentFormGeneral = lazy(() => import("./ContentFormGeneral"));
-const ContentFormPublish = lazy(() => import("./ContentFormPublish"));
+const ContentFormGeneral = lazy(() =>
+  import("./ContentFormGeneral/ContentFormGeneral")
+);
+const ContentFormPublish = lazy(() =>
+  import("./ContentFormPublish/ContentFormPublish")
+);
 
 class ContentFormPage extends Component {
   render() {
