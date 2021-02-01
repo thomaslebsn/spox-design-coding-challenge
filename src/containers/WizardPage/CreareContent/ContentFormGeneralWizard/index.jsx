@@ -3,9 +3,10 @@ import React, { Component, lazy } from "react";
 import { observer } from "mobx-react";
 import { withWizardViewModel } from "../../WizardViewModels/WizardViewModelContextProvider";
 import ContentFormGeneral from "../../../ContentPage/ContentForm/ContentFormGeneral";
+import ComponentContentFormGeneralWizard from "../../../ContentPage/ContentForm/ComponentContentFormGeneralWizard";
 
 const ContentFormGeneralWizard = observer(
-  class ProjectFormWizard extends Component {
+  class ContentFormGeneralWizard extends Component {
     contentFormViewModel = null;
     constructor(props) {
       super(props);
@@ -22,11 +23,15 @@ const ContentFormGeneralWizard = observer(
     }
 
     render() {
-      console.log("[ContentFormGeneralWizard] - re-render ......... wwwwưư");
+      console.log("[ContentFormGeneralWizard] - re-render .........");
       console.log(this.contentFormViewModel);
 
       return (
-        <ContentFormGeneral
+        // <ContentFormGeneral
+        //   {...this.props}
+        //   viewModel={this.contentFormViewModel}
+        // />
+        <ComponentContentFormGeneralWizard
           {...this.props}
           viewModel={this.contentFormViewModel}
         />

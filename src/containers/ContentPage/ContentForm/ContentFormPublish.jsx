@@ -114,7 +114,7 @@ const ContentFormPublish = observer(
         : null;
 
       console.log("ContentFormPublish - viewModel");
-      console.log(this.contentFormViewModel.contentEditdata);
+      //console.log(this.contentFormViewModel.contentEditdata);
     }
 
     post = () => {
