@@ -33,9 +33,10 @@ class WizardPage extends Component {
 
   render() {
     console.log("[WizardPage] render...");
+
     return (
       <>
-        <WizardSteps />
+        <WizardSteps match={this.props.match} />
 
         <WizardViewModelContextProvider viewModel={wizardViewModel}>
           <Suspense fallback={<Spinner />}>
