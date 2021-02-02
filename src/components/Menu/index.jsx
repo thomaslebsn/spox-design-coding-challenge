@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faMagic } from "@fortawesome/free-solid-svg-icons/faMagic";
@@ -13,7 +13,6 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeMenu: "",
       dataMenu: [
         {
           name: "home",
@@ -79,38 +78,26 @@ class Menu extends React.Component {
     };
   }
 
-  handleActionMenu = (name) => {
-    this.setState({
-      activeMenu: name,
-    });
-  };
-
   render() {
-    let { dataMenu, activeMenu } = this.state;
+    let { dataMenu } = this.state;
+
     return (
       <nav>
         <ul className="list-unstyled mb-0 py-3 pt-md-1">
           {dataMenu.map((value, key) => {
             let pathName = window.location.pathname;
             return (
-              <li
-                key={key}
-                onClick={() => this.handleActionMenu(value.link)}
-                className={`item_menu ${
-                  activeMenu == value.link || pathName === value.link
-                    ? "active"
-                    : ""
-                }`}
-              >
-                <Link
+              <li key={key} className={`item_menu `}>
+                <NavLink
                   to={value.link}
                   className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none`}
+                  activeClassName="active"
                 >
                   <i>
                     <FontAwesomeIcon icon={value.icons} />
                   </i>
                   <span className="ms-3">{value.text}</span>
-                </Link>
+                </NavLink>
               </li>
             );
           })}
