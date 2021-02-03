@@ -24,3 +24,19 @@
     }
   }
 }
+
+.wr_list_menu {
+  .item_menu {
+    &:first-child {
+      .link_menu {
+        background-color: transparent !important;
+        box-shadow: none;
+
+        i,
+        span {
+          color: $color-blue !important;
+        }
+      }
+    }
+  }
+}
