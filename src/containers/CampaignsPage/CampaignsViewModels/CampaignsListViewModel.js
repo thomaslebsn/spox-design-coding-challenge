@@ -41,7 +41,7 @@ class CampaignsListViewModel {
 
     this.campaignsStore.deleteCampaigns(
       this.campaignsIdsSelected,
-      this.callbackOnSuccessHandler,
+      this.refreshTableCampaignsList,
       this.callbackOnErrorHander
     );
   };

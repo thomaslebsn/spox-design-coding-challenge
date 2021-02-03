@@ -104,11 +104,11 @@ export default class CampaignsStore {
     try {
       console.log("Persona Store - Fetch Personas");
       const campaignService = new EasiiCampaignApiService();
-      const repondedDataFromLibrary = await campaignService.getCampaigns(1, 100);
-      // console.log(repondedDataFromLibrary);
-      // const repondedDataFromLibrary = campaigns;
-      const CampaignsModels = CampaignsUtils.transformCampaignsResponseIntoModel(
-        repondedDataFromLibrary
+      const respondedDataFromLibrary = await campaignService.getCampaigns(1, 100);
+      // console.log(respondedDataFromLibrary);
+      // const respondedDataFromLibrary = campaigns;
+      const CampaignsModels = await CampaignsUtils.transformCampaignResponseIntoModel(
+        respondedDataFromLibrary
       );
 
       if (CampaignsModels) {
@@ -141,8 +141,17 @@ export default class CampaignsStore {
       console.log(convertedCampaignsData);
 
       const campaignService = new EasiiCampaignApiService();
-      const resultOnSave = await campaignService.createCampaign(convertedCampaignsData);
-        console.log(resultOnSave);
+      let resultOnSave = false;
+
+      if (campaignsData.id === undefined) {
+        console.log('CREATE CAMPAIGN');
+        resultOnSave = await campaignService.createCampaign(convertedCampaignsData);
+      } else {
+        console.log('UPDATE CAMPAIGN', convertedCampaignsData);
+        //convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        resultOnSave = await campaignService.updateCampaign(convertedCampaignsData);
+      }
+      
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess();
@@ -165,30 +174,19 @@ export default class CampaignsStore {
   async deleteCampaigns(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE CAMPAIGN IDS")
+    console.log(ids);
+
     try {
-      const results = true;
+      const campaignService = new EasiiCampaignApiService();
+      const deleteIds = ids.join();
+      console.log('Prepare ids for delete: ', deleteIds);
+      const respondedFromApi = await campaignService.deleteCampaign(deleteIds);
 
-      campaigns = campaigns.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
-
-      if (results) {
-        const repondedDataFromLibrary = campaigns;
-        const campaignsDataModels = CampaignsUtils.transformCampaignsResponseIntoModel(
-          repondedDataFromLibrary
-        );
-
-        if (campaignsDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(campaignsDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
-
-        console.log(`Deleting Persona ids: ${ids}`);
+      if (respondedFromApi.result === true) {
+        runInAction(() => {
+          callbackOnSuccess();
+        })
       }
     } catch (error) {
       console.log(error);
@@ -198,21 +196,28 @@ export default class CampaignsStore {
     }
   }
 
-  async getCampaigns(id, callbackOnSuccess, callbackOnError) {
+  async getCampaign(id, callbackOnSuccess, callbackOnError) {
+    console.log('ID for get Campaign', id);
     if (!id) return false;
 
-    try {
+    // try {
       const results = true;
 
-      const editCampaigns = campaigns.filter(
-        (campaigns) => campaigns.id !== parseInt(id)
-      );
+      // const editCampaigns = campaigns.filter(
+      //   (campaigns) => campaigns.id !== parseInt(id)
+      // );
 
       if (results) {
-        const repondedDataFromLibrary = editCampaigns;
-        const campaignsDataModels = CampaignsUtils.transformCampaignsResponseIntoModel(
-          repondedDataFromLibrary
+        const campaignService = new EasiiCampaignApiService();
+        const respondedDataFromLibrary = await campaignService.getCampaign(id, false);
+        
+        console.log('Campaign - getCampain from API', respondedDataFromLibrary);
+
+        const campaignsDataModels = CampaignsUtils.transformCampaignResponseIntoModel(
+          [respondedDataFromLibrary]
         );
+
+        console.log(campaignsDataModels);
 
         if (campaignsDataModels) {
           runInAction(() => {
@@ -224,11 +229,11 @@ export default class CampaignsStore {
           });
         }
       }
-    } catch (error) {
-      console.log(error);
-      runInAction(() => {
-        callbackOnError(error);
-      });
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //   runInAction(() => {
+    //     callbackOnError(error);
+    //   });
+    // }
   }
 }

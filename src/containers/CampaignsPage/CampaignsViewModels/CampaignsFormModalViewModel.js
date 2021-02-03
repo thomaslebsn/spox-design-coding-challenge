@@ -2,10 +2,12 @@ import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
 import ProjectUtils from "../../ProjectsPage/ProjectUtils/ProjectUtils";
 import ProjectStore from "../../ProjectsPage/ProjectStore/ProjectStore";
+import PAGE_STATUS from "../../../constants/PageStatus";
 
 class CampaignsFormModalViewModel {
   show = false;
-  campaignsEditdata = null;
+  campaignEditdata = null;
+  formStatus = PAGE_STATUS.READY;
   editMode = false;
   campaignsListViewModel = null;
 
@@ -28,18 +30,25 @@ class CampaignsFormModalViewModel {
   };
 
   setEditCampaigns = (data) => {
+    console.log('Set edit data for campaign:', data[0]);
     this.editMode = true;
-    this.campaignsEditdata = data;
+    this.formStatus = PAGE_STATUS.READY;
+
+    if(data[0] !== undefined && (typeof data) == 'object') {
+      this.campaignEditdata = data[0];
+    }
   };
 
-  getCampaigns = (id) => {
-    this.editMode = true;
-    this.campaignsStore.getCampaigns(
+  getCampaign = (id) => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.campaignsStore.getCampaign(
       id,
       this.setEditCampaigns,
       this.callbackOnErrorHander
     );
   };
+
+  getCampaignEditData = () => this.campaignEditdata;
 
   getProjects = () => {
     console.log("campaign get project");
@@ -81,9 +90,16 @@ class CampaignsFormModalViewModel {
   };
 
   saveOnModal = () => {
-    console.log("Campaign saveOnModal debug");
+    console.log("Campaign saveOnModal debug", this.editMode);
     // const isFormValid = this.campaignsFormComponent.isFormValid();
     const isFormValid = true;
+
+    if (this.editMode) {
+      const campaignId = this.campaignEditdata.getId();
+      console.log('CAMPAIGN ID NE', campaignId);
+      this.campaignsFormComponent.formPropsData.id = campaignId.value;
+    }
+
     if (isFormValid) {
       this.campaignsStore.saveCampaigns(
         this.campaignsFormComponent.formPropsData,

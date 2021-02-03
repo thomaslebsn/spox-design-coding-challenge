@@ -40,7 +40,7 @@ class ProjectsListViewModel {
 
     this.projectStore.deleteProjects(
       this.projectIdsSelected,
-      this.callbackOnSuccessHandler,
+      this.refreshTableProjectList,
       this.callbackOnErrorHander
     );
   };
