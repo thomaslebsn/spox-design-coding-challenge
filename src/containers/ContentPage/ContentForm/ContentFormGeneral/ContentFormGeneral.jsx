@@ -1,18 +1,20 @@
 import React, { Component, lazy } from "react";
 
 import { observer } from "mobx-react";
-import { withWizardViewModel } from "../../WizardViewModels/WizardViewModelContextProvider";
-import ComponentContentFormGeneral from "../../../ContentPage/ContentForm/ComponentContentFormGeneral";
 
-const ContentFormGeneralWizard = observer(
-  class ContentFormGeneralWizard extends Component {
+import { withContentViewModel } from "../../ContentViewModels/ContentViewModelContextProvider";
+import ComponentContentFormGeneral from "../ComponentContentFormGeneral";
+
+const ContentFormGeneral = observer(
+  class ContentFormGeneral extends Component {
     contentFormViewModel = null;
     constructor(props) {
       super(props);
 
-      const { viewModel } = props;
-      console.log("ContentFormGeneralWizard - Debug View Model");
+      const { viewModel } = this.props;
+      console.log("ContentFormGenera - Debug View Model");
       console.log(viewModel);
+
       this.contentFormViewModel = viewModel
         ? viewModel.getContentFormViewModel()
         : null;
@@ -22,17 +24,15 @@ const ContentFormGeneralWizard = observer(
     }
 
     render() {
-      console.log("[ContentFormGeneralWizard] - re-render .........");
-      console.log(this.contentFormViewModel);
-
       return (
         <ComponentContentFormGeneral
           {...this.props}
           viewModel={this.contentFormViewModel}
+          match={this.props.match}
         />
       );
     }
   }
 );
 
-export default withWizardViewModel(ContentFormGeneralWizard);
+export default withContentViewModel(ContentFormGeneral);

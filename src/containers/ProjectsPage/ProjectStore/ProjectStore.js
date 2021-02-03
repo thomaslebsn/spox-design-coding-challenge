@@ -6,201 +6,15 @@ import ProjectUtils from "../ProjectUtils/ProjectUtils";
 import ProjectModel from "../ProjectModel/ProjectModel";
 import { EasiiProjectApiService } from "easii-io-web-service-library";
 
-let projects = [
-  {
-    id: 1,
-    name: "Marketing Vietnam Suntory PepsiCo1 ",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Suntory PepsiCo Vietnam Beverage (SPVB), is 100% owned by foreign capital, and is a new beverage joint venture between PepsiCo Inc. and Suntory",
-    project_lead: {
-      id: 1,
-      name: "Ponnappa Priya",
-      avatar_url: "/assets/images/avatar-5.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 70,
-  },
-  {
-    id: 2,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13",
-    end_date: "2020-12-13",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Embrace the adventure that life offers, whist making a difference in the world.",
-    project_lead: {
-      id: 2,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 90,
-  },
-  {
-    id: 3,
-    name: "Marketing Vietnam Suntory PepsiCo3",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Adidas’ straightforward digital marketing strategy is the power behind this success.",
-    project_lead: {
-      id: 3,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 40,
-  },
-  {
-    id: 4,
-    name: "Marketing Vietnam Suntory PepsiCo4",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description: "short_description Marketing Vietnam Suntory PepsiCo",
-    project_lead: {
-      id: 4,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-8 16:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 60,
-  },
-  {
-    id: 5,
-    name: "Marketing Vietnam Suntory PepsiCo5",
-    start_date: "2020-10-13 06:08:06",
-    end_date: "2020-12-13 06:08:06",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Levi Strauss & Co is an American clothing company known worldwide for its Levi's brand of denim jeans.",
-    project_lead: {
-      id: 5,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 30,
-  },
-  {
-    id: 6,
-    name: "Marketing Vietnam Suntory PepsiCo6",
-    start_date: "2020-10-12 23:08:06",
-    end_date: "2020-12-13 06:08:06",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Shop casual women's, men's, maternity, kids' & baby clothes at Gap. Our style is clean and confident, comfortable and accessible, classic",
-    project_lead: {
-      id: 6,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 55,
-  },
-  {
-    id: 7,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13",
-    end_date: "2020-12-13",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "McDonald's Corporation is an American fast food company, founded in 1940 as a restaurant operated by Richard and Maurice McDonald,",
-    project_lead: {
-      id: 7,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 75,
-  },
-  {
-    id: 8,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-14 06:08:06",
-    end_date: "2020-12-13 06:08:06",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Samsung Galaxy Note20 Ultra 5G. The Samsung Galaxy Note 20 Ultra 5G sets the pace for 2020 smartphones with a huge screen.",
-    project_lead: {
-      id: 8,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 80,
-  },
-  {
-    id: 9,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13",
-    end_date: "2020-12-13",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Phasellus scelerisque commodo nunc, sit amet blandit est tincidunt vitae.",
-    project_lead: {
-      id: 9,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-22 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 10,
-  },
-  {
-    id: 10,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13",
-    end_date: "2020-12-13",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Donec at maximus nulla, ac molestie purus. Aliquam nunc lacus, lobortis ut placerat eu, suscipit at erat. Sed at mi diam. Sed aliquam diam ac",
-    project_lead: {
-      id: 10,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-25 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 20,
-  },
-  {
-    id: 11,
-    name: "Marketing Vietnam Suntory PepsiCo2",
-    start_date: "2020-10-13",
-    end_date: "2020-12-13",
-    logo_url: "/assets/images/icon-pepsi.png",
-    short_description:
-      "Donec at maximus nulla, ac molestie purus. Aliquam nunc lacus, lobortis ut placerat eu, suscipit at erat. Sed at mi diam. Sed aliquam diam ac",
-    project_lead: {
-      id: 11,
-      name: "Natalie Lee-Walsh",
-      avatar_url: "/assets/images/avatar-4.png",
-    },
-    created_date: "2020-12-13 06:08:06",
-    list_modified_date: "20/09/2020",
-    progress: 35,
-  },
-];
-
 export default class ProjectStore {
   async fetchProjects(callbackOnSuccess, callbackOnError) {
     try {
       console.log("Project Store - Fetch Projects");
       const projectAPIService = new EasiiProjectApiService();
-      const respondedDataFromLibrary = await projectAPIService.getProjects(1,100);
+      const respondedDataFromLibrary = await projectAPIService.getProjects(
+        1,
+        100
+      );
       console.log("Debugging ---- fetchProjects");
       console.log(respondedDataFromLibrary);
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
@@ -233,7 +47,7 @@ export default class ProjectStore {
         projectData
       );
 
-      console.log('Project Converted Data');
+      console.log("Project Converted Data");
       console.log(convertedProjectData);
 
       const projectAPIService = new EasiiProjectApiService();
@@ -241,15 +55,20 @@ export default class ProjectStore {
       var resultOnSave;
 
       if (projectData.id == undefined) {
-        console.log('CREATE PROJECT');
-        resultOnSave = await projectAPIService.createProject(convertedProjectData);
+        console.log("CREATE PROJECT");
+        resultOnSave = await projectAPIService.createProject(
+          convertedProjectData
+        );
       } else {
-        console.log('UPDATE PROJECT', convertedProjectData);
-        convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
-        resultOnSave = await projectAPIService.updateProject(convertedProjectData);
+        console.log("UPDATE PROJECT", convertedProjectData);
+        convertedProjectData.logo =
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+        resultOnSave = await projectAPIService.updateProject(
+          convertedProjectData
+        );
       }
 
-      console.log('resultOnSave', resultOnSave);
+      console.log("resultOnSave", resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {
@@ -273,19 +92,19 @@ export default class ProjectStore {
   async deleteProjects(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
-    console.log("DELETE PROJECT IDS")
+    console.log("DELETE PROJECT IDS");
     console.log(ids);
 
     try {
       const projectAPIService = new EasiiProjectApiService();
       const deleteIds = ids.join();
-      console.log('Prepare ids for delete: ', deleteIds);
+      console.log("Prepare ids for delete: ", deleteIds);
       const respondedFromApi = await projectAPIService.deleteProject(deleteIds);
 
       if (respondedFromApi.result === true) {
         runInAction(() => {
           callbackOnSuccess();
-        })
+        });
       }
     } catch (error) {
       console.log(error);
@@ -307,8 +126,11 @@ export default class ProjectStore {
 
       if (results) {
         const projectAPIService = new EasiiProjectApiService();
-        const respondedDataFromLibrary = await projectAPIService.getProjectItem(id, false);
-        console.log('PROJECT RESPONDED ITEM');
+        const respondedDataFromLibrary = await projectAPIService.getProjectItem(
+          id,
+          false
+        );
+        console.log("PROJECT RESPONDED ITEM");
         console.log(id);
         console.log(respondedDataFromLibrary);
         const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(

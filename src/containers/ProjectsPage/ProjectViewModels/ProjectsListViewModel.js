@@ -36,7 +36,7 @@ class ProjectsListViewModel {
   };
 
   deleteProjects = () => {
-    this.tableStatus = PAGE_STATUS.LOADING;
+    let getArrayId = this.contentIdsSelected;
 
     this.projectStore.deleteProjects(
       this.projectIdsSelected,

@@ -8,12 +8,13 @@ import getStatus from "../../../utils/status";
 import { DescriptionsModel } from "./DescriptionsModel";
 
 import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
+import CampaignsStore from "../../CampaignsPage/CampaignsStore/CampaignsStore";
+import PersonaStore from "../../PersonasPage/PersonaStore/PersonaStore";
 
 class ContentModel {
   constructor(data) {
-    console.log("data data data data data", data);
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
-    this.name = data[[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]] ?? "";
+    this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? "";
     this.channels = data.channel_descriptions ?? "";
 
     this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
@@ -30,6 +31,9 @@ class ContentModel {
           data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
         )
       : null;
+
+    this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? "";
+    this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? "";
   }
 
   getId = () => {
@@ -51,9 +55,13 @@ class ContentModel {
   };
 
   getDescription = () => {
+    console.log(
+      "this.descriptionsModel.getChannelDescriptions()",
+      this.descriptionsModel.getChannelDescriptions()
+    );
     return {
       value: this.descriptionsModel.getChannelDescriptions(),
-      type: FIELD_TYPE.RICHTEXT,
+      type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.DESCRIPTION,
       columnText: "Description",
     };
@@ -66,6 +74,33 @@ class ContentModel {
       columnName: CONTENT_FIELD_KEY.CHANNELS,
       columnText: "Channels",
     };
+  };
+
+  getCampaign = () => {
+    if (this.campaignId) {
+      const campaignsStore = new CampaignsStore();
+      campaignsStore.getCampaigns(
+        this.campainId,
+        (data) => {
+          console.log("this.campaignModel campaignModel", data);
+        },
+        () => {}
+      );
+    }
+    return null;
+  };
+
+  getPersona = () => {
+    if (this.personaId) {
+      const personaStore = new PersonaStore();
+      personaStore.getPersona(
+        this.personaId,
+        (data) => {
+          console.log("this.personaModel", data);
+        },
+        () => {}
+      );
+    }
   };
 
   getStatus = () => {
@@ -96,6 +131,8 @@ class ContentModel {
   static convertSubmittedDataToAPIService(contentData) {
     const result = contentData
       ? {
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]:
+            contentData[CONTENT_FIELD_KEY.ID],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
             contentData[CONTENT_FIELD_KEY.NAME],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME]: 1,

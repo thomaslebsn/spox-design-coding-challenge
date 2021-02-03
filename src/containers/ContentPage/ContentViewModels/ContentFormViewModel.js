@@ -29,6 +29,20 @@ class ContentFormViewModel {
     this.contentFormComponent = contentFormComponent;
   };
 
+  setEditContent = (data) => {
+    this.formStatus = PAGE_STATUS.READY;
+    this.contentFormComponent.populatingFormDataHandler(data[0]);
+  };
+
+  getContent = (id) => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.contentStore.getContent(
+      id,
+      this.setEditContent,
+      this.callbackOnErrorHander
+    );
+  };
+
   post = (data) => {
     this.formStatus = PAGE_STATUS.LOADING;
     this.contentStore.saveContent(

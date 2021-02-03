@@ -1,18 +1,20 @@
 import React, { Component, lazy } from "react";
 
 import { observer } from "mobx-react";
-import { withWizardViewModel } from "../../WizardViewModels/WizardViewModelContextProvider";
-import ComponentContentFormPublish from "../../../ContentPage/ContentForm/ComponentContentFormPublish";
 
-const ContentFormPublishWizard = observer(
-  class ContentFormPublishWizard extends Component {
+import { withContentViewModel } from "../../ContentViewModels/ContentViewModelContextProvider";
+import ComponentContentFormPublish from "../ComponentContentFormPublish";
+
+const ContentFormPublish = observer(
+  class ContentFormPublish extends Component {
     contentFormViewModel = null;
     constructor(props) {
       super(props);
 
-      const { viewModel } = props;
-      console.log("ContentFormPublishWizard - Debug View Model");
+      const { viewModel } = this.props;
+      console.log("ContentFormGenera - Debug View Model");
       console.log(viewModel);
+
       this.contentFormViewModel = viewModel
         ? viewModel.getContentFormViewModel()
         : null;
@@ -22,9 +24,6 @@ const ContentFormPublishWizard = observer(
     }
 
     render() {
-      console.log("[ContentFormPublishWizard] - re-render .........");
-      console.log(this.contentFormViewModel);
-
       return (
         <ComponentContentFormPublish
           {...this.props}
@@ -35,4 +34,4 @@ const ContentFormPublishWizard = observer(
   }
 );
 
-export default withWizardViewModel(ContentFormPublishWizard);
+export default withContentViewModel(ContentFormPublish);

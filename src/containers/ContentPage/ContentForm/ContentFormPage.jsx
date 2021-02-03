@@ -6,8 +6,12 @@ import { observer } from "mobx-react";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 import ContentSbarRight from "../../../components/ContentSbarRight";
 
-const ContentFormGeneral = lazy(() => import("./ContentFormGeneral"));
-const ContentFormPublish = lazy(() => import("./ContentFormPublish"));
+const ContentFormGeneral = lazy(() =>
+  import("./ContentFormGeneral/ContentFormGeneral")
+);
+const ContentFormPublish = lazy(() =>
+  import("./ContentFormPublish/ContentFormPublish")
+);
 
 class ContentFormPage extends Component {
   render() {
@@ -23,7 +27,7 @@ class ContentFormPage extends Component {
     return (
       <>
         <StepWizard isLazyMount={true} transitions={custom}>
-          <ContentFormGeneral hashKey={"general"} />
+          <ContentFormGeneral hashKey={"general"} match={this.props.match} />
           <ContentFormPublish hashKey={"publish"} />
         </StepWizard>
         <ContentSbarRight />

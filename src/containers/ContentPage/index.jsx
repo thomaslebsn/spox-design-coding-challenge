@@ -11,7 +11,7 @@ const ContentsList = lazy(() => import("./ContentsList/ContentsList"));
 const contentStore = new ContentStore();
 const contentViewModel = new ContentViewModel(contentStore);
 
-function Contents() {
+function Contents({ match }) {
   console.log("Debugging Route Contents");
   console.log(contentViewModel);
   return (
@@ -26,7 +26,7 @@ function Contents() {
         </Route>
 
         <Route exact path={["/content/create", "/content/edit/:id"]}>
-          <ContentFormPage />
+          <ContentFormPage match={match} />
         </Route>
       </div>
     </ContentViewModelContextProvider>

@@ -12,101 +12,6 @@ import {
   CONTENT_FIELD_KEY,
 } from "../../../constants/ContentModule";
 
-let contents = [
-  {
-    id: 1,
-    name: "Post 1 - simple",
-    description: "Lorem",
-    status: 1,
-    channels: [
-      {
-        id: 1,
-        name: "facebook 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/facebook.png",
-      },
-      {
-        id: 2,
-        name: "instagram 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/instagram.png",
-      },
-    ],
-    campain: {
-      id: 1,
-      name: "Campain 1",
-    },
-    persona: [
-      {
-        id: 1,
-        name: "Hieu simple",
-      },
-      {
-        id: 2,
-        name: "Hieu simple 2",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Post 2 - simple",
-    description: "Lorem",
-    status: 2,
-    channels: [
-      {
-        id: 1,
-        name: "facebook 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/facebook.png",
-      },
-    ],
-    campain: {
-      id: 1,
-      name: "Campain 1",
-    },
-    persona: [
-      {
-        id: 1,
-        name: "Hieu simple",
-      },
-      {
-        id: 2,
-        name: "Hieu simple 2",
-      },
-    ],
-  },
-
-  {
-    id: 3,
-    name: "Post 3 - simple",
-    description: "Lorem",
-
-    status: 3,
-    channels: [
-      {
-        id: 1,
-        name: "facebook 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/facebook.png",
-      },
-    ],
-    campain: {
-      id: 1,
-      name: "Campain 1",
-    },
-    persona: [
-      {
-        id: 1,
-        name: "Hieu simple",
-      },
-      {
-        id: 2,
-        name: "Hieu simple 2",
-      },
-    ],
-  },
-];
-
 export default class ContentStore {
   async fetchContents(callbackOnSuccess, callbackOnError) {
     try {
@@ -157,9 +62,17 @@ export default class ContentStore {
 
       // Save Content
       const contentService = new EasiiContentApiService();
-      const resultContent = await contentService.createContent(
-        convertedContentData
-      );
+      let resultContent;
+
+      if (convertedContentData.id == undefined) {
+        resultContent = await contentService.createContent(
+          convertedContentData
+        );
+      } else {
+        resultContent = await contentService.updateContent(
+          convertedContentData
+        );
+      }
 
       // Post channel
       const channelService = new EasiiProjectChannelApiService();
@@ -189,30 +102,22 @@ export default class ContentStore {
   async deleteContents(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
+    console.log("DELETE CONTENT IDS");
+    console.log(ids);
+
     try {
-      const results = true;
+      const contentAPIService = new EasiiContentApiService();
+      const deleteIds = ids.join();
+      console.log("Prepare ids for delete: ", deleteIds);
 
-      contents = contents.filter(function (e) {
-        return ids.indexOf(e.id) === -1;
-      });
+      const repondedDataFromLibrary = await contentAPIService.deleteContent(
+        deleteIds
+      );
 
-      if (results) {
-        const repondedDataFromLibrary = contents;
-        const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-          repondedDataFromLibrary
-        );
-
-        if (contentDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(contentDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
-
-        console.log(`Deleting Content ids: ${ids}`);
+      if (repondedDataFromLibrary.result === true) {
+        runInAction(() => {
+          callbackOnSuccess();
+        });
       }
     } catch (error) {
       console.log(error);
@@ -226,16 +131,15 @@ export default class ContentStore {
     if (!id) return false;
 
     try {
-      const results = true;
+      const contentService = new EasiiContentApiService();
+      const repondedDataFromLibrary = await contentService.getContentItem(id);
 
-      const editContent = contents.filter(
-        (content) => content.id !== parseInt(id)
-      );
+      console.log("Content Store - getContent");
+      console.log(repondedDataFromLibrary);
 
-      if (results) {
-        const repondedDataFromLibrary = editContent;
+      if (repondedDataFromLibrary) {
         const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-          repondedDataFromLibrary
+          [repondedDataFromLibrary]
         );
 
         if (contentDataModels) {

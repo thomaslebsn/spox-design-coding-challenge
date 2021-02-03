@@ -5,7 +5,7 @@ import { EasiiAuthenticationApiService } from "easii-io-web-service-library";
 // LOGIN
 const login = async ({ username, password, remember }) => {
   const authService = new EasiiAuthenticationApiService();
-  const result = await authService.login(username,password);
+  const result = await authService.login(username, password);
   console.log("==== Debugging Login Function ====");
   console.log(result);
   if (result) {
