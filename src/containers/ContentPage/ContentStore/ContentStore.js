@@ -28,7 +28,7 @@ export default class ContentStore {
       );
 
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-        repondedDataFromLibrary
+        repondedDataFromLibrary.list
       );
 
       if (contentDataModels) {
