@@ -20,7 +20,8 @@ export default class ContentStore {
 
       const repondedDataFromLibrary = await contentAPIService.getContents(
         1,
-        100
+        100,
+        false
       );
       console.log(
         "repondedDataFromLibrary repondedDataFromLibrary",
@@ -28,12 +29,12 @@ export default class ContentStore {
       );
 
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-        repondedDataFromLibrary
+        repondedDataFromLibrary.toJSON()
       );
 
       if (contentDataModels) {
         runInAction(() => {
-          callbackOnSuccess(contentDataModels);
+          callbackOnSuccess(contentDataModels, repondedDataFromLibrary);
         });
       } else {
         callbackOnError({

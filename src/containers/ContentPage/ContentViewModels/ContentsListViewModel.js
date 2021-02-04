@@ -7,6 +7,8 @@ import { notify } from "../../../components/Toast";
 class ContentsListViewModel {
   contentStore = null;
 
+  dataFromLib = null;
+
   contents = null;
 
   tableRowHeader = null;
@@ -57,11 +59,12 @@ class ContentsListViewModel {
     console.log(error);
   };
 
-  callbackOnSuccessHandler = (contentModelData) => {
+  callbackOnSuccessHandler = (contentModelData, dataFromLib) => {
     console.log("callbackOnSuccessHandler");
     console.log(contentModelData);
     if (contentModelData) {
       this.tableStatus = PAGE_STATUS.READY;
+      this.dataFromLib = dataFromLib;
 
       const rowDataTransformed = ContentUtils.transformContentModelIntoTableDataRow(
         contentModelData

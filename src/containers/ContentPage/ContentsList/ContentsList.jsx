@@ -28,6 +28,7 @@ const ContentsList = observer(
 
       console.log("After binding class");
       console.log(this.contentListViewModel);
+      console.log(this.contentListViewModel.dataFromLib);
 
       this.contentFormModalViewModel = viewModel
         ? viewModel.getContentFormViewModel()
