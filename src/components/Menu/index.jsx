@@ -7,6 +7,8 @@ import { faFileAlt } from "@fortawesome/free-solid-svg-icons/faFileAlt";
 import { faNetworkWired } from "@fortawesome/free-solid-svg-icons/faNetworkWired";
 import { faVolumeUp } from "@fortawesome/free-solid-svg-icons/faVolumeUp";
 
+import { authRoutes, mainRoutes } from "../../routes/routes";
+
 import "./index.scss";
 
 class Menu extends React.Component {
@@ -78,20 +80,40 @@ class Menu extends React.Component {
     };
   }
 
+  checkActiveMenu = () => {
+    if (window.location.pathname === "/") {
+      document.getElementById("wr_list_menu").classList.remove("wr_list_menu");
+    } else {
+      document.getElementById("wr_list_menu").classList.add("wr_list_menu");
+    }
+  };
+
+  componentDidMount = () => {
+    this.checkActiveMenu();
+  };
+
+  handleCheckActive = (name) => {
+    this.checkActiveMenu();
+  };
+
   render() {
     let { dataMenu } = this.state;
 
     return (
       <nav>
-        <ul className="list-unstyled mb-0 py-3 pt-md-1">
+        <ul id="wr_list_menu" className="list-unstyled mb-0 py-3 pt-md-1">
           {dataMenu.map((value, key) => {
-            let pathName = window.location.pathname;
             return (
-              <li key={key} className={`item_menu `}>
+              <li
+                key={key}
+                className={`item_menu `}
+                onClick={this.handleCheckActive}
+              >
                 <NavLink
                   to={value.link}
-                  className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none`}
-                  activeClassName="active"
+                  className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none `}
+                  activeClassName={`active`}
+                  //exact
                 >
                   <i>
                     <FontAwesomeIcon icon={value.icons} />
