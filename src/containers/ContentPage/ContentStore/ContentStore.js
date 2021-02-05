@@ -33,7 +33,10 @@ export default class ContentStore {
 
       if (contentDataModels) {
         runInAction(() => {
-          callbackOnSuccess(contentDataModels);
+          callbackOnSuccess({
+            list: contentDataModels,
+            pagination: repondedDataFromLibrary.pagination
+          });
         });
       } else {
         callbackOnError({

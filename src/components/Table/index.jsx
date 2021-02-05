@@ -42,11 +42,13 @@ const Table = ({
   noSelection = false,
   isList = true,
   noDropDownColumns = false,
+  pagination
 }) => {
   const [getState, setState] = useState({
     isList: isList,
     isName: "list",
     isFilter: false,
+    indexPagination: 0
   });
 
   const filterTypes = React.useMemo(
@@ -126,6 +128,7 @@ const Table = ({
       data,
       filterTypes,
       onSelect,
+      initialState: { pageIndex: getState.indexPagination, pageSize: pagination.pageLimit }
     },
     useFilters,
     useGlobalFilter,
@@ -192,6 +195,38 @@ const Table = ({
       isFilter: !getState.isFilter,
     });
   };
+
+  const handleGoToPage = (i) => {
+    setState({
+      ...getState,
+      
+    })
+  }
+
+  const paginationHTML = () => {
+    console.log('pagination pagination', pagination);
+    console.log('state.pageIndex', state.pageIndex);
+    
+    let paginationHTML = [];
+    for(let i = 0; i < pagination.totalPages; i++)
+    {
+      paginationHTML.push(
+        <button
+          key={i}
+          onClick={() => handleGoToPage(i)}
+          className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
+            i === state.pageIndex
+              ? "bg-green text-white border-green"
+              : "text-black-50"
+          }`}
+        >
+          {i + 1}
+        </button>
+        )
+    }
+
+    return paginationHTML;
+  }
 
   return (
     <>
@@ -389,21 +424,11 @@ const Table = ({
             >
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-            {pageOptions.map((item, key) => {
-              return (
-                <button
-                  key={key}
-                  onClick={() => gotoPage(item)}
-                  className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
-                    item === state.pageIndex
-                      ? "bg-green text-white border-green"
-                      : "text-black-50"
-                  }`}
-                >
-                  {item + 1}
-                </button>
-              );
-            })}
+            {
+              pagination && (
+                paginationHTML()
+              )
+            }
             <button
               onClick={() => nextPage()}
               disabled={!canNextPage}

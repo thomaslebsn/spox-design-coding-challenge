@@ -17,12 +17,12 @@ class UpcomingPosts extends React.Component {
   }
 
   componentDidMount = () => {
-    contentStore.fetchContents((data) => {
-      let dataFilter = data.splice(0, 10);
-      this.setState({
-        getDataContentPost: dataFilter,
-      });
-    });
+    // contentStore.fetchContents((data) => {
+    //   let dataFilter = data.splice(0, 10);
+    //   this.setState({
+    //     getDataContentPost: dataFilter,
+    //   });
+    // });
   };
 
   render() {

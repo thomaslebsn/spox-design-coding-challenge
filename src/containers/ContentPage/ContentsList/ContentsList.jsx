@@ -59,9 +59,10 @@ const ContentsList = observer(
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
-      const { tableStatus, contents } = this.contentListViewModel;
+      const { tableStatus, contents, pagination } = this.contentListViewModel;
 
       console.log("contents api, contents api", contents);
+      console.log("pagination pagination", pagination);
 
       const tableRowHeader = [
         {
@@ -116,6 +117,7 @@ const ContentsList = observer(
           onEdit={this.handerEditContent}
           onSelect={this.handerSelectContent}
           isFilter={true}
+          pagination={pagination}
         ></Table>
       );
     }
