@@ -15,13 +15,13 @@ const CampaignsForm = observer(
       [CAMPAIGNS_FIELD_KEY.START_DATE]: "",
       [CAMPAIGNS_FIELD_KEY.END_DATE]: "",
     };
-  
+
     constructor(props) {
       super(props);
       this.state = {
         files: [],
       };
-  
+
       this.viewModel = this.props.viewModel;
       this.isEditMode = this.viewModel.editMode;
       this.isEditMode = this.viewModel.editMode === true;
@@ -31,10 +31,12 @@ const CampaignsForm = observer(
 
       this.viewModel.setForm(this);
     }
-  
+
     generateFormSetting = () => {
       console.log("re generate Form Setting", this.formPropsData);
-  
+      const dropdownlistProjectValues = this.viewModel.dropdownlistProjectValues
+        ? this.viewModel.dropdownlistProjectValues
+        : null;
       return [
         {
           fields: [
@@ -45,10 +47,7 @@ const CampaignsForm = observer(
               value: this.formPropsData[CAMPAIGNS_FIELD_KEY.PROJECT],
               required: true,
               validation: "required",
-              option: [
-                { value: "1", label: "Marketing Vietnam Nikon" },
-                { value: "2", label: "Marketing Vietnam Nikon 2" },
-              ],
+              option: dropdownlistProjectValues,
               changed: (event) => {
                 this.formPropsData[CAMPAIGNS_FIELD_KEY.PROJECT] = event.value;
               },
@@ -61,7 +60,8 @@ const CampaignsForm = observer(
               required: true,
               validation: "required",
               changed: (event) => {
-                this.formPropsData[CAMPAIGNS_FIELD_KEY.NAME] = event.target.value;
+                this.formPropsData[CAMPAIGNS_FIELD_KEY.NAME] =
+                  event.target.value;
               },
             },
             {
@@ -90,10 +90,10 @@ const CampaignsForm = observer(
         },
       ];
     };
-  
+
     populatingFormDataHandler = (data) => {
       console.log("populatingFormDataHandler", data);
-      
+
       if (!data) return false;
       this.formPropsData[CAMPAIGNS_FIELD_KEY.NAME] = data.getName().value;
       this.formPropsData[
@@ -103,9 +103,12 @@ const CampaignsForm = observer(
         CAMPAIGNS_FIELD_KEY.END_DATE
       ] = data.getEndDate().original;
     };
-  
+
     render() {
-      console.log("[Campaigns - Form] - re-render .........", this.formPropsData);
+      console.log(
+        "[Campaigns - Form] - re-render .........",
+        this.formPropsData
+      );
 
       const { formStatus, editMode } = this.viewModel;
 

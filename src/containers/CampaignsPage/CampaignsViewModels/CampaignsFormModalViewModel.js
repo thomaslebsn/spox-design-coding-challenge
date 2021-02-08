@@ -14,7 +14,7 @@ class CampaignsFormModalViewModel {
   campaignsStore = null;
   campaignsFormComponent = null;
 
-  projects = null;
+  dropdownlistProjectValues = null;
 
   constructor(campaignsStore) {
     makeAutoObservable(this);
@@ -30,11 +30,11 @@ class CampaignsFormModalViewModel {
   };
 
   setEditCampaigns = (data) => {
-    console.log('Set edit data for campaign:', data[0]);
+    console.log("Set edit data for campaign:", data[0]);
     this.editMode = true;
     this.formStatus = PAGE_STATUS.READY;
 
-    if(data[0] !== undefined && (typeof data) == 'object') {
+    if (data[0] !== undefined && typeof data == "object") {
       this.campaignEditdata = data[0];
     }
   };
@@ -48,37 +48,28 @@ class CampaignsFormModalViewModel {
     );
   };
 
+  initForm = (id = null) => {
+    this.campaignsStore.getProjectMasterData((projectMasterDataInModel) => {
+      this.dropdownlistProjectValues = projectMasterDataInModel ? projectMasterDataInModel.toDropdownListValues() : null;
+      if(id && id > 0){
+        this.campaignsStore.getCampaign(
+          id,
+          this.setEditCampaigns,
+          this.callbackOnErrorHander
+        );
+      } else {
+        this.formStatus = PAGE_STATUS.READY;
+      }
+    }, this.callbackOnErrorHander);
+  };
+
+  loadForm = (id = null) => {
+    this.openModal();
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.initForm(id);
+  };
+
   getCampaignEditData = () => this.campaignEditdata;
-
-  getProjects = () => {
-    console.log("campaign get project");
-    ProjectStore.fetchProjects(
-      this.callbackProjectOnSuccessHandler,
-      this.callbackProjectOnErrorHander
-    );
-    // console.log('=================');
-    // return this.projects;
-  };
-
-  callbackProjectOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
-    console.log(error);
-    notify(error.message);
-  };
-
-  callbackProjectOnSuccessHandler = (projectModelData) => {
-    console.log("callbackOnSuccessHandler");
-    console.log(projectModelData);
-    if (projectModelData) {
-      const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
-        projectModelData
-      );
-
-      console.log("Row Data is Formatted");
-      console.log(rowDataTransformed);
-      this.projects = rowDataTransformed;
-    }
-  };
 
   openModal = () => {
     this.show = true;
@@ -96,7 +87,7 @@ class CampaignsFormModalViewModel {
 
     if (this.editMode) {
       const campaignId = this.campaignEditdata.getId();
-      console.log('CAMPAIGN ID NE', campaignId);
+      console.log("CAMPAIGN ID NE", campaignId);
       this.campaignsFormComponent.formPropsData.id = campaignId.value;
     }
 

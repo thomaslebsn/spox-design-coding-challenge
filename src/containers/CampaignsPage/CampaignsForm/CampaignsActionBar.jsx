@@ -27,7 +27,7 @@ class CampaignsActionBar extends Component {
   }
 
   createCampaignsHandler = () => {
-    this.campaignsFormModalViewModal.openModal();
+    this.campaignsFormModalViewModal.loadForm();
   };
 
   handerDeleteCampaigns = () => {
