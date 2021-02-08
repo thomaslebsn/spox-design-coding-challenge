@@ -420,27 +420,32 @@ const Table = ({
             </tbody>
           </table>
           <div className="pagination d-flex align-items-center justify-content-center">
-            <button
-              //onClick={() => previousPage()}
-              onClick={() => handlePreviousPage()}
-              disabled={pagination && pagination.page <= 1 ? true : false}
-              className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-            >
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </button>
+            
+            
             {
               pagination && (
-                paginationHTML()
+                <>
+                  <button
+                    //onClick={() => previousPage()}
+                    onClick={() => handlePreviousPage()}
+                    disabled={pagination && pagination.page <= 1 ? true : false}
+                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </button>
+                  {paginationHTML()}
+                  <button
+                    //onClick={() => nextPage()}
+                    onClick={() => handleNextPage()}
+                    disabled={pagination && pagination.page === pagination.totalPages ? true : false}
+                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </button>
+                </>
               )
             }
-            <button
-              //onClick={() => nextPage()}
-              onClick={() => handleNextPage()}
-              disabled={pagination && pagination.page === pagination.totalPages ? true : false}
-              className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </button>
+            
           </div>
         </div>
       ) : (
