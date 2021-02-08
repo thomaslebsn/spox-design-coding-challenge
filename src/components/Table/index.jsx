@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Pagination } from "react-bootstrap";
 import {
   useTable,
   useRowSelect,
@@ -42,7 +42,8 @@ const Table = ({
   noSelection = false,
   isList = true,
   noDropDownColumns = false,
-  pagination
+  pagination,
+  contentListViewModel
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -128,7 +129,7 @@ const Table = ({
       data,
       filterTypes,
       onSelect,
-      initialState: { pageIndex: getState.indexPagination, pageSize: pagination.pageLimit }
+      initialState: { pageIndex: getState.indexPagination, pageSize: 25 }
     },
     useFilters,
     useGlobalFilter,
@@ -196,31 +197,33 @@ const Table = ({
     });
   };
 
+  const handlePreviousPage = (i) => {
+    contentListViewModel.getPagination(pagination.page - 1);
+  }
+
   const handleGoToPage = (i) => {
-    setState({
-      ...getState,
-      
-    })
+    contentListViewModel.getPagination(i);
+  }
+
+  const handleNextPage = () => {
+    contentListViewModel.getPagination(pagination.page + 1);
   }
 
   const paginationHTML = () => {
-    console.log('pagination pagination', pagination);
-    console.log('state.pageIndex', state.pageIndex);
-    
     let paginationHTML = [];
-    for(let i = 0; i < pagination.totalPages; i++)
+    for(let i = 1; i <= pagination.totalPages; i++)
     {
       paginationHTML.push(
         <button
           key={i}
           onClick={() => handleGoToPage(i)}
           className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
-            i === state.pageIndex
+            i === pagination.page
               ? "bg-green text-white border-green"
               : "text-black-50"
           }`}
         >
-          {i + 1}
+          {i}
         </button>
         )
     }
@@ -418,8 +421,9 @@ const Table = ({
           </table>
           <div className="pagination d-flex align-items-center justify-content-center">
             <button
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
+              //onClick={() => previousPage()}
+              onClick={() => handlePreviousPage()}
+              disabled={pagination && pagination.page <= 1 ? true : false}
               className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
             >
               <FontAwesomeIcon icon={faChevronLeft} />
@@ -430,8 +434,9 @@ const Table = ({
               )
             }
             <button
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
+              //onClick={() => nextPage()}
+              onClick={() => handleNextPage()}
+              disabled={pagination && pagination.page === pagination.totalPages ? true : false}
               className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
             >
               <FontAwesomeIcon icon={faChevronRight} />

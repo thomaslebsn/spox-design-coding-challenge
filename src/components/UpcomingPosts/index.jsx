@@ -17,20 +17,15 @@ class UpcomingPosts extends React.Component {
   }
 
   componentDidMount = () => {
-    // contentStore.fetchContents((data) => {
-    //   let dataFilter = data.splice(0, 10);
-    //   this.setState({
-    //     getDataContentPost: dataFilter,
-    //   });
-    // });
+    contentStore.fetchContents((data) => {
+      let dataFilter = data.list.splice(0, 10);
+      this.setState({
+        getDataContentPost: dataFilter,
+      });
+    });
   };
 
   render() {
-    console.log(
-      "getDataContentPost getDataContentPost",
-      this.state.getDataContentPost
-    );
-
     const images = [
       "/assets/images/icon-nikon.png",
       "/assets/images/icon-nikon.png",
