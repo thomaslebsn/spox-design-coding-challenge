@@ -118,7 +118,7 @@ const ContentsList = observer(
           onSelect={this.handerSelectContent}
           isFilter={true}
           pagination={pagination}
-          contentListViewModel={this.contentListViewModel}
+          listViewModel={this.contentListViewModel}
         ></Table>
       );
     }

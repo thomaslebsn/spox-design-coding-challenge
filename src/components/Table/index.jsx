@@ -43,7 +43,7 @@ const Table = ({
   isList = true,
   noDropDownColumns = false,
   pagination,
-  contentListViewModel
+  listViewModel
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -198,15 +198,15 @@ const Table = ({
   };
 
   const handlePreviousPage = (i) => {
-    contentListViewModel.getPagination(pagination.page - 1);
+    listViewModel.getPagination(pagination.page - 1);
   }
 
   const handleGoToPage = (i) => {
-    contentListViewModel.getPagination(i);
+    listViewModel.getPagination(i);
   }
 
   const handleNextPage = () => {
-    contentListViewModel.getPagination(pagination.page + 1);
+    listViewModel.getPagination(pagination.page + 1);
   }
 
   const paginationHTML = () => {
