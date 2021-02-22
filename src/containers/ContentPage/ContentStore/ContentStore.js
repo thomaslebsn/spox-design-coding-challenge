@@ -13,14 +13,14 @@ import {
 } from "../../../constants/ContentModule";
 
 export default class ContentStore {
-  async fetchContents(callbackOnSuccess, callbackOnError) {
+  async fetchContents(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Content Store - Fetch Content");
       const contentAPIService = new EasiiContentApiService();
 
       const repondedDataFromLibrary = await contentAPIService.getContents(
-        1,
-        100
+        paginationStep,
+        25
       );
       console.log(
         "repondedDataFromLibrary repondedDataFromLibrary",
@@ -28,12 +28,15 @@ export default class ContentStore {
       );
 
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-        repondedDataFromLibrary
+        repondedDataFromLibrary.list
       );
 
       if (contentDataModels) {
         runInAction(() => {
-          callbackOnSuccess(contentDataModels);
+          callbackOnSuccess({
+            list: contentDataModels,
+            pagination: repondedDataFromLibrary.pagination
+          });
         });
       } else {
         callbackOnError({

@@ -9,6 +9,8 @@ class ContentsListViewModel {
 
   contents = null;
 
+  pagination = null;
+
   tableRowHeader = null;
 
   tableStatus = PAGE_STATUS.LOADING;
@@ -52,6 +54,16 @@ class ContentsListViewModel {
     }
   };
 
+  getPagination = (paginationStep) => {
+    console.log('paginationStep', paginationStep);
+    this.tableStatus = PAGE_STATUS.LOADING;
+    this.contentStore.fetchContents(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      paginationStep
+    );
+  }
+
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
@@ -64,11 +76,14 @@ class ContentsListViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       const rowDataTransformed = ContentUtils.transformContentModelIntoTableDataRow(
-        contentModelData
+        contentModelData.list
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
       this.contents = rowDataTransformed;
+      this.pagination = contentModelData.pagination;
+
+      console.log("this.pagination this.pagination", this.pagination);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }

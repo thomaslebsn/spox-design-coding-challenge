@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Pagination } from "react-bootstrap";
 import {
   useTable,
   useRowSelect,
@@ -42,11 +42,14 @@ const Table = ({
   noSelection = false,
   isList = true,
   noDropDownColumns = false,
+  pagination,
+  listViewModel
 }) => {
   const [getState, setState] = useState({
     isList: isList,
     isName: "list",
     isFilter: false,
+    indexPagination: 0
   });
 
   const filterTypes = React.useMemo(
@@ -126,6 +129,7 @@ const Table = ({
       data,
       filterTypes,
       onSelect,
+      initialState: { pageIndex: getState.indexPagination, pageSize: 25 }
     },
     useFilters,
     useGlobalFilter,
@@ -192,6 +196,40 @@ const Table = ({
       isFilter: !getState.isFilter,
     });
   };
+
+  const handlePreviousPage = (i) => {
+    listViewModel.getPagination(pagination.page - 1);
+  }
+
+  const handleGoToPage = (i) => {
+    listViewModel.getPagination(i);
+  }
+
+  const handleNextPage = () => {
+    listViewModel.getPagination(pagination.page + 1);
+  }
+
+  const paginationHTML = () => {
+    let paginationHTML = [];
+    for(let i = 1; i <= pagination.totalPages; i++)
+    {
+      paginationHTML.push(
+        <button
+          key={i}
+          onClick={() => handleGoToPage(i)}
+          className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
+            i === pagination.page
+              ? "bg-green text-white border-green"
+              : "text-black-50"
+          }`}
+        >
+          {i}
+        </button>
+        )
+    }
+
+    return paginationHTML;
+  }
 
   return (
     <>
@@ -382,35 +420,32 @@ const Table = ({
             </tbody>
           </table>
           <div className="pagination d-flex align-items-center justify-content-center">
-            <button
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
-              className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-            >
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </button>
-            {pageOptions.map((item, key) => {
-              return (
-                <button
-                  key={key}
-                  onClick={() => gotoPage(item)}
-                  className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
-                    item === state.pageIndex
-                      ? "bg-green text-white border-green"
-                      : "text-black-50"
-                  }`}
-                >
-                  {item + 1}
-                </button>
-              );
-            })}
-            <button
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
-              className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </button>
+            
+            
+            {
+              pagination && (
+                <>
+                  <button
+                    //onClick={() => previousPage()}
+                    onClick={() => handlePreviousPage()}
+                    disabled={pagination && pagination.page <= 1 ? true : false}
+                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </button>
+                  {paginationHTML()}
+                  <button
+                    //onClick={() => nextPage()}
+                    onClick={() => handleNextPage()}
+                    disabled={pagination && pagination.page === pagination.totalPages ? true : false}
+                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </button>
+                </>
+              )
+            }
+            
           </div>
         </div>
       ) : (
