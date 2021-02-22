@@ -17,7 +17,7 @@ class Projects extends React.Component {
   componentDidMount = () => {
     projectStore.fetchProjects((data) => {
       this.setState({
-        getDataProjects: data,
+        getDataProjects: data.list,
       });
     });
   };

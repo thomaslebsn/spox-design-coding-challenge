@@ -7,23 +7,26 @@ import ProjectModel from "../ProjectModel/ProjectModel";
 import { EasiiProjectApiService } from "easii-io-web-service-library";
 
 export default class ProjectStore {
-  async fetchProjects(callbackOnSuccess, callbackOnError) {
+  async fetchProjects(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Project Store - Fetch Projects");
       const projectAPIService = new EasiiProjectApiService();
       const respondedDataFromLibrary = await projectAPIService.getProjects(
-        1,
-        100
+        paginationStep,
+        25
       );
       console.log("Debugging ---- fetchProjects");
       console.log(respondedDataFromLibrary);
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-        respondedDataFromLibrary
+        respondedDataFromLibrary.list
       );
 
       if (projectDataModels) {
         runInAction(() => {
-          callbackOnSuccess(projectDataModels);
+          callbackOnSuccess({
+            list: projectDataModels,
+            pagination: respondedDataFromLibrary.pagination
+          });
         });
       } else {
         callbackOnError({

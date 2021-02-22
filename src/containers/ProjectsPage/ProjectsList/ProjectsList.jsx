@@ -54,8 +54,10 @@ const ProjectsList = observer(
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
-      const { tableStatus, projects } = this.projectListViewModel;
-      console.log(projects);
+      const { tableStatus, projects, pagination } = this.projectListViewModel;
+
+      console.log("projects api, projects api", projects);
+      console.log("pagination pagination", pagination);
 
       const tableRowHeader = [
         {
@@ -110,6 +112,8 @@ const ProjectsList = observer(
             PROJECT_COLUMN_INDICATOR.START_DATE,
             PROJECT_COLUMN_INDICATOR.END_DATE,
           ]}
+          pagination={pagination}
+          listViewModel={this.projectListViewModel}
         ></Table>
       );
     }
