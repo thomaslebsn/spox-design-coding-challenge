@@ -238,9 +238,11 @@ const Table = ({
           <div className="wrapper_search_global d-flex align-items-center">
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
+              // globalFilter={state.globalFilter ? state.globalFilter : listViewModel.valueSearch}
               globalFilter={state.globalFilter}
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
+              listViewModel={listViewModel}
             />
             {!noDropDownColumns && (
               <div className="px-2 border-end-1">

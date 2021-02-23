@@ -41,6 +41,48 @@ export default class ProjectStore {
     }
   }
 
+  async filterProjects(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
+    try {
+      console.log("Project Store - Fetch Projects");
+      const projectAPIService = new EasiiProjectApiService();
+      const respondedDataFromLibrary = await projectAPIService.filterProject(
+        dataFilter,
+        paginationStep,
+        25
+      );
+      
+      console.log("Debugging ---- filterProjects");
+      console.log(respondedDataFromLibrary);
+      let projectDataModels = null;
+
+      if (respondedDataFromLibrary !== null)
+      {
+        console.log('================');
+        projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
+          respondedDataFromLibrary.list
+        );
+      }
+
+      if (projectDataModels) {
+        runInAction(() => {
+          callbackOnSuccess({
+            list: projectDataModels,
+            pagination: respondedDataFromLibrary.pagination
+          });
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
   async saveProject(projectData, callbackOnSuccess, callbackOnError) {
     try {
       console.log("Saving Project via call web service lib function");

@@ -3,7 +3,6 @@ import { ProjectLeadModel } from "../ProjectModel/ProjectLeadModel";
 
 class ProjectUtils {
   transformProjectResponseIntoModel = (response) => {
-    console.log(response);
     return Object.keys(response)
       .map((index) => {
         return [...Array(response[index])].map((item) => {

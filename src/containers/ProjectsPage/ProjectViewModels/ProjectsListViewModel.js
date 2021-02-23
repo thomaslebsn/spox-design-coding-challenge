@@ -16,6 +16,8 @@ class ProjectsListViewModel {
 
   projectIdsSelected = null;
 
+  valueSearch = null;
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -57,10 +59,28 @@ class ProjectsListViewModel {
     );
   }
 
+  filterProject = (keyword) => {
+    const dataFilter = {
+      keyword: keyword
+    }
+
+    this.valueSearch = keyword;
+
+    // this.tableStatus = PAGE_STATUS.LOADING;
+    this.projectStore.filterProjects(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      dataFilter
+    );
+  }
+
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
     notify(error.message);
+    // this.tableStatus = PAGE_STATUS.READY;
+    // this.projects = {};
+    // this.pagination = {};
   };
 
   callbackOnSuccessHandler = (projectModelData) => {
