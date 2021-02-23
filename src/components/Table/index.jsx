@@ -180,8 +180,9 @@ const Table = ({
   };
 
   const setGlobalFilter = (filterValue) => {
-    console.log(filterValue);
-    searchFunction(filterValue || undefined);
+    if (searchFunction !== undefined) {
+      searchFunction(filterValue || undefined);
+    }
   }
 
   const renderRowSubComponent = React.useCallback(
@@ -244,7 +245,7 @@ const Table = ({
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               // globalFilter={state.globalFilter ? state.globalFilter : listViewModel.valueSearch}
-              globalFilter={state.globalFilter ? state.globalFilter : listViewModel.valueSearch}
+              globalFilter={listViewModel !== undefined ? listViewModel.valueSearch : state.globalFilter}
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
               listViewModel={listViewModel}
