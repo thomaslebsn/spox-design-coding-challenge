@@ -43,7 +43,7 @@ export default class ProjectStore {
 
   async filterProjects(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
     try {
-      console.log("Project Store - Fetch Projects");
+      console.log("Project Store - filter Projects");
       const projectAPIService = new EasiiProjectApiService();
       const respondedDataFromLibrary = await projectAPIService.filterProject(
         dataFilter,
@@ -57,7 +57,6 @@ export default class ProjectStore {
 
       if (respondedDataFromLibrary !== null)
       {
-        console.log('================');
         projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
           respondedDataFromLibrary.list
         );
@@ -72,7 +71,7 @@ export default class ProjectStore {
         });
       } else {
         callbackOnError({
-          message: "Something went wrong from Server response",
+          message: "No result",
         });
       }
     } catch (error) {

@@ -43,7 +43,8 @@ const Table = ({
   isList = true,
   noDropDownColumns = false,
   pagination,
-  listViewModel
+  listViewModel,
+  searchFunction
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -109,7 +110,6 @@ const Table = ({
     page,
     visibleColumns,
     preGlobalFilteredRows,
-    setGlobalFilter,
     allColumns,
     getToggleHideAllColumnsProps,
     canPreviousPage,
@@ -179,6 +179,11 @@ const Table = ({
     });
   };
 
+  const setGlobalFilter = (filterValue) => {
+    console.log(filterValue);
+    searchFunction(filterValue || undefined);
+  }
+
   const renderRowSubComponent = React.useCallback(
     ({ row, rowProps, visibleColumns }) => (
       <SubRowAsync
@@ -239,7 +244,7 @@ const Table = ({
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               // globalFilter={state.globalFilter ? state.globalFilter : listViewModel.valueSearch}
-              globalFilter={state.globalFilter}
+              globalFilter={state.globalFilter ? state.globalFilter : listViewModel.valueSearch}
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
               listViewModel={listViewModel}

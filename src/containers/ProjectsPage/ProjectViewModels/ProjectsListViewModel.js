@@ -66,7 +66,6 @@ class ProjectsListViewModel {
 
     this.valueSearch = keyword;
 
-    // this.tableStatus = PAGE_STATUS.LOADING;
     this.projectStore.filterProjects(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
@@ -78,9 +77,6 @@ class ProjectsListViewModel {
     console.log("callbackOnErrorHander");
     console.log(error);
     notify(error.message);
-    // this.tableStatus = PAGE_STATUS.READY;
-    // this.projects = {};
-    // this.pagination = {};
   };
 
   callbackOnSuccessHandler = (projectModelData) => {

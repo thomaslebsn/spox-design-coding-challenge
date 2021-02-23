@@ -113,6 +113,7 @@ const ProjectsList = observer(
           ]}
           pagination={pagination}
           listViewModel={this.projectListViewModel}
+          searchFunction={this.projectListViewModel.filterProject}
         ></Table>
       );
     }

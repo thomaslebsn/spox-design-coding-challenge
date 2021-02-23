@@ -14,7 +14,6 @@ const GlobalFilter = ({
   const [value, setValue] = React.useState(globalFilter);
   const onChange = useAsyncDebounce((value) => {
     setGlobalFilter(value || undefined);
-    // listViewModel.filterProject(value || undefined);
   }, 200);
 
   return (
