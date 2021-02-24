@@ -180,7 +180,6 @@ const Table = ({
   };
 
   const setGlobalFilter = (filterValue) => {
-    console.log(filterValue);
     if (searchFunction !== undefined) {
       searchFunction(filterValue || undefined);
     }
