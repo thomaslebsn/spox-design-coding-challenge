@@ -16,6 +16,8 @@ class ProjectsListViewModel {
 
   projectIdsSelected = null;
 
+  valueSearch = null;
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -54,6 +56,26 @@ class ProjectsListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       paginationStep
+    );
+  }
+
+  searchProjects = (keyword) => {
+    if (keyword === '' || keyword === undefined || keyword.trim() === '')
+    {
+      notify('Please must enter value before doing search function');
+      return false;
+    }
+
+    const dataFilter = {
+      keyword: keyword
+    }
+
+    this.valueSearch = keyword;
+
+    this.projectStore.searchProjects(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      dataFilter
     );
   }
 

@@ -9,6 +9,7 @@ const GlobalFilter = ({
   globalFilter,
   setGlobalFilter,
   searchText,
+  listViewModel
 }) => {
   const [value, setValue] = React.useState(globalFilter);
   const onChange = useAsyncDebounce((value) => {

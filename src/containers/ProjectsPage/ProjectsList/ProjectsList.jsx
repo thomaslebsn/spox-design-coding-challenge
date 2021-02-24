@@ -15,7 +15,6 @@ const ProjectsList = observer(
     projectListViewModel = null;
     constructor(props) {
       super(props);
-
       const { viewModel } = props;
       console.log("ProjectList - Debug View Model");
       console.log(viewModel);
@@ -114,6 +113,7 @@ const ProjectsList = observer(
           ]}
           pagination={pagination}
           listViewModel={this.projectListViewModel}
+          searchFunction={this.projectListViewModel.searchProjects}
         ></Table>
       );
     }
