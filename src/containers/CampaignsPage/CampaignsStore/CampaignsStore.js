@@ -4,33 +4,57 @@ import { runInAction } from "mobx";
 import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
 import CampaignsModel from "../CampaignsModel/CampaignsModel";
 import { EasiiCampaignApiService } from "easii-io-web-service-library";
-import { withGlobalStore } from "../../../store/Store";
 import { ProjectMasterDataModel } from "../../../store/Models/MasterDataModels/ProjectMasterDataModel";
 
 class CampaignsStore {
   globalStore = null;
-  constructor(props) {
-    this.globalStore = props.globalStore;
+  constructor(args = {}) {
+    if (args) {
+      this.globalStore = args.globalStore ? args.globalStore : null;
+    }
   }
 
   async getProjectMasterData(callbackOnSuccess, callbackOnError) {
     try {
-      const result = await this.globalStore.getMasterData({
-        isForProjectMasterData: true,
-      });
-      const resultInModel = new ProjectMasterDataModel(result);
-      console.log("CampaignsStore - getProjectMasterData");
-      console.log(result);
-      console.log("CampaignsStore - resultToDropdownlistValues");
-      console.log(resultInModel);
-      if (resultInModel) {
+      if (!this.globalStore) {
         runInAction(() => {
-          callbackOnSuccess(resultInModel);
+          callbackOnError({
+            message: "Global Store is NULL",
+          });
         });
       } else {
-        callbackOnError({
-          message: "Something went wrong from Server response",
-        });
+        console.log("Campaign Store - Get Global Store");
+        console.log(this.globalStore);
+        await this.globalStore.getMasterData(
+          {
+            isForProjectMaster: true,
+          },
+          (result) => {
+            const resultInModel = new ProjectMasterDataModel(result && result.projectMasterData ? result.projectMasterData : null);
+            console.log("CampaignsStore - getProjectMasterData");
+            console.log(result);
+            console.log("CampaignsStore - resultToDropdownlistValues");
+            console.log(resultInModel);
+            if (resultInModel) {
+              runInAction(() => {
+                callbackOnSuccess(resultInModel);
+              });
+            } else {
+              runInAction(() => {
+                callbackOnError({
+                  message: "resultInModel - CampaignsStore - getProjectMasterData - Something went wrong from Server response",
+                });
+              });
+            }
+          },
+          (error) => {
+            runInAction(() => {
+              callbackOnError({
+                message: "CampaignsStore - getProjectMasterData - Something went wrong from Server response : " + error,
+              });
+            });
+          }
+        );
       }
     } catch (error) {
       console.log(error);
@@ -38,8 +62,6 @@ class CampaignsStore {
         callbackOnError(error);
       });
     }
-   
-    
   }
 
   async fetchCampaigns(callbackOnSuccess, callbackOnError) {
@@ -190,4 +212,4 @@ class CampaignsStore {
   }
 }
 
-export default withGlobalStore(CampaignsStore);
+export default CampaignsStore;

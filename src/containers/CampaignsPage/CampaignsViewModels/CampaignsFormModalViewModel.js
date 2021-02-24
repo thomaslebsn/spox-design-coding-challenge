@@ -49,6 +49,7 @@ class CampaignsFormModalViewModel {
   };
 
   initForm = (id = null) => {
+    console.log("Init Campaign Form");
     this.campaignsStore.getProjectMasterData((projectMasterDataInModel) => {
       this.dropdownlistProjectValues = projectMasterDataInModel ? projectMasterDataInModel.toDropdownListValues() : null;
       if(id && id > 0){

@@ -56,6 +56,7 @@ class GlobalStore {
         const projectMasterData = this.projectMasterData
           ? this.projectMasterData
           : await this.getProjectMasterData();
+        // const projectMasterData =  await this.getProjectMasterData();
         if (projectMasterData) {
           result.projectMasterData = projectMasterData;
         }

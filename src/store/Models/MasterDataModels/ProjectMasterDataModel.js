@@ -12,8 +12,8 @@ class ProjectMasterDataModel extends BaseMasterDataModel {
   constructor(entities) {
     if (entities) {
       super(entities);
-      this.unTransformedItems = entities._embedded.item;
-      this.items = entities._embedded.item.map((element) => {
+      this.unTransformedItems = entities;
+      this.items = entities.map((element) => {
         return new ProjectMasterDataItemModel(element);
       });
     }

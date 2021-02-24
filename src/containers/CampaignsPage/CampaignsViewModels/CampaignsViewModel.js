@@ -5,12 +5,12 @@ import CampaignsSelectionViewModel from "./CampaignsSelectionViewModel";
 class CampaignsViewModel {
   campaignsListViewModel = null;
   campaignsSelectionViewModel = null;
-  CampaignsFormModalViewModel = null;
+  campaignsFormModalViewModel = null;
 
   constructor(campaignsStore) {
     if (campaignsStore) {
       console.log("CampaignsViewModel - Abstract");
-      this.CampaignsFormModalViewModel = new CampaignsFormModalViewModel(
+      this.campaignsFormModalViewModel = new CampaignsFormModalViewModel(
         campaignsStore
       );
       this.campaignsListViewModel = new CampaignsListViewModel(campaignsStore);
@@ -18,7 +18,7 @@ class CampaignsViewModel {
         campaignsStore
       );
 
-      this.CampaignsFormModalViewModel.setCampaignsListViewModel(
+      this.campaignsFormModalViewModel.setCampaignsListViewModel(
         this.campaignsListViewModel
       );
     }
@@ -26,7 +26,7 @@ class CampaignsViewModel {
 
   getCampaignsListViewModel = () => this.campaignsListViewModel;
   getCampaignsSelectionViewModel = () => this.campaignsSelectionViewModel;
-  getCampainsFormModalViewModel = () => this.CampaignsFormModalViewModel;
+  getCampainsFormModalViewModel = () => this.campaignsFormModalViewModel;
 }
 
 export default CampaignsViewModel;
