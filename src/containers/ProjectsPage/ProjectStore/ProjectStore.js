@@ -41,11 +41,11 @@ export default class ProjectStore {
     }
   }
 
-  async filterProjects(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
+  async searchProjects(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
     try {
       console.log("Project Store - filter Projects");
       const projectAPIService = new EasiiProjectApiService();
-      const respondedDataFromLibrary = await projectAPIService.filterProject(
+      const respondedDataFromLibrary = await projectAPIService.searchProjects(
         dataFilter,
         paginationStep,
         25

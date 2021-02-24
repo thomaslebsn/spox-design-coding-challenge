@@ -66,7 +66,7 @@ class ProjectsListViewModel {
 
     this.valueSearch = keyword;
 
-    this.projectStore.filterProjects(
+    this.projectStore.searchProjects(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       dataFilter
