@@ -59,7 +59,13 @@ class ProjectsListViewModel {
     );
   }
 
-  filterProject = (keyword) => {
+  searchProjects = (keyword) => {
+    if (keyword === '' || keyword === undefined || keyword.trim() === '')
+    {
+      notify('Please must enter value before doing search function');
+      return false;
+    }
+
     const dataFilter = {
       keyword: keyword
     }
