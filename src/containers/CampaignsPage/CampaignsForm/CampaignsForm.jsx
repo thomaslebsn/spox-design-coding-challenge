@@ -11,6 +11,7 @@ const FormComponent = lazy(() => import("../../../components/Form"));
 const CampaignsForm = observer(
   class CampaignsForm extends Component {
     formPropsData = {
+      [CAMPAIGNS_FIELD_KEY.PROJECT]: "",
       [CAMPAIGNS_FIELD_KEY.NAME]: "",
       [CAMPAIGNS_FIELD_KEY.START_DATE]: "",
       [CAMPAIGNS_FIELD_KEY.END_DATE]: "",
@@ -95,6 +96,8 @@ const CampaignsForm = observer(
       console.log("populatingFormDataHandler", data);
 
       if (!data) return false;
+      
+      this.formPropsData[CAMPAIGNS_FIELD_KEY.PROJECT] = data.getProjectId();
       this.formPropsData[CAMPAIGNS_FIELD_KEY.NAME] = data.getName().value;
       this.formPropsData[
         CAMPAIGNS_FIELD_KEY.START_DATE

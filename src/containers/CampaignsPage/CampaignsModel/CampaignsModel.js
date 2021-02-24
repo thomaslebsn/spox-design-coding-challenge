@@ -38,6 +38,8 @@ class CampaignsModel {
     };
   };
 
+  getProjectId = () => this.project ? this.project : null;
+
   getName = () => {
     return {
       value: this.name,

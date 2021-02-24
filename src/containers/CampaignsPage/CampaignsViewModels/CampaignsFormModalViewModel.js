@@ -32,11 +32,11 @@ class CampaignsFormModalViewModel {
   setEditCampaigns = (data) => {
     console.log("Set edit data for campaign:", data[0]);
     this.editMode = true;
-    this.formStatus = PAGE_STATUS.READY;
-
+    
     if (data[0] !== undefined && typeof data == "object") {
       this.campaignEditdata = data[0];
     }
+    this.formStatus = PAGE_STATUS.READY;
   };
 
   getCampaign = (id) => {
