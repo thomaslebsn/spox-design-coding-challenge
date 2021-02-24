@@ -8,9 +8,16 @@ import ComponentDatepicker from "../../components/ComponentDatepicker";
 import CampaignsViewModel from "./CampaignsViewModels/CampaignsViewModel";
 import { CampaignsViewModelContextProvider } from "./CampaignsViewModels/CampaignsViewModelContextProvider";
 import CampaignsStore from "./CampaignsStore/CampaignsStore";
+import { GlobalStore } from "../../store/Store";
 const CampaignsList = lazy(() => import("./CampaignsList/CampaignsList"));
 
-const campaignsStore = new CampaignsStore();
+if (!window.globalStore) {
+  window.globalStore = new GlobalStore();
+}
+const globalStore = window.globalStore;
+const campaignsStore = new CampaignsStore({
+  globalStore: globalStore,
+});
 const campaignsViewModel = new CampaignsViewModel(campaignsStore);
 
 function Campaigns() {

@@ -4,8 +4,66 @@ import { runInAction } from "mobx";
 import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
 import CampaignsModel from "../CampaignsModel/CampaignsModel";
 import { EasiiCampaignApiService } from "easii-io-web-service-library";
+import { ProjectMasterDataModel } from "../../../store/Models/MasterDataModels/ProjectMasterDataModel";
 
-export default class CampaignsStore {
+class CampaignsStore {
+  globalStore = null;
+  constructor(args = {}) {
+    if (args) {
+      this.globalStore = args.globalStore ? args.globalStore : null;
+    }
+  }
+
+  async getProjectMasterData(callbackOnSuccess, callbackOnError) {
+    try {
+      if (!this.globalStore) {
+        runInAction(() => {
+          callbackOnError({
+            message: "Global Store is NULL",
+          });
+        });
+      } else {
+        console.log("Campaign Store - Get Global Store");
+        console.log(this.globalStore);
+        await this.globalStore.getMasterData(
+          {
+            isForProjectMaster: true,
+          },
+          (result) => {
+            const resultInModel = new ProjectMasterDataModel(result && result.projectMasterData ? result.projectMasterData : null);
+            console.log("CampaignsStore - getProjectMasterData");
+            console.log(result);
+            console.log("CampaignsStore - resultToDropdownlistValues");
+            console.log(resultInModel);
+            if (resultInModel) {
+              runInAction(() => {
+                callbackOnSuccess(resultInModel);
+              });
+            } else {
+              runInAction(() => {
+                callbackOnError({
+                  message: "resultInModel - CampaignsStore - getProjectMasterData - Something went wrong from Server response",
+                });
+              });
+            }
+          },
+          (error) => {
+            runInAction(() => {
+              callbackOnError({
+                message: "CampaignsStore - getProjectMasterData - Something went wrong from Server response : " + error,
+              });
+            });
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
   async fetchCampaigns(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Persona Store - Fetch Personas");
@@ -160,3 +218,5 @@ export default class CampaignsStore {
     // }
   }
 }
+
+export default CampaignsStore;
