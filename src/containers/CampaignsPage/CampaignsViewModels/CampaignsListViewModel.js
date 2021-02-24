@@ -13,6 +13,8 @@ class CampaignsListViewModel {
 
   tableRowHeader = null;
 
+  valueSearch = null;
+
   tableStatus = PAGE_STATUS.LOADING;
 
   campaignsIdsSelected = null;
@@ -57,6 +59,26 @@ class CampaignsListViewModel {
       paginationStep
     );
   };
+
+  searchCampaign = (keyword) => {
+    if (keyword === '' || keyword === undefined || keyword.trim() === '')
+    {
+      notify('Please must enter value before doing search function');
+      return false;
+    }
+
+    const dataFilter = {
+      keyword: keyword
+    }
+
+    this.valueSearch = keyword;
+
+    this.campaignsStore.searchCampaigns(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      dataFilter
+    );
+  }
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");

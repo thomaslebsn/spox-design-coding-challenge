@@ -217,6 +217,47 @@ class CampaignsStore {
     //   });
     // }
   }
+
+  async searchCampaigns(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
+    try {
+      console.log("Campaign Store - filter Campaign");
+      const CampaignAPIService = new EasiiCampaignApiService();
+      const respondedDataFromLibrary = await CampaignAPIService.searchCampaigns(
+        dataFilter,
+        paginationStep,
+        25
+      );
+      
+      console.log("Debugging ---- filter campaign");
+      console.log(respondedDataFromLibrary);
+      let campaignDataModels = null;
+
+      if (respondedDataFromLibrary !== null)
+      {
+        campaignDataModels = CampaignsUtils.transformCampaignResponseIntoModel(
+          respondedDataFromLibrary.list
+        );
+      }
+
+      if (campaignDataModels) {
+        runInAction(() => {
+          callbackOnSuccess({
+            list: campaignDataModels,
+            pagination: respondedDataFromLibrary.pagination
+          });
+        });
+      } else {
+        callbackOnError({
+          message: "No result",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
 }
 
 export default CampaignsStore;

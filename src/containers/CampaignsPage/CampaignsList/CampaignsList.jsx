@@ -179,6 +179,7 @@ const CampaignsList = observer(
             isFilter={true}
             pagination={pagination}
             listViewModel={this.campaignsListViewModel}
+            searchFunction={this.campaignsListViewModel.searchCampaign}
           ></Table>
         </div>
       );
