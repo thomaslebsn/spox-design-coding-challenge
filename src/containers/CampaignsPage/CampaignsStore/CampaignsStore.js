@@ -64,23 +64,30 @@ class CampaignsStore {
     }
   }
 
-  async fetchCampaigns(callbackOnSuccess, callbackOnError) {
+  async fetchCampaigns(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Persona Store - Fetch Personas");
       const campaignService = new EasiiCampaignApiService();
       const respondedDataFromLibrary = await campaignService.getCampaigns(
-        1,
-        100
+        paginationStep,
+        25
       );
-      // console.log(respondedDataFromLibrary);
-      // const respondedDataFromLibrary = campaigns;
-      const CampaignsModels = await CampaignsUtils.transformCampaignResponseIntoModel(
+
+      console.log(
+        "respondedDataFromLibrary respondedDataFromLibrary",
         respondedDataFromLibrary
+      );
+
+      const CampaignsModels = await CampaignsUtils.transformCampaignResponseIntoModel(
+        respondedDataFromLibrary.list
       );
 
       if (CampaignsModels) {
         runInAction(() => {
-          callbackOnSuccess(CampaignsModels);
+          callbackOnSuccess({
+            list: CampaignsModels,
+            pagination: respondedDataFromLibrary.pagination,
+          });
         });
       } else {
         callbackOnError({

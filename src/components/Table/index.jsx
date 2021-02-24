@@ -44,13 +44,13 @@ const Table = ({
   noDropDownColumns = false,
   pagination,
   listViewModel,
-  searchFunction
+  searchFunction,
 }) => {
   const [getState, setState] = useState({
     isList: isList,
     isName: "list",
     isFilter: false,
-    indexPagination: 0
+    indexPagination: 0,
   });
 
   const filterTypes = React.useMemo(
@@ -129,7 +129,7 @@ const Table = ({
       data,
       filterTypes,
       onSelect,
-      initialState: { pageIndex: getState.indexPagination, pageSize: 25 }
+      initialState: { pageIndex: getState.indexPagination, pageSize: 25 },
     },
     useFilters,
     useGlobalFilter,
@@ -183,7 +183,7 @@ const Table = ({
     if (searchFunction !== undefined) {
       searchFunction(filterValue || undefined);
     }
-  }
+  };
 
   const renderRowSubComponent = React.useCallback(
     ({ row, rowProps, visibleColumns }) => (
@@ -205,20 +205,19 @@ const Table = ({
 
   const handlePreviousPage = (i) => {
     listViewModel.getPagination(pagination.page - 1);
-  }
+  };
 
   const handleGoToPage = (i) => {
     listViewModel.getPagination(i);
-  }
+  };
 
   const handleNextPage = () => {
     listViewModel.getPagination(pagination.page + 1);
-  }
+  };
 
   const paginationHTML = () => {
     let paginationHTML = [];
-    for(let i = 1; i <= pagination.totalPages; i++)
-    {
+    for (let i = 1; i <= pagination.totalPages; i++) {
       paginationHTML.push(
         <button
           key={i}
@@ -231,11 +230,11 @@ const Table = ({
         >
           {i}
         </button>
-        )
+      );
     }
 
     return paginationHTML;
-  }
+  };
 
   return (
     <>
@@ -245,7 +244,11 @@ const Table = ({
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               // globalFilter={state.globalFilter ? state.globalFilter : listViewModel.valueSearch}
-              globalFilter={listViewModel !== undefined ? listViewModel.valueSearch : state.globalFilter}
+              globalFilter={
+                listViewModel !== undefined
+                  ? listViewModel.valueSearch
+                  : state.globalFilter
+              }
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
               listViewModel={listViewModel}
@@ -428,32 +431,31 @@ const Table = ({
             </tbody>
           </table>
           <div className="pagination d-flex align-items-center justify-content-center">
-            
-            
-            {
-              pagination && (
-                <>
-                  <button
-                    //onClick={() => previousPage()}
-                    onClick={() => handlePreviousPage()}
-                    disabled={pagination && pagination.page <= 1 ? true : false}
-                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                  >
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                  </button>
-                  {paginationHTML()}
-                  <button
-                    //onClick={() => nextPage()}
-                    onClick={() => handleNextPage()}
-                    disabled={pagination && pagination.page === pagination.totalPages ? true : false}
-                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                  >
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </button>
-                </>
-              )
-            }
-            
+            {pagination && (
+              <>
+                <button
+                  //onClick={() => previousPage()}
+                  onClick={() => handlePreviousPage()}
+                  disabled={pagination && pagination.page <= 1 ? true : false}
+                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                {paginationHTML()}
+                <button
+                  //onClick={() => nextPage()}
+                  onClick={() => handleNextPage()}
+                  disabled={
+                    pagination && pagination.page === pagination.totalPages
+                      ? true
+                      : false
+                  }
+                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                >
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </>
+            )}
           </div>
         </div>
       ) : (
