@@ -19,7 +19,7 @@ class AssignedToMe extends React.Component {
   componentDidMount = () => {
     campaignsStore.fetchCampaigns((data) => {
       this.setState({
-        getDataCampaigns: data,
+        getDataCampaigns: data.list,
       });
     });
   };

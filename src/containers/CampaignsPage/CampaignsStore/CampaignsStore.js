@@ -5,115 +5,31 @@ import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
 import CampaignsModel from "../CampaignsModel/CampaignsModel";
 import { EasiiCampaignApiService } from "easii-io-web-service-library";
 
-
-let campaigns = [
-  {
-    id: 1,
-    name: "Hieu - simple",
-    status: 1,
-    start_date: "2020-10-13",
-    end_date: "2020-10-13",
-    need_to_do: 8,
-    schedude_post: 3,
-    publish_content: 2,
-    progress: 50,
-  },
-  {
-    id: 2,
-    name: "Hieu - simple 2",
-    status: 2,
-    start_date: "2020-10-13",
-    end_date: "2020-10-13",
-    need_to_do: 8,
-    schedude_post: 3,
-    publish_content: 2,
-    progress: 50,
-  },
-  {
-    id: 3,
-    name: "Hieu - simple 3",
-    status: 3,
-    start_date: "2020-10-13",
-    end_date: "2020-10-13",
-    need_to_do: 8,
-    schedude_post: 3,
-    publish_content: 2,
-    progress: 70,
-  },
-];
-
-let dataSocial = [
-  {
-    key: 1,
-    images: "/assets/images/ic-youtube.svg",
-    number: "2.344",
-    des: "Subscribers",
-  },
-  {
-    key: 2,
-    images: "/assets/images/ic-facebook.svg",
-    number: "1.891",
-    des: "Likes",
-  },
-  {
-    key: 3,
-    images: "/assets/images/ic-facebook.svg",
-    number: "1.004",
-    des: "Followers",
-  },
-  {
-    key: 4,
-    images: "/assets/images/ic-facebook.svg",
-    number: "35,134",
-    des: "Followers",
-  },
-  {
-    key: 5,
-    images: "/assets/images/ic-facebook.svg",
-    number: "1,284",
-    des: "Followers",
-  },
-  {
-    key: 6,
-    images: "/assets/images/ic-facebook.svg",
-    number: "600",
-    des: "Posts",
-  },
-  {
-    key: 7,
-    images: "/assets/images/ic-facebook.svg",
-    number: "2,134",
-    des: "Followers",
-  },
-  {
-    key: 8,
-    images: "/assets/images/ic-facebook.svg",
-    number: "49",
-    des: "Posts",
-  },
-  {
-    key: 9,
-    images: "/assets/images/ic-facebook.svg",
-    number: "59",
-    des: "Posts",
-  },
-];
-
 export default class CampaignsStore {
-  async fetchCampaigns(callbackOnSuccess, callbackOnError) {
+  async fetchCampaigns(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Persona Store - Fetch Personas");
       const campaignService = new EasiiCampaignApiService();
-      const respondedDataFromLibrary = await campaignService.getCampaigns(1, 100);
-      // console.log(respondedDataFromLibrary);
-      // const respondedDataFromLibrary = campaigns;
-      const CampaignsModels = await CampaignsUtils.transformCampaignResponseIntoModel(
+      const respondedDataFromLibrary = await campaignService.getCampaigns(
+        paginationStep,
+        25
+      );
+
+      console.log(
+        "respondedDataFromLibrary respondedDataFromLibrary",
         respondedDataFromLibrary
+      );
+
+      const CampaignsModels = await CampaignsUtils.transformCampaignResponseIntoModel(
+        respondedDataFromLibrary.list
       );
 
       if (CampaignsModels) {
         runInAction(() => {
-          callbackOnSuccess(CampaignsModels);
+          callbackOnSuccess({
+            list: CampaignsModels,
+            pagination: respondedDataFromLibrary.pagination,
+          });
         });
       } else {
         callbackOnError({
@@ -137,21 +53,25 @@ export default class CampaignsStore {
         campaignsData
       );
 
-      console.log('convertedCampaignsData');
+      console.log("convertedCampaignsData");
       console.log(convertedCampaignsData);
 
       const campaignService = new EasiiCampaignApiService();
       let resultOnSave = false;
 
       if (campaignsData.id === undefined) {
-        console.log('CREATE CAMPAIGN');
-        resultOnSave = await campaignService.createCampaign(convertedCampaignsData);
+        console.log("CREATE CAMPAIGN");
+        resultOnSave = await campaignService.createCampaign(
+          convertedCampaignsData
+        );
       } else {
-        console.log('UPDATE CAMPAIGN', convertedCampaignsData);
+        console.log("UPDATE CAMPAIGN", convertedCampaignsData);
         //convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
-        resultOnSave = await campaignService.updateCampaign(convertedCampaignsData);
+        resultOnSave = await campaignService.updateCampaign(
+          convertedCampaignsData
+        );
       }
-      
+
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess();
@@ -174,19 +94,19 @@ export default class CampaignsStore {
   async deleteCampaigns(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
-    console.log("DELETE CAMPAIGN IDS")
+    console.log("DELETE CAMPAIGN IDS");
     console.log(ids);
 
     try {
       const campaignService = new EasiiCampaignApiService();
       const deleteIds = ids.join();
-      console.log('Prepare ids for delete: ', deleteIds);
+      console.log("Prepare ids for delete: ", deleteIds);
       const respondedFromApi = await campaignService.deleteCampaign(deleteIds);
 
       if (respondedFromApi.result === true) {
         runInAction(() => {
           callbackOnSuccess();
-        })
+        });
       }
     } catch (error) {
       console.log(error);
@@ -197,38 +117,41 @@ export default class CampaignsStore {
   }
 
   async getCampaign(id, callbackOnSuccess, callbackOnError) {
-    console.log('ID for get Campaign', id);
+    console.log("ID for get Campaign", id);
     if (!id) return false;
 
     // try {
-      const results = true;
+    const results = true;
 
-      // const editCampaigns = campaigns.filter(
-      //   (campaigns) => campaigns.id !== parseInt(id)
-      // );
+    // const editCampaigns = campaigns.filter(
+    //   (campaigns) => campaigns.id !== parseInt(id)
+    // );
 
-      if (results) {
-        const campaignService = new EasiiCampaignApiService();
-        const respondedDataFromLibrary = await campaignService.getCampaign(id, false);
-        
-        console.log('Campaign - getCampain from API', respondedDataFromLibrary);
+    if (results) {
+      const campaignService = new EasiiCampaignApiService();
+      const respondedDataFromLibrary = await campaignService.getCampaign(
+        id,
+        false
+      );
 
-        const campaignsDataModels = CampaignsUtils.transformCampaignResponseIntoModel(
-          [respondedDataFromLibrary]
-        );
+      console.log("Campaign - getCampain from API", respondedDataFromLibrary);
 
-        console.log(campaignsDataModels);
+      const campaignsDataModels = CampaignsUtils.transformCampaignResponseIntoModel(
+        [respondedDataFromLibrary]
+      );
 
-        if (campaignsDataModels) {
-          runInAction(() => {
-            callbackOnSuccess(campaignsDataModels);
-          });
-        } else {
-          callbackOnError({
-            message: "Something went wrong from Server response",
-          });
-        }
+      console.log(campaignsDataModels);
+
+      if (campaignsDataModels) {
+        runInAction(() => {
+          callbackOnSuccess(campaignsDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
       }
+    }
     // } catch (error) {
     //   console.log(error);
     //   runInAction(() => {

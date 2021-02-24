@@ -66,7 +66,11 @@ const CampaignsList = observer(
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
-      const { tableStatus, campaigns } = this.campaignsListViewModel;
+      const {
+        tableStatus,
+        campaigns,
+        pagination,
+      } = this.campaignsListViewModel;
 
       const tableRowHeader = [
         {
@@ -173,6 +177,8 @@ const CampaignsList = observer(
             onEdit={this.handerEditCampaign}
             onSelect={this.handerSelectCampaigns}
             isFilter={true}
+            pagination={pagination}
+            listViewModel={this.campaignsListViewModel}
           ></Table>
         </div>
       );

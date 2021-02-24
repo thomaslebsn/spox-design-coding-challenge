@@ -9,6 +9,8 @@ class CampaignsListViewModel {
 
   campaigns = null;
 
+  pagination = null;
+
   tableRowHeader = null;
 
   tableStatus = PAGE_STATUS.LOADING;
@@ -46,6 +48,16 @@ class CampaignsListViewModel {
     );
   };
 
+  getPagination = (paginationStep) => {
+    console.log("paginationStep", paginationStep);
+    this.tableStatus = PAGE_STATUS.LOADING;
+    this.campaignsStore.fetchCampaigns(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      paginationStep
+    );
+  };
+
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
@@ -59,11 +71,14 @@ class CampaignsListViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       const rowDataTransformed = CampaignsUtils.transformCampaignsModelIntoTableDataRow(
-        campaignsModelData
+        campaignsModelData.list
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
       this.campaigns = rowDataTransformed;
+      this.pagination = campaignsModelData.pagination;
+
+      console.log("this.pagination this.pagination", this.pagination);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
