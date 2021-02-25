@@ -1,9 +1,12 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import { format } from "date-fns";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons/faCalendarDay";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
+import { FORMAT_DATE } from "../../constants/FormFieldType";
 
 import "./index.scss";
 
@@ -35,8 +38,13 @@ class ComponentDatepicker extends React.Component {
 
   handleApply = (e) => {
     e.stopPropagation();
-
     let { startDate, endDate } = this.state;
+    console.log('handleApply - debug');
+
+    this.props.setGlobalFilter({
+      startDate: format(new Date(startDate), 'yyyy-MM-dd'),
+      endDate: format(new Date(endDate), 'yyyy-MM-dd')
+    })
 
     const ONE_DAY = 1000 * 60 * 60 * 24;
     const differenceMs = Math.abs(startDate - endDate);

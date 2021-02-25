@@ -13,7 +13,7 @@ class CampaignsListViewModel {
 
   tableRowHeader = null;
 
-  valueSearch = null;
+  dataFilter = null;
 
   tableStatus = PAGE_STATUS.LOADING;
 
@@ -60,19 +60,10 @@ class CampaignsListViewModel {
     );
   };
 
-  searchCampaign = (keyword) => {
-    if (keyword === '' || keyword === undefined || keyword.trim() === '')
-    {
-      notify('Please must enter value before doing search function');
-      return false;
-    }
-
-    const dataFilter = {
-      keyword: keyword
-    }
-
-    this.valueSearch = keyword;
-
+  searchCampaign = (dataFilter) => {
+    this.dataFilter = dataFilter;
+    console.log('dataFilter');
+    console.log(dataFilter);
     this.campaignsStore.searchCampaigns(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,

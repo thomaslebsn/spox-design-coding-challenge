@@ -16,7 +16,7 @@ class ProjectsListViewModel {
 
   projectIdsSelected = null;
 
-  valueSearch = null;
+  dataFilter = null;
 
   constructor(projectStore) {
     makeAutoObservable(this);
@@ -59,18 +59,8 @@ class ProjectsListViewModel {
     );
   }
 
-  searchProjects = (keyword) => {
-    if (keyword === '' || keyword === undefined || keyword.trim() === '')
-    {
-      notify('Please must enter value before doing search function');
-      return false;
-    }
-
-    const dataFilter = {
-      keyword: keyword
-    }
-
-    this.valueSearch = keyword;
+  searchProjects = (dataFilter) => {
+    this.dataFilter = dataFilter;
 
     this.projectStore.searchProjects(
       this.callbackOnSuccessHandler,
