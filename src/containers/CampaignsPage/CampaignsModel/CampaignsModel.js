@@ -19,13 +19,11 @@ class CampaignsModel {
 
     this.startdate =
       (data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "0000-00-00 00:00:00" ||
-        data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "") ??
-      "";
+        data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "") ? data[CAMPAIGN_API_FIELD_KEY.START_DATE] : "";
 
     this.enddate =
       (data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "0000-00-00 00:00:00" ||
-        data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "") ??
-      "";
+        data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "") ? data[CAMPAIGN_API_FIELD_KEY.END_DATE] : "";
       
     this.needtodo = data[CAMPAIGN_API_FIELD_KEY.NEED_TO_DO] ?? "";
     this.schedudepost = data[CAMPAIGN_API_FIELD_KEY.SCHEDUDE_POST] ?? "";
