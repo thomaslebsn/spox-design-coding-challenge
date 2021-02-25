@@ -48,8 +48,7 @@ const CampaignsList = observer(
     }
 
     handerEditCampaign = (row) => {
-      this.campaignsFormModalViewModal.getCampaign(row[CAMPAIGNS_FIELD_KEY.ID]);
-      this.campaignsFormModalViewModal.openModal();
+      this.campaignsFormModalViewModal.loadForm(row[CAMPAIGNS_FIELD_KEY.ID]);
     };
 
     handerSelectCampaigns = (data) => {
