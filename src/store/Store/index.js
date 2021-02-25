@@ -1,4 +1,3 @@
-import React from "react";
 import { runInAction } from "mobx";
 
 import {
@@ -91,22 +90,4 @@ class GlobalStore {
   }
 }
 
-export { GlobalStore };
-
-const GlobalStoreContext = React.createContext();
-
-export const GlobalStoreContextProvider = ({ children, viewModel }) => {
-  return (
-    <GlobalStoreContext.Provider value={viewModel}>
-      {children}
-    </GlobalStoreContext.Provider>
-  );
-};
-
-/* Hook to use store in any functional component */
-export const useGlobalStore = () => React.useContext(GlobalStoreContext);
-
-/* HOC to inject store to any functional or class component */
-export const withGlobalStore = (Component) => (props) => {
-  return <Component {...props} globalStore={useGlobalStore()} />;
-};
+export default GlobalStore;
