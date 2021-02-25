@@ -66,13 +66,19 @@ export default class PersonaStore {
 
       let resultOnSave;
 
-      if (personaData.id == undefined) {
+      console.log("personaData personaData", personaData);
+      console.log(
+        "convertedPersonaData convertedPersonaData",
+        convertedPersonaData
+      );
+
+      if (convertedPersonaData.id == undefined) {
         console.log("CREATE PERSONA");
         resultOnSave = await personaService.createPersona(convertedPersonaData);
       } else {
         console.log("UPDATE PERSONA", convertedPersonaData);
         //convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
-        resultOnSave = await personaData.updatePersona(convertedPersonaData);
+        resultOnSave = await personaService.updatePersona(convertedPersonaData);
       }
 
       console.log("resultOnSave", resultOnSave);

@@ -40,13 +40,19 @@ class PersonasListViewModel {
   };
 
   deletePersonas = () => {
-    this.tableStatus = PAGE_STATUS.LOADING;
+    let getArrayId = this.personaIdsSelected;
 
-    this.personaStore.deletePersonas(
-      this.personaIdsSelected,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
-    );
+    if (getArrayId === null) {
+      notify("Please true add list an item for delete");
+    } else {
+      this.tableStatus = PAGE_STATUS.LOADING;
+
+      this.personaStore.deletePersonas(
+        this.personaIdsSelected,
+        this.refreshTablePersonaList,
+        this.callbackOnErrorHander
+      );
+    }
   };
 
   getPagination = (paginationStep) => {

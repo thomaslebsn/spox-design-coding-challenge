@@ -272,6 +272,7 @@ class PersonaModel {
   static convertSubmittedDataToAPIService(personaData) {
     const result = personaData
       ? {
+          [ESI_PERSONA_FIELD_KEY.ID]: personaData[PERSONA_FIELD_KEY.ID] ?? null,
           [ESI_PERSONA_FIELD_KEY.NAME]:
             personaData[PERSONA_FIELD_KEY.NAME] ?? "",
           [ESI_PERSONA_FIELD_KEY.CHANNEL]:
