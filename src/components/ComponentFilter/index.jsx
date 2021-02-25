@@ -98,7 +98,7 @@ class ComponentFilter extends React.Component {
                 name={item.name}
                 onChange={this.handleSelect}
                 options={item.option}
-                className="text-green bg-white rounded-2 "
+                className="text-green bg-white rounded-2 text-capitalize"
                 isBorder={true}
                 plColor="rgba(8, 18, 64, 0.8)"
                 isMulti={item.isMulti}
