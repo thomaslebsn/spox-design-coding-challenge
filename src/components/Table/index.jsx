@@ -146,7 +146,7 @@ const Table = ({
               </div>
             ),
             Cell: ({ row }) => (
-              <div>
+              <div className="wrapper_checkbox">
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
               </div>
             ),

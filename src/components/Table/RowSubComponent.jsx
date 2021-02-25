@@ -112,7 +112,7 @@ function SubRows({ row, rowProps, visibleColumns, data, loading }) {
           <tr
             {...rowProps}
             key={`${rowProps.key}-expanded-${i}`}
-            className="border-bottom-1"
+            className="border-bottom-1 row_sub_component"
           >
             {row.cells.map((cell) => {
               console.log("cell cell", cell);
