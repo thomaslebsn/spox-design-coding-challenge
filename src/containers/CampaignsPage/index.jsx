@@ -8,7 +8,7 @@ import ComponentDatepicker from "../../components/ComponentDatepicker";
 import CampaignsViewModel from "./CampaignsViewModels/CampaignsViewModel";
 import { CampaignsViewModelContextProvider } from "./CampaignsViewModels/CampaignsViewModelContextProvider";
 import CampaignsStore from "./CampaignsStore/CampaignsStore";
-import { GlobalStore } from "../../store/Store";
+import GlobalStore from "../../store/Store";
 const CampaignsList = lazy(() => import("./CampaignsList/CampaignsList"));
 
 if (!window.globalStore) {
