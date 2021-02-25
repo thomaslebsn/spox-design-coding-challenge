@@ -94,7 +94,7 @@ const CampaignsList = observer(
           option: [
             ...this.campaignsFilterFormViewModel.dropdownlistProjectValues
           ],
-          isMulti: false
+          isMulti: true
         },
         {
           name: "Campaigns",

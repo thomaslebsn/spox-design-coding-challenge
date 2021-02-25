@@ -69,19 +69,38 @@ class ComponentFilter extends React.Component {
     };
   }
 
-  handleSelect = (e, searchType) => {
+  handleSelect = (events, name, isMulti) => {
     console.log('handleSelect');
-    console.log(searchType);
-    const value = e.value
-    const name = searchType.name;
+    console.log(events);
+
+    let values = null;
+
+    if (events)
+    {
+      if (isMulti === true) {
+        values = events.map(e => {
+          return e.value;
+        })
+      } else {
+        values = events.value
+      }
+    }
+  
+    console.log(values);
+    console.log(JSON.stringify(values));
 
     this.setState({
-      [searchType]: value,
+      [name]: values,
     });
+
+    if (isMulti)
+    {
+      name = name + '[]';
+    }
 
     this.props.setGlobalFilter(
       {
-        [name]: value
+        [name]: values
       }
     )
   };
@@ -96,7 +115,7 @@ class ComponentFilter extends React.Component {
               <SelectComponent
                 placeholder={item.name}
                 name={item.name}
-                onChange={this.handleSelect}
+                onChange={(e) => this.handleSelect(e, item.name, item.isMulti, item.type)}
                 options={item.option}
                 className="text-green bg-white rounded-2 text-capitalize"
                 isBorder={true}

@@ -184,6 +184,8 @@ const Table = ({
   const setGlobalFilter = (dataFilter) => {
     console.log('setGlobalFilter');
     if (searchFunction !== undefined) {
+      console.log(dataFilter);
+
       const finalDataFilter = {
         ...getState.dataFilter,
         ...dataFilter

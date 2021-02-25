@@ -7,7 +7,7 @@ class CampaignsViewModel {
   campaignsListViewModel = null;
   campaignsSelectionViewModel = null;
   campaignsFormModalViewModel = null;
-  CampaignsFilterFormViewModel = null;
+  campaignsFilterFormViewModel = null;
 
   constructor(campaignsStore) {
     if (campaignsStore) {
@@ -24,7 +24,7 @@ class CampaignsViewModel {
         this.campaignsListViewModel
       );
 
-      this.CampaignsFilterFormViewModel = new CampaignsFilterFormViewModel(
+      this.campaignsFilterFormViewModel = new CampaignsFilterFormViewModel(
         campaignsStore
       );
     }
@@ -33,7 +33,7 @@ class CampaignsViewModel {
   getCampaignsListViewModel = () => this.campaignsListViewModel;
   getCampaignsSelectionViewModel = () => this.campaignsSelectionViewModel;
   getCampainsFormModalViewModel = () => this.campaignsFormModalViewModel;
-  getCampaignsFilterFormViewModel = () => this.CampaignsFilterFormViewModel;
+  getCampaignsFilterFormViewModel = () => this.campaignsFilterFormViewModel;
 }
 
 export default CampaignsViewModel;

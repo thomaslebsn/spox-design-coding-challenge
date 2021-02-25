@@ -18,11 +18,11 @@ class CampaignsModel {
     this.status = data[CAMPAIGN_API_FIELD_KEY.STATUS] ?? "";
 
     this.startdate =
-      (data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "0000-00-00 00:00:00" ||
+      (data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "0000-00-00 00:00:00" &&
         data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "") ? data[CAMPAIGN_API_FIELD_KEY.START_DATE] : "";
 
     this.enddate =
-      (data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "0000-00-00 00:00:00" ||
+      (data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "0000-00-00 00:00:00" &&
         data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "") ? data[CAMPAIGN_API_FIELD_KEY.END_DATE] : "";
       
     this.needtodo = data[CAMPAIGN_API_FIELD_KEY.NEED_TO_DO] ?? "";
@@ -139,7 +139,6 @@ class CampaignsModel {
       const id = this.getId();
       const name = this.getName();
       const status = this.getStatus();
-      console.log("4234234");
       const startDate = this.getStartDate();
       console.log("---------------------");
       const endDate = this.getEndDate();
