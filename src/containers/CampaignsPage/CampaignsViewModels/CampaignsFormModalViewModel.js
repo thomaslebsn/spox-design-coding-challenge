@@ -32,7 +32,7 @@ class CampaignsFormModalViewModel {
   setEditCampaigns = (data) => {
     console.log("Set edit data for campaign:", data[0]);
     this.editMode = true;
-    
+
     if (data[0] !== undefined && typeof data == "object") {
       this.campaignEditdata = data[0];
     }
@@ -50,9 +50,12 @@ class CampaignsFormModalViewModel {
 
   initForm = (id = null) => {
     console.log("Init Campaign Form");
-    this.campaignsStore.getProjectMasterData((projectMasterDataInModel) => {
-      this.dropdownlistProjectValues = projectMasterDataInModel ? projectMasterDataInModel.toDropdownListValues() : null;
-      if(id && id > 0){
+    this.campaignsStore.getProjectMasterData(
+      (projectMasterDataInModel) => {
+      this.dropdownlistProjectValues = projectMasterDataInModel
+        ? projectMasterDataInModel.toDropdownListValues()
+        : null;
+      if (id && id > 0) {
         this.campaignsStore.getCampaign(
           id,
           this.setEditCampaigns,
