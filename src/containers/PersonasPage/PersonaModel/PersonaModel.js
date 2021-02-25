@@ -18,7 +18,10 @@ class PersonaModel {
     this.channels = data[ESI_PERSONA_FIELD_KEY.CHANNELS] ?? "";
     this.dgname = data[ESI_PERSONA_FIELD_KEY.DG_NAME] ?? "";
     this.age = data[ESI_PERSONA_FIELD_KEY.AGE] ?? 0;
-    this.gender = JSON.parse(data[ESI_PERSONA_FIELD_KEY.GENDER]) ?? "";
+    this.gender =
+      (data[ESI_PERSONA_FIELD_KEY.GENDER] !== "" &&
+        JSON.parse(data[ESI_PERSONA_FIELD_KEY.GENDER])) ??
+      "";
     this.location = data[ESI_PERSONA_FIELD_KEY.LOCATION] ?? "";
     this.tools = data[ESI_PERSONA_FIELD_KEY.TOOLS] ?? "";
     this.job_title = data[ESI_PERSONA_FIELD_KEY.JOB_TITLE] ?? "";
@@ -99,7 +102,9 @@ class PersonaModel {
 
   getCreatedDate = () => {
     return {
-      value: this.createdDate? format(new Date(this.createdDate), FORMAT_DATE): "",
+      value: this.createdDate
+        ? format(new Date(this.createdDate), FORMAT_DATE)
+        : "",
       original: this.createdDate ?? "",
       type: FIELD_TYPE.DATE,
       columnName: PERSONA_FIELD_KEY.CREATED_DATE,
@@ -109,7 +114,9 @@ class PersonaModel {
 
   getUpdatedDate = () => {
     return {
-      value: this.updatedDate ? format(new Date(this.updatedDate), FORMAT_DATE): "",
+      value: this.updatedDate
+        ? format(new Date(this.updatedDate), FORMAT_DATE)
+        : "",
       //value: this.updatedDate,
       original: this.updatedDate ?? "",
       type: FIELD_TYPE.DATE,
