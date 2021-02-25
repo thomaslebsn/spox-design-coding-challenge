@@ -2,7 +2,7 @@ import React from "react";
 
 import SelectComponent from "../Select";
 
-const data = [
+let data = [
   {
     name: "Persona",
     option: [
@@ -69,13 +69,25 @@ class ComponentFilter extends React.Component {
     };
   }
 
-  handleSelect = (e, name) => {
+  handleSelect = (e, searchType) => {
+    console.log('handleSelect');
+    console.log(searchType);
+    const value = e.value
+    const name = searchType.name;
+
     this.setState({
-      [name]: e.value,
+      [searchType]: value,
     });
+
+    this.props.setGlobalFilter(
+      {
+        [name]: value
+      }
+    )
   };
 
   render() {
+    data = this.props.dataFormFilter().length > 0 ? this.props.dataFormFilter() : data
     return (
       <div className="d-flex">
         {data.map((item, key) => {
@@ -86,10 +98,10 @@ class ComponentFilter extends React.Component {
                 name={item.name}
                 onChange={this.handleSelect}
                 options={item.option}
-                className="text-green bg-white rounded-2"
+                className="text-green bg-white rounded-2 "
                 isBorder={true}
                 plColor="rgba(8, 18, 64, 0.8)"
-                isMulti={true}
+                isMulti={item.isMulti}
               />
             </div>
           );

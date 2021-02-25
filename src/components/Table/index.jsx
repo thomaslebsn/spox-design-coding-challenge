@@ -45,6 +45,7 @@ const Table = ({
   pagination,
   listViewModel,
   searchFunction,
+  dataFormFilter
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -187,7 +188,7 @@ const Table = ({
         ...getState.dataFilter,
         ...dataFilter
       };
-
+      console.log(finalDataFilter);
       setState({
         ...getState,
         dataFilter: finalDataFilter
@@ -357,7 +358,7 @@ const Table = ({
           <>
             {getState.isFilter && (
               <div className="py-2 px-1 bg-blue-3">
-                <ComponentFilter />
+                <ComponentFilter dataFormFilter={dataFormFilter} setGlobalFilter={setGlobalFilter}/>
               </div>
             )}
           </>

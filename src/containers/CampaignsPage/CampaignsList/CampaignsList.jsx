@@ -24,6 +24,7 @@ const CampaignsList = observer(
   class CampaignsList extends Component {
     campaignsListViewModel = null;
     campaignsFormModalViewModal = null;
+    campaignsFilterFormViewModel = null;
 
     constructor(props) {
       super(props);
@@ -39,12 +40,19 @@ const CampaignsList = observer(
         ? viewModel.getCampainsFormModalViewModel()
         : null;
 
+      this.campaignsFilterFormViewModel = viewModel
+        ? viewModel.getCampaignsFilterFormViewModel()
+        : null;
+
+      console.log('this.campaignsFilterFormViewModel')
+      console.log(this.campaignsFilterFormViewModel)
       console.log("After binding class");
       console.log(this.campaignsListViewModel);
     }
 
     componentDidMount() {
       this.campaignsListViewModel.initializeData();
+      this.campaignsFilterFormViewModel.initData();
     }
 
     handerEditCampaign = (row) => {
@@ -62,6 +70,66 @@ const CampaignsList = observer(
           return arr.concat(el);
         }, []);
     };
+
+    getDataFormFilter = () => {
+      return [
+        {
+          name: "Persona",
+          option: [
+            { value: "persona1", label: "Persona 1" },
+            { value: "persona2", label: "Persona 2" },
+            { value: "persona3", label: "Persona 3" },
+          ],
+        },
+        {
+          name: "Organisation",
+          option: [
+            { value: "organisation1", label: "Organisation 1" },
+            { value: "organisation2", label: "Organisation 2" },
+            { value: "organisation3", label: "Organisation 3" },
+          ],
+        },
+        {
+          name: "projects",
+          option: [
+            ...this.campaignsFilterFormViewModel.dropdownlistProjectValues
+          ],
+          isMulti: false
+        },
+        {
+          name: "Campaigns",
+          option: [
+            { value: "campaigns1", label: "Campaigns 1" },
+            { value: "campaigns2", label: "Campaigns 2" },
+            { value: "campaigns3", label: "Campaigns 3" },
+          ],
+        },
+        {
+          name: "Content Type",
+          option: [
+            { value: "contentType1", label: "Content Type 1" },
+            { value: "contentType2", label: "Content Type 2" },
+            { value: "contentType3", label: "Content Type 3" },
+          ],
+        },
+        {
+          name: "Status",
+          option: [
+            { value: "status1", label: "Status 1" },
+            { value: "status2", label: "Status 2" },
+            { value: "status3", label: "Status 3" },
+          ],
+        },
+        {
+          name: "Assigness",
+          option: [
+            { value: "assigness1", label: "Assigness 1" },
+            { value: "assigness2", label: "Assigness 2" },
+            { value: "assigness3", label: "Assigness 3" },
+          ],
+        },
+      ];
+    }
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
@@ -179,6 +247,7 @@ const CampaignsList = observer(
             pagination={pagination}
             listViewModel={this.campaignsListViewModel}
             searchFunction={this.campaignsListViewModel.searchCampaign}
+            dataFormFilter={this.getDataFormFilter}
           ></Table>
         </div>
       );
