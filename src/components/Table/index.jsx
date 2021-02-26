@@ -45,14 +45,14 @@ const Table = ({
   pagination,
   listViewModel,
   searchFunction,
-  dataFormFilter
+  dataFormFilter,
 }) => {
   const [getState, setState] = useState({
     isList: isList,
     isName: "list",
     isFilter: false,
     indexPagination: 0,
-    dataFilter: null
+    dataFilter: null,
   });
 
   const filterTypes = React.useMemo(
@@ -182,19 +182,19 @@ const Table = ({
   };
 
   const setGlobalFilter = (dataFilter) => {
-    console.log('setGlobalFilter');
+    console.log("setGlobalFilter");
     if (searchFunction !== undefined) {
       console.log(dataFilter);
 
       const finalDataFilter = {
         ...getState.dataFilter,
-        ...dataFilter
+        ...dataFilter,
       };
       console.log(finalDataFilter);
       setState({
         ...getState,
-        dataFilter: finalDataFilter
-      })
+        dataFilter: finalDataFilter,
+      });
 
       searchFunction(finalDataFilter || undefined);
     }
@@ -304,7 +304,11 @@ const Table = ({
             {isFilter && (
               <>
                 <div className="px-2 border-end-1 w-200">
-                  <ComponentDatepicker isDown={true} listViewModel={listViewModel} setGlobalFilter={setGlobalFilter} />
+                  <ComponentDatepicker
+                    isDown={true}
+                    listViewModel={listViewModel}
+                    setGlobalFilter={setGlobalFilter}
+                  />
                 </div>
                 <div className="rounded-0">
                   <button
@@ -358,11 +362,16 @@ const Table = ({
         </div>
         {isFilter && (
           <>
-            {getState.isFilter && (
-              <div className="py-2 px-1 bg-blue-3">
-                <ComponentFilter dataFormFilter={dataFormFilter} setGlobalFilter={setGlobalFilter}/>
-              </div>
-            )}
+            <div
+              className={`py-2 px-1 bg-blue-3 wrapper_filter_select ${
+                getState.isFilter ? "show_filter_select" : ""
+              }`}
+            >
+              <ComponentFilter
+                dataFormFilter={dataFormFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </div>
           </>
         )}
       </div>
