@@ -16,17 +16,17 @@ class ContentModel {
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
     this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? "";
     this.channels = data.channel_descriptions ?? "";
-
+    
     this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
       this.channels
     );
-
+    
     this.channelsData = this.status = data.status ?? "";
 
     this.descriptions =
       data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
 
-    this.descriptionsModel = this.descriptions
+    this.descriptionsModel = this.descriptions.length > 0
       ? new DescriptionsModel(
           data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
         )

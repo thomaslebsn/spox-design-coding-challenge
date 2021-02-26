@@ -13,6 +13,13 @@ import {
 } from "../../../constants/ContentModule";
 
 export default class ContentStore {
+  globalStore = null;
+  constructor(args = {}) {
+    if (args) {
+      this.globalStore = args.globalStore ? args.globalStore : null;
+    }
+  }
+
   async fetchContents(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Content Store - Fetch Content");
@@ -26,10 +33,12 @@ export default class ContentStore {
         "repondedDataFromLibrary repondedDataFromLibrary",
         repondedDataFromLibrary
       );
-
+      
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
         repondedDataFromLibrary.list
       );
+      console.log('contentDataModels');
+      console.log(contentDataModels);
 
       if (contentDataModels) {
         runInAction(() => {
@@ -154,6 +163,47 @@ export default class ContentStore {
             message: "Something went wrong from Server response",
           });
         }
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async searchContents(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
+    try {
+      console.log("Content Store - filter Content");
+      const contentAPIService = new EasiiContentApiService();
+      const respondedDataFromLibrary = await contentAPIService.searchContents(
+        dataFilter,
+        paginationStep,
+        25
+      );
+      
+      console.log("Debugging ---- filter campaign");
+      console.log(respondedDataFromLibrary);
+      let contentDataModels = null;
+
+      if (respondedDataFromLibrary !== null)
+      {
+        contentDataModels = ContentUtils.transformContentResponseIntoModel(
+          respondedDataFromLibrary.list
+        );
+      }
+
+      if (contentDataModels) {
+        runInAction(() => {
+          callbackOnSuccess({
+            list: contentDataModels,
+            pagination: respondedDataFromLibrary.pagination
+          });
+        });
+      } else {
+        callbackOnError({
+          message: "No result",
+        });
       }
     } catch (error) {
       console.log(error);
