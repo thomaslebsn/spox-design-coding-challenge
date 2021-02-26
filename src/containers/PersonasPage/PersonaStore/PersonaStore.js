@@ -72,7 +72,7 @@ export default class PersonaStore {
         convertedPersonaData
       );
 
-      if (convertedPersonaData.id == undefined) {
+      if (convertedPersonaData.id === undefined) {
         console.log("CREATE PERSONA");
         resultOnSave = await personaService.createPersona(convertedPersonaData);
       } else {
