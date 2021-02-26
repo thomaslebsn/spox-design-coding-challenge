@@ -13,20 +13,29 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 class CampaignsModel {
   constructor(data) {
-    console.log('----- DATA -----', data[CAMPAIGN_API_FIELD_KEY.ID]);
     this.id = data[CAMPAIGN_API_FIELD_KEY.ID];
     this.name = data[CAMPAIGN_API_FIELD_KEY.NAME] ?? "";
     this.status = data[CAMPAIGN_API_FIELD_KEY.STATUS] ?? "";
-    this.startdate = data[CAMPAIGN_API_FIELD_KEY.START_DATE] ?? "";
-    this.enddate = data[CAMPAIGN_API_FIELD_KEY.END_DATE] ?? "";
-    this.needtodo = data.[CAMPAIGN_API_FIELD_KEY.NEED_TO_DO] ?? "";
+
+    this.startdate =
+      (data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "0000-00-00 00:00:00" &&
+        data[CAMPAIGN_API_FIELD_KEY.START_DATE] !== "") ? data[CAMPAIGN_API_FIELD_KEY.START_DATE] : "";
+
+    this.enddate =
+      (data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "0000-00-00 00:00:00" &&
+        data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "") ? data[CAMPAIGN_API_FIELD_KEY.END_DATE] : "";
+      
+    this.needtodo = data[CAMPAIGN_API_FIELD_KEY.NEED_TO_DO] ?? "";
     this.schedudepost = data[CAMPAIGN_API_FIELD_KEY.SCHEDUDE_POST] ?? "";
-    this.publishedcontent = data[CAMPAIGN_API_FIELD_KEY.PUBLISHED_CONTENT] ?? "";
+    this.publishedcontent =
+      data[CAMPAIGN_API_FIELD_KEY.PUBLISHED_CONTENT] ?? "";
 
     this.project = data[CAMPAIGN_API_FIELD_KEY.PROJECT] ?? "";
 
     this.percentComplete = data[CAMPAIGN_API_FIELD_KEY.PERCENT_COMPLETE] ?? "";
-    this.progress = data[CAMPAIGN_API_FIELD_KEY.PROGRESS] ? new ProgressModel(data) : 0;
+    this.progress = data[CAMPAIGN_API_FIELD_KEY.PROGRESS]
+      ? new ProgressModel(data)
+      : 0;
   }
 
   getId = () => {
@@ -38,7 +47,7 @@ class CampaignsModel {
     };
   };
 
-  getProjectId = () => this.project ? this.project : null;
+  getProjectId = () => (this.project ? this.project : null);
 
   getName = () => {
     return {
@@ -127,15 +136,17 @@ class CampaignsModel {
 
   toTableRowData = () => {
     try {
-      const id = this.getId(),
-        name = this.getName(),
-        status = this.getStatus(),
-        startDate = this.getStartDate(),
-        endDate = this.getEndDate(),
-        needToDo = this.getNeedToDo(),
-        schedudePost = this.getSchedudePost(),
-        publishedContent = this.getPublishedContent(),
-        progress = this.getProgress();
+      const id = this.getId();
+      const name = this.getName();
+      const status = this.getStatus();
+      const startDate = this.getStartDate();
+      console.log("---------------------");
+      const endDate = this.getEndDate();
+      const needToDo = this.getNeedToDo();
+      const schedudePost = this.getSchedudePost();
+      const publishedContent = this.getPublishedContent();
+      const progress = this.getProgress();
+
       const result = {
         [id.columnName]: id.value,
         [name.columnName]: name.value,
@@ -158,7 +169,7 @@ class CampaignsModel {
   };
 
   static convertSubmittedDataToAPIService(campaignsData) {
-    console.log('convertSubmittedDataToCampaignAPIService', campaignsData);
+    console.log("convertSubmittedDataToCampaignAPIService", campaignsData);
     const result = campaignsData
       ? {
           [CAMPAIGN_API_FIELD_KEY.ID]:
