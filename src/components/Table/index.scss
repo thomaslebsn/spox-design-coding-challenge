@@ -72,3 +72,11 @@
     width: 33.33%
   }
 }
+
+.wrapper_filter_select {
+  display: none;
+
+  &.show_filter_select {
+    display: block;
+  }
+}
