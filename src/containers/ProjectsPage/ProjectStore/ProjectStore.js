@@ -25,7 +25,7 @@ export default class ProjectStore {
         runInAction(() => {
           callbackOnSuccess({
             list: projectDataModels,
-            pagination: respondedDataFromLibrary.pagination
+            pagination: respondedDataFromLibrary.pagination,
           });
         });
       } else {
@@ -41,7 +41,12 @@ export default class ProjectStore {
     }
   }
 
-  async searchProjects(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
+  async searchProjects(
+    callbackOnSuccess,
+    callbackOnError,
+    dataFilter = {},
+    paginationStep = 1
+  ) {
     try {
       console.log("Project Store - filter Projects");
       const projectAPIService = new EasiiProjectApiService();
@@ -50,13 +55,12 @@ export default class ProjectStore {
         paginationStep,
         25
       );
-      
+
       console.log("Debugging ---- filterProjects");
       console.log(respondedDataFromLibrary);
       let projectDataModels = null;
 
-      if (respondedDataFromLibrary !== null)
-      {
+      if (respondedDataFromLibrary !== null) {
         projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
           respondedDataFromLibrary.list
         );
@@ -66,7 +70,7 @@ export default class ProjectStore {
         runInAction(() => {
           callbackOnSuccess({
             list: projectDataModels,
-            pagination: respondedDataFromLibrary.pagination
+            pagination: respondedDataFromLibrary.pagination,
           });
         });
       } else {

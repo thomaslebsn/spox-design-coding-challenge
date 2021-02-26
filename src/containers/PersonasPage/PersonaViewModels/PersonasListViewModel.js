@@ -10,6 +10,8 @@ class PersonasListViewModel {
 
   personas = null;
 
+  pagination = null;
+
   tableRowHeader = null;
 
   tableStatus = PAGE_STATUS.LOADING;
@@ -38,12 +40,28 @@ class PersonasListViewModel {
   };
 
   deletePersonas = () => {
-    this.tableStatus = PAGE_STATUS.LOADING;
+    let getArrayId = this.personaIdsSelected;
 
-    this.personaStore.deletePersonas(
-      this.personaIdsSelected,
+    if (getArrayId === null) {
+      notify("Please true add list an item for delete");
+    } else {
+      this.tableStatus = PAGE_STATUS.LOADING;
+
+      this.personaStore.deletePersonas(
+        this.personaIdsSelected,
+        this.refreshTablePersonaList,
+        this.callbackOnErrorHander
+      );
+    }
+  };
+
+  getPagination = (paginationStep) => {
+    console.log("paginationStep", paginationStep);
+    this.tableStatus = PAGE_STATUS.LOADING;
+    this.personaStore.fetchPersonas(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      paginationStep
     );
   };
 
@@ -78,11 +96,16 @@ class PersonasListViewModel {
       console.log(this.tableRowHeader);
 
       const rowDataTransformed = PersonaUtils.transformPersonaModelIntoTableDataRow(
-        personaModelData
+        personaModelData.list
       );
+
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
+
       this.personas = rowDataTransformed;
+      this.pagination = personaModelData.pagination;
+
+      console.log("this.pagination this.pagination", this.pagination);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }

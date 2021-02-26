@@ -7,75 +7,33 @@ import PersonaUtils from "../PersonaUtils/PersonaUtils";
 import PersonaModel from "../PersonaModel/PersonaModel";
 import { EasiiPersonaApiService } from "easii-io-web-service-library";
 
-let personas = [
-  {
-    id: 1,
-    name: "Hieu - simple",
-    created_date: "2020-10-13",
-    updated_date: "2020-10-13",
-    image: "/assets/images/annotation.png",
-    channels: [
-      {
-        id: 1,
-        name: "facebook 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/facebook.png",
-        checked: true,
-      },
-      {
-        id: 2,
-        name: "instagram 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/instagram.png",
-        checked: true,
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Hieu - simple 2",
-    created_date: "2020-10-13",
-    updated_date: "2020-10-13",
-    image: "/assets/images/annotation.png",
-    channels: [
-      {
-        id: 1,
-        name: "facebook 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/facebook.png",
-        checked: true,
-      },
-      {
-        id: 2,
-        name: "instagram 1",
-        image: "/assets/images/icon-pepsi.png",
-        icon: "/assets/images/instagram.png",
-        checked: true,
-      },
-    ],
-  },
-];
-
 export default class PersonaStore {
-  async fetchPersonas(callbackOnSuccess, callbackOnError) {
+  async fetchPersonas(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Persona Store - Fetch Personas");
-      //const repondedDataFromLibrary = personas;
       const PersonaService = new EasiiPersonaApiService();
-      const repondedDataFromLibrary = await PersonaService.getPersonas(1, 100);
-      console.log("-Personal log---");
+
+      const repondedDataFromLibrary = await PersonaService.getPersonas(
+        paginationStep,
+        25
+      );
+      console.log("repondedDataFromLibrary repondedDataFromLibrary");
       console.log(repondedDataFromLibrary);
 
       if (repondedDataFromLibrary) {
         const personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
-          repondedDataFromLibrary
+          repondedDataFromLibrary.list
         );
 
+        console.log("personaDataModels personaDataModels");
         console.log(personaDataModels);
 
         if (personaDataModels) {
           runInAction(() => {
-            callbackOnSuccess(personaDataModels);
+            callbackOnSuccess({
+              list: personaDataModels,
+              pagination: repondedDataFromLibrary.pagination,
+            });
           });
         } else {
           callbackOnError({
@@ -108,16 +66,22 @@ export default class PersonaStore {
 
       let resultOnSave;
 
-      if (personaData.id == undefined) {
-        console.log('CREATE PERSONA');
+      console.log("personaData personaData", personaData);
+      console.log(
+        "convertedPersonaData convertedPersonaData",
+        convertedPersonaData
+      );
+
+      if (convertedPersonaData.id === undefined) {
+        console.log("CREATE PERSONA");
         resultOnSave = await personaService.createPersona(convertedPersonaData);
       } else {
-        console.log('UPDATE PERSONA', convertedPersonaData);
+        console.log("UPDATE PERSONA", convertedPersonaData);
         //convertedProjectData.logo = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
-        resultOnSave = await personaData.updatePersona(convertedPersonaData);
+        resultOnSave = await personaService.updatePersona(convertedPersonaData);
       }
 
-      console.log('resultOnSave', resultOnSave);
+      console.log("resultOnSave", resultOnSave);
 
       if (resultOnSave) {
         runInAction(() => {
@@ -141,7 +105,7 @@ export default class PersonaStore {
   async deletePersonas(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
-    console.log("DELETE PERSONA IDS")
+    console.log("DELETE PERSONA IDS");
     console.log(ids);
 
     try {
@@ -152,9 +116,8 @@ export default class PersonaStore {
       if (respondedFromApi.result === true) {
         runInAction(() => {
           callbackOnSuccess();
-        })
+        });
       }
-
     } catch (error) {
       console.log(error);
       runInAction(() => {
