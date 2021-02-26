@@ -47,7 +47,7 @@ class SelectComponent extends React.Component {
     }
     };
 
-    return <Select {...this.props} styles={customStyles} />;
+    return <Select {...this.props} test='test' styles={customStyles} />;
   }
 }
 
