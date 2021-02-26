@@ -45,12 +45,14 @@ const Table = ({
   pagination,
   listViewModel,
   searchFunction,
+  dataFormFilter
 }) => {
   const [getState, setState] = useState({
     isList: isList,
     isName: "list",
     isFilter: false,
     indexPagination: 0,
+    dataFilter: null
   });
 
   const filterTypes = React.useMemo(
@@ -179,9 +181,22 @@ const Table = ({
     });
   };
 
-  const setGlobalFilter = (filterValue) => {
+  const setGlobalFilter = (dataFilter) => {
+    console.log('setGlobalFilter');
     if (searchFunction !== undefined) {
-      searchFunction(filterValue || undefined);
+      console.log(dataFilter);
+
+      const finalDataFilter = {
+        ...getState.dataFilter,
+        ...dataFilter
+      };
+      console.log(finalDataFilter);
+      setState({
+        ...getState,
+        dataFilter: finalDataFilter
+      })
+
+      searchFunction(finalDataFilter || undefined);
     }
   };
 
@@ -243,12 +258,7 @@ const Table = ({
           <div className="wrapper_search_global d-flex align-items-center">
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
-              // globalFilter={state.globalFilter ? state.globalFilter : listViewModel.valueSearch}
-              globalFilter={
-                listViewModel !== undefined
-                  ? listViewModel.valueSearch
-                  : state.globalFilter
-              }
+              globalFilter={state.globalFilter}
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
               listViewModel={listViewModel}
@@ -294,7 +304,7 @@ const Table = ({
             {isFilter && (
               <>
                 <div className="px-2 border-end-1 w-200">
-                  <ComponentDatepicker isDown={true} />
+                  <ComponentDatepicker isDown={true} listViewModel={listViewModel} setGlobalFilter={setGlobalFilter} />
                 </div>
                 <div className="rounded-0">
                   <button
@@ -350,7 +360,7 @@ const Table = ({
           <>
             {getState.isFilter && (
               <div className="py-2 px-1 bg-blue-3">
-                <ComponentFilter />
+                <ComponentFilter dataFormFilter={dataFormFilter} setGlobalFilter={setGlobalFilter}/>
               </div>
             )}
           </>

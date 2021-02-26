@@ -13,6 +13,8 @@ class CampaignsListViewModel {
 
   tableRowHeader = null;
 
+  dataFilter = null;
+
   tableStatus = PAGE_STATUS.LOADING;
 
   campaignsIdsSelected = null;
@@ -57,6 +59,17 @@ class CampaignsListViewModel {
       paginationStep
     );
   };
+
+  searchCampaign = (dataFilter) => {
+    this.dataFilter = dataFilter;
+    console.log('dataFilter');
+    console.log(dataFilter);
+    this.campaignsStore.searchCampaigns(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      dataFilter
+    );
+  }
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
