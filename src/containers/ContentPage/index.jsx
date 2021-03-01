@@ -3,12 +3,21 @@ import { Route } from "react-router-dom";
 import ContentActionBar from "./ContentForm/ContentActionBar";
 import ContentStore from "./ContentStore/ContentStore";
 import ContentViewModel from "./ContentViewModels/ContentViewModel";
+import GlobalStore from "../../store/Store";
 import { ContentViewModelContextProvider } from "./ContentViewModels/ContentViewModelContextProvider";
 
 const ContentFormPage = lazy(() => import("./ContentForm/ContentFormPage"));
 const ContentsList = lazy(() => import("./ContentsList/ContentsList"));
 
-const contentStore = new ContentStore();
+if (!window.globalStore) {
+  window.globalStore = new GlobalStore();
+}
+const globalStore = window.globalStore;
+
+const contentStore = new ContentStore({
+  globalStore: globalStore,
+});
+
 const contentViewModel = new ContentViewModel(contentStore);
 
 function Contents({ match }) {
