@@ -309,19 +309,19 @@ export default class ContentStore {
       );
       console.log(repondedDataFromLibrary);
 
-      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-        repondedDataFromLibrary
-      );
+      // const contentDataModels = ContentUtils.transformContentResponseIntoModel(
+      //   repondedDataFromLibrary
+      // );
 
-      if (contentDataModels) {
-        runInAction(() => {
-          callbackOnSuccess(contentDataModels);
-        });
-      } else {
-        callbackOnError({
-          message: "Something went wrong from Server response",
-        });
-      }
+      // if (contentDataModels) {
+      //   runInAction(() => {
+      //     callbackOnSuccess(contentDataModels);
+      //   });
+      // } else {
+      //   callbackOnError({
+      //     message: "Something went wrong from Server response",
+      //   });
+      // }
     } catch (error) {
       console.log(error);
       runInAction(() => {
