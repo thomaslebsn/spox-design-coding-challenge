@@ -58,6 +58,7 @@ const PersonasList = observer(
         tableRowHeader,
         tableStatus,
         personas,
+        pagination,
       } = this.personaListViewModel;
       console.log(personas);
       return tableStatus === PAGE_STATUS.LOADING ? (
@@ -68,6 +69,8 @@ const PersonasList = observer(
           tableRowHeader={tableRowHeader}
           onEdit={this.handerEditPersona}
           onSelect={this.handerSelectPersona}
+          pagination={pagination}
+          listViewModel={this.personaListViewModel}
         ></Table>
       );
     }

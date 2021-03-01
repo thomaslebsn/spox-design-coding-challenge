@@ -78,3 +78,12 @@
     display: none;
   }
 }
+
+.wrapper_filter_select {
+  display: none;
+
+  &.show_filter_select {
+    display: block;
+
+  }
+}
