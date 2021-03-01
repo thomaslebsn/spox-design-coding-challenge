@@ -3,6 +3,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
 import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
 import { notify } from "../../../components/Toast";
+import contentStore from "../../ContentPage/ContentStore/ContentStore";
 
 class CampaignsListViewModel {
   campaignsStore = null;
@@ -19,9 +20,12 @@ class CampaignsListViewModel {
 
   campaignsIdsSelected = null;
 
+  contentStore = null;
+
   constructor(campaignsStore) {
     makeAutoObservable(this);
     this.campaignsStore = campaignsStore;
+    this.contentStore = new contentStore();
   }
 
   initializeData = () => {
@@ -62,14 +66,28 @@ class CampaignsListViewModel {
 
   searchCampaign = (dataFilter) => {
     this.dataFilter = dataFilter;
-    console.log('dataFilter');
+    console.log("dataFilter");
     console.log(dataFilter);
     this.campaignsStore.searchCampaigns(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       dataFilter
     );
-  }
+  };
+
+  getContentByIdCampaign = (campaignId) => {
+    console.log("31231");
+    contentStore.getContentsByCampaignIDs(
+      campaignId,
+      20,
+      (result) => {
+        console.log("======================");
+        console.log(result);
+        this.contentData = result;
+      },
+      (error) => {}
+    );
+  };
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");

@@ -17,6 +17,8 @@ class ContentsListViewModel {
 
   contentIdsSelected = null;
 
+  contentData = null;
+
   constructor(contentStore) {
     makeAutoObservable(this);
     this.contentStore = contentStore;
@@ -55,14 +57,14 @@ class ContentsListViewModel {
   };
 
   getPagination = (paginationStep) => {
-    console.log('paginationStep', paginationStep);
+    console.log("paginationStep", paginationStep);
     this.tableStatus = PAGE_STATUS.LOADING;
     this.contentStore.fetchContents(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       paginationStep
     );
-  }
+  };
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");

@@ -25,6 +25,7 @@ const CampaignsList = observer(
     campaignsListViewModel = null;
     campaignsFormModalViewModal = null;
     campaignsFilterFormViewModel = null;
+    contentData = null;
 
     constructor(props) {
       super(props);
@@ -44,8 +45,8 @@ const CampaignsList = observer(
         ? viewModel.getCampaignsFilterFormViewModel()
         : null;
 
-      console.log('this.campaignsFilterFormViewModel')
-      console.log(this.campaignsFilterFormViewModel)
+      console.log("this.campaignsFilterFormViewModel");
+      console.log(this.campaignsFilterFormViewModel);
       console.log("After binding class");
       console.log(this.campaignsListViewModel);
     }
@@ -57,6 +58,9 @@ const CampaignsList = observer(
 
     handerEditCampaign = (row) => {
       this.campaignsFormModalViewModal.loadForm(row[CAMPAIGNS_FIELD_KEY.ID]);
+      this.campaignsListViewModel.getContentByIdCampaign(
+        row[CAMPAIGNS_FIELD_KEY.ID]
+      );
     };
 
     handerSelectCampaigns = (data) => {
@@ -92,9 +96,9 @@ const CampaignsList = observer(
         {
           name: "projects",
           option: [
-            ...this.campaignsFilterFormViewModel.dropdownlistProjectValues
+            ...this.campaignsFilterFormViewModel.dropdownlistProjectValues,
           ],
-          isMulti: true
+          isMulti: true,
         },
         {
           name: "Campaigns",
@@ -129,7 +133,7 @@ const CampaignsList = observer(
           ],
         },
       ];
-    }
+    };
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");

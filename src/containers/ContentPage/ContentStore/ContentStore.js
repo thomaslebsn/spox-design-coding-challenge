@@ -35,7 +35,7 @@ export default class ContentStore {
         runInAction(() => {
           callbackOnSuccess({
             list: contentDataModels,
-            pagination: repondedDataFromLibrary.pagination
+            pagination: repondedDataFromLibrary.pagination,
           });
         });
       } else {
@@ -154,6 +154,44 @@ export default class ContentStore {
             message: "Something went wrong from Server response",
           });
         }
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getContentsByCampaignIDs(
+    CampaignIDs,
+    limit,
+    callbackOnSuccess,
+    callbackOnError
+  ) {
+    try {
+      console.log("Content Store - Fetch Content CampaignIDs");
+      const contentAPIService = new EasiiContentApiService();
+
+      const repondedDataFromLibrary = await contentAPIService.getContentsByCampaignIDs();
+
+      console.log(
+        "repondedDataFromLibrary - repondedDataFromLibrary CampaignIDs"
+      );
+      console.log(repondedDataFromLibrary);
+
+      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
+        repondedDataFromLibrary
+      );
+
+      if (contentDataModels) {
+        runInAction(() => {
+          callbackOnSuccess(contentDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
       }
     } catch (error) {
       console.log(error);
