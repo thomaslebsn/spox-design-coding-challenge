@@ -367,10 +367,12 @@ const Table = ({
                 getState.isFilter ? "show_filter_select" : ""
               }`}
             >
-              <ComponentFilter
-                dataFormFilter={dataFormFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
+              {dataFormFilter && (
+                <ComponentFilter
+                  dataFormFilter={dataFormFilter}
+                  setGlobalFilter={setGlobalFilter}
+                />
+              )}
             </div>
           </>
         )}
