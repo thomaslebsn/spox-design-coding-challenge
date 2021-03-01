@@ -7,7 +7,8 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 class ContentsFilterFormViewModel {
   contentsStore = null;
 
-  dropdownlistProjectValues = null
+  campaignsMasterData = null;
+  personaMasterData = null;
 
   constructor(contentsStore) {
     makeAutoObservable(this);
@@ -15,24 +16,27 @@ class ContentsFilterFormViewModel {
   }
 
   initData = () => {
-    // this.contentsStore.getProjectMasterData( 
-    //   this.callbackOnSuccessHandler
-    //  , this.callbackOnErrorHander);
-  }
- 
+    this.contentsStore.getMasterData(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander
+    );
+  };
+
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
+    console.log("callbackOnErrorHander - content");
     console.log(error);
     notify(error.message);
   };
 
-  callbackOnSuccessHandler = (projectMasterDataInModel) => {
-    console.log("callbackOnSuccessHandler - filterForm");
-    this.dropdownlistProjectValues = projectMasterDataInModel
-        ? projectMasterDataInModel.toDropdownListValues()
-        : null;
+  callbackOnSuccessHandler = (masterDataInModel) => {
+    console.log("callbackOnSuccessHandler - filterForm ------");
+    this.campaignsMasterData = masterDataInModel.resultCampaignInModel
+      ? masterDataInModel.resultCampaignInModel.toDropdownListValues()
+      : null;
 
-        console.log(this.dropdownlistProjectValues);
+    this.personaMasterData = masterDataInModel.resultPersonaInModel
+      ? masterDataInModel.resultPersonaInModel.toDropdownListValues()
+      : null;
   };
 }
 

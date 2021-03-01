@@ -106,7 +106,7 @@ class ComponentFilter extends React.Component {
   };
 
   render() {
-    data = this.props.dataFormFilter().length > 0 ? this.props.dataFormFilter() : data
+    data = this.props.dataFormFilter.length > 0 ? this.props.dataFormFilter : data
     return (
       <div className="d-flex">
         {data.map((item, key) => {

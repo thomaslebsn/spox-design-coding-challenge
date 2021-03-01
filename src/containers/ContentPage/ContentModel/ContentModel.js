@@ -55,12 +55,9 @@ class ContentModel {
   };
 
   getDescription = () => {
-    console.log(
-      "this.descriptionsModel.getChannelDescriptions()",
-      this.descriptionsModel.getChannelDescriptions()
-    );
+    
     return {
-      value: this.descriptionsModel.getChannelDescriptions(),
+      value: this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.DESCRIPTION,
       columnText: "Description",
@@ -113,11 +110,12 @@ class ContentModel {
   };
 
   toTableRowData = () => {
-    const id = this.getId(),
-      name = this.getName(),
-      description = this.getDescription(),
-      status = this.getStatus(),
-      channels = this.getChannels();
+    
+    const id = this.getId();
+    const name = this.getName();console.log('===============34');
+    const description = this.getDescription();
+    const status = this.getStatus();
+    const channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,

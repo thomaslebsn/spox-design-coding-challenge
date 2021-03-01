@@ -64,14 +64,16 @@ const ContentsList = observer(
     };
 
     getDataFormFilter = () => {
+      console.log('this.contentsFilterFormViewModel');
+      console.log(this.contentsFilterFormViewModel);
+      
+      const campaignMasterData = this.contentsFilterFormViewModel.campaignsMasterData;
+      console.log(campaignMasterData);
       return [
         {
-          name: "Persona",
-          option: [
-            { value: "persona1", label: "Persona 1" },
-            { value: "persona2", label: "Persona 2" },
-            { value: "persona3", label: "Persona 3" },
-          ],
+          name: "persona",
+          option: this.contentsFilterFormViewModel.personaMasterData,
+          isMulti: true
         },
         {
           name: "Organisation",
@@ -90,12 +92,9 @@ const ContentsList = observer(
           ],
         },
         {
-          name: "Campaigns",
-          option: [
-            { value: "campaigns1", label: "Campaigns 1" },
-            { value: "campaigns2", label: "Campaigns 2" },
-            { value: "campaigns3", label: "Campaigns 3" },
-          ],
+          name: "campaigns",
+          option: this.contentsFilterFormViewModel.campaignsMasterData,
+          isMulti: true
         },
         {
           name: "Content Type",
@@ -130,7 +129,7 @@ const ContentsList = observer(
 
       console.log("contents api, contents api", contents);
       console.log("pagination pagination", pagination);
-
+      const dataFormFilter = this.getDataFormFilter();
       const tableRowHeader = [
         {
           Header: "Name",
@@ -187,7 +186,7 @@ const ContentsList = observer(
           pagination={pagination}
           listViewModel={this.contentListViewModel}
           searchFunction={this.contentListViewModel.searchContents}
-          dataFormFilter={this.getDataFormFilter}
+          dataFormFilter={dataFormFilter}
         ></Table>
       );
     }

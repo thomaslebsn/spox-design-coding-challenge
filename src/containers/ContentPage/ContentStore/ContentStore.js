@@ -12,6 +12,9 @@ import {
   CONTENT_FIELD_KEY,
 } from "../../../constants/ContentModule";
 
+import { CampaignMasterDataModel } from "../../../store/Models/MasterDataModels/CampaignMasterDataModel";
+import { PersonaMasterDataModel } from "../../../store/Models/MasterDataModels/PersonaMasterDataModel";
+
 export default class ContentStore {
   globalStore = null;
   constructor(args = {}) {
@@ -204,6 +207,67 @@ export default class ContentStore {
         callbackOnError({
           message: "No result",
         });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getMasterData(callbackOnSuccess, callbackOnError) {
+    try {
+      if (!this.globalStore) {
+        runInAction(() => {
+          callbackOnError({
+            message: "Global Store is NULL",
+          });
+        });
+      } else {
+        console.log("Content Store - Get Global Store");
+        console.log(this.globalStore);
+        await this.globalStore.getMasterData(
+          {
+            isForCampaignMasterData: true,
+            isForPersonaMasterData: true
+          },
+          (result) => {
+            try {
+              console.log('Content - getMasterData');
+              console.log(result);
+              
+              const resultCampaignInModel = new CampaignMasterDataModel(result && result.campaignMasterData ? result.campaignMasterData : null);
+              const resultPersonaInModel = new PersonaMasterDataModel(result && result.personaMasterData ? result.personaMasterData : null);
+              console.log('resultInModel');
+              console.log(resultCampaignInModel);
+              console.log(resultPersonaInModel);
+              console.log("CampaignsStore - getProjectMasterData");
+              console.log(result);
+              console.log("CampaignsStore - resultToDropdownlistValues");
+  
+              runInAction(() => {
+                callbackOnSuccess({
+                  resultCampaignInModel: resultCampaignInModel,
+                  resultPersonaInModel: resultPersonaInModel
+                });
+              });
+            } catch(error) {
+              runInAction(() => {
+                callbackOnError({
+                  message: "resultInModel - ContentsStore - getMasterData - Something went wrong from Server response",
+                });
+              });
+            }
+          },
+          (error) => {
+            runInAction(() => {
+              callbackOnError({
+                message: "ContentsStore - getMasterData - Something went wrong from Server response : " + error,
+              });
+            });
+          }
+        );
       }
     } catch (error) {
       console.log(error);
