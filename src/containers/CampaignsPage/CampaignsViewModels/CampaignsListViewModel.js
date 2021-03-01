@@ -77,7 +77,7 @@ class CampaignsListViewModel {
 
   getContentByIdCampaign = (campaignId) => {
     console.log("31231");
-    contentStore.getContentsByCampaignIDs(
+    this.contentStore.getContentsByCampaignIDs(
       campaignId,
       20,
       (result) => {

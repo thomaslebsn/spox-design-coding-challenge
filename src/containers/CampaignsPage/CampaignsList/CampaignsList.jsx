@@ -95,9 +95,7 @@ const CampaignsList = observer(
         },
         {
           name: "projects",
-          option: [
-            ...this.campaignsFilterFormViewModel.dropdownlistProjectValues,
-          ],
+          option: this.campaignsFilterFormViewModel.dropdownlistProjectValues,
           isMulti: true,
         },
         {
@@ -220,6 +218,7 @@ const CampaignsList = observer(
 
       console.log("Row Data is tableRowHeader");
       console.log(this.tableRowHeader);
+      const dataFormFilter = this.getDataFormFilter();
 
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
@@ -251,7 +250,7 @@ const CampaignsList = observer(
             pagination={pagination}
             listViewModel={this.campaignsListViewModel}
             searchFunction={this.campaignsListViewModel.searchCampaign}
-            dataFormFilter={this.getDataFormFilter}
+            dataFormFilter={dataFormFilter}
           ></Table>
         </div>
       );
