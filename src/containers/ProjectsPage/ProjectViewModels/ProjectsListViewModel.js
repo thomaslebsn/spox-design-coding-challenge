@@ -69,6 +69,17 @@ class ProjectsListViewModel {
     );
   }
 
+  connectLoginUrl = (projectId, channelUniqueName) => {
+    console.log('projectId channel', projectId);
+    console.log('channelUniqueName channel', channelUniqueName);
+    this.projectStore.getLoginUrl(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      projectId,
+      channelUniqueName
+    );
+  }
+
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
