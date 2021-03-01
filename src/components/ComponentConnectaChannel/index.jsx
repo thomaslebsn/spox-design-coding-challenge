@@ -322,12 +322,7 @@ class ComponentConnectaChannel extends React.Component {
   }
 
   handleConnectChannel = (name) => {
-    console.log('namenamename', name);
     let { projectListViewModel } = this.props;
-
-    console.log('projectListViewModel 222444');
-    console.log(projectListViewModel)
-
     projectListViewModel.connectLoginUrl(0, name);
   }
 

@@ -72,8 +72,8 @@ class ProjectsListViewModel {
   connectLoginUrl = (projectId, channelUniqueName) => {
     console.log('projectId channel', projectId);
     console.log('channelUniqueName channel', channelUniqueName);
-    this.projectStore.getLoginUrl(
-      this.callbackOnSuccessHandler,
+    this.projectStore.getChannelLoginUrl(
+      this.callbackOnSuccessChannel,
       this.callbackOnErrorHander,
       projectId,
       channelUniqueName
@@ -95,6 +95,7 @@ class ProjectsListViewModel {
       const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
         projectModelData.list
       );
+
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
 
@@ -104,6 +105,19 @@ class ProjectsListViewModel {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
+
+  callbackOnSuccessChannel = (response) => {
+    console.log('callbackOnSuccessChannel');
+    console.log(response);
+
+    if(response) {
+      this.tableStatus = PAGE_STATUS.READY;
+
+      window.open(response.result.loginUrl);
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  }
 }
 
 export default ProjectsListViewModel;

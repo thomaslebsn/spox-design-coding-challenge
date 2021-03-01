@@ -205,8 +205,8 @@ export default class ProjectStore {
     }
   }
 
-  async getLoginUrl(callbackOnSuccess, callbackOnError, projectId, channelUniqueName){
-     const projectChannelService = new EasiiProjectChannelApiService();
+  async getChannelLoginUrl(callbackOnSuccess, callbackOnError, projectId, channelUniqueName){
+    const projectChannelService = new EasiiProjectChannelApiService();
     // const response = projectChannelService.getFBLoginUrl(projectChannelId);
     console.log('channelUniqueName channelUniqueName');
     console.log(channelUniqueName);
@@ -214,14 +214,20 @@ export default class ProjectStore {
 
     switch(channelUniqueName) {
       case "facebook":
-        response = projectChannelService.getLoginUrl(787);
-        console.log('response 787');
-        console.log(response);
+        response = await projectChannelService.getLoginUrl(787);
         break;
       default:
         break;
     }
 
-    return response;
+    if (response) {
+      runInAction(() => {
+        callbackOnSuccess(response);
+      });
+    } else {
+      callbackOnError({
+        message: "Something went wrong from Server response",
+      });
+    }
   }
 }
