@@ -148,7 +148,7 @@ const Table = ({
               </div>
             ),
             Cell: ({ row }) => (
-              <div>
+              <div className="wrapper_checkbox">
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
               </div>
             ),
@@ -367,10 +367,12 @@ const Table = ({
                 getState.isFilter ? "show_filter_select" : ""
               }`}
             >
-              <ComponentFilter
-                dataFormFilter={dataFormFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
+              {dataFormFilter && (
+                <ComponentFilter
+                  dataFormFilter={dataFormFilter}
+                  setGlobalFilter={setGlobalFilter}
+                />
+              )}
             </div>
           </>
         )}
