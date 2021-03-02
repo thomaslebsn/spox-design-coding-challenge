@@ -206,6 +206,7 @@ const Table = ({
         row={row}
         rowProps={rowProps}
         visibleColumns={visibleColumns}
+        subRowData={listViewModel ? listViewModel : null}
       />
     ),
     []

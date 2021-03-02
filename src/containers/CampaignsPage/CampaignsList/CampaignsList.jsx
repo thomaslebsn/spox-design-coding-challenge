@@ -141,6 +141,11 @@ const CampaignsList = observer(
         pagination,
       } = this.campaignsListViewModel;
 
+      console.log(
+        "this.campaignsListViewModel 7777",
+        this.campaignsListViewModel.contentData
+      );
+
       const tableRowHeader = [
         {
           Header: "Campaign Name",
@@ -162,9 +167,7 @@ const CampaignsList = observer(
               </span>
             </div>
           ),
-          SubCell: ({ row }) => (
-            <span className="ps-4">{row.original.name}</span>
-          ),
+          SubCell: ({ row }) => <span>{row.original.name}</span>,
         },
         {
           Header: "Status",

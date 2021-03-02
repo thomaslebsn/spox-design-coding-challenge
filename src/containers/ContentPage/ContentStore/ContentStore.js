@@ -302,26 +302,33 @@ export default class ContentStore {
       console.log("Content Store - Fetch Content CampaignIDs");
       const contentAPIService = new EasiiContentApiService();
 
-      const repondedDataFromLibrary = await contentAPIService.getContentsByCampaignIDs();
+      const repondedDataFromLibrary = await contentAPIService.getContentsByCampaignIDs(
+        CampaignIDs,
+        limit
+      );
 
       console.log(
         "repondedDataFromLibrary - repondedDataFromLibrary CampaignIDs"
       );
+
       console.log(repondedDataFromLibrary);
 
-      // const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-      //   repondedDataFromLibrary
-      // );
+      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
+        repondedDataFromLibrary
+      );
 
-      // if (contentDataModels) {
-      //   runInAction(() => {
-      //     callbackOnSuccess(contentDataModels);
-      //   });
-      // } else {
-      //   callbackOnError({
-      //     message: "Something went wrong from Server response",
-      //   });
-      // }
+      console.log("contentDataModels contentDataModels");
+      console.log(contentDataModels);
+
+      if (contentDataModels) {
+        runInAction(() => {
+          callbackOnSuccess(contentDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
+      }
     } catch (error) {
       console.log(error);
       runInAction(() => {

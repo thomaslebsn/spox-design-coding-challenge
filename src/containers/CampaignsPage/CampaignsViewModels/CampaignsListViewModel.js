@@ -3,7 +3,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 import CampaignsUtils from "../CampaignsUtils/CampaignsUtils";
 import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
 import { notify } from "../../../components/Toast";
-import contentStore from "../../ContentPage/ContentStore/ContentStore";
+import ContentStore from "../../ContentPage/ContentStore/ContentStore";
 
 class CampaignsListViewModel {
   campaignsStore = null;
@@ -22,10 +22,12 @@ class CampaignsListViewModel {
 
   contentStore = null;
 
+  subRowDataTable = null;
+
   constructor(campaignsStore) {
     makeAutoObservable(this);
     this.campaignsStore = campaignsStore;
-    this.contentStore = new contentStore();
+    this.contentStore = new ContentStore();
   }
 
   initializeData = () => {
@@ -76,14 +78,11 @@ class CampaignsListViewModel {
   };
 
   getContentByIdCampaign = (campaignId) => {
-    console.log("31231");
     this.contentStore.getContentsByCampaignIDs(
       campaignId,
       20,
       (result) => {
-        console.log("======================");
-        console.log(result);
-        this.contentData = result;
+        this.subRowDataTable = result;
       },
       (error) => {}
     );
