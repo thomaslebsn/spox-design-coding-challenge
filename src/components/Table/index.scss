@@ -73,8 +73,19 @@
   }
 }
 
+.icon_expander {
+  width: 35px;
+  height: 35px;
+  display: block;
+  position: relative;
+  z-index: 1000;
+  text-align: center;
+}
+
 .row_sub_component {
-  .wrapper_checkbox {
+
+  .wrapper_checkbox,
+  .icon_expander {
     display: none;
   }
 }

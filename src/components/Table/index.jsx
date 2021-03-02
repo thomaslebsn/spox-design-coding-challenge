@@ -72,7 +72,7 @@ const Table = ({
   );
 
   const handerEdit = (e, row) => {
-    if (e.target.type !== "checkbox") {
+    if (e.target.type !== "checkbox" && e.target.nodeName !== "svg") {
       onEdit(row);
     }
   };
