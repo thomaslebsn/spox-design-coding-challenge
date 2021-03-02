@@ -7,6 +7,7 @@ import {
   EasiiContentApiService,
   EasiiProjectChannelApiService,
 } from "easii-io-web-service-library";
+
 import {
   ESI_CONTENT_API_RESPONSE_FIELD_KEY,
   CONTENT_FIELD_KEY,
@@ -67,7 +68,6 @@ export default class ContentStore {
     try {
       console.log("Saving Content via call web service lib function");
       console.log(contentData);
-
       const convertedContentData = ContentModel.convertSubmittedDataToAPIService(
         contentData
       );

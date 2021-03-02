@@ -31,6 +31,8 @@ class ContentFormViewModel {
 
   setEditContent = (data) => {
     this.formStatus = PAGE_STATUS.READY;
+    console.log('setEditContent');
+    console.log(data[0]);
     this.contentFormComponent.populatingFormDataHandler(data[0]);
   };
 

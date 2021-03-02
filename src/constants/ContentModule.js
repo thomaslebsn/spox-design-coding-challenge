@@ -32,7 +32,7 @@ const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {
   DATE_FROM: "date_from",
   DATE_UNTIL: "date_until",
   TIME: "time",
-  PERSONA: "persona",
+  PERSONA: "personas",
   CAMPAIGN: "campaign",
   STATUS: "status",
   CHANNEL_ATTACHMENTS: "channel_attachments",
