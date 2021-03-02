@@ -100,6 +100,10 @@ class ComponentPreviewPersona extends React.Component {
   };
 
   render() {
+    // console.log("match={this.props.match}", this.props.match);
+    // console.log("previewPersonaFormViewModel ");
+    // console.log(this.props.previewPersonaFormViewModel);
+
     return (
       <div>
         {data.map((value) => {

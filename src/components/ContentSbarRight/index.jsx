@@ -66,7 +66,12 @@ class ContentSbarRight extends React.Component {
                 eventKey="0"
                 className="wr_tabcontent_right bg-white p-3 h-100"
               >
-                <ComponentPreviewPersona />
+                <ComponentPreviewPersona
+                // match={this.props.match}
+                // previewPersonaFormViewModel={
+                //   this.props.previewPersonaFormViewModel
+                // }
+                />
               </Tab.Pane>
             </Tab.Content>
           </div>
