@@ -27,8 +27,7 @@ const FormPreviewPersona = observer(
     render() {
       return (
         <ContentSbarRight
-        //match={this.props.match}
-        // previewPersonaFormViewModel={this.contentFormViewModel}
+          previewPersonaFormViewModel={this.personaFormViewModel}
         />
       );
     }

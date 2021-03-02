@@ -1,8 +1,13 @@
-import React, { useState, lazy } from "react";
+import React, { useState, lazy, Component } from "react";
+
+import { observer } from "mobx-react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-regular-svg-icons/faEdit";
 
 import SelectComponent from "../Select";
+
+import { withPersonaViewModel } from "../../containers/PersonasPage/PersonaViewModels/PersonaViewModelContextProvider";
 
 const data = [
   {
@@ -85,102 +90,121 @@ const data = [
   },
 ];
 
-class ComponentPreviewPersona extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      option: null,
+const ComponentPreviewPersona = observer(
+  class ComponentPreviewPersona extends Component {
+    previewPersonasListViewModel = null;
+
+    constructor(props) {
+      super(props);
+
+      const { viewModel } = props;
+
+      console.log("viewModel preview");
+      console.log(viewModel);
+
+      this.previewPersonasListViewModel = viewModel
+        ? viewModel.getPersonaFormViewModel()
+        : null;
+
+      console.log("this.previewPersonasListViewModel");
+      console.log(this.previewPersonasListViewModel);
+
+      this.state = {
+        option: null,
+      };
+    }
+
+    handleSelect = (selected) => {
+      this.setState({
+        option: selected,
+      });
     };
-  }
 
-  handleSelect = (selected) => {
-    this.setState({
-      option: selected,
-    });
-  };
+    componentDidMount = () => {
+      this.previewPersonasListViewModel.getPersona();
+      console.log("this.previewPersonasListViewModel 2222");
+      console.log(this.previewPersonasListViewModel.getPersona(698));
+    };
 
-  render() {
-    // console.log("match={this.props.match}", this.props.match);
-    // console.log("previewPersonaFormViewModel ");
-    // console.log(this.props.previewPersonaFormViewModel);
-
-    return (
-      <div>
-        {data.map((value) => {
-          return (
-            <>
-              <div className="d-flex align-items-center justify-content-between mb-3">
-                <h3>Preview Persona</h3>
-                <a
-                  href={void 0}
-                  className="cursor-pointer text-decoration-none text-green"
-                >
-                  <i className="">
-                    <FontAwesomeIcon icon={faEdit} />
-                  </i>
-                  <span className="ms-1">Edit</span>
-                </a>
-              </div>
-              <SelectComponent
-                value={this.state.option}
-                onChange={this.handleSelect}
-                options={value.selectName}
-                className="text-green bg-white rounded-2 mb-3"
-                isBorder={true}
-                plColor="rgba(8, 18, 64, 0.8)"
-              />
-              <div className="text-center mb-2">
-                <img src={value.image} />
-              </div>
-              <p>{value.description}</p>
-              <div>
-                <div className="bg-blue-3 py-2 px-3">Demographic</div>
-                <ul className="list-unstyled py-3">
-                  {value.demographic.map((item, index) => {
-                    return (
-                      <li key={index} className="d-flex py-1">
-                        <span className="fw-bold w-150">{item.title}</span>
-                        <span className="flex-1">{item.text}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div>
-                <div className="bg-blue-3 py-2 px-3">
-                  Sources of information
+    render() {
+      return (
+        <div>
+          {data.map((value) => {
+            return (
+              <>
+                <div className="d-flex align-items-center justify-content-between mb-3">
+                  <h3>Preview Persona</h3>
+                  <a
+                    href={void 0}
+                    className="cursor-pointer text-decoration-none text-green"
+                  >
+                    <i className="">
+                      <FontAwesomeIcon icon={faEdit} />
+                    </i>
+                    <span className="ms-1">Edit</span>
+                  </a>
                 </div>
-                <ul className="list-unstyled py-3">
-                  {value.information.map((item, index) => {
-                    return (
-                      <li key={index} className="d-flex py-1">
-                        <span className="fw-bold w-150">{item.title}</span>
-                        {item.images.length > 0 ? (
-                          <span className="flex-1">
-                            <ul className="list-unstyled d-flex post_list_images">
-                              {item.images.map((i) => {
-                                return (
-                                  <li className="me-2">
-                                    <img src={i} className="img-avatar" />
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          </span>
-                        ) : (
+                <SelectComponent
+                  value={this.state.option}
+                  onChange={this.handleSelect}
+                  options={value.selectName}
+                  className="text-green bg-white rounded-2 mb-3"
+                  isBorder={true}
+                  plColor="rgba(8, 18, 64, 0.8)"
+                />
+                <div className="text-center mb-2">
+                  <img src={value.image} />
+                </div>
+                <p>{value.description}</p>
+                <div>
+                  <div className="bg-blue-3 py-2 px-3">Demographic</div>
+                  <ul className="list-unstyled py-3">
+                    {value.demographic.map((item, index) => {
+                      return (
+                        <li key={index} className="d-flex py-1">
+                          <span className="fw-bold w-150">{item.title}</span>
                           <span className="flex-1">{item.text}</span>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </>
-          );
-        })}
-      </div>
-    );
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+                <div>
+                  <div className="bg-blue-3 py-2 px-3">
+                    Sources of information
+                  </div>
+                  <ul className="list-unstyled py-3">
+                    {value.information.map((item, index) => {
+                      return (
+                        <li key={index} className="d-flex py-1">
+                          <span className="fw-bold w-150">{item.title}</span>
+                          {item.images.length > 0 ? (
+                            <span className="flex-1">
+                              <ul className="list-unstyled d-flex post_list_images">
+                                {item.images.map((i) => {
+                                  return (
+                                    <li className="me-2">
+                                      <img src={i} className="img-avatar" />
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </span>
+                          ) : (
+                            <span className="flex-1">{item.text}</span>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </>
+            );
+          })}
+        </div>
+      );
+    }
   }
-}
+);
 
-export default ComponentPreviewPersona;
+export default withPersonaViewModel(ComponentPreviewPersona);
