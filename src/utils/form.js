@@ -51,7 +51,10 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
             case FORM_FIELD_TYPE.TEXTAREA:
               return (
-                <Form.Group key={Math.random(40, 200)} className="mb-4">
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${field.className}`}
+                >
                   <Label
                     text={field.label}
                     required={field.required ?? false}
@@ -96,7 +99,10 @@ const renderingGroupFieldHandler = (group, validator) => {
 
             case FORM_FIELD_TYPE.SELECTION:
               return (
-                <Form.Group key={Math.random(40, 200)} className="mb-4">
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${field.className}`}
+                >
                   <Label
                     text={field.label}
                     required={field.required ?? false}
@@ -116,7 +122,10 @@ const renderingGroupFieldHandler = (group, validator) => {
 
             case FORM_FIELD_TYPE.TAB:
               return (
-                <Form.Group key={Math.random(40, 200)} className="mb-4">
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${field.className}`}
+                >
                   <FormTab
                     key={Math.random(40, 200)}
                     field={field}
@@ -126,7 +135,10 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
             case FORM_FIELD_TYPE.DROPDOWN:
               return (
-                <Form.Group key={Math.random(40, 200)} className="mb-4">
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${field.className}`}
+                >
                   <Label
                     text={field.label}
                     required={field.required ?? false}

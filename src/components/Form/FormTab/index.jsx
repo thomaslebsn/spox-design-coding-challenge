@@ -15,7 +15,8 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import "emoji-mart/css/emoji-mart.css";
 import { Emoji, Picker } from "emoji-mart";
 
-import styles from "./index.module.scss";
+import "./index.scss";
+import { CanvaButton } from "../../CanvaButton";
 
 const FormTab = observer(
   class FormTab extends Component {
@@ -63,7 +64,7 @@ const FormTab = observer(
       const preview = files.map((file) => (
         <div key={file.name} className="position-relative m-2">
           <img
-            className={`img-thumbnail rounded ${styles.img}`}
+            className={`img-thumbnail rounded imgTab`}
             src={URL.createObjectURL(file)}
           />
         </div>
@@ -79,107 +80,15 @@ const FormTab = observer(
       return (
         personaSelectionData.length > 0 && (
           <>
-            <Label text={field.label} required={field.required ?? false} />
             <div className="wrapper_tabs border-1 rounded pad">
-              <Tabs defaultActiveKey="1" id="desc-tab">
-                {personaSelectionData.map((item) => {
-                  // const channels = item[PERSONA_FIELD_KEY.CHANNELS];
-
-                  const channels = [
-                    {
-                      id: 1,
-                      name: "facebook 1",
-                      image: "/assets/images/icon-pepsi.png",
-                      icon: "/assets/images/facebook.png",
-                      checked: true,
-                    },
-                    {
-                      id: 2,
-                      name: "instagram 1",
-                      image: "/assets/images/icon-pepsi.png",
-                      icon: "/assets/images/instagram.png",
-                      checked: true,
-                    },
-                  ];
-
-                  return channels.map((value) => {
-                    return (
-                      <Tab
-                        eventKey={value.id}
-                        title={value.name}
-                        className="p-1"
-                      >
-                        <Form.Control
-                          name="desc"
-                          as="textarea"
-                          className="form-control border-0 rounded-0"
-                          required={field.required ?? false}
-                          defaultValue={field.value}
-                          id={value.id}
-                          onChange={this.handleInputChange}
-                          onBlur={field.blurred ?? undefined}
-                        />
-
-                        {field.validation &&
-                          this.props.validator.message(
-                            field.label,
-                            field.value,
-                            field.validation,
-                            { className: "text-danger" }
-                          )}
-                      </Tab>
-                    );
-                  });
-                })}
-              </Tabs>
-              <div className="d-flex justify-content-start p-3 border-top  ">
-                <Dropzone onDrop={this.onDrop} multiple={true} accept="image/*">
-                  {({ getRootProps, getInputProps }) => (
-                    <div
-                      {...getRootProps({
-                        className: "cursor-pointer pe-3",
-                      })}
-                    >
-                      <input {...getInputProps()} />
-                      <FontAwesomeIcon icon={faImage} />
-                    </div>
-                  )}
-                </Dropzone>
-
-                <Dropzone onDrop={this.onDrop} accept="video/*">
-                  {({ getRootProps, getInputProps }) => (
-                    <div
-                      {...getRootProps({
-                        className: "cursor-pointer",
-                      })}
-                    >
-                      <input {...getInputProps()} />
-                      <FontAwesomeIcon icon={faVideo} />
-                    </div>
-                  )}
-                </Dropzone>
-                <div className="ms-auto ">
-                  <OverlayTrigger
-                    placement="top-start"
-                    trigger="click"
-                    overlay={
-                      <Picker
-                        set="apple"
-                        onSelect={(emoji) => this.handlePicker(emoji)}
-                      />
-                    }
-                  >
-                    <Emoji emoji="grinning" size={20} />
-                  </OverlayTrigger>
+              <div className="d-flex justify-content-start p-3 ">
+                <CanvaButton />
+              </div>
+              {this.state.files.length > 0 && (
+                <div className={`d-flex justify-content-start border-top`}>
+                  {preview}
                 </div>
-              </div>
-              <div
-                className={`d-flex justify-content-start ${
-                  this.state.files.length > 0 && "border-top"
-                }`}
-              >
-                {preview}
-              </div>
+              )}
             </div>
           </>
         )

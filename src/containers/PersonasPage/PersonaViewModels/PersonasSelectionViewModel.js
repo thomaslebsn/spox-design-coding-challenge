@@ -95,7 +95,7 @@ class PersonasSelectionViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       const rowDataTransformed = PersonaUtils.transformPersonaModelIntoTableDataRow(
-        personaModelData
+        personaModelData.list
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);

@@ -93,7 +93,7 @@ class CampaignsSelectionViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       const rowDataTransformed = CampaignsUtils.transformCampaignsModelIntoTableDataRow(
-        campaignModelData
+        campaignModelData.list
       );
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
