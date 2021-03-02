@@ -6,8 +6,16 @@ import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 import PersonaUtils from "../PersonaUtils/PersonaUtils";
 import PersonaModel from "../PersonaModel/PersonaModel";
 import { EasiiPersonaApiService } from "easii-io-web-service-library";
+import { PersonaMasterDataModel } from "../../../store/Models/MasterDataModels/PersonaMasterDataModel";
 
 export default class PersonaStore {
+  globalStore = null;
+  constructor(args = {}) {
+    if (args) {
+      this.globalStore = args.globalStore ? args.globalStore : null;
+    }
+  }
+
   async fetchPersonas(callbackOnSuccess, callbackOnError, paginationStep) {
     try {
       console.log("Persona Store - Fetch Personas");
@@ -151,6 +159,60 @@ export default class PersonaStore {
             message: "Something went wrong from Server response",
           });
         }
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getPersonaMasterData(callbackOnSuccess, callbackOnError) {
+    try {
+      if (!this.globalStore) {
+        runInAction(() => {
+          callbackOnError({
+            message: "Global Store is NULL",
+          });
+        });
+      } else {
+        console.log("Persona Store - Get Global Store");
+        console.log(this.globalStore);
+        await this.globalStore.getMasterData(
+          {
+            isForPersonaMasterData: true
+          },
+          (result) => {
+            try {
+              console.log('Persona - getMasterData');
+              console.log(result);
+              const resultPersonaInModel = new PersonaMasterDataModel(result && result.personaMasterData ? result.personaMasterData : null);
+              console.log('resultInModel');
+              console.log(resultPersonaInModel);
+              console.log("persona - resultPersonaInModel");
+              console.log(result);
+              console.log("persona - resultToDropdownlistValues");
+  
+              runInAction(() => {
+                callbackOnSuccess(resultPersonaInModel);
+              });
+            } catch(error) {
+              runInAction(() => {
+                callbackOnError({
+                  message: "resultInModel - personaStore - getMasterData - Something went wrong from Server response",
+                });
+              });
+            }
+          },
+          (error) => {
+            runInAction(() => {
+              callbackOnError({
+                message: "personaStore - getMasterData - Something went wrong from Server response : " + error,
+              });
+            });
+          }
+        );
       }
     } catch (error) {
       console.log(error);
