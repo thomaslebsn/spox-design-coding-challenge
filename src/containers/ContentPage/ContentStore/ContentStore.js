@@ -36,18 +36,18 @@ export default class ContentStore {
         "repondedDataFromLibrary repondedDataFromLibrary",
         repondedDataFromLibrary
       );
-      
+
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
         repondedDataFromLibrary.list
       );
-      console.log('contentDataModels');
+      console.log("contentDataModels");
       console.log(contentDataModels);
 
       if (contentDataModels) {
         runInAction(() => {
           callbackOnSuccess({
             list: contentDataModels,
-            pagination: repondedDataFromLibrary.pagination
+            pagination: repondedDataFromLibrary.pagination,
           });
         });
       } else {
@@ -175,7 +175,12 @@ export default class ContentStore {
     }
   }
 
-  async searchContents(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
+  async searchContents(
+    callbackOnSuccess,
+    callbackOnError,
+    dataFilter = {},
+    paginationStep = 1
+  ) {
     try {
       console.log("Content Store - filter Content");
       const contentAPIService = new EasiiContentApiService();
@@ -184,13 +189,12 @@ export default class ContentStore {
         paginationStep,
         25
       );
-      
+
       console.log("Debugging ---- filter campaign");
       console.log(respondedDataFromLibrary);
       let contentDataModels = null;
 
-      if (respondedDataFromLibrary !== null)
-      {
+      if (respondedDataFromLibrary !== null) {
         contentDataModels = ContentUtils.transformContentResponseIntoModel(
           respondedDataFromLibrary.list
         );
@@ -200,7 +204,7 @@ export default class ContentStore {
         runInAction(() => {
           callbackOnSuccess({
             list: contentDataModels,
-            pagination: respondedDataFromLibrary.pagination
+            pagination: respondedDataFromLibrary.pagination,
           });
         });
       } else {
@@ -230,32 +234,41 @@ export default class ContentStore {
         await this.globalStore.getMasterData(
           {
             isForCampaignMasterData: true,
-            isForPersonaMasterData: true
+            isForPersonaMasterData: true,
           },
           (result) => {
             try {
-              console.log('Content - getMasterData');
+              console.log("Content - getMasterData");
               console.log(result);
-              
-              const resultCampaignInModel = new CampaignMasterDataModel(result && result.campaignMasterData ? result.campaignMasterData : null);
-              const resultPersonaInModel = new PersonaMasterDataModel(result && result.personaMasterData ? result.personaMasterData : null);
-              console.log('resultInModel');
+
+              const resultCampaignInModel = new CampaignMasterDataModel(
+                result && result.campaignMasterData
+                  ? result.campaignMasterData
+                  : null
+              );
+              const resultPersonaInModel = new PersonaMasterDataModel(
+                result && result.personaMasterData
+                  ? result.personaMasterData
+                  : null
+              );
+              console.log("resultInModel");
               console.log(resultCampaignInModel);
               console.log(resultPersonaInModel);
               console.log("CampaignsStore - getProjectMasterData");
               console.log(result);
               console.log("CampaignsStore - resultToDropdownlistValues");
-  
+
               runInAction(() => {
                 callbackOnSuccess({
                   resultCampaignInModel: resultCampaignInModel,
-                  resultPersonaInModel: resultPersonaInModel
+                  resultPersonaInModel: resultPersonaInModel,
                 });
               });
-            } catch(error) {
+            } catch (error) {
               runInAction(() => {
                 callbackOnError({
-                  message: "resultInModel - ContentsStore - getMasterData - Something went wrong from Server response",
+                  message:
+                    "resultInModel - ContentsStore - getMasterData - Something went wrong from Server response",
                 });
               });
             }
@@ -263,11 +276,58 @@ export default class ContentStore {
           (error) => {
             runInAction(() => {
               callbackOnError({
-                message: "ContentsStore - getMasterData - Something went wrong from Server response : " + error,
+                message:
+                  "ContentsStore - getMasterData - Something went wrong from Server response : " +
+                  error,
               });
             });
           }
         );
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getContentsByCampaignIDs(
+    CampaignIDs,
+    limit,
+    callbackOnSuccess,
+    callbackOnError
+  ) {
+    try {
+      console.log("Content Store - Fetch Content CampaignIDs");
+      const contentAPIService = new EasiiContentApiService();
+
+      const repondedDataFromLibrary = await contentAPIService.getContentsByCampaignIDs(
+        CampaignIDs,
+        limit
+      );
+
+      console.log(
+        "repondedDataFromLibrary - repondedDataFromLibrary CampaignIDs"
+      );
+
+      console.log(repondedDataFromLibrary);
+
+      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
+        repondedDataFromLibrary
+      );
+
+      console.log("contentDataModels contentDataModels");
+      console.log(contentDataModels);
+
+      if (contentDataModels) {
+        runInAction(() => {
+          callbackOnSuccess(contentDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
       }
     } catch (error) {
       console.log(error);

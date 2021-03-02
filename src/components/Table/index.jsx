@@ -72,7 +72,7 @@ const Table = ({
   );
 
   const handerEdit = (e, row) => {
-    if (e.target.type !== "checkbox") {
+    if (e.target.type !== "checkbox" && e.target.nodeName !== "svg") {
       onEdit(row);
     }
   };
@@ -206,6 +206,7 @@ const Table = ({
         row={row}
         rowProps={rowProps}
         visibleColumns={visibleColumns}
+        subRowData={listViewModel ? listViewModel : null}
       />
     ),
     []
