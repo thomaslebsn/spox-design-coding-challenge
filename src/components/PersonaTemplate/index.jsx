@@ -11,7 +11,6 @@ import {
 import "./index.scss";
 
 class PersonaTemplate extends Component {
-  personaTemplates = null;
   contentsStore = null;
 
   constructor(props) {
@@ -46,9 +45,8 @@ class PersonaTemplate extends Component {
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
 
-      this.personaTemplates = rowDataTransformed;
       this.setState({
-        personaTemplatesData: this.personaTemplates,
+        personaTemplatesData: rowDataTransformed,
       });
   };
 
@@ -60,6 +58,7 @@ class PersonaTemplate extends Component {
 
   render() {
       console.log('persona template render');
+      console.log(this.personaTemplates);
       const { personaTemplatesData } = this.state;
     
       let personaTemplateHtml = null;
