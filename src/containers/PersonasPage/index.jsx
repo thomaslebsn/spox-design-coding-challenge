@@ -7,6 +7,7 @@ import PersonaViewModel from "./PersonaViewModels/PersonaViewModel";
 import { PersonaViewModelContextProvider } from "./PersonaViewModels/PersonaViewModelContextProvider";
 import ComponentHeaderPage from "../../components/ComponentHeaderPage";
 import { faSave } from "@fortawesome/free-regular-svg-icons/faSave";
+import PersonaTemplate from "../../components/PersonaTemplate";
 
 const PersonaFormPage = lazy(() => import("./PersonaForm/PersonaFormPage"));
 const PersonasList = lazy(() => import("./PersonasList/PersonasList"));
@@ -21,6 +22,7 @@ function Personas({ match }) {
     <PersonaViewModelContextProvider viewModel={personaViewModel}>
       <div className="p-3">
         <Route exact path="/personas">
+        <PersonaTemplate />
           <div className="d-flex align-items-center justify-content-between mb-4">
             <h2 className="text-blue-0">List Personas</h2>
             <PersonaActionBar />

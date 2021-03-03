@@ -1,11 +1,13 @@
 import { runInAction } from "mobx";
 
 import ContentUtils from "../ContentUtils/ContentUtils";
+import PersonaTemplateUtils from "../ContentUtils/PersonaTemplateUtils";
 import ContentModel from "../ContentModel/ContentModel";
 
 import {
   EasiiContentApiService,
   EasiiProjectChannelApiService,
+  EasiiPersonaTemplateApiService
 } from "easii-io-web-service-library";
 
 import {
@@ -323,6 +325,46 @@ export default class ContentStore {
       if (contentDataModels) {
         runInAction(() => {
           callbackOnSuccess(contentDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getPersonaRecommendations(callbackOnSuccess, callbackOnError, paginationStep) {
+    try {
+      console.log("Content Store - getPersonaRecommendations");
+      const personaTemplateAPIService = new EasiiPersonaTemplateApiService();
+
+      const repondedDataFromLibrary = await personaTemplateAPIService.getPersonaTemplates(
+        paginationStep,
+        100
+      );
+      console.log(
+        "repondedDataFromLibrary repondedDataFromLibrary",
+        repondedDataFromLibrary
+      );
+
+      const personaTemplateDataModels = PersonaTemplateUtils.transformPersonaTemplateResponseIntoModel(
+        repondedDataFromLibrary.list
+      );
+      console.log("personaTemplateDataModels");
+      console.log(personaTemplateDataModels);
+
+      if (personaTemplateDataModels) {
+        runInAction(() => {
+          callbackOnSuccess({
+            list: personaTemplateDataModels,
+            pagination: repondedDataFromLibrary.pagination,
+          });
         });
       } else {
         callbackOnError({
