@@ -76,24 +76,6 @@ class PersonasListViewModel {
     console.log(personaModelData);
     if (personaModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-      this.tableRowHeader = [
-        {
-          Header: "Name",
-          accessor: PERSONA_FIELD_KEY.NAME, // accessor is the "key" in the data
-        },
-
-        {
-          Header: "Created Date",
-          accessor: PERSONA_FIELD_KEY.CREATED_DATE,
-        },
-        {
-          Header: "Updated Date",
-          accessor: PERSONA_FIELD_KEY.UPDATED_DATE,
-        },
-      ];
-
-      console.log("Row Data is tableRowHeader");
-      console.log(this.tableRowHeader);
 
       const rowDataTransformed = PersonaUtils.transformPersonaModelIntoTableDataRow(
         personaModelData.list

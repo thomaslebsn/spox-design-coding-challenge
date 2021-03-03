@@ -72,7 +72,7 @@ const Table = ({
   );
 
   const handerEdit = (e, row) => {
-    if (e.target.type !== "checkbox" && e.target.nodeName !== "svg") {
+    if (e.target.type !== "checkbox") {
       onEdit(row);
     }
   };
@@ -428,7 +428,7 @@ const Table = ({
                     <tr
                       {...row.getRowProps()}
                       className="border-bottom-1 cursor-pointer"
-                      onClick={(e) => handerEdit(e, row.original)}
+                      //onClick={(e) => handerEdit(e, row.original)}
                     >
                       {newRowCells.map((cell) => {
                         return (

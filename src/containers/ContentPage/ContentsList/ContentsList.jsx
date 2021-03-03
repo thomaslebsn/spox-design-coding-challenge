@@ -44,7 +44,7 @@ const ContentsList = observer(
       this.contentsFilterFormViewModel.initData();
     }
 
-    handerEditContent = (row) => {
+    handerEditContent = (e, row) => {
       history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
         form: true,
         id: row[CONTENT_FIELD_KEY.ID],
@@ -64,16 +64,17 @@ const ContentsList = observer(
     };
 
     getDataFormFilter = () => {
-      console.log('this.contentsFilterFormViewModel');
+      console.log("this.contentsFilterFormViewModel");
       console.log(this.contentsFilterFormViewModel);
-      
-      const campaignMasterData = this.contentsFilterFormViewModel.campaignsMasterData;
+
+      const campaignMasterData = this.contentsFilterFormViewModel
+        .campaignsMasterData;
       console.log(campaignMasterData);
       return [
         {
           name: "persona",
           option: this.contentsFilterFormViewModel.personaMasterData,
-          isMulti: true
+          isMulti: true,
         },
         {
           name: "Organisation",
@@ -94,7 +95,7 @@ const ContentsList = observer(
         {
           name: "campaigns",
           option: this.contentsFilterFormViewModel.campaignsMasterData,
-          isMulti: true
+          isMulti: true,
         },
         {
           name: "Content Type",
@@ -121,7 +122,7 @@ const ContentsList = observer(
           ],
         },
       ];
-    }
+    };
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
@@ -134,6 +135,19 @@ const ContentsList = observer(
         {
           Header: "Name",
           accessor: CONTENT_FIELD_KEY.NAME,
+          Cell: ({ row }) => (
+            console.log("row.original", row),
+            (
+              <div {...row.getToggleRowExpandedProps()} className="d-flex">
+                <span
+                  className="text-black opacity-75"
+                  onClick={(e) => this.handerEditContent(e, row.original)}
+                >
+                  {row.original[CONTENT_FIELD_KEY.NAME]}
+                </span>
+              </div>
+            )
+          ),
         },
 
         {
@@ -180,7 +194,7 @@ const ContentsList = observer(
         <Table
           rowData={contents}
           tableRowHeader={tableRowHeader}
-          onEdit={this.handerEditContent}
+          //onEdit={this.handerEditContent}
           onSelect={this.handerSelectContent}
           isFilter={true}
           pagination={pagination}
