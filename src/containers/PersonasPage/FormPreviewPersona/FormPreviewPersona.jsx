@@ -7,7 +7,7 @@ import ContentSbarRight from "../../../components/ContentSbarRight";
 
 const FormPreviewPersona = observer(
   class FormPreviewPersona extends Component {
-    personaFormViewModel = null;
+    previewPersonaViewModel = null;
 
     constructor(props) {
       super(props);
@@ -16,20 +16,22 @@ const FormPreviewPersona = observer(
       console.log("ContentFormGenera - Debug View Model Preview");
       console.log(viewModel);
 
-      this.personaFormViewModel = viewModel
-        ? viewModel.getPersonaFormViewModel()
+      this.previewPersonaViewModel = viewModel
+        ? viewModel.personaFormViewModel
         : null;
 
       console.log("After binding class Preview persona");
-      console.log(this.personaFormViewModel);
+      console.log(this.previewPersonaViewModel);
     }
 
+    componentDidMount = () => {
+      this.previewPersonaViewModel.getPreviewPersona(700);
+    };
+
     render() {
-      return (
-        <ContentSbarRight
-          previewPersonaFormViewModel={this.personaFormViewModel}
-        />
-      );
+      let data = this.previewPersonaViewModel.previewPersonaData;
+
+      return <ContentSbarRight data={data} />;
     }
   }
 );

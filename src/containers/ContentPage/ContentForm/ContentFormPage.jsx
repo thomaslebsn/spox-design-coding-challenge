@@ -2,7 +2,7 @@ import React, { Component, lazy } from "react";
 
 import StepWizard from "react-step-wizard";
 
-import { ContentFormPreviewPersona } from "./ContentFormPreviewPersona";
+import { ContentPreviewPersona } from "./ContentPreviewPersona";
 
 const ContentFormGeneral = lazy(() =>
   import("./ContentFormGeneral/ContentFormGeneral")
@@ -28,7 +28,7 @@ class ContentFormPage extends Component {
           <ContentFormGeneral hashKey={"general"} match={this.props.match} />
           <ContentFormPublish hashKey={"publish"} />
         </StepWizard>
-        <ContentFormPreviewPersona />
+        <ContentPreviewPersona />
       </>
     );
   }

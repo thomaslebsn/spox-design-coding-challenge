@@ -12,6 +12,8 @@ class PersonaFormViewModel {
 
   formStatus = PAGE_STATUS.LOADING;
 
+  previewPersonaData = null;
+
   constructor(personaStore) {
     makeAutoObservable(this);
     this.personaStore = personaStore;
@@ -35,6 +37,17 @@ class PersonaFormViewModel {
     this.personaStore.getPersona(
       id,
       this.setEditPersona,
+      this.callbackOnErrorHander
+    );
+  };
+
+  getPreviewPersona = (id) => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.personaStore.getPersona(
+      id,
+      (result) => {
+        this.previewPersonaData = result[0];
+      },
       this.callbackOnErrorHander
     );
   };

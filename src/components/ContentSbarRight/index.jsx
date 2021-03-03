@@ -61,16 +61,12 @@ class ContentSbarRight extends React.Component {
               </Nav>
             </div>
 
-            <Tab.Content className="position-absolute top-0 end-100 w-400 mh-100 border-end-1 overflow-hidden overflow-y-auto">
+            <Tab.Content className="position-absolute top-0 end-100 w-400 mh-100 border-end-1 overflow-hidden overflow-y-auto h-100">
               <Tab.Pane
                 eventKey="0"
                 className="wr_tabcontent_right bg-white p-3 h-100"
               >
-                <ComponentPreviewPersona
-                  previewPersonaFormViewModel={
-                    this.props.previewPersonaFormViewModel
-                  }
-                />
+                <ComponentPreviewPersona data={this.props.data} />
               </Tab.Pane>
             </Tab.Content>
           </div>
