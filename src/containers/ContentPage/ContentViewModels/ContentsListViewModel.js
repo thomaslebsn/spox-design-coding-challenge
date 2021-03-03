@@ -55,25 +55,25 @@ class ContentsListViewModel {
   };
 
   getPagination = (paginationStep) => {
-    console.log('paginationStep', paginationStep);
+    console.log("paginationStep", paginationStep);
     this.tableStatus = PAGE_STATUS.LOADING;
     this.contentStore.fetchContents(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       paginationStep
     );
-  }
+  };
 
   searchContents = (dataFilter) => {
     this.dataFilter = dataFilter;
-    console.log('dataFilter');
+    console.log("dataFilter");
     console.log(dataFilter);
     this.contentStore.searchContents(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       dataFilter
     );
-  }
+  };
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
@@ -86,11 +86,11 @@ class ContentsListViewModel {
     console.log(contentModelData);
     if (contentModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-      console.log('============1');
+      console.log("============1");
       const rowDataTransformed = ContentUtils.transformContentModelIntoTableDataRow(
         contentModelData.list
       );
-      console.log('============2');
+      console.log("============2");
       console.log("Row Data is Formatted");
       console.log(rowDataTransformed);
       this.contents = rowDataTransformed;

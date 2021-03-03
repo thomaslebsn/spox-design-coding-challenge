@@ -51,14 +51,9 @@ const PersonasSelection = observer(
 
       const tableRowHeader = [
         {
-          Header: "Image",
-          accessor: PERSONA_FIELD_KEY.IMAGE,
-          Cell: ({ value }) => <Image src={value} rounded height="250" />,
-        },
-        {
           Header: "Name",
           accessor: PERSONA_FIELD_KEY.NAME, // accessor is the "key" in the data
-        },
+        }
       ];
 
       return tableStatus === PAGE_STATUS.LOADING ? (
@@ -76,7 +71,6 @@ const PersonasSelection = observer(
               onEdit={this.handerEditPersona}
               noSelection={true}
               noColumns={true}
-              isList={false}
               noDropDownColumns={true}
             ></Table>
           }
