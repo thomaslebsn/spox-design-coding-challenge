@@ -56,13 +56,15 @@ const CampaignsList = observer(
       this.campaignsFilterFormViewModel.initData();
     }
 
-    handerEditCampaign = (row) => {
+    handerEditCampaign = (e, row) => {
       this.campaignsFormModalViewModal.loadForm(row[CAMPAIGNS_FIELD_KEY.ID]);
     };
 
-    handleExpanded = (row) => {
+    handleExpanded = (e, row) => {
       console.log("rowrowrowrowrowrowrowrowrow", row);
-      this.campaignsListViewModel.getContentByIdCampaign(row.id);
+      this.campaignsListViewModel.getContentByIdCampaign(
+        row[CAMPAIGNS_FIELD_KEY.ID]
+      );
     };
 
     handerSelectCampaigns = (data) => {
@@ -152,7 +154,7 @@ const CampaignsList = observer(
             <div {...row.getToggleRowExpandedProps()} className="d-flex">
               <i
                 className="text-green icon_expander"
-                onClick={this.handleExpanded(row)}
+                onClick={(e) => this.handleExpanded(e, row.original)}
               >
                 <FontAwesomeIcon icon={row.isExpanded ? faMinus : faPlus} />
               </i>
@@ -164,7 +166,10 @@ const CampaignsList = observer(
           accessor: CAMPAIGNS_FIELD_KEY.NAME,
           Cell: ({ row }) => (
             <div {...row.getToggleRowExpandedProps()} className="d-flex">
-              <span className="ms-2 fw-bold text-black opacity-75">
+              <span
+                className="ms-2 fw-bold text-black opacity-75"
+                onClick={(e) => this.handerEditCampaign(e, row.original)}
+              >
                 {row.values.expander}
               </span>
             </div>
@@ -249,7 +254,7 @@ const CampaignsList = observer(
           <Table
             rowData={campaigns}
             tableRowHeader={tableRowHeader}
-            onEdit={this.handerEditCampaign}
+            //onEdit={this.handerEditCampaign}
             onSelect={this.handerSelectCampaigns}
             isFilter={true}
             pagination={pagination}

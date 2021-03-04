@@ -34,7 +34,12 @@ const ProjectsList = observer(
       this.projectListViewModel.initializeData();
     }
 
-    handerEditProject = (row) => {
+    handerEditProjectThumb = (row) => {
+      this.projectFormModalViewModel.getProject(row.id);
+      this.projectFormModalViewModel.openModal();
+    };
+
+    handerEditProject = (e, row) => {
       this.projectFormModalViewModel.getProject(row.id);
       this.projectFormModalViewModel.openModal();
     };
@@ -62,6 +67,16 @@ const ProjectsList = observer(
         {
           Header: "Project Name",
           accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
+          Cell: ({ row }) => (
+            <div {...row.getToggleRowExpandedProps()} className="d-flex">
+              <span
+                className="text-black opacity-75"
+                onClick={(e) => this.handerEditProject(e, row.original)}
+              >
+                {row.original.name}
+              </span>
+            </div>
+          ),
         },
         // {
         //   Header: "Logo",
@@ -99,7 +114,7 @@ const ProjectsList = observer(
         <Table
           rowData={projects}
           tableRowHeader={tableRowHeader}
-          onEdit={this.handerEditProject}
+          onEdit={this.handerEditProjectThumb}
           onSelect={this.handerSelectProject}
           isThumb={true}
           dataList={[
