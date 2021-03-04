@@ -1,6 +1,6 @@
-import PersonaTemplateModel from "../ContentModel/PersonaTemplateModel";
+import PersonaTemplateModel from "../PersonaModel/PersonaTemplateModel";
 
-class ContentUtils {
+class PersonaTemplateUtils {
   transformPersonaTemplateResponseIntoModel = (response) => {
     return Object.keys(response)
       .map((index) => {
@@ -26,6 +26,6 @@ class ContentUtils {
   };
 }
 
-const utils = new ContentUtils();
+const utils = new PersonaTemplateUtils();
 
 export default utils;

@@ -3,7 +3,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 import PersonaUtils from "../PersonaUtils/PersonaUtils";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 import contentsStore from "../../ContentPage/ContentStore/ContentStore";
-import PersonaTemplateUtils from "../../ContentPage/ContentUtils/PersonaTemplateUtils";
+import PersonaTemplateUtils from "../PersonaUtils/PersonaTemplateUtils";
 
 import { notify } from "../../../components/Toast";
 
@@ -25,7 +25,7 @@ class PersonaTemplateViewModel {
 
   initializeData = () => {
     console.log("componentDidMount");
-    this.contentsStore.getPersonaRecommendations(
+    this.personaStore.getPersonaRecommendations(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       1

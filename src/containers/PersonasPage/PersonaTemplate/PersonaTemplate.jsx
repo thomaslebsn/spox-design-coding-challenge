@@ -15,11 +15,14 @@ import ComponentPersonaTemplate from "../../../components/ComponentPersonaTempla
 const PersonaTemplate = observer(
   class PersonaTemplate extends Component {
     personaTemplateViewModel = null;
+    viewModel = null;
+    isPersonaTemplate = true;
 
     constructor(props) {
       super(props);
 
       const { viewModel } = props;
+      this.viewModel = viewModel;
 
       this.personaTemplateViewModel = viewModel
         ? viewModel.getPersonaTemplateViewModel()
@@ -27,19 +30,23 @@ const PersonaTemplate = observer(
     }
 
     componentDidMount() {
-        this.personaTemplateViewModel.initializeData();
-      }
+      this.personaTemplateViewModel.initializeData();
+    }
 
-
-      render() {
-          console.log('PersonaTemplate - render');
-          console.log(this.personaTemplateViewModel.personaTemplatesData)
-          return (
-            <React.Fragment>
-                <ComponentPersonaTemplate personaTemplatesData={this.personaTemplateViewModel.personaTemplatesData} />
-            </React.Fragment>  
-          )
-      }
+    render() {
+      console.log("PersonaTemplate - render");
+      console.log(this.personaTemplateViewModel.personaTemplatesData);
+      return (
+        <React.Fragment>
+          <ComponentPersonaTemplate
+            personaTemplatesData={
+              this.personaTemplateViewModel.personaTemplatesData
+            }
+            viewModel={this.viewModel}
+          />
+        </React.Fragment>
+      );
+    }
   }
 );
 

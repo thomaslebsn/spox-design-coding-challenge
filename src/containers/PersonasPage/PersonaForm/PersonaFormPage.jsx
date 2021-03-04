@@ -42,6 +42,7 @@ const PersonaFormPage = observer(
       super(props);
 
       const { viewModel } = props;
+      console.log(viewModel);
 
       this.validator = new SimpleReactValidator();
 
@@ -54,8 +55,13 @@ const PersonaFormPage = observer(
 
     componentDidMount() {
       const { match } = this.props;
+      console.log("componentDidMount");
+      console.log(match);
 
-      if (match.params.id) {
+      if (match.params.bypersonatemplate !== '' && match.params.id !== null) {
+        this.personaFormViewModel.getPersonaTemplate(match.params.id);
+      } else if (match.params.id) {
+        console.log('===========');
         this.personaFormViewModel.getPersona(match.params.id);
       } else {
         this.personaFormViewModel.formStatus = PAGE_STATUS.READY;

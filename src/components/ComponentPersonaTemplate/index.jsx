@@ -5,8 +5,14 @@ import {
   ESI_PERSONA_TEMPLATE_FIELD_KEY,
 } from "../../constants/PersonaTemplateModule";
 import "./index.scss";
+import history from "../../routes/history";
 
 class ComponentPersonaTemplate extends Component {
+
+  handlerClick = (id) => {
+    history.push(`/personas/create/bypersonatemplate/` + id);
+  }
+
   render() {
     console.log("persona template render");
 
@@ -19,7 +25,7 @@ class ComponentPersonaTemplate extends Component {
       personaTemplateHtml = personaTemplatesData.map((personaTemplate) => {
         console.log(personaTemplate);
         return (
-          <li>
+          <li onClick={e => this.handlerClick(personaTemplate[PERSONA_TEMPLATE_FIELD_KEY.ID])}>
             <p>{personaTemplate[PERSONA_TEMPLATE_FIELD_KEY.NAME]}</p>
             <p>
               <img

@@ -30,7 +30,7 @@ function Personas({ match }) {
           <PersonasList />
         </Route>
 
-        <Route exact path={["/personas/create", "/personas/edit/:id"]}>
+        <Route exact path={["/personas/create", "/personas/create/bypersonatemplate/:id", "/personas/edit/:id"]}>
           <div className="py-4 px-3">
             <PersonaFormPage match={match} />
           </div>
