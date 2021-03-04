@@ -94,7 +94,7 @@ class ComponentContentFormGeneral extends Component {
             clicked: () => {
               personaSelectionViewModal.openModal();
             },
-            //multi: true,
+            multi: true,
           },
           {
             label: "Headline",

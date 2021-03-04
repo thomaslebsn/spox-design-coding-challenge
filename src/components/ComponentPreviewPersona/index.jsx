@@ -8,28 +8,17 @@ import SelectComponent from "../Select";
 class ComponentPreviewPersona extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      option: null,
-    };
   }
-
-  handleSelect = (selected) => {
-    this.setState({
-      option: selected,
-    });
-  };
 
   componentDidMount = () => {};
 
   render() {
-    console.log("this.props.data new new", this.props.data);
     let { data } = this.props;
     return (
       <div>
         <div className="d-flex align-items-center justify-content-between mb-3">
           <h3>Preview Persona</h3>
-          <a
+          {/* <a
             href={void 0}
             className="cursor-pointer text-decoration-none text-green"
           >
@@ -37,12 +26,12 @@ class ComponentPreviewPersona extends Component {
               <FontAwesomeIcon icon={faEdit} />
             </i>
             <span className="ms-1">Edit</span>
-          </a>
+          </a> */}
         </div>
         <SelectComponent
-          value={this.state.option}
-          onChange={this.handleSelect}
-          //options={value.selectName}
+          placeholder={data ? data.name : null}
+          onChange={this.props.handleSelect}
+          options={this.props.options}
           className="text-green bg-white rounded-2 mb-3"
           isBorder={true}
           plColor="rgba(8, 18, 64, 0.8)"
@@ -53,7 +42,7 @@ class ComponentPreviewPersona extends Component {
             className="w-110 h-110 object-fit-cover rounded-circle"
           />
         </div>
-        {/* <p>{data}</p> */}
+        <p>{data ? data.job_title : null}</p>
         <div>
           <div className="bg-blue-3 py-2 px-3">Demographic</div>
           <ul className="list-unstyled py-3">

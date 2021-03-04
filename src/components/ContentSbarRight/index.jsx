@@ -46,7 +46,11 @@ class ContentSbarRight extends React.Component {
                     <Nav.Item key={index} className="border-bottom-1">
                       <Nav.Link
                         eventKey={value.id}
-                        className="d-block text-center text px-0 text-black"
+                        className={`d-block text-center text px-0 text-black ${
+                          this.props.disabled ? "opacity-50" : ""
+                        }`}
+                        disabled={this.props.disabled}
+                        onClick={this.props.handlShowPreviewPersona}
                       >
                         <i className="">
                           <FontAwesomeIcon icon={value.icon} />
@@ -66,7 +70,11 @@ class ContentSbarRight extends React.Component {
                 eventKey="0"
                 className="wr_tabcontent_right bg-white p-3 h-100"
               >
-                <ComponentPreviewPersona data={this.props.data} />
+                <ComponentPreviewPersona
+                  data={this.props.data}
+                  handleSelect={this.props.handleSelect}
+                  options={this.props.options}
+                />
               </Tab.Pane>
             </Tab.Content>
           </div>
