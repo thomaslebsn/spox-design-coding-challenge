@@ -7,7 +7,7 @@ import PersonaViewModel from "./PersonaViewModels/PersonaViewModel";
 import { PersonaViewModelContextProvider } from "./PersonaViewModels/PersonaViewModelContextProvider";
 import ComponentHeaderPage from "../../components/ComponentHeaderPage";
 import { faSave } from "@fortawesome/free-regular-svg-icons/faSave";
-import PersonaTemplate from "../../components/PersonaTemplate";
+import PersonaTemplate from "../../containers/PersonasPage/PersonaTemplate/PersonaTemplate";
 
 const PersonaFormPage = lazy(() => import("./PersonaForm/PersonaFormPage"));
 const PersonasList = lazy(() => import("./PersonasList/PersonasList"));
