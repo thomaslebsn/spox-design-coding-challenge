@@ -15,6 +15,7 @@ import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 const FormPreviewPersona = observer(
   class FormPreviewPersona extends Component {
     previewPersonaViewModel = null;
+    isHiddenPersonaPeview = false;
 
     constructor(props) {
       super(props);
@@ -45,7 +46,9 @@ const FormPreviewPersona = observer(
     };
 
     handlShowPreviewPersona = (tranferPersonaId) => {
-      this.handleSelect(tranferPersonaId[0]);
+      tranferPersonaId = tranferPersonaId ? tranferPersonaId[0] : null;
+      this.handleSelect(tranferPersonaId);
+      this.isHiddenPersonaPeview = false;
     };
 
     render() {
@@ -62,15 +65,25 @@ const FormPreviewPersona = observer(
         return arr.concat(el);
       }, []);
 
+      personaSelectionViewModal.show === true &&
+        (this.isHiddenPersonaPeview = true);
+
       return (
         <ContentSbarRight
           data={data}
           handleSelect={this.handleSelect}
-          options={tranferPersonaId}
-          disabled={tranferPersonaId.length > 0 ? false : true}
+          options={tranferPersonaId ? tranferPersonaId : null}
+          disabled={
+            tranferPersonaId
+              ? tranferPersonaId.length > 0
+                ? false
+                : true
+              : null
+          }
           handlShowPreviewPersona={() =>
             this.handlShowPreviewPersona(tranferPersonaId)
           }
+          isHidden={this.isHiddenPersonaPeview}
         />
       );
     }

@@ -69,6 +69,7 @@ class ContentSbarRight extends React.Component {
               <Tab.Pane
                 eventKey="0"
                 className="wr_tabcontent_right bg-white p-3 h-100"
+                hidden={this.props.isHidden}
               >
                 <ComponentPreviewPersona
                   data={this.props.data}
