@@ -2,9 +2,7 @@ import React, { Component, lazy } from "react";
 
 import StepWizard from "react-step-wizard";
 
-import { observer } from "mobx-react";
-import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
-import ContentSbarRight from "../../../components/ContentSbarRight";
+import { ContentPreviewPersona } from "./ContentPreviewPersona";
 
 const ContentFormGeneral = lazy(() =>
   import("./ContentFormGeneral/ContentFormGeneral")
@@ -30,7 +28,7 @@ class ContentFormPage extends Component {
           <ContentFormGeneral hashKey={"general"} match={this.props.match} />
           <ContentFormPublish hashKey={"publish"} />
         </StepWizard>
-        <ContentSbarRight />
+        <ContentPreviewPersona />
       </>
     );
   }
