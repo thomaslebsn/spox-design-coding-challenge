@@ -30,19 +30,12 @@ const FormPreviewPersona = observer(
 
       console.log("After binding class Preview persona");
       console.log(this.previewPersonaViewModel);
-
-      this.state = {
-        getPersonaID: "",
-      };
     }
 
     componentDidMount = () => {};
 
     handleSelect = (e) => {
       this.previewPersonaViewModel.getPreviewPersona(e.value);
-      this.setState({
-        getPersonaID: e.value,
-      });
     };
 
     handlShowPreviewPersona = (tranferPersonaId) => {
