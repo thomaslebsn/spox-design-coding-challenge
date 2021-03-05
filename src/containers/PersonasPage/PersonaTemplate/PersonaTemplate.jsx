@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import history from "../../../routes/history";
 
+import SwiperCore, { Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
@@ -15,6 +18,14 @@ import {
   PERSONA_TEMPLATE_FIELD_KEY,
   ESI_PERSONA_TEMPLATE_FIELD_KEY,
 } from "../../../constants/PersonaTemplateModule";
+
+// Import Swiper styles
+import "swiper/swiper.scss";
+import "swiper/components/pagination/pagination.scss";
+import "swiper/components/navigation/navigation.scss";
+// import "./index.scss";
+
+SwiperCore.use([Navigation, Pagination]);
 
 const PersonaTemplate = observer(
   class PersonaTemplate extends Component {
@@ -39,41 +50,55 @@ const PersonaTemplate = observer(
 
     handlerClick = (id) => {
       history.push(`/personas/create/bypersonatemplate/` + id);
-    }
+    };
 
     render() {
       console.log("PersonaTemplate - render");
       console.log(this.personaTemplateViewModel.personaTemplatesData);
-      const personaTemplatesData = this.personaTemplateViewModel.personaTemplatesData
-      let personaTemplateHtml = null;
-
-      if (personaTemplatesData !== null) {
-        console.log("before loop");
-        personaTemplateHtml = personaTemplatesData.map((personaTemplate) => {
-          console.log(personaTemplate);
-          return (
-            <li onClick={e => this.handlerClick(personaTemplate[PERSONA_TEMPLATE_FIELD_KEY.ID])}>
-              <p>{personaTemplate[PERSONA_TEMPLATE_FIELD_KEY.NAME]}</p>
-              <p>
-                <img
-                  src={personaTemplate[PERSONA_TEMPLATE_FIELD_KEY.THUMBNAIL_URL]}
-                  alt=""
-                />
-              </p>
-            </li>
-          );
-        });
-      }
+      const personaTemplatesData = this.personaTemplateViewModel
+        .personaTemplatesData;
 
       return (
-        <React.Fragment>
-          <ComponentPersonaTemplate
-            personaTemplateHtml={
-              personaTemplateHtml
-            }
-            viewModel={this.viewModel}
-          />
-        </React.Fragment>
+        <>
+          {personaTemplatesData && (
+            <div className="persona-recommendation mb-4">
+              <h2 className="text-blue-0 mb-3">Persona recommendations</h2>
+              <div className="persona-template-list p-3 bg-white rounded-2">
+                <ul className="list-unstyled mb-0">
+                  <Swiper
+                    spaceBetween={30}
+                    slidesPerView={5}
+                    onSlideChange={() => console.log("slide change")}
+                    onSwiper={(swiper) => console.log()}
+                    navigation
+                  >
+                    {personaTemplatesData.map((personaTemplate, key) => {
+                      return (
+                        <SwiperSlide key={key}>
+                          <ComponentPersonaTemplate
+                            handlerClick={(e) =>
+                              this.handlerClick(
+                                personaTemplate[PERSONA_TEMPLATE_FIELD_KEY.ID]
+                              )
+                            }
+                            THUMBNAIL_URL={
+                              personaTemplate[
+                                PERSONA_TEMPLATE_FIELD_KEY.THUMBNAIL_URL
+                              ]
+                            }
+                            NAME={
+                              personaTemplate[PERSONA_TEMPLATE_FIELD_KEY.NAME]
+                            }
+                          />
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                </ul>
+              </div>
+            </div>
+          )}
+        </>
       );
     }
   }

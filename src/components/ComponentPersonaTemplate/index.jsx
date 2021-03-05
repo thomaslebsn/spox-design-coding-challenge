@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import "./index.scss";
 
-
 class ComponentPersonaTemplate extends Component {
   render() {
-    const personaTemplateHtml = this.props.personaTemplateHtml;
+    const { handlerClick, THUMBNAIL_URL, NAME } = this.props;
 
-    return personaTemplateHtml ? (
-      <div className="persona-recommendation">
-        <h2 className="text-blue-0">Persona recommendations</h2>
-        <div className="persona-template-list">
-          <ul className="list-unstyled">{this.props.personaTemplateHtml}</ul>
-        </div>
-      </div>
-    ) : null;
+    return (
+      <li onClick={handlerClick}>
+        <p>
+          <img src={THUMBNAIL_URL} alt="" className="rounded-2" />
+        </p>
+        <p className="text-center mb-0">{NAME}</p>
+      </li>
+    );
   }
 }
 
