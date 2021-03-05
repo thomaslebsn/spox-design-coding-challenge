@@ -1,11 +1,34 @@
 import BaseMasterDataItemModel from "../Abstract/BaseMasterDataItemModel";
 import BaseMasterDataModel from "../Abstract/BaseMasterDataModel";
+import {
+  CAMPAIGNS_FIELD_KEY,
+  CAMPAIGN_API_FIELD_KEY,
+} from "../../../constants/CampaignsModule";
+
 class CampaignMasterDataItemModel extends BaseMasterDataItemModel {
+  startDate = '';
+  endDate = '';
+  status = 0;
+
   constructor(entity) {
     if (entity) {
       super(entity);
+      this.startDate = entity[CAMPAIGN_API_FIELD_KEY.START_DATE] ?? "";
+      this.endDate = entity[CAMPAIGN_API_FIELD_KEY.END_DATE] ?? "";
+      this.status = entity[CAMPAIGN_API_FIELD_KEY.STATUS] ?? "";
     }
   }
+
+  toDropdownFullSelectionItem = () => {
+    console.log('toDropdownFullSelectionItem - debug');
+    return {
+      [CAMPAIGNS_FIELD_KEY.ID]: this.id ?? 0,
+      [CAMPAIGNS_FIELD_KEY.NAME]: this.name ?? '',
+      [CAMPAIGNS_FIELD_KEY.START_DATE]: this.startDate ?? '',
+      [CAMPAIGNS_FIELD_KEY.END_DATE]: this.endDate ?? '',
+      [CAMPAIGNS_FIELD_KEY.STATUS]: this.status ?? 0,
+    };
+  };
 }
 
 class CampaignMasterDataModel extends BaseMasterDataModel {
@@ -20,5 +43,15 @@ class CampaignMasterDataModel extends BaseMasterDataModel {
       });
     }
   }
+
+  toDropdownFullListValues = () => {
+    console.log('toDropdownFullListValues - debug');
+
+    if (!this.items) return null;
+
+    return this.items.map((element) => {
+      return element ? element.toDropdownFullSelectionItem() : null;
+    });
+  };
 }
 export { CampaignMasterDataModel, CampaignMasterDataItemModel };

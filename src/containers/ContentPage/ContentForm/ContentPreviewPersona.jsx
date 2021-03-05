@@ -16,18 +16,16 @@ const personaStore = new PersonaStore({
 
 const personaViewModel = new PersonaViewModel(personaStore);
 
-const PersonasSelection = lazy(() =>
-  import("../../PersonasPage/PersonasSelection/PersonasSelection")
+const FormPreviewPersona = lazy(() =>
+  import("../../PersonasPage/FormPreviewPersona/FormPreviewPersona")
 );
 
-const PersonalSelectionPage = () => {
+const ContentPreviewPersona = () => {
   return (
     <PersonaViewModelContextProvider viewModel={personaViewModel}>
-      <PersonasSelection />
+      <FormPreviewPersona />
     </PersonaViewModelContextProvider>
   );
 };
 
-const personaSelectionViewModal = personaViewModel.getPersonaSelectionViewModel();
-
-export { PersonalSelectionPage, personaSelectionViewModal };
+export { ContentPreviewPersona };

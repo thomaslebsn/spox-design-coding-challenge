@@ -33,7 +33,7 @@ const CampaignsSelection = observer(
       this.campaignsSelectionViewModel.initializeData();
     }
 
-    handerEditCampaign = (row) => {
+    handerEditCampaign = (e, row) => {
       this.campaignsSelectionViewModel.setSelectionData(row);
       this.campaignsSelectionViewModel.closeModal();
     };
@@ -51,6 +51,16 @@ const CampaignsSelection = observer(
         {
           Header: "Name",
           accessor: CAMPAIGNS_FIELD_KEY.NAME, // accessor is the "key" in the data
+          Cell: ({ row }) => (
+            <div {...row.getToggleRowExpandedProps()} className="d-flex">
+              <span
+                className="ms-2 text-black opacity-75"
+                onClick={(e) => this.handerEditCampaign(e, row.original)}
+              >
+                {row.original[CAMPAIGNS_FIELD_KEY.NAME]}
+              </span>
+            </div>
+          ),
         },
 
         {
@@ -89,7 +99,7 @@ const CampaignsSelection = observer(
             <Table
               rowData={campaigns}
               tableRowHeader={tableRowHeader}
-              onEdit={this.handerEditCampaign}
+              //onEdit={this.handerEditCampaign}
               noSelection={true}
               noColumns={true}
               noDropDownColumns={true}

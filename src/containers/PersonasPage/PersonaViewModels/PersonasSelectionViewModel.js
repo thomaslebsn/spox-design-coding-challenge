@@ -76,7 +76,7 @@ class PersonasSelectionViewModel {
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.personaStore.fetchPersonas(
+    this.personaStore.getPersonaMasterData(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -89,17 +89,14 @@ class PersonasSelectionViewModel {
   };
 
   callbackOnSuccessHandler = (personaModelData) => {
-    console.log("callbackOnSuccessHandler");
+    console.log("callbackOnSuccessHandler - persona");
     console.log(personaModelData);
     if (personaModelData) {
       this.tableStatus = PAGE_STATUS.READY;
 
-      const rowDataTransformed = PersonaUtils.transformPersonaModelIntoTableDataRow(
-        personaModelData
-      );
-      console.log("Row Data is Formatted");
-      console.log(rowDataTransformed);
-      this.personas = rowDataTransformed;
+      this.personas = personaModelData.toDropdownFullListValues();
+
+      console.log(this.personas);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }

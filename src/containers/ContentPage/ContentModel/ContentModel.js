@@ -4,6 +4,17 @@ import {
   CONTENT_FIELD_KEY,
   ESI_CONTENT_API_RESPONSE_FIELD_KEY,
 } from "../../../constants/ContentModule";
+
+import {
+  PERSONA_FIELD_KEY,
+  ESI_PERSONA_FIELD_KEY,
+} from "../../../constants/PersonaModule";
+
+import {
+  CAMPAIGNS_FIELD_KEY,
+  CAMPAIGN_API_FIELD_KEY,
+} from "../../../constants/CampaignsModule";
+
 import getStatus from "../../../utils/status";
 import { DescriptionsModel } from "./DescriptionsModel";
 
@@ -16,21 +27,22 @@ class ContentModel {
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
     this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? "";
     this.channels = data.channel_descriptions ?? "";
-    
+
     this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
       this.channels
     );
-    
+
     this.channelsData = this.status = data.status ?? "";
 
     this.descriptions =
       data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
 
-    this.descriptionsModel = this.descriptions.length > 0
-      ? new DescriptionsModel(
-          data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
-        )
-      : null;
+    this.descriptionsModel =
+      this.descriptions.length > 0
+        ? new DescriptionsModel(
+            data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
+          )
+        : null;
 
     this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? "";
     this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? "";
@@ -55,9 +67,11 @@ class ContentModel {
   };
 
   getDescription = () => {
-    
     return {
-      value: this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
+      value:
+        this.descriptionsModel !== null
+          ? this.descriptionsModel.getChannelDescriptions()
+          : null,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.DESCRIPTION,
       columnText: "Description",
@@ -110,9 +124,9 @@ class ContentModel {
   };
 
   toTableRowData = () => {
-    
     const id = this.getId();
-    const name = this.getName();console.log('===============34');
+    const name = this.getName();
+    console.log("===============34");
     const description = this.getDescription();
     const status = this.getStatus();
     const channels = this.getChannels();
@@ -127,6 +141,17 @@ class ContentModel {
   };
 
   static convertSubmittedDataToAPIService(contentData) {
+    console.log("convertSubmittedDataToAPIService");
+    const personas = contentData[CONTENT_FIELD_KEY.PERSONA].map((e) => {
+      return e[PERSONA_FIELD_KEY.ID];
+    });
+
+    const campaignId =
+      contentData[CONTENT_FIELD_KEY.CAMPAIGN].length > 0
+        ? contentData[CONTENT_FIELD_KEY.CAMPAIGN][0][CAMPAIGNS_FIELD_KEY.ID]
+        : 0;
+
+    console.log(personas);
     const result = contentData
       ? {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]:
@@ -142,14 +167,14 @@ class ContentModel {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_FROM]: new Date(),
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_UNTIL]: new Date(),
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.TIME]: new Date(),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: 366,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: campaignId,
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS]: [
             {
               channel_id: 215,
               description: contentData[CONTENT_FIELD_KEY.DESCRIPTION],
             },
           ],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: 7,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(personas),
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.STATUS]: 1,
         }
       : null;

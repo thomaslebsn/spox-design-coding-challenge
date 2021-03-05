@@ -136,6 +136,7 @@ class CampaignsModel {
 
   toTableRowData = () => {
     try {
+      console.log('toTableRowData - before');
       const id = this.getId();
       const name = this.getName();
       const status = this.getStatus();

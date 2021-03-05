@@ -25,6 +25,7 @@ const CampaignsList = observer(
     campaignsListViewModel = null;
     campaignsFormModalViewModal = null;
     campaignsFilterFormViewModel = null;
+    contentData = null;
 
     constructor(props) {
       super(props);
@@ -44,8 +45,8 @@ const CampaignsList = observer(
         ? viewModel.getCampaignsFilterFormViewModel()
         : null;
 
-      console.log('this.campaignsFilterFormViewModel')
-      console.log(this.campaignsFilterFormViewModel)
+      console.log("this.campaignsFilterFormViewModel");
+      console.log(this.campaignsFilterFormViewModel);
       console.log("After binding class");
       console.log(this.campaignsListViewModel);
     }
@@ -55,8 +56,15 @@ const CampaignsList = observer(
       this.campaignsFilterFormViewModel.initData();
     }
 
-    handerEditCampaign = (row) => {
+    handerEditCampaign = (e, row) => {
       this.campaignsFormModalViewModal.loadForm(row[CAMPAIGNS_FIELD_KEY.ID]);
+    };
+
+    handleExpanded = (e, row) => {
+      console.log("rowrowrowrowrowrowrowrowrow", row);
+      this.campaignsListViewModel.getContentByIdCampaign(
+        row[CAMPAIGNS_FIELD_KEY.ID]
+      );
     };
 
     handerSelectCampaigns = (data) => {
@@ -92,7 +100,7 @@ const CampaignsList = observer(
         {
           name: "projects",
           option: this.campaignsFilterFormViewModel.dropdownlistProjectValues,
-          isMulti: true
+          isMulti: true,
         },
         {
           name: "Campaigns",
@@ -127,7 +135,7 @@ const CampaignsList = observer(
           ],
         },
       ];
-    }
+    };
 
     render() {
       console.log("[Quick Edit Product] - re-render .........");
@@ -139,28 +147,34 @@ const CampaignsList = observer(
 
       const tableRowHeader = [
         {
-          Header: "Campaign Name",
+          Header: "",
           accessor: CAMPAIGNS_FIELD_KEY.NAME,
           id: "expander",
           Cell: ({ row }) => (
             <div {...row.getToggleRowExpandedProps()} className="d-flex">
-              {row.isExpanded ? (
-                <i className="text-green">
-                  <FontAwesomeIcon icon={faMinus} />
-                </i>
-              ) : (
-                <i className="text-green">
-                  <FontAwesomeIcon icon={faPlus} />
-                </i>
-              )}
-              <span className="ms-2 fw-bold text-black opacity-75">
+              <i
+                className="text-green icon_expander"
+                onClick={(e) => this.handleExpanded(e, row.original)}
+              >
+                <FontAwesomeIcon icon={row.isExpanded ? faMinus : faPlus} />
+              </i>
+            </div>
+          ),
+        },
+        {
+          Header: "Campaign Name",
+          accessor: CAMPAIGNS_FIELD_KEY.NAME,
+          Cell: ({ row }) => (
+            <div {...row.getToggleRowExpandedProps()} className="d-flex">
+              <span
+                className="ms-2 fw-bold text-black opacity-75"
+                onClick={(e) => this.handerEditCampaign(e, row.original)}
+              >
                 {row.values.expander}
               </span>
             </div>
           ),
-          SubCell: ({ row }) => (
-            <span className="ps-4">{row.original.name}</span>
-          ),
+          SubCell: ({ row }) => <span>{row.original.name}</span>,
         },
         {
           Header: "Status",
@@ -240,7 +254,7 @@ const CampaignsList = observer(
           <Table
             rowData={campaigns}
             tableRowHeader={tableRowHeader}
-            onEdit={this.handerEditCampaign}
+            //onEdit={this.handerEditCampaign}
             onSelect={this.handerSelectCampaigns}
             isFilter={true}
             pagination={pagination}
