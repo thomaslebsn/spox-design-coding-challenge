@@ -19,12 +19,6 @@ import {
   ESI_PERSONA_TEMPLATE_FIELD_KEY,
 } from "../../../constants/PersonaTemplateModule";
 
-// Import Swiper styles
-import "swiper/swiper.scss";
-import "swiper/components/pagination/pagination.scss";
-import "swiper/components/navigation/navigation.scss";
-// import "./index.scss";
-
 SwiperCore.use([Navigation, Pagination]);
 
 const PersonaTemplate = observer(
