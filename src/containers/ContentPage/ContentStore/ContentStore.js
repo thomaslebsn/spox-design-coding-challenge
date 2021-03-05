@@ -5,7 +5,7 @@ import ContentModel from "../ContentModel/ContentModel";
 
 import {
   EasiiContentApiService,
-  EasiiProjectChannelApiService,
+  EasiiProjectChannelApiService
 } from "easii-io-web-service-library";
 
 import {
