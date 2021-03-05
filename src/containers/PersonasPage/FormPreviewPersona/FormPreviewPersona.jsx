@@ -43,7 +43,7 @@ const FormPreviewPersona = observer(
         ? tranferPersonaObject[0]
         : null;
       this.handleSelect(itemPersonalPerview);
-      this.isHiddenPersonaPeview = false;
+      this.isHiddenPersonaPeview = !this.isHiddenPersonaPeview;
     };
 
     render() {
