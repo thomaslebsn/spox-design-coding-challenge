@@ -62,6 +62,7 @@ export default class PersonaStore {
     try {
       console.log("Saving Persona via call web service lib function");
       console.log(personaData);
+      // return;
 
       const convertedPersonaData = PersonaModel.convertSubmittedDataToAPIService(
         personaData
@@ -81,7 +82,9 @@ export default class PersonaStore {
         convertedPersonaData
       );
 
-      if (convertedPersonaData.id === undefined) {
+      const personaId = convertedPersonaData.id
+
+      if (personaId === undefined || personaId === null || personaId === 0) {
         console.log("CREATE PERSONA");
         resultOnSave = await personaService.createPersona(convertedPersonaData);
       } else {
@@ -273,9 +276,8 @@ export default class PersonaStore {
 
       console.log("Persona Store - getPersonaRecommendationItem");
       console.log(repondedDataFromLibrary);
-
       if (repondedDataFromLibrary) {
-        const personaDataModels = PersonaTemplateUtils.transformPersonaResponseIntoModel(
+        const personaDataModels = PersonaTemplateUtils.transformPersonaTemplateResponseIntoModel(
           [repondedDataFromLibrary]
         );
 

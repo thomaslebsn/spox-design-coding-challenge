@@ -55,13 +55,10 @@ const PersonaFormPage = observer(
 
     componentDidMount() {
       const { match } = this.props;
-      console.log("componentDidMount");
-      console.log(match);
 
-      if (match.params.bypersonatemplate !== '' && match.params.id !== null) {
+      if (match.params.bypersonatemplate !== undefined && match.params.id !== undefined) {
         this.personaFormViewModel.getPersonaTemplate(match.params.id);
       } else if (match.params.id) {
-        console.log('===========');
         this.personaFormViewModel.getPersona(match.params.id);
       } else {
         this.personaFormViewModel.formStatus = PAGE_STATUS.READY;

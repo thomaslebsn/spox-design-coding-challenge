@@ -28,7 +28,6 @@ class PersonaFormViewModel {
   };
 
   setEditPersona = (data) => {
-    console.log('3213fsdfsfs2');
     this.formStatus = PAGE_STATUS.READY;
     this.personaFormComponent.populatingFormDataHandler(data[0]);
   };
@@ -46,10 +45,17 @@ class PersonaFormViewModel {
     this.formStatus = PAGE_STATUS.LOADING;
     this.personaStore.getPersonaRecommendationItem(
       id,
-      this.setEditPersona,
+      this.setCreatePersonaByTemplate,
       this.callbackOnErrorHander
     );
   }
+
+  setCreatePersonaByTemplate = (data) => {
+    this.formStatus = PAGE_STATUS.READY;
+    console.log('setCreatePersonaByTemplate');
+    data[0].id = 0;
+    this.personaFormComponent.populatingFormDataHandler(data[0]);
+  };
 
   savePersona = () => {
     //const isFormValid = this.personaFormComponent.isFormValid();
