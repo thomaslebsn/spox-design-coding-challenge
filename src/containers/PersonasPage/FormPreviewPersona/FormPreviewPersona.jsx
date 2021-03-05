@@ -38,9 +38,11 @@ const FormPreviewPersona = observer(
       this.previewPersonaViewModel.getPreviewPersona(e.value);
     };
 
-    handlShowPreviewPersona = (tranferPersonaId) => {
-      tranferPersonaId = tranferPersonaId ? tranferPersonaId[0] : null;
-      this.handleSelect(tranferPersonaId);
+    handlShowPreviewPersona = (tranferPersonaObject) => {
+      const itemPersonalPerview = tranferPersonaObject
+        ? tranferPersonaObject[0]
+        : null;
+      this.handleSelect(itemPersonalPerview);
       this.isHiddenPersonaPeview = false;
     };
 
@@ -49,7 +51,7 @@ const FormPreviewPersona = observer(
 
       let PersonaIdFormSelectData = personaSelectionViewModal.getSelectionData();
 
-      let tranferPersonaId = PersonaIdFormSelectData.map((item) => {
+      let tranferPersonaObject = PersonaIdFormSelectData.map((item) => {
         return {
           value: item[PERSONA_FIELD_KEY.ID],
           label: item[PERSONA_FIELD_KEY.NAME],
@@ -65,16 +67,16 @@ const FormPreviewPersona = observer(
         <ContentSbarRight
           data={data}
           handleSelect={this.handleSelect}
-          options={tranferPersonaId ? tranferPersonaId : null}
+          options={tranferPersonaObject ? tranferPersonaObject : null}
           disabled={
-            tranferPersonaId
-              ? tranferPersonaId.length > 0
+            tranferPersonaObject
+              ? tranferPersonaObject.length > 0
                 ? false
                 : true
               : null
           }
           handlShowPreviewPersona={() =>
-            this.handlShowPreviewPersona(tranferPersonaId)
+            this.handlShowPreviewPersona(tranferPersonaObject)
           }
           isHidden={this.isHiddenPersonaPeview}
         />
