@@ -94,7 +94,6 @@ class PersonasSelectionViewModel {
     if (personaModelData) {
       this.tableStatus = PAGE_STATUS.READY;
 
-  
       this.personas = personaModelData.toDropdownFullListValues();
 
       console.log(this.personas);
