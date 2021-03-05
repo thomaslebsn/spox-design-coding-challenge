@@ -298,4 +298,49 @@ export default class PersonaStore {
       });
     }
   }
+
+  async searchPersonas(
+    callbackOnSuccess,
+    callbackOnError,
+    dataFilter = {},
+    paginationStep = 1
+  ) {
+    try {
+      console.log("Persona Store - searchPersonas");
+      const personaAPIService = new EasiiPersonaApiService();
+      const respondedDataFromLibrary = await personaAPIService.searchPersonas(
+        dataFilter,
+        paginationStep,
+        25
+      );
+
+      console.log("Debugging ---- searchPersonas");
+      console.log(respondedDataFromLibrary);
+      let personaDataModels = null;
+
+      if (respondedDataFromLibrary !== null) {
+        personaDataModels = PersonaUtils.transformPersonaResponseIntoModel(
+          respondedDataFromLibrary.list
+        );
+      }
+
+      if (personaDataModels) {
+        runInAction(() => {
+          callbackOnSuccess({
+            list: personaDataModels,
+            pagination: respondedDataFromLibrary.pagination,
+          });
+        });
+      } else {
+        callbackOnError({
+          message: "No result",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
 }

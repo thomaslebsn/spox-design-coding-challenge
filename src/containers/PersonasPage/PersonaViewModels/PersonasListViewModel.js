@@ -92,6 +92,16 @@ class PersonasListViewModel {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
+
+  searchPersonas = (dataFilter) => {
+    this.dataFilter = dataFilter;
+
+    this.personaStore.searchPersonas(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander,
+      dataFilter
+    );
+  }
 }
 
 export default PersonasListViewModel;

@@ -96,6 +96,7 @@ const PersonasList = observer(
           onSelect={this.handerSelectPersona}
           pagination={pagination}
           listViewModel={this.personaListViewModel}
+          searchFunction={this.personaListViewModel.searchPersonas}
         ></Table>
       );
     }
