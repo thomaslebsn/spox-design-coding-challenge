@@ -74,7 +74,7 @@ export default class PersonaStore {
       //   convertedPersonaData
       // );
 
-      let resultOnSave;
+      let resultOnSave = null;
 
       console.log("personaData personaData", personaData);
       console.log(

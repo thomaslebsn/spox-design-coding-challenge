@@ -53,6 +53,7 @@ class PersonaFormViewModel {
   setCreatePersonaByTemplate = (data) => {
     this.formStatus = PAGE_STATUS.READY;
     console.log('setCreatePersonaByTemplate');
+    // Override data to recognize is to create new persona from persona template
     data[0].id = 0;
     this.personaFormComponent.populatingFormDataHandler(data[0]);
   };
