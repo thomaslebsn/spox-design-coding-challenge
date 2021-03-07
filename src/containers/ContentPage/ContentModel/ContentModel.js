@@ -11,29 +11,33 @@ import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
 import CampaignsStore from "../../CampaignsPage/CampaignsStore/CampaignsStore";
 import PersonaStore from "../../PersonasPage/PersonaStore/PersonaStore";
 
+import ContentThemeStore from "../ContentStore/ContentThemeStore";
+
 class ContentModel {
   constructor(data) {
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
     this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? "";
     this.channels = data.channel_descriptions ?? "";
-    
+
     this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
       this.channels
     );
-    
+
     this.channelsData = this.status = data.status ?? "";
 
     this.descriptions =
       data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
 
-    this.descriptionsModel = this.descriptions.length > 0
-      ? new DescriptionsModel(
-          data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
-        )
-      : null;
+    this.descriptionsModel =
+      this.descriptions.length > 0
+        ? new DescriptionsModel(
+            data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
+          )
+        : null;
 
     this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? "";
     this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? "";
+    this.themeId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? "";
   }
 
   getId = () => {
@@ -55,9 +59,11 @@ class ContentModel {
   };
 
   getDescription = () => {
-    
     return {
-      value: this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
+      value:
+        this.descriptionsModel !== null
+          ? this.descriptionsModel.getChannelDescriptions()
+          : null,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.DESCRIPTION,
       columnText: "Description",
@@ -100,6 +106,19 @@ class ContentModel {
     }
   };
 
+  getTheme = () => {
+    if (this.themeId) {
+      const contentThemeStore = new ContentThemeStore();
+      contentThemeStore.getContentTheme(
+        this.themeId,
+        (data) => {
+          console.log("this.contentThemeStore", data);
+        },
+        () => {}
+      );
+    }
+  };
+
   getStatus = () => {
     return {
       value: getStatus(this.status),
@@ -110,9 +129,9 @@ class ContentModel {
   };
 
   toTableRowData = () => {
-    
     const id = this.getId();
-    const name = this.getName();console.log('===============34');
+    const name = this.getName();
+    console.log("===============34");
     const description = this.getDescription();
     const status = this.getStatus();
     const channels = this.getChannels();
@@ -133,7 +152,8 @@ class ContentModel {
             contentData[CONTENT_FIELD_KEY.ID],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
             contentData[CONTENT_FIELD_KEY.NAME],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME]: 1,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME]:
+            contentData[CONTENT_FIELD_KEY.THEME],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CUSTOMIZE_SCHEDULE_FOR_EACH_CHANNEL]: 1,
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PUBLISH_DATE]:
             "2020-11-02T00:00:00+00:00",

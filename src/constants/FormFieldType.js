@@ -9,6 +9,7 @@ const FORM_FIELD_TYPE = {
   DATERANGE: 8,
   SELECTION: 9,
   TAB: 10,
+  CANVA: 11,
 };
 
 const FORMAT_DATE = "dd/MM/yyyy";

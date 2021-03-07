@@ -2,6 +2,7 @@ import React, { lazy } from "react";
 import Label from "../components/Form/Label";
 import { FORM_FIELD_TYPE } from "../constants/FormFieldType";
 import { Form } from "react-bootstrap";
+import CanvaButton from "../components/CanvaButton";
 
 const FormDateRangePicker = lazy(() =>
   import("../components/Form/FormDateRangePicker")
@@ -18,12 +19,13 @@ const renderingGroupFieldHandler = (group, validator) => {
     .map((fieldIndex) => {
       return [...Array(group.fields[fieldIndex])].map((field) => {
         return (() => {
+          let className = field.className ? field.className : "";
           switch (field.type) {
             case FORM_FIELD_TYPE.INPUT:
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${field.className}`}
+                  className={`mb-4 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -53,7 +55,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${field.className}`}
+                  className={`mb-4 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -86,7 +88,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${field.className}`}
+                  className={`mb-4 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -101,7 +103,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${field.className}`}
+                  className={`mb-4 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -124,7 +126,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${field.className}`}
+                  className={`mb-4 ${className}`}
                 >
                   <FormTab
                     key={Math.random(40, 200)}
@@ -137,7 +139,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${field.className}`}
+                  className={`mb-4 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -147,6 +149,15 @@ const renderingGroupFieldHandler = (group, validator) => {
                 </Form.Group>
               );
 
+            case FORM_FIELD_TYPE.CANVA:
+              return (
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${className}`}
+                >
+                  <CanvaButton key={Math.random(40, 200)} field={field} />
+                </Form.Group>
+              );
             default:
               return null;
           }

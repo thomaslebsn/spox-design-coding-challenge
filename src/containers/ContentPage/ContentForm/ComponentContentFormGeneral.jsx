@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 
 import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
-import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+import {
+  CONTENT_FIELD_KEY,
+  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
+} from "../../../constants/ContentModule";
+import { ESI_CONTENT_THEME_FIELD_KEY } from "../../../constants/ContentThemeModule";
 
 import ButtonNormal from "../../../components/ButtonNormal";
 
@@ -17,6 +21,8 @@ import {
   campaignSelectionViewModal,
 } from "./CampaignSelectionPage";
 
+import ContentThemeStore from "../ContentStore/ContentThemeStore";
+
 import { renderingGroupFieldHandler } from "../../../utils/form";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
@@ -28,6 +34,7 @@ class ComponentContentFormGeneral extends Component {
     [CONTENT_FIELD_KEY.CAMPAIGN]: "",
     [CONTENT_FIELD_KEY.PERSONA]: "",
     [CONTENT_FIELD_KEY.DESCRIPTION]: "",
+    [CONTENT_FIELD_KEY.THEME]: "",
   };
 
   validator = null;
@@ -108,18 +115,25 @@ class ComponentContentFormGeneral extends Component {
             blurred: this.blurringFieldHandler,
           },
           {
-            label: "Description",
-            key: CONTENT_FIELD_KEY.DESCRIPTION,
-            type: FORM_FIELD_TYPE.TAB,
-            value: this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION],
-            viewModel: personaSelectionViewModal,
-            required: true,
-            validation: "required",
-            changed: (event) => {
-              console.log("[Description] changed");
-              this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] =
-                event.target.value;
+            label: "Canva",
+            key: CONTENT_FIELD_KEY.THEME,
+            type: FORM_FIELD_TYPE.CANVA,
+            value: this.formPropsData[CONTENT_FIELD_KEY.THEME],
+            changed: ({ exportUrl, designId }) => {
+              console.log("[Canva Field] changed", { exportUrl, designId });
+              this.formPropsData[CONTENT_FIELD_KEY.THEME] = {
+                [ESI_CONTENT_THEME_FIELD_KEY.DESIGN_ID]: designId,
+                [ESI_CONTENT_THEME_FIELD_KEY.IMAGE]: exportUrl,
+              };
             },
+            init: () => {
+              this.formStatus = PAGE_STATUS.LOADING;
+            },
+
+            ready: () => {
+              this.formStatus = PAGE_STATUS.READY;
+            },
+
             blurred: this.blurringFieldHandler,
           },
         ],
