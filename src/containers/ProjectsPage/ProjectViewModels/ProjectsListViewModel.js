@@ -20,6 +20,8 @@ class ProjectsListViewModel {
 
   connected = false;
 
+  listFaceBookFanpage = null;
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -123,13 +125,19 @@ class ProjectsListViewModel {
           }
 
           this.projectStore.intervalAskForConnectedChannels(
-            (result) => {
-              if (result) {
+            (response) => {
+              if (response) {
+                this.tableStatus = PAGE_STATUS.READY;
                 clearInterval(checkConnectionStatusInterval);
 
-                console.log("resultresultresultresult", result);
+                console.log("resultresultresultresult", response);
+                console.log("resultresultresultresult pages", response.result.pages.pages);
+
+                this.listFaceBookFanpage = response.result.pages.pages;
+
+                //console.log('this.listFaceBookFanpage', this.listFaceBookFanpage);
                 // update UI "Connect" => "Connected" and disable Button Connect
-                //this.connected = true;
+                this.connected = true;
                 // show popup for choosing Facebook Fanpages
               }
             },
@@ -171,6 +179,8 @@ class ProjectsListViewModel {
 
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
+
+      console.log('callbackOnSuccessListFacebookFanpage 222', response);
       // Show modal of list FB fanpage
       // User selects and click save
       // Call projectStore save list of selected FB Fanpage

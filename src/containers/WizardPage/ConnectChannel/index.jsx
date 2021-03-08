@@ -112,6 +112,8 @@ const ConnectChannel = observer(
           </div> */}
           <ComponentConnectaChannel
             projectListViewModel={this.projectListViewModel}
+            listFaceBookFanpage={this.projectListViewModel.listFaceBookFanpage}
+            connected={this.projectListViewModel.connected}
           />
           <div className="d-flex justify-content-between">
             <Button

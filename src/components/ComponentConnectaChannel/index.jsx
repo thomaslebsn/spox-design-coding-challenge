@@ -68,26 +68,26 @@ class ComponentConnectaChannel extends React.Component {
   render() {
     let { panelIndex, channels, showModal } = this.state;
 
-    let { projectListViewModel } = this.props;
+    const { listFaceBookFanpage, connected } = this.props;
 
-    const CustomToggle = ({ children, eventKey }) => {
-      const customOnClick = useAccordionToggle(eventKey, () => {
-        this.setState({
-          panelIndex: eventKey === panelIndex ? null : eventKey,
-        });
-      });
+    // const CustomToggle = ({ children, eventKey }) => {
+    //   const customOnClick = useAccordionToggle(eventKey, () => {
+    //     this.setState({
+    //       panelIndex: eventKey === panelIndex ? null : eventKey,
+    //     });
+    //   });
 
-      return (
-        <Nav.Link
-          onClick={customOnClick}
-          className={`d-flex align-items-center justify-content-between p-3 ${
-            eventKey === panelIndex ? "border-bottom-1" : ""
-          }`}
-        >
-          {children}
-        </Nav.Link>
-      );
-    };
+    //   return (
+    //     <Nav.Link
+    //       onClick={customOnClick}
+    //       className={`d-flex align-items-center justify-content-between p-3 ${
+    //         eventKey === panelIndex ? "border-bottom-1" : ""
+    //       }`}
+    //     >
+    //       {children}
+    //     </Nav.Link>
+    //   );
+    // };
 
     return (
       <div className="wrapper_tabs">
@@ -99,11 +99,11 @@ class ComponentConnectaChannel extends React.Component {
           {channels.map((value, key) => {
             return (
               <Tab key={key} eventKey={value.id} title={value.title}>
-                <Accordion className="mt-4">
+                <div className="mt-4">
                   {value.items.map((item, index) => {
                     return (
                       <div key={index} className="bg-white rounded-3 mb-4">
-                        <CustomToggle eventKey={item.id}>
+                        <div className="d-flex align-items-center justify-content-between p-3">
                           <div className="d-flex align-items-center">
                             <img
                               className="img-avatar"
@@ -114,88 +114,82 @@ class ComponentConnectaChannel extends React.Component {
                               {item.name}
                             </span>
                           </div>
-                          <a
-                            href={void 0}
+                          <button
                             className="cursor-pointer btn btn-success"
                             onClick={(e) => {
                               this.handleConnectChannel("facebook");
                             }}
+                            disabled={connected ? true : false}
                           >
                             <i>
                               <FontAwesomeIcon icon={faPlus} />
                             </i>
                             <span className="ms-2">
-                              {projectListViewModel.connected
+                              {connected
                                 ? "Connected"
                                 : "Connect"}
                             </span>
-                          </a>
-                        </CustomToggle>
-                        {/* <Accordion.Collapse eventKey={item.id}>
-                          <div className="p-3">
-                            <div className={`list_content`}>
-                              <div className="py-2 px-3 bg-blue d-flex rounded-2">
-                                <div className="col-4">Name</div>
-                                <div className="col-2">Type</div>
-                                <div className="col-6 text-end">Action</div>
-                              </div>
-                              <div className={`list_main `}>
-                                {item.list.map((itemList, keyList) => {
-                                  return (
-                                    <div
-                                      key={keyList}
-                                      className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
-                                    >
-                                      <div className="col-4">
-                                        <div className="d-flex align-items-center">
-                                          <img
-                                            className="img-avatar"
-                                            src={itemList.image}
-                                            alt=""
-                                          />
-                                          <span className="ms-2">
-                                            {itemList.name}
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div className="col-2">
-                                        {itemList.type}
-                                      </div>
-                                      <div className="col-6 text-end">
-                                        <div className="d-flex align-items-center justify-content-end">
-                                          <a
-                                            href="/social-media"
-                                            className="btn -btn-light"
-                                          >
-                                            <i>
-                                              <FontAwesomeIcon icon={faSync} />
-                                            </i>
+                          </button>
+                        </div>
+                        {
+                          listFaceBookFanpage && (
+                            <div className="p-3">
+                              <div className={`list_content`}>
+                                <div className="py-2 px-3 bg-blue d-flex rounded-2">
+                                  <div className="col-4">Name</div>
+                                  <div className="col-6 text-end">Action</div>
+                                </div>
+                                <div className={`list_main `}>
+                                  {listFaceBookFanpage.map((value, key) => {
+                                    return (
+                                      <div
+                                        key={key}
+                                        className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
+                                      >
+                                        <div className="col-4">
+                                          <div className="d-flex align-items-center">
                                             <span className="ms-2">
-                                              Reconnect
+                                              {value.name}
                                             </span>
-                                          </a>
-                                          <a
-                                            href={void 0}
-                                            className="btn -btn-light"
-                                          >
-                                            <i>
-                                              <FontAwesomeIcon icon={faTrash} />
-                                            </i>
-                                            <span className="ms-2">Remove</span>
-                                          </a>
+                                          </div>
+                                        </div>
+                                        <div className="col-6 text-end">
+                                          <div className="d-flex align-items-center justify-content-end">
+                                            <a
+                                              href="/social-media"
+                                              className="btn -btn-light"
+                                            >
+                                              <i>
+                                                <FontAwesomeIcon icon={faSync} />
+                                              </i>
+                                              <span className="ms-2">
+                                                Reconnect
+                                              </span>
+                                            </a>
+                                            <a
+                                              href={void 0}
+                                              className="btn -btn-light"
+                                            >
+                                              <i>
+                                                <FontAwesomeIcon icon={faTrash} />
+                                              </i>
+                                              <span className="ms-2">Remove</span>
+                                            </a>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  );
-                                })}
+                                    );
+                                  })}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Accordion.Collapse> */}
+                          )
+                        }
+                        
                       </div>
                     );
                   })}
-                </Accordion>
+                </div>
               </Tab>
             );
           })}
