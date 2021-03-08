@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import { Image, Tab, Tabs } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
@@ -51,30 +51,44 @@ const ConnectChannel = observer(
             name: "advertising",
             title: "Advertising",
             items: [
-              { name: "Advertising 1", image: "/assets/images/icon-adidas.png" },
+              {
+                name: "Advertising 1",
+                image: "/assets/images/icon-adidas.png",
+              },
               { name: "Advertising 2", image: "/assets/images/icon-nikon.png" },
             ],
           },
         ],
-        showModal: true,
+        showModal: false,
       };
     }
-  
+
     handleClick = () => {
       this.setState((state) => ({ showModal: true }));
     };
-  
+
     handleModalShow = (s) => {
       this.setState((state) => ({ showModal: s }));
     };
-  
+
     next = () => {
       history.push(`${history.location.pathname}/content`);
     };
-  
+
     render() {
       let { channels, showModal } = this.state;
-  
+
+      const { show } = this.projectListViewModel;
+
+      console.log("After binding class 6666");
+      console.log(this.projectListViewModel.connected);
+
+      this.projectListViewModel.openModal();
+      // if (this.projectListViewModel.connected) {
+      //   console.log("After binding class continue");
+      //   this.projectListViewModel.openModal();
+      // }
+
       return (
         <div className="d-flex flex-column m-4 p-4">
           {/* <div className="wrapper_tabs bg-white rounded-3 mb-4">
@@ -125,7 +139,7 @@ const ConnectChannel = observer(
               onClick={() => this.props.goToStep(1)}
               text="Back"
             />
-  
+
             <ButtonNormal
               className="btn btn-success"
               text="Next"
@@ -135,8 +149,8 @@ const ConnectChannel = observer(
           <ModalComponent
             header={"Facebook Fanpage"}
             body={<ComponentItemFanpage />}
-            show={false}
-            //onHide={this.projectListViewModel.closeModal()}
+            show={this.projectListViewModel.connected ?? true}
+            //onHide={() => this.handleModalShow(false)}
             footer={
               <Button
                 //onClick={this.saveCampaignsHandler}
@@ -153,7 +167,6 @@ const ConnectChannel = observer(
       );
     }
   }
-)
-
+);
 
 export default withWizardViewModel(ConnectChannel);
