@@ -20,6 +20,7 @@ class CanvaButton extends React.Component {
 
   componentDidMount() {
     const _this = this;
+    this._isMounted = true;
 
     if (this.canvaApi === null) {
       console.log("[CanvaButton] Initialize canvaApi");
@@ -32,13 +33,19 @@ class CanvaButton extends React.Component {
             apiKey: "GgtrPeZo0prog5FfpeZ_yjYS",
           }).then(function (api) {
             _this.canvaApi = api;
-            _this.setState({ apiLoaded: true });
+            if (_this._isMounted) {
+              _this.setState({ apiLoaded: true });
+            }
           });
         }
       };
 
       document.body.appendChild(script);
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleClick = () => {
@@ -74,7 +81,7 @@ class CanvaButton extends React.Component {
           </button>
           {exportUrl && (
             <div className={`d-flex justify-content-start border-top mt-4`}>
-              <div key={designId} className="position-relative m-2">
+              <div key={designId} className="position-relative w-25 m-2">
                 <img
                   className={`img-thumbnail rounded imgTab`}
                   alt={exportUrl}
