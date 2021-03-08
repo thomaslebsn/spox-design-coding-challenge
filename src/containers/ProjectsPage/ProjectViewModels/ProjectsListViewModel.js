@@ -18,6 +18,8 @@ class ProjectsListViewModel {
 
   dataFilter = null;
 
+  connected = false;
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -50,14 +52,14 @@ class ProjectsListViewModel {
   };
 
   getPagination = (paginationStep) => {
-    console.log('paginationStep', paginationStep);
+    console.log("paginationStep", paginationStep);
     this.tableStatus = PAGE_STATUS.LOADING;
     this.projectStore.fetchProjects(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       paginationStep
     );
-  }
+  };
 
   searchProjects = (dataFilter) => {
     this.dataFilter = dataFilter;
@@ -67,18 +69,18 @@ class ProjectsListViewModel {
       this.callbackOnErrorHander,
       dataFilter
     );
-  }
+  };
 
   connectLoginUrl = (projectId, channelUniqueName) => {
-    console.log('projectId channel', projectId);
-    console.log('channelUniqueName channel', channelUniqueName);
+    console.log("projectId channel", projectId);
+    console.log("channelUniqueName channel", channelUniqueName);
     this.projectStore.getChannelLoginUrl(
       this.callbackOnSuccessChannel,
       this.callbackOnErrorHander,
       projectId,
       channelUniqueName
     );
-  }
+  };
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
@@ -100,24 +102,91 @@ class ProjectsListViewModel {
       console.log(rowDataTransformed);
 
       this.projects = rowDataTransformed;
-      this.pagination = projectModelData.pagination
+      this.pagination = projectModelData.pagination;
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
 
-  callbackOnSuccessChannel = (response) => {
-    console.log('callbackOnSuccessChannel');
-    console.log(response);
-
-    if(response) {
+  callbackOnSuccessChannel = (response, projectId, channelUniqueName) => {
+    if (response) {
       this.tableStatus = PAGE_STATUS.READY;
 
-      window.open(response.result.loginUrl);
+      window.open(response.result.loginUrl, "popup", "width=600,height=600");
+      const stepInterval = 2000;
+      let intervalTimeLimitInMiliseconds = stepInterval * 60;
+      let checkConnectionStatusInterval = setInterval(
+        () => {
+          intervalTimeLimitInMiliseconds -= stepInterval;
+          if (intervalTimeLimitInMiliseconds <= 0) {
+            clearInterval(checkConnectionStatusInterval);
+          }
+
+          this.projectStore.intervalAskForConnectedChannels(
+            (result) => {
+              if (result) {
+                clearInterval(checkConnectionStatusInterval);
+
+                console.log("resultresultresultresult", result);
+                // update UI "Connect" => "Connected" and disable Button Connect
+                //this.connected = true;
+                // show popup for choosing Facebook Fanpages
+              }
+            },
+            (error) => {},
+            projectId,
+            channelUniqueName
+          );
+        },
+        stepInterval,
+        projectId,
+        channelUniqueName
+      );
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
-  }
+  };
+
+  listFacebookFanpages = (projectId, channelUniqueName) => {
+    console.log("projectId channel", projectId);
+    console.log(
+      "channelUniqueName channel listFacebookFanpages",
+      channelUniqueName
+    );
+    this.projectStore.getFacebookFanpages(
+      this.callbackOnSuccessListFacebookFanpage,
+      this.callbackOnErrorHander,
+      projectId,
+      channelUniqueName
+    );
+  };
+
+  callbackOnSuccessListFacebookFanpage = (
+    response,
+    projectId,
+    channelUniqueName
+  ) => {
+    console.log("callbackOnSuccessListFacebookFanpage");
+    console.log(response);
+
+    if (response) {
+      this.tableStatus = PAGE_STATUS.READY;
+      // Show modal of list FB fanpage
+      // User selects and click save
+      // Call projectStore save list of selected FB Fanpage
+      this.projectStore.getFacebookFanpages(
+        (respons) => {
+          // Close Modal
+          // List selected and connected FB Fanpages in UI
+        },
+        (error) => {},
+        projectId,
+        channelUniqueName
+      );
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
 }
 
 export default ProjectsListViewModel;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Accordion, useAccordionToggle } from "react-bootstrap";
+import { Nav, Accordion, useAccordionToggle, Button } from "react-bootstrap";
 
 import { Tab, Tabs } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
@@ -8,15 +8,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+
+import ModalComponent from "../../components/Modal";
 
 import styles from "./index.module.scss";
 import { isThisSecond } from "date-fns/esm";
+import ComponentItemFanpage from "../ComponentItemFanpage";
 
 class ComponentConnectaChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       panelIndex: "",
+      showModal: false,
       channels: [
         {
           id: 1,
@@ -45,289 +50,25 @@ class ComponentConnectaChannel extends React.Component {
                 },
               ],
             },
-            // {
-            //   id: 2,
-            //   name: "Twitter",
-            //   image: "/assets/images/icon-nikon.png",
-            //   list: [
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "Food Network",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "BuzzFeed Food",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "12 Tomatoes",
-            //       type: "Fanpage",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: 3,
-            //   name: "Google My Business",
-            //   image: "/assets/images/icon-nikon.png",
-            //   list: [
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "Food Network",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "BuzzFeed Food",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "12 Tomatoes",
-            //       type: "Fanpage",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: 4,
-            //   name: "Instagram",
-            //   image: "/assets/images/icon-nikon.png",
-            //   list: [
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "Food Network",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "BuzzFeed Food",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "12 Tomatoes",
-            //       type: "Fanpage",
-            //     },
-            //   ],
-            // },
-          ],
-        },
-        {
-          id: 2,
-          name: "advertising",
-          title: "Advertising",
-          items: [
-            {
-              id: 1,
-              name: "Facebook Ads",
-              image: "/assets/images/icon-adidas.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Fanpage",
-                },
-              ],
-            },
-            {
-              id: 2,
-              name: "Google Adwords Channel",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Fanpage",
-                },
-              ],
-            },
-            {
-              id: 3,
-              name: "Bing / Microsoft Ads",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Fanpage",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "cms",
-          title: "CMS",
-          items: [
-            {
-              id: 1,
-              name: "Joomla",
-              image: "/assets/images/icon-adidas.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "triax.dk",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "redWEB",
-                  type: "Website",
-                },
-              ],
-            },
-            {
-              id: 2,
-              name: "Wordpress",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Website",
-                },
-              ],
-            },
-            {
-              id: 3,
-              name: "Durpal",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Website",
-                },
-              ],
-            },
-            {
-              id: 4,
-              name: "Umbraco",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Website",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 4,
-          name: "email-marketing",
-          title: "Email Marketing",
-          items: [
-            {
-              id: 1,
-              name: "Mailchimp",
-              image: "/assets/images/icon-adidas.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "triax.dk mail",
-                  type: "Email marketing",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "redWEB mail",
-                  type: "Email marketing",
-                },
-              ],
-            },
-            {
-              id: 2,
-              name: "GetResponse",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "triax.dk mail",
-                  type: "Email marketing",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "redWEB mail",
-                  type: "Email marketing",
-                },
-              ],
-            },
           ],
         },
       ],
     };
   }
 
+  handleModalShow = (s) => {
+    this.setState((state) => ({ showModal: s }));
+  };
+
   handleConnectChannel = (name) => {
     let { projectListViewModel } = this.props;
-    projectListViewModel.connectLoginUrl(0, name);
-  }
+    projectListViewModel.connectLoginUrl(989, name);
+  };
 
   render() {
-    let { panelIndex, channels } = this.state;
+    let { panelIndex, channels, showModal } = this.state;
+
+    let { projectListViewModel } = this.props;
 
     const CustomToggle = ({ children, eventKey }) => {
       const customOnClick = useAccordionToggle(eventKey, () => {
@@ -376,12 +117,18 @@ class ComponentConnectaChannel extends React.Component {
                           <a
                             href={void 0}
                             className="cursor-pointer btn btn-success"
-                            onClick={(e) => {this.handleConnectChannel('facebook')}}
+                            onClick={(e) => {
+                              this.handleConnectChannel("facebook");
+                            }}
                           >
                             <i>
                               <FontAwesomeIcon icon={faPlus} />
                             </i>
-                            <span className="ms-2">Connect</span>
+                            <span className="ms-2">
+                              {projectListViewModel.connected
+                                ? "Connected"
+                                : "Connect"}
+                            </span>
                           </a>
                         </CustomToggle>
                         {/* <Accordion.Collapse eventKey={item.id}>
@@ -453,6 +200,23 @@ class ComponentConnectaChannel extends React.Component {
             );
           })}
         </Tabs>
+        <ModalComponent
+          header={"Facebook Fanpage"}
+          body={<ComponentItemFanpage />}
+          show={showModal}
+          onHide={() => this.handleModalShow(false)}
+          footer={
+            <Button
+              //onClick={this.saveCampaignsHandler}
+              className="btn btn-success w-100"
+            >
+              <span>Save</span>
+              <i className="ms-1">
+                <FontAwesomeIcon icon={faChevronRight} />
+              </i>
+            </Button>
+          }
+        />
       </div>
     );
   }
