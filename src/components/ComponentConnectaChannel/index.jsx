@@ -21,7 +21,7 @@ class ComponentConnectaChannel extends React.Component {
     super(props);
     this.state = {
       panelIndex: "",
-      showModal: false,
+      showModal: true,
       channels: [
         {
           id: 1,
