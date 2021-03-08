@@ -12,6 +12,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import ButtonNormal from "../../../components/ButtonNormal";
 import ComponentConnectaChannel from "../../../components/ComponentConnectaChannel";
 import { withWizardViewModel } from "../WizardViewModels/WizardViewModelContextProvider";
+import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 
 import WizardSteps from "../../../components/WizardSteps";
 import styles from "./index.module.scss";
@@ -52,7 +56,7 @@ const ConnectChannel = observer(
             ],
           },
         ],
-        showModal: false,
+        showModal: true,
       };
     }
   
@@ -129,9 +133,21 @@ const ConnectChannel = observer(
             ></ButtonNormal>
           </div>
           <ModalComponent
-            body="test"
-            show={showModal}
-            onHide={() => this.handleModalShow(false)}
+            header={"Facebook Fanpage"}
+            body={<ComponentItemFanpage />}
+            show={false}
+            //onHide={this.projectListViewModel.closeModal()}
+            footer={
+              <Button
+                //onClick={this.saveCampaignsHandler}
+                className="btn btn-success w-100"
+              >
+                <span>Save</span>
+                <i className="ms-1">
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </i>
+              </Button>
+            }
           />
         </div>
       );

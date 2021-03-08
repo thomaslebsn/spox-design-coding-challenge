@@ -27,6 +27,14 @@ class ProjectsListViewModel {
     this.projectStore = projectStore;
   }
 
+  openModal = () => {
+    this.connected = true;
+  };
+
+  closeModal = () => {
+    this.connected = false;
+  };
+
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.projectStore.fetchProjects(
@@ -139,6 +147,7 @@ class ProjectsListViewModel {
                 // update UI "Connect" => "Connected" and disable Button Connect
                 this.connected = true;
                 // show popup for choosing Facebook Fanpages
+
               }
             },
             (error) => {},

@@ -8,20 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-
-import ModalComponent from "../../components/Modal";
 
 import styles from "./index.module.scss";
-import { isThisSecond } from "date-fns/esm";
-import ComponentItemFanpage from "../ComponentItemFanpage";
 
 class ComponentConnectaChannel extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       panelIndex: "",
-      showModal: false,
       channels: [
         {
           id: 1,
@@ -56,38 +51,16 @@ class ComponentConnectaChannel extends React.Component {
     };
   }
 
-  handleModalShow = (s) => {
-    this.setState((state) => ({ showModal: s }));
-  };
-
   handleConnectChannel = (name) => {
     let { projectListViewModel } = this.props;
     projectListViewModel.connectLoginUrl(989, name);
+
   };
 
   render() {
-    let { panelIndex, channels, showModal } = this.state;
+    let { channels } = this.state;
 
     const { listFaceBookFanpage, connected } = this.props;
-
-    // const CustomToggle = ({ children, eventKey }) => {
-    //   const customOnClick = useAccordionToggle(eventKey, () => {
-    //     this.setState({
-    //       panelIndex: eventKey === panelIndex ? null : eventKey,
-    //     });
-    //   });
-
-    //   return (
-    //     <Nav.Link
-    //       onClick={customOnClick}
-    //       className={`d-flex align-items-center justify-content-between p-3 ${
-    //         eventKey === panelIndex ? "border-bottom-1" : ""
-    //       }`}
-    //     >
-    //       {children}
-    //     </Nav.Link>
-    //   );
-    // };
 
     return (
       <div className="wrapper_tabs">
@@ -194,23 +167,6 @@ class ComponentConnectaChannel extends React.Component {
             );
           })}
         </Tabs>
-        <ModalComponent
-          header={"Facebook Fanpage"}
-          body={<ComponentItemFanpage />}
-          show={showModal}
-          onHide={() => this.handleModalShow(false)}
-          footer={
-            <Button
-              //onClick={this.saveCampaignsHandler}
-              className="btn btn-success w-100"
-            >
-              <span>Save</span>
-              <i className="ms-1">
-                <FontAwesomeIcon icon={faChevronRight} />
-              </i>
-            </Button>
-          }
-        />
       </div>
     );
   }
