@@ -1,12 +1,9 @@
 import React from "react";
 import "./index.scss";
 
-import { ESI_CONTENT_THEME_FIELD_KEY } from "../../constants/ContentThemeModule";
-
-let canvaApi = null;
-
 class CanvaButton extends React.Component {
   field = null;
+  canvaApi = null;
   _isMounted = false;
 
   constructor(props) {
@@ -19,11 +16,12 @@ class CanvaButton extends React.Component {
     };
 
     this.field = this.props.field;
+  }
 
+  componentDidMount() {
     const _this = this;
-    _this._isMounted = true;
 
-    if (canvaApi === null) {
+    if (this.canvaApi === null) {
       console.log("[CanvaButton] Initialize canvaApi");
 
       (function (document, url) {
@@ -34,8 +32,7 @@ class CanvaButton extends React.Component {
             window.Canva.DesignButton.initialize({
               apiKey: "GgtrPeZo0prog5FfpeZ_yjYS",
             }).then(function (api) {
-              canvaApi = api;
-
+              _this.canvaApi = api;
               _this.setState({ apiLoaded: true });
             });
           }
@@ -45,59 +42,43 @@ class CanvaButton extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
   handleClick = () => {
     const _this = this;
 
-    canvaApi.createDesign({
+    this.canvaApi.createDesign({
       design: {
         type: "Poster",
       },
-      onDesignOpen: ({ designId }) => {
-        // field.clicked();
-      },
       onDesignPublish: function (options) {
         _this.field.changed(options);
-        _this.forceUpdate();
-      },
 
-      onDesignClose: function () {
-        console.log("[CanvaButton onDesignClose]");
+        _this.setState({ exportUrl: options.exportUrl });
       },
     });
   };
 
-  close = () => {
-    console.log("[CanvaButton close]");
-    this.setState({ exportUrl: "test" });
-  };
-
   render() {
     console.log("[CanvaButton] render", this.field);
+    console.log("[CanvaButton canvaApi] ", this.canvaApi);
 
     let { exportUrl, designId, apiLoaded } = this.state;
 
-    console.log("[CanvaButton field] ", this.field);
-
     return (
-      canvaApi && (
+      apiLoaded && (
         <>
-          <button
+          <span
             className="canva-btn canva-btn-theme-default canva-btn-size-m"
             onClick={this.handleClick}
           >
             <span className="canva-btn-i"></span>
             Design on Canva
-          </button>
+          </span>
           {exportUrl && (
             <div className={`d-flex justify-content-start border-top mt-4`}>
               <div key={designId} className="position-relative m-2">
                 <img
                   className={`img-thumbnail rounded imgTab`}
-                  src={URL.createObjectURL(value[exportUrl])}
+                  src={exportUrl}
                 />
               </div>
             </div>
