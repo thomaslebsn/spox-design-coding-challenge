@@ -24,21 +24,20 @@ class CanvaButton extends React.Component {
     if (this.canvaApi === null) {
       console.log("[CanvaButton] Initialize canvaApi");
 
-      (function (document, url) {
-        var script = document.createElement("script");
-        script.src = url;
-        script.onload = function () {
-          if (window.Canva && window.Canva.DesignButton) {
-            window.Canva.DesignButton.initialize({
-              apiKey: "GgtrPeZo0prog5FfpeZ_yjYS",
-            }).then(function (api) {
-              _this.canvaApi = api;
-              _this.setState({ apiLoaded: true });
-            });
-          }
-        };
-        document.body.appendChild(script);
-      })(document, "https://sdk.canva.com/designbutton/v2/api.js");
+      const script = document.createElement("script");
+      script.src = "https://sdk.canva.com/designbutton/v2/api.js";
+      script.onload = function () {
+        if (window.Canva && window.Canva.DesignButton) {
+          window.Canva.DesignButton.initialize({
+            apiKey: "GgtrPeZo0prog5FfpeZ_yjYS",
+          }).then(function (api) {
+            _this.canvaApi = api;
+            _this.setState({ apiLoaded: true });
+          });
+        }
+      };
+
+      document.body.appendChild(script);
     }
   }
 
@@ -49,10 +48,9 @@ class CanvaButton extends React.Component {
       design: {
         type: "Poster",
       },
-      onDesignPublish: function (options) {
-        _this.field.changed(options);
-
-        _this.setState({ exportUrl: options.exportUrl });
+      onDesignPublish: function ({ exportUrl, designId }) {
+        _this.field.changed({ exportUrl, designId });
+        _this.setState({ exportUrl: exportUrl, designId: designId });
       },
     });
   };
@@ -66,18 +64,20 @@ class CanvaButton extends React.Component {
     return (
       apiLoaded && (
         <>
-          <span
+          <button
             className="canva-btn canva-btn-theme-default canva-btn-size-m"
             onClick={this.handleClick}
+            type="button"
           >
             <span className="canva-btn-i"></span>
             Design on Canva
-          </span>
+          </button>
           {exportUrl && (
             <div className={`d-flex justify-content-start border-top mt-4`}>
               <div key={designId} className="position-relative m-2">
                 <img
                   className={`img-thumbnail rounded imgTab`}
+                  alt={exportUrl}
                   src={exportUrl}
                 />
               </div>
