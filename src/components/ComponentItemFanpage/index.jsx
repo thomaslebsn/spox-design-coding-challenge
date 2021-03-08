@@ -8,14 +8,21 @@ class ComponentItemFanpage extends React.Component {
   }
 
   render() {
+    const { listFaceBookFanpage, handleCheckbox } = this.props;
     return (
       <div>
         <ul className="list-unstyled d-flex align-items-center">
-          <li>
-            <img src="/assets/images/ic-facebook.svg" />
-            <p>text</p>
-            <Checkbox />
-          </li>
+          {listFaceBookFanpage.map((value, key) => {
+            return (
+              <li className="d-flex align-items-center justify-content-between w-100">
+                <div className="d-flex align-items-center justify-content-between">
+                  <img src="/assets/images/ic-facebook.svg" />
+                  <p>{value.name}</p>
+                </div>
+                <Checkbox onClick={handleCheckbox(value.id)} />
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

@@ -22,6 +22,8 @@ import styles from "./index.module.scss";
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
     projectListViewModel = null;
+    isShowModal = false;
+
     constructor(props) {
       super(props);
 
@@ -75,19 +77,36 @@ const ConnectChannel = observer(
       history.push(`${history.location.pathname}/content`);
     };
 
+    footerModal = () => {
+      return (
+        <Button
+          //onClick={this.saveCampaignsHandler}
+          className="btn btn-success w-100"
+        >
+          <span>Save</span>
+          <i className="ms-1">
+            <FontAwesomeIcon icon={faChevronRight} />
+          </i>
+        </Button>
+      );
+    };
+
+    handleCheckbox = () => {
+      console.log("aaaaaaa");
+    };
+
     render() {
       let { channels, showModal } = this.state;
 
       const { show } = this.projectListViewModel;
 
-      console.log("After binding class 6666");
-      console.log(this.projectListViewModel.connected);
+      if (show) {
+        this.isShowModal = true;
+      }
 
-      this.projectListViewModel.openModal();
-      // if (this.projectListViewModel.connected) {
-      //   console.log("After binding class continue");
-      //   this.projectListViewModel.openModal();
-      // }
+      const handlCloseModal = () => {
+        this.isShowModal = false;
+      };
 
       return (
         <div className="d-flex flex-column m-4 p-4">
@@ -148,11 +167,18 @@ const ConnectChannel = observer(
           </div>
           <ModalComponent
             header={"Facebook Fanpage"}
-            body={<ComponentItemFanpage />}
-            show={this.projectListViewModel.connected ?? true}
-            //onHide={() => this.handleModalShow(false)}
+            body={
+              <ComponentItemFanpage
+                listFaceBookFanpage={
+                  this.projectListViewModel.listFaceBookFanpage
+                }
+                handleCheckbox={this.handleCheckbox}
+              />
+            }
+            show={this.isShowModal}
+            onHide={handlCloseModal}
             footer={
-              <Button
+              <button
                 //onClick={this.saveCampaignsHandler}
                 className="btn btn-success w-100"
               >
@@ -160,7 +186,7 @@ const ConnectChannel = observer(
                 <i className="ms-1">
                   <FontAwesomeIcon icon={faChevronRight} />
                 </i>
-              </Button>
+              </button>
             }
           />
         </div>

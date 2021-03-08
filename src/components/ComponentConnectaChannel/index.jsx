@@ -14,7 +14,7 @@ import styles from "./index.module.scss";
 class ComponentConnectaChannel extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       panelIndex: "",
       channels: [
@@ -54,7 +54,6 @@ class ComponentConnectaChannel extends React.Component {
   handleConnectChannel = (name) => {
     let { projectListViewModel } = this.props;
     projectListViewModel.connectLoginUrl(989, name);
-
   };
 
   render() {
@@ -98,67 +97,62 @@ class ComponentConnectaChannel extends React.Component {
                               <FontAwesomeIcon icon={faPlus} />
                             </i>
                             <span className="ms-2">
-                              {connected
-                                ? "Connected"
-                                : "Connect"}
+                              {connected ? "Connected" : "Connect"}
                             </span>
                           </button>
                         </div>
-                        {
-                          listFaceBookFanpage && (
-                            <div className="p-3">
-                              <div className={`list_content`}>
-                                <div className="py-2 px-3 bg-blue d-flex rounded-2">
-                                  <div className="col-4">Name</div>
-                                  <div className="col-6 text-end">Action</div>
-                                </div>
-                                <div className={`list_main `}>
-                                  {listFaceBookFanpage.map((value, key) => {
-                                    return (
-                                      <div
-                                        key={key}
-                                        className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
-                                      >
-                                        <div className="col-4">
-                                          <div className="d-flex align-items-center">
-                                            <span className="ms-2">
-                                              {value.name}
-                                            </span>
-                                          </div>
-                                        </div>
-                                        <div className="col-6 text-end">
-                                          <div className="d-flex align-items-center justify-content-end">
-                                            <a
-                                              href="/social-media"
-                                              className="btn -btn-light"
-                                            >
-                                              <i>
-                                                <FontAwesomeIcon icon={faSync} />
-                                              </i>
-                                              <span className="ms-2">
-                                                Reconnect
-                                              </span>
-                                            </a>
-                                            <a
-                                              href={void 0}
-                                              className="btn -btn-light"
-                                            >
-                                              <i>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                              </i>
-                                              <span className="ms-2">Remove</span>
-                                            </a>
-                                          </div>
+                        {listFaceBookFanpage && (
+                          <div className="p-3">
+                            <div className={`list_content`}>
+                              <div className="py-2 px-3 bg-blue d-flex rounded-2">
+                                <div className="col-4">Name</div>
+                                <div className="col-6 text-end">Action</div>
+                              </div>
+                              <div className={`list_main `}>
+                                {listFaceBookFanpage.map((value, key) => {
+                                  return (
+                                    <div
+                                      key={key}
+                                      className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
+                                    >
+                                      <div className="col-4">
+                                        <div className="d-flex align-items-center">
+                                          <span className="ms-2">
+                                            {value.name}
+                                          </span>
                                         </div>
                                       </div>
-                                    );
-                                  })}
-                                </div>
+                                      <div className="col-6 text-end">
+                                        <div className="d-flex align-items-center justify-content-end">
+                                          <a
+                                            href="/social-media"
+                                            className="btn -btn-light"
+                                          >
+                                            <i>
+                                              <FontAwesomeIcon icon={faSync} />
+                                            </i>
+                                            <span className="ms-2">
+                                              Reconnect
+                                            </span>
+                                          </a>
+                                          <a
+                                            href={void 0}
+                                            className="btn -btn-light"
+                                          >
+                                            <i>
+                                              <FontAwesomeIcon icon={faTrash} />
+                                            </i>
+                                            <span className="ms-2">Remove</span>
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
                               </div>
                             </div>
-                          )
-                        }
-                        
+                          </div>
+                        )}
                       </div>
                     );
                   })}
