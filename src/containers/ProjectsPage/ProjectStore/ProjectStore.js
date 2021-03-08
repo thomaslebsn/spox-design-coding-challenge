@@ -4,7 +4,7 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
 import ProjectModel from "../ProjectModel/ProjectModel";
-import { EasiiProjectApiService } from "easii-io-web-service-library";
+import { EasiiProjectApiService, EasiiProjectChannelApiService } from "easii-io-web-service-library";
 
 export default class ProjectStore {
   async fetchProjects(callbackOnSuccess, callbackOnError, paginationStep) {
@@ -201,6 +201,32 @@ export default class ProjectStore {
       console.log(error);
       runInAction(() => {
         callbackOnError(error);
+      });
+    }
+  }
+
+  async getChannelLoginUrl(callbackOnSuccess, callbackOnError, projectId, channelUniqueName){
+    const projectChannelService = new EasiiProjectChannelApiService();
+    // const response = projectChannelService.getFBLoginUrl(projectChannelId);
+    console.log('channelUniqueName channelUniqueName');
+    console.log(channelUniqueName);
+    let response = null;
+
+    switch(channelUniqueName) {
+      case "facebook":
+        response = await projectChannelService.getLoginUrl(787);
+        break;
+      default:
+        break;
+    }
+
+    if (response) {
+      runInAction(() => {
+        callbackOnSuccess(response);
+      });
+    } else {
+      callbackOnError({
+        message: "Something went wrong from Server response",
       });
     }
   }

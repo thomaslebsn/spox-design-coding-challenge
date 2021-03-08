@@ -17,13 +17,13 @@ class ContentThemeModel {
     const result = data
       ? {
           [ESI_CONTENT_THEME_API_RESPONSE_FIELD_KEY.ID]:
-            contentData[ESI_CONTENT_THEME_FIELD_KEY.ID],
+            data[ESI_CONTENT_THEME_FIELD_KEY.ID],
 
           [ESI_CONTENT_THEME_API_RESPONSE_FIELD_KEY.DESIGN_ID]:
-            contentData[ESI_CONTENT_THEME_FIELD_KEY.DESIGN_ID],
+            data[ESI_CONTENT_THEME_FIELD_KEY.DESIGN_ID],
 
           [ESI_CONTENT_THEME_API_RESPONSE_FIELD_KEY.IMAGE]:
-            contentData[ESI_CONTENT_THEME_FIELD_KEY.IMAGE],
+            data[ESI_CONTENT_THEME_FIELD_KEY.IMAGE],
         }
       : null;
     return result;

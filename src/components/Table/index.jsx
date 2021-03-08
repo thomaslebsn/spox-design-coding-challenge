@@ -183,6 +183,7 @@ const Table = ({
 
   const setGlobalFilter = (dataFilter) => {
     console.log("setGlobalFilter");
+    console.log(dataFilter);
     if (searchFunction !== undefined) {
       console.log(dataFilter);
 
@@ -206,6 +207,7 @@ const Table = ({
         row={row}
         rowProps={rowProps}
         visibleColumns={visibleColumns}
+        subRowData={listViewModel ? listViewModel : null}
       />
     ),
     []
@@ -427,7 +429,7 @@ const Table = ({
                     <tr
                       {...row.getRowProps()}
                       className="border-bottom-1 cursor-pointer"
-                      onClick={(e) => handerEdit(e, row.original)}
+                      //onClick={(e) => handerEdit(e, row.original)}
                     >
                       {newRowCells.map((cell) => {
                         return (

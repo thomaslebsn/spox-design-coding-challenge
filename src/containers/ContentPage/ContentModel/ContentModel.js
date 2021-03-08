@@ -4,6 +4,17 @@ import {
   CONTENT_FIELD_KEY,
   ESI_CONTENT_API_RESPONSE_FIELD_KEY,
 } from "../../../constants/ContentModule";
+
+import {
+  PERSONA_FIELD_KEY,
+  ESI_PERSONA_FIELD_KEY,
+} from "../../../constants/PersonaModule";
+
+import {
+  CAMPAIGNS_FIELD_KEY,
+  CAMPAIGN_API_FIELD_KEY,
+} from "../../../constants/CampaignsModule";
+
 import getStatus from "../../../utils/status";
 import { DescriptionsModel } from "./DescriptionsModel";
 
@@ -146,6 +157,17 @@ class ContentModel {
   };
 
   static convertSubmittedDataToAPIService(contentData) {
+    console.log("convertSubmittedDataToAPIService");
+    const personas = contentData[CONTENT_FIELD_KEY.PERSONA].map((e) => {
+      return e[PERSONA_FIELD_KEY.ID];
+    });
+
+    const campaignId =
+      contentData[CONTENT_FIELD_KEY.CAMPAIGN].length > 0
+        ? contentData[CONTENT_FIELD_KEY.CAMPAIGN][0][CAMPAIGNS_FIELD_KEY.ID]
+        : 0;
+
+    console.log(personas);
     const result = contentData
       ? {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]:
@@ -162,14 +184,14 @@ class ContentModel {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_FROM]: new Date(),
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_UNTIL]: new Date(),
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.TIME]: new Date(),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: 366,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: campaignId,
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS]: [
             {
               channel_id: 215,
               description: contentData[CONTENT_FIELD_KEY.DESCRIPTION],
             },
           ],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: 7,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(personas),
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.STATUS]: 1,
         }
       : null;

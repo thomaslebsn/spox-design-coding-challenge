@@ -12,6 +12,8 @@ class PersonaFormViewModel {
 
   formStatus = PAGE_STATUS.LOADING;
 
+  previewPersonaData = null;
+
   constructor(personaStore) {
     makeAutoObservable(this);
     this.personaStore = personaStore;
@@ -35,6 +37,34 @@ class PersonaFormViewModel {
     this.personaStore.getPersona(
       id,
       this.setEditPersona,
+      this.callbackOnErrorHander
+    );
+  };
+
+  getPersonaTemplate = (id) => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.personaStore.getPersonaRecommendationItem(
+      id,
+      this.setCreatePersonaByTemplate,
+      this.callbackOnErrorHander
+    );
+  }
+
+  setCreatePersonaByTemplate = (data) => {
+    this.formStatus = PAGE_STATUS.READY;
+    console.log('setCreatePersonaByTemplate');
+    // Override data to recognize is to create new persona from persona template
+    data[0].id = 0;
+    this.personaFormComponent.populatingFormDataHandler(data[0]);
+  };
+
+  getPreviewPersona = (id) => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.personaStore.getPersona(
+      id,
+      (result) => {
+        this.previewPersonaData = result[0];
+      },
       this.callbackOnErrorHander
     );
   };

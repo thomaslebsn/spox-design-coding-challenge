@@ -74,7 +74,7 @@ class CampaignsSelectionViewModel {
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.campaignStore.fetchCampaigns(
+    this.campaignStore.getCampaignMasterData(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -87,17 +87,13 @@ class CampaignsSelectionViewModel {
   };
 
   callbackOnSuccessHandler = (campaignModelData) => {
-    console.log("callbackOnSuccessHandler");
+    console.log("callbackOnSuccessHandler - campaign selection");
     console.log(campaignModelData);
     if (campaignModelData) {
       this.tableStatus = PAGE_STATUS.READY;
-
-      const rowDataTransformed = CampaignsUtils.transformCampaignsModelIntoTableDataRow(
-        campaignModelData.list
-      );
-      console.log("Row Data is Formatted");
-      console.log(rowDataTransformed);
-      this.campaigns = rowDataTransformed;
+     
+      this.campaigns = campaignModelData.toDropdownFullListValues();
+      console.log(this.campaigns);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }

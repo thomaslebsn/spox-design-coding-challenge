@@ -35,7 +35,7 @@ const PersonasSelection = observer(
       this.personaSelectionViewModel.initializeData();
     }
 
-    handerEditPersona = (row) => {
+    handerEditPersona = (e, row) => {
       this.personaSelectionViewModel.setSelectionData(row);
       this.personaSelectionViewModel.closeModal();
     };
@@ -51,13 +51,21 @@ const PersonasSelection = observer(
 
       const tableRowHeader = [
         {
-          Header: "Image",
-          accessor: PERSONA_FIELD_KEY.IMAGE,
-          Cell: ({ value }) => <Image src={value} rounded height="250" />,
-        },
-        {
           Header: "Name",
           accessor: PERSONA_FIELD_KEY.NAME, // accessor is the "key" in the data
+          Cell: ({ row }) => (
+            console.log("row.original", row),
+            (
+              <div {...row.getToggleRowExpandedProps()} className="d-flex">
+                <span
+                  className="text-black opacity-75"
+                  onClick={(e) => this.handerEditPersona(e, row.original)}
+                >
+                  {row.original[PERSONA_FIELD_KEY.NAME]}
+                </span>
+              </div>
+            )
+          ),
         },
       ];
 
@@ -73,10 +81,9 @@ const PersonasSelection = observer(
             <Table
               rowData={personas}
               tableRowHeader={tableRowHeader}
-              onEdit={this.handerEditPersona}
+              //onEdit={this.handerEditPersona}
               noSelection={true}
               noColumns={true}
-              isList={false}
               noDropDownColumns={true}
             ></Table>
           }

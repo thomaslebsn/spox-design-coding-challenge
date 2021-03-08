@@ -10,6 +10,7 @@ import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 
 import styles from "./index.module.scss";
+import { isThisSecond } from "date-fns/esm";
 
 class ComponentConnectaChannel extends React.Component {
   constructor(props) {
@@ -319,6 +320,12 @@ class ComponentConnectaChannel extends React.Component {
       ],
     };
   }
+
+  handleConnectChannel = (name) => {
+    let { projectListViewModel } = this.props;
+    projectListViewModel.connectLoginUrl(0, name);
+  }
+
   render() {
     let { panelIndex, channels } = this.state;
 
@@ -369,6 +376,7 @@ class ComponentConnectaChannel extends React.Component {
                           <a
                             href={void 0}
                             className="cursor-pointer btn btn-success"
+                            onClick={(e) => {this.handleConnectChannel('facebook')}}
                           >
                             <i>
                               <FontAwesomeIcon icon={faPlus} />
@@ -376,7 +384,7 @@ class ComponentConnectaChannel extends React.Component {
                             <span className="ms-2">Connect</span>
                           </a>
                         </CustomToggle>
-                        <Accordion.Collapse eventKey={item.id}>
+                        {/* <Accordion.Collapse eventKey={item.id}>
                           <div className="p-3">
                             <div className={`list_content`}>
                               <div className="py-2 px-3 bg-blue d-flex rounded-2">
@@ -436,7 +444,7 @@ class ComponentConnectaChannel extends React.Component {
                               </div>
                             </div>
                           </div>
-                        </Accordion.Collapse>
+                        </Accordion.Collapse> */}
                       </div>
                     );
                   })}
