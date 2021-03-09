@@ -4,7 +4,10 @@ import PAGE_STATUS from "../../../constants/PageStatus";
 
 import ProjectUtils from "../ProjectUtils/ProjectUtils";
 import ProjectModel from "../ProjectModel/ProjectModel";
-import { EasiiProjectApiService, EasiiProjectChannelApiService } from "easii-io-web-service-library";
+import {
+  EasiiProjectApiService,
+  EasiiProjectChannelApiService,
+} from "easii-io-web-service-library";
 
 export default class ProjectStore {
   async fetchProjects(callbackOnSuccess, callbackOnError, paginationStep) {
@@ -205,40 +208,154 @@ export default class ProjectStore {
     }
   }
 
-  async getChannelLoginUrl(callbackOnSuccess, callbackOnError, projectId, channelUniqueName){
-    const projectChannelService = new EasiiProjectChannelApiService();
-    // const response = projectChannelService.getFBLoginUrl(projectChannelId);
-    console.log('channelUniqueName channelUniqueName');
-    console.log(channelUniqueName);
-    let response = null;
+  async getChannelLoginUrl(
+    callbackOnSuccess,
+    callbackOnError,
+    projectId,
+    channelUniqueName
+  ) {
+    try {
+      const projectChannelService = new EasiiProjectChannelApiService();
+      console.log("channelUniqueName channelUniqueName");
+      console.log(channelUniqueName);
+      let response = null;
 
-    switch(channelUniqueName) {
-      case "facebook":
-        response = await projectChannelService.getLoginUrl(787);
-        break;
-      default:
-        break;
-    }
+      switch (channelUniqueName) {
+        case "facebook":
+          response = await projectChannelService.getLoginUrl(
+            projectId,
+            channelUniqueName
+          );
+          break;
+        default:
+          break;
+      }
 
-    if (response) {
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, projectId, channelUniqueName);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
       runInAction(() => {
-        callbackOnSuccess(response);
-      });
-    } else {
-      callbackOnError({
-        message: "Something went wrong from Server response",
+        callbackOnError(error);
       });
     }
   }
 
-  async connectCMS(callbackOnSuccess, callbackOnError, dataPost, channelUniqueName){
+  async intervalAskForConnectedChannels(
+    callbackOnSuccess,
+    callbackOnError,
+    projectId,
+    channelUniqueName
+  ) {
+    try {
+      const projectChannelService = new EasiiProjectChannelApiService();
+      const result = await projectChannelService.checkConnectionStatus(
+        projectId,
+        channelUniqueName
+      );
+
+      if (result) {
+        runInAction(() => {
+          callbackOnSuccess(result, projectId, channelUniqueName);
+        });
+      } else {
+        callbackOnError({
+          message:
+            "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
+  async saveChosseFacebookFanpages(
+    callbackOnSuccess,
+    callbackOnError,
+    projectId,
+    pageIds
+  ) {
+    try {
+      console.log("store projectId", projectId);
+      console.log("store pageIds", pageIds);
+      const projectChannelService = new EasiiProjectChannelApiService();
+      const response = await projectChannelService.connectMultiFanpage(
+        projectId,
+        pageIds
+      );
+
+      console.log("store response", response);
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, projectId, pageIds);
+        });
+      } else {
+        callbackOnError({
+          message:
+            "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
+  async getFacebookFanpages(
+    callbackOnSuccess,
+    callbackOnError,
+    projectId,
+    pageIds
+  ) {
+    try {
+      const projectChannelService = new EasiiProjectChannelApiService();
+      const response = await projectChannelService.getListFanpage(
+        projectId,
+        pageIds
+      );
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, projectId, pageIds);
+        });
+      } else {
+        callbackOnError({
+          message:
+            "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
+  async connectCMS(
+    callbackOnSuccess,
+    callbackOnError,
+    dataPost,
+    channelUniqueName
+  ) {
     const projectChannelService = new EasiiProjectChannelApiService();
     // const response = projectChannelService.getFBLoginUrl(projectChannelId);
-    console.log('channelUniqueName channelUniqueName');
+    console.log("channelUniqueName channelUniqueName");
     console.log(channelUniqueName);
     let response = null;
 
-    switch(channelUniqueName) {
+    switch (channelUniqueName) {
       case "wordpress":
         response = await projectChannelService.doLoginCMS(dataPost);
         break;
