@@ -169,43 +169,35 @@ class ProjectsListViewModel {
     }
   };
 
-  listFacebookFanpages = (projectId, channelUniqueName) => {
-    console.log("projectId channel", projectId);
-    console.log(
-      "channelUniqueName channel listFacebookFanpages",
-      channelUniqueName
-    );
-    this.projectStore.getFacebookFanpages(
+  saveChosseFacebookFanpages = (projectId, pageIds) => {
+    console.log("projectId saveChosseFacebookFanpages", projectId);
+    console.log("channelUniqueName saveChosseFacebookFanpages", pageIds);
+    this.projectStore.saveChosseFacebookFanpages(
       this.callbackOnSuccessListFacebookFanpage,
       this.callbackOnErrorHander,
       projectId,
-      channelUniqueName
+      pageIds
     );
   };
 
-  callbackOnSuccessListFacebookFanpage = (
-    response,
-    projectId,
-    channelUniqueName
-  ) => {
+  callbackOnSuccessListFacebookFanpage = (response, projectId, pageIds) => {
     console.log("callbackOnSuccessListFacebookFanpage");
     console.log(response);
 
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
-
-      console.log("callbackOnSuccessListFacebookFanpage 222", response);
       // Show modal of list FB fanpage
       // User selects and click save
       // Call projectStore save list of selected FB Fanpage
       this.projectStore.getFacebookFanpages(
         (respons) => {
+          console.log("respons getFacebookFanpages 2222", respons);
           // Close Modal
           // List selected and connected FB Fanpages in UI
         },
         (error) => {},
         projectId,
-        channelUniqueName
+        pageIds
       );
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;

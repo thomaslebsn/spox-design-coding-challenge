@@ -277,21 +277,51 @@ export default class ProjectStore {
     }
   }
 
+  async saveChosseFacebookFanpages(
+    callbackOnSuccess,
+    callbackOnError,
+    projectId,
+    pageIds
+  ) {
+    try {
+      const projectChannelService = new EasiiProjectChannelApiService();
+      const response = await projectChannelService.connectMultiFanpage(
+        projectId,
+        pageIds
+      );
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, projectId, pageIds);
+        });
+      } else {
+        callbackOnError({
+          message:
+            "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
   async getFacebookFanpages(
     callbackOnSuccess,
     callbackOnError,
     projectId,
-    channelUniqueName
+    pageIds
   ) {
     try {
       const projectChannelService = new EasiiProjectChannelApiService();
       const response = await projectChannelService.getListFanpage(
         projectId,
-        channelUniqueName
+        pageIds
       );
       if (response) {
         runInAction(() => {
-          callbackOnSuccess(response, projectId, channelUniqueName);
+          callbackOnSuccess(response, projectId, pageIds);
         });
       } else {
         callbackOnError({
