@@ -284,11 +284,15 @@ export default class ProjectStore {
     pageIds
   ) {
     try {
+      console.log("store projectId", projectId);
+      console.log("store pageIds", pageIds);
       const projectChannelService = new EasiiProjectChannelApiService();
       const response = await projectChannelService.connectMultiFanpage(
         projectId,
         pageIds
       );
+
+      console.log("store response", response);
       if (response) {
         runInAction(() => {
           callbackOnSuccess(response, projectId, pageIds);

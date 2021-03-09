@@ -26,11 +26,11 @@ class ProjectFormModalViewModel {
   };
 
   setEditProject = (data) => {
-    console.log('Set edit data for project:', typeof data[0]);
+    console.log("Set edit data for project:", typeof data[0]);
     this.editMode = true;
     this.formStatus = PAGE_STATUS.READY;
 
-    if(data[0] !== undefined && (typeof data) == 'object') {
+    if (data[0] !== undefined && typeof data == "object") {
       this.projectEditdata = data[0];
     }
   };

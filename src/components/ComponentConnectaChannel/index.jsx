@@ -3,6 +3,7 @@ import { Nav, Accordion, useAccordionToggle, Button } from "react-bootstrap";
 
 import { Tab, Tabs } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import history from "../../routes/history";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
@@ -53,13 +54,16 @@ class ComponentConnectaChannel extends React.Component {
 
   handleConnectChannel = (name) => {
     let { projectListViewModel } = this.props;
-    projectListViewModel.connectLoginUrl(989, name);
+
+    let getIdProject = history.location.pathname.match(/\d/g);
+    getIdProject = getIdProject.join("");
+    projectListViewModel.connectLoginUrl(getIdProject, name);
   };
 
   render() {
     let { channels } = this.state;
 
-    const { listFaceBookFanpage, connected } = this.props;
+    const { listFaceBookFanpageView, connected } = this.props;
 
     return (
       <div className="wrapper_tabs">
@@ -101,7 +105,7 @@ class ComponentConnectaChannel extends React.Component {
                             </span>
                           </button>
                         </div>
-                        {listFaceBookFanpage && (
+                        {listFaceBookFanpageView && (
                           <div className="p-3">
                             <div className={`list_content`}>
                               <div className="py-2 px-3 bg-blue d-flex rounded-2">
@@ -109,7 +113,7 @@ class ComponentConnectaChannel extends React.Component {
                                 <div className="col-6 text-end">Action</div>
                               </div>
                               <div className={`list_main `}>
-                                {listFaceBookFanpage.map((value, key) => {
+                                {listFaceBookFanpageView.map((value, key) => {
                                   return (
                                     <div
                                       key={key}
@@ -122,7 +126,7 @@ class ComponentConnectaChannel extends React.Component {
                                           </span>
                                         </div>
                                       </div>
-                                      <div className="col-6 text-end">
+                                      {/* <div className="col-6 text-end">
                                         <div className="d-flex align-items-center justify-content-end">
                                           <a
                                             href="/social-media"
@@ -145,7 +149,7 @@ class ComponentConnectaChannel extends React.Component {
                                             <span className="ms-2">Remove</span>
                                           </a>
                                         </div>
-                                      </div>
+                                      </div> */}
                                     </div>
                                   );
                                 })}

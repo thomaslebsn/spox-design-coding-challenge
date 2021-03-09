@@ -23,7 +23,6 @@ import styles from "./index.module.scss";
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
     projectListViewModel = null;
-    isShowModal = false;
 
     constructor(props) {
       super(props);
@@ -62,35 +61,27 @@ const ConnectChannel = observer(
             ],
           },
         ],
-        showModal: false,
+        showModal: true,
         getIDSFanpage: [],
       };
     }
 
-    handleClick = () => {
-      this.setState((state) => ({ showModal: true }));
-    };
+    // handleClick = () => {
+    //   this.setState((state) => ({ showModal: true }));
+    // };
 
-    handleModalShow = (s) => {
-      this.setState((state) => ({ showModal: s }));
-    };
+    // handleModalShow = (s) => {
+    //   this.setState((state) => ({ showModal: s }));
+    // };
 
     next = () => {
       history.push(`${history.location.pathname}/content`);
     };
 
-    footerModal = () => {
-      return (
-        <Button
-          //onClick={this.saveCampaignsHandler}
-          className="btn btn-success w-100"
-        >
-          <span>Save</span>
-          <i className="ms-1">
-            <FontAwesomeIcon icon={faChevronRight} />
-          </i>
-        </Button>
-      );
+    handleCloseModal = () => {
+      this.setState({
+        showModal: false,
+      });
     };
 
     handleCheckbox = (id) => {
@@ -103,24 +94,26 @@ const ConnectChannel = observer(
     };
 
     handleSaveFanpage = () => {
+      let getIdProject = history.location.pathname.match(/\d/g);
+      getIdProject = getIdProject.join("");
       this.projectListViewModel.saveChosseFacebookFanpages(
-        989,
+        getIdProject,
         this.state.getIDSFanpage
       );
+
+      this.setState({
+        showModal: false,
+      });
     };
 
     render() {
       let { channels, showModal } = this.state;
 
-      const { show, listFaceBookFanpage } = this.projectListViewModel;
-
-      if (show) {
-        this.isShowModal = true;
-      }
-
-      const handlCloseModal = () => {
-        this.isShowModal = false;
-      };
+      const {
+        listFaceBookFanpage,
+        connected,
+        listFaceBookFanpageView,
+      } = this.projectListViewModel;
 
       return (
         <div className="d-flex flex-column m-4 p-4">
@@ -163,8 +156,8 @@ const ConnectChannel = observer(
           </div> */}
           <ComponentConnectaChannel
             projectListViewModel={this.projectListViewModel}
-            listFaceBookFanpage={
-              listFaceBookFanpage ? listFaceBookFanpage : null
+            listFaceBookFanpageView={
+              listFaceBookFanpageView ? listFaceBookFanpageView : null
             }
             connected={this.projectListViewModel.connected}
           />
@@ -181,40 +174,42 @@ const ConnectChannel = observer(
               onClick={this.next}
             ></ButtonNormal>
           </div>
-          <ModalComponent
-            header={"Facebook Fanpage"}
-            body={
-              <div>
-                <ul className="list-unstyled align-items-center">
-                  {listFaceBookFanpage &&
-                    listFaceBookFanpage.map((value, key) => {
-                      return (
-                        <ComponentItemFanpage
-                          key={key}
-                          name={value.name}
-                          handleCheckbox={(e) => {
-                            this.handleCheckbox(value.id);
-                          }}
-                        />
-                      );
-                    })}
-                </ul>
-              </div>
-            }
-            show={this.isShowModal}
-            onHide={handlCloseModal}
-            footer={
-              <button
-                onClick={this.handleSaveFanpage}
-                className="btn btn-success w-100"
-              >
-                <span>Save</span>
-                <i className="ms-1">
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </i>
-              </button>
-            }
-          />
+          {connected && (
+            <ModalComponent
+              header={"Facebook Fanpage"}
+              body={
+                <div>
+                  <ul className="list-unstyled align-items-center">
+                    {listFaceBookFanpage &&
+                      listFaceBookFanpage.map((value, key) => {
+                        return (
+                          <ComponentItemFanpage
+                            key={key}
+                            name={value.name}
+                            handleCheckbox={(e) => {
+                              this.handleCheckbox(value.id);
+                            }}
+                          />
+                        );
+                      })}
+                  </ul>
+                </div>
+              }
+              show={showModal}
+              onHide={this.handleCloseModal}
+              footer={
+                <button
+                  onClick={this.handleSaveFanpage}
+                  className="btn btn-success w-100"
+                >
+                  <span>Save</span>
+                  <i className="ms-1">
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </i>
+                </button>
+              }
+            />
+          )}
         </div>
       );
     }
