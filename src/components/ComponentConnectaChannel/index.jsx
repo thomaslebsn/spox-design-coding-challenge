@@ -40,113 +40,6 @@ class ComponentConnectaChannel extends Component {
     this.state = {
       panelIndex: "",
       isShowModalWordpress: false,
-      channels: [
-        {
-          id: 1,
-          name: "social",
-          title: "Social Media",
-          items: [
-            {
-              id: 1,
-              name: "facebooks",
-              image: "/assets/images/icon-pepsi.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Fanpage",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Fanpage",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: "advertising",
-          title: "Advertising",
-          items: [],
-        },
-        {
-          id: 3,
-          name: "cms",
-          title: "CMS",
-          items: [
-            {
-              id: 1,
-              name: "wordpress",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "Food Network",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "BuzzFeed Food",
-                  type: "Website",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "12 Tomatoes",
-                  type: "Website",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 4,
-          name: "email-marketing",
-          title: "Email Marketing",
-          items: [
-            {
-              id: 1,
-              name: "Mailchimp",
-              image: "/assets/images/icon-adidas.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "triax.dk mail",
-                  type: "Email marketing",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "redWEB mail",
-                  type: "Email marketing",
-                },
-              ],
-            },
-            {
-              id: 2,
-              name: "GetResponse",
-              image: "/assets/images/icon-nikon.png",
-              list: [
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "triax.dk mail",
-                  type: "Email marketing",
-                },
-                {
-                  image: "/assets/images/icon-pepsi.png",
-                  name: "redWEB mail",
-                  type: "Email marketing",
-                },
-              ],
-            },
-          ],
-        },
-      ],
     };
   }
 
@@ -169,9 +62,11 @@ class ComponentConnectaChannel extends Component {
   };
 
   render() {
-    let { channels } = this.state;
-
-    const { listFaceBookFanpageView, connected } = this.props;
+    const {
+      listFaceBookFanpageView,
+      facebookConnected,
+      twitterConnected,
+    } = this.props;
 
     return (
       <div className="wrapper_tabs">
@@ -191,7 +86,7 @@ class ComponentConnectaChannel extends Component {
                       alt=""
                     />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">
-                      Social Media
+                      Facebook
                     </span>
                   </div>
                   <button
@@ -199,13 +94,13 @@ class ComponentConnectaChannel extends Component {
                     onClick={(e) => {
                       this.handleConnectChannel("facebook");
                     }}
-                    disabled={connected ? true : false}
+                    disabled={facebookConnected ? true : false}
                   >
                     <i>
                       <FontAwesomeIcon icon={faPlus} />
                     </i>
                     <span className="ms-2">
-                      {connected ? "Connected" : "Connect"}
+                      {facebookConnected ? "Connected" : "Connect"}
                     </span>
                   </button>
                 </div>
@@ -235,6 +130,34 @@ class ComponentConnectaChannel extends Component {
                     </div>
                   </div>
                 )}
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/icon-pepsi.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Twitter
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("twitter");
+                    }}
+                    disabled={twitterConnected ? true : false}
+                  >
+                    <i>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </i>
+                    <span className="ms-2">
+                      {twitterConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </Tab>

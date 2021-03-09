@@ -227,6 +227,12 @@ export default class ProjectStore {
             channelUniqueName
           );
           break;
+        case "twitter":
+          response = await projectChannelService.getLoginUrl(
+            projectId,
+            channelUniqueName
+          );
+          break;
         default:
           break;
       }

@@ -18,27 +18,20 @@ class ProjectsListViewModel {
 
   dataFilter = null;
 
-  connected = false;
+  facebookConnected = false;
+
+  twitterConnected = false;
 
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
 
-  // show = false;
   showModalCMS = true;
 
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
   }
-
-  // openModal = () => {
-  //   this.show = true;
-  // };
-
-  // closeModal = () => {
-  //   this.show = false;
-  // };
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
@@ -127,6 +120,9 @@ class ProjectsListViewModel {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
 
+      console.log("twitter response", response);
+      console.log("twitter response.result.loginUrl", response.result.loginUrl);
+
       window.open(response.result.loginUrl, "popup", "width=600,height=600");
       const stepInterval = 2000;
       let intervalTimeLimitInMiliseconds = stepInterval * 60;
@@ -149,9 +145,14 @@ class ProjectsListViewModel {
                   response.result.pages.pages
                 );
 
-                this.listFaceBookFanpage = response.result.pages.pages;
+                if (channelUniqueName === "facebook") {
+                  this.listFaceBookFanpage = response.result.pages.pages;
+                  this.facebookConnected = true;
+                }
 
-                this.connected = true;
+                if (channelUniqueName === "twitter") {
+                  this.twitterConnected = true;
+                }
               }
             },
             (error) => {},
