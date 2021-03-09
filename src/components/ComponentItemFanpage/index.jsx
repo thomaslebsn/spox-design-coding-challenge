@@ -7,10 +7,6 @@ class ComponentItemFanpage extends React.Component {
     this.state = {};
   }
 
-  handleCheckbox = (id) => {
-    console.log("id id id id 11111", id);
-  };
-
   render() {
     const { name, handleCheckbox } = this.props;
     return (

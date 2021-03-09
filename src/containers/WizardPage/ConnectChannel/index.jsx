@@ -66,14 +66,6 @@ const ConnectChannel = observer(
       };
     }
 
-    // handleClick = () => {
-    //   this.setState((state) => ({ showModal: true }));
-    // };
-
-    // handleModalShow = (s) => {
-    //   this.setState((state) => ({ showModal: s }));
-    // };
-
     next = () => {
       history.push(`${history.location.pathname}/content`);
     };
