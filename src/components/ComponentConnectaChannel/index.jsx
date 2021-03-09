@@ -1,22 +1,40 @@
-import React from "react";
-import { Nav, Accordion, useAccordionToggle } from "react-bootstrap";
+import React, { Component, lazy } from "react";
 
-import { Tab, Tabs } from "react-bootstrap";
+import { Tab, Tabs, Button, Nav, Accordion, useAccordionToggle } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+import Wordpress from './Wordpress';
+import LoginChannelCMSFormModal from "../../containers/WizardPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
+const ModalComponent = lazy(() => import("../../components/Modal"));
 
-import styles from "./index.module.scss";
-import { isThisSecond } from "date-fns/esm";
+// import styles from "./index.module.scss";
+// import { isThisSecond } from "date-fns/esm";
 
-class ComponentConnectaChannel extends React.Component {
+class ComponentConnectaChannel extends Component {
+  formData = [];
+  projectListViewModel = null;
+  l
+
   constructor(props) {
     super(props);
+    console.log('==============');
+    console.log(this.props);
+    this.projectListViewModel = this.props.projectListViewModel
+    let {viewModel} = this.props;
+
+    this.loginCMSChannelFormModalViewModel = viewModel
+    ? viewModel.getLoginCMSChannelFormModalViewModel()
+    : null;
+
+
     this.state = {
       panelIndex: "",
+      isShowModalWordpress: false,
       channels: [
         {
           id: 1,
@@ -25,7 +43,7 @@ class ComponentConnectaChannel extends React.Component {
           items: [
             {
               id: 1,
-              name: "Facebook",
+              name: "Facebooks",
               image: "/assets/images/icon-pepsi.png",
               list: [
                 {
@@ -45,72 +63,6 @@ class ComponentConnectaChannel extends React.Component {
                 },
               ],
             },
-            // {
-            //   id: 2,
-            //   name: "Twitter",
-            //   image: "/assets/images/icon-nikon.png",
-            //   list: [
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "Food Network",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "BuzzFeed Food",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "12 Tomatoes",
-            //       type: "Fanpage",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: 3,
-            //   name: "Google My Business",
-            //   image: "/assets/images/icon-nikon.png",
-            //   list: [
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "Food Network",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "BuzzFeed Food",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "12 Tomatoes",
-            //       type: "Fanpage",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: 4,
-            //   name: "Instagram",
-            //   image: "/assets/images/icon-nikon.png",
-            //   list: [
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "Food Network",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "BuzzFeed Food",
-            //       type: "Fanpage",
-            //     },
-            //     {
-            //       image: "/assets/images/icon-pepsi.png",
-            //       name: "12 Tomatoes",
-            //       type: "Fanpage",
-            //     },
-            //   ],
-            // },
           ],
         },
         {
@@ -321,9 +273,18 @@ class ComponentConnectaChannel extends React.Component {
     };
   }
 
+  closeModal = () => {
+    this.setState({
+      isShowModalWordpress: false
+    })
+  }
+
   handleConnectChannel = (name) => {
-    let { projectListViewModel } = this.props;
-    projectListViewModel.connectLoginUrl(0, name);
+    this.projectListViewModel.connectLoginUrl(0, name);
+  }
+
+  showModalConnectCMS = (name) => {
+    this.loginCMSChannelFormModalViewModel.openModal();
   }
 
   render() {
@@ -449,6 +410,7 @@ class ComponentConnectaChannel extends React.Component {
                     );
                   })}
                 </Accordion>
+                <LoginChannelCMSFormModal clicked={this.showModalConnectCMS}/>
               </Tab>
             );
           })}
