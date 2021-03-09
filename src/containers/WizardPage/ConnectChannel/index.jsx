@@ -18,6 +18,7 @@ import styles from "./index.module.scss";
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
     projectListViewModel = null;
+    viewModel = null;
     constructor(props) {
       super(props);
 
@@ -27,6 +28,8 @@ const ConnectChannel = observer(
       this.projectListViewModel = viewModel
         ? viewModel.getProjectListViewModel()
         : null;
+
+        this.viewModel = viewModel;
 
       console.log("After binding class 22222");
       console.log(this.projectListViewModel);
@@ -112,6 +115,7 @@ const ConnectChannel = observer(
           </div> */}
           <ComponentConnectaChannel
             projectListViewModel={this.projectListViewModel}
+            viewModel={this.viewModel}
           />
           <div className="d-flex justify-content-between">
             <Button

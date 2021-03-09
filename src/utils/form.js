@@ -33,11 +33,13 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <Form.Control
                     as="input"
                     defaultValue={field.value}
+                    type= {field.typeFormat ? 'password' : 'text'}
                     required={field.required ?? false}
                     id={field.key}
                     onChange={field.changed ?? undefined}
                     className={`${field.classNameInput}`}
                     onBlur={field.blurred ?? undefined}
+                    placeholder={field.placeholder ?? undefined}
                   />
 
                   {field.validation &&
