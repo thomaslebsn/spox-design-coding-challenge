@@ -1,23 +1,45 @@
-import React from "react";
-import { Nav, Accordion, useAccordionToggle, Button } from "react-bootstrap";
-
-import { Tab, Tabs } from "react-bootstrap";
+import React, { Component, lazy } from "react";
+import {
+  Tab,
+  Tabs,
+  Button,
+  Nav,
+  Accordion,
+  useAccordionToggle,
+} from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import history from "../../routes/history";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-
+import Wordpress from "./Wordpress";
+import LoginChannelCMSFormModal from "../../containers/WizardPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
+const ModalComponent = lazy(() => import("../../components/Modal"));
 
-class ComponentConnectaChannel extends React.Component {
+class ComponentConnectaChannel extends Component {
+  formData = [];
+  projectListViewModel = null;
   constructor(props) {
     super(props);
 
+    console.log("==============");
+    console.log(this.props);
+
+    this.projectListViewModel = this.props.projectListViewModel;
+
+    let { viewModel } = this.props;
+
+    this.loginCMSChannelFormModalViewModel = viewModel
+      ? viewModel.getLoginCMSChannelFormModalViewModel()
+      : null;
+
     this.state = {
       panelIndex: "",
+      isShowModalWordpress: false,
       channels: [
         {
           id: 1,
@@ -26,7 +48,7 @@ class ComponentConnectaChannel extends React.Component {
           items: [
             {
               id: 1,
-              name: "Facebook",
+              name: "facebooks",
               image: "/assets/images/icon-pepsi.png",
               list: [
                 {
@@ -48,9 +70,91 @@ class ComponentConnectaChannel extends React.Component {
             },
           ],
         },
+        {
+          id: 2,
+          name: "advertising",
+          title: "Advertising",
+          items: [],
+        },
+        {
+          id: 3,
+          name: "cms",
+          title: "CMS",
+          items: [
+            {
+              id: 1,
+              name: "wordpress",
+              image: "/assets/images/icon-nikon.png",
+              list: [
+                {
+                  image: "/assets/images/icon-pepsi.png",
+                  name: "Food Network",
+                  type: "Website",
+                },
+                {
+                  image: "/assets/images/icon-pepsi.png",
+                  name: "BuzzFeed Food",
+                  type: "Website",
+                },
+                {
+                  image: "/assets/images/icon-pepsi.png",
+                  name: "12 Tomatoes",
+                  type: "Website",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: 4,
+          name: "email-marketing",
+          title: "Email Marketing",
+          items: [
+            {
+              id: 1,
+              name: "Mailchimp",
+              image: "/assets/images/icon-adidas.png",
+              list: [
+                {
+                  image: "/assets/images/icon-pepsi.png",
+                  name: "triax.dk mail",
+                  type: "Email marketing",
+                },
+                {
+                  image: "/assets/images/icon-pepsi.png",
+                  name: "redWEB mail",
+                  type: "Email marketing",
+                },
+              ],
+            },
+            {
+              id: 2,
+              name: "GetResponse",
+              image: "/assets/images/icon-nikon.png",
+              list: [
+                {
+                  image: "/assets/images/icon-pepsi.png",
+                  name: "triax.dk mail",
+                  type: "Email marketing",
+                },
+                {
+                  image: "/assets/images/icon-pepsi.png",
+                  name: "redWEB mail",
+                  type: "Email marketing",
+                },
+              ],
+            },
+          ],
+        },
       ],
     };
   }
+
+  closeModal = () => {
+    this.setState({
+      isShowModalWordpress: false,
+    });
+  };
 
   handleConnectChannel = (name) => {
     let { projectListViewModel } = this.props;
@@ -58,6 +162,10 @@ class ComponentConnectaChannel extends React.Component {
     let getIdProject = history.location.pathname.match(/\d/g);
     getIdProject = getIdProject.join("");
     projectListViewModel.connectLoginUrl(getIdProject, name);
+  };
+
+  showModalConnectCMS = (name) => {
+    this.loginCMSChannelFormModalViewModel.openModal();
   };
 
   render() {
@@ -72,98 +180,85 @@ class ComponentConnectaChannel extends React.Component {
           id="connectContent-tab"
           className="bg-white border-0"
         >
-          {channels.map((value, key) => {
-            return (
-              <Tab key={key} eventKey={value.id} title={value.title}>
-                <div className="mt-4">
-                  {value.items.map((item, index) => {
-                    return (
-                      <div key={index} className="bg-white rounded-3 mb-4">
-                        <div className="d-flex align-items-center justify-content-between p-3">
-                          <div className="d-flex align-items-center">
-                            <img
-                              className="img-avatar"
-                              src={item.image}
-                              alt=""
-                            />
-                            <span className="ms-2 fs-4 text-blue-0">
-                              {item.name}
-                            </span>
-                          </div>
-                          <button
-                            className="cursor-pointer btn btn-success"
-                            onClick={(e) => {
-                              this.handleConnectChannel("facebook");
-                            }}
-                            disabled={connected ? true : false}
-                          >
-                            <i>
-                              <FontAwesomeIcon icon={faPlus} />
-                            </i>
-                            <span className="ms-2">
-                              {connected ? "Connected" : "Connect"}
-                            </span>
-                          </button>
-                        </div>
-                        {listFaceBookFanpageView && (
-                          <div className="p-3">
-                            <div className={`list_content`}>
-                              <div className="py-2 px-3 bg-blue d-flex rounded-2">
-                                <div className="col-4">Name</div>
-                                <div className="col-6 text-end">Action</div>
-                              </div>
-                              <div className={`list_main `}>
-                                {listFaceBookFanpageView.map((value, key) => {
-                                  return (
-                                    <div
-                                      key={key}
-                                      className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
-                                    >
-                                      <div className="col-4">
-                                        <div className="d-flex align-items-center">
-                                          <span className="ms-2">
-                                            {value.name}
-                                          </span>
-                                        </div>
-                                      </div>
-                                      {/* <div className="col-6 text-end">
-                                        <div className="d-flex align-items-center justify-content-end">
-                                          <a
-                                            href="/social-media"
-                                            className="btn -btn-light"
-                                          >
-                                            <i>
-                                              <FontAwesomeIcon icon={faSync} />
-                                            </i>
-                                            <span className="ms-2">
-                                              Reconnect
-                                            </span>
-                                          </a>
-                                          <a
-                                            href={void 0}
-                                            className="btn -btn-light"
-                                          >
-                                            <i>
-                                              <FontAwesomeIcon icon={faTrash} />
-                                            </i>
-                                            <span className="ms-2">Remove</span>
-                                          </a>
-                                        </div>
-                                      </div> */}
-                                    </div>
-                                  );
-                                })}
+          <Tab eventKey={1} title={"Social Media"}>
+            <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/icon-pepsi.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Social Media
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("facebook");
+                    }}
+                    disabled={connected ? true : false}
+                  >
+                    <i>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </i>
+                    <span className="ms-2">
+                      {connected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+                {listFaceBookFanpageView && (
+                  <div className="p-3">
+                    <div className={`list_content`}>
+                      <div className="py-2 px-3 bg-blue d-flex rounded-2">
+                        <div className="col-4">Name</div>
+                        <div className="col-6 text-end">Action</div>
+                      </div>
+                      <div className={`list_main `}>
+                        {listFaceBookFanpageView.map((value, key) => {
+                          return (
+                            <div
+                              key={key}
+                              className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
+                            >
+                              <div className="col-4">
+                                <div className="d-flex align-items-center">
+                                  <span className="ms-2">{value.name}</span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        )}
+                          );
+                        })}
                       </div>
-                    );
-                  })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Tab>
+          <Tab eventKey={2} title={"CMS"}>
+            <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/icon-pepsi.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Wordpress
+                    </span>
+                  </div>
+                  <LoginChannelCMSFormModal
+                    clicked={this.showModalConnectCMS}
+                  />
                 </div>
-              </Tab>
-            );
-          })}
+              </div>
+            </div>
+          </Tab>
         </Tabs>
       </div>
     );

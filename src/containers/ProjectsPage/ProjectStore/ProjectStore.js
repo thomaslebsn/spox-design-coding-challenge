@@ -216,14 +216,16 @@ export default class ProjectStore {
   ) {
     try {
       const projectChannelService = new EasiiProjectChannelApiService();
-      // const response = projectChannelService.getFBLoginUrl(projectChannelId);
       console.log("channelUniqueName channelUniqueName");
       console.log(channelUniqueName);
       let response = null;
 
       switch (channelUniqueName) {
         case "facebook":
-          response = await projectChannelService.getLoginUrl(projectId);
+          response = await projectChannelService.getLoginUrl(
+            projectId,
+            channelUniqueName
+          );
           break;
         default:
           break;
@@ -337,6 +339,37 @@ export default class ProjectStore {
       console.log(error);
       runInAction(() => {
         callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
+  async connectCMS(
+    callbackOnSuccess,
+    callbackOnError,
+    dataPost,
+    channelUniqueName
+  ) {
+    const projectChannelService = new EasiiProjectChannelApiService();
+    // const response = projectChannelService.getFBLoginUrl(projectChannelId);
+    console.log("channelUniqueName channelUniqueName");
+    console.log(channelUniqueName);
+    let response = null;
+
+    switch (channelUniqueName) {
+      case "wordpress":
+        response = await projectChannelService.doLoginCMS(dataPost);
+        break;
+      default:
+        break;
+    }
+
+    if (response == true) {
+      runInAction(() => {
+        callbackOnSuccess(response);
+      });
+    } else {
+      callbackOnError({
+        message: "Something went wrong from Server response",
       });
     }
   }

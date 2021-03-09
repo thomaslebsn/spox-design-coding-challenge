@@ -25,6 +25,7 @@ class ProjectsListViewModel {
   listFaceBookFanpageView = null;
 
   // show = false;
+  showModalCMS = true;
 
   constructor(projectStore) {
     makeAutoObservable(this);

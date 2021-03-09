@@ -20,10 +20,11 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight
 
 import WizardSteps from "../../../components/WizardSteps";
 import styles from "./index.module.scss";
+
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
     projectListViewModel = null;
-
+    viewModel = null;
     constructor(props) {
       super(props);
 
@@ -33,6 +34,8 @@ const ConnectChannel = observer(
       this.projectListViewModel = viewModel
         ? viewModel.getProjectListViewModel()
         : null;
+
+      this.viewModel = viewModel;
 
       console.log("After binding class 22222");
       console.log(this.projectListViewModel);
@@ -109,49 +112,13 @@ const ConnectChannel = observer(
 
       return (
         <div className="d-flex flex-column m-4 p-4">
-          {/* <div className="wrapper_tabs bg-white rounded-3 mb-4">
-            <Tabs defaultActiveKey="1" id="connectContent-tab">
-              {channels.map((value) => {
-                return (
-                  <Tab eventKey={value.id} title={value.title}>
-                    {value.items.map((item) => {
-                      {
-                        return (
-                          <div
-                            className={`item_accordion ${styles.item_accordion} d-flex justify-content-between p-4 border-bottom-1`}
-                          >
-                            <div className="align-self-center">
-                              <Image
-                                src={item.image}
-                                className="pe-2"
-                                height="40"
-                              />
-                              <span className="ps-2 fs-5">{item.name}</span>
-                            </div>
-                            <div className="align-self-center">
-                              <Button
-                                link="#"
-                                icon={faPlus}
-                                text="Connect"
-                                className="btn-success"
-                                onClick={this.handleClick}
-                              />
-                            </div>
-                          </div>
-                        );
-                      }
-                    })}
-                  </Tab>
-                );
-              })}
-            </Tabs>
-          </div> */}
           <ComponentConnectaChannel
             projectListViewModel={this.projectListViewModel}
             listFaceBookFanpageView={
               listFaceBookFanpageView ? listFaceBookFanpageView : null
             }
             connected={this.projectListViewModel.connected}
+            viewModel={this.viewModel}
           />
           <div className="d-flex justify-content-between">
             <Button
