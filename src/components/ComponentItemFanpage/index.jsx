@@ -11,13 +11,13 @@ class ComponentItemFanpage extends React.Component {
     const { listFaceBookFanpage, handleCheckbox } = this.props;
     return (
       <div>
-        <ul className="list-unstyled d-flex align-items-center">
+        <ul className="list-unstyled align-items-center">
           {listFaceBookFanpage.map((value, key) => {
             return (
-              <li className="d-flex align-items-center justify-content-between w-100">
+              <li className="d-flex align-items-center justify-content-between w-100 mb-3">
                 <div className="d-flex align-items-center justify-content-between">
                   <img src="/assets/images/ic-facebook.svg" />
-                  <p>{value.name}</p>
+                  <p className="mb-0">{value.name}</p>
                 </div>
                 <Checkbox onClick={handleCheckbox(value.id)} />
               </li>
