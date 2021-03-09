@@ -18,6 +18,8 @@ class ProjectsListViewModel {
 
   dataFilter = null;
 
+  showModalCMS = true;
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
