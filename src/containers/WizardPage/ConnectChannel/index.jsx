@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import { Image, Tab, Tabs } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
@@ -12,9 +12,15 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import ButtonNormal from "../../../components/ButtonNormal";
 import ComponentConnectaChannel from "../../../components/ComponentConnectaChannel";
 import { withWizardViewModel } from "../WizardViewModels/WizardViewModelContextProvider";
+import Checkbox from "../../../components/Checkbox";
+import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 
 import WizardSteps from "../../../components/WizardSteps";
 import styles from "./index.module.scss";
+
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
     projectListViewModel = null;
@@ -29,7 +35,7 @@ const ConnectChannel = observer(
         ? viewModel.getProjectListViewModel()
         : null;
 
-        this.viewModel = viewModel;
+      this.viewModel = viewModel;
 
       console.log("After binding class 22222");
       console.log(this.projectListViewModel);
@@ -50,71 +56,68 @@ const ConnectChannel = observer(
             name: "advertising",
             title: "Advertising",
             items: [
-              { name: "Advertising 1", image: "/assets/images/icon-adidas.png" },
+              {
+                name: "Advertising 1",
+                image: "/assets/images/icon-adidas.png",
+              },
               { name: "Advertising 2", image: "/assets/images/icon-nikon.png" },
             ],
           },
         ],
-        showModal: false,
+        showModal: true,
+        getIDSFanpage: [],
       };
     }
-  
-    handleClick = () => {
-      this.setState((state) => ({ showModal: true }));
-    };
-  
-    handleModalShow = (s) => {
-      this.setState((state) => ({ showModal: s }));
-    };
-  
+
     next = () => {
       history.push(`${history.location.pathname}/content`);
     };
-  
+
+    handleCloseModal = () => {
+      this.setState({
+        showModal: false,
+      });
+    };
+
+    handleCheckbox = (id) => {
+      let getIDSFanpage = this.state.getIDSFanpage;
+      getIDSFanpage.push(id);
+
+      this.setState({
+        getIDFanpage: getIDSFanpage,
+      });
+    };
+
+    handleSaveFanpage = () => {
+      let getIdProject = history.location.pathname.match(/\d/g);
+      getIdProject = getIdProject.join("");
+      this.projectListViewModel.saveChosseFacebookFanpages(
+        getIdProject,
+        this.state.getIDSFanpage
+      );
+
+      this.setState({
+        showModal: false,
+      });
+    };
+
     render() {
       let { channels, showModal } = this.state;
-  
+
+      const {
+        listFaceBookFanpage,
+        connected,
+        listFaceBookFanpageView,
+      } = this.projectListViewModel;
+
       return (
         <div className="d-flex flex-column m-4 p-4">
-          {/* <div className="wrapper_tabs bg-white rounded-3 mb-4">
-            <Tabs defaultActiveKey="1" id="connectContent-tab">
-              {channels.map((value) => {
-                return (
-                  <Tab eventKey={value.id} title={value.title}>
-                    {value.items.map((item) => {
-                      {
-                        return (
-                          <div
-                            className={`item_accordion ${styles.item_accordion} d-flex justify-content-between p-4 border-bottom-1`}
-                          >
-                            <div className="align-self-center">
-                              <Image
-                                src={item.image}
-                                className="pe-2"
-                                height="40"
-                              />
-                              <span className="ps-2 fs-5">{item.name}</span>
-                            </div>
-                            <div className="align-self-center">
-                              <Button
-                                link="#"
-                                icon={faPlus}
-                                text="Connect"
-                                className="btn-success"
-                                onClick={this.handleClick}
-                              />
-                            </div>
-                          </div>
-                        );
-                      }
-                    })}
-                  </Tab>
-                );
-              })}
-            </Tabs>
-          </div> */}
           <ComponentConnectaChannel
             projectListViewModel={this.projectListViewModel}
+            listFaceBookFanpageView={
+              listFaceBookFanpageView ? listFaceBookFanpageView : null
+            }
+            connected={this.projectListViewModel.connected}
             viewModel={this.viewModel}
           />
           <div className="d-flex justify-content-between">
@@ -123,23 +126,53 @@ const ConnectChannel = observer(
               onClick={() => this.props.goToStep(1)}
               text="Back"
             />
-  
+
             <ButtonNormal
               className="btn btn-success"
               text="Next"
               onClick={this.next}
             ></ButtonNormal>
           </div>
-          <ModalComponent
-            body="test"
-            show={showModal}
-            onHide={() => this.handleModalShow(false)}
-          />
+          {connected && (
+            <ModalComponent
+              header={"Facebook Fanpage"}
+              body={
+                <div>
+                  <ul className="list-unstyled align-items-center">
+                    {listFaceBookFanpage &&
+                      listFaceBookFanpage.map((value, key) => {
+                        return (
+                          <ComponentItemFanpage
+                            key={key}
+                            name={value.name}
+                            handleCheckbox={(e) => {
+                              this.handleCheckbox(value.id);
+                            }}
+                          />
+                        );
+                      })}
+                  </ul>
+                </div>
+              }
+              show={showModal}
+              onHide={this.handleCloseModal}
+              footer={
+                <button
+                  onClick={this.handleSaveFanpage}
+                  className="btn btn-success w-100"
+                >
+                  <span>Save</span>
+                  <i className="ms-1">
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </i>
+                </button>
+              }
+            />
+          )}
         </div>
       );
     }
   }
-)
-
+);
 
 export default withWizardViewModel(ConnectChannel);
