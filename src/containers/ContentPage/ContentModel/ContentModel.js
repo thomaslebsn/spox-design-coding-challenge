@@ -158,41 +158,29 @@ class ContentModel {
 
   static convertSubmittedDataToAPIService(contentData) {
     console.log("convertSubmittedDataToAPIService");
-    const personas = contentData[CONTENT_FIELD_KEY.PERSONA].map((e) => {
-      return e[PERSONA_FIELD_KEY.ID];
-    });
+   
 
-    const campaignId =
-      contentData[CONTENT_FIELD_KEY.CAMPAIGN].length > 0
-        ? contentData[CONTENT_FIELD_KEY.CAMPAIGN][0][CAMPAIGNS_FIELD_KEY.ID]
-        : 0;
+    const contentId = contentData[CONTENT_FIELD_KEY.ID]
+      ? contentData[CONTENT_FIELD_KEY.ID]
+      : 0;
 
-    console.log(personas);
     const result = contentData
       ? {
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]:
-            contentData[CONTENT_FIELD_KEY.ID],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
-            contentData[CONTENT_FIELD_KEY.NAME],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME]:
-            contentData[CONTENT_FIELD_KEY.THEME],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CUSTOMIZE_SCHEDULE_FOR_EACH_CHANNEL]: 1,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PUBLISH_DATE]:
-            "2020-11-02T00:00:00+00:00",
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PUBLISH_REGULARLY]: 1,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.SCHEDULE_CHANNEL]: 1,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_FROM]: new Date(),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.DATE_UNTIL]: new Date(),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.TIME]: new Date(),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: campaignId,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS]: [
-            {
-              channel_id: 215,
-              description: contentData[CONTENT_FIELD_KEY.DESCRIPTION],
-            },
-          ],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(personas),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.STATUS]: 1,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]:
+            contentData[CONTENT_FIELD_KEY.PROJECT],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: contentData[CONTENT_FIELD_KEY.CAMPAIGN],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
+            contentData[CONTENT_FIELD_KEY.PERSONA]
+          ),
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
+              contentData[CONTENT_FIELD_KEY.NAME],
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
+              contentData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_DESIGN_ID]:
+              contentData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+          },
         }
       : null;
     return result;

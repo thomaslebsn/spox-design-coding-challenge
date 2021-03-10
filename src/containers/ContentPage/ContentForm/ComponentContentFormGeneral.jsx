@@ -33,7 +33,8 @@ class ComponentContentFormGeneral extends Component {
     [CONTENT_FIELD_KEY.CAMPAIGN]: "",
     [CONTENT_FIELD_KEY.PERSONA]: "",
     [CONTENT_FIELD_KEY.DESCRIPTION]: "",
-    [CONTENT_FIELD_KEY.THEME]: "",
+    [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: "",
+    [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: "",
   };
 
   validator = null;
@@ -83,7 +84,7 @@ class ComponentContentFormGeneral extends Component {
             changed: () => {
               this.formPropsData[
                 CONTENT_FIELD_KEY.PROJECT
-              ] = this.projectTableSelectionModalViewModel.getSelectionData();
+              ] = this.projectTableSelectionModalViewModel.getSelectedIDs();
             },
             clicked: () => {
               this.projectTableSelectionModalViewModel.openModal();
@@ -100,7 +101,7 @@ class ComponentContentFormGeneral extends Component {
             changed: () => {
               this.formPropsData[
                 CONTENT_FIELD_KEY.CAMPAIGN
-              ] = campaignSelectionViewModal.getSelectionData();
+              ] = campaignSelectionViewModal.getSelectedIDs();
             },
             clicked: () => {
               campaignSelectionViewModal.openModal();
@@ -117,7 +118,7 @@ class ComponentContentFormGeneral extends Component {
             changed: () => {
               this.formPropsData[
                 CONTENT_FIELD_KEY.PERSONA
-              ] = personaSelectionViewModal.getSelectionData();
+              ] = personaSelectionViewModal.getSelectedIDs();
             },
             clicked: () => {
               personaSelectionViewModal.openModal();
@@ -172,10 +173,8 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.THEME],
             changed: ({ exportUrl, designId }) => {
               console.log("[Canva Field] changed", { exportUrl, designId });
-              this.formPropsData[CONTENT_FIELD_KEY.THEME] = {
-                [ESI_CONTENT_THEME_FIELD_KEY.DESIGN_ID]: designId,
-                [ESI_CONTENT_THEME_FIELD_KEY.IMAGE]: exportUrl,
-              };
+              this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] = exportUrl;
+              this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
             },
             blurred: this.blurringFieldHandler,
           },

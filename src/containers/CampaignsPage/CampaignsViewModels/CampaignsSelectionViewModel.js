@@ -68,6 +68,29 @@ class CampaignsSelectionViewModel {
       }, []);
   };
 
+  getSelectedIDs = () => {
+    if (!this.campaignSelectionData) return null;
+    const convertedInArray = this.campaignSelectionData
+      .map((item) => {
+        return item[CAMPAIGNS_FIELD_KEY.ID];
+      })
+      .reduce((arr, el) => {
+        const i = arr.findIndex((e) => e.value === el.value);
+
+        if (i === -1) {
+          arr.push(el);
+        } else {
+          arr[i] = el;
+        }
+        return arr;
+      }, []);
+    let result = convertedInArray;  
+    if (!this.multi) {
+       result = convertedInArray.length > 0 ? convertedInArray[0] : null;
+    }
+    return result;
+  };
+
   getSelectionData = () => {
     return this.campaignSelectionData;
   };

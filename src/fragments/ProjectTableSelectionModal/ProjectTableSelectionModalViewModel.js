@@ -69,6 +69,29 @@ class ProjectTableSelectionModalViewModel {
     return this.projectsSelectionData;
   };
 
+  getSelectedIDs = () => {
+    if (!this.projectsSelectionData) return null;
+    const convertedInArray = this.projectsSelectionData
+      .map((item) => {
+        return item[PROJECT_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID];
+      })
+      .reduce((arr, el) => {
+        const i = arr.findIndex((e) => e.value === el.value);
+
+        if (i === -1) {
+          arr.push(el);
+        } else {
+          arr[i] = el;
+        }
+        return arr;
+      }, []);
+    let result = convertedInArray;  
+    if (!this.multi) {
+       result = convertedInArray.length > 0 ? convertedInArray[0] : null;
+    }
+    return result;
+  };
+
   loadDataIntoUI = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.fragmentStore.getProjectMasterData(

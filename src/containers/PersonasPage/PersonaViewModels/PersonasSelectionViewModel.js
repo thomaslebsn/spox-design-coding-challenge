@@ -70,6 +70,31 @@ class PersonasSelectionViewModel {
       }, []);
   };
 
+  getSelectedIDs = () => {
+    if (!this.personaSelectionData) return null;
+    const convertedInArray = this.personaSelectionData
+      .map((item) => {
+        return item[PERSONA_FIELD_KEY.ID];
+      })
+      .reduce((arr, el) => {
+        const i = arr.findIndex((e) => e.value === el.value);
+
+        if (i === -1) {
+          arr.push(el);
+        } else {
+          arr[i] = el;
+        }
+        return arr;
+      }, []);
+    let result = convertedInArray;  
+    if (!this.multi) {
+       result = convertedInArray.length > 0 ? convertedInArray[0] : null;
+    }
+    console.log("PersonaVM - getSelectedIDs");
+    console.log(result);
+    return result;
+  };
+
   getSelectionData = () => {
     return this.personaSelectionData;
   };

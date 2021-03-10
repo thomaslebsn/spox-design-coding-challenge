@@ -19,6 +19,9 @@ const CONTENT_FIELD_KEY = {
   START_DATE: "startDate",
   END_DATE: "endDate",
   APPROVAL: "content-approval",
+  CONTENT_THEMES: "content-themes",
+  CANVA_EXPORTED_URL: "canva-exported-url",
+  CANVA_DESIGN_ID: "canva-design-id",
 };
 
 const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {
@@ -35,8 +38,13 @@ const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {
   TIME: "time",
   PERSONA: "personas",
   CAMPAIGN: "campaign",
+  PROJECT: "project",
   STATUS: "status",
   CHANNEL_ATTACHMENTS: "channel_attachments",
+  CONTENT_THEMES: "content_themes",
+  CONTENT_TO_POST: "content_to_post",
+  CANVA_EXPORTED_URL: "canva_exported_url",
+  CANVA_DESIGN_ID: "canva_design_id",
 };
 
 export { CONTENT_FIELD_KEY, ESI_CONTENT_API_RESPONSE_FIELD_KEY };
