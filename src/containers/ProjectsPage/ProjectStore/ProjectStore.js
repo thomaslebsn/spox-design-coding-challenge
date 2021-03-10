@@ -227,6 +227,14 @@ export default class ProjectStore {
             channelUniqueName
           );
           break;
+        case "twitter":
+        case "linkedin":
+          response = await projectChannelService.getLoginUrl(
+            projectId,
+            channelUniqueName
+          );
+          break;
+
         default:
           break;
       }
@@ -256,10 +264,25 @@ export default class ProjectStore {
   ) {
     try {
       const projectChannelService = new EasiiProjectChannelApiService();
-      const result = await projectChannelService.checkConnectionStatus(
-        projectId,
-        channelUniqueName
-      );
+      let result = null;
+
+      switch (channelUniqueName) {
+        case "facebook":
+          result = await projectChannelService.checkConnectionStatusFacebook(
+            projectId,
+            channelUniqueName
+          );
+          break;
+        case "twitter":
+        case "linkedin":
+          result = await projectChannelService.getCheckConnectStatusChannel(
+            projectId,
+            channelUniqueName
+          );
+          break;
+        default:
+          break;
+      }
 
       if (result) {
         runInAction(() => {
@@ -373,4 +396,36 @@ export default class ProjectStore {
       });
     }
   }
+
+  // async getCheckConnectStatusChannelList(
+  //   callbackOnSuccess,
+  //   callbackOnError,
+  //   projectId,
+  //   channelUniqueName
+  // ) {
+  //   try {
+  //     const projectChannelService = new EasiiProjectChannelApiService();
+  //     const response = await projectChannelService.getCheckConnectStatusChannel(
+  //       projectId,
+  //       channelUniqueName
+  //     );
+
+  //     if (response != null) {
+  //       console.log("responseresponse status 222 store", response);
+  //       runInAction(() => {
+  //         callbackOnSuccess(response);
+  //       });
+  //     } else {
+  //       callbackOnError({
+  //         message:
+  //           "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     runInAction(() => {
+  //       callbackOnError("[intervalAskForConnectedChannels] - " + error);
+  //     });
+  //   }
+  // }
 }

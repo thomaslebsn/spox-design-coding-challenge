@@ -102,12 +102,14 @@ const ConnectChannel = observer(
     };
 
     render() {
-      let { channels, showModal } = this.state;
+      let { showModal } = this.state;
 
       const {
         listFaceBookFanpage,
-        connected,
         listFaceBookFanpageView,
+        facebookConnected,
+        twitterConnected,
+        linkedinConnected,
       } = this.projectListViewModel;
 
       return (
@@ -117,7 +119,9 @@ const ConnectChannel = observer(
             listFaceBookFanpageView={
               listFaceBookFanpageView ? listFaceBookFanpageView : null
             }
-            connected={this.projectListViewModel.connected}
+            facebookConnected={facebookConnected}
+            twitterConnected={twitterConnected}
+            linkedinConnected={linkedinConnected}
             viewModel={this.viewModel}
           />
           <div className="d-flex justify-content-between">
@@ -133,7 +137,7 @@ const ConnectChannel = observer(
               onClick={this.next}
             ></ButtonNormal>
           </div>
-          {connected && (
+          {listFaceBookFanpage && (
             <ModalComponent
               header={"Facebook Fanpage"}
               body={

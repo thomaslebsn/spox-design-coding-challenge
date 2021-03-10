@@ -18,27 +18,22 @@ class ProjectsListViewModel {
 
   dataFilter = null;
 
-  connected = false;
+  facebookConnected = false;
+
+  twitterConnected = false;
+
+  linkedinConnected = false;
 
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
 
-  // show = false;
   showModalCMS = true;
 
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
   }
-
-  // openModal = () => {
-  //   this.show = true;
-  // };
-
-  // closeModal = () => {
-  //   this.show = false;
-  // };
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
@@ -141,17 +136,31 @@ class ProjectsListViewModel {
             (response) => {
               if (response) {
                 this.tableStatus = PAGE_STATUS.READY;
-                clearInterval(checkConnectionStatusInterval);
 
-                console.log("resultresultresultresult", response);
-                console.log(
-                  "resultresultresultresult pages",
-                  response.result.pages.pages
-                );
-
-                this.listFaceBookFanpage = response.result.pages.pages;
-
-                this.connected = true;
+                let responseResult = response.result;
+                switch (channelUniqueName) {
+                  case "facebook":
+                    if (responseResult.pages.status === "connected") {
+                      this.facebookConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                      this.listFaceBookFanpage = responseResult.pages.pages;
+                    }
+                    break;
+                  case "twitter":
+                    if (responseResult.connected == 1) {
+                      this.twitterConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case "linkedin":
+                    if (responseResult.connected == 1) {
+                      this.linkedinConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  default:
+                    break;
+                }
               }
             },
             (error) => {},
@@ -169,8 +178,6 @@ class ProjectsListViewModel {
   };
 
   saveChosseFacebookFanpages = (projectId, pageIds) => {
-    console.log("projectId saveChosseFacebookFanpages", projectId);
-    console.log("channelUniqueName saveChosseFacebookFanpages", pageIds);
     this.projectStore.saveChosseFacebookFanpages(
       this.callbackOnSuccessListFacebookFanpage,
       this.callbackOnErrorHander,
@@ -180,22 +187,11 @@ class ProjectsListViewModel {
   };
 
   callbackOnSuccessListFacebookFanpage = (response, projectId, pageIds) => {
-    console.log("callbackOnSuccessListFacebookFanpage");
-    console.log("callbackOnSuccessListFacebookFanpage projectId", projectId);
-    console.log("callbackOnSuccessListFacebookFanpage pageIds", pageIds);
-    console.log(response);
-
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
-      // Show modal of list FB fanpage
-      // User selects and click save
-      // Call projectStore save list of selected FB Fanpage
       this.projectStore.getFacebookFanpages(
         (respons) => {
-          console.log("respons getFacebookFanpages 2222", respons);
           this.listFaceBookFanpageView = respons.result.pages.pages;
-          // Close Modal
-          // List selected and connected FB Fanpages in UI
         },
         (error) => {},
         projectId,
