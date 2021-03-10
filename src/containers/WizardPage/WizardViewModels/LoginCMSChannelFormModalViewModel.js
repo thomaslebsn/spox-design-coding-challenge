@@ -7,7 +7,6 @@ class LoginCMSChannelFormModalViewModel {
   projectStore = null;
   isConnectWordpressSuccess = false;
 
-
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -26,9 +25,10 @@ class LoginCMSChannelFormModalViewModel {
     this.show = false;
   };
 
-  saveCMSHandler = (channelUniqueName = 'wordpress') => {
-      let dataPost = this.loginChannelCMSFormComponent.formPropsData;
-      dataPost.channelType = channelUniqueName;
+  saveCMSHandler = (projectId, channelUniqueName) => {
+    let dataPost = this.loginChannelCMSFormComponent.formPropsData;
+    dataPost.channelType = channelUniqueName;
+    dataPost.projectId = projectId;
     this.projectStore.connectCMS(
       this.callbackOnSuccessCMS,
       this.callbackOnErrorHander,

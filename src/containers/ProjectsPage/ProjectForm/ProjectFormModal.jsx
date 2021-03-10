@@ -37,12 +37,12 @@ const ProjectFormModal = observer(
       console.log('project form model modal');
       console.log(this.projectFormModalViewModel);
       console.log("[ProjectFormModal] - re-render .........");
-      const { show } = this.projectFormModalViewModel;
+      const { show, editMode } = this.projectFormModalViewModel;
       return (
         <ModalComponent
           show={show}
           onHide={this.projectFormModalViewModel.closeModal}
-          header={"Create a new project"}
+          header={(editMode == false || editMode == null) ? "Create a new project" : 'Edit project'}
           body={<ProjectForm viewModel={this.projectFormModalViewModel} />}
           footer={<Button onClick={this.saveProjectHandler}>Save</Button>}
           key={Math.random(40, 200)}

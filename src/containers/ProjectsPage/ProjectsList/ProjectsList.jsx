@@ -40,6 +40,7 @@ const ProjectsList = observer(
     };
 
     handerEditProject = (e, row) => {
+      console.log('fsdfsdfsd');
       this.projectFormModalViewModel.getProject(row.id);
       this.projectFormModalViewModel.openModal();
     };
@@ -94,10 +95,10 @@ const ProjectsList = observer(
           Header: "End Date",
           accessor: PROJECT_COLUMN_INDICATOR.END_DATE,
         },
-        // {
-        //   Header: "Lead",
-        //   accessor: PROJECT_COLUMN_INDICATOR.LEAD,
-        // },
+        {
+          Header: "Lead",
+          accessor: PROJECT_COLUMN_INDICATOR.LEAD,
+        },
         {
           Header: "Progress",
           accessor: PROJECT_COLUMN_INDICATOR.PROGRESS,
@@ -129,6 +130,8 @@ const ProjectsList = observer(
           pagination={pagination}
           listViewModel={this.projectListViewModel}
           searchFunction={this.projectListViewModel.searchProjects}
+          searchText="Search your project"
+          hasSubRow={false}
         ></Table>
       );
     }

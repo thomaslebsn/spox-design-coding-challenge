@@ -53,7 +53,7 @@ class ProjectActionBar extends Component {
         </Dropdown>
         <ButtonNormal
           onClick={this.createProjectHandler}
-          text="Crete new project"
+          text="Create project"
         />
         <ProjectFormModal />
       </div>
