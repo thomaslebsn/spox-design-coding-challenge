@@ -197,7 +197,7 @@ class ComponentConnectaChannel extends Component {
                   <div className="d-flex align-items-center">
                     <img
                       className="img-avatar"
-                      src={"/assets/images/icon-pepsi.png"}
+                      src={"/assets/images/wordpress.png"}
                       alt=""
                     />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">
