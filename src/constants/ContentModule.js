@@ -12,6 +12,7 @@ const CONTENT_FIELD_KEY = {
   DATE_UNTIL: "content-date-until",
   TIME: "content-time",
   PERSONA: "content-persona",
+  PROJECT: "content-project",
   CAMPAIGN: "content-campaign",
   CHANNELS: "content-channels",
   STATUS: "content-status",

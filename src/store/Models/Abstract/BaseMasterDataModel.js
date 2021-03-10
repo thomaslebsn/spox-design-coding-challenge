@@ -24,6 +24,13 @@ class BaseMasterDataModel {
       return element ? element.toDropdownSelectionItem() : null;
     });
   };
+
+  toTableRowsData = () => {
+    if (!this.items) return null;
+    return this.items.map((element) => {
+      return element ? element.toTableRowData() : null;
+    });
+  };
 }
 
 export default BaseMasterDataModel;

@@ -3,62 +3,28 @@ import styles from "./index.module.scss";
 
 const defaultData = [
   {
-    key: 1,
-    images: "/assets/images/ic-youtube.svg",
-    number: "2.344",
-    des: "Subscribers",
+    images: "/assets/images/ic-facebook.svg",
+    des: "Facebook",
   },
   {
-    key: 2,
     images: "/assets/images/ic-facebook.svg",
-    number: "1.891",
-    des: "Likes",
+    des: "Twitter",
   },
   {
-    key: 3,
     images: "/assets/images/ic-facebook.svg",
-    number: "1.004",
-    des: "Followers",
+    des: "LinkedIn",
   },
   {
-    key: 4,
     images: "/assets/images/ic-facebook.svg",
-    number: "35,134",
-    des: "Followers",
+    des: "Wordpress",
   },
   {
-    key: 5,
     images: "/assets/images/ic-facebook.svg",
-    number: "1,284",
-    des: "Followers",
-  },
-  {
-    key: 6,
-    images: "/assets/images/ic-facebook.svg",
-    number: "600",
-    des: "Posts",
-  },
-  {
-    key: 7,
-    images: "/assets/images/ic-facebook.svg",
-    number: "2,134",
-    des: "Followers",
-  },
-  {
-    key: 8,
-    images: "/assets/images/ic-facebook.svg",
-    number: "49",
-    des: "Posts",
-  },
-  {
-    key: 9,
-    images: "/assets/images/ic-facebook.svg",
-    number: "59",
-    des: "Posts",
+    des: "Mailchimp",
   },
 ];
 
-class ListSocial extends React.Component {
+class ListConnectedChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -73,8 +39,8 @@ class ListSocial extends React.Component {
           {dataToRender.map((value, key) => {
             return (
               <div
-                key={key}
-                className={`item_social ${styles.item_social} col-4 mb-3 `}
+                key={Math.random(10000, 20000)}
+                className={`item_social ${styles.item_social} col-3 mb-4 `}
               >
                 <div
                   className={`main_social ${styles.main_social} text-center`}
@@ -82,9 +48,8 @@ class ListSocial extends React.Component {
                   <p
                     className={`mb-0 wrapper_images ${styles.wrapper_images} d-flex align-items-center justify-content-center`}
                   >
-                    <img src={value.images} />
+                    <img alt={value.des} src={value.images} />
                   </p>
-                  <h4 className="text-blue-0 mb-0">{value.number}</h4>
                   <p className="text-blue-0 opacity-50 mb-0">{value.des}</p>
                 </div>
               </div>
@@ -96,4 +61,4 @@ class ListSocial extends React.Component {
   }
 }
 
-export default ListSocial;
+export default ListConnectedChannel;

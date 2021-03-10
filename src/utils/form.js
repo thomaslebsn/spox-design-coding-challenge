@@ -3,6 +3,7 @@ import Label from "../components/Form/Label";
 import { FORM_FIELD_TYPE } from "../constants/FormFieldType";
 import { Form } from "react-bootstrap";
 import CanvaButton from "../components/CanvaButton";
+import ListConnectedChannel from "../components/ListConnectedChannel";
 
 const FormDateRangePicker = lazy(() =>
   import("../components/Form/FormDateRangePicker")
@@ -35,7 +36,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <Form.Control
                     as="input"
                     defaultValue={field.value}
-                    type= {field.typeFormat ? 'password' : 'text'}
+                    type={field.typeFormat ? "password" : "text"}
                     required={field.required ?? false}
                     id={field.key}
                     onChange={field.changed ?? undefined}
@@ -158,6 +159,19 @@ const renderingGroupFieldHandler = (group, validator) => {
                   className={`mb-4 ${className}`}
                 >
                   <CanvaButton key={Math.random(40, 200)} field={field} />
+                </Form.Group>
+              );
+            case FORM_FIELD_TYPE.LABELCARD:
+              return (
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-4 ${className}`}
+                >
+                  <Label
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
+                  <ListConnectedChannel value={field.value} />
                 </Form.Group>
               );
             default:

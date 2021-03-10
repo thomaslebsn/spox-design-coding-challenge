@@ -21,8 +21,6 @@ import {
   campaignSelectionViewModal,
 } from "./CampaignSelectionPage";
 
-import ContentThemeStore from "../ContentStore/ContentThemeStore";
-
 import { renderingGroupFieldHandler } from "../../../utils/form";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
@@ -31,6 +29,7 @@ import { Form } from "react-bootstrap";
 class ComponentContentFormGeneral extends Component {
   formPropsData = {
     [CONTENT_FIELD_KEY.NAME]: "",
+    [CONTENT_FIELD_KEY.PROJECT]: "",
     [CONTENT_FIELD_KEY.CAMPAIGN]: "",
     [CONTENT_FIELD_KEY.PERSONA]: "",
     [CONTENT_FIELD_KEY.DESCRIPTION]: "",
@@ -39,16 +38,21 @@ class ComponentContentFormGeneral extends Component {
 
   validator = null;
   isEditMode = false;
-
+  viewModel = null;
+  projectTableSelectionModalViewModel = null;
   constructor(props) {
     super(props);
 
     this.validator = new SimpleReactValidator();
     this.viewModel = this.props.viewModel;
 
-    console.log("ContentFormPage - Debug View Model");
-    console.log(this.viewModel);
+    console.log("ContentFormPage - Debug projectTableSelectionModalViewModel");
 
+    this.projectTableSelectionModalViewModel = this.props
+      .projectTableSelectionModalViewModel
+      ? this.props.projectTableSelectionModalViewModel
+      : null;
+    console.log(this.projectTableSelectionModalViewModel);
     this.viewModel.setForm(this);
   }
 
@@ -68,6 +72,23 @@ class ComponentContentFormGeneral extends Component {
     return [
       {
         fields: [
+          {
+            label: "Choose the Project",
+            key: CONTENT_FIELD_KEY.PROJECT,
+            type: FORM_FIELD_TYPE.SELECTION,
+            value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
+            required: true,
+            validation: "required",
+            viewModel: this.projectTableSelectionModalViewModel,
+            changed: () => {
+              this.formPropsData[
+                CONTENT_FIELD_KEY.PROJECT
+              ] = this.projectTableSelectionModalViewModel.getSelectionData();
+            },
+            clicked: () => {
+              this.projectTableSelectionModalViewModel.openModal();
+            },
+          },
           {
             label: "Choose the Campaign",
             key: CONTENT_FIELD_KEY.CAMPAIGN,
@@ -116,6 +137,35 @@ class ComponentContentFormGeneral extends Component {
             blurred: this.blurringFieldHandler,
           },
           {
+            label: "Connected Channels",
+            key: CONTENT_FIELD_KEY.CHANNELS,
+            type: FORM_FIELD_TYPE.LABELCARD,
+            value: this.formPropsData[CONTENT_FIELD_KEY.CHANNELS]
+              ? this.formPropsData[CONTENT_FIELD_KEY.CHANNELS]
+              : [
+                  {
+                    images: "/assets/images/ic-facebook.svg",
+                    des: "Facebook",
+                  },
+                  {
+                    images: "/assets/images/ic-facebook.svg",
+                    des: "Twitter",
+                  },
+                  {
+                    images: "/assets/images/ic-facebook.svg",
+                    des: "LinkedIn",
+                  },
+                  {
+                    images: "/assets/images/ic-facebook.svg",
+                    des: "Wordpress",
+                  },
+                  {
+                    images: "/assets/images/ic-facebook.svg",
+                    des: "Mailchimp",
+                  },
+                ],
+          },
+          {
             label: "Canva",
             key: CONTENT_FIELD_KEY.THEME,
             type: FORM_FIELD_TYPE.CANVA,
@@ -127,14 +177,6 @@ class ComponentContentFormGeneral extends Component {
                 [ESI_CONTENT_THEME_FIELD_KEY.IMAGE]: exportUrl,
               };
             },
-            init: () => {
-              this.formStatus = PAGE_STATUS.LOADING;
-            },
-
-            ready: () => {
-              this.formStatus = PAGE_STATUS.READY;
-            },
-
             blurred: this.blurringFieldHandler,
           },
         ],

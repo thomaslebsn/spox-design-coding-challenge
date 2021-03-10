@@ -8,13 +8,21 @@ import ComponentContentFormGeneral from "../ComponentContentFormGeneral";
 const ContentFormGeneral = observer(
   class ContentFormGeneral extends Component {
     contentFormViewModel = null;
+    projectTableSelectionModalViewModel = null;
     constructor(props) {
       super(props);
 
-      const { viewModel } = this.props;
-      console.log("ContentFormGenera - Debug View Model");
+      const { viewModel, projectTableSelectionModalViewModel } = this.props;
+      console.log("ContentFormGeneral - Debug View Model");
       console.log(viewModel);
 
+      this.projectTableSelectionModalViewModel = projectTableSelectionModalViewModel
+        ? projectTableSelectionModalViewModel
+        : null;
+      console.log(
+        "ContentFormGeneral - Debug projectTableSelectionModalViewModel"
+      );
+      console.log(this.projectTableSelectionModalViewModel);
       this.contentFormViewModel = viewModel
         ? viewModel.getContentFormViewModel()
         : null;
@@ -28,6 +36,9 @@ const ContentFormGeneral = observer(
         <ComponentContentFormGeneral
           {...this.props}
           viewModel={this.contentFormViewModel}
+          projectTableSelectionModalViewModel={
+            this.projectTableSelectionModalViewModel
+          }
           match={this.props.match}
         />
       );
