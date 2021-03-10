@@ -16,6 +16,7 @@ const ProjectForm = lazy(() =>
 const ProjectFormWizard = observer(
   class ProjectFormWizard extends Component {
     projectFormModalViewModel = null;
+
     constructor(props) {
       super(props);
 
@@ -47,10 +48,7 @@ const ProjectFormWizard = observer(
 
     next = () => {
       if (this.projectFormModalViewModel.projectFormComponent.isFormValid()) {
-        // this.props.nextStep();
         this.projectFormModalViewModel.saveOnModal();
-        history.push(`/wizard/project/547`);
-        // history.push(`/wizard/project/${id}`);
       }
     };
 

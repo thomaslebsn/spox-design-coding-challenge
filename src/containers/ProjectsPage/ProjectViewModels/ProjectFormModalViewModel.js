@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
 import PAGE_STATUS from "../../../constants/PageStatus";
+import history from "../../../routes/history";
 
 class ProjectFormModalViewModel {
   show = false;
@@ -83,9 +84,16 @@ class ProjectFormModalViewModel {
     notify(error.message);
   };
 
-  callbackOnSuccessHandler = () => {
+  callbackOnSuccessHandler = (projectId) => {
     console.log("callbackOnSuccessHandler");
+    console.log(projectId);
+
     this.closeModal();
+
+    if (history.location.pathname === "/wizard/createproject") {
+      history.push(`/wizard/project/${projectId}`);
+    }
+
     this.projectListViewModel.refreshTableProjectList();
   };
 }
