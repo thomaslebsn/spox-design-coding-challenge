@@ -104,12 +104,14 @@ export default class ProjectStore {
       const projectAPIService = new EasiiProjectApiService();
 
       var resultOnSave;
+      let projectId = null;
 
       if (projectData.id == undefined) {
         console.log("CREATE PROJECT");
         resultOnSave = await projectAPIService.createProject(
           convertedProjectData
         );
+        projectId = resultOnSave;
       } else {
         console.log("UPDATE PROJECT", convertedProjectData);
         convertedProjectData.logo =
@@ -117,13 +119,14 @@ export default class ProjectStore {
         resultOnSave = await projectAPIService.updateProject(
           convertedProjectData
         );
+        projectId = projectData.id;
       }
 
-      console.log("resultOnSave", resultOnSave);
+      console.log("resultOnSave projectId", projectId);
 
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess();
+          callbackOnSuccess(projectId);
         });
       } else {
         runInAction(() => {
