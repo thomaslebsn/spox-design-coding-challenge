@@ -66,6 +66,7 @@ class ComponentConnectaChannel extends Component {
       listFaceBookFanpageView,
       facebookConnected,
       twitterConnected,
+      linkedinConnected,
     } = this.props;
 
     return (
@@ -155,6 +156,34 @@ class ComponentConnectaChannel extends Component {
                     </i>
                     <span className="ms-2">
                       {twitterConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/icon-pepsi.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Linkedin
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("linkedin");
+                    }}
+                    disabled={linkedinConnected ? true : false}
+                  >
+                    <i>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </i>
+                    <span className="ms-2">
+                      {linkedinConnected ? "Connected" : "Connect"}
                     </span>
                   </button>
                 </div>
