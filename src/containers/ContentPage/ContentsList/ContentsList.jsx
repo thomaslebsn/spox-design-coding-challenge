@@ -71,55 +71,15 @@ const ContentsList = observer(
         .campaignsMasterData;
       console.log(campaignMasterData);
       return [
-        {
-          name: "persona",
-          option: this.contentsFilterFormViewModel.personaMasterData,
-          isMulti: true,
-        },
-        {
-          name: "Organisation",
-          option: [
-            { value: "organisation1", label: "Organisation 1" },
-            { value: "organisation2", label: "Organisation 2" },
-            { value: "organisation3", label: "Organisation 3" },
-          ],
-        },
-        {
-          name: "projects",
-          option: [
-            { value: "projects1", label: "Projects 1" },
-            { value: "projects2", label: "Projects 2" },
-            { value: "projects3", label: "Projects 3" },
-          ],
-        },
+        // {
+        //   name: "persona",
+        //   option: this.contentsFilterFormViewModel.personaMasterData,
+        //   isMulti: true,
+        // },
         {
           name: "campaigns",
           option: this.contentsFilterFormViewModel.campaignsMasterData,
           isMulti: true,
-        },
-        {
-          name: "Content Type",
-          option: [
-            { value: "contentType1", label: "Content Type 1" },
-            { value: "contentType2", label: "Content Type 2" },
-            { value: "contentType3", label: "Content Type 3" },
-          ],
-        },
-        {
-          name: "Status",
-          option: [
-            { value: "status1", label: "Status 1" },
-            { value: "status2", label: "Status 2" },
-            { value: "status3", label: "Status 3" },
-          ],
-        },
-        {
-          name: "Assigness",
-          option: [
-            { value: "assigness1", label: "Assigness 1" },
-            { value: "assigness2", label: "Assigness 2" },
-            { value: "assigness3", label: "Assigness 3" },
-          ],
         },
       ];
     };
