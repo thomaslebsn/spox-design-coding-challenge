@@ -42,7 +42,7 @@ const ProjectForm = observer(
         {
           fields: [
             {
-              label: "Name",
+              label: "Project name",
               key: PROJECT_COLUMN_INDICATOR.NAME,
               type: FORM_FIELD_TYPE.INPUT,
               value: this.formPropsData[PROJECT_COLUMN_INDICATOR.NAME],
@@ -81,8 +81,6 @@ const ProjectForm = observer(
               key: PROJECT_COLUMN_INDICATOR.LOGO,
               type: FORM_FIELD_TYPE.IMAGE,
               value: this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO],
-              required: true,
-              validation: "required",
               changed: (event) => {
                 this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] =
                   event.target.value;

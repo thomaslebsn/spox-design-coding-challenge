@@ -21,8 +21,8 @@ class ProjectModel {
       JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO]).length > 0
         ? JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO])[0]
         : "/assets/images/icon-pepsi.png";
-    this.startdate = data[PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
-    this.enddate = data[PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
+    this.startdate = data[ESI_PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
+    this.enddate = data[ESI_PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
     this.shortDescription =
       data[ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? "";
 
