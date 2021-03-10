@@ -7,6 +7,8 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import history from "../../../routes/history";
+
 const ModalComponent = lazy(() => import("../../../components/Modal"));
 const LoginChannelCMSForm = lazy(() => import("./LoginChannelCMSForm"));
 
@@ -26,34 +28,41 @@ const LoginChannelCMSFormModal = observer(
         : null;
     }
 
-    saveCMSHandler = () => {
-      this.loginCMSChannelFormModalViewModel.saveCMSHandler();
+    saveCMSHandler = (channelUniqueName) => {
+      let getIdProject = history.location.pathname.match(/\d/g);
+      getIdProject = getIdProject.join("");
+
+      this.loginCMSChannelFormModalViewModel.saveCMSHandler(
+        getIdProject,
+        channelUniqueName
+      );
     };
     // this.showModalConnectCMS("wordpress")
     render() {
-      const { show } = this.loginCMSChannelFormModalViewModel;
+      const {
+        show,
+        isConnectWordpressSuccess,
+        closeModal,
+      } = this.loginCMSChannelFormModalViewModel;
       return (
         <React.Fragment>
-          <a
-            href={void 0}
+          <button
             className="cursor-pointer btn btn-success"
             onClick={(e) => {
-              this.props.clicked('wordpress');
+              this.props.clicked("wordpress");
             }}
+            disabled={isConnectWordpressSuccess ? true : false}
           >
             <i>
               <FontAwesomeIcon icon={faPlus} />
             </i>
             <span className="ms-2">
-              {this.loginCMSChannelFormModalViewModel
-                .isConnectWordpressSuccess == true
-                ? "Connected"
-                : "Connect"}
+              {isConnectWordpressSuccess ? "Connected" : "Connect"}
             </span>
-          </a>
+          </button>
           <ModalComponent
             show={show}
-            onHide={this.loginCMSChannelFormModalViewModel.closeModal}
+            onHide={closeModal}
             header={"Connect CMS Wordpress"}
             body={
               <LoginChannelCMSForm
@@ -62,7 +71,7 @@ const LoginChannelCMSFormModal = observer(
             }
             footer={
               <Button
-                onClick={this.saveCMSHandler}
+                onClick={(e) => this.saveCMSHandler("wordpress")}
                 className="btn btn-success w-100"
               >
                 <span>Login Wordpress</span>
