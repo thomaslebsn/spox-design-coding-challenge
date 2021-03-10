@@ -24,6 +24,8 @@ class ProjectsListViewModel {
 
   linkedinConnected = false;
 
+  mailchimpConnected = false;
+
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
@@ -146,18 +148,28 @@ class ProjectsListViewModel {
                       this.listFaceBookFanpage = responseResult.pages.pages;
                     }
                     break;
+
                   case "twitter":
                     if (responseResult.connected == 1) {
                       this.twitterConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
+
                   case "linkedin":
                     if (responseResult.connected == 1) {
                       this.linkedinConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
+
+                  case "mailchimp":
+                    if (responseResult.connected == 1) {
+                      this.mailchimpConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+
                   default:
                     break;
                 }

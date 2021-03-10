@@ -227,8 +227,10 @@ export default class ProjectStore {
             channelUniqueName
           );
           break;
+
         case "twitter":
         case "linkedin":
+        case "mailchimp":
           response = await projectChannelService.getLoginUrl(
             projectId,
             channelUniqueName
@@ -273,13 +275,16 @@ export default class ProjectStore {
             channelUniqueName
           );
           break;
+
         case "twitter":
         case "linkedin":
+        case "mailchimp":
           result = await projectChannelService.getCheckConnectStatusChannel(
             projectId,
             channelUniqueName
           );
           break;
+
         default:
           break;
       }
