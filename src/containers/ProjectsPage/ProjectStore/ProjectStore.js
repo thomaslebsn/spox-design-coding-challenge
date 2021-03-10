@@ -24,6 +24,9 @@ export default class ProjectStore {
         respondedDataFromLibrary.list
       );
 
+      console.log('projectDataModels');
+      console.log(projectDataModels);
+
       if (projectDataModels) {
         runInAction(() => {
           callbackOnSuccess({
