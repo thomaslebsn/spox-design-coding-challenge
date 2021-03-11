@@ -49,7 +49,7 @@ const CampaignsSelection = observer(
 
       const tableRowHeader = [
         {
-          Header: "Name",
+          Header: "Campaign Name",
           accessor: CAMPAIGNS_FIELD_KEY.NAME, // accessor is the "key" in the data
           Cell: ({ row }) => (
             <div {...row.getToggleRowExpandedProps()} className="d-flex">
