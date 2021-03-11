@@ -84,8 +84,6 @@ const CampaignsForm = observer(
                   this.formPropsData[CAMPAIGNS_FIELD_KEY.END_DATE] = date;
                 },
               },
-              required: true,
-              validation: "required",
             },
           ],
         },

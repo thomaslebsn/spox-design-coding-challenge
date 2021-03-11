@@ -10,3 +10,33 @@
     display: none;
   }
 }
+
+.modal {
+  .close {
+    background: none;
+    position: relative;
+    opacity: 1;
+
+    &:before,
+    &:after {
+      position: absolute;
+      left: 0;
+      content: ' ';
+      height: 20px;
+      width: 2px;
+      background-color: $green;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+}

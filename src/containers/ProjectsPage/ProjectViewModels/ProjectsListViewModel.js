@@ -26,6 +26,8 @@ class ProjectsListViewModel {
 
   mailchimpConnected = false;
 
+  instagramConnected = false;
+
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
@@ -121,6 +123,9 @@ class ProjectsListViewModel {
   };
 
   callbackOnSuccessChannel = (response, projectId, channelUniqueName) => {
+    console.log("projectIdprojectId", projectId);
+    console.log("channelUniqueName", channelUniqueName);
+    console.log("response", response);
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
 
@@ -166,6 +171,13 @@ class ProjectsListViewModel {
                   case "mailchimp":
                     if (responseResult.connected == 1) {
                       this.mailchimpConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+
+                  case "instagram":
+                    if (responseResult.connected == 1) {
+                      this.instagramConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;

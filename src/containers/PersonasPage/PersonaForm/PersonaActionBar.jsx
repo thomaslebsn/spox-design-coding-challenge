@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { withPersonaViewModel } from "../PersonaViewModels/PersonaViewModelContextProvider";
 import { Dropdown } from "react-bootstrap";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+
 class PersonaActionBar extends Component {
   personaFormViewModel = null;
   personasListViewModel = null;
@@ -55,7 +58,10 @@ class PersonaActionBar extends Component {
           }}
           className="btn btn-success"
         >
-          Create a new persona
+          <i className="green me-2">
+            <FontAwesomeIcon icon={faPlus} />
+          </i>
+          <span>Create a new persona</span>
         </Link>
       </div>
     );

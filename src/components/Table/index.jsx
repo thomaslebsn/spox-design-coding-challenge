@@ -46,7 +46,7 @@ const Table = ({
   listViewModel,
   searchFunction,
   dataFormFilter,
-  hasSubRow
+  hasSubRow,
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -287,7 +287,7 @@ const Table = ({
                   <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
                     {allColumns.map(
                       (column) =>
-                        column.id !== "selection" && (
+                        (column.id !== "selection" && column.Header !== "") && (
                           <div key={column.id} className="mb-2">
                             <label>
                               <input
@@ -443,14 +443,14 @@ const Table = ({
                         );
                       })}
                     </tr>
-                    {hasSubRow == false ? null :
-                      row.isExpanded &&
+                    {hasSubRow == false
+                      ? null
+                      : row.isExpanded &&
                         renderRowSubComponent({
                           row,
                           rowProps,
                           visibleColumns,
-                        })
-                    }
+                        })}
                   </React.Fragment>
                 );
               })}
