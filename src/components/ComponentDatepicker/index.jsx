@@ -36,6 +36,12 @@ class ComponentDatepicker extends React.Component {
     });
   };
 
+  handleOnBlur = ({ target: { value } }) => {
+    this.setState({
+      isOpen: false,
+    });
+  };
+
   handleApply = (e) => {
     e.stopPropagation();
     let { startDate, endDate } = this.state;
@@ -106,6 +112,7 @@ class ComponentDatepicker extends React.Component {
           popperPlacement="bottom-end"
           placeholderText={selectDate}
           open={isOpen}
+          onBlur={this.handleOnBlur}
         />
         {isDown && (
           <i className="text-green">
