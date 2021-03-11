@@ -287,7 +287,7 @@ const Table = ({
                   <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
                     {allColumns.map(
                       (column) =>
-                        column.id !== "selection" && (
+                        (column.id !== "selection" && column.Header !== "") && (
                           <div key={column.id} className="mb-2">
                             <label>
                               <input

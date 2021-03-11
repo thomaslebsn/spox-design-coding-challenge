@@ -213,6 +213,7 @@ const CampaignsList = observer(
             listViewModel={this.campaignsListViewModel}
             searchFunction={this.campaignsListViewModel.searchCampaign}
             dataFormFilter={dataFormFilter}
+            searchText="Search your Campaign"
           ></Table>
         </div>
       );
