@@ -43,7 +43,7 @@ class ContentFormViewModel {
 
   getContentDisplayProjectNameInWizardStep3ViewModel = () =>
     this.contentDisplayProjectNameInWizardStep3ViewModel;
-    
+
   setForm = (contentFormComponent) => {
     this.contentFormComponent = contentFormComponent;
   };
@@ -71,6 +71,8 @@ class ContentFormViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
+
+    history.push("/content");
   };
 
   callbackOnErrorHander = (error) => {
