@@ -55,9 +55,9 @@ const LoginChannelCMSFormModal = observer(
             }}
             disabled={isConnectWordpressSuccess ? true : false}
           >
-            <i>
+            {/* <i>
               <FontAwesomeIcon icon={faPlus} />
-            </i>
+            </i> */}
             <span className="ms-2">
               {isConnectWordpressSuccess ? "Connected" : "Connect"}
             </span>
@@ -78,9 +78,9 @@ const LoginChannelCMSFormModal = observer(
                 className="btn btn-success w-100"
               >
                 <span>Login Wordpress</span>
-                {/* <i className="ms-1">
+                <i className="ms-1">
                   <FontAwesomeIcon icon={faChevronRight} />
-                </i> */}
+                </i>
               </Button>
             }
             key={Math.random(40, 200)}
