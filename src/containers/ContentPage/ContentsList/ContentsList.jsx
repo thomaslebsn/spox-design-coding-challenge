@@ -161,6 +161,7 @@ const ContentsList = observer(
           listViewModel={this.contentListViewModel}
           searchFunction={this.contentListViewModel.searchContents}
           dataFormFilter={dataFormFilter}
+          searchText="Search your posts"
         ></Table>
       );
     }

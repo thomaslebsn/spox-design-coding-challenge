@@ -84,6 +84,7 @@ class CampaignsStore {
       );
 
       console.log('respondedDataFromLibrary respondedDataFromLibrary - after');
+      console.log(CampaignsModels);
 
       if (CampaignsModels) {
         runInAction(() => {
@@ -190,10 +191,7 @@ class CampaignsStore {
 
     if (results) {
       const campaignService = new EasiiCampaignApiService();
-      const respondedDataFromLibrary = await campaignService.getCampaign(
-        id,
-        false
-      );
+      const respondedDataFromLibrary = await campaignService.getCampaign(id);
 
       console.log("Campaign - getCampain from API", respondedDataFromLibrary);
 
