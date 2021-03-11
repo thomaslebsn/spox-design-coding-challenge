@@ -46,7 +46,7 @@ const Table = ({
   listViewModel,
   searchFunction,
   dataFormFilter,
-  hasSubRow
+  hasSubRow,
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -443,14 +443,14 @@ const Table = ({
                         );
                       })}
                     </tr>
-                    {hasSubRow == false ? null :
-                      row.isExpanded &&
+                    {hasSubRow == false
+                      ? null
+                      : row.isExpanded &&
                         renderRowSubComponent({
                           row,
                           rowProps,
                           visibleColumns,
-                        })
-                    }
+                        })}
                   </React.Fragment>
                 );
               })}
