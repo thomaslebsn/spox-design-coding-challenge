@@ -111,6 +111,7 @@ const ConnectChannel = observer(
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
+        instagramConnected,
       } = this.projectListViewModel;
 
       return (
@@ -124,6 +125,7 @@ const ConnectChannel = observer(
             twitterConnected={twitterConnected}
             linkedinConnected={linkedinConnected}
             mailchimpConnected={mailchimpConnected}
+            instagramConnected={instagramConnected}
             viewModel={this.viewModel}
           />
           <div className="d-flex justify-content-between">

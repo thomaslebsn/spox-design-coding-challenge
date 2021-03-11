@@ -24,7 +24,7 @@ export default class ProjectStore {
         respondedDataFromLibrary.list
       );
 
-      console.log('projectDataModels');
+      console.log("projectDataModels");
       console.log(projectDataModels);
 
       if (projectDataModels) {
@@ -237,6 +237,7 @@ export default class ProjectStore {
         case "twitter":
         case "linkedin":
         case "mailchimp":
+        case "instagram":
           response = await projectChannelService.getLoginUrl(
             projectId,
             channelUniqueName
@@ -285,6 +286,7 @@ export default class ProjectStore {
         case "twitter":
         case "linkedin":
         case "mailchimp":
+        case "instagram":
           result = await projectChannelService.getCheckConnectStatusChannel(
             projectId,
             channelUniqueName

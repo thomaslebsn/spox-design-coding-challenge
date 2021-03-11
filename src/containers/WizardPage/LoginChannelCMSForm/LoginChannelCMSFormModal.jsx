@@ -75,9 +75,9 @@ const LoginChannelCMSFormModal = observer(
                 className="btn btn-success w-100"
               >
                 <span>Login Wordpress</span>
-                <i className="ms-1">
+                {/* <i className="ms-1">
                   <FontAwesomeIcon icon={faChevronRight} />
-                </i>
+                </i> */}
               </Button>
             }
             key={Math.random(40, 200)}
