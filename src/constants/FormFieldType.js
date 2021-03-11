@@ -9,7 +9,10 @@ const FORM_FIELD_TYPE = {
   DATERANGE: 8,
   SELECTION: 9,
   TAB: 10,
-  PASSWORD: 11
+  PASSWORD: 11,
+  CANVA: 12,
+  LABELCARD: 13,
+  INFORMATION: 14,
 };
 
 const FORMAT_DATE = "dd/MM/yyyy";

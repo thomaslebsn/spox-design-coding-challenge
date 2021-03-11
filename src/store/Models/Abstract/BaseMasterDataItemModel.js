@@ -1,3 +1,5 @@
+import { PROJECT_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
+
 class BaseMasterDataItemModel {
   id = 0;
   name = "";
@@ -21,6 +23,13 @@ class BaseMasterDataItemModel {
     return {
       value: this.id,
       label: this.name,
+    };
+  };
+
+  toTableRowData = () => {
+    return {
+      [PROJECT_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID]: this.id,
+      [PROJECT_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.NAME]: this.name,
     };
   };
 }

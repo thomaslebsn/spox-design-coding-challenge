@@ -236,6 +236,7 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   <LoginChannelCMSFormModal
                     clicked={this.showModalConnectCMS}
+                    checkConnectedCMS={this.props.checkConnectedCMS}
                   />
                 </div>
               </div>

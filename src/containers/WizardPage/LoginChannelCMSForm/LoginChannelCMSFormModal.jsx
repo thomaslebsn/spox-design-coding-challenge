@@ -44,6 +44,8 @@ const LoginChannelCMSFormModal = observer(
         isConnectWordpressSuccess,
         closeModal,
       } = this.loginCMSChannelFormModalViewModel;
+
+      this.props.checkConnectedCMS("wordpress", isConnectWordpressSuccess);
       return (
         <React.Fragment>
           <button
@@ -67,6 +69,7 @@ const LoginChannelCMSFormModal = observer(
             body={
               <LoginChannelCMSForm
                 viewModel={this.loginCMSChannelFormModalViewModel}
+                checkConnectedCMS={this.props.checkConnectedCMS}
               />
             }
             footer={

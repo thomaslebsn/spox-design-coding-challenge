@@ -194,19 +194,6 @@ class ComponentContentFormPublish extends Component {
     console.log("[Content - FormPublish] channelSelectionData");
     console.log(channelSelectionData);
 
-    let fieldApproval = {
-      key: PERSONA_FIELD_KEY.INTEREST,
-      type: FORM_FIELD_TYPE.DROPDOWN,
-      value: this.formPropsData[PERSONA_FIELD_KEY.INTEREST],
-      required: true,
-      validation: "required",
-      option: optionApproval,
-      changed: (event) => {
-        this.formPropsData[PERSONA_FIELD_KEY.INTEREST] = event.value;
-      },
-      isComponents: true,
-    };
-
     return formStatus == PAGE_STATUS.LOADING ? (
       <Spinner />
     ) : (

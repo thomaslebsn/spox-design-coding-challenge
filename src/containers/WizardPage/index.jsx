@@ -53,7 +53,7 @@ class WizardPage extends Component {
             </Route>
 
             <Route exact path="/wizard/project/:id/content">
-              <CreareContent />
+              <CreareContent match={this.props.match} />
             </Route>
           </Suspense>
         </WizardViewModelContextProvider>

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./index.module.scss";
 
-const data = [
+const defaultData = [
   {
     key: 1,
     images: "/assets/images/ic-youtube.svg",
@@ -65,11 +65,12 @@ class ListSocial extends React.Component {
   }
 
   render() {
-    // let { data } = this.props;
+    let { value } = this.props;
+    const dataToRender = value ? value : defaultData;
     return (
       <div className="bg-white shadow-sm rounded-2 px-3 py-4 h-100 d-flex align-items-center">
         <div className="row">
-          {data.map((value, key) => {
+          {dataToRender.map((value, key) => {
             return (
               <div
                 key={key}

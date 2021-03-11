@@ -5,16 +5,19 @@ import ContentModel from "../ContentModel/ContentModel";
 
 import {
   EasiiContentApiService,
-  EasiiProjectChannelApiService
+  EasiiProjectChannelApiService,
+  EasiiProjectApiService,
 } from "easii-io-web-service-library";
 
 import {
-  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
   CONTENT_FIELD_KEY,
 } from "../../../constants/ContentModule";
 
 import { CampaignMasterDataModel } from "../../../store/Models/MasterDataModels/CampaignMasterDataModel";
 import { PersonaMasterDataModel } from "../../../store/Models/MasterDataModels/PersonaMasterDataModel";
+import { ContentConnectedChannelsModel } from "../ContentModel/ContentConnectedChannelsModel";
+
+import ProjectUtils from "../../ProjectsPage/ProjectUtils/ProjectUtils";
 
 export default class ContentStore {
   globalStore = null;
@@ -74,12 +77,11 @@ export default class ContentStore {
 
       console.log("convertedContentData");
       console.log(convertedContentData);
-
       // Save Content
       const contentService = new EasiiContentApiService();
       let resultContent;
 
-      if (convertedContentData.id == undefined) {
+      if (convertedContentData.id == 0) {
         resultContent = await contentService.createContent(
           convertedContentData
         );
@@ -328,6 +330,91 @@ export default class ContentStore {
         callbackOnError({
           message: "Something went wrong from Server response",
         });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getConnectedChannelsByProjectId(
+    projectId,
+    callbackOnSuccess,
+    callbackOnError
+  ) {
+    try {
+      if (!projectId) {
+        runInAction(() => {
+          callbackOnError("ProjectID is required !!!");
+        });
+      }
+      console.log("Content Store - getConnectedChannelsByProjectId");
+      const service = new EasiiProjectChannelApiService();
+
+      const repondedDataFromLibrary = await service.getProjectChannelsByProjectId(
+        projectId
+      );
+
+      console.log(
+        "repondedDataFromLibrary - getConnectedChannelsByProjectId"
+      );
+
+      console.log(repondedDataFromLibrary);
+
+      const contentDataModels = new ContentConnectedChannelsModel(
+        repondedDataFromLibrary
+      );
+
+      console.log("contentDataModels contentDataModels");
+      console.log(contentDataModels);
+
+      if (contentDataModels) {
+        runInAction(() => {
+          callbackOnSuccess(contentDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getProjectItemByProjectId(projectId, callbackOnSuccess, callbackOnError) {
+    if (!projectId) return false;
+
+    try {
+      const results = true;
+
+      if (results) {
+        const projectAPIService = new EasiiProjectApiService();
+        const respondedDataFromLibrary = await projectAPIService.getProjectItem(
+          projectId,
+          false
+        );
+
+        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
+          [respondedDataFromLibrary]
+        );
+
+        console.log(projectDataModels);
+
+        if (projectDataModels) {
+          runInAction(() => {
+            callbackOnSuccess(projectDataModels);
+          });
+        } else {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        }
       }
     } catch (error) {
       console.log(error);

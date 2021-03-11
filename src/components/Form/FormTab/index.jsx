@@ -15,7 +15,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import "emoji-mart/css/emoji-mart.css";
 import { Emoji, Picker } from "emoji-mart";
 
-import styles from "./index.module.scss";
+import "./index.scss";
 
 const FormTab = observer(
   class FormTab extends Component {
@@ -63,7 +63,7 @@ const FormTab = observer(
       const preview = files.map((file) => (
         <div key={file.name} className="position-relative m-2">
           <img
-            className={`img-thumbnail rounded ${styles.img}`}
+            className={`img-thumbnail rounded imgTab`}
             src={URL.createObjectURL(file)}
           />
         </div>

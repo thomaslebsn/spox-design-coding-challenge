@@ -56,7 +56,7 @@ const PersonasSelection = observer(
           Cell: ({ row }) => (
             console.log("row.original", row),
             (
-              <div {...row.getToggleRowExpandedProps()} className="d-flex">
+              <div className="d-flex">
                 <span
                   className="text-black opacity-75"
                   onClick={(e) => this.handerEditPersona(e, row.original)}

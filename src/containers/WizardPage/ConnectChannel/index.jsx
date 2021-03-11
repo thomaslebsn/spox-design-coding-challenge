@@ -20,6 +20,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight
 
 import WizardSteps from "../../../components/WizardSteps";
 import styles from "./index.module.scss";
+import { notify } from "../../../components/Toast";
 
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
@@ -66,11 +67,40 @@ const ConnectChannel = observer(
         ],
         showModal: true,
         getIDSFanpage: [],
+        isWordpressConnected: false,
       };
     }
 
+    checkConnectedCMS = (cmsName, isConnected) => {
+      if (cmsName == "wordpress") {
+        this.setState({
+          isWordpressConnected: isConnected,
+        });
+      }
+    };
+
     next = () => {
-      history.push(`${history.location.pathname}/content`);
+      const {
+        facebookConnected,
+        twitterConnected,
+        linkedinConnected,
+        mailchimpConnected,
+        instagramConnected,
+      } = this.projectListViewModel;
+      let { isWordpressConnected } = this.state;
+
+      if (
+        facebookConnected == true ||
+        twitterConnected == true ||
+        linkedinConnected == true ||
+        mailchimpConnected == true ||
+        instagramConnected == true ||
+        isWordpressConnected == true
+      ) {
+        history.push(`${history.location.pathname}/content`);
+      } else {
+        notify("Please chosse an connect channel");
+      }
     };
 
     handleCloseModal = () => {
@@ -127,6 +157,7 @@ const ConnectChannel = observer(
             mailchimpConnected={mailchimpConnected}
             instagramConnected={instagramConnected}
             viewModel={this.viewModel}
+            checkConnectedCMS={this.checkConnectedCMS}
           />
           <div className="d-flex justify-content-between">
             <Button
@@ -138,7 +169,7 @@ const ConnectChannel = observer(
             <ButtonNormal
               className="btn btn-success"
               text="Next"
-              onClick={this.next}
+              onClick={(e) => this.next()}
             ></ButtonNormal>
           </div>
           {listFaceBookFanpage && (
