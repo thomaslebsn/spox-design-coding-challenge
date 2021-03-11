@@ -25,6 +25,14 @@ class PersonasSelectionViewModel {
     this.personaStore = personaStore;
   }
 
+  resetObservableProperties() {
+    this.multi = false;
+    this.personaSelectionData = [];
+    this.channelSelectionData = [];
+    this.personas = null;
+    this.tableStatus = PAGE_STATUS.LOADING;
+  }
+
   openModal = () => {
     console.log("openModal");
     this.show = true;
@@ -86,9 +94,9 @@ class PersonasSelectionViewModel {
         }
         return arr;
       }, []);
-    let result = convertedInArray;  
+    let result = convertedInArray;
     if (!this.multi) {
-       result = convertedInArray.length > 0 ? convertedInArray[0] : null;
+      result = convertedInArray.length > 0 ? convertedInArray[0] : null;
     }
     console.log("PersonaVM - getSelectedIDs");
     console.log(result);

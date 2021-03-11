@@ -171,7 +171,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     text={field.label}
                     required={field.required ?? false}
                   />
-                  <ListConnectedChannel value={field.value} />
+                  <ListConnectedChannel field={field} />
                 </Form.Group>
               );
             default:

@@ -8,7 +8,7 @@ class ContentFormViewModel {
   contentEditdata = null;
   editMode = false;
   contentListViewModel = null;
-
+  contentConnectedChannelsViewModel = null;
   contentStore = null;
   contentFormComponent = null;
 
@@ -25,13 +25,21 @@ class ContentFormViewModel {
     this.contentListViewModel = contentListViewModelInstance;
   };
 
+  setContentConnectedChannelsViewModel = (
+    contentConnectedChannelsViewModel
+  ) => {
+    this.contentConnectedChannelsViewModel = contentConnectedChannelsViewModel;
+  };
+
+  getContentConnectedChannelsViewModel = () => this.contentConnectedChannelsViewModel;
+
   setForm = (contentFormComponent) => {
     this.contentFormComponent = contentFormComponent;
   };
 
   setEditContent = (data) => {
     this.formStatus = PAGE_STATUS.READY;
-    console.log('setEditContent');
+    console.log("setEditContent");
     console.log(data[0]);
     this.contentFormComponent.populatingFormDataHandler(data[0]);
   };

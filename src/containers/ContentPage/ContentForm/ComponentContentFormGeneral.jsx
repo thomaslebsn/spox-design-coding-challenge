@@ -36,25 +36,34 @@ class ComponentContentFormGeneral extends Component {
     [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: "",
     [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: "",
   };
-
   validator = null;
   isEditMode = false;
   viewModel = null;
   projectTableSelectionModalViewModel = null;
+  contentConnectedChannelsByProjectViewModel = null;
   constructor(props) {
     super(props);
 
     this.validator = new SimpleReactValidator();
     this.viewModel = this.props.viewModel;
 
-    console.log("ContentFormPage - Debug projectTableSelectionModalViewModel");
+    console.log("ComponentContentFormGeneral - Debug viewModel");
+    console.log(this.viewModel);
 
     this.projectTableSelectionModalViewModel = this.props
       .projectTableSelectionModalViewModel
       ? this.props.projectTableSelectionModalViewModel
       : null;
-    console.log(this.projectTableSelectionModalViewModel);
+
+    this.contentConnectedChannelsByProjectViewModel = this.viewModel.getContentConnectedChannelsViewModel();
+
     this.viewModel.setForm(this);
+  }
+
+  componentWillUnmount() {
+    campaignSelectionViewModal.resetObservableProperties();
+    personaSelectionViewModal.resetObservableProperties();
+    this.contentConnectedChannelsByProjectViewModel.resetObservableProperties();
   }
 
   componentDidMount = () => {
@@ -66,6 +75,12 @@ class ComponentContentFormGeneral extends Component {
         this.viewModel.formStatus = PAGE_STATUS.READY;
       }
     }
+  };
+
+  handleLoadingConnectedChannelsBySelectedProjectId = (projectId) => {
+    this.contentConnectedChannelsByProjectViewModel.renderChannelByProjectId(
+      projectId
+    );
   };
 
   generateFormSetting = () => {
@@ -82,9 +97,15 @@ class ComponentContentFormGeneral extends Component {
             validation: "required",
             viewModel: this.projectTableSelectionModalViewModel,
             changed: () => {
-              this.formPropsData[
-                CONTENT_FIELD_KEY.PROJECT
-              ] = this.projectTableSelectionModalViewModel.getSelectedIDs();
+              const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
+              if (projectId) {
+                this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
+                console.log("Debugging - connectedChannelsByProjectId");
+                console.log(projectId);
+                this.handleLoadingConnectedChannelsBySelectedProjectId(
+                  projectId
+                );
+              }
             },
             clicked: () => {
               this.projectTableSelectionModalViewModel.openModal();
@@ -99,9 +120,10 @@ class ComponentContentFormGeneral extends Component {
             validation: "required",
             viewModel: campaignSelectionViewModal,
             changed: () => {
-              this.formPropsData[
-                CONTENT_FIELD_KEY.CAMPAIGN
-              ] = campaignSelectionViewModal.getSelectedIDs();
+              const campaignId = campaignSelectionViewModal.getSelectedIDs();
+              if (campaignId) {
+                this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = campaignId;
+              }
             },
             clicked: () => {
               campaignSelectionViewModal.openModal();
@@ -116,9 +138,10 @@ class ComponentContentFormGeneral extends Component {
             validation: "required",
             viewModel: personaSelectionViewModal,
             changed: () => {
-              this.formPropsData[
-                CONTENT_FIELD_KEY.PERSONA
-              ] = personaSelectionViewModal.getSelectedIDs();
+              const personaIds = personaSelectionViewModal.getSelectedIDs();
+              if (personaIds) {
+                this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
+              }
             },
             clicked: () => {
               personaSelectionViewModal.openModal();
@@ -141,30 +164,8 @@ class ComponentContentFormGeneral extends Component {
             label: "Connected Channels",
             key: CONTENT_FIELD_KEY.CHANNELS,
             type: FORM_FIELD_TYPE.LABELCARD,
-            value: this.formPropsData[CONTENT_FIELD_KEY.CHANNELS]
-              ? this.formPropsData[CONTENT_FIELD_KEY.CHANNELS]
-              : [
-                  {
-                    images: "/assets/images/ic-facebook.svg",
-                    des: "Facebook",
-                  },
-                  {
-                    images: "/assets/images/ic-facebook.svg",
-                    des: "Twitter",
-                  },
-                  {
-                    images: "/assets/images/ic-facebook.svg",
-                    des: "LinkedIn",
-                  },
-                  {
-                    images: "/assets/images/ic-facebook.svg",
-                    des: "Wordpress",
-                  },
-                  {
-                    images: "/assets/images/ic-facebook.svg",
-                    des: "Mailchimp",
-                  },
-                ],
+            viewModel: this.contentConnectedChannelsByProjectViewModel,
+            value: "",
           },
           {
             label: "Canva",
@@ -173,7 +174,9 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.THEME],
             changed: ({ exportUrl, designId }) => {
               console.log("[Canva Field] changed", { exportUrl, designId });
-              this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] = exportUrl;
+              this.formPropsData[
+                CONTENT_FIELD_KEY.CANVA_EXPORTED_URL
+              ] = exportUrl;
               this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
             },
             blurred: this.blurringFieldHandler,

@@ -23,6 +23,13 @@ class CampaignsSelectionViewModel {
     this.campaignStore = campaignStore;
   }
 
+  resetObservableProperties(){
+    this.multi = false;
+    this.campaigns = null;
+    this.tableStatus = PAGE_STATUS.LOADING;
+    this.campaignSelectionData = [];
+  }
+
   openModal = () => {
     console.log("openModal");
     this.show = true;
