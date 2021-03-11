@@ -184,8 +184,7 @@ export default class ProjectStore {
       if (results) {
         const projectAPIService = new EasiiProjectApiService();
         const respondedDataFromLibrary = await projectAPIService.getProjectItem(
-          id,
-          false
+          id
         );
         console.log("PROJECT RESPONDED ITEM");
         console.log(id);
