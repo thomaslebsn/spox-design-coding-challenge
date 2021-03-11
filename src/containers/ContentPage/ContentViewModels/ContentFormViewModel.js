@@ -9,6 +9,7 @@ class ContentFormViewModel {
   editMode = false;
   contentListViewModel = null;
   contentConnectedChannelsViewModel = null;
+  contentDisplayProjectNameInWizardStep3ViewModel = null;
   contentStore = null;
   contentFormComponent = null;
 
@@ -31,8 +32,18 @@ class ContentFormViewModel {
     this.contentConnectedChannelsViewModel = contentConnectedChannelsViewModel;
   };
 
-  getContentConnectedChannelsViewModel = () => this.contentConnectedChannelsViewModel;
+  getContentConnectedChannelsViewModel = () =>
+    this.contentConnectedChannelsViewModel;
 
+  setContentDisplayProjectNameInWizardStep3ViewModel = (
+    contentDisplayProjectNameInWizardStep3ViewModel
+  ) => {
+    this.contentDisplayProjectNameInWizardStep3ViewModel = contentDisplayProjectNameInWizardStep3ViewModel;
+  };
+
+  getContentDisplayProjectNameInWizardStep3ViewModel = () =>
+    this.contentDisplayProjectNameInWizardStep3ViewModel;
+    
   setForm = (contentFormComponent) => {
     this.contentFormComponent = contentFormComponent;
   };

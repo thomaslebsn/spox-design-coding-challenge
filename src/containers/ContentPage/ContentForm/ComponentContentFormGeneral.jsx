@@ -41,11 +41,19 @@ class ComponentContentFormGeneral extends Component {
   viewModel = null;
   projectTableSelectionModalViewModel = null;
   contentConnectedChannelsByProjectViewModel = null;
+  contentDisplayProjectNameInWizardStep3ViewModel = null;
+  selectedProjectIdFromWizardStep1 = null;
   constructor(props) {
     super(props);
 
     this.validator = new SimpleReactValidator();
+    // if this component is MOUNTED from Content Module => viewModel is ContentViewModel
+    // Otherwise, viewModel is WizardViewModel
     this.viewModel = this.props.viewModel;
+    this.selectedProjectIdFromWizardStep1 = this.props
+      .selectedProjectIdFromWizardStep1
+      ? this.props.selectedProjectIdFromWizardStep1
+      : null;
 
     console.log("ComponentContentFormGeneral - Debug viewModel");
     console.log(this.viewModel);
@@ -56,7 +64,7 @@ class ComponentContentFormGeneral extends Component {
       : null;
 
     this.contentConnectedChannelsByProjectViewModel = this.viewModel.getContentConnectedChannelsViewModel();
-
+    this.contentDisplayProjectNameInWizardStep3ViewModel = this.viewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
     this.viewModel.setForm(this);
   }
 
@@ -64,16 +72,27 @@ class ComponentContentFormGeneral extends Component {
     campaignSelectionViewModal.resetObservableProperties();
     personaSelectionViewModal.resetObservableProperties();
     this.contentConnectedChannelsByProjectViewModel.resetObservableProperties();
+    this.contentDisplayProjectNameInWizardStep3ViewModel.resetObservableProperties();
   }
 
   componentDidMount = () => {
     const { match } = this.props;
+    console.log("Debugging - Match Params");
+    console.log(match);
     if (match) {
       if (match.params.id) {
         this.viewModel.getContent(match.params.id);
       } else {
         this.viewModel.formStatus = PAGE_STATUS.READY;
       }
+    }
+    if (this.selectedProjectIdFromWizardStep1) {
+      console.log("this.contentDisplayProjectNameInWizardStep3ViewModel");
+      console.log(this.contentDisplayProjectNameInWizardStep3ViewModel);
+      this.contentDisplayProjectNameInWizardStep3ViewModel.renderProjectNameByProjectId(this.selectedProjectIdFromWizardStep1);
+      this.contentConnectedChannelsByProjectViewModel.renderChannelByProjectId(
+        this.selectedProjectIdFromWizardStep1
+      );
     }
   };
 
@@ -85,32 +104,39 @@ class ComponentContentFormGeneral extends Component {
 
   generateFormSetting = () => {
     console.log("re generate Form Setting", this.formPropsData);
+
+    const projectField = this.selectedProjectIdFromWizardStep1
+      ? {
+          label: "Project Name",
+          key: CONTENT_FIELD_KEY.PROJECT,
+          type: FORM_FIELD_TYPE.INFORMATION,
+          viewModel: this.contentDisplayProjectNameInWizardStep3ViewModel,
+        }
+      : {
+          label: "Choose the Project",
+          key: CONTENT_FIELD_KEY.PROJECT,
+          type: FORM_FIELD_TYPE.SELECTION,
+          value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
+          required: true,
+          validation: "required",
+          viewModel: this.projectTableSelectionModalViewModel,
+          changed: () => {
+            const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
+            if (projectId) {
+              this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
+              console.log("Debugging - connectedChannelsByProjectId");
+              console.log(projectId);
+              this.handleLoadingConnectedChannelsBySelectedProjectId(projectId);
+            }
+          },
+          clicked: () => {
+            this.projectTableSelectionModalViewModel.openModal();
+          },
+        };
     return [
       {
         fields: [
-          {
-            label: "Choose the Project",
-            key: CONTENT_FIELD_KEY.PROJECT,
-            type: FORM_FIELD_TYPE.SELECTION,
-            value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
-            required: true,
-            validation: "required",
-            viewModel: this.projectTableSelectionModalViewModel,
-            changed: () => {
-              const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
-              if (projectId) {
-                this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
-                console.log("Debugging - connectedChannelsByProjectId");
-                console.log(projectId);
-                this.handleLoadingConnectedChannelsBySelectedProjectId(
-                  projectId
-                );
-              }
-            },
-            clicked: () => {
-              this.projectTableSelectionModalViewModel.openModal();
-            },
-          },
+          projectField,
           {
             label: "Choose the Campaign",
             key: CONTENT_FIELD_KEY.CAMPAIGN,
@@ -168,10 +194,12 @@ class ComponentContentFormGeneral extends Component {
             value: "",
           },
           {
-            label: "Canva",
+            label: "Content",
             key: CONTENT_FIELD_KEY.THEME,
             type: FORM_FIELD_TYPE.CANVA,
-            value: this.formPropsData[CONTENT_FIELD_KEY.THEME],
+            value: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+            required: true,
+            validation: "required",
             changed: ({ exportUrl, designId }) => {
               console.log("[Canva Field] changed", { exportUrl, designId });
               this.formPropsData[

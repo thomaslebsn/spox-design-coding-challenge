@@ -10,6 +10,7 @@ const FormDateRangePicker = lazy(() =>
 );
 const FormImage = lazy(() => import("../components/Form/FormImage"));
 const FormSelection = lazy(() => import("../components/Form/FormSelection"));
+const FormInformation = lazy(() => import("../components/FormInformation"));
 const FormTab = lazy(() => import("../components/Form/FormTab"));
 const FormSelectDropdown = lazy(() =>
   import("../components/Form/FormSelectDropdown")
@@ -158,7 +159,18 @@ const renderingGroupFieldHandler = (group, validator) => {
                   key={Math.random(40, 200)}
                   className={`mb-4 ${className}`}
                 >
+                <Label
+                  text={field.label}
+                  required={field.required ?? false}
+                />
                   <CanvaButton key={Math.random(40, 200)} field={field} />
+                  {field.validation &&
+                    validator.message(
+                      field.label,
+                      field.value,
+                      field.validation,
+                      { className: "text-danger" }
+                    )}
                 </Form.Group>
               );
             case FORM_FIELD_TYPE.LABELCARD:
@@ -174,6 +186,20 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <ListConnectedChannel field={field} />
                 </Form.Group>
               );
+
+              case FORM_FIELD_TYPE.INFORMATION:
+                return (
+                  <Form.Group
+                    key={Math.random(40, 200)}
+                    className={`mb-4 ${className}`}
+                  >
+                    <Label
+                      text={field.label}
+                      required={field.required ?? false}
+                    />
+                    <FormInformation field={field} />
+                  </Form.Group>
+                );
             default:
               return null;
           }

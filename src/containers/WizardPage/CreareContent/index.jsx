@@ -17,15 +17,18 @@ class CreareContent extends Component {
   render() {
     console.log("[CreareContent] - re-render .........");
     let { match } = this.props;
-    let getIdProject = null;
-    if (match) {
-      getIdProject = match.params.id;
+    let selectedProjectIdFromWizardStep1 = null;
+    if (match && match.params) {
+      selectedProjectIdFromWizardStep1 = match.params.id;
     }
-    console.log("getIdProject", getIdProject);
+    console.log("getIdProject", selectedProjectIdFromWizardStep1);
 
     return (
       <StepWizard isLazyMount={true} transitions={this.custom} className="px-3">
-        <ContentFormGeneralWizard hashKey={"contentgeneral"} />
+        <ContentFormGeneralWizard
+          hashKey={"contentgeneral"}
+          selectedProjectIdFromWizardStep1={selectedProjectIdFromWizardStep1}
+        />
         <ContentFormPublishWizard hashKey={"contentpublish"} />
       </StepWizard>
     );

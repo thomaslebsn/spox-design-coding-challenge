@@ -26,32 +26,32 @@ const defaultData = [
 ];
 const ListConnectedChannel = observer(
   class ListConnectedChannel extends React.Component {
-    contentConnectedChannelsByProjectViewModel = null;
+    viewModel = null;
     constructor(props) {
       super(props);
       this.state = {};
-      this.contentConnectedChannelsByProjectViewModel = props.field.viewModel
+      this.viewModel = props.field.viewModel
         ? props.field.viewModel
         : null;
       console.log("Debuggin -------- ListConnectedChannel ----- View Model");
-      console.log(this.contentConnectedChannelsByProjectViewModel);
+      console.log(this.viewModel);
     }
 
     render() {
-      const value = this.contentConnectedChannelsByProjectViewModel
-        ? this.contentConnectedChannelsByProjectViewModel.connectedChannels
+      const value = this.viewModel
+        ? this.viewModel.connectedChannels
         : "";
       console.log("Debuggin -------- ListConnectedChannel");
       console.log(value);
       return (
-        <div className="bg-white shadow-sm rounded-2 px-3 py-4 h-100 d-flex align-items-center">
-          <div className="row">
+        <div className="bg-white shadow-sm rounded-2 px-3 py-2 h-100 d-flex align-items-center">
+          <div className="row w-100">
             {value
               ? value.map((value, key) => {
                   return (
                     <div
                       key={Math.random(10000, 20000)}
-                      className={`item_social ${styles.item_social} col-3 mb-4 `}
+                      className={`item_social ${styles.item_social} col-2 mb-2 `}
                     >
                       <div
                         className={`main_social ${styles.main_social} text-center`}
@@ -59,7 +59,7 @@ const ListConnectedChannel = observer(
                         <p
                           className={`mb-0 wrapper_images ${styles.wrapper_images} d-flex align-items-center justify-content-center`}
                         >
-                          <img alt={value.des} src={value.images} />
+                          <img alt={value.des} src={value.images} className="img-avatar"/>
                         </p>
                         <p className="text-blue-0 opacity-50 mb-0">
                           {value.des}

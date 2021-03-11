@@ -6,6 +6,7 @@ import ContentModel from "../ContentModel/ContentModel";
 import {
   EasiiContentApiService,
   EasiiProjectChannelApiService,
+  EasiiProjectApiService,
 } from "easii-io-web-service-library";
 
 import {
@@ -15,6 +16,8 @@ import {
 import { CampaignMasterDataModel } from "../../../store/Models/MasterDataModels/CampaignMasterDataModel";
 import { PersonaMasterDataModel } from "../../../store/Models/MasterDataModels/PersonaMasterDataModel";
 import { ContentConnectedChannelsModel } from "../ContentModel/ContentConnectedChannelsModel";
+
+import ProjectUtils from "../../ProjectsPage/ProjectUtils/ProjectUtils";
 
 export default class ContentStore {
   globalStore = null;
@@ -375,6 +378,43 @@ export default class ContentStore {
         callbackOnError({
           message: "Something went wrong from Server response",
         });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getProjectItemByProjectId(projectId, callbackOnSuccess, callbackOnError) {
+    if (!projectId) return false;
+
+    try {
+      const results = true;
+
+      if (results) {
+        const projectAPIService = new EasiiProjectApiService();
+        const respondedDataFromLibrary = await projectAPIService.getProjectItem(
+          projectId,
+          false
+        );
+
+        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
+          [respondedDataFromLibrary]
+        );
+
+        console.log(projectDataModels);
+
+        if (projectDataModels) {
+          runInAction(() => {
+            callbackOnSuccess(projectDataModels);
+          });
+        } else {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        }
       }
     } catch (error) {
       console.log(error);

@@ -31,6 +31,7 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
   channel = null;
   project = null;
   handle = "";
+  channelName = "";
 
   constructor(entity) {
     if (entity) {
@@ -38,6 +39,8 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
       this.channel = entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.CHANNEL] ?? [0];
       this.project = entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.PROJECT] ?? [0];
       this.handle = entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.HANDLE] ?? "";
+      this.channelName =
+        entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.CHANNEL_NAME] ?? "";
     }
   }
 
@@ -60,11 +63,32 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
   };
 
   toConnectedChannelItemOnContentForm = () => {
-    const images = null;
-    // switch()
+    let icoImage = null;
+    switch (this.channelName.toLowerCase()) {
+      case "facebook":
+        icoImage = "/assets/images/facebook.png";
+        break;
+      case "twitter":
+        icoImage = "/assets/images/twitter.png";
+        break;
+      case "linkedin":
+        icoImage = "/assets/images/linkedin.png";
+        break;
+      case "mailchimp":
+        icoImage = "/assets/images/mailchimp.png";
+        break;
+      case "wordpress":
+        icoImage = "/assets/images/wordpress.png";
+        break;
+      case "instagram":
+        icoImage = "/assets/images/instagram.png";
+        break;
+      default:
+        icoImage = null;
+    }
     return {
-        images: "/assets/images/ic-facebook.svg",
-        des: this.channel,
+      images: icoImage,
+      des: this.channelName,
     };
   };
 
@@ -74,6 +98,7 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
       [ESI_PROJECT_CHANNEL_FIELD_KEY.CHANNEL]: this.channel,
       [ESI_PROJECT_CHANNEL_FIELD_KEY.PROJECT]: this.project,
       [ESI_PROJECT_CHANNEL_FIELD_KEY.HANDLE]: this.handle,
+      [ESI_PROJECT_CHANNEL_FIELD_KEY.CHANNEL_NAME]: this.channelName,
     };
   };
 }

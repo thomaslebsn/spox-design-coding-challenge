@@ -3,12 +3,14 @@ import ContentListViewModel from "./ContentsListViewModel";
 import ContentsFilterFormViewModel from "./ContentsFilterFormViewModel";
 import { ContentConnectedChannelsModel } from "../ContentModel/ContentConnectedChannelsModel";
 import ContentConnectedChannelsByProjectViewModel from "./ContentConnectedChannelsByProjectViewModel";
+import ContentDisplayProjectNameInWizardStep3ViewModel from "./ContentDisplayProjectNameInWizardStep3ViewModel";
 
 class ContentViewModel {
   contentListViewModel = null;
   contentFormViewModel = null;
   contentsFilterFormViewModel = null;
   contentConnectedChannelsByProjectViewModel = null;
+  contentDisplayProjectNameInWizardStep3ViewModel = null;
 
   constructor(contentStore) {
     if (contentStore) {
@@ -23,6 +25,9 @@ class ContentViewModel {
         contentStore
       );
 
+      this.contentDisplayProjectNameInWizardStep3ViewModel = new ContentDisplayProjectNameInWizardStep3ViewModel(
+        contentStore
+      );
       // Inject dependencies together among ViewModels
       this.contentFormViewModel.setContentListViewModel(
         this.contentListViewModel
@@ -30,6 +35,10 @@ class ContentViewModel {
 
       this.contentFormViewModel.setContentConnectedChannelsViewModel(
         this.contentConnectedChannelsByProjectViewModel
+      );
+
+      this.contentFormViewModel.setContentDisplayProjectNameInWizardStep3ViewModel(
+        this.contentDisplayProjectNameInWizardStep3ViewModel
       );
     }
   }
@@ -40,7 +49,11 @@ class ContentViewModel {
 
   getContentsFilterFormViewModel = () => this.contentsFilterFormViewModel;
 
-  getContentConnectedChannelsViewModel = () => this.contentConnectedChannelsByProjectViewModel;
+  getContentConnectedChannelsViewModel = () =>
+    this.contentConnectedChannelsByProjectViewModel;
+
+  getContentDisplayProjectNameInWizardStep3ViewModel = () =>
+    this.contentDisplayProjectNameInWizardStep3ViewModel;
 }
 
 export default ContentViewModel;

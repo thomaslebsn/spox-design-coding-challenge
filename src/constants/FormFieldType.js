@@ -12,6 +12,7 @@ const FORM_FIELD_TYPE = {
   PASSWORD: 11,
   CANVA: 12,
   LABELCARD: 13,
+  INFORMATION: 14,
 };
 
 const FORMAT_DATE = "dd/MM/yyyy";
