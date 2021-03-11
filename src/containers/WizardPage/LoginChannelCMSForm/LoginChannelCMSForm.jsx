@@ -14,7 +14,6 @@ const LoginChannelCMSForm = observer(
       endpoint_url: "",
       username: "",
       password: "",
-      projectId: 522,
     };
 
     constructor(props) {
@@ -38,7 +37,7 @@ const LoginChannelCMSForm = observer(
               placeholder: "https://testwp.easii.io",
               changed: (event) => {
                 this.formPropsData.endpoint_url = event.target.value;
-              }
+              },
             },
             {
               label: "Username",
@@ -49,7 +48,7 @@ const LoginChannelCMSForm = observer(
               validation: "required",
               changed: (event) => {
                 this.formPropsData.username = event.target.value;
-              }
+              },
             },
             {
               label: "Password",
@@ -61,7 +60,7 @@ const LoginChannelCMSForm = observer(
               validation: "required",
               changed: (event) => {
                 this.formPropsData.password = event.target.value;
-              }
+              },
             },
           ],
         },
