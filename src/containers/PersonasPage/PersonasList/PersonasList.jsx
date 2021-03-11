@@ -97,6 +97,7 @@ const PersonasList = observer(
           pagination={pagination}
           listViewModel={this.personaListViewModel}
           searchFunction={this.personaListViewModel.searchPersonas}
+          searchText="Search your personas"
         ></Table>
       );
     }
