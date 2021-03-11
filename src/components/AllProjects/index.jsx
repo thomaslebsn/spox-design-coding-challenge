@@ -122,7 +122,7 @@ class AllProjects extends React.Component {
   render() {
     const { t, i18n } = this.props;
     return (
-      <div className="wrapper_dropdown">
+      <div className="wrapper_dropdown all_project">
         <Dropdown>
           <Dropdown.Toggle
             as={this.CustomToggle}

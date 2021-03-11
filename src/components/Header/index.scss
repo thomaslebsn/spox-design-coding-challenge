@@ -91,6 +91,20 @@
   }
 }
 
+.all_project {
+  .dropdown {
+    display: none;
+  }
+}
+
+.all_header {
+  .all_project {
+    .dropdown {
+      display: block;
+    }
+  }
+}
+
 @include media-breakpoint-down(xl) {
   .sidebar {
     position: fixed !important;

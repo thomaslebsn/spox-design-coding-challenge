@@ -37,7 +37,10 @@ class Header extends React.Component {
     const { t, i18n } = this.props;
     let { isMini } = this.state;
     return (
-      <div className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white">
+      <div
+        id="all_header"
+        className="wrapper_header d-flex position-fixed w-100 top-0 left-0 right-0 pr-3 align-items-center shadow-sm z-index-100 bg-white"
+      >
         <ComponentHambuger handleAction={this.handleMenuLeft} />
         <div className="wrapper_header_logo w-260 h-80 d-flex align-items-center">
           <a href="/" className={`header_logo d-block px-2`}>

@@ -80,20 +80,31 @@ class Menu extends React.Component {
     };
   }
 
-  checkActiveMenu = () => {
+  checkActiveMenu = (name) => {
     if (window.location.pathname === "/") {
       document.getElementById("wr_list_menu").classList.remove("wr_list_menu");
     } else {
       document.getElementById("wr_list_menu").classList.add("wr_list_menu");
     }
+
+    if (name === "/" || name === "/analytics" || name === "/calendar") {
+      document.getElementById("all_header").classList.add("all_header");
+    } else {
+      document.getElementById("all_header").classList.remove("all_header");
+    }
   };
 
   componentDidMount = () => {
     this.checkActiveMenu();
+    if (window.location.pathname === "/") {
+      document.getElementById("all_header").classList.add("all_header");
+    } else {
+      document.getElementById("all_header").classList.remove("all_header");
+    }
   };
 
   handleCheckActive = (name) => {
-    this.checkActiveMenu();
+    this.checkActiveMenu(name);
   };
 
   render() {
@@ -107,7 +118,7 @@ class Menu extends React.Component {
               <li
                 key={key}
                 className={`item_menu `}
-                onClick={this.handleCheckActive}
+                onClick={(e) => this.handleCheckActive(value.link)}
               >
                 <NavLink
                   to={value.link}
