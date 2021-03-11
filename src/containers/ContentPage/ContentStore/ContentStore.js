@@ -74,12 +74,11 @@ export default class ContentStore {
 
       console.log("convertedContentData");
       console.log(convertedContentData);
-      return false;
       // Save Content
       const contentService = new EasiiContentApiService();
       let resultContent;
 
-      if (convertedContentData.id == undefined) {
+      if (convertedContentData.id == 0) {
         resultContent = await contentService.createContent(
           convertedContentData
         );
