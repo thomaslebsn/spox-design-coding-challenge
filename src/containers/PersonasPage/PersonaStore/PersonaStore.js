@@ -307,6 +307,8 @@ export default class PersonaStore {
   ) {
     try {
       console.log("Persona Store - searchPersonas");
+      console.log(dataFilter);
+      console.log(paginationStep);
       const personaAPIService = new EasiiPersonaApiService();
       const respondedDataFromLibrary = await personaAPIService.searchPersonas(
         dataFilter,
