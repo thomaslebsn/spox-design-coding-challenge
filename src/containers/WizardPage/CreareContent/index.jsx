@@ -16,6 +16,12 @@ class CreareContent extends Component {
 
   render() {
     console.log("[CreareContent] - re-render .........");
+    let { match } = this.props;
+    let getIdProject = null;
+    if (match) {
+      getIdProject = match.params.id;
+    }
+    console.log("getIdProject", getIdProject);
 
     return (
       <StepWizard isLazyMount={true} transitions={this.custom} className="px-3">
