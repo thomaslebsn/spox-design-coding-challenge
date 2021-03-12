@@ -81,7 +81,6 @@ class ProjectFormModalViewModel {
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
-    notify(error.message);
   };
 
   callbackOnSuccessHandler = (projectId) => {

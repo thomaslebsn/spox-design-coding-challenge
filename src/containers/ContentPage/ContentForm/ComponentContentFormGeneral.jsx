@@ -202,9 +202,14 @@ class ComponentContentFormGeneral extends Component {
             label: "Content",
             key: CONTENT_FIELD_KEY.THEME,
             type: FORM_FIELD_TYPE.CANVA,
-            value: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
-            required: true,
-            validation: "required",
+            value: {
+              exportedUrl: this.formPropsData[
+                CONTENT_FIELD_KEY.CANVA_EXPORTED_URL
+              ],
+              designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+            },
+            // required: true,
+            // validation: "required",
             changed: ({ exportUrl, designId }) => {
               console.log("[Canva Field] changed", { exportUrl, designId });
               this.formPropsData[

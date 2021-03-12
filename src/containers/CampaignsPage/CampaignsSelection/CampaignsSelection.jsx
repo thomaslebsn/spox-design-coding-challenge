@@ -52,7 +52,7 @@ const CampaignsSelection = observer(
           Header: "Campaign Name",
           accessor: CAMPAIGNS_FIELD_KEY.NAME, // accessor is the "key" in the data
           Cell: ({ row }) => (
-            <div {...row.getToggleRowExpandedProps()} className="d-flex">
+            <div className="d-flex">
               <span
                 className="ms-2 text-black opacity-75"
                 onClick={(e) => this.handerEditCampaign(e, row.original)}

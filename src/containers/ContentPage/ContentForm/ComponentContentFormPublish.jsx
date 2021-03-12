@@ -194,7 +194,7 @@ class ComponentContentFormPublish extends Component {
     console.log("[Content - FormPublish] channelSelectionData");
     console.log(channelSelectionData);
 
-    return formStatus == PAGE_STATUS.LOADING ? (
+    return formStatus === PAGE_STATUS.LOADING ? (
       <Spinner />
     ) : (
       <div className="col-6">

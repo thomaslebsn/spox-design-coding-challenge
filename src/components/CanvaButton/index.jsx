@@ -42,6 +42,13 @@ class CanvaButton extends React.Component {
 
       document.body.appendChild(script);
     }
+    const canvaData = this.field.value;
+    if (canvaData.exportedUrl && canvaData.designId) {
+      this.setState({
+        exportUrl: canvaData.exportedUrl,
+        designId: canvaData.designId,
+      });
+    }
   }
 
   componentWillUnmount() {

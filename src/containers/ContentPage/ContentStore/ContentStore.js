@@ -89,15 +89,9 @@ export default class ContentStore {
         resultContent = await contentService.updateContent(
           convertedContentData
         );
-      }
+      }      
 
-      // Post channel
-      const channelService = new EasiiProjectChannelApiService();
-      const resultPost = await channelService.postToFanpage(
-        contentData[CONTENT_FIELD_KEY.DESCRIPTION]
-      );
-
-      if (resultContent && resultPost) {
+      if (resultContent) {
         runInAction(() => {
           callbackOnSuccess();
         });

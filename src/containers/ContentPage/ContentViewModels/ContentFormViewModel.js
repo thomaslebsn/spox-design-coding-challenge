@@ -13,7 +13,7 @@ class ContentFormViewModel {
   contentStore = null;
   contentFormComponent = null;
 
-  formStatus = PAGE_STATUS.READY;
+  formStatus = PAGE_STATUS.LOADING;
 
   constructor(contentStore) {
     console.log("[ContentFormViewModel] ...constructor ");
@@ -71,13 +71,12 @@ class ContentFormViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
-
-    history.push("/content");
   };
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");
     console.log(error);
+    this.formStatus = PAGE_STATUS.READY;
     notify(error);
   };
 
