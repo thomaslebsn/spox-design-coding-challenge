@@ -14,6 +14,7 @@ class ComponentPreviewPersona extends Component {
 
   render() {
     let { data } = this.props;
+    console.log("data data data 222", data);
     return (
       <div>
         <div className="d-flex align-items-center justify-content-between mb-3">
@@ -73,7 +74,7 @@ class ComponentPreviewPersona extends Component {
             <li className="d-flex py-1">
               <span className="fw-bold w-150">Marital Status</span>
               <span className="flex-1">
-                {data ? data.marital_status : null}
+                {/* {data ? data.marital_status : null} */}
               </span>
             </li>
           </ul>
