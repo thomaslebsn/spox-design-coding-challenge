@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCog } from "@fortawesome/free-solid-svg-icons/faUserCog";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons/faUserCheck";
 import { faHistory } from "@fortawesome/free-solid-svg-icons/faHistory";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import "./index.scss";
 
 import ComponentPreviewPersona from "../ComponentPreviewPersona";
@@ -65,12 +66,23 @@ class ContentSbarRight extends React.Component {
               </Nav>
             </div>
 
-            <Tab.Content className="position-absolute top-0 end-100 w-400 mh-100 border-end-1 overflow-hidden overflow-y-auto h-100">
+            <Tab.Content className="wr_tab_content position-absolute top-0 end-100 w-400 mh-100 border-end-1 overflow-hidden overflow-y-auto h-100">
               <Tab.Pane
                 eventKey="0"
                 className="wr_tabcontent_right bg-white p-3 h-100"
                 hidden={this.props.isHidden}
               >
+                <div className="wr_collapse_preview position-absolute top-0 bottom-0 start-0 my-auto d-flex align-items-center">
+                  <a
+                    href={void 0}
+                    className="btn_collapse_preview cursor-pointer d-flex align-items-center justify-content-center"
+                    onClick={this.props.handlShowPreviewPersona}
+                  >
+                    <i className="position-relative z-index-10 text-green">
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </i>
+                  </a>
+                </div>
                 <ComponentPreviewPersona
                   data={this.props.data}
                   handleSelect={this.props.handleSelect}

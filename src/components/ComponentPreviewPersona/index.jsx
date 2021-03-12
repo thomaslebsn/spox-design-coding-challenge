@@ -16,7 +16,7 @@ class ComponentPreviewPersona extends Component {
     let { data } = this.props;
     console.log("data data data 222", data);
     return (
-      <div>
+      <div className="h-100">
         <div className="d-flex align-items-center justify-content-between mb-3">
           <h3>Preview Persona</h3>
           {/* <a
