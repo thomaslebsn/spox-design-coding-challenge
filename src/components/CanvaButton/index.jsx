@@ -68,6 +68,12 @@ class CanvaButton extends React.Component {
 
     let { exportUrl, designId, apiLoaded } = this.state;
 
+    console.log("exportUrl exportUrl", exportUrl);
+
+    if (exportUrl) {
+      document.body.classList.add("wr_export_url_canva");
+    }
+
     return (
       apiLoaded && (
         <>
