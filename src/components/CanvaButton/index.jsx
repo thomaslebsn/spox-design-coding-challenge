@@ -57,6 +57,7 @@ class CanvaButton extends React.Component {
 
   handleClick = () => {
     const _this = this;
+    document.body.classList.remove("wr_export_url_canva");
 
     this.canvaApi.createDesign({
       design: {
@@ -74,8 +75,6 @@ class CanvaButton extends React.Component {
     console.log("[CanvaButton canvaApi] ", this.canvaApi);
 
     let { exportUrl, designId, apiLoaded } = this.state;
-
-    console.log("exportUrl exportUrl", exportUrl);
 
     if (exportUrl) {
       document.body.classList.add("wr_export_url_canva");
