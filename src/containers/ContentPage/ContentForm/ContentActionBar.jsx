@@ -56,7 +56,7 @@ class ContentActionBar extends Component {
           }}
           className="btn btn-success"
         >
-          <i className="me-1">
+          <i className="me-2">
             <FontAwesomeIcon icon={faPlus} />
           </i>
           <span>Create post</span>
