@@ -24,17 +24,20 @@ const FormDateRangePicker = ({ field }) => {
   const handleStartDate = (date) => {
     setStartDate(date);
     startField.changed(date);
-  }
+  };
 
   const handleEndDate = (date) => {
     setEndDate(date);
     endField.changed(date);
-  }
+  };
 
   return (
     <>
-      <Form.Group key={Math.random(40, 200)} className="mb-4">
-        <Label text={startField.label} required={startField.required ?? false} />
+      <Form.Group key={Math.random(40, 200)} className="mb-3">
+        <Label
+          text={startField.label}
+          required={startField.required ?? false}
+        />
         <DatePicker
           dateFormat={FORMAT_DATE}
           selected={startDate}
@@ -45,7 +48,7 @@ const FormDateRangePicker = ({ field }) => {
           className="form-control"
         />
       </Form.Group>
-      <Form.Group key={Math.random(40, 200)} className="mb-4">
+      <Form.Group key={Math.random(40, 200)} className="mb-3">
         <Label text={endField.label} required={endField.required ?? false} />
         <DatePicker
           dateFormat={FORMAT_DATE}
