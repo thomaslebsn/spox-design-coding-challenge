@@ -64,6 +64,8 @@ const ProjectForm = observer(
                     PROJECT_COLUMN_INDICATOR.START_DATE
                   ] = date;
                 },
+                required: true,
+                validation: "required",
               },
               endField: {
                 label: "End Date",
@@ -72,9 +74,9 @@ const ProjectForm = observer(
                 changed: (date) => {
                   this.formPropsData[PROJECT_COLUMN_INDICATOR.END_DATE] = date;
                 },
-              },
-              required: true,
-              validation: "required",
+                required: true,
+                validation: "required",
+              }
             },
             {
               label: "Project Logo",
@@ -93,8 +95,6 @@ const ProjectForm = observer(
               value: this.formPropsData[
                 PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION
               ],
-              required: true,
-              validation: "required",
               changed: (event) => {
                 this.formPropsData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] =
                   event.target.value;
