@@ -29,6 +29,7 @@ const ContentFormPublishWizard = observer(
         <ComponentContentFormPublish
           {...this.props}
           viewModel={this.contentFormViewModel}
+          formStatus={this.contentFormViewModel.formStatus}
         />
       );
     }
