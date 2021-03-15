@@ -40,6 +40,7 @@ class ComponentContentFormGeneral extends Component {
   isEditMode = false;
   viewModel = null;
   projectTableSelectionModalViewModel = null;
+  personaTableSelectionModalViewModel = null;
   contentConnectedChannelsByProjectViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
   selectedProjectIdFromWizardStep1 = null;
@@ -61,6 +62,11 @@ class ComponentContentFormGeneral extends Component {
     this.projectTableSelectionModalViewModel = this.props
       .projectTableSelectionModalViewModel
       ? this.props.projectTableSelectionModalViewModel
+      : null;
+
+    this.personaTableSelectionModalViewModel = this.props
+      .personaTableSelectionModalViewModel
+      ? this.props.personaTableSelectionModalViewModel
       : null;
 
     this.contentConnectedChannelsByProjectViewModel = this.viewModel.getContentConnectedChannelsViewModel();
@@ -167,15 +173,17 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             required: true,
             validation: "required",
-            viewModel: personaSelectionViewModal,
+            viewModel: this.personaTableSelectionModalViewModel,
             changed: () => {
-              const personaIds = personaSelectionViewModal.getSelectedIDs();
+              const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
               if (personaIds) {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }
             },
             clicked: () => {
-              personaSelectionViewModal.openModal();
+              console.log('clicked =====');
+              console.log(this.personaTableSelectionModalViewModel);
+              this.personaTableSelectionModalViewModel.openModal();
             },
             multi: true,
           },
