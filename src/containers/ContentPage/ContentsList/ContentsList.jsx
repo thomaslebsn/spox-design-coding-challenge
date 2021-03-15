@@ -93,7 +93,7 @@ const ContentsList = observer(
       const dataFormFilter = this.getDataFormFilter();
       const tableRowHeader = [
         {
-          Header: "Name",
+          Header: "Title",
           accessor: CONTENT_FIELD_KEY.NAME,
           Cell: ({ row }) => (
             console.log("row.original", row),

@@ -47,6 +47,7 @@ const Table = ({
   searchFunction,
   dataFormFilter,
   hasSubRow,
+  isSearch = true,
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -259,13 +260,13 @@ const Table = ({
       <div className="mb-4">
         <div className="bg-white rounded-3 d-flex align-items-center justify-content-between">
           <div className="wrapper_search_global d-flex align-items-center">
-            <GlobalFilter
+            {isSearch ? (<GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               globalFilter={state.globalFilter}
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
               listViewModel={listViewModel}
-            />
+            />) : null}
             {!noDropDownColumns && (
               <div className="px-2 border-end-1">
                 <Dropdown>

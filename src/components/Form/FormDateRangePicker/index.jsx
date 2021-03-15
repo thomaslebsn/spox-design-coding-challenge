@@ -34,7 +34,7 @@ const FormDateRangePicker = ({ field }) => {
   return (
     <>
       <Form.Group key={Math.random(40, 200)} className="mb-4">
-        <Label text={startField.label} required={field.required ?? false} />
+        <Label text={startField.label} required={startField.required ?? false} />
         <DatePicker
           dateFormat={FORMAT_DATE}
           selected={startDate}
@@ -46,7 +46,7 @@ const FormDateRangePicker = ({ field }) => {
         />
       </Form.Group>
       <Form.Group key={Math.random(40, 200)} className="mb-4">
-        <Label text={endField.label} required={field.required ?? false} />
+        <Label text={endField.label} required={endField.required ?? false} />
         <DatePicker
           dateFormat={FORMAT_DATE}
           selected={endDate}
