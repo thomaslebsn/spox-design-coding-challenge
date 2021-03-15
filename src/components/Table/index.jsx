@@ -223,15 +223,15 @@ const Table = ({
   };
 
   const handlePreviousPage = (i) => {
-    listViewModel.getPagination(pagination.page - 1);
+    listViewModel.getPagination(pagination.page - 1, getState.isList);
   };
 
   const handleGoToPage = (i) => {
-    listViewModel.getPagination(i);
+    listViewModel.getPagination(i, getState.isList);
   };
 
   const handleNextPage = () => {
-    listViewModel.getPagination(pagination.page + 1);
+    listViewModel.getPagination(pagination.page + 1, getState.isList);
   };
 
   const paginationHTML = () => {
@@ -526,6 +526,33 @@ const Table = ({
               )
             );
           })}
+          <div className="pagination d-flex align-items-center justify-content-center">
+            {pagination && (
+              <>
+                <button
+                  //onClick={() => previousPage()}
+                  onClick={() => handlePreviousPage()}
+                  disabled={pagination && pagination.page <= 1 ? true : false}
+                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                {paginationHTML()}
+                <button
+                  //onClick={() => nextPage()}
+                  onClick={() => handleNextPage()}
+                  disabled={
+                    pagination && pagination.page === pagination.totalPages
+                      ? true
+                      : false
+                  }
+                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                >
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </>
