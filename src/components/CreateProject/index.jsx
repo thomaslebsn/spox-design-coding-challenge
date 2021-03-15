@@ -45,19 +45,19 @@ class CreateProject extends React.Component {
             <span className="text-black opacity-75">Project name </span>
             <span className="text-red-1">*</span>
           </label>
-          <input type="text" className="form-control mb-4" id="name" />
+          <input type="text" className="form-control mb-3" id="name" />
 
           <label className="form-label mb-3" htmlFor="startdate">
             <span className="text-black opacity-75">Start date </span>
             <span className="text-red-1">*</span>
           </label>
-          <input type="text" className="form-control mb-4" id="startdate" />
+          <input type="text" className="form-control mb-3" id="startdate" />
 
           <label className="form-label mb-3" htmlFor="enddate">
             <span className="text-black opacity-75">End date </span>
             <span className="text-red-1">*</span>
           </label>
-          <input type="text" className="form-control mb-4" id="enddate" />
+          <input type="text" className="form-control mb-3" id="enddate" />
 
           <label className="form-label mb-3">
             <span className="text-black opacity-75">Project logo </span>

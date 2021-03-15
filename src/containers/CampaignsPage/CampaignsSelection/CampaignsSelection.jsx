@@ -93,7 +93,7 @@ const CampaignsSelection = observer(
         <ModalComponent
           show={show}
           onHide={this.campaignsSelectionViewModel.closeModal}
-          header={"Choose campaign"}
+          header={"Choose campaigns"}
           dialogClassName="modal-lg modal_content_general"
           body={
             <Table
@@ -103,6 +103,7 @@ const CampaignsSelection = observer(
               noSelection={true}
               noColumns={true}
               noDropDownColumns={true}
+              isSearch={false}
             ></Table>
           }
           key={Math.random(40, 200)}

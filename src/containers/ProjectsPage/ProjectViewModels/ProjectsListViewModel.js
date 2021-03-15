@@ -34,6 +34,8 @@ class ProjectsListViewModel {
 
   showModalCMS = true;
 
+  isList = true
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -65,9 +67,10 @@ class ProjectsListViewModel {
     );
   };
 
-  getPagination = (paginationStep) => {
+  getPagination = (paginationStep, isList) => {
     console.log("paginationStep", paginationStep);
     this.tableStatus = PAGE_STATUS.LOADING;
+    this.isList = isList;
     this.projectStore.fetchProjects(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,

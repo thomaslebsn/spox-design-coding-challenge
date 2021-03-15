@@ -85,6 +85,7 @@ const PersonasSelection = observer(
               noSelection={true}
               noColumns={true}
               noDropDownColumns={true}
+              isSearch={false}
             ></Table>
           }
           key={Math.random(40, 200)}

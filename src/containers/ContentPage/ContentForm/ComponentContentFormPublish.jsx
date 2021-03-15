@@ -24,70 +24,6 @@ import { withContentViewModel } from "../ContentViewModels/ContentViewModelConte
 import PAGE_STATUS from "../../../constants/PageStatus";
 import Spinner from "../../../components/Spinner";
 
-const optionApproval = [
-  {
-    value: "design",
-    label: "Design",
-    text: "Design",
-    type: "Interests",
-    size: "496,890,422",
-    interest: "Fitness and wellness > Physical fitness",
-    description:
-      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis. Morbi fringilla viverra magna. Cras laoreet metus sed posuere eleifend. Sed facilisis dictum",
-  },
-  {
-    value: "interior",
-    label: "Interior design",
-    text: "Interior design",
-    type: "Employers",
-    size: "196,890,422",
-    interest: "Fitness and wellness > Physical fitness",
-    description:
-      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
-  },
-  {
-    value: "fashion",
-    label: "Fashion design",
-    text: "Fashion design",
-    type: "Job Titles",
-    type: "Employers",
-    size: "342,890,422",
-    interest: "Fitness and wellness > Physical fitness",
-    description:
-      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
-  },
-  {
-    value: "graphic",
-    label: "Graphic design",
-    text: "Graphic design",
-    type: "Interests",
-    size: "888,890,453",
-    interest: "Fitness and wellness > Physical fitness",
-    description:
-      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
-  },
-  {
-    value: "industrial",
-    label: "Industrial design",
-    text: "Industrial design",
-    type: "Titles Titles",
-    size: "888,111,555",
-    interest: "Fitness and wellness > Physical fitness",
-    description:
-      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
-  },
-  {
-    value: "architecture",
-    label: "Architecture design",
-    text: "Architecture design",
-    type: "Interests",
-    size: "565,322,777",
-    interest: "Fitness and wellness > Physical fitness",
-    description:
-      "Aliquam quis lorem facilisis, molestie lectus sed, gravida felis",
-  },
-];
-
 class ComponentContentFormPublish extends Component {
   formPropsData = {};
 
@@ -186,7 +122,7 @@ class ComponentContentFormPublish extends Component {
       channelSelectionData,
     } = personaSelectionViewModal;
 
-    const { formStatus } = this.viewModel.formStatus;
+    let { formStatus } = this.props;
 
     console.log("[Content - FormPublish] personaSelectionData");
     console.log(personaSelectionData);

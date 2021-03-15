@@ -47,6 +47,7 @@ const Table = ({
   searchFunction,
   dataFormFilter,
   hasSubRow,
+  isSearch = true,
 }) => {
   const [getState, setState] = useState({
     isList: isList,
@@ -222,15 +223,15 @@ const Table = ({
   };
 
   const handlePreviousPage = (i) => {
-    listViewModel.getPagination(pagination.page - 1);
+    listViewModel.getPagination(pagination.page - 1, getState.isList);
   };
 
   const handleGoToPage = (i) => {
-    listViewModel.getPagination(i);
+    listViewModel.getPagination(i, getState.isList);
   };
 
   const handleNextPage = () => {
-    listViewModel.getPagination(pagination.page + 1);
+    listViewModel.getPagination(pagination.page + 1, getState.isList);
   };
 
   const paginationHTML = () => {
@@ -259,13 +260,13 @@ const Table = ({
       <div className="mb-4">
         <div className="bg-white rounded-3 d-flex align-items-center justify-content-between">
           <div className="wrapper_search_global d-flex align-items-center">
-            <GlobalFilter
+            {isSearch ? (<GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               globalFilter={state.globalFilter}
               setGlobalFilter={setGlobalFilter}
               searchText={searchText}
               listViewModel={listViewModel}
-            />
+            />) : null}
             {!noDropDownColumns && (
               <div className="px-2 border-end-1">
                 <Dropdown>
@@ -525,6 +526,33 @@ const Table = ({
               )
             );
           })}
+          <div className="pagination d-flex align-items-center justify-content-center">
+            {pagination && (
+              <>
+                <button
+                  //onClick={() => previousPage()}
+                  onClick={() => handlePreviousPage()}
+                  disabled={pagination && pagination.page <= 1 ? true : false}
+                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+                {paginationHTML()}
+                <button
+                  //onClick={() => nextPage()}
+                  onClick={() => handleNextPage()}
+                  disabled={
+                    pagination && pagination.page === pagination.totalPages
+                      ? true
+                      : false
+                  }
+                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                >
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </>

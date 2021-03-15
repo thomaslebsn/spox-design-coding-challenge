@@ -75,6 +75,8 @@ const CampaignsForm = observer(
                   console.log(date);
                   this.formPropsData[CAMPAIGNS_FIELD_KEY.START_DATE] = date;
                 },
+                required: true,
+                validation: "required",
               },
               endField: {
                 label: "End Date",

@@ -28,7 +28,7 @@ function Contents({ match }) {
       <div className="py-4 px-3">
         <Route exact path="/content">
           <div className="d-flex align-items-center justify-content-between mb-4">
-            <h2 className="text-blue-0">List Posts</h2>
+            <h2 className="text-blue-0">List posts</h2>
             <ContentActionBar />
           </div>
           <ContentsList />

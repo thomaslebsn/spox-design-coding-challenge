@@ -27,7 +27,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -59,7 +59,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -92,7 +92,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -107,7 +107,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -130,7 +130,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
                   <FormTab
                     key={Math.random(40, 200)}
@@ -143,7 +143,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -157,12 +157,12 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
-                <Label
-                  text={field.label}
-                  required={field.required ?? false}
-                />
+                  <Label
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
                   <CanvaButton key={Math.random(40, 200)} field={field} />
                   {field.validation &&
                     validator.message(
@@ -177,7 +177,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group
                   key={Math.random(40, 200)}
-                  className={`mb-4 ${className}`}
+                  className={`mb-3 ${className}`}
                 >
                   <Label
                     text={field.label}
@@ -187,19 +187,19 @@ const renderingGroupFieldHandler = (group, validator) => {
                 </Form.Group>
               );
 
-              case FORM_FIELD_TYPE.INFORMATION:
-                return (
-                  <Form.Group
-                    key={Math.random(40, 200)}
-                    className={`mb-4 ${className}`}
-                  >
-                    <Label
-                      text={field.label}
-                      required={field.required ?? false}
-                    />
-                    <FormInformation field={field} />
-                  </Form.Group>
-                );
+            case FORM_FIELD_TYPE.INFORMATION:
+              return (
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-3 ${className}`}
+                >
+                  <Label
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
+                  <FormInformation field={field} />
+                </Form.Group>
+              );
             default:
               return null;
           }
