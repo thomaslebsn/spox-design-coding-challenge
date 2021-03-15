@@ -3,7 +3,10 @@ import React, { Component, lazy } from "react";
 import { observer } from "mobx-react";
 import { withProjectViewModel } from "../ProjectViewModels/ProjectViewModelContextProvider";
 import { Button } from "react-bootstrap";
-import PAGE_STATUS from '../../../constants/PageStatus'
+import PAGE_STATUS from "../../../constants/PageStatus";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 
 const ModalComponent = lazy(() => import("../../../components/Modal"));
 const ProjectForm = lazy(() => import("./ProjectForm"));
@@ -34,7 +37,7 @@ const ProjectFormModal = observer(
     };
 
     render() {
-      console.log('project form model modal');
+      console.log("project form model modal");
       console.log(this.projectFormModalViewModel);
       console.log("[ProjectFormModal] - re-render .........");
       const { show, editMode } = this.projectFormModalViewModel;
@@ -42,9 +45,27 @@ const ProjectFormModal = observer(
         <ModalComponent
           show={show}
           onHide={this.projectFormModalViewModel.closeModal}
-          header={(editMode == false || editMode == null) ? "Create a new project" : 'Edit project'}
+          header={
+            editMode == false || editMode == null
+              ? "Create a new project"
+              : "Edit project"
+          }
           body={<ProjectForm viewModel={this.projectFormModalViewModel} />}
-          footer={<Button onClick={this.saveProjectHandler}>Save</Button>}
+          footer={
+            <Button
+              onClick={this.saveProjectHandler}
+              className="btn btn-success w-100"
+            >
+              <span>
+                {editMode == false || editMode == null
+                  ? "Create project"
+                  : "Save project"}
+              </span>
+              <i className="ms-1">
+                <FontAwesomeIcon icon={faChevronRight} />
+              </i>
+            </Button>
+          }
           key={Math.random(40, 200)}
         />
       );
