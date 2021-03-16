@@ -12,11 +12,6 @@ import ButtonNormal from "../../../components/ButtonNormal";
 import SimpleReactValidator from "simple-react-validator";
 
 import {
-  PersonalSelectionPage,
-  personaSelectionViewModal,
-} from "./PersonalSelectionPage";
-
-import {
   CampaignSelectionPage,
   campaignSelectionViewModal,
 } from "./CampaignSelectionPage";
@@ -75,8 +70,8 @@ class ComponentContentFormGeneral extends Component {
   }
 
   componentWillUnmount() {
+    this.personaTableSelectionModalViewModel.resetObservableProperties();
     campaignSelectionViewModal.resetObservableProperties();
-    personaSelectionViewModal.resetObservableProperties();
     this.contentConnectedChannelsByProjectViewModel.resetObservableProperties();
     this.contentDisplayProjectNameInWizardStep3ViewModel.resetObservableProperties();
   }
@@ -312,7 +307,6 @@ class ComponentContentFormGeneral extends Component {
           </div>
         </div>
 
-        <PersonalSelectionPage />
         <CampaignSelectionPage />
       </>
     );

@@ -3,6 +3,22 @@ import React, { Component, lazy } from "react";
 import { observer } from "mobx-react";
 import { withWizardViewModel } from "../../WizardViewModels/WizardViewModelContextProvider";
 import ComponentContentFormPublish from "../../../ContentPage/ContentForm/ComponentContentFormPublish";
+import GlobalStore from "../../../../store/Store";
+import FragmentStore from "../../../../fragments/Store/FragmentStore";
+import PersonaTableSelectionModalViewModel from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
+
+if (!window.globalStore) {
+  window.globalStore = new GlobalStore();
+}
+const globalStore = window.globalStore;
+
+const fragmentStore = new FragmentStore({
+  globalStore: globalStore,
+});
+
+const personaTableSelectionModalViewModel = new PersonaTableSelectionModalViewModel(
+  fragmentStore
+);
 
 const ContentFormPublishWizard = observer(
   class ContentFormPublishWizard extends Component {
@@ -30,6 +46,9 @@ const ContentFormPublishWizard = observer(
           {...this.props}
           viewModel={this.contentFormViewModel}
           formStatus={this.contentFormViewModel.formStatus}
+          personaTableSelectionModalViewModel={
+            personaTableSelectionModalViewModel
+          }
         />
       );
     }

@@ -68,9 +68,18 @@ class ContentFormPage extends Component {
               personaTableSelectionModalViewModel
             }
           />
-          <ContentFormPublish hashKey={"publish"} />
+          <ContentFormPublish
+            hashKey={"publish"}
+            personaTableSelectionModalViewModel={
+              personaTableSelectionModalViewModel
+            }
+          />
         </StepWizard>
-        <ContentPreviewPersona />
+        <ContentPreviewPersona
+          personaTableSelectionModalViewModel={
+            personaTableSelectionModalViewModel
+          }
+        />
         <ProjectTableSelectionModalViewModelContextProvider
           viewModel={projectTableSelectionModalViewModel}
         >

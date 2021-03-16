@@ -28,6 +28,7 @@ class ComponentContentFormPublish extends Component {
   formPropsData = {};
 
   validator = null;
+  personaTableSelectionModalViewModel = null;
 
   constructor(props) {
     super(props);
@@ -41,11 +42,16 @@ class ComponentContentFormPublish extends Component {
     this.validator = new SimpleReactValidator();
     this.viewModel = this.props.viewModel;
 
-    console.log("ContentFormPage - Debug View Model pp");
+    console.log("ComponentContentFormPublish - viewModel");
     console.log(this.viewModel);
-
-    console.log("ContentFormPublish - viewModel");
     console.log(this.viewModel.contentEditdata);
+    
+    this.personaTableSelectionModalViewModel = this.props.personaTableSelectionModalViewModel;
+    console.log("ComponentContentFormPublish - personaTableSelectionModalViewModel");
+    console.log(this.personaTableSelectionModalViewModel);
+
+
+    
   }
 
   post = () => {
@@ -71,9 +77,10 @@ class ComponentContentFormPublish extends Component {
   };
 
   handleCheck = (name) => {
-    const { personaSelectionData } = personaSelectionViewModal;
-
-    personaSelectionData.map((item) => {
+    const { personasSelectionData } = this.personaTableSelectionModalViewModel;
+    console.log('handleCheck');
+    console.log(personasSelectionData);
+    personasSelectionData.map((item) => {
       const channels = item[PERSONA_FIELD_KEY.CHANNELS];
 
       channels.map((channel) => ({
@@ -88,7 +95,7 @@ class ComponentContentFormPublish extends Component {
     });
 
     this.setState({
-      personaSelectionData,
+      personasSelectionData,
     });
   };
 
@@ -118,14 +125,14 @@ class ComponentContentFormPublish extends Component {
     console.log("[Content - FormPublish] - re-render .........");
 
     const {
-      personaSelectionData,
+      personasSelectionData,
       channelSelectionData,
-    } = personaSelectionViewModal;
+    } = this.personaTableSelectionModalViewModel;
 
     let { formStatus } = this.props;
 
-    console.log("[Content - FormPublish] personaSelectionData");
-    console.log(personaSelectionData);
+    console.log("[Content - FormPublish] personasSelectionData");
+    console.log(personasSelectionData);
 
     console.log("[Content - FormPublish] channelSelectionData");
     console.log(channelSelectionData);
@@ -137,7 +144,7 @@ class ComponentContentFormPublish extends Component {
         <h3 className="mb-4">Publish</h3>
         <div className="bg-white p-4">
           <Accordion defaultActiveKey="0" className="">
-            {personaSelectionData.map((item) => {
+            {personasSelectionData.map((item) => {
               //const channels = item[PERSONA_FIELD_KEY.CHANNELS];
               const name = item[PERSONA_FIELD_KEY.NAME];
               const channels = [
