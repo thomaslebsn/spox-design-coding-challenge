@@ -38,37 +38,27 @@ const ConnectChannel = observer(
 
       this.viewModel = viewModel;
 
-      console.log("After binding class 22222");
-      console.log(this.projectListViewModel);
+      //get project id from url
+      let getIdProject = history.location.pathname.match(/\d/g);
+      getIdProject = getIdProject.join("");
 
       this.state = {
-        channels: [
-          {
-            id: 1,
-            name: "social",
-            title: "Social Media",
-            items: [
-              { name: "Facebook", image: "/assets/images/icon-pepsi.png" },
-              { name: "Twitter", image: "/assets/images/icon-nikon.png" },
-            ],
-          },
-          {
-            id: 2,
-            name: "advertising",
-            title: "Advertising",
-            items: [
-              {
-                name: "Advertising 1",
-                image: "/assets/images/icon-adidas.png",
-              },
-              { name: "Advertising 2", image: "/assets/images/icon-nikon.png" },
-            ],
-          },
-        ],
+        channels: [],
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
+        projectId: getIdProject
       };
+
+      //call check connected channels
+      this.projectListViewModel.checkConnectedChannels(this.state.projectId, [
+        'linkedin',
+        'twitter',
+        'instagram',
+        'facebook',
+        'mailchimp',
+        'wordpress',
+      ]);
     }
 
     checkConnectedCMS = (cmsName, isConnected) => {
@@ -76,6 +66,8 @@ const ConnectChannel = observer(
         this.setState({
           isWordpressConnected: isConnected,
         });
+
+        this.projectListViewModel.wordpressConnected = isConnected
       }
     };
 
@@ -86,8 +78,8 @@ const ConnectChannel = observer(
         linkedinConnected,
         mailchimpConnected,
         instagramConnected,
+        wordpressConnected,
       } = this.projectListViewModel;
-      let { isWordpressConnected } = this.state;
 
       if (
         facebookConnected == true ||
@@ -95,11 +87,11 @@ const ConnectChannel = observer(
         linkedinConnected == true ||
         mailchimpConnected == true ||
         instagramConnected == true ||
-        isWordpressConnected == true
+        wordpressConnected == true
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
-        notify("Please chosse an connect channel");
+        notify("Please choose an connect channel");
       }
     };
 
@@ -119,10 +111,8 @@ const ConnectChannel = observer(
     };
 
     handleSaveFanpage = () => {
-      let getIdProject = history.location.pathname.match(/\d/g);
-      getIdProject = getIdProject.join("");
       this.projectListViewModel.saveChosseFacebookFanpages(
-        getIdProject,
+        this.state.projectId,
         this.state.getIDSFanpage
       );
 
@@ -142,6 +132,7 @@ const ConnectChannel = observer(
         linkedinConnected,
         mailchimpConnected,
         instagramConnected,
+        wordpressConnected,
       } = this.projectListViewModel;
 
       return (
@@ -156,7 +147,9 @@ const ConnectChannel = observer(
             linkedinConnected={linkedinConnected}
             mailchimpConnected={mailchimpConnected}
             instagramConnected={instagramConnected}
+            wordpressConnected={wordpressConnected}
             viewModel={this.viewModel}
+            projectId={this.state.projectId}
             checkConnectedCMS={this.checkConnectedCMS}
           />
           <div className="d-flex justify-content-between">

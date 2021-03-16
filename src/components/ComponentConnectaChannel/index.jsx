@@ -69,6 +69,7 @@ class ComponentConnectaChannel extends Component {
       linkedinConnected,
       mailchimpConnected,
       instagramConnected,
+      wordpressConnected,
     } = this.props;
 
     return (
@@ -236,6 +237,8 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   <LoginChannelCMSFormModal
                     clicked={this.showModalConnectCMS}
+                    projectId={this.props.projectId}
+                    wordpressConnected={wordpressConnected}
                     checkConnectedCMS={this.props.checkConnectedCMS}
                   />
                 </div>

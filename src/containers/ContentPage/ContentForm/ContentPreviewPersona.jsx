@@ -20,10 +20,12 @@ const FormPreviewPersona = lazy(() =>
   import("../../PersonasPage/FormPreviewPersona/FormPreviewPersona")
 );
 
-const ContentPreviewPersona = () => {
+const ContentPreviewPersona = (props) => {
+  console.log('ContentPreviewPersona');
+  console.log(props);
   return (
     <PersonaViewModelContextProvider viewModel={personaViewModel}>
-      <FormPreviewPersona />
+      <FormPreviewPersona {...props}/>
     </PersonaViewModelContextProvider>
   );
 };

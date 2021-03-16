@@ -28,6 +28,8 @@ class ProjectsListViewModel {
 
   instagramConnected = false;
 
+  wordpressConnected = false;
+
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
@@ -142,7 +144,7 @@ class ProjectsListViewModel {
             clearInterval(checkConnectionStatusInterval);
           }
 
-          this.projectStore.intervalAskForConnectedChannels(
+          this.projectStore.checkConnectedChannels(
             (response) => {
               if (response) {
                 this.tableStatus = PAGE_STATUS.READY;
@@ -203,6 +205,75 @@ class ProjectsListViewModel {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
+
+  checkConnectedChannels(projectId, channels) {
+    channels.map((channelType) => {
+      this.projectStore.checkConnectedChannels(
+        (response) => {
+          if (response) {
+            let responseResult = response.result;
+
+            switch (channelType) {
+              case "facebook":
+                if (responseResult.pages.status === "connected") {
+                  this.facebookConnected = true;
+                  let listFpConnected = responseResult.pages.connected;
+                  let listFanpage = responseResult.pages.pages;
+
+                  if (listFpConnected.length > 0) {
+                    this.listFaceBookFanpageView = [];
+                    listFanpage.map(fanpage => {
+                      if (listFpConnected.indexOf(fanpage.id) > -1) {
+                        this.listFaceBookFanpageView.push(fanpage)
+                      }
+                    });
+                  } else {
+                    this.listFaceBookFanpage = listFanpage;
+                  }
+                }
+                break;
+
+              case "twitter":
+                if (responseResult.connected == 1) {
+                  this.twitterConnected = true;
+                }
+                break;
+
+              case "linkedin":
+                if (responseResult.connected == 1) {
+                  this.linkedinConnected = true;
+                }
+                break;
+
+              case "mailchimp":
+                if (responseResult.connected == 1) {
+                  this.mailchimpConnected = true;
+                }
+                break;
+
+              case "instagram":
+                if (responseResult.connected == 1) {
+                  this.instagramConnected = true;
+                }
+                break;
+
+              case "wordpress":
+                if (responseResult.connected == 1) {
+                  this.wordpressConnected = true;
+                }
+                break;
+
+              default:
+                break;
+            }
+          }
+        },
+        (error) => {},
+        projectId,
+        channelType
+      );
+    })
+  }
 
   saveChosseFacebookFanpages = (projectId, pageIds) => {
     this.projectStore.saveChosseFacebookFanpages(

@@ -12,14 +12,14 @@ const ContentFormPublish = observer(
       super(props);
 
       const { viewModel } = this.props;
-      console.log("ContentFormGenera - Debug View Model");
+      console.log("ContentFormPublish - Debug View Model");
       console.log(viewModel);
 
       this.contentFormViewModel = viewModel
         ? viewModel.getContentFormViewModel()
         : null;
 
-      console.log("After binding class");
+      console.log("ContentFormPublish - After binding class");
       console.log(this.contentFormViewModel);
     }
 
