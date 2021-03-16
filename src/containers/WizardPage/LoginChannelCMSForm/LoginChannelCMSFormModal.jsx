@@ -26,19 +26,21 @@ const LoginChannelCMSFormModal = observer(
       this.loginCMSChannelFormModalViewModel = viewModel
         ? viewModel.getLoginCMSChannelFormModalViewModel()
         : null;
+
     }
 
     saveCMSHandler = (channelUniqueName) => {
-      let getIdProject = history.location.pathname.match(/\d/g);
-      getIdProject = getIdProject.join("");
-
       this.loginCMSChannelFormModalViewModel.saveCMSHandler(
-        getIdProject,
+        this.props.projectId,
         channelUniqueName
       );
     };
     // this.showModalConnectCMS("wordpress")
     render() {
+      if (this.props.wordpressConnected == true) {
+        this.loginCMSChannelFormModalViewModel.isConnectWordpressSuccess = true;
+      }
+
       const {
         show,
         isConnectWordpressSuccess,
