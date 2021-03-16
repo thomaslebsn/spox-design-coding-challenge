@@ -36,7 +36,7 @@ class ProjectsListViewModel {
 
   showModalCMS = true;
 
-  isList = true
+  isList = true;
 
   constructor(projectStore) {
     makeAutoObservable(this);
@@ -222,9 +222,9 @@ class ProjectsListViewModel {
 
                   if (listFpConnected.length > 0) {
                     this.listFaceBookFanpageView = [];
-                    listFanpage.map(fanpage => {
+                    listFanpage.map((fanpage) => {
                       if (listFpConnected.indexOf(fanpage.id) > -1) {
-                        this.listFaceBookFanpageView.push(fanpage)
+                        this.listFaceBookFanpageView.push(fanpage);
                       }
                     });
                   } else {
@@ -272,16 +272,18 @@ class ProjectsListViewModel {
         projectId,
         channelType
       );
-    })
+    });
   }
 
   saveChosseFacebookFanpages = (projectId, pageIds) => {
-    this.projectStore.saveChosseFacebookFanpages(
-      this.callbackOnSuccessListFacebookFanpage,
-      this.callbackOnErrorHander,
-      projectId,
-      pageIds
-    );
+    if (pageIds.length > 0) {
+      this.projectStore.saveChosseFacebookFanpages(
+        this.callbackOnSuccessListFacebookFanpage,
+        this.callbackOnErrorHander,
+        projectId,
+        pageIds
+      );
+    }
   };
 
   callbackOnSuccessListFacebookFanpage = (response, projectId, pageIds) => {
