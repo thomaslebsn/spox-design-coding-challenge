@@ -12,11 +12,6 @@ import ButtonNormal from "../../../components/ButtonNormal";
 import SimpleReactValidator from "simple-react-validator";
 
 import {
-  PersonalSelectionPage,
-  personaSelectionViewModal,
-} from "./PersonalSelectionPage";
-
-import {
   CampaignSelectionPage,
   campaignSelectionViewModal,
 } from "./CampaignSelectionPage";
@@ -40,6 +35,7 @@ class ComponentContentFormGeneral extends Component {
   isEditMode = false;
   viewModel = null;
   projectTableSelectionModalViewModel = null;
+  personaTableSelectionModalViewModel = null;
   contentConnectedChannelsByProjectViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
   selectedProjectIdFromWizardStep1 = null;
@@ -63,14 +59,19 @@ class ComponentContentFormGeneral extends Component {
       ? this.props.projectTableSelectionModalViewModel
       : null;
 
+    this.personaTableSelectionModalViewModel = this.props
+      .personaTableSelectionModalViewModel
+      ? this.props.personaTableSelectionModalViewModel
+      : null;
+
     this.contentConnectedChannelsByProjectViewModel = this.viewModel.getContentConnectedChannelsViewModel();
     this.contentDisplayProjectNameInWizardStep3ViewModel = this.viewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
     this.viewModel.setForm(this);
   }
 
   componentWillUnmount() {
+    this.personaTableSelectionModalViewModel.resetObservableProperties();
     campaignSelectionViewModal.resetObservableProperties();
-    personaSelectionViewModal.resetObservableProperties();
     this.contentConnectedChannelsByProjectViewModel.resetObservableProperties();
     this.contentDisplayProjectNameInWizardStep3ViewModel.resetObservableProperties();
   }
@@ -167,15 +168,17 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             required: true,
             validation: "required",
-            viewModel: personaSelectionViewModal,
+            viewModel: this.personaTableSelectionModalViewModel,
             changed: () => {
-              const personaIds = personaSelectionViewModal.getSelectedIDs();
+              const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
               if (personaIds) {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }
             },
             clicked: () => {
-              personaSelectionViewModal.openModal();
+              console.log('clicked =====');
+              console.log(this.personaTableSelectionModalViewModel);
+              this.personaTableSelectionModalViewModel.openModal();
             },
             multi: true,
           },
@@ -304,7 +307,6 @@ class ComponentContentFormGeneral extends Component {
           </div>
         </div>
 
-        <PersonalSelectionPage />
         <CampaignSelectionPage />
       </>
     );

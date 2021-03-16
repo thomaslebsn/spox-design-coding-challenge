@@ -1,11 +1,9 @@
 import PersonaFormViewModel from "./PersonaFormViewModel";
 import PersonaListViewModel from "./PersonasListViewModel";
-import PersonaSelectionViewModel from "./PersonasSelectionViewModel";
 import PersonaTemplateViewModel from "./PersonaTemplateViewModel";
 
 class PersonaViewModel {
   personaListViewModel = null;
-  personaSelectionViewModel = null;
   personaFormViewModel = null;
   personaTemplateViewModel = null;
 
@@ -14,9 +12,7 @@ class PersonaViewModel {
       console.log("PersonaViewModel - Abstract");
       this.personaFormViewModel = new PersonaFormViewModel(personaStore);
       this.personaListViewModel = new PersonaListViewModel(personaStore);
-      this.personaSelectionViewModel = new PersonaSelectionViewModel(
-        personaStore
-      );
+      
       this.personaTemplateViewModel = new PersonaTemplateViewModel(personaStore);
 
       // Inject dependencies together among ViewModels
@@ -29,8 +25,6 @@ class PersonaViewModel {
   getPersonaListViewModel = () => this.personaListViewModel;
 
   getPersonaFormViewModel = () => this.personaFormViewModel;
-
-  getPersonaSelectionViewModel = () => this.personaSelectionViewModel;
 
   getPersonaTemplateViewModel = () => this.personaTemplateViewModel;
 }

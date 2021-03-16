@@ -8,10 +8,18 @@ import FragmentStore from "../../../../fragments/Store/FragmentStore";
 import ProjectTableSelectionModalViewModel from "../../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModel";
 import { ContentPreviewPersona } from "../../../ContentPage/ContentForm/ContentPreviewPersona";
 import { ProjectTableSelectionModalViewModelContextProvider } from "../../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModelContextProvider";
+import PersonaTableSelectionModalViewModel from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
+import { PersonaTableSelectionModalViewModelContextProvider } from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModelContextProvider";
 
 const ProjectTableSelectionModal = lazy(() =>
   import(
     "../../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModal"
+  )
+);
+
+const PersonaTableSelectionModal = lazy(() =>
+  import(
+    "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModal"
   )
 );
 
@@ -25,6 +33,10 @@ const fragmentStore = new FragmentStore({
 });
 
 const projectTableSelectionModalViewModel = new ProjectTableSelectionModalViewModel(
+  fragmentStore
+);
+
+const personaTableSelectionModalViewModel = new PersonaTableSelectionModalViewModel(
   fragmentStore
 );
 
@@ -57,6 +69,9 @@ const ContentFormGeneralWizard = observer(
             projectTableSelectionModalViewModel={
               projectTableSelectionModalViewModel
             }
+            personaTableSelectionModalViewModel={
+              personaTableSelectionModalViewModel
+            }
           />
           <ContentPreviewPersona />
           <ProjectTableSelectionModalViewModelContextProvider
@@ -64,6 +79,11 @@ const ContentFormGeneralWizard = observer(
           >
             <ProjectTableSelectionModal />
           </ProjectTableSelectionModalViewModelContextProvider>
+          <PersonaTableSelectionModalViewModelContextProvider
+            viewModel={personaTableSelectionModalViewModel}
+          >
+            <PersonaTableSelectionModal />
+          </PersonaTableSelectionModalViewModelContextProvider>
         </>
       );
     }
