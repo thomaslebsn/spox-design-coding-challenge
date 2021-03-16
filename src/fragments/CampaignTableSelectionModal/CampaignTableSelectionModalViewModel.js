@@ -117,7 +117,7 @@ class CampaignTableSelectionModalViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       console.log("111111111111111");
-      this.CampaignsMasterData = campaignModelData.toDropdownFullSelectionItem();
+      this.CampaignsMasterData = campaignModelData.toDropdownFullListValues();
       console.log("=================");
       console.log(this.CampaignsMasterData);
     } else {
