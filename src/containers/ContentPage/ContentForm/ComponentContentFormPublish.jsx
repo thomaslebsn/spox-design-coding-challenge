@@ -15,8 +15,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons/faCheckCircle";
 
-import { personaSelectionViewModal } from "./PersonalSelectionPage";
-
 import SimpleReactValidator from "simple-react-validator";
 
 import { observer } from "mobx-react";
