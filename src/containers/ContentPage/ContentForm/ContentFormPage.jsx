@@ -5,10 +5,15 @@ import StepWizard from "react-step-wizard";
 import { ContentPreviewPersona } from "./ContentPreviewPersona";
 import GlobalStore from "../../../store/Store";
 import FragmentStore from "../../../fragments/Store/FragmentStore";
+//PROJECT
 import ProjectTableSelectionModalViewModel from "../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModel";
 import { ProjectTableSelectionModalViewModelContextProvider } from "../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModelContextProvider";
+//PERSONA
 import PersonaTableSelectionModalViewModel from "../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
 import { PersonaTableSelectionModalViewModelContextProvider } from "../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModelContextProvider";
+//CAMPAIGN
+import CampaignTableSelectionModalViewModel from "../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModel";
+import { CampaignTableSelectionModalViewModelContextProvider } from "../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModelContextProvider";
 
 const ContentFormGeneral = lazy(() =>
   import("./ContentFormGeneral/ContentFormGeneral")
@@ -22,9 +27,16 @@ const ProjectTableSelectionModal = lazy(() =>
     "../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModal"
   )
 );
+
 const PersonaTableSelectionModal = lazy(() =>
   import(
     "../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModal"
+  )
+);
+
+const CampaignTableSelectionModal = lazy(() =>
+  import(
+    "../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModal"
   )
 );
 
@@ -40,7 +52,12 @@ const fragmentStore = new FragmentStore({
 const projectTableSelectionModalViewModel = new ProjectTableSelectionModalViewModel(
   fragmentStore
 );
+
 const personaTableSelectionModalViewModel = new PersonaTableSelectionModalViewModel(
+  fragmentStore
+);
+
+const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalViewModel(
   fragmentStore
 );
 
@@ -67,29 +84,44 @@ class ContentFormPage extends Component {
             personaTableSelectionModalViewModel={
               personaTableSelectionModalViewModel
             }
+            campaignTableSelectionModalViewModel={
+              campaignTableSelectionModalViewModel
+            }
           />
           <ContentFormPublish
             hashKey={"publish"}
             personaTableSelectionModalViewModel={
               personaTableSelectionModalViewModel
             }
+            campaignTableSelectionModalViewModel={
+              campaignTableSelectionModalViewModel
+            }
           />
         </StepWizard>
+
         <ContentPreviewPersona
           personaTableSelectionModalViewModel={
             personaTableSelectionModalViewModel
           }
         />
+
         <ProjectTableSelectionModalViewModelContextProvider
           viewModel={projectTableSelectionModalViewModel}
         >
           <ProjectTableSelectionModal />
         </ProjectTableSelectionModalViewModelContextProvider>
+
         <PersonaTableSelectionModalViewModelContextProvider
           viewModel={personaTableSelectionModalViewModel}
         >
           <PersonaTableSelectionModal />
         </PersonaTableSelectionModalViewModelContextProvider>
+
+        <CampaignTableSelectionModalViewModelContextProvider
+          viewModel={campaignTableSelectionModalViewModel}
+        >
+          <CampaignTableSelectionModal />
+        </CampaignTableSelectionModalViewModelContextProvider>
       </>
     );
   }

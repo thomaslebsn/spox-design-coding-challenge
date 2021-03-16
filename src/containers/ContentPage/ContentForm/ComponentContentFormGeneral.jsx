@@ -36,6 +36,7 @@ class ComponentContentFormGeneral extends Component {
   viewModel = null;
   projectTableSelectionModalViewModel = null;
   personaTableSelectionModalViewModel = null;
+  campaignTableSelectionModalViewModel = null;
   contentConnectedChannelsByProjectViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
   selectedProjectIdFromWizardStep1 = null;
@@ -64,6 +65,16 @@ class ComponentContentFormGeneral extends Component {
       ? this.props.personaTableSelectionModalViewModel
       : null;
 
+    this.campaignTableSelectionModalViewModel = this.props
+      .campaignTableSelectionModalViewModel
+      ? this.props.campaignTableSelectionModalViewModel
+      : null;
+
+    console.log(
+      "ComponentContentFormGeneral - this.campaignTableSelectionModalViewModel"
+    );
+    console.log(this.campaignTableSelectionModalViewModel);
+
     this.contentConnectedChannelsByProjectViewModel = this.viewModel.getContentConnectedChannelsViewModel();
     this.contentDisplayProjectNameInWizardStep3ViewModel = this.viewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
     this.viewModel.setForm(this);
@@ -71,7 +82,7 @@ class ComponentContentFormGeneral extends Component {
 
   componentWillUnmount() {
     this.personaTableSelectionModalViewModel.resetObservableProperties();
-    campaignSelectionViewModal.resetObservableProperties();
+    this.campaignTableSelectionModalViewModel.resetObservableProperties();
     this.contentConnectedChannelsByProjectViewModel.resetObservableProperties();
     this.contentDisplayProjectNameInWizardStep3ViewModel.resetObservableProperties();
   }
@@ -150,15 +161,15 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
             required: true,
             validation: "required",
-            viewModel: campaignSelectionViewModal,
+            viewModel: this.campaignTableSelectionModalViewModel,
             changed: () => {
-              const campaignId = campaignSelectionViewModal.getSelectedIDs();
+              const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
               if (campaignId) {
                 this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = campaignId;
               }
             },
             clicked: () => {
-              campaignSelectionViewModal.openModal();
+              this.campaignTableSelectionModalViewModel.openModal();
             },
           },
           {
@@ -176,7 +187,7 @@ class ComponentContentFormGeneral extends Component {
               }
             },
             clicked: () => {
-              console.log('clicked =====');
+              console.log("clicked =====");
               console.log(this.personaTableSelectionModalViewModel);
               this.personaTableSelectionModalViewModel.openModal();
             },

@@ -10,6 +10,7 @@ const ContentFormGeneral = observer(
     contentFormViewModel = null;
     projectTableSelectionModalViewModel = null;
     personaTableSelectionModalViewModel = null;
+    campaignTableSelectionModalViewModel = null;
     constructor(props) {
       super(props);
 
@@ -17,6 +18,7 @@ const ContentFormGeneral = observer(
         viewModel,
         projectTableSelectionModalViewModel,
         personaTableSelectionModalViewModel,
+        campaignTableSelectionModalViewModel,
       } = this.props;
       console.log("ContentFormGeneral - Debug View Model");
       console.log(viewModel);
@@ -31,13 +33,23 @@ const ContentFormGeneral = observer(
       console.log(this.projectTableSelectionModalViewModel);
 
       this.personaTableSelectionModalViewModel = personaTableSelectionModalViewModel
-      ? personaTableSelectionModalViewModel
-      : null;
+        ? personaTableSelectionModalViewModel
+        : null;
 
       console.log(
         "ContentFormGeneral - Debug personaTableSelectionModalViewModel"
       );
       console.log(this.personaTableSelectionModalViewModel);
+
+      this.campaignTableSelectionModalViewModel = campaignTableSelectionModalViewModel
+        ? campaignTableSelectionModalViewModel
+        : null;
+
+      console.log(
+        "ContentFormGeneral - Debug campaignTableSelectionModalViewModel"
+      );
+      console.log(this.campaignTableSelectionModalViewModel);
+
       this.contentFormViewModel = viewModel
         ? viewModel.getContentFormViewModel()
         : null;
@@ -56,6 +68,9 @@ const ContentFormGeneral = observer(
           }
           personaTableSelectionModalViewModel={
             this.personaTableSelectionModalViewModel
+          }
+          campaignTableSelectionModalViewModel={
+            this.campaignTableSelectionModalViewModel
           }
           match={this.props.match}
         />

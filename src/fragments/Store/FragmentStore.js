@@ -135,6 +135,8 @@ class FragmentStore {
             isForCampaignMasterData: true,
           },
           (result) => {
+            console.log("------------");
+            console.log(result.campaignMasterData);
             const resultInModel = new CampaignMasterDataModel(
               result && result.campaignMasterData
                 ? result.campaignMasterData
