@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import {format} from "date-fns";
 
 import FIELD_TYPE from "../../../constants/FieldType";
 import { FORMAT_DATE } from "../../../constants/FormFieldType";
@@ -24,7 +24,7 @@ class CampaignsModel {
     this.enddate =
       (data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "0000-00-00 00:00:00" &&
         data[CAMPAIGN_API_FIELD_KEY.END_DATE] !== "") ? data[CAMPAIGN_API_FIELD_KEY.END_DATE] : "";
-      
+
     this.needtodo = data[CAMPAIGN_API_FIELD_KEY.NEED_TO_DO] ?? "";
     this.schedudepost = data[CAMPAIGN_API_FIELD_KEY.SCHEDUDE_POST] ?? "";
     this.publishedcontent =
@@ -33,8 +33,10 @@ class CampaignsModel {
     this.project = data[CAMPAIGN_API_FIELD_KEY.PROJECT] ?? "";
 
     this.percentComplete = data[CAMPAIGN_API_FIELD_KEY.PERCENT_COMPLETE] ?? "";
-    this.progress = data[CAMPAIGN_API_FIELD_KEY.PROGRESS]
-      ? new ProgressModel(data)
+    this.progress = this.percentComplete ? new ProgressModel({
+        id: this.id,
+        progress: this.percentComplete,
+      })
       : 0;
   }
 
@@ -173,25 +175,25 @@ class CampaignsModel {
     console.log("convertSubmittedDataToCampaignAPIService", campaignsData);
     const result = campaignsData
       ? {
-          [CAMPAIGN_API_FIELD_KEY.ID]:
-            campaignsData[CAMPAIGN_API_FIELD_KEY.ID] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.NAME]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.NAME] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.START_DATE]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.START_DATE] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.END_DATE]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.END_DATE] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.PROJECT]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.PROJECT] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.NEED_TO_DO]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.NEED_TO_DO] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.SCHEDUDE_POST]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.SCHEDUDE_POST] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.PUBLISHED_CONTENT]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.PUBLISHED_CONTENT] ?? "",
-          [CAMPAIGN_API_FIELD_KEY.PROGRESS]:
-            campaignsData[CAMPAIGNS_FIELD_KEY.PROGRESS] ?? "",
-        }
+        [CAMPAIGN_API_FIELD_KEY.ID]:
+        campaignsData[CAMPAIGN_API_FIELD_KEY.ID] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.NAME]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.NAME] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.START_DATE]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.START_DATE] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.END_DATE]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.END_DATE] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.PROJECT]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.PROJECT] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.NEED_TO_DO]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.NEED_TO_DO] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.SCHEDUDE_POST]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.SCHEDUDE_POST] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.PUBLISHED_CONTENT]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.PUBLISHED_CONTENT] ?? "",
+        [CAMPAIGN_API_FIELD_KEY.PROGRESS]:
+        campaignsData[CAMPAIGNS_FIELD_KEY.PROGRESS] ?? "",
+      }
       : null;
 
     return result;
