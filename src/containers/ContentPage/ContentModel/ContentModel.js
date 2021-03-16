@@ -28,12 +28,6 @@ class ContentModel {
   constructor(data) {
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
     this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? "";
-    this.channels = data.channel_descriptions ?? "";
-
-    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
-      this.channels
-    );
-
     this.channelsData = this.status = data.status ?? "";
 
     this.descriptions =
@@ -49,6 +43,48 @@ class ContentModel {
     this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? "";
     this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? "";
     this.themeId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? "";
+    this.channelAttachments = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? "";
+    this.channels = [];
+
+    if (this.channelAttachments) {
+      this.channelAttachments.getItems().map((element) => {
+        let icoImage = null;
+        switch (element.channelName.toLowerCase()) {
+          case "facebook":
+            icoImage = "/assets/images/facebook.png";
+            break;
+          case "twitter":
+            icoImage = "/assets/images/twitter.png";
+            break;
+          case "linkedin":
+            icoImage = "/assets/images/linkedin.png";
+            break;
+          case "mailchimp":
+            icoImage = "/assets/images/mailchimp.png";
+            break;
+          case "wordpress":
+            icoImage = "/assets/images/wordpress.png";
+            break;
+          case "instagram":
+            icoImage = "/assets/images/instagram.png";
+            break;
+          default:
+            icoImage = null;
+        }
+
+        this.channels.push({
+          'id': element.channelId,
+          'name': element.channelName,
+          'image': icoImage,
+          'icon': icoImage,
+          'checked': true,
+        })
+      });
+    }
+
+    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
+      this.channels
+    );
   }
 
   getId = () => {
@@ -158,7 +194,7 @@ class ContentModel {
 
   static convertSubmittedDataToAPIService(contentData) {
     console.log("convertSubmittedDataToAPIService");
-   
+
 
     const contentId = contentData[CONTENT_FIELD_KEY.ID]
       ? contentData[CONTENT_FIELD_KEY.ID]
