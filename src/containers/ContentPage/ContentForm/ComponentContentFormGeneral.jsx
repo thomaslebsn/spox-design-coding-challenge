@@ -11,11 +11,6 @@ import ButtonNormal from "../../../components/ButtonNormal";
 
 import SimpleReactValidator from "simple-react-validator";
 
-import {
-  CampaignSelectionPage,
-  campaignSelectionViewModal,
-} from "./CampaignSelectionPage";
-
 import { renderingGroupFieldHandler } from "../../../utils/form";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
@@ -317,8 +312,6 @@ class ComponentContentFormGeneral extends Component {
             </div>
           </div>
         </div>
-
-        <CampaignSelectionPage />
       </>
     );
   }

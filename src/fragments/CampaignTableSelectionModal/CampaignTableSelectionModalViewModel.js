@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../constants/PageStatus";
-import { CAMPAIGN_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from "../../constants/CampaignsModule";
+import { CAMPAIGNS_FIELD_KEY } from "../../constants/CampaignsModule";
 import { notify } from "../../components/Toast";
 
 class CampaignTableSelectionModalViewModel {
@@ -48,8 +48,8 @@ class CampaignTableSelectionModalViewModel {
   getSectionsValue = () => {
     return this.CampaignsSelectionData.map((item) => {
       return {
-        value: item[CAMPAIGN_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID],
-        label: item[CAMPAIGN_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.NAME],
+        value: item[CAMPAIGNS_FIELD_KEY.ID],
+        label: item[CAMPAIGNS_FIELD_KEY.NAME],
       };
     }).reduce((arr, el) => {
       const i = arr.findIndex((e) => e.value === el.value);
@@ -70,7 +70,7 @@ class CampaignTableSelectionModalViewModel {
   getSelectedIDs = () => {
     if (!this.CampaignsSelectionData) return null;
     const convertedInArray = this.CampaignsSelectionData.map((item) => {
-      return item[CAMPAIGN_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID];
+      return item[CAMPAIGNS_FIELD_KEY.ID];
     }).reduce((arr, el) => {
       const i = arr.findIndex((e) => e.value === el.value);
 
@@ -89,7 +89,6 @@ class CampaignTableSelectionModalViewModel {
   };
 
   loadDataIntoUI = () => {
-    console.log("loadDataIntoUI --------");
     this.tableStatus = PAGE_STATUS.LOADING;
     this.fragmentStore.getCampaignMasterData(
       this.callbackOnSuccessHandler,
@@ -116,9 +115,7 @@ class CampaignTableSelectionModalViewModel {
     if (campaignModelData) {
       this.tableStatus = PAGE_STATUS.READY;
 
-      console.log("111111111111111");
       this.CampaignsMasterData = campaignModelData.toDropdownFullListValues();
-      console.log("=================");
       console.log(this.CampaignsMasterData);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
