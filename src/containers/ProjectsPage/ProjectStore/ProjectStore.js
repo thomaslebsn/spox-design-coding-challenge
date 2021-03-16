@@ -264,21 +264,21 @@ export default class ProjectStore {
     }
   }
 
-  async intervalAskForConnectedChannels(
+  async checkConnectedChannels(
     callbackOnSuccess,
     callbackOnError,
     projectId,
-    channelUniqueName
+    channelType
   ) {
     try {
       const projectChannelService = new EasiiProjectChannelApiService();
       let result = null;
 
-      switch (channelUniqueName) {
+      switch (channelType) {
         case "facebook":
           result = await projectChannelService.checkConnectionStatusFacebook(
             projectId,
-            channelUniqueName
+            channelType
           );
           break;
 
@@ -286,9 +286,10 @@ export default class ProjectStore {
         case "linkedin":
         case "mailchimp":
         case "instagram":
+        case "wordpress":
           result = await projectChannelService.getCheckConnectStatusChannel(
             projectId,
-            channelUniqueName
+            channelType
           );
           break;
 
@@ -298,18 +299,18 @@ export default class ProjectStore {
 
       if (result) {
         runInAction(() => {
-          callbackOnSuccess(result, projectId, channelUniqueName);
+          callbackOnSuccess(result, projectId, channelType);
         });
       } else {
         callbackOnError({
           message:
-            "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+            "[checkConnectedChannels] - Something went wrong from Server response",
         });
       }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+        callbackOnError("[checkConnectedChannels] - " + error);
       });
     }
   }
