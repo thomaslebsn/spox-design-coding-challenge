@@ -16,7 +16,7 @@ class PersonaTableSelectionModalViewModel {
 
   personasSelectionData = [];
 
-  channelSelectionData = []
+  channelSelectionData = [];
 
   inputRef = null;
   constructor(fragmentStore) {
@@ -75,6 +75,7 @@ class PersonaTableSelectionModalViewModel {
     if (!this.personasSelectionData) return null;
     const convertedInArray = this.personasSelectionData
       .map((item) => {
+        console.log("itemitemitemitemitem", item);
         return item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID];
       })
       .reduce((arr, el) => {
@@ -103,7 +104,7 @@ class PersonaTableSelectionModalViewModel {
     );
   };
 
-    resetObservableProperties() {
+  resetObservableProperties() {
     this.multi = false;
     this.personasSelectionData = [];
     this.channelSelectionData = [];

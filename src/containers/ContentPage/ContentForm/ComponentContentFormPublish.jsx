@@ -27,6 +27,7 @@ class ComponentContentFormPublish extends Component {
 
   validator = null;
   personaTableSelectionModalViewModel = null;
+  campaignTableSelectionModalViewModel = null;
 
   constructor(props) {
     super(props);
@@ -39,17 +40,15 @@ class ComponentContentFormPublish extends Component {
 
     this.validator = new SimpleReactValidator();
     this.viewModel = this.props.viewModel;
-
-    console.log("ComponentContentFormPublish - viewModel");
     console.log(this.viewModel);
     console.log(this.viewModel.contentEditdata);
-    
+
     this.personaTableSelectionModalViewModel = this.props.personaTableSelectionModalViewModel;
-    console.log("ComponentContentFormPublish - personaTableSelectionModalViewModel");
+    this.campaignTableSelectionModalViewModel = this.props.campaignTableSelectionModalViewModel;
+    console.log(
+      "ComponentContentFormPublish - personaTableSelectionModalViewModel"
+    );
     console.log(this.personaTableSelectionModalViewModel);
-
-
-    
   }
 
   post = () => {
@@ -76,7 +75,7 @@ class ComponentContentFormPublish extends Component {
 
   handleCheck = (name) => {
     const { personasSelectionData } = this.personaTableSelectionModalViewModel;
-    console.log('handleCheck');
+    console.log("handleCheck");
     console.log(personasSelectionData);
     personasSelectionData.map((item) => {
       const channels = item[PERSONA_FIELD_KEY.CHANNELS];

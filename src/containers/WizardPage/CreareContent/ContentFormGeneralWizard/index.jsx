@@ -10,6 +10,8 @@ import { ContentPreviewPersona } from "../../../ContentPage/ContentForm/ContentP
 import { ProjectTableSelectionModalViewModelContextProvider } from "../../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModelContextProvider";
 import PersonaTableSelectionModalViewModel from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
 import { PersonaTableSelectionModalViewModelContextProvider } from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModelContextProvider";
+import CampaignTableSelectionModalViewModel from "../../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModel";
+import { CampaignTableSelectionModalViewModelContextProvider } from "../../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModelContextProvider";
 
 const ProjectTableSelectionModal = lazy(() =>
   import(
@@ -20,6 +22,12 @@ const ProjectTableSelectionModal = lazy(() =>
 const PersonaTableSelectionModal = lazy(() =>
   import(
     "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModal"
+  )
+);
+
+const CampaignTableSelectionModal = lazy(() =>
+  import(
+    "../../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModal"
   )
 );
 
@@ -37,6 +45,10 @@ const projectTableSelectionModalViewModel = new ProjectTableSelectionModalViewMo
 );
 
 const personaTableSelectionModalViewModel = new PersonaTableSelectionModalViewModel(
+  fragmentStore
+);
+
+const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalViewModel(
   fragmentStore
 );
 
@@ -72,18 +84,32 @@ const ContentFormGeneralWizard = observer(
             personaTableSelectionModalViewModel={
               personaTableSelectionModalViewModel
             }
+            campaignTableSelectionModalViewModel={
+              campaignTableSelectionModalViewModel
+            }
           />
-          <ContentPreviewPersona />
+          <ContentPreviewPersona
+            personaTableSelectionModalViewModel={
+              personaTableSelectionModalViewModel
+            }
+          />
           <ProjectTableSelectionModalViewModelContextProvider
             viewModel={projectTableSelectionModalViewModel}
           >
             <ProjectTableSelectionModal />
           </ProjectTableSelectionModalViewModelContextProvider>
+
           <PersonaTableSelectionModalViewModelContextProvider
             viewModel={personaTableSelectionModalViewModel}
           >
             <PersonaTableSelectionModal />
           </PersonaTableSelectionModalViewModelContextProvider>
+
+          <CampaignTableSelectionModalViewModelContextProvider
+            viewModel={campaignTableSelectionModalViewModel}
+          >
+            <CampaignTableSelectionModal />
+          </CampaignTableSelectionModalViewModelContextProvider>
         </>
       );
     }

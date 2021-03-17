@@ -6,6 +6,7 @@ import ComponentContentFormPublish from "../../../ContentPage/ContentForm/Compon
 import GlobalStore from "../../../../store/Store";
 import FragmentStore from "../../../../fragments/Store/FragmentStore";
 import PersonaTableSelectionModalViewModel from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
+import CampaignTableSelectionModalViewModel from "../../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModel";
 
 if (!window.globalStore) {
   window.globalStore = new GlobalStore();
@@ -17,6 +18,10 @@ const fragmentStore = new FragmentStore({
 });
 
 const personaTableSelectionModalViewModel = new PersonaTableSelectionModalViewModel(
+  fragmentStore
+);
+
+const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalViewModel(
   fragmentStore
 );
 
@@ -48,6 +53,9 @@ const ContentFormPublishWizard = observer(
           formStatus={this.contentFormViewModel.formStatus}
           personaTableSelectionModalViewModel={
             personaTableSelectionModalViewModel
+          }
+          campaignTableSelectionModalViewModel={
+            campaignTableSelectionModalViewModel
           }
         />
       );
