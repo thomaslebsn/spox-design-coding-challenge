@@ -17,6 +17,7 @@ const PersonasPage = lazy(() => import("../containers/PersonasPage"));
 const CampaignsPage = lazy(() => import("../containers/CampaignsPage"));
 const ContentPage = lazy(() => import("../containers/ContentPage"));
 const WizardPage = lazy(() => import("../containers/WizardPage"));
+const AnalyticsPage = lazy(() => import("../containers/AnalyticsPage"));
 
 const authRoutes = [
   {
@@ -67,7 +68,12 @@ const mainRoutes = [
     ),
   },
   {
-    path: ["/personas", "/personas/create", "/personas/edit/:id", "/personas/create/:bypersonatemplate/:id"],
+    path: [
+      "/personas",
+      "/personas/create",
+      "/personas/edit/:id",
+      "/personas/create/:bypersonatemplate/:id",
+    ],
     exact: true,
     main: ({ match, location }) => (
       <PersonasPage match={match} location={location} />
@@ -107,6 +113,13 @@ const mainRoutes = [
     exact: true,
     main: ({ match, location }) => (
       <ContentPage match={match} location={location} />
+    ),
+  },
+  {
+    path: "/analytics",
+    exact: false,
+    main: ({ match, location }) => (
+      <AnalyticsPage match={match} location={location} />
     ),
   },
 ];
