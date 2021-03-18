@@ -47,17 +47,17 @@ const ConnectChannel = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        projectId: getIdProject
+        projectId: getIdProject,
       };
 
       //call check connected channels
       this.projectListViewModel.checkConnectedChannels(this.state.projectId, [
-        'linkedin',
-        'twitter',
-        'instagram',
-        'facebook',
-        'mailchimp',
-        'wordpress',
+        "linkedin",
+        "twitter",
+        "instagram",
+        "facebook",
+        "mailchimp",
+        "wordpress",
       ]);
     }
 
@@ -67,7 +67,7 @@ const ConnectChannel = observer(
           isWordpressConnected: isConnected,
         });
 
-        this.projectListViewModel.wordpressConnected = isConnected
+        this.projectListViewModel.wordpressConnected = isConnected;
       }
     };
 

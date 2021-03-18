@@ -1,7 +1,7 @@
 import React, { Component, lazy } from "react";
 
 import { observer } from "mobx-react";
-import { withWizardViewModel } from "../WizardViewModels/WizardViewModelContextProvider";
+import { withChannelsViewModel } from "../ChannelsViewModels/ChannelsViewModelContextProvider";
 import { Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +30,7 @@ const LoginChannelCMSFormModal = observer(
 
     saveCMSHandler = (channelUniqueName) => {
       this.loginCMSChannelFormModalViewModel.saveCMSHandler(
-        this.props.projectId,
+        this.props.organizationID,
         channelUniqueName
       );
     };
@@ -92,4 +92,4 @@ const LoginChannelCMSFormModal = observer(
   }
 );
 
-export default withWizardViewModel(LoginChannelCMSFormModal);
+export default withChannelsViewModel(LoginChannelCMSFormModal);

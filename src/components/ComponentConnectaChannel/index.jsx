@@ -16,20 +16,20 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import Wordpress from "./Wordpress";
-import LoginChannelCMSFormModal from "../../containers/WizardPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
+import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
 const ModalComponent = lazy(() => import("../../components/Modal"));
 
 class ComponentConnectaChannel extends Component {
   formData = [];
-  projectListViewModel = null;
+  channelsListViewModel = null;
   constructor(props) {
     super(props);
 
     console.log("==============");
     console.log(this.props);
 
-    this.projectListViewModel = this.props.projectListViewModel;
+    this.channelsListViewModel = this.props.channelsListViewModel;
 
     let { viewModel } = this.props;
 
@@ -50,11 +50,11 @@ class ComponentConnectaChannel extends Component {
   };
 
   handleConnectChannel = (name) => {
-    let { projectListViewModel } = this.props;
+    let { channelsListViewModel } = this.props;
 
-    let getIdProject = history.location.pathname.match(/\d/g);
-    getIdProject = getIdProject.join("");
-    projectListViewModel.connectLoginUrl(getIdProject, name);
+    // let getIdProject = history.location.pathname.match(/\d/g);
+    // getIdProject = getIdProject.join("");
+    channelsListViewModel.connectLoginUrl(777, name);
   };
 
   showModalConnectCMS = (name) => {
@@ -100,9 +100,6 @@ class ComponentConnectaChannel extends Component {
                     }}
                     disabled={facebookConnected ? true : false}
                   >
-                    {/* <i>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </i> */}
                     <span className="ms-2">
                       {facebookConnected ? "Connected" : "Connect"}
                     </span>
@@ -154,9 +151,6 @@ class ComponentConnectaChannel extends Component {
                     }}
                     disabled={twitterConnected ? true : false}
                   >
-                    {/* <i>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </i> */}
                     <span className="ms-2">
                       {twitterConnected ? "Connected" : "Connect"}
                     </span>
@@ -182,9 +176,6 @@ class ComponentConnectaChannel extends Component {
                     }}
                     disabled={linkedinConnected ? true : false}
                   >
-                    {/* <i>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </i> */}
                     <span className="ms-2">
                       {linkedinConnected ? "Connected" : "Connect"}
                     </span>
@@ -210,9 +201,6 @@ class ComponentConnectaChannel extends Component {
                     }}
                     disabled={instagramConnected ? true : false}
                   >
-                    {/* <i>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </i> */}
                     <span className="ms-2">
                       {instagramConnected ? "Connected" : "Connect"}
                     </span>
@@ -237,7 +225,7 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   <LoginChannelCMSFormModal
                     clicked={this.showModalConnectCMS}
-                    projectId={this.props.projectId}
+                    organizationID={this.props.organizationID}
                     wordpressConnected={wordpressConnected}
                     checkConnectedCMS={this.props.checkConnectedCMS}
                   />
