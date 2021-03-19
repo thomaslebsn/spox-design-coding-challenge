@@ -123,6 +123,75 @@ class ChannelsListViewModel {
     }
   };
 
+  checkConnectedChannels(organizationID, channels) {
+    channels.map((channelType) => {
+      this.channelsStore.checkConnectedChannels(
+        (response) => {
+          if (response) {
+            let responseResult = response.result;
+
+            switch (channelType) {
+              case "facebook":
+                if (responseResult.pages.status === "connected") {
+                  this.facebookConnected = true;
+                  let listFpConnected = responseResult.pages.connected;
+                  let listFanpage = responseResult.pages.pages;
+
+                  if (listFpConnected.length > 0) {
+                    this.listFaceBookFanpageView = [];
+                    listFanpage.map((fanpage) => {
+                      if (listFpConnected.indexOf(fanpage.id) > -1) {
+                        this.listFaceBookFanpageView.push(fanpage);
+                      }
+                    });
+                  } else {
+                    this.listFaceBookFanpage = listFanpage;
+                  }
+                }
+                break;
+
+              case "twitter":
+                if (responseResult.connected == 1) {
+                  this.twitterConnected = true;
+                }
+                break;
+
+              case "linkedin":
+                if (responseResult.connected == 1) {
+                  this.linkedinConnected = true;
+                }
+                break;
+
+              case "mailchimp":
+                if (responseResult.connected == 1) {
+                  this.mailchimpConnected = true;
+                }
+                break;
+
+              case "instagram":
+                if (responseResult.connected == 1) {
+                  this.instagramConnected = true;
+                }
+                break;
+
+              case "wordpress":
+                if (responseResult.connected == 1) {
+                  this.wordpressConnected = true;
+                }
+                break;
+
+              default:
+                break;
+            }
+          }
+        },
+        (error) => {},
+        organizationID,
+        channelType
+      );
+    });
+  }
+
   saveChosseFacebookFanpages = (organizationID, pageIds) => {
     if (pageIds.length > 0) {
       this.channelsStore.saveChosseFacebookFanpages(

@@ -7,7 +7,6 @@ import {
   Accordion,
   useAccordionToggle,
 } from "react-bootstrap";
-import { withTranslation } from "react-i18next";
 import history from "../../routes/history";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +17,6 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import Wordpress from "./Wordpress";
 import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
-const ModalComponent = lazy(() => import("../../components/Modal"));
 
 class ComponentConnectaChannel extends Component {
   formData = [];
@@ -26,7 +24,6 @@ class ComponentConnectaChannel extends Component {
   constructor(props) {
     super(props);
 
-    console.log("==============");
     console.log(this.props);
 
     this.channelsListViewModel = this.props.channelsListViewModel;
@@ -40,6 +37,7 @@ class ComponentConnectaChannel extends Component {
     this.state = {
       panelIndex: "",
       isShowModalWordpress: false,
+      showModalCms: false,
     };
   }
 
@@ -50,19 +48,8 @@ class ComponentConnectaChannel extends Component {
   };
 
   handleConnectChannel = (name) => {
-    let { channelsListViewModel } = this.props;
-
-    // let getIdProject = history.location.pathname.match(/\d/g);
-    // getIdProject = getIdProject.join("");
-    channelsListViewModel.connectLoginUrl(777, name);
-  };
-
-  showModalConnectCMS = (name) => {
-    console.log(
-      "this.loginCMSChannelFormModalViewModel aaa",
-      this.loginCMSChannelFormModalViewModel
-    );
-    this.loginCMSChannelFormModalViewModel.openModal();
+    let { channelsListViewModel, organizationID } = this.props;
+    channelsListViewModel.connectLoginUrl(organizationID, name);
   };
 
   render() {
@@ -74,6 +61,9 @@ class ComponentConnectaChannel extends Component {
       mailchimpConnected,
       instagramConnected,
       wordpressConnected,
+      organizationID,
+      handleModalCms,
+      isModalCms,
     } = this.props;
 
     return (
@@ -228,10 +218,13 @@ class ComponentConnectaChannel extends Component {
                     </span>
                   </div>
                   <LoginChannelCMSFormModal
-                    clicked={this.showModalConnectCMS}
-                    organizationID={this.props.organizationID}
+                    handleModalCms={handleModalCms}
+                    organizationID={organizationID}
                     wordpressConnected={wordpressConnected}
-                    checkConnectedCMS={this.props.checkConnectedCMS}
+                    loginCMSChannelFormModalViewModel={
+                      this.loginCMSChannelFormModalViewModel
+                    }
+                    isModalCms={isModalCms}
                   />
                 </div>
               </div>
@@ -258,9 +251,6 @@ class ComponentConnectaChannel extends Component {
                     }}
                     disabled={mailchimpConnected ? true : false}
                   >
-                    {/* <i>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </i> */}
                     <span className="ms-2">
                       {mailchimpConnected ? "Connected" : "Connect"}
                     </span>
@@ -275,4 +265,4 @@ class ComponentConnectaChannel extends Component {
   }
 }
 
-export default withTranslation("common")(ComponentConnectaChannel);
+export default ComponentConnectaChannel;

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import { Image, Tab, Tabs } from "react-bootstrap";
-import { withTranslation } from "react-i18next";
 import { observer } from "mobx-react";
 
 import Button from "../../../components/Button";
@@ -24,82 +23,47 @@ import { notify } from "../../../components/Toast";
 
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
-    projectListViewModel = null;
-    viewModel = null;
+    channelsListViewModel = null;
     constructor(props) {
       super(props);
 
       const { viewModel } = props;
-      console.log("ProjectList - Debug View Model 2222");
+      console.log("viewModel - Debug View Model");
       console.log(viewModel);
-      this.projectListViewModel = viewModel
-        ? viewModel.getProjectListViewModel()
+
+      this.viewModel = viewModel ? viewModel : null;
+
+      this.channelsListViewModel = viewModel
+        ? viewModel.getChannelsListViewModel()
         : null;
 
-      this.viewModel = viewModel;
+      console.log("this.channelsListViewModel - Debug View Model");
+      console.log(this.channelsListViewModel);
 
-      //get project id from url
-      let getIdProject = history.location.pathname.match(/\d/g);
-      getIdProject = getIdProject.join("");
+      this.loginCMSChannelFormModalViewModel = viewModel
+        ? viewModel.getLoginCMSChannelFormModalViewModel()
+        : null;
 
       this.state = {
         channels: [],
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        projectId: getIdProject,
+        organizationID: 5678,
       };
 
-      //call check connected channels
-      this.projectListViewModel.checkConnectedChannels(this.state.projectId, [
-        "linkedin",
-        "twitter",
-        "instagram",
-        "facebook",
-        "mailchimp",
-        "wordpress",
-      ]);
+      this.channelsListViewModel.checkConnectedChannels(
+        this.state.organizationID,
+        [
+          "linkedin",
+          "twitter",
+          "instagram",
+          "facebook",
+          "mailchimp",
+          "wordpress",
+        ]
+      );
     }
-
-    checkConnectedCMS = (cmsName, isConnected) => {
-      if (cmsName == "wordpress") {
-        this.setState({
-          isWordpressConnected: isConnected,
-        });
-
-        this.projectListViewModel.wordpressConnected = isConnected;
-      }
-    };
-
-    next = () => {
-      const {
-        facebookConnected,
-        twitterConnected,
-        linkedinConnected,
-        mailchimpConnected,
-        instagramConnected,
-        wordpressConnected,
-      } = this.projectListViewModel;
-
-      if (
-        facebookConnected == true ||
-        twitterConnected == true ||
-        linkedinConnected == true ||
-        mailchimpConnected == true ||
-        instagramConnected == true ||
-        wordpressConnected == true
-      ) {
-        history.push(`${history.location.pathname}/content`);
-      } else {
-        notify("Please choose an connect channel");
-      }
-    };
-
-    handleCloseModal = () => {
-      this.setState({
-        showModal: false,
-      });
-    };
 
     handleCheckbox = (id) => {
       let getIDSFanpage = this.state.getIDSFanpage;
@@ -110,15 +74,51 @@ const ConnectChannel = observer(
       });
     };
 
+    handleCloseModal = () => {
+      this.setState({
+        showModal: false,
+      });
+    };
+
     handleSaveFanpage = () => {
-      this.projectListViewModel.saveChosseFacebookFanpages(
-        this.state.projectId,
+      this.channelsListViewModel.saveChosseFacebookFanpages(
+        this.state.organizationID,
         this.state.getIDSFanpage
       );
 
       this.setState({
         showModal: false,
       });
+    };
+
+    handleModalCms = () => {
+      this.loginCMSChannelFormModalViewModel.openModal();
+    };
+
+    next = () => {
+      const {
+        facebookConnected,
+        twitterConnected,
+        linkedinConnected,
+        mailchimpConnected,
+        instagramConnected,
+        wordpressConnected,
+      } = this.channelsListViewModel;
+
+      if (
+        facebookConnected == true ||
+        twitterConnected == true ||
+        linkedinConnected == true ||
+        mailchimpConnected == true ||
+        instagramConnected == true ||
+        wordpressConnected == true
+      ) {
+        history.push(
+          `${history.location.pathname}/${this.state.organizationID}/content`
+        );
+      } else {
+        notify("Please choose an connect channel");
+      }
     };
 
     render() {
@@ -133,37 +133,27 @@ const ConnectChannel = observer(
         mailchimpConnected,
         instagramConnected,
         wordpressConnected,
-      } = this.projectListViewModel;
+      } = this.channelsListViewModel;
 
       return (
         <div className="d-flex flex-column m-4 p-4">
-          <ComponentConnectaChannel
-            projectListViewModel={this.projectListViewModel}
-            listFaceBookFanpageView={
-              listFaceBookFanpageView ? listFaceBookFanpageView : null
-            }
-            facebookConnected={facebookConnected}
-            twitterConnected={twitterConnected}
-            linkedinConnected={linkedinConnected}
-            mailchimpConnected={mailchimpConnected}
-            instagramConnected={instagramConnected}
-            wordpressConnected={wordpressConnected}
-            viewModel={this.viewModel}
-            projectId={this.state.projectId}
-            checkConnectedCMS={this.checkConnectedCMS}
-          />
-          <div className="d-flex justify-content-between">
-            <Button
-              className="btn btn-light border-success"
-              onClick={() => this.props.goToStep(1)}
-              text="Back"
+          <div>
+            <ComponentConnectaChannel
+              channelsListViewModel={this.channelsListViewModel}
+              listFaceBookFanpageView={
+                listFaceBookFanpageView ? listFaceBookFanpageView : null
+              }
+              facebookConnected={facebookConnected}
+              twitterConnected={twitterConnected}
+              linkedinConnected={linkedinConnected}
+              mailchimpConnected={mailchimpConnected}
+              instagramConnected={instagramConnected}
+              wordpressConnected={wordpressConnected}
+              viewModel={this.viewModel}
+              organizationID={this.state.organizationID}
+              handleModalCms={this.handleModalCms}
+              isModalCms={this.loginCMSChannelFormModalViewModel.show}
             />
-
-            <ButtonNormal
-              className="btn btn-success"
-              text="Next"
-              onClick={(e) => this.next()}
-            ></ButtonNormal>
           </div>
           {listFaceBookFanpage && (
             <ModalComponent
@@ -201,6 +191,19 @@ const ConnectChannel = observer(
               }
             />
           )}
+          <div className="d-flex justify-content-between">
+            <Button
+              className="btn btn-light border-success"
+              onClick={() => this.props.goToStep(1)}
+              text="Back"
+            />
+
+            <ButtonNormal
+              className="btn btn-success"
+              text="Next"
+              onClick={(e) => this.next()}
+            ></ButtonNormal>
+          </div>
         </div>
       );
     }

@@ -55,6 +55,7 @@ const mainRoutes = [
       "/wizard/createproject",
       "/wizard/project/:id",
       "/wizard/project/:id/content",
+      "/wizard/:id/content",
     ],
     exact: true,
     main: ({ match, location }) => (

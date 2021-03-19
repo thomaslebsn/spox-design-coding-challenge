@@ -28,24 +28,35 @@ const ConnectChannels = observer(
       console.log("this.channelsListViewModel - Debug View Model");
       console.log(this.channelsListViewModel);
 
+      this.loginCMSChannelFormModalViewModel = viewModel
+        ? viewModel.getLoginCMSChannelFormModalViewModel()
+        : null;
+
       this.state = {
         channels: [],
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 777,
+        organizationID: 5678,
       };
+
+      //get project id from url
+      // let getIdProject = history.location.pathname.match(/\d/g);
+      // getIdProject = getIdProject.join("");
+
+      //call check connected channels
+      this.channelsListViewModel.checkConnectedChannels(
+        this.state.organizationID,
+        [
+          "linkedin",
+          "twitter",
+          "instagram",
+          "facebook",
+          "mailchimp",
+          "wordpress",
+        ]
+      );
     }
-
-    checkConnectedCMS = (cmsName, isConnected) => {
-      if (cmsName == "wordpress") {
-        this.setState({
-          isWordpressConnected: isConnected,
-        });
-
-        this.channelsListViewModel.wordpressConnected = isConnected;
-      }
-    };
 
     handleCheckbox = (id) => {
       let getIDSFanpage = this.state.getIDSFanpage;
@@ -71,6 +82,10 @@ const ConnectChannels = observer(
       this.setState({
         showModal: false,
       });
+    };
+
+    handleModalCms = () => {
+      this.loginCMSChannelFormModalViewModel.openModal();
     };
 
     render() {
@@ -104,7 +119,8 @@ const ConnectChannels = observer(
               wordpressConnected={wordpressConnected}
               viewModel={this.viewModel}
               organizationID={this.state.organizationID}
-              checkConnectedCMS={this.checkConnectedCMS}
+              handleModalCms={this.handleModalCms}
+              isModalCms={this.loginCMSChannelFormModalViewModel.show}
             />
           </div>
           {listFaceBookFanpage && (
