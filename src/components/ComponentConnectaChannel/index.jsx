@@ -58,6 +58,10 @@ class ComponentConnectaChannel extends Component {
   };
 
   showModalConnectCMS = (name) => {
+    console.log(
+      "this.loginCMSChannelFormModalViewModel aaa",
+      this.loginCMSChannelFormModalViewModel
+    );
     this.loginCMSChannelFormModalViewModel.openModal();
   };
 

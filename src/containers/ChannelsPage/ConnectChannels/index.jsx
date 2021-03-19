@@ -19,6 +19,8 @@ const ConnectChannels = observer(
       console.log("ChannelsList - Debug View Model");
       console.log(viewModel);
 
+      this.viewModel = viewModel;
+
       this.channelsListViewModel = viewModel
         ? viewModel.getChannelsListViewModel()
         : null;
@@ -45,7 +47,27 @@ const ConnectChannels = observer(
       }
     };
 
+    handleCheckbox = (id) => {
+      let getIDSFanpage = this.state.getIDSFanpage;
+      getIDSFanpage.push(id);
+
+      this.setState({
+        getIDFanpage: getIDSFanpage,
+      });
+    };
+
     handleCloseModal = () => {
+      this.setState({
+        showModal: false,
+      });
+    };
+
+    handleSaveFanpage = () => {
+      this.channelsListViewModel.saveChosseFacebookFanpages(
+        this.state.organizationID,
+        this.state.getIDSFanpage
+      );
+
       this.setState({
         showModal: false,
       });
