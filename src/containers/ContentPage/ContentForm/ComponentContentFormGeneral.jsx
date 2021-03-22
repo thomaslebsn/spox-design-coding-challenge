@@ -145,6 +145,24 @@ class ComponentContentFormGeneral extends Component {
             this.projectTableSelectionModalViewModel.openModal();
           },
         };
+    const connectChannelsField = this.props.connectChannelsField
+      ? {
+          label: "Connected Channels",
+          key: CONTENT_FIELD_KEY.CHANNELS,
+          type: FORM_FIELD_TYPE.LABELCARD,
+          viewModel: this.contentConnectedChannelsByProjectViewModel,
+          value: "",
+        }
+      : {
+          label: "Add Channels",
+          key: CONTENT_FIELD_KEY.CHANNELS,
+          type: FORM_FIELD_TYPE.LABELBTN,
+          viewModel: this.contentConnectedChannelsByProjectViewModel,
+          value: "",
+          clicked: () => {
+            this.contentConnectedChannelsByProjectViewModel.openModal();
+          },
+        };
     return [
       {
         fields: [
@@ -200,13 +218,7 @@ class ComponentContentFormGeneral extends Component {
             },
             blurred: this.blurringFieldHandler,
           },
-          {
-            label: "Connected Channels",
-            key: CONTENT_FIELD_KEY.CHANNELS,
-            type: FORM_FIELD_TYPE.LABELCARD,
-            viewModel: this.contentConnectedChannelsByProjectViewModel,
-            value: "",
-          },
+          connectChannelsField,
           {
             label: "Content",
             key: CONTENT_FIELD_KEY.THEME,

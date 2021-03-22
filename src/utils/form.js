@@ -4,6 +4,8 @@ import { FORM_FIELD_TYPE } from "../constants/FormFieldType";
 import { Form } from "react-bootstrap";
 import CanvaButton from "../components/CanvaButton";
 import ListConnectedChannel from "../components/ListConnectedChannel";
+import ListConnectedChannelModal from "../components/ListConnectedChannelModal";
+import ButtonNormal from "../components/ButtonNormal";
 
 const FormDateRangePicker = lazy(() =>
   import("../components/Form/FormDateRangePicker")
@@ -198,6 +200,21 @@ const renderingGroupFieldHandler = (group, validator) => {
                     required={field.required ?? false}
                   />
                   <FormInformation field={field} />
+                </Form.Group>
+              );
+            case FORM_FIELD_TYPE.LABELBTN:
+              return (
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-3 ${className}`}
+                >
+                  <ButtonNormal
+                    className="btn btn-success"
+                    text={field.label}
+                    iconStart={true}
+                    onClick={field.clicked}
+                  />
+                  <ListConnectedChannelModal field={field} />
                 </Form.Group>
               );
             default:

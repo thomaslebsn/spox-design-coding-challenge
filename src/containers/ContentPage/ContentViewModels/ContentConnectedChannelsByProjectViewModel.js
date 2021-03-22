@@ -9,10 +9,20 @@ class ContentConnectedChannelsByProjectViewModel {
 
   connectedChannels = null;
 
+  show = false;
+
   constructor(contentsStore) {
     makeAutoObservable(this);
     this.contentsStore = contentsStore;
   }
+
+  openModal = (inputRef) => {
+    this.show = true;
+  };
+
+  closeModal = () => {
+    this.show = false;
+  };
 
   resetObservableProperties() {
     this.connectedChannels = null;

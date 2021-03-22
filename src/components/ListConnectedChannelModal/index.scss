@@ -1,0 +1,11 @@
+.wr_checked_channels {
+  &.active {
+    .icon_check {
+      display: block;
+    }
+  }
+}
+
+.icon_check {
+  display: none;
+}
