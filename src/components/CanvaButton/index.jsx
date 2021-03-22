@@ -30,7 +30,7 @@ class CanvaButton extends React.Component {
       script.onload = function () {
         if (window.Canva && window.Canva.DesignButton) {
           window.Canva.DesignButton.initialize({
-            apiKey: "1cXlRfKSEDQWMd7w_2LOVrBb",
+            apiKey: "GgtrPeZo0prog5FfpeZ_yjYS",
           }).then(function (api) {
             _this.canvaApi = api;
             if (_this._isMounted) {
