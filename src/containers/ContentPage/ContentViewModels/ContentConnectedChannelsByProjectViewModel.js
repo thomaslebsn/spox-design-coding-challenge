@@ -11,6 +11,8 @@ class ContentConnectedChannelsByProjectViewModel {
 
   show = false;
 
+  newArrayConnectChannels = [];
+
   constructor(contentsStore) {
     makeAutoObservable(this);
     this.contentsStore = contentsStore;

@@ -15,19 +15,18 @@ const ListConnectedChannelModal = observer(
       super(props);
       this.state = {
         getArrayConnectChannels: [],
-        newArrayConnectChannels: [],
       };
       this.viewModel = props.field.viewModel ? props.field.viewModel : null;
       console.log("Debuggin -------- ListConnectedChannel ----- View Model");
       console.log(this.viewModel);
     }
 
-    handleSlectChannels = (name, img) => {
+    handleSlectChannels = (des, img) => {
       let { getArrayConnectChannels } = this.state;
-      document.getElementById(name).classList.toggle("active");
+      document.getElementById(des).classList.toggle("active");
 
       let getObjectAConnectChannel = {
-        name: name,
+        des: des,
         images: img,
       };
 
@@ -39,23 +38,26 @@ const ListConnectedChannelModal = observer(
 
       let newArrayFilter = Object.values(
         getArrayConnectChannels.reduce(
-          (acc, cur) => Object.assign(acc, { [cur.name]: cur }),
+          (acc, cur) => Object.assign(acc, { [cur.des]: cur }),
           {}
         )
       );
 
-      this.setState({
-        newArrayConnectChannels: newArrayFilter,
-      });
+      this.viewModel.newArrayConnectChannels = newArrayFilter;
 
       this.viewModel.closeModal();
     };
 
     render() {
-      const value = this.viewModel ? this.viewModel.connectedChannels : "";
+      const arrayConnectedChannels = this.viewModel
+        ? this.viewModel.connectedChannels
+        : "";
       console.log("Debuggin -------- ListConnectedChannel");
-      console.log(value);
-      let { newArrayConnectChannels } = this.state;
+      console.log(arrayConnectedChannels);
+
+      const newArrayConnectChannels = this.viewModel
+        ? this.viewModel.newArrayConnectChannels
+        : null;
 
       return (
         <>
@@ -66,15 +68,20 @@ const ListConnectedChannelModal = observer(
             body={
               <div className="bg-white rounded-2 px-3 py-2 h-100 ">
                 <div className="row w-100 d-flex align-items-center mb-3">
-                  {value
-                    ? value.map((value, key) => {
+                  {arrayConnectedChannels
+                    ? arrayConnectedChannels.map((item, key) => {
+                        let isDisabled = newArrayConnectChannels.some(
+                          (value) => item.des == value.des
+                        );
+
                         return (
-                          <div
+                          <button
                             key={Math.random(10000, 20000)}
-                            className={`item_social ${styles.item_social} col-3 mb-2 cursor-pointer`}
+                            className={`item_social_modal item_social ${styles.item_social} col-3 mb-2 cursor-pointer ${isDisabled}`}
                             onClick={(e) =>
-                              this.handleSlectChannels(value.des, value.images)
+                              this.handleSlectChannels(item.des, item.images)
                             }
+                            disabled={isDisabled}
                           >
                             <div
                               className={`main_social ${styles.main_social} text-center`}
@@ -83,7 +90,7 @@ const ListConnectedChannelModal = observer(
                                 className={`mb-0 wrapper_images ${styles.wrapper_images} d-flex align-items-center justify-content-center`}
                               >
                                 <span
-                                  id={value.des}
+                                  id={item.des}
                                   className={`position-relative pe-2 wr_checked_channels`}
                                 >
                                   <i
@@ -92,17 +99,17 @@ const ListConnectedChannelModal = observer(
                                     <FontAwesomeIcon icon={faCheckCircle} />
                                   </i>
                                   <img
-                                    alt={value.des}
-                                    src={value.images}
+                                    alt={item.des}
+                                    src={item.images}
                                     className="img-avatar"
                                   />
                                 </span>
                               </p>
                               <p className="text-blue-0 opacity-50 mb-0">
-                                {value.des}
+                                {item.des}
                               </p>
                             </div>
-                          </div>
+                          </button>
                         );
                       })
                     : ""}
@@ -132,7 +139,7 @@ const ListConnectedChannelModal = observer(
                   return (
                     <div
                       key={Math.random(10000, 20000)}
-                      className={`item_social ${styles.item_social} col-3 mb-2 cursor-pointer`}
+                      className={`item_social ${styles.item_social} col-2 mb-2 cursor-pointer`}
                     >
                       <div
                         className={`main_social ${styles.main_social} text-center`}
@@ -141,13 +148,13 @@ const ListConnectedChannelModal = observer(
                           className={`mb-0 wrapper_images ${styles.wrapper_images} d-flex align-items-center justify-content-center`}
                         >
                           <img
-                            alt={value.name}
+                            alt={value.des}
                             src={value.images}
                             className="img-avatar"
                           />
                         </p>
                         <p className="text-blue-0 opacity-50 mb-0">
-                          {value.name}
+                          {value.des}
                         </p>
                       </div>
                     </div>
