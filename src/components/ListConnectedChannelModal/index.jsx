@@ -5,6 +5,7 @@ import "./index.scss";
 import { observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons/faCheckCircle";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 const ModalComponent = lazy(() => import("../Modal"));
 
@@ -46,6 +47,13 @@ const ListConnectedChannelModal = observer(
       this.viewModel.newArrayConnectChannels = newArrayFilter;
 
       this.viewModel.closeModal();
+    };
+
+    handleDeleteConnectChannel = (index) => {
+      let newArrayConnectChannels = this.viewModel.newArrayConnectChannels;
+
+      newArrayConnectChannels.splice(index, 1);
+      newArrayConnectChannels = newArrayConnectChannels;
     };
 
     render() {
@@ -139,8 +147,17 @@ const ListConnectedChannelModal = observer(
                   return (
                     <div
                       key={Math.random(10000, 20000)}
-                      className={`item_social ${styles.item_social} col-2 mb-2 cursor-pointer`}
+                      className={`item_social ${styles.item_social} col-2 mb-2 cursor-pointer position-relative`}
                     >
+                      <a
+                        href={void 0}
+                        className="cursor-pointer position-absolute end-0 top-0 text-red-1"
+                        onClick={(e) => this.handleDeleteConnectChannel(key)}
+                      >
+                        <i className={``}>
+                          <FontAwesomeIcon icon={faTimes} />
+                        </i>
+                      </a>
                       <div
                         className={`main_social ${styles.main_social} text-center`}
                       >
