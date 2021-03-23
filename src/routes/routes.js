@@ -18,6 +18,7 @@ const CampaignsPage = lazy(() => import("../containers/CampaignsPage"));
 const ContentPage = lazy(() => import("../containers/ContentPage"));
 const WizardPage = lazy(() => import("../containers/WizardPage"));
 const AnalyticsPage = lazy(() => import("../containers/AnalyticsPage"));
+const BillingPlanPage = lazy(() => import("../containers/BillingPlanPage"));
 
 const authRoutes = [
   {
@@ -124,4 +125,14 @@ const mainRoutes = [
   },
 ];
 
-export { authRoutes, mainRoutes };
+const settingRoutes = [
+  {
+    path: "/billing-plan",
+    exact: false,
+    main: ({ match, location }) => (
+      <BillingPlanPage match={match} location={location} />
+    ),
+  },
+];
+
+export { authRoutes, mainRoutes, settingRoutes };

@@ -13,7 +13,7 @@ class SbarLeft extends React.Component {
   }
 
   render() {
-    const { settingPage } = this.props;
+    let { settingPage } = this.props;
 
     return (
       <aside

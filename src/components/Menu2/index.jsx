@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
@@ -31,8 +31,8 @@ class Menu2 extends React.Component {
               text: "Billing & Plan",
               link: "/billing-plan",
               icons: faFileAlt,
-            }
-          ]
+            },
+          ],
         },
         {
           title: "Members",
@@ -54,8 +54,8 @@ class Menu2 extends React.Component {
               text: "Roles",
               link: "/roles",
               icons: faUserTag,
-            }
-          ]
+            },
+          ],
         },
         {
           title: "WORKFLOW",
@@ -64,9 +64,9 @@ class Menu2 extends React.Component {
               name: "workflowschemes",
               text: "Workflow Schemes",
               link: "/workflow-schemes",
-              icons: faHome
-            }
-          ]
+              icons: faHome,
+            },
+          ],
         },
         {
           title: "Connect a Channel",
@@ -75,27 +75,27 @@ class Menu2 extends React.Component {
               name: "socialmedia",
               text: "Social Media",
               link: "/social-media",
-              icons: faHome
+              icons: faHome,
             },
             {
               name: "advertising",
               text: "Advertising",
               link: "/advertising",
-              icons: faHome
+              icons: faHome,
             },
             {
               name: "cms",
               text: "CMS",
               link: "/cms",
-              icons: faHome
+              icons: faHome,
             },
             {
               name: "emailmarketing",
               text: "Email Marketing",
               link: "/emailmarketing",
-              icons: faEnvelopeOpenText
-            }
-          ]
+              icons: faEnvelopeOpenText,
+            },
+          ],
         },
         {
           title: "miscellaneous",
@@ -104,18 +104,22 @@ class Menu2 extends React.Component {
               name: "mycollections",
               text: "My collections",
               link: "/my-collections",
-              icons: faHeart
-            }
-          ]
-        }
-      ]
-    }
+              icons: faHeart,
+            },
+          ],
+        },
+      ],
+    };
   }
 
-  handleActionMenu = (name) => {
-    this.setState({
-      activeMenu: name,
-    });
+  checkActiveMenu = (name) => {};
+
+  componentDidMount = () => {
+    this.checkActiveMenu();
+  };
+
+  handleCheckActive = (name) => {
+    this.checkActiveMenu(name);
   };
 
   render() {
@@ -123,48 +127,47 @@ class Menu2 extends React.Component {
     return (
       <nav>
         <div className="py-1 px-3 item_menu">
-          <a href="/" className="d-flex align-items-center text-blue-0 p-3 link_menu rounded-2 text-decoration-none">
+          <a
+            href="/"
+            className="d-flex align-items-center text-blue-0 p-3 link_menu rounded-2 text-decoration-none"
+          >
             <i>
               <FontAwesomeIcon icon={faArrowLeft} />
             </i>
             <span className="ms-3">Back to Dashboard</span>
           </a>
         </div>
-        {
-          dataMenu.map((item, index) => {
-            return (
-              <div key={index}>
-                <p className="fs-12 text-uppercase border-top-1 border-bottom-1 py-2 px-3 mb-0">{item.title}</p>
-                <ul className="list-unstyled mb-0 py-1 px-3">
-                  {item.listMenu.map((value, key) => {
-                    let pathName = window.location.pathname;
-                    return (
-                      <li
-                        key={key}
-                        onClick={() => this.handleActionMenu(value.link)}
-                        className={`item_menu ${
-                          activeMenu == value.link || pathName === value.link
-                            ? "active"
-                            : ""
-                        }`}
+        {dataMenu.map((item, index) => {
+          return (
+            <div key={index}>
+              <p className="fs-12 text-uppercase border-top-1 border-bottom-1 py-2 px-3 mb-0">
+                {item.title}
+              </p>
+              <ul className="list-unstyled mb-0 py-1 px-3">
+                {item.listMenu.map((value, key) => {
+                  return (
+                    <li
+                      key={key}
+                      onClick={(e) => this.handleCheckActive(value.link)}
+                      className={`item_menu `}
+                    >
+                      <NavLink
+                        to={value.link}
+                        className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none`}
+                        activeClassName={`active`}
                       >
-                        <Link
-                          to={value.link}
-                          className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none`}
-                        >
-                          <i>
-                            <FontAwesomeIcon icon={value.icons} />
-                          </i>
-                          <span className="ms-3">{value.text}</span>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )
-          })
-        }
+                        <i>
+                          <FontAwesomeIcon icon={value.icons} />
+                        </i>
+                        <span className="ms-3">{value.text}</span>
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        })}
       </nav>
     );
   }
