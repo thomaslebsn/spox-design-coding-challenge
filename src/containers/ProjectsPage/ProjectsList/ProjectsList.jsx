@@ -40,7 +40,7 @@ const ProjectsList = observer(
     };
 
     handerEditProject = (e, row) => {
-      console.log('fsdfsdfsd');
+      console.log("fsdfsdfsd");
       this.projectFormModalViewModel.getProject(row.id);
       this.projectFormModalViewModel.openModal();
     };
@@ -55,6 +55,10 @@ const ProjectsList = observer(
         .reduce((arr, el) => {
           return arr.concat(el);
         }, []);
+    };
+
+    _handleList = () => {
+      this.projectListViewModel.isList = !this.projectListViewModel.isList;
     };
 
     render() {
@@ -133,6 +137,7 @@ const ProjectsList = observer(
           searchFunction={this.projectListViewModel.searchProjects}
           searchText="Search your project"
           hasSubRow={false}
+          _handleList={this._handleList}
         ></Table>
       );
     }
