@@ -1,17 +1,10 @@
 import React from "react";
-import {makeAutoObservable, runInAction} from "mobx";
+import { runInAction } from "mobx";
 
-import {
-  EasiiBillingPlanApiService,
-} from "easii-io-web-service-library";
+import { EasiiBillingPlanApiService } from "easii-io-web-service-library";
 
 export default class BillingPlanStore {
-
-  async getPayLink(
-    callbackOnSuccess,
-    callbackOnError,
-    planName,
-  ) {
+  async getPayLink(callbackOnSuccess, callbackOnError, planName) {
     try {
       const billingPlanService = new EasiiBillingPlanApiService();
       console.log("==== api call getPayLink");
