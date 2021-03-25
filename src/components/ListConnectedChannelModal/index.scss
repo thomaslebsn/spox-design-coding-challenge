@@ -1,0 +1,28 @@
+.wr_checked_channels {
+  &.active {
+    .icon_check {
+      display: block;
+    }
+  }
+}
+
+.icon_check {
+  display: none;
+}
+
+.item_social_modal {
+  background-color: transparent;
+  border: 0;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.true {
+    opacity: 0.5;
+
+    .icon_check {
+      display: block;
+    }
+  }
+}

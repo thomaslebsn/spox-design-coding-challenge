@@ -60,13 +60,19 @@ class ProjectsListViewModel {
   };
 
   deleteProjects = () => {
-    let getArrayId = this.contentIdsSelected;
+    let getArrayId = this.projectIdsSelected;
 
-    this.projectStore.deleteProjects(
-      this.projectIdsSelected,
-      this.refreshTableProjectList,
-      this.callbackOnErrorHander
-    );
+    if (getArrayId === null) {
+      notify("Please true add list an item for delete");
+    } else {
+      this.tableStatus = PAGE_STATUS.LOADING;
+
+      this.projectStore.deleteProjects(
+        this.projectIdsSelected,
+        this.refreshTableProjectList,
+        this.callbackOnErrorHander
+      );
+    }
   };
 
   getPagination = (paginationStep, isList) => {
@@ -87,17 +93,6 @@ class ProjectsListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       dataFilter
-    );
-  };
-
-  connectLoginUrl = (projectId, channelUniqueName) => {
-    console.log("projectId channel", projectId);
-    console.log("channelUniqueName channel", channelUniqueName);
-    this.projectStore.getChannelLoginUrl(
-      this.callbackOnSuccessChannel,
-      this.callbackOnErrorHander,
-      projectId,
-      channelUniqueName
     );
   };
 
@@ -126,203 +121,6 @@ class ProjectsListViewModel {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
-
-  callbackOnSuccessChannel = (response, projectId, channelUniqueName) => {
-    console.log("projectIdprojectId", projectId);
-    console.log("channelUniqueName", channelUniqueName);
-    console.log("response", response);
-    if (response) {
-      this.tableStatus = PAGE_STATUS.READY;
-
-      window.open(response.result.loginUrl, "popup", "width=600,height=600");
-      const stepInterval = 2000;
-      let intervalTimeLimitInMiliseconds = stepInterval * 60;
-      let checkConnectionStatusInterval = setInterval(
-        () => {
-          intervalTimeLimitInMiliseconds -= stepInterval;
-          if (intervalTimeLimitInMiliseconds <= 0) {
-            clearInterval(checkConnectionStatusInterval);
-          }
-
-          this.projectStore.checkConnectedChannels(
-            (response) => {
-              if (response) {
-                this.tableStatus = PAGE_STATUS.READY;
-
-                let responseResult = response.result;
-                switch (channelUniqueName) {
-                  case "facebook":
-                    if (responseResult.pages.status === "connected") {
-                      this.facebookConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                      this.listFaceBookFanpage = responseResult.pages.pages;
-                    }
-                    break;
-
-                  case "twitter":
-                    if (responseResult.connected == 1) {
-                      this.twitterConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
-
-                  case "linkedin":
-                    if (responseResult.connected == 1) {
-                      this.linkedinConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
-
-                  case "mailchimp":
-                    if (responseResult.connected == 1) {
-                      this.mailchimpConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
-
-                  case "instagram":
-                    if (responseResult.connected == 1) {
-                      this.instagramConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
-
-                  default:
-                    break;
-                }
-              }
-            },
-            (error) => {},
-            projectId,
-            channelUniqueName
-          );
-        },
-        stepInterval,
-        projectId,
-        channelUniqueName
-      );
-    } else {
-      this.tableStatus = PAGE_STATUS.ERROR;
-    }
-  };
-
-  checkConnectedChannels(projectId, channels) {
-    channels.map((channelType) => {
-      this.projectStore.checkConnectedChannels(
-        (response) => {
-          if (response) {
-            let responseResult = response.result;
-
-            switch (channelType) {
-              case "facebook":
-                if (responseResult.pages.status === "connected") {
-                  this.facebookConnected = true;
-                  let listFpConnected = responseResult.pages.connected;
-                  let listFanpage = responseResult.pages.pages;
-
-                  if (listFpConnected.length > 0) {
-                    this.listFaceBookFanpageView = [];
-                    listFanpage.map((fanpage) => {
-                      if (listFpConnected.indexOf(fanpage.id) > -1) {
-                        this.listFaceBookFanpageView.push(fanpage);
-                      }
-                    });
-                  } else {
-                    this.listFaceBookFanpage = listFanpage;
-                  }
-                }
-                break;
-
-              case "twitter":
-                if (responseResult.connected == 1) {
-                  this.twitterConnected = true;
-                }
-                break;
-
-              case "linkedin":
-                if (responseResult.connected == 1) {
-                  this.linkedinConnected = true;
-                }
-                break;
-
-              case "mailchimp":
-                if (responseResult.connected == 1) {
-                  this.mailchimpConnected = true;
-                }
-                break;
-
-              case "instagram":
-                if (responseResult.connected == 1) {
-                  this.instagramConnected = true;
-                }
-                break;
-
-              case "wordpress":
-                if (responseResult.connected == 1) {
-                  this.wordpressConnected = true;
-                }
-                break;
-
-              default:
-                break;
-            }
-          }
-        },
-        (error) => {},
-        projectId,
-        channelType
-      );
-    });
-  }
-
-  saveChosseFacebookFanpages = (projectId, pageIds) => {
-    if (pageIds.length > 0) {
-      this.projectStore.saveChosseFacebookFanpages(
-        this.callbackOnSuccessListFacebookFanpage,
-        this.callbackOnErrorHander,
-        projectId,
-        pageIds
-      );
-    }
-  };
-
-  callbackOnSuccessListFacebookFanpage = (response, projectId, pageIds) => {
-    if (response) {
-      this.tableStatus = PAGE_STATUS.READY;
-      this.projectStore.getFacebookFanpages(
-        (respons) => {
-          this.listFaceBookFanpageView = respons.result.pages.pages;
-        },
-        (error) => {},
-        projectId,
-        pageIds
-      );
-    } else {
-      this.tableStatus = PAGE_STATUS.ERROR;
-    }
-  };
 }
 
 export default ProjectsListViewModel;
-
-// const ProjectsListViewModelContext = React.createContext();
-
-// export const ProjectsListViewModelContextProvider = ({
-//   children,
-//   viewModel,
-// }) => {
-//   return (
-//     <ProjectsListViewModelContext.Provider value={viewModel}>
-//       {children}
-//     </ProjectsListViewModelContext.Provider>
-//   );
-// };
-
-// /* Hook to use store in any functional component */
-// export const useViewModel = () =>
-//   React.useContext(ProjectsListViewModelContext);
-
-// /* HOC to inject store to any functional or class component */
-// export const withProjectsListViewModel = (Component) => (props) => {
-//   return <Component {...props} viewModel={useViewModel()} />;
-// };
