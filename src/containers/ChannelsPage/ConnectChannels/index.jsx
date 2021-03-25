@@ -1,37 +1,25 @@
-import React, { Component } from "react";
-
-import { Image, Tab, Tabs } from "react-bootstrap";
+import React, { Component, lazy } from "react";
 import { observer } from "mobx-react";
-
-import Button from "../../../components/Button";
-import ModalComponent from "../../../components/Modal";
-import history from "../../../routes/history";
-
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import ButtonNormal from "../../../components/ButtonNormal";
+import PAGE_STATUS from "../../../constants/PageStatus";
+import { withChannelsViewModel } from "../ChannelsViewModels/ChannelsViewModelContextProvider";
+import Spinner from "../../../components/Spinner";
 import ComponentConnectaChannel from "../../../components/ComponentConnectaChannel";
-import { withWizardViewModel } from "../WizardViewModels/WizardViewModelContextProvider";
-import Checkbox from "../../../components/Checkbox";
+import ModalComponent from "../../../components/Modal";
 import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 
-import WizardSteps from "../../../components/WizardSteps";
-import styles from "./index.module.scss";
-import { notify } from "../../../components/Toast";
-
-const ConnectChannel = observer(
-  class ConnectChannel extends Component {
+const ConnectChannels = observer(
+  class ConnectChannels extends Component {
     channelsListViewModel = null;
     constructor(props) {
       super(props);
-
       const { viewModel } = props;
-      console.log("viewModel - Debug View Model");
+      console.log("ChannelsList - Debug View Model");
       console.log(viewModel);
 
-      this.viewModel = viewModel ? viewModel : null;
+      this.viewModel = viewModel;
 
       this.channelsListViewModel = viewModel
         ? viewModel.getChannelsListViewModel()
@@ -52,6 +40,11 @@ const ConnectChannel = observer(
         organizationID: 5678,
       };
 
+      //get project id from url
+      // let getIdProject = history.location.pathname.match(/\d/g);
+      // getIdProject = getIdProject.join("");
+
+      //call check connected channels
       this.channelsListViewModel.checkConnectedChannels(
         this.state.organizationID,
         [
@@ -95,32 +88,6 @@ const ConnectChannel = observer(
       this.loginCMSChannelFormModalViewModel.openModal();
     };
 
-    next = () => {
-      const {
-        facebookConnected,
-        twitterConnected,
-        linkedinConnected,
-        mailchimpConnected,
-        instagramConnected,
-        wordpressConnected,
-      } = this.channelsListViewModel;
-
-      if (
-        facebookConnected == true ||
-        twitterConnected == true ||
-        linkedinConnected == true ||
-        mailchimpConnected == true ||
-        instagramConnected == true ||
-        wordpressConnected == true
-      ) {
-        history.push(
-          `${history.location.pathname}/${this.state.organizationID}/content`
-        );
-      } else {
-        notify("Please choose an connect channel");
-      }
-    };
-
     render() {
       let { showModal } = this.state;
 
@@ -136,7 +103,8 @@ const ConnectChannel = observer(
       } = this.channelsListViewModel;
 
       return (
-        <div className="d-flex flex-column m-4 p-4">
+        <div className="py-4 px-3">
+          <h2 className="text-blue-0 mb-4">Connect a Channel</h2>
           <div>
             <ComponentConnectaChannel
               channelsListViewModel={this.channelsListViewModel}
@@ -191,23 +159,10 @@ const ConnectChannel = observer(
               }
             />
           )}
-          <div className="d-flex justify-content-between">
-            <Button
-              className="btn btn-light border-success"
-              onClick={() => this.props.goToStep(1)}
-              text="Back"
-            />
-
-            <ButtonNormal
-              className="btn btn-success"
-              text="Next"
-              onClick={(e) => this.next()}
-            ></ButtonNormal>
-          </div>
         </div>
       );
     }
   }
 );
 
-export default withWizardViewModel(ConnectChannel);
+export default withChannelsViewModel(ConnectChannels);

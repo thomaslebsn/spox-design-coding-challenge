@@ -1,10 +1,7 @@
 import React, { Component, lazy } from "react";
 import { observer } from "mobx-react";
 
-import { FORM_FIELD_TYPE, FORMAT_DATE } from "../../../constants/FormFieldType";
-import { CAMPAIGNS_FIELD_KEY } from "../../../constants/CampaignsModule";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import Spinner from "../../../components/Spinner";
+import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
 
 const FormComponent = lazy(() => import("../../../components/Form"));
 

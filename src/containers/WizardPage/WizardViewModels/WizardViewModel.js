@@ -1,28 +1,32 @@
-import ProjectsListViewModel from "../../ProjectsPage/ProjectViewModels/ProjectsListViewModel";
-import ProjectFormModalViewModel from "../../ProjectsPage/ProjectViewModels/ProjectFormModalViewModel";
+// import ProjectsListViewModel from "../../ProjectsPage/ProjectViewModels/ProjectsListViewModel";
+// import ProjectFormModalViewModel from "../../ProjectsPage/ProjectViewModels/ProjectFormModalViewModel";
 import ContentFormViewModel from "../../ContentPage/ContentViewModels/ContentFormViewModel";
-import LoginCMSChannelFormModalViewModel from "./LoginCMSChannelFormModalViewModel";
 import ContentConnectedChannelsByProjectViewModel from "../../ContentPage/ContentViewModels/ContentConnectedChannelsByProjectViewModel";
 import ContentDisplayProjectNameInWizardStep3ViewModel from "../../ContentPage/ContentViewModels/ContentDisplayProjectNameInWizardStep3ViewModel";
+import LoginCMSChannelFormModalViewModel from "../../ChannelsPage/ChannelsViewModels/LoginCMSChannelFormModalViewModel";
+import ChannelsListViewModel from "../../ChannelsPage/ChannelsViewModels/ChannelsListViewModel";
 
 class WizardViewModel {
-  projectListViewModel = null;
-  projectFormViewModel = null;
+  // projectListViewModel = null;
+  // projectFormViewModel = null;
+  channelsListViewModel = null;
   contentFormViewModel = null;
   loginCMSChannelFormModalViewModel = null;
   contentConnectedChannelsByProjectViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
 
-  constructor(projectStore, contentStore) {
-    if (projectStore) {
+  constructor(channelsStore, contentStore) {
+    if (channelsStore) {
       console.log("WizardViewModel - Abstract");
-      this.projectListViewModel = new ProjectsListViewModel(projectStore);
-      this.projectFormViewModel = new ProjectFormModalViewModel(projectStore);
+      // this.projectListViewModel = new ProjectsListViewModel(projectStore);
+      // this.projectFormViewModel = new ProjectFormModalViewModel(projectStore);
+
+      this.channelsListViewModel = new ChannelsListViewModel(channelsStore);
 
       this.contentFormViewModel = new ContentFormViewModel(contentStore);
 
       this.loginCMSChannelFormModalViewModel = new LoginCMSChannelFormModalViewModel(
-        projectStore
+        channelsStore
       );
 
       this.contentConnectedChannelsByProjectViewModel = new ContentConnectedChannelsByProjectViewModel(
@@ -37,15 +41,15 @@ class WizardViewModel {
         contentStore
       );
 
-
       this.contentFormViewModel.setContentDisplayProjectNameInWizardStep3ViewModel(
         this.contentDisplayProjectNameInWizardStep3ViewModel
       );
     }
   }
 
-  getProjectListViewModel = () => this.projectListViewModel;
-  getProjectFormModalViewModel = () => this.projectFormViewModel;
+  // getProjectListViewModel = () => this.projectListViewModel;
+  // getProjectFormModalViewModel = () => this.projectFormViewModel;
+  getChannelsListViewModel = () => this.channelsListViewModel;
   getContentFormViewModel = () => this.contentFormViewModel;
   getLoginCMSChannelFormModalViewModel = () =>
     this.loginCMSChannelFormModalViewModel;
@@ -53,7 +57,7 @@ class WizardViewModel {
     this.contentConnectedChannelsByProjectViewModel;
 
   getContentDisplayProjectNameInWizardStep3ViewModel = () =>
-  this.contentDisplayProjectNameInWizardStep3ViewModel;
+    this.contentDisplayProjectNameInWizardStep3ViewModel;
 }
 
 export default WizardViewModel;

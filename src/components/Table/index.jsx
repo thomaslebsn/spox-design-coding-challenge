@@ -48,9 +48,9 @@ const Table = ({
   dataFormFilter,
   hasSubRow,
   isSearch = true,
+  _handleList,
 }) => {
   const [getState, setState] = useState({
-    isList: isList,
     isName: "list",
     isFilter: false,
     indexPagination: 0,
@@ -176,13 +176,6 @@ const Table = ({
     }
   }, [selectedRowIds, onSelect, data]);
 
-  const _handleList = (name) => {
-    setState({
-      ...getState,
-      isList: getState.isName === name ? true : false,
-    });
-  };
-
   const setGlobalFilter = (dataFilter) => {
     console.log("setGlobalFilter");
     console.log(dataFilter);
@@ -223,15 +216,15 @@ const Table = ({
   };
 
   const handlePreviousPage = (i) => {
-    listViewModel.getPagination(pagination.page - 1, getState.isList);
+    listViewModel.getPagination(pagination.page - 1, isList);
   };
 
   const handleGoToPage = (i) => {
-    listViewModel.getPagination(i, getState.isList);
+    listViewModel.getPagination(i, isList);
   };
 
   const handleNextPage = () => {
-    listViewModel.getPagination(pagination.page + 1, getState.isList);
+    listViewModel.getPagination(pagination.page + 1, isList);
   };
 
   const paginationHTML = () => {
@@ -260,13 +253,15 @@ const Table = ({
       <div className="mb-4">
         <div className="bg-white rounded-3 d-flex align-items-center justify-content-between">
           <div className="wrapper_search_global d-flex align-items-center">
-            {isSearch ? (<GlobalFilter
-              preGlobalFilteredRows={preGlobalFilteredRows}
-              globalFilter={state.globalFilter}
-              setGlobalFilter={setGlobalFilter}
-              searchText={searchText}
-              listViewModel={listViewModel}
-            />) : null}
+            {isSearch ? (
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+                searchText={searchText}
+                listViewModel={listViewModel}
+              />
+            ) : null}
             {!noDropDownColumns && (
               <div className="px-2 border-end-1">
                 <Dropdown>
@@ -288,7 +283,8 @@ const Table = ({
                   <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
                     {allColumns.map(
                       (column) =>
-                        (column.id !== "selection" && column.Header !== "") && (
+                        column.id !== "selection" &&
+                        column.Header !== "" && (
                           <div key={column.id} className="mb-2">
                             <label>
                               <input
@@ -340,7 +336,7 @@ const Table = ({
               <button
                 type="button"
                 className={`btn text-blue-0 rounded-0 px-4 ${
-                  getState.isList ? "bg-blue-3" : ""
+                  isList ? "bg-blue-3" : ""
                 }`}
                 onClick={() => _handleList("list")}
               >
@@ -352,7 +348,7 @@ const Table = ({
               <button
                 type="button"
                 className={`btn text-blue-0 rounded-0 px-4 ${
-                  !getState.isList ? "bg-blue-3" : ""
+                  !isList ? "bg-blue-3" : ""
                 }`}
                 onClick={() => _handleList("thumb")}
               >
@@ -381,7 +377,7 @@ const Table = ({
           </>
         )}
       </div>
-      {getState.isList ? (
+      {isList ? (
         <div className="bg-white p-3 rounded-3">
           <table {...getTableProps()} className="w-100 mb-4">
             <thead>
