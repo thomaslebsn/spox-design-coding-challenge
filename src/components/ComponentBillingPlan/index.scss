@@ -1,9 +1,9 @@
 .wrapper_header_page {
-  padding-top: 60px;
   text-align: center
 }
 
-.wrapper_header_page h1, .wrapper_header_page h2 {
+.wrapper_header_page h1,
+.wrapper_header_page h2 {
   font-size: 2.5rem;
   line-height: 55px;
   margin-bottom: 10px;
@@ -100,7 +100,8 @@
   opacity: .5
 }
 
-.form-check-input:disabled ~ .form-check-label, .form-check-input[disabled] ~ .form-check-label {
+.form-check-input:disabled~.form-check-label,
+.form-check-input[disabled]~.form-check-label {
   opacity: .5
 }
 
@@ -180,16 +181,17 @@
   color: #fff
 }
 
-.item_btn_group .btn-check:focus + .btn-outline-primary, .item_btn_group .btn-outline-primary:focus {
+.item_btn_group .btn-check:focus+.btn-outline-primary,
+.item_btn_group .btn-outline-primary:focus {
   box-shadow: none
 }
 
-.item_btn_group .btn-check:checked + .btn-outline-primary {
+.item_btn_group .btn-check:checked+.btn-outline-primary {
   background-color: #16b979;
   border-color: transparent
 }
 
-.item_btn_group .btn-check:checked + .btn-outline-primary:focus {
+.item_btn_group .btn-check:checked+.btn-outline-primary:focus {
   box-shadow: none
 }
 
@@ -269,17 +271,20 @@
   margin-bottom: 15px
 }
 
-.price .monthly, .price .yearly {
+.price .monthly,
+.price .yearly {
   display: flex;
   align-items: center
 }
 
-.price .monthly .number, .price .yearly .number {
+.price .monthly .number,
+.price .yearly .number {
   font-size: 2.5rem;
   font-weight: 700
 }
 
-.price .monthly span, .price .yearly span {
+.price .monthly span,
+.price .yearly span {
   color: #000;
   line-height: 1.1;
   text-align: left;
@@ -297,7 +302,8 @@
   padding: 60px 0
 }
 
-.moduletable.wrapper_alternatives .wrapper_alternatives:after, .moduletable.wrapper_alternatives .wrapper_alternatives:before {
+.moduletable.wrapper_alternatives .wrapper_alternatives:after,
+.moduletable.wrapper_alternatives .wrapper_alternatives:before {
   content: "";
   position: absolute;
   top: 0;
@@ -314,7 +320,8 @@
   right: -100vw
 }
 
-.moduletable.wrapper_alternatives .wrapper_alternatives:after, .moduletable.wrapper_alternatives .wrapper_alternatives:before {
+.moduletable.wrapper_alternatives .wrapper_alternatives:after,
+.moduletable.wrapper_alternatives .wrapper_alternatives:before {
   background-color: #f5f8fa
 }
 
@@ -388,7 +395,8 @@
   position: relative
 }
 
-.item_questions .collapsible:after, .item_questions .collapsible:before {
+.item_questions .collapsible:after,
+.item_questions .collapsible:before {
   content: "";
   position: absolute;
   right: 0;
@@ -449,7 +457,8 @@
   margin-right: auto
 }
 
-.more_popular, .table_row_header .btn-success {
+.more_popular,
+.table_row_header .btn-success {
   display: flex;
   align-items: center;
   justify-content: center
@@ -468,10 +477,12 @@
   font-size: 2rem;
   text-align: left;
 }
+
 .table_row_header .svg-inline--fa.fa-w-10 {
   width: 6px;
   margin-left: 5px;
 }
+
 .wrapper_table .category {
   font-size: 1.125rem;
   text-transform: uppercase;
@@ -479,6 +490,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 .wrapper_table .d-table-cell.value {
   font-size: 0;
   color: #16b979;

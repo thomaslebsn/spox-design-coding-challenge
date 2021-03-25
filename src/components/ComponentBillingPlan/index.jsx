@@ -20,7 +20,7 @@ class ComponentBillingPlan extends React.Component {
   render() {
     let { value, isDisable } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div className="row" role="rowgroup">
           <div
             role="row"

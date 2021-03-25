@@ -5,6 +5,7 @@ import { withBillingPlanViewModel } from "../BillingPlanViewModel/BillingPlanVie
 
 import Spinner from "../../../components/Spinner";
 import ComponentBillingPlan from "../../../components/ComponentBillingPlan";
+import ComponentPlanPayment from "../../../components/ComponentPlanPayment";
 
 const BillingPlanList = observer(
   class BillingPlanList extends Component {
@@ -40,10 +41,17 @@ const BillingPlanList = observer(
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
-        <ComponentBillingPlan
-          handleSelectSubscriptionPlan={this.handleSelectSubscriptionPlan}
-          isDisable={isDisable ? isDisable : null}
-        />
+        <div>
+          <div className="mb-4">
+            <div className="py-3 bg-white d-inline-block">
+              <ComponentPlanPayment />
+            </div>
+          </div>
+          <ComponentBillingPlan
+            handleSelectSubscriptionPlan={this.handleSelectSubscriptionPlan}
+            isDisable={isDisable ? isDisable : null}
+          />
+        </div>
       );
     }
   }
