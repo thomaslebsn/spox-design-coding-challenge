@@ -20,7 +20,7 @@ class ComponentBillingPlan extends React.Component {
   render() {
     let { value, isDisable } = this.props;
     return (
-      <div>
+      <div className="pb-3">
         <div className="row" role="rowgroup">
           <div
             role="row"
@@ -45,7 +45,11 @@ class ComponentBillingPlan extends React.Component {
         <div className="wrapper_header_page">
           <div className="main_description_top">
             <h2>Flexible Plans, Flexible Solutions</h2>
-            <p>for teams and projects of any size</p>
+            <p>
+              Thanks for praesent viverra pulvinar tortor, eget ultrices arcu
+              viverra et. Nunc ut aliquam nisl. Nullam porttitor eget sem at
+              vestibulum. Maecenas pharetra
+            </p>
           </div>
           <div className="wrapper_btn_group plan" role="group">
             <div className="main_btn_group">
@@ -167,7 +171,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
 
               <div className="d-table-cell p-3 ">
-                <div className="more_popular">Most popular</div>
+                {/* <div className="more_popular">Most popular</div> */}
                 <div className="title">Medium</div>
                 <div className="price">
                   <div className="monthly">

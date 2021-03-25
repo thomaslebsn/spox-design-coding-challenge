@@ -10,6 +10,7 @@ class ComponentPlanPayment extends React.Component {
   }
 
   render() {
+    let { handleChangePlan, handleClosePlan } = this.props;
     return (
       <div className="d-flex">
         <div className="item_plan_payment p-0 w-350 px-3 pe-2">
@@ -25,7 +26,7 @@ class ComponentPlanPayment extends React.Component {
                 <span>.00</span>
               </p>
             </div>
-            <button className="btn btn-success">
+            <button className="btn btn-success" onClick={handleChangePlan}>
               <i className="me-2">
                 <FontAwesomeIcon icon={faArrowUp} />
               </i>
@@ -48,7 +49,10 @@ class ComponentPlanPayment extends React.Component {
               </p>
               <p className="mb-0 opacity-75">on May 15, 2020</p>
             </div>
-            <button className="btn border-da-1 border-red text-red-1">
+            <button
+              className="btn border-da-1 border-red text-red-1"
+              onClick={handleClosePlan}
+            >
               <i className="me-2">
                 <FontAwesomeIcon icon={faTimes} />
               </i>

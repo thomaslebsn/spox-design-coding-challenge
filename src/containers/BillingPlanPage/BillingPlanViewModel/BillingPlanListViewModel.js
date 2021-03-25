@@ -7,16 +7,31 @@ class BillingPlanListViewModel {
   billingPlanStore = null;
   tableStatus = PAGE_STATUS.READY;
   isDisable = false;
+  show = false;
+  hideChangePlanTable = false;
 
   constructor(billingPlanStore) {
     makeAutoObservable(this);
     this.billingPlanStore = billingPlanStore;
   }
 
+  openModal = () => {
+    this.show = true;
+  };
+
+  closeModal = () => {
+    this.show = false;
+  };
+
+  closeChangePlan = () => {
+    this.hideChangePlanTable = false;
+  };
+
   initializeData = () => {};
 
   getPayLinkModel = (planName) => {
     this.isDisable = true;
+    this.closeModal();
     this.billingPlanStore.getPayLink(
       this.callbackGetLinkPayOnSuccessHandler,
       this.callbackGetLinkPayOnErrorHandler,
@@ -44,6 +59,7 @@ class BillingPlanListViewModel {
         passthrough:
           '{"member_id": 98765, "plan_name": "Acme Corp", "plan_id": "Acme Corp"}',
       });
+      this.hideChangePlanTable = true;
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
