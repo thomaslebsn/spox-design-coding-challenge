@@ -34,80 +34,80 @@ class Menu2 extends React.Component {
             },
           ],
         },
-        {
-          title: "Members",
-          listMenu: [
-            {
-              name: "organisations",
-              text: "Organisations",
-              link: "/organisations",
-              icons: faNetworkWired,
-            },
-            {
-              name: "teammembers",
-              text: "Team Members",
-              link: "/team-members",
-              icons: faUserFriends,
-            },
-            {
-              name: "roles",
-              text: "Roles",
-              link: "/roles",
-              icons: faUserTag,
-            },
-          ],
-        },
-        {
-          title: "WORKFLOW",
-          listMenu: [
-            {
-              name: "workflowschemes",
-              text: "Workflow Schemes",
-              link: "/workflow-schemes",
-              icons: faHome,
-            },
-          ],
-        },
-        {
-          title: "Connect a Channel",
-          listMenu: [
-            {
-              name: "socialmedia",
-              text: "Social Media",
-              link: "/social-media",
-              icons: faHome,
-            },
-            {
-              name: "advertising",
-              text: "Advertising",
-              link: "/advertising",
-              icons: faHome,
-            },
-            {
-              name: "cms",
-              text: "CMS",
-              link: "/cms",
-              icons: faHome,
-            },
-            {
-              name: "emailmarketing",
-              text: "Email Marketing",
-              link: "/emailmarketing",
-              icons: faEnvelopeOpenText,
-            },
-          ],
-        },
-        {
-          title: "miscellaneous",
-          listMenu: [
-            {
-              name: "mycollections",
-              text: "My collections",
-              link: "/my-collections",
-              icons: faHeart,
-            },
-          ],
-        },
+        // {
+        //   title: "Members",
+        //   listMenu: [
+        //     {
+        //       name: "organisations",
+        //       text: "Organisations",
+        //       link: "/organisations",
+        //       icons: faNetworkWired,
+        //     },
+        //     {
+        //       name: "teammembers",
+        //       text: "Team Members",
+        //       link: "/team-members",
+        //       icons: faUserFriends,
+        //     },
+        //     {
+        //       name: "roles",
+        //       text: "Roles",
+        //       link: "/roles",
+        //       icons: faUserTag,
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: "WORKFLOW",
+        //   listMenu: [
+        //     {
+        //       name: "workflowschemes",
+        //       text: "Workflow Schemes",
+        //       link: "/workflow-schemes",
+        //       icons: faHome,
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: "Connect a Channel",
+        //   listMenu: [
+        //     {
+        //       name: "socialmedia",
+        //       text: "Social Media",
+        //       link: "/social-media",
+        //       icons: faHome,
+        //     },
+        //     {
+        //       name: "advertising",
+        //       text: "Advertising",
+        //       link: "/advertising",
+        //       icons: faHome,
+        //     },
+        //     {
+        //       name: "cms",
+        //       text: "CMS",
+        //       link: "/cms",
+        //       icons: faHome,
+        //     },
+        //     {
+        //       name: "emailmarketing",
+        //       text: "Email Marketing",
+        //       link: "/emailmarketing",
+        //       icons: faEnvelopeOpenText,
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: "miscellaneous",
+        //   listMenu: [
+        //     {
+        //       name: "mycollections",
+        //       text: "My collections",
+        //       link: "/my-collections",
+        //       icons: faHeart,
+        //     },
+        //   ],
+        // },
       ],
     };
   }
