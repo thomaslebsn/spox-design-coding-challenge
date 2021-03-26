@@ -16,7 +16,7 @@ class ComponentPlanPayment extends React.Component {
         <div className="item_plan_payment p-0 w-350 px-3 pe-2">
           <div
             className="border-1 rounded-2 p-3 object-fit-cover position-relative bg-green-2 text-white border-white"
-            // style={{ backgroundImage: `url("/assets/images/annotation.png")` }}
+            style={{ backgroundImage: `url("/assets/images/bg-plan.png")` }}
           >
             <p className="mb-3">Current subscription plan</p>
             <div className="mb-3">
@@ -37,7 +37,7 @@ class ComponentPlanPayment extends React.Component {
         <div className="item_plan_payment p-0 w-350 px-3 ps-2">
           <div className="border-1 rounded-2 p-3 position-relative">
             <img
-              src="/assets/images/icon-gap.png"
+              src="/assets/images/icon-plan.png"
               style={{ width: "60px", height: "45px" }}
               className="position-absolute top-0 end-0 mt-4 me-3"
             />
