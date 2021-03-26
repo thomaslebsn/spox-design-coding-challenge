@@ -104,9 +104,9 @@ class HomePage extends React.Component {
                   Good morning,{" "}
                   <strong className="fw-bold">William White</strong>
                 </h2>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <Complete />
-                </div>
+                </div> */}
                 <div className="mb-3">
                   <Projects />
                 </div>
