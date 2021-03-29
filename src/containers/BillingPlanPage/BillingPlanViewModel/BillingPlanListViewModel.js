@@ -1,6 +1,6 @@
-import {makeAutoObservable} from "mobx";
-import {BILLING_PLAN_COLUMN_INDICATOR} from "../../../constants/BillingPlanModule";
-import {notify} from "../../../components/Toast";
+import { makeAutoObservable } from "mobx";
+import { BILLING_PLAN_COLUMN_INDICATOR } from "../../../constants/BillingPlanModule";
+import { notify } from "../../../components/Toast";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
 class BillingPlanListViewModel {
@@ -10,7 +10,16 @@ class BillingPlanListViewModel {
   show = false;
   hideChangePlanTable = true;
   paddleData = null;
-  subscriptionDetail = null;
+  // subscriptionDetail = null;
+  subscriptionDetail = {
+    next_payment_amount: 99,
+    next_payment_date: "Apr 29, 2021",
+    name: "Pro",
+    plan_detail: {
+      amount: 99,
+      name: "Pro",
+    },
+  };
   invoices = [];
 
   constructor(billingPlanStore) {
@@ -38,10 +47,9 @@ class BillingPlanListViewModel {
 
         setTimeout(() => {
           this.setupPaddle();
-        }, 200)
+        }, 200);
       },
-      (error) => {
-      }
+      (error) => {}
     );
 
     //get member invoices
@@ -49,8 +57,7 @@ class BillingPlanListViewModel {
       (response) => {
         this.invoices = response.list;
       },
-      (error) => {
-      }
+      (error) => {}
     );
   };
 
@@ -58,7 +65,7 @@ class BillingPlanListViewModel {
     //init Paddle
     this.Paddle = window.Paddle;
     this.Paddle.Setup({
-      vendor: parseInt(this.paddleData.vendorId),// paddle vendor id
+      vendor: parseInt(this.paddleData.vendorId), // paddle vendor id
       eventCallback: function (data) {
         // The data.event will specify the event type
         if (data.event === "Checkout.Complete") {
@@ -71,7 +78,7 @@ class BillingPlanListViewModel {
         }
 
         console.log(data.eventData);
-      }
+      },
     });
   }
 
@@ -81,7 +88,7 @@ class BillingPlanListViewModel {
 
     //only get pay link when subscription plan detail is empty
     if (this.subscriptionDetail === null) {
-      this.Paddle.Spinner.show()
+      this.Paddle.Spinner.show();
       this.billingPlanStore.getPayLink(
         planName,
         (response) => {
@@ -95,9 +102,9 @@ class BillingPlanListViewModel {
           }
         },
         (error) => {
-          this.Paddle.Spinner.hide()
+          this.Paddle.Spinner.hide();
           notify(error.message);
-        },
+        }
       );
     } else {
       this.changeSubscriptionPlan(planName);
@@ -107,45 +114,44 @@ class BillingPlanListViewModel {
   //upgrade subscription plan
   changeSubscriptionPlan = (planName) => {
     this.closeModal();
-    this.Paddle.Spinner.show()
+    this.Paddle.Spinner.show();
     this.billingPlanStore.changeSubscriptionPlan(
       planName,
       (response) => {
-        this.Paddle.Spinner.hide()
+        this.Paddle.Spinner.hide();
         if (response.result.data === true) {
           notify("Update subscription success");
           setTimeout(() => {
             window.location.reload();
           }, 500);
-
         } else {
-          notify(response.result.data.error, 'error')
+          notify(response.result.data.error, "error");
         }
       },
       (response) => {
-        this.Paddle.Spinner.hide()
-        notify(response.message, 'error');
+        this.Paddle.Spinner.hide();
+        notify(response.message, "error");
       }
     );
   };
 
   //cancel plan
   cancelPlan = () => {
-    this.Paddle.Spinner.show()
+    this.Paddle.Spinner.show();
     this.billingPlanStore.cancelSubscription(
       (response) => {
-        this.Paddle.Spinner.hide()
+        this.Paddle.Spinner.hide();
         if (response.result.data === true) {
           notify("Cancel subscription success");
           this.hideChangePlanTable = false;
           this.subscriptionDetail = null;
         } else {
-          notify(response.result.data.error, 'error')
+          notify(response.result.data.error, "error");
         }
       },
       (response) => {
-        this.Paddle.Spinner.hide()
-        notify(response.message, 'error');
+        this.Paddle.Spinner.hide();
+        notify(response.message, "error");
       }
     );
   };

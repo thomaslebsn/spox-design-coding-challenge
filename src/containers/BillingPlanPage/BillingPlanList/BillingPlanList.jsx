@@ -84,7 +84,7 @@ const BillingPlanList = observer(
         <Spinner />
       ) : (
         <div>
-          {hideChangePlanTable && (subscriptionDetail !== null) && (
+          {hideChangePlanTable && subscriptionDetail !== null && (
             <div className="mb-4">
               <div className="py-3 bg-white d-inline-block">
                 <ComponentPlanPayment
