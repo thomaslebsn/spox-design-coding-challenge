@@ -125,23 +125,23 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
     isMulti: false,
   };
 
-  let fieldInterest = {
-    label: "Interest",
-    key: PERSONA_FIELD_KEY.INTEREST,
-    type: FORM_FIELD_TYPE.DROPDOWN,
-    value: formPropsData[PERSONA_FIELD_KEY.INTEREST],
-    required: true,
-    validation: "required",
-    option: optionInterest,
-    changed: (value) => {
-      console.log("OnChange", value);
-      formPropsData[PERSONA_FIELD_KEY.INTEREST] = value;
+  // let fieldInterest = {
+  //   label: "Interest",
+  //   key: PERSONA_FIELD_KEY.INTEREST,
+  //   type: FORM_FIELD_TYPE.DROPDOWN,
+  //   value: formPropsData[PERSONA_FIELD_KEY.INTEREST],
+  //   required: true,
+  //   validation: "required",
+  //   option: optionInterest,
+  //   changed: (value) => {
+  //     console.log("OnChange", value);
+  //     formPropsData[PERSONA_FIELD_KEY.INTEREST] = value;
 
-      console.log("formPropsData", formPropsData);
-    },
-    isMulti: true,
-    isComponents: true,
-  };
+  //     console.log("formPropsData", formPropsData);
+  //   },
+  //   isMulti: true,
+  //   isComponents: true,
+  // };
 
   return (
     <>
@@ -178,13 +178,13 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
         <FormSelectDropdown field={fieldChannels} />
         <ComponentLinkChannels />
       </Form.Group>
-      <Form.Group
+      {/* <Form.Group
         key={Math.random(40, 200)}
         className={`mb-4 border-start-5 bg-white p-2 px-3 rounded-2`}
       >
         <Label text={"Interest"} required={true} />
         <FormSelectDropdown field={fieldInterest} />
-      </Form.Group>
+      </Form.Group> */}
     </>
   );
 };
