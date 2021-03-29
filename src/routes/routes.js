@@ -20,6 +20,8 @@ const WizardPage = lazy(() => import("../containers/WizardPage"));
 const AnalyticsPage = lazy(() => import("../containers/AnalyticsPage"));
 const BillingPlanPage = lazy(() => import("../containers/BillingPlanPage"));
 const ChannelsPage = lazy(() => import("../containers/ChannelsPage"));
+const ProfilePage = lazy(() => import("../containers/ProfilePage"));
+const DigitalAssetsPage = lazy(() => import("../containers/DigitalAssetsPage"));
 
 const authRoutes = [
   {
@@ -125,6 +127,13 @@ const mainRoutes = [
       <AnalyticsPage match={match} location={location} />
     ),
   },
+  {
+    path: "/digital-assets",
+    exact: false,
+    main: ({ match, location }) => (
+      <DigitalAssetsPage match={match} location={location} />
+    ),
+  },
 ];
 
 const settingRoutes = [
@@ -133,6 +142,13 @@ const settingRoutes = [
     exact: false,
     main: ({ match, location }) => (
       <BillingPlanPage match={match} location={location} />
+    ),
+  },
+  {
+    path: "/profile",
+    exact: false,
+    main: ({ match, location }) => (
+      <ProfilePage match={match} location={location} />
     ),
   },
 ];
