@@ -133,7 +133,7 @@ const Table = ({
       data,
       filterTypes,
       onSelect,
-      initialState: { pageIndex: getState.indexPagination, pageSize: 25 },
+      initialState: { pageIndex: getState.indexPagination, pageSize: 5 },
     },
     useFilters,
     useGlobalFilter,
@@ -234,7 +234,7 @@ const Table = ({
         <button
           key={i}
           onClick={() => handleGoToPage(i)}
-          className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
+          className={`btn ${styles.btn} border-1 border-gray p-0 fs-6 ${
             i === pagination.page
               ? "bg-green text-white border-green"
               : "text-black-50"
@@ -456,27 +456,50 @@ const Table = ({
           <div className="pagination d-flex align-items-center justify-content-center">
             {pagination && (
               <>
-                <button
-                  //onClick={() => previousPage()}
-                  onClick={() => handlePreviousPage()}
-                  disabled={pagination && pagination.page <= 1 ? true : false}
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                {paginationHTML()}
-                <button
-                  //onClick={() => nextPage()}
-                  onClick={() => handleNextPage()}
-                  disabled={
-                    pagination && pagination.page === pagination.totalPages
-                      ? true
-                      : false
-                  }
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
+                {/* <div>
+                  <select
+                    value={pageSize}
+                    onChange={(e) => {
+                      setPageSize(Number(e.target.value));
+                    }}
+                  >
+                    {[5, 10, 15, 20].map((pageSize) => (
+                      <option key={pageSize} value={pageSize}>
+                        Show {pageSize}
+                      </option>
+                    ))}
+                  </select>
+                  <SelectComponent 
+                    value={pageSize}
+                    onChange={(e) => {
+                      setPageSize(Number(e.target.value));
+                    }}
+                    options={item.option}
+                  />
+                </div> */}
+                <div>
+                  <button
+                    //onClick={() => previousPage()}
+                    onClick={() => handlePreviousPage()}
+                    disabled={pagination && pagination.page <= 1 ? true : false}
+                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </button>
+                  {paginationHTML()}
+                  <button
+                    //onClick={() => nextPage()}
+                    onClick={() => handleNextPage()}
+                    disabled={
+                      pagination && pagination.page === pagination.totalPages
+                        ? true
+                        : false
+                    }
+                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </button>
+                </div>
               </>
             )}
           </div>

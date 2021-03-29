@@ -16,8 +16,9 @@ class Projects extends React.Component {
 
   componentDidMount = () => {
     projectStore.fetchProjects((data) => {
+      let dataFilter = data.list.splice(0, 5);
       this.setState({
-        getDataProjects: data.list,
+        getDataProjects: dataFilter,
       });
     });
   };
@@ -29,7 +30,7 @@ class Projects extends React.Component {
       <div className="bg-white p-3">
         <div className="d-flex justify-content-between mb-2">
           <h4>{t("txt_projects")}</h4>
-          <p className="mb-0 fs-14">{t("txt_more")}</p>
+          {/* <p className="mb-0 fs-14">{t("txt_more")}</p> */}
         </div>
         <div className="py-2 px-3 bg-blue">
           <div className="row">

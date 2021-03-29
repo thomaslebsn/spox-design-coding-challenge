@@ -12,23 +12,25 @@ const data = [
   {
     key: 1,
     text: "Profile",
+    link: "/profile",
   },
   {
     key: 2,
     text: "Billing & Plan",
+    link: "/billing-plan",
   },
-  {
-    key: 3,
-    text: "Members",
-  },
-  {
-    key: 4,
-    text: "My collections",
-  },
-  {
-    key: 5,
-    text: "Upgrade",
-  },
+  // {
+  //   key: 3,
+  //   text: "Members",
+  // },
+  // {
+  //   key: 4,
+  //   text: "My collections",
+  // },
+  // {
+  //   key: 5,
+  //   text: "Upgrade",
+  // },
 ];
 
 class DropdownAvatar extends React.Component {
@@ -74,7 +76,7 @@ class DropdownAvatar extends React.Component {
                   return (
                     <li key={index}>
                       <Dropdown.Item
-                        href="#"
+                        href={value.link}
                         className="text-blue-0 d-block rounded-1 text-decoration-none p-2"
                       >
                         {value.text}

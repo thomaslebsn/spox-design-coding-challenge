@@ -18,8 +18,9 @@ class AssignedToMe extends React.Component {
 
   componentDidMount = () => {
     campaignsStore.fetchCampaigns((data) => {
+      let dataFilter = data.list.splice(0, 5);
       this.setState({
-        getDataCampaigns: data.list,
+        getDataCampaigns: dataFilter,
       });
     });
   };
@@ -31,7 +32,7 @@ class AssignedToMe extends React.Component {
       <div className="bg-white p-3">
         <div className="d-flex justify-content-between mb-2">
           <h4>{t("txt_campaigns")}</h4>
-          <p className="mb-0 fs-14">{t("txt_more")}</p>
+          {/* <p className="mb-0 fs-14">{t("txt_more")}</p> */}
         </div>
         <div className="py-2 px-3 bg-blue">
           <div className="row">
