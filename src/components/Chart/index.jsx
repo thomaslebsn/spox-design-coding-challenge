@@ -21,11 +21,15 @@ class ComponentChart extends React.Component {
   }
 
   render() {
+    let { titleChart } = this.props;
     return (
       <div className="bg-white shadow-sm rounded-2 h-100">
-        <h6 className="text-blue-0 opacity-75 border-bottom-1 p-3 mb-0">
-          Engagement / Posts Published
-        </h6>
+        {titleChart && (
+          <h6 className="text-blue-0 opacity-75 border-bottom-1 p-3 mb-0">
+            Engagement / Posts Published
+          </h6>
+        )}
+
         <div className="p-3">
           <Chart
             width={"100%"}

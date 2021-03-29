@@ -7,6 +7,7 @@ import Spinner from "../../../components/Spinner";
 import ComponentViewAnalytics from "../../../components/ComponentViewAnalytics";
 import ComponentTopPosts from "../../../components/ComponentTopPosts";
 import ComponentTopChannels from "../../../components/ComponentTopChannels";
+import ComponentChart from "../../../components/Chart";
 
 const dataPosts = [
   {
@@ -211,8 +212,9 @@ const AnalyticsList = observer(
           <div className="bg-white p-3 rounded-2 mb-4">
             <div className="row">
               <div className="col-7">
-                <div className="d-flex justify-content-between mb-3 align-items-center">
-                  <h4 className="mb-0">Top Posts</h4>
+                <div className="mb-3">
+                  <h4 className="mb-3">Top Posts</h4>
+                  <ComponentChart />
                 </div>
               </div>
               <div className="col-5">
