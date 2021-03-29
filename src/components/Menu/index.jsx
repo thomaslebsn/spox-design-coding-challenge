@@ -124,7 +124,6 @@ class Menu extends React.Component {
                   to={value.link}
                   className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none `}
                   activeClassName={`active`}
-                  //exact
                 >
                   <i>
                     <FontAwesomeIcon icon={value.icons} />
