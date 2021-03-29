@@ -1,6 +1,6 @@
-import { makeAutoObservable } from "mobx";
-import { BILLING_PLAN_COLUMN_INDICATOR } from "../../../constants/BillingPlanModule";
-import { notify } from "../../../components/Toast";
+import {makeAutoObservable} from "mobx";
+import {BILLING_PLAN_COLUMN_INDICATOR} from "../../../constants/BillingPlanModule";
+import {notify} from "../../../components/Toast";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
 class BillingPlanListViewModel {
@@ -8,7 +8,10 @@ class BillingPlanListViewModel {
   tableStatus = PAGE_STATUS.READY;
   isDisable = false;
   show = false;
-  hideChangePlanTable = false;
+  hideChangePlanTable = true;
+  paddleData = null;
+  subscriptionDetail = null;
+  invoices = [];
 
   constructor(billingPlanStore) {
     makeAutoObservable(this);
@@ -23,52 +26,128 @@ class BillingPlanListViewModel {
     this.show = false;
   };
 
-  closeChangePlan = () => {
-    this.hideChangePlanTable = false;
-  };
+  initializeData = () => {
+    //get init member subscription detail
+    this.billingPlanStore.getMemberSubscriptionDetail(
+      (response) => {
+        this.subscriptionDetail = response.result.data.subscription;
+        this.paddleData = response.result.data.paddleData;
+        if (this.subscriptionDetail === null) {
+          this.hideChangePlanTable = false;
+        }
 
-  initializeData = () => {};
+        setTimeout(() => {
+          this.setupPaddle();
+        }, 200)
+      },
+      (error) => {
+      }
+    );
 
-  getPayLinkModel = (planName) => {
-    this.isDisable = true;
-    this.closeModal();
-    this.billingPlanStore.getPayLink(
-      this.callbackGetLinkPayOnSuccessHandler,
-      this.callbackGetLinkPayOnErrorHandler,
-      planName
+    //get member invoices
+    this.billingPlanStore.getMemberInvoices(
+      (response) => {
+        this.invoices = response.list;
+      },
+      (error) => {
+      }
     );
   };
 
-  callbackGetLinkPayOnSuccessHandler = (response) => {
+  setupPaddle() {
+    //init Paddle
     this.Paddle = window.Paddle;
     this.Paddle.Setup({
-      vendor: 1407,
-    });
+      vendor: parseInt(this.paddleData.vendorId),// paddle vendor id
+      eventCallback: function (data) {
+        // The data.event will specify the event type
+        if (data.event === "Checkout.Complete") {
+          console.log("Complete");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        } else if (data.event === "Checkout.Close") {
+          console.log("Close");
+        }
 
-    if (response) {
-      this.isDisable = false;
-      this.Paddle.Checkout.open({
-        //override: "https://sandbox-checkout.paddle.com/checkout/custom/eyJ0IjoiU3Vic2NyaWJlIGVhc2lpIHBsYW4iLCJpIjoiaHR0cHM6XC9cL3NhbmRib3gtc3RhdGljLnBhZGRsZS5jb21cL2Fzc2V0c1wvaW1hZ2VzXC9jaGVja291dFwvZGVmYXVsdF9wcm9kdWN0X2ljb24ucG5nIiwiciI6Imh0dHA6XC9cL3Rlc3QubG9jYWxcL3BhZGRsZVwvd2ViaG9vay5waHAiLCJjbSI6IiIsInJlIjoxLCJwIjo5NjE2LCJhbCI6MCwiY2MiOnsiVVNEIjoiMCJ9LCJoIjoie1wibWVtYmVyX2lkXCI6NSxcInBsYW5fbmFtZVwiOlwiU21hbGxcIixcInBsYW5faWRcIjpcIjk2MTZcIn0iLCJ5IjoiIiwicSI6MCwicTIiOiIxIiwiZyI6MzYwMTUsImQiOiIxIiwiYSI6W10sInYiOiIxNDA3IiwiZHciOmZhbHNlLCJzIjoiMWEwZDY4MmEwNTBhYTljYWRjNmRkYmYxMWY1ZWFlYmRhZGFjM2Q1YTA0ODRiZGNiZGM2MmRjMWFmOThlYjZjYWM4M2Q3N2E1OGVlNTIzYWM5YWQ5N2RjYzY5ODAyMzc0MzFiZjE3ZmNhOGEzZWIxOTA5ODQ0MzA1ZmQ3ZDVlMDgifQ=="
-        override: response.result.pay_link,
-      });
-      this.Paddle.Environment.set("sandbox");
-      this.Paddle.Checkout.open({
-        title: "Subscribe easii plan",
-        product: 9616,
-        email: "demo.kennguyen@gmail.com",
-        passthrough:
-          '{"member_id": 98765, "plan_name": "Acme Corp", "plan_id": "Acme Corp"}',
-      });
-      this.hideChangePlanTable = true;
+        console.log(data.eventData);
+      }
+    });
+  }
+
+  //get pay link
+  getPayLinkModel = (planName) => {
+    this.closeModal();
+
+    //only get pay link when subscription plan detail is empty
+    if (this.subscriptionDetail === null) {
+      this.Paddle.Spinner.show()
+      this.billingPlanStore.getPayLink(
+        planName,
+        (response) => {
+          this.Paddle.Spinner.hide();
+          if (response && response.result.pay_link) {
+            this.Paddle.Checkout.open({
+              override: response.result.pay_link,
+            });
+          } else {
+            this.tableStatus = PAGE_STATUS.ERROR;
+          }
+        },
+        (error) => {
+          this.Paddle.Spinner.hide()
+          notify(error.message);
+        },
+      );
     } else {
-      this.tableStatus = PAGE_STATUS.ERROR;
+      this.changeSubscriptionPlan(planName);
     }
   };
 
-  callbackGetLinkPayOnErrorHandler = (error) => {
-    console.log("callbackGetLinkPayOnErrorHandler");
-    console.log(error);
-    notify(error.message);
+  //upgrade subscription plan
+  changeSubscriptionPlan = (planName) => {
+    this.closeModal();
+    this.Paddle.Spinner.show()
+    this.billingPlanStore.changeSubscriptionPlan(
+      planName,
+      (response) => {
+        this.Paddle.Spinner.hide()
+        if (response.result.data === true) {
+          notify("Update subscription success");
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+
+        } else {
+          notify(response.result.data.error, 'error')
+        }
+      },
+      (response) => {
+        this.Paddle.Spinner.hide()
+        notify(response.message, 'error');
+      }
+    );
+  };
+
+  //cancel plan
+  cancelPlan = () => {
+    this.Paddle.Spinner.show()
+    this.billingPlanStore.cancelSubscription(
+      (response) => {
+        this.Paddle.Spinner.hide()
+        if (response.result.data === true) {
+          notify("Cancel subscription success");
+          this.hideChangePlanTable = false;
+          this.subscriptionDetail = null;
+        } else {
+          notify(response.result.data.error, 'error')
+        }
+      },
+      (response) => {
+        this.Paddle.Spinner.hide()
+        notify(response.message, 'error');
+      }
+    );
   };
 }
 

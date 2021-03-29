@@ -53,6 +53,9 @@ const BillingPlanList = observer(
       script.src = "https://cdn.paddle.com/paddle/paddle.js";
       script.async = true;
       document.body.appendChild(script);
+
+      //get subscription detail
+      //this.billingPlanListViewModel.initializeData();
     }
 
     handleSelectSubscriptionPlan = (planName) => {
@@ -63,8 +66,8 @@ const BillingPlanList = observer(
       this.billingPlanListViewModel.openModal();
     };
 
-    handleClosePlan = () => {
-      this.billingPlanListViewModel.closeChangePlan();
+    handleCancelPlan = () => {
+      this.billingPlanListViewModel.cancelPlan();
     };
 
     render() {
@@ -73,18 +76,21 @@ const BillingPlanList = observer(
         isDisable,
         show,
         hideChangePlanTable,
+        subscriptionDetail,
+        invoices,
       } = this.billingPlanListViewModel;
 
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
         <div>
-          {hideChangePlanTable && (
+          {hideChangePlanTable && (subscriptionDetail !== null) && (
             <div className="mb-4">
               <div className="py-3 bg-white d-inline-block">
                 <ComponentPlanPayment
+                  subscriptionDetail={subscriptionDetail}
                   handleChangePlan={this.handleChangePlan}
-                  handleClosePlan={this.handleClosePlan}
+                  handleCancelPlan={this.handleCancelPlan}
                 />
               </div>
             </div>
@@ -103,7 +109,7 @@ const BillingPlanList = observer(
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h2 className="text-blue-0 mb-0">Invoices</h2>
             </div>
-            <ComponentInvoices data={data} />
+            <ComponentInvoices data={invoices} />
           </div>
           <ModalComponent
             show={show}

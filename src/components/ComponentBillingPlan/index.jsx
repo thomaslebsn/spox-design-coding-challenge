@@ -82,7 +82,7 @@ class ComponentBillingPlan extends React.Component {
           </div>
         </div>
 
-        <div id="table_pricing" className="wrapper_table">
+        <div id="table_pricing" className="wrapper_table container">
           <div className="d-table w-100 content_table">
             <div className="d-table-row table_row_header">
               <div className="d-table-cell">Pick your plan</div>

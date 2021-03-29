@@ -42,23 +42,23 @@ class ComponentInvoices extends React.Component {
                   </div>
                 </div>
                 <div className="col-2">
-                  <span>{value.plan}</span>
+                  <span>{value.subscription_plan_name}</span>
                 </div>
                 <div className="col-2">
                   <span>${value.amount}</span>
                 </div>
                 <div className="col-2">
-                  <span>{value.date}</span>
+                  <span>{value.paid_at}</span>
                 </div>
                 <div className="col-2 d-flex justify-content-center">
                   <span
-                    className={`mw-100 h-35 fs-14 d-flex align-items-center justify-content-center rounded-2 bg-status-${value.status}`}
+                    className={`mw-100 h-35 fs-14 d-flex align-items-center justify-content-center rounded-2 bg-status-1`}
                   >
                     Paid
                   </span>
                 </div>
                 <div className="col-2 text-center">
-                  <span>{value.receipt}</span>
+                  <span><a href="{value.receipt_url}">PDF</a></span>
                 </div>
               </div>
             );
