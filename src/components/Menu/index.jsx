@@ -73,7 +73,7 @@ class Menu extends React.Component {
         {
           name: "digital",
           text: "Digital Assets",
-          link: "/digital",
+          link: "/digital-assets",
           icons: faMagic,
         },
       ],

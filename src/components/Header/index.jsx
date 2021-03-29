@@ -79,7 +79,7 @@ class Header extends React.Component {
             <FontAwesomeIcon icon={faChevronLeft} />
           </a>
           <div className="d-flex justify-content-between flex-1 align-items-center">
-            <AllProjects />
+            <div>{/* <AllProjects /> */}</div>
             <div className="d-flex align-items-center">
               {/* <div className="input-group mb-0 pe-2 wr_input_search">
                 <input

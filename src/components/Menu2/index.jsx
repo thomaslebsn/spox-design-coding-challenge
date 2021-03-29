@@ -54,8 +54,8 @@ class Menu2 extends React.Component {
         //       text: "Roles",
         //       link: "/roles",
         //       icons: faUserTag,
-        //     },
-        //   ],
+        //     }
+        //   ]
         // },
         // {
         //   title: "WORKFLOW",
@@ -64,9 +64,9 @@ class Menu2 extends React.Component {
         //       name: "workflowschemes",
         //       text: "Workflow Schemes",
         //       link: "/workflow-schemes",
-        //       icons: faHome,
-        //     },
-        //   ],
+        //       icons: faHome
+        //     }
+        //   ]
         // },
         // {
         //   title: "Connect a Channel",
@@ -75,27 +75,27 @@ class Menu2 extends React.Component {
         //       name: "socialmedia",
         //       text: "Social Media",
         //       link: "/social-media",
-        //       icons: faHome,
+        //       icons: faHome
         //     },
         //     {
         //       name: "advertising",
         //       text: "Advertising",
         //       link: "/advertising",
-        //       icons: faHome,
+        //       icons: faHome
         //     },
         //     {
         //       name: "cms",
         //       text: "CMS",
         //       link: "/cms",
-        //       icons: faHome,
+        //       icons: faHome
         //     },
         //     {
         //       name: "emailmarketing",
         //       text: "Email Marketing",
         //       link: "/emailmarketing",
-        //       icons: faEnvelopeOpenText,
-        //     },
-        //   ],
+        //       icons: faEnvelopeOpenText
+        //     }
+        //   ]
         // },
         // {
         //   title: "miscellaneous",
@@ -104,10 +104,10 @@ class Menu2 extends React.Component {
         //       name: "mycollections",
         //       text: "My collections",
         //       link: "/my-collections",
-        //       icons: faHeart,
-        //     },
-        //   ],
-        // },
+        //       icons: faHeart
+        //     }
+        //   ]
+        // }
       ],
     };
   }

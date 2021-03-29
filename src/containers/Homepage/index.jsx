@@ -99,7 +99,7 @@ class HomePage extends React.Component {
           </a>
           {isFull ? (
             <div className="d-flex">
-              <div className="py-4 px-3 pe-400">
+              <div className="py-4 px-3 pe-400 w-100">
                 <h2 className="mb-3 fw-normal text-blue-0">
                   Good morning,{" "}
                   <strong className="fw-bold">William White</strong>
@@ -110,9 +110,9 @@ class HomePage extends React.Component {
                 <div className="mb-3">
                   <Projects />
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <AssignedToMe />
-                </div>
+                </div> */}
                 <div>
                   <Campaigns />
                 </div>
