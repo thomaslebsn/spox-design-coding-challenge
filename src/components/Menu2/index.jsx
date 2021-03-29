@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
@@ -112,10 +112,14 @@ class Menu2 extends React.Component {
     };
   }
 
-  handleActionMenu = (name) => {
-    this.setState({
-      activeMenu: name,
-    });
+  checkActiveMenu = (name) => {};
+
+  componentDidMount = () => {
+    this.checkActiveMenu();
+  };
+
+  handleCheckActive = (name) => {
+    this.checkActiveMenu(name);
   };
 
   render() {
@@ -141,26 +145,22 @@ class Menu2 extends React.Component {
               </p>
               <ul className="list-unstyled mb-0 py-1 px-3">
                 {item.listMenu.map((value, key) => {
-                  let pathName = window.location.pathname;
                   return (
                     <li
                       key={key}
-                      onClick={() => this.handleActionMenu(value.link)}
-                      className={`item_menu ${
-                        activeMenu == value.link || pathName === value.link
-                          ? "active"
-                          : ""
-                      }`}
+                      onClick={(e) => this.handleCheckActive(value.link)}
+                      className={`item_menu `}
                     >
-                      <Link
+                      <NavLink
                         to={value.link}
                         className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none`}
+                        activeClassName={`active`}
                       >
                         <i>
                           <FontAwesomeIcon icon={value.icons} />
                         </i>
                         <span className="ms-3">{value.text}</span>
-                      </Link>
+                      </NavLink>
                     </li>
                   );
                 })}
