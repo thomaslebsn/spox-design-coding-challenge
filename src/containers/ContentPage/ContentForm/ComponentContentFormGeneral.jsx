@@ -132,8 +132,8 @@ class ComponentContentFormGeneral extends Component {
     let valueCanva = "";
 
     if (
-      this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] != "" &&
-      this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] != ""
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] !== "" &&
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] !== ""
     ) {
       valueCanva = {
         exportedUrl: this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],

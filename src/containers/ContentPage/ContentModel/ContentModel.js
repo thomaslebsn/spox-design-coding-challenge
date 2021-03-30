@@ -43,7 +43,8 @@ class ContentModel {
     this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? "";
     this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? "";
     this.themeId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? "";
-    this.channelAttachments = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? "";
+    this.channelAttachments =
+      data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? "";
     this.channels = [];
 
     if (this.channelAttachments) {
@@ -73,12 +74,12 @@ class ContentModel {
         }
 
         this.channels.push({
-          'id': element.channelId,
-          'name': element.channelName,
-          'image': icoImage,
-          'icon': icoImage,
-          'checked': true,
-        })
+          id: element.channelId,
+          name: element.channelName,
+          image: icoImage,
+          icon: icoImage,
+          checked: true,
+        });
       });
     }
 
@@ -195,17 +196,16 @@ class ContentModel {
   static convertSubmittedDataToAPIService(contentData) {
     console.log("convertSubmittedDataToAPIService");
 
-
     const contentId = contentData[CONTENT_FIELD_KEY.ID]
       ? contentData[CONTENT_FIELD_KEY.ID]
       : 0;
-
+    // hard code "5678" as project-id for demo purpose
     const result = contentData
       ? {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]:
-            contentData[CONTENT_FIELD_KEY.PROJECT],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: contentData[CONTENT_FIELD_KEY.CAMPAIGN],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 5678,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]:
+            contentData[CONTENT_FIELD_KEY.CAMPAIGN],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
             contentData[CONTENT_FIELD_KEY.PERSONA]
           ),
