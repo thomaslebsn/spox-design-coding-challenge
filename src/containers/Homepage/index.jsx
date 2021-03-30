@@ -102,7 +102,7 @@ class HomePage extends React.Component {
               <div className="py-4 px-3 pe-400 w-100">
                 <h2 className="mb-3 fw-normal text-blue-0">
                   Good morning,{" "}
-                  <strong className="fw-bold">William White</strong>
+                  <strong className="fw-bold">Trịnh Đình Phong</strong>
                 </h2>
                 {/* <div className="mb-3">
                   <Complete />
