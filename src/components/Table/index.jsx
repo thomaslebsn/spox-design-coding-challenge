@@ -49,6 +49,7 @@ const Table = ({
   hasSubRow,
   isSearch = true,
   _handleList,
+  classNameTable,
 }) => {
   const [getState, setState] = useState({
     isName: "list",
@@ -250,7 +251,7 @@ const Table = ({
 
   return (
     <>
-      <div className="mb-4">
+      <div className={`mb-4 ${classNameTable}`}>
         <div className="bg-white rounded-3 d-flex align-items-center justify-content-between">
           <div className="wrapper_search_global d-flex align-items-center">
             {isSearch ? (
@@ -379,7 +380,10 @@ const Table = ({
       </div>
       {isList ? (
         <div className="bg-white p-3 rounded-3">
-          <table {...getTableProps()} className="w-100 mb-4">
+          <table
+            {...getTableProps()}
+            className={`w-100 mb-4 ${classNameTable}`}
+          >
             <thead>
               {headerGroups.map((headerGroup) => {
                 let newHeaderGroup = "";

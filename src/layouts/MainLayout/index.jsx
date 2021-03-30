@@ -8,6 +8,7 @@ import Header from "../../components/Header";
 import SbarLeft from "../../components/SbarLeft";
 
 import { isLogin } from "../../auth";
+import InvesterContact from "../../containers/InvesterContact";
 
 const MainLayout = () => {
   return isLogin() ? (
@@ -29,6 +30,7 @@ const MainLayout = () => {
           </div>
         </main>
       </div>
+      <InvesterContact />
     </div>
   ) : (
     <Redirect to="/login" />
