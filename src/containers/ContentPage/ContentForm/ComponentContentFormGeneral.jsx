@@ -108,43 +108,9 @@ class ComponentContentFormGeneral extends Component {
     }
   };
 
-  handleLoadingConnectedChannelsBySelectedProjectId = (projectId) => {
-    this.contentConnectedChannelsByProjectViewModel.renderChannelByProjectId(
-      projectId
-    );
-  };
-
   generateFormSetting = () => {
     console.log("re generate Form Setting", this.formPropsData);
 
-    const projectField = this.selectedProjectIdFromWizardStep1
-      ? {
-          label: "Project Name",
-          key: CONTENT_FIELD_KEY.PROJECT,
-          type: FORM_FIELD_TYPE.INFORMATION,
-          viewModel: this.contentDisplayProjectNameInWizardStep3ViewModel,
-        }
-      : {
-          label: "Choose the Project",
-          key: CONTENT_FIELD_KEY.PROJECT,
-          type: FORM_FIELD_TYPE.SELECTION,
-          value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
-          required: true,
-          validation: "required",
-          viewModel: this.projectTableSelectionModalViewModel,
-          changed: () => {
-            const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
-            if (projectId) {
-              this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
-              console.log("Debugging - connectedChannelsByProjectId");
-              console.log(projectId);
-              this.handleLoadingConnectedChannelsBySelectedProjectId(projectId);
-            }
-          },
-          clicked: () => {
-            this.projectTableSelectionModalViewModel.openModal();
-          },
-        };
     const connectChannelsField = this.props.connectChannelsField
       ? {
           label: "Connected Channels",
@@ -163,17 +129,44 @@ class ComponentContentFormGeneral extends Component {
             this.contentConnectedChannelsByProjectViewModel.openModal();
           },
         };
+
+    console.log("===============");
+    let valueCanva = "";
+
+    if (
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] != "" &&
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] != ""
+    ) {
+      valueCanva = {
+        exportedUrl: this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
+        designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+      };
+    }
+    console.log(valueCanva);
     return [
       {
         fields: [
-          projectField,
+          {
+            label: "Choose the Project",
+            key: CONTENT_FIELD_KEY.PROJECT,
+            type: FORM_FIELD_TYPE.SELECTION,
+            value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
+            viewModel: this.projectTableSelectionModalViewModel,
+            changed: () => {
+              const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
+              if (projectId) {
+                this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
+              }
+            },
+            clicked: () => {
+              this.projectTableSelectionModalViewModel.openModal();
+            },
+          },
           {
             label: "Choose the Campaign",
             key: CONTENT_FIELD_KEY.CAMPAIGN,
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
-            required: true,
-            validation: "required",
             viewModel: this.campaignTableSelectionModalViewModel,
             changed: () => {
               const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
@@ -190,8 +183,6 @@ class ComponentContentFormGeneral extends Component {
             key: CONTENT_FIELD_KEY.PERSONA,
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
-            required: true,
-            validation: "required",
             viewModel: this.personaTableSelectionModalViewModel,
             changed: () => {
               const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
@@ -223,14 +214,9 @@ class ComponentContentFormGeneral extends Component {
             label: "Content",
             key: CONTENT_FIELD_KEY.THEME,
             type: FORM_FIELD_TYPE.CANVA,
-            value: {
-              exportedUrl: this.formPropsData[
-                CONTENT_FIELD_KEY.CANVA_EXPORTED_URL
-              ],
-              designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
-            },
-            // required: true,
-            // validation: "required",
+            required: true,
+            validation: "required",
+            value: valueCanva,
             changed: ({ exportUrl, designId }) => {
               console.log("[Canva Field] changed", { exportUrl, designId });
               this.formPropsData[
