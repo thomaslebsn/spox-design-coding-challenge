@@ -51,8 +51,8 @@ class DropdownAvatar extends React.Component {
     >
       <img src="/assets/images/avatar.png" alt="" className="img-avatar" />
       <div className="text ps-3 pe-3">
-        <p className="mb-0 text-blue-0 fs-14 fw-bold">David William White</p>
-        <p className="mb-0 text-blue-0 fs-14 opacity-75">Project Manager</p>
+        <p className="mb-0 text-blue-0 fs-14 fw-bold">Dave Johnson</p>
+        <p className="mb-0 text-blue-0 fs-14 opacity-75">Small Business Owner</p>
       </div>
       <i className="icons green">
         <FontAwesomeIcon icon={faChevronDown} />

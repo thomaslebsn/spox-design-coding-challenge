@@ -72,7 +72,7 @@ const ListConnectedChannelModal = observer(
           <ModalComponent
             show={this.viewModel.show}
             onHide={this.viewModel.closeModal}
-            header={"Connect Channles"}
+            header={"Select Channels"}
             body={
               <div className="bg-white rounded-2 px-3 py-2 h-100 ">
                 <div className="row w-100 d-flex align-items-center mb-3">

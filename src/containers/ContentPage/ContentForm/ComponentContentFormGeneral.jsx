@@ -96,9 +96,7 @@ class ComponentContentFormGeneral extends Component {
     if (this.selectedProjectIdFromWizardStep1) {
       console.log("this.contentDisplayProjectNameInWizardStep3ViewModel");
       console.log(this.contentDisplayProjectNameInWizardStep3ViewModel);
-      this.contentDisplayProjectNameInWizardStep3ViewModel.renderProjectNameByProjectId(
-        this.selectedProjectIdFromWizardStep1
-      );
+      
       this.contentConnectedChannelsByProjectViewModel.renderChannelByProjectId(
         this.selectedProjectIdFromWizardStep1
       );
