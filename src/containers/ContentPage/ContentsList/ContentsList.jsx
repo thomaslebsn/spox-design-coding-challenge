@@ -163,6 +163,7 @@ const ContentsList = observer(
           searchFunction={this.contentListViewModel.searchContents}
           dataFormFilter={dataFormFilter}
           searchText="Search your posts"
+          classNameTable={"wr_content_list"}
         ></Table>
       );
     }
