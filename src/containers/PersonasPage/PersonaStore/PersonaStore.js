@@ -17,14 +17,14 @@ export default class PersonaStore {
     }
   }
 
-  async fetchPersonas(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchPersonas(callbackOnSuccess, callbackOnError, paginationStep = 0, paginationSize = 25) {
     try {
       console.log("Persona Store - Fetch Personas");
       const PersonaService = new EasiiPersonaApiService();
 
       const repondedDataFromLibrary = await PersonaService.getPersonas(
         paginationStep,
-        25
+        paginationSize
       );
       console.log("repondedDataFromLibrary repondedDataFromLibrary");
       console.log(repondedDataFromLibrary);
@@ -303,7 +303,8 @@ export default class PersonaStore {
     callbackOnSuccess,
     callbackOnError,
     dataFilter = {},
-    paginationStep = 1
+    paginationStep = 1,
+    paginationSize = 25
   ) {
     try {
       console.log("Persona Store - searchPersonas");
@@ -311,7 +312,7 @@ export default class PersonaStore {
       const respondedDataFromLibrary = await personaAPIService.searchPersonas(
         dataFilter,
         paginationStep,
-        25
+        paginationSize
       );
 
       console.log("Debugging ---- searchPersonas");

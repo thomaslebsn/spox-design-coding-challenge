@@ -95,6 +95,7 @@ const PersonasList = observer(
           //onEdit={this.handerEditPersona}
           onSelect={this.handerSelectPersona}
           pagination={pagination}
+          pageSize={this.personaListViewModel.pageSize}
           listViewModel={this.personaListViewModel}
           searchFunction={this.personaListViewModel.searchPersonas}
           searchText="Search your personas"

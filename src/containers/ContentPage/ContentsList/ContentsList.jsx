@@ -158,6 +158,7 @@ const ContentsList = observer(
           onSelect={this.handerSelectContent}
           isFilter={true}
           pagination={pagination}
+          pageSize={this.contentListViewModel.pageSize}
           listViewModel={this.contentListViewModel}
           searchFunction={this.contentListViewModel.searchContents}
           dataFormFilter={dataFormFilter}

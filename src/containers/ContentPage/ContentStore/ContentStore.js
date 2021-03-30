@@ -27,14 +27,14 @@ export default class ContentStore {
     }
   }
 
-  async fetchContents(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchContents(callbackOnSuccess, callbackOnError, paginationStep= 0, paginationSize = 25) {
     try {
       console.log("Content Store - Fetch Content");
       const contentAPIService = new EasiiContentApiService();
 
       const repondedDataFromLibrary = await contentAPIService.getContents(
         paginationStep,
-        25
+        paginationSize
       );
       console.log(
         "repondedDataFromLibrary repondedDataFromLibrary",
@@ -175,7 +175,8 @@ export default class ContentStore {
     callbackOnSuccess,
     callbackOnError,
     dataFilter = {},
-    paginationStep = 1
+    paginationStep = 1,
+    paginationSize = 25
   ) {
     try {
       console.log("Content Store - filter Content");
@@ -183,7 +184,7 @@ export default class ContentStore {
       const respondedDataFromLibrary = await contentAPIService.searchContents(
         dataFilter,
         paginationStep,
-        25
+        paginationSize
       );
 
       console.log("Debugging ---- filter campaign");

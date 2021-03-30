@@ -18,6 +18,8 @@ class PersonasListViewModel {
 
   personaIdsSelected = null;
 
+  pageSize = 5;
+
   constructor(personaStore) {
     makeAutoObservable(this);
     this.personaStore = personaStore;
@@ -27,7 +29,9 @@ class PersonasListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.personaStore.fetchPersonas(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -35,7 +39,9 @@ class PersonasListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.personaStore.fetchPersonas(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -61,7 +67,8 @@ class PersonasListViewModel {
     this.personaStore.fetchPersonas(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      paginationStep
+      paginationStep,
+      this.pageSize
     );
   };
 

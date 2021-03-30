@@ -19,6 +19,7 @@ import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
 import { faFilter } from "@fortawesome/free-solid-svg-icons/faFilter";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons/faChevronUp";
+import FormSelectDropdown from "../../components/Form/FormSelectDropdown";
 
 import styles from "./index.module.scss";
 import "./index.scss";
@@ -27,6 +28,7 @@ import GlobalFilter from "./GlobalFilter";
 import SubRowAsync from "./RowSubComponent";
 import ComponentDatepicker from "../ComponentDatepicker";
 import ComponentFilter from "../ComponentFilter";
+import {FORM_FIELD_TYPE} from "../../constants/FormFieldType";
 
 const Table = ({
   rowData,
@@ -41,6 +43,7 @@ const Table = ({
   isFilter,
   noSelection = false,
   isList = true,
+  pageSize = 5,
   noDropDownColumns = false,
   pagination,
   listViewModel,
@@ -123,17 +126,16 @@ const Table = ({
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
     selectedFlatRows,
     state,
-    state: { pageIndex, pageSize, selectedRowIds },
+    state: { pageIndex, selectedRowIds },
   } = useTable(
     {
       columns,
       data,
       filterTypes,
       onSelect,
-      initialState: { pageIndex: getState.indexPagination, pageSize: 5 },
+      initialState: { pageIndex: getState.indexPagination, pageSize: pageSize },
     },
     useFilters,
     useGlobalFilter,
@@ -248,9 +250,23 @@ const Table = ({
     return paginationHTML;
   };
 
-  const handlePageSize = (value) => {
-    console.log("valuevaluevaluevalue", value);
-    listViewModel.pageSize = value;
+  let pageSizeDropdown = {
+    label: "Page size",
+    key: 'page_size',
+    type: FORM_FIELD_TYPE.DROPDOWN,
+    value: pageSize,
+    required: false,
+    option: [
+      { value: 5, label: 'Show 5' },
+      { value: 10, label: 'Show 10' },
+      { value: 15, label: 'Show 15' },
+      { value: 20, label: 'Show 20' },
+    ],
+    changed: (object) => {
+      listViewModel.pageSize = object.value;
+      listViewModel.getPagination(0, isList);
+    },
+    isMulti: false,
   };
 
   return (
@@ -461,22 +477,10 @@ const Table = ({
           <div className="pagination d-flex align-items-center justify-content-between">
             {pagination && (
               <>
-                <div>
-                  <select
-                    value={pageSize}
-                    onChange={(e) => {
-                      // setPageSize(Number(e.target.value));
-                      handlePageSize(Number(e.target.value));
-                    }}
-                  >
-                    {[5, 10, 15, 20].map((pageSize) => (
-                      <option key={pageSize} value={pageSize}>
-                        Show {pageSize}
-                      </option>
-                    ))}
-                  </select>
+                <div className="w-150">
+                  <FormSelectDropdown field={pageSizeDropdown} />
                 </div>
-                <div>
+                <div className={"ps-3 col-md-6"}>
                   <button
                     //onClick={() => previousPage()}
                     onClick={() => handlePreviousPage()}
@@ -544,9 +548,14 @@ const Table = ({
               )
             );
           })}
-          <div className="pagination d-flex align-items-center justify-content-center">
+
+          <div className="pagination d-flex align-items-center justify-content-between">
             {pagination && (
-              <>
+            <>
+              <div className="w-150">
+                <FormSelectDropdown field={pageSizeDropdown} />
+              </div>
+              <div className={"ps-3 col-md-6"}>
                 <button
                   //onClick={() => previousPage()}
                   onClick={() => handlePreviousPage()}
@@ -568,7 +577,8 @@ const Table = ({
                 >
                   <FontAwesomeIcon icon={faChevronRight} />
                 </button>
-              </>
+              </div>
+            </>
             )}
           </div>
         </div>
