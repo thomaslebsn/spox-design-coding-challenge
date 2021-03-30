@@ -38,6 +38,8 @@ class ProjectsListViewModel {
 
   isList = true;
 
+  pageSize = 5;
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;

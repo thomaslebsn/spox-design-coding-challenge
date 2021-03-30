@@ -248,6 +248,11 @@ const Table = ({
     return paginationHTML;
   };
 
+  const handlePageSize = (value) => {
+    console.log("valuevaluevaluevalue", value);
+    listViewModel.pageSize = value;
+  };
+
   return (
     <>
       <div className="mb-4">
@@ -453,14 +458,15 @@ const Table = ({
               })}
             </tbody>
           </table>
-          <div className="pagination d-flex align-items-center justify-content-center">
+          <div className="pagination d-flex align-items-center justify-content-between">
             {pagination && (
               <>
-                {/* <div>
+                <div>
                   <select
                     value={pageSize}
                     onChange={(e) => {
-                      setPageSize(Number(e.target.value));
+                      // setPageSize(Number(e.target.value));
+                      handlePageSize(Number(e.target.value));
                     }}
                   >
                     {[5, 10, 15, 20].map((pageSize) => (
@@ -469,14 +475,7 @@ const Table = ({
                       </option>
                     ))}
                   </select>
-                  <SelectComponent 
-                    value={pageSize}
-                    onChange={(e) => {
-                      setPageSize(Number(e.target.value));
-                    }}
-                    options={item.option}
-                  />
-                </div> */}
+                </div>
                 <div>
                   <button
                     //onClick={() => previousPage()}
