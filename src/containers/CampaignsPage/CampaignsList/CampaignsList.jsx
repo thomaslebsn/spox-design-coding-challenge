@@ -210,6 +210,7 @@ const CampaignsList = observer(
             onSelect={this.handerSelectCampaigns}
             isFilter={true}
             pagination={pagination}
+            pageSize={this.campaignsListViewModel.pageSize}
             listViewModel={this.campaignsListViewModel}
             searchFunction={this.campaignsListViewModel.searchCampaign}
             dataFormFilter={dataFormFilter}

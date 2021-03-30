@@ -38,6 +38,8 @@ class ProjectsListViewModel {
 
   isList = true;
 
+  pageSize = 5;
+
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
@@ -47,7 +49,9 @@ class ProjectsListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.projectStore.fetchProjects(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -55,7 +59,9 @@ class ProjectsListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.projectStore.fetchProjects(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -82,7 +88,8 @@ class ProjectsListViewModel {
     this.projectStore.fetchProjects(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      paginationStep
+      paginationStep,
+      this.pageSize
     );
   };
 

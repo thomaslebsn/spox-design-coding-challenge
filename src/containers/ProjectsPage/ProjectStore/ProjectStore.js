@@ -10,22 +10,18 @@ import {
 } from "easii-io-web-service-library";
 
 export default class ProjectStore {
-  async fetchProjects(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchProjects(callbackOnSuccess, callbackOnError, paginationStep = 0, paginationSize = 25) {
     try {
       console.log("Project Store - Fetch Projects");
       const projectAPIService = new EasiiProjectApiService();
       const respondedDataFromLibrary = await projectAPIService.getProjects(
         paginationStep,
-        25
+        paginationSize
       );
-      console.log("Debugging ---- fetchProjects");
-      console.log(respondedDataFromLibrary);
+
       const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
         respondedDataFromLibrary.list
       );
-
-      console.log("projectDataModels");
-      console.log(projectDataModels);
 
       if (projectDataModels) {
         runInAction(() => {
@@ -51,7 +47,8 @@ export default class ProjectStore {
     callbackOnSuccess,
     callbackOnError,
     dataFilter = {},
-    paginationStep = 1
+    paginationStep = 1,
+    paginationSize = 25
   ) {
     try {
       console.log("Project Store - filter Projects");
@@ -59,7 +56,7 @@ export default class ProjectStore {
       const respondedDataFromLibrary = await projectAPIService.searchProjects(
         dataFilter,
         paginationStep,
-        25
+        paginationSize
       );
 
       console.log("Debugging ---- filterProjects");

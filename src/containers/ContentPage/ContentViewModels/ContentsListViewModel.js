@@ -17,6 +17,8 @@ class ContentsListViewModel {
 
   contentIdsSelected = null;
 
+  pageSize = 5;
+
   constructor(contentStore) {
     makeAutoObservable(this);
     this.contentStore = contentStore;
@@ -26,7 +28,9 @@ class ContentsListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.contentStore.fetchContents(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -34,7 +38,9 @@ class ContentsListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.contentStore.fetchContents(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -60,7 +66,8 @@ class ContentsListViewModel {
     this.contentStore.fetchContents(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      paginationStep
+      paginationStep,
+      this.pageSize
     );
   };
 
@@ -71,7 +78,9 @@ class ContentsListViewModel {
     this.contentStore.searchContents(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      dataFilter
+      dataFilter,
+      0,
+      this.pageSize
     );
   };
 

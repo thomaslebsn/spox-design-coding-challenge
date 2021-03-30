@@ -123,6 +123,7 @@ const ProjectsList = observer(
           onSelect={this.handerSelectProject}
           isThumb={true}
           isList={this.projectListViewModel.isList}
+          pageSize={this.projectListViewModel.pageSize}
           dataList={[
             PROJECT_COLUMN_INDICATOR.CREATED_DATE,
             PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,

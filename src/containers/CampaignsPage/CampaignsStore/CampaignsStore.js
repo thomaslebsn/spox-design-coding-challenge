@@ -72,13 +72,13 @@ class CampaignsStore {
     }
   }
 
-  async fetchCampaigns(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchCampaigns(callbackOnSuccess, callbackOnError, paginationStep= 0, paginationSize = 25) {
     try {
       console.log("Persona Store - Fetch Personas");
       const campaignService = new EasiiCampaignApiService();
       const respondedDataFromLibrary = await campaignService.getCampaigns(
         paginationStep,
-        5
+        paginationSize
       );
 
       console.log(
@@ -230,7 +230,8 @@ class CampaignsStore {
     callbackOnSuccess,
     callbackOnError,
     dataFilter = {},
-    paginationStep = 1
+    paginationStep = 1,
+    paginationSize = 25
   ) {
     try {
       console.log("Campaign Store - filter Campaign");
@@ -238,7 +239,7 @@ class CampaignsStore {
       const respondedDataFromLibrary = await CampaignAPIService.searchCampaigns(
         dataFilter,
         paginationStep,
-        25
+        paginationSize
       );
 
       console.log("Debugging ---- filter campaign");
