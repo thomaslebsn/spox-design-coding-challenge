@@ -37,7 +37,7 @@ const ConnectChannels = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 5678,
+        organizationID: 1,
       };
 
       //get project id from url

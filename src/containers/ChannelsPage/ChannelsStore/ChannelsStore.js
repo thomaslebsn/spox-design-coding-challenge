@@ -1,7 +1,7 @@
 import React from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
-import { EasiiProjectChannelApiService } from "easii-io-web-service-library";
+import { EasiiOrganisationChannelApiService } from "easii-io-web-service-library";
 
 export default class ChannelsStore {
   async getChannelLoginUrl(
@@ -11,7 +11,7 @@ export default class ChannelsStore {
     channelUniqueName
   ) {
     try {
-      const channelService = new EasiiProjectChannelApiService();
+      const channelService = new EasiiOrganisationChannelApiService();
       console.log("channelUniqueName channelUniqueName");
       console.log(channelUniqueName);
       let response = null;
@@ -62,7 +62,7 @@ export default class ChannelsStore {
     channelType
   ) {
     try {
-      const channelService = new EasiiProjectChannelApiService();
+      const channelService = new EasiiOrganisationChannelApiService();
       let result = null;
 
       switch (channelType) {
@@ -115,7 +115,7 @@ export default class ChannelsStore {
     try {
       console.log("store organizationID", organizationID);
       console.log("store pageIds", pageIds);
-      const channelService = new EasiiProjectChannelApiService();
+      const channelService = new EasiiOrganisationChannelApiService();
       const response = await channelService.connectMultiFanpage(
         organizationID,
         pageIds
@@ -147,7 +147,7 @@ export default class ChannelsStore {
     pageIds
   ) {
     try {
-      const channelService = new EasiiProjectChannelApiService();
+      const channelService = new EasiiOrganisationChannelApiService();
       const response = await channelService.getListFanpage(
         organizationID,
         pageIds
@@ -176,7 +176,7 @@ export default class ChannelsStore {
     dataPost,
     channelUniqueName
   ) {
-    const channelService = new EasiiProjectChannelApiService();
+    const channelService = new EasiiOrganisationChannelApiService();
     console.log("channelUniqueName channelUniqueName");
     console.log(channelUniqueName);
     let response = null;

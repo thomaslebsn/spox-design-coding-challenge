@@ -63,7 +63,7 @@ const ContentFormGeneral = observer(
       let organizationID = null;
       if (match && match.params) {
         // organizationID = match.params.id;
-        organizationID = 5678;
+        organizationID = 1;
       }
 
       console.log("organizationID 111", organizationID);

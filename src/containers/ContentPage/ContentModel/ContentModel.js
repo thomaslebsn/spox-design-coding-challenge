@@ -199,11 +199,11 @@ class ContentModel {
     const contentId = contentData[CONTENT_FIELD_KEY.ID]
       ? contentData[CONTENT_FIELD_KEY.ID]
       : 0;
-    // hard code "5678" as project-id for demo purpose
+    // hard code "1" as project-id for demo purpose
     const result = contentData
       ? {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 5678,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]:
             contentData[CONTENT_FIELD_KEY.CAMPAIGN],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(

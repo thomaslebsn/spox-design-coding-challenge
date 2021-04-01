@@ -49,7 +49,7 @@ const ConnectChannel = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 5678,
+        organizationID: 1,
       };
 
       this.channelsListViewModel.checkConnectedChannels(

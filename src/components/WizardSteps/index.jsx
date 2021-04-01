@@ -31,7 +31,7 @@ const WizardSteps = (props) => {
   } else if (
     // history.location.pathname ===
     // `/wizard/project/${props.match.params.id}/content`
-    history.location.pathname === `/wizard/5678/content`
+    history.location.pathname === `/wizard/1/content`
   ) {
     currentStep = currentStep + 2;
   } else {
