@@ -10,10 +10,19 @@ class GlobalStore {
   projectMasterData = null;
   campaignMasterData = null;
   personaMasterData = null;
+  connectedChannelsMasterData = null;
   async getProjectMasterData() {
     const projectApiService = new EasiiProjectApiService();
     const respondedData = await projectApiService.getProjectMasterData();
     console.log("GlobalStore - getProjectMasterData");
+    console.log(respondedData);
+    return respondedData;
+  }
+
+  async getConnectedChannelMasterData() {
+    const PersonaApiService = new EasiiPersonaApiService();
+    const respondedData = await PersonaApiService.getConnectedChannelByOrganisationId();
+    console.log("GlobalStore - getConnectedChannelMasterData");
     console.log(respondedData);
     return respondedData;
   }
@@ -45,11 +54,15 @@ class GlobalStore {
       const isForPersonaMasterData = args.isForPersonaMasterData
         ? args.isForPersonaMasterData
         : false;
+      const isForConnectedChannelMasterData = args.isForConnectedChannelMasterData
+        ? args.isForConnectedChannelMasterData
+        : false;
 
       const result = {
         projectMasterData: null,
         campaignMasterData: null,
         personaMasterData: null,
+        connectedChannelsMasterData: null,
       };
       if (isForProjectMasterData === true) {
         const projectMasterData = this.projectMasterData
@@ -76,6 +89,15 @@ class GlobalStore {
           : await this.getPersonaMasterData();
         if (personaMasterData) {
           result.personaMasterData = personaMasterData;
+        }
+      }
+
+      if (isForConnectedChannelMasterData === true) {
+        const connectedChannelsMasterData = this.connectedChannelsMasterData
+          ? this.connectedChannelsMasterData
+          : await this.getProjectMasterData();
+        if (connectedChannelsMasterData) {
+          result.connectedChannelsMasterData = connectedChannelsMasterData;
         }
       }
       runInAction(() => {
