@@ -109,16 +109,16 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
   ];
   console.log(" formPropsData[PERSONA_FIELD_KEY.CHANNELS]");
   console.log(formPropsData);
-  console.log(JSON.parse(formPropsData[PERSONA_FIELD_KEY.CHANNELS]));
 
   let fieldChannels = {
     label: "Channels",
     key: PERSONA_FIELD_KEY.CHANNELS,
     type: FORM_FIELD_TYPE.DROPDOWN,
-    value: formPropsData["connected_channels_master_data"],
-    // value: JSON.parse(formPropsData[PERSONA_FIELD_KEY.CHANNELS]),
-    // value: ["1030", "1029"],
-    // value: [{ label: "linkedin", value: "1030" }],
+    value:
+      formPropsData[PERSONA_FIELD_KEY.CHANNELS] != ""
+        ? JSON.parse(formPropsData[PERSONA_FIELD_KEY.CHANNELS])
+        : "",
+
     defaultValue: formPropsData["connected_channels_master_data"],
     required: true,
     validation: "required",

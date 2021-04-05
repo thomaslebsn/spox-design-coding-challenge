@@ -22,9 +22,7 @@ class GlobalStore {
 
   async getConnectedChannelsMasterData() {
     const PersonaApiService = new EasiiPersonaApiService();
-    const respondedData = await PersonaApiService.getConnectedChannelByOrganisationId(
-      1
-    );
+    const respondedData = await PersonaApiService.getConnectedChannelByOrganisationId();
     console.log("GlobalStore - getConnectedChannelsMasterData");
     console.log(respondedData);
     this.connectedChannelsMasterData = respondedData;
