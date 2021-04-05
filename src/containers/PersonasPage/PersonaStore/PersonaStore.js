@@ -79,10 +79,6 @@ export default class PersonaStore {
 
       const personaService = new EasiiPersonaApiService();
 
-      // const resultOnSave = await personaService.createPersona(
-      //   convertedPersonaData
-      // );
-
       let resultOnSave = null;
 
       console.log("personaData personaData", personaData);
@@ -163,6 +159,8 @@ export default class PersonaStore {
           [repondedDataFromLibrary]
         );
 
+        console.log("after - transformPersonaResponseIntoModel");
+        console.log(personaDataModels);
         if (personaDataModels) {
           runInAction(() => {
             callbackOnSuccess(personaDataModels);
@@ -262,8 +260,8 @@ export default class PersonaStore {
               console.log("getConnectedChannelsMasterData - getMasterData");
               console.log(result);
               const resultPersonaInModel = new ConnectedChannelMasterDataModel(
-                result && result.personaMasterData
-                  ? result.personaMasterData
+                result && result.connectedChannelsMasterData
+                  ? result.connectedChannelsMasterData
                   : null
               );
               console.log("resultInModel");
