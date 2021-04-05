@@ -16,6 +16,8 @@ class ProjectTableSelectionModalViewModel {
 
   projectsSelectionData = [];
 
+  getDataSelectOptions = [];
+
   inputRef = null;
   constructor(fragmentStore) {
     makeAutoObservable(this);
@@ -85,9 +87,9 @@ class ProjectTableSelectionModalViewModel {
         }
         return arr;
       }, []);
-    let result = convertedInArray;  
+    let result = convertedInArray;
     if (!this.multi) {
-       result = convertedInArray.length > 0 ? convertedInArray[0] : null;
+      result = convertedInArray.length > 0 ? convertedInArray[0] : null;
     }
     return result;
   };
@@ -113,6 +115,8 @@ class ProjectTableSelectionModalViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       this.projectsMasterData = projectModelData.toTableRowsData();
+      // NEW
+      this.getDataSelectOptions = projectModelData.toDropdownListValues();
       console.log(this.projectsMasterData);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;

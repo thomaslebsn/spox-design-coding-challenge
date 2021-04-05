@@ -11,6 +11,7 @@ const FormPreviewPersona = observer(
   class FormPreviewPersona extends Component {
     previewPersonaViewModel = null;
     isHiddenPersonaPeview = false;
+    isDisable = false;
     personaTableSelectionModalViewModel = null;
 
     constructor(props) {
@@ -20,7 +21,8 @@ const FormPreviewPersona = observer(
       console.log("ContentFormGenera - Debug View Model Preview ----");
       console.log(viewModel);
       console.log(this.props);
-      this.personaTableSelectionModalViewModel = this.props.personaTableSelectionModalViewModel
+      this.personaTableSelectionModalViewModel = this.props
+        .personaTableSelectionModalViewModel
         ? this.props.personaTableSelectionModalViewModel
         : null;
 
@@ -35,49 +37,44 @@ const FormPreviewPersona = observer(
     componentDidMount = () => {};
 
     handleSelect = (e) => {
-      this.previewPersonaViewModel.getPreviewPersona(e.value);
+      if (e != undefined) {
+        this.previewPersonaViewModel.getPreviewPersona(e.value);
+      }
     };
 
-    handlShowPreviewPersona = (tranferPersonaObject) => {
-      const itemPersonalPerview = tranferPersonaObject
-        ? tranferPersonaObject[0]
-        : null;
+    handlShowPreviewPersona = (getValueSelected) => {
+      const itemPersonalPerview = getValueSelected ? getValueSelected[0] : null;
       this.handleSelect(itemPersonalPerview);
+
       this.isHiddenPersonaPeview = !this.isHiddenPersonaPeview;
     };
 
     render() {
       let data = this.previewPersonaViewModel.previewPersonaData;
-      console.log('render - this.personaTableSelectionModalViewModel');
+      console.log("render - this.personaTableSelectionModalViewModel");
       console.log(this.personaTableSelectionModalViewModel);
-      let { personasSelectionData } = this.personaTableSelectionModalViewModel;
 
-      let tranferPersonaObject = personasSelectionData.map((item) => {
-        return {
-          value: item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID],
-          label: item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.NAME],
-        };
-      }).reduce((arr, el) => {
-        return arr.concat(el);
-      }, []);
+      let { getValueSelected } = this.personaTableSelectionModalViewModel;
 
-      this.personaTableSelectionModalViewModel.show === true &&
-        (this.isHiddenPersonaPeview = true);
+      if (
+        getValueSelected
+          ? getValueSelected.length <= 0
+          : null || getValueSelected === null
+      ) {
+        this.isHiddenPersonaPeview = true;
+        this.isDisable = true;
+      } else {
+        this.isDisable = false;
+      }
 
       return (
         <ContentSbarRight
           data={data}
           handleSelect={this.handleSelect}
-          options={tranferPersonaObject ? tranferPersonaObject : null}
-          disabled={
-            tranferPersonaObject
-              ? tranferPersonaObject.length > 0
-                ? false
-                : true
-              : null
-          }
+          options={getValueSelected ? getValueSelected : null}
+          disabled={this.isDisable}
           handlShowPreviewPersona={() =>
-            this.handlShowPreviewPersona(tranferPersonaObject)
+            this.handlShowPreviewPersona(getValueSelected)
           }
           isHidden={this.isHiddenPersonaPeview}
         />

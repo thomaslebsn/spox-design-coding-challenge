@@ -18,11 +18,11 @@ class PersonaTableSelectionModalViewModel {
 
   channelSelectionData = [];
 
-  getPersonaFilter = [];
+  getDataSelectOptions = [];
 
-  aabb = [];
+  getValueSelected = [];
 
-  isFilter = false;
+  isHiddenPersonaPeview = false;
 
   inputRef = null;
   constructor(fragmentStore) {
@@ -132,8 +132,10 @@ class PersonaTableSelectionModalViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       this.personasMasterData = personaModelData.toTableRowsData();
+      // NEW
+      this.getDataSelectOptions = personaModelData.toDropdownListValues();
       console.log("toTableRowsData");
-      console.log(this.personasMasterData);
+      console.log(this.personaDataOptions);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
