@@ -31,7 +31,6 @@ const PersonaFormPage = observer(
     formPropsData = {
       [PERSONA_FIELD_KEY.NAME]: "",
       [PERSONA_FIELD_KEY.TOOLS]: "",
-      [PERSONA_FIELD_KEY.TOOLS]: "",
     };
 
     validator = null;
@@ -55,8 +54,12 @@ const PersonaFormPage = observer(
 
     componentDidMount() {
       const { match } = this.props;
+      this.personaFormViewModel.getConnectedChannelMasterData();
 
-      if (match.params.bypersonatemplate !== undefined && match.params.id !== undefined) {
+      if (
+        match.params.bypersonatemplate !== undefined &&
+        match.params.id !== undefined
+      ) {
         this.personaFormViewModel.getPersonaTemplate(match.params.id);
       } else if (match.params.id) {
         this.personaFormViewModel.getPersona(match.params.id);
@@ -67,7 +70,6 @@ const PersonaFormPage = observer(
 
     populatingFormDataHandler = (data) => {
       if (!data) return false;
-
       console.log("populatingFormDataHandler", data);
       this.formPropsData[PERSONA_FIELD_KEY.ID] = data.id ?? 0;
       this.formPropsData[PERSONA_FIELD_KEY.NAME] = data.getName().value;
@@ -103,6 +105,8 @@ const PersonaFormPage = observer(
       this.formPropsData[
         PERSONA_FIELD_KEY.PAINT_POINT
       ] = data.getPaintpoint().value;
+
+      this.formPropsData[PERSONA_FIELD_KEY.CHANNELS] = data.channels;
     };
 
     isFormValid = () => {
@@ -120,7 +124,7 @@ const PersonaFormPage = observer(
     };
 
     generateFormSetting = () => {
-      console.log("re generate Form Setting");
+      console.log("Persona - Form - RENDERRING");
       return [
         {
           fields: [
@@ -267,6 +271,7 @@ const PersonaFormPage = observer(
                   <ComponentFormFieldInformation
                     validator={this.validator}
                     formPropsData={this.formPropsData}
+                    viewModel={this.personaFormViewModel}
                   />
                 </div>
               </div>
@@ -297,7 +302,9 @@ const PersonaFormPage = observer(
       let formSetting = this.generateFormSetting();
 
       const { formStatus } = this.personaFormViewModel;
-
+      this.formPropsData[
+        "connected_channels_master_data"
+      ] = this.personaFormViewModel.connectedChannelMasterData;
       return formStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (

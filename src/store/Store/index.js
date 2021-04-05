@@ -16,14 +16,18 @@ class GlobalStore {
     const respondedData = await projectApiService.getProjectMasterData();
     console.log("GlobalStore - getProjectMasterData");
     console.log(respondedData);
-    return respondedData;
+    this.projectMasterData = respondedData;
+    return this.projectMasterData;
   }
 
-  async getConnectedChannelMasterData() {
+  async getConnectedChannelsMasterData() {
     const PersonaApiService = new EasiiPersonaApiService();
-    const respondedData = await PersonaApiService.getConnectedChannelByOrganisationId();
-    console.log("GlobalStore - getConnectedChannelMasterData");
+    const respondedData = await PersonaApiService.getConnectedChannelByOrganisationId(
+      1
+    );
+    console.log("GlobalStore - getConnectedChannelsMasterData");
     console.log(respondedData);
+    this.connectedChannelsMasterData = respondedData;
     return respondedData;
   }
 
@@ -32,6 +36,7 @@ class GlobalStore {
     const respondedData = await campaignApiService.getCampaignMasterData();
     console.log("GlobalStore - getCampaignMasterData");
     console.log(respondedData);
+    this.campaignMasterData = respondedData;
     return respondedData;
   }
 
@@ -40,6 +45,7 @@ class GlobalStore {
     const respondedData = await PersonaApiService.getPersonaMasterData();
     console.log("GlobalStore - getPersonaMasterData");
     console.log(respondedData);
+    this.personaMasterData = respondedData;
     return respondedData;
   }
 
@@ -54,8 +60,8 @@ class GlobalStore {
       const isForPersonaMasterData = args.isForPersonaMasterData
         ? args.isForPersonaMasterData
         : false;
-      const isForConnectedChannelMasterData = args.isForConnectedChannelMasterData
-        ? args.isForConnectedChannelMasterData
+      const isForConnectedChannelsMasterData = args.isForConnectedChannelsMasterData
+        ? args.isForConnectedChannelsMasterData
         : false;
 
       const result = {
@@ -92,10 +98,10 @@ class GlobalStore {
         }
       }
 
-      if (isForConnectedChannelMasterData === true) {
+      if (isForConnectedChannelsMasterData === true) {
         const connectedChannelsMasterData = this.connectedChannelsMasterData
           ? this.connectedChannelsMasterData
-          : await this.getProjectMasterData();
+          : await this.getConnectedChannelsMasterData();
         if (connectedChannelsMasterData) {
           result.connectedChannelsMasterData = connectedChannelsMasterData;
         }

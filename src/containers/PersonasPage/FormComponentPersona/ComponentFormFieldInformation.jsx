@@ -107,22 +107,27 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
       },
     },
   ];
+  console.log(" formPropsData[PERSONA_FIELD_KEY.CHANNELS]");
+  console.log(formPropsData);
+  console.log(JSON.parse(formPropsData[PERSONA_FIELD_KEY.CHANNELS]));
 
   let fieldChannels = {
     label: "Channels",
-    key: PERSONA_FIELD_KEY.CHALLENGES,
+    key: PERSONA_FIELD_KEY.CHANNELS,
     type: FORM_FIELD_TYPE.DROPDOWN,
-    value: formPropsData[PERSONA_FIELD_KEY.CHALLENGES],
+    value: formPropsData["connected_channels_master_data"],
+    // value: JSON.parse(formPropsData[PERSONA_FIELD_KEY.CHANNELS]),
+    // value: ["1030", "1029"],
+    // value: [{ label: "linkedin", value: "1030" }],
+    defaultValue: formPropsData["connected_channels_master_data"],
     required: true,
     validation: "required",
-    option: [
-      { value: "Linkedin", label: "Linkedin" },
-      { value: "Linkedin1", label: "Linkedin 1" },
-    ],
-    changed: (value) => {
-      formPropsData[PERSONA_FIELD_KEY.CHALLENGES] = value;
+    option: formPropsData["connected_channels_master_data"],
+    changed: (data) => {
+      let values = data.map((e) => e.value);
+      formPropsData[PERSONA_FIELD_KEY.CHANNELS] = values;
     },
-    isMulti: false,
+    isMulti: true,
   };
 
   // let fieldInterest = {

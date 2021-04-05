@@ -14,6 +14,8 @@ class PersonaFormViewModel {
 
   previewPersonaData = null;
 
+  connectedChannelMasterData = null;
+
   constructor(personaStore) {
     makeAutoObservable(this);
     this.personaStore = personaStore;
@@ -48,11 +50,11 @@ class PersonaFormViewModel {
       this.setCreatePersonaByTemplate,
       this.callbackOnErrorHander
     );
-  }
+  };
 
   setCreatePersonaByTemplate = (data) => {
     this.formStatus = PAGE_STATUS.READY;
-    console.log('setCreatePersonaByTemplate');
+    console.log("setCreatePersonaByTemplate");
     // Override data to recognize is to create new persona from persona template
     data[0].id = 0;
     this.personaFormComponent.populatingFormDataHandler(data[0]);
@@ -90,6 +92,25 @@ class PersonaFormViewModel {
         this.callbackOnErrorHander
       );
     }
+  };
+
+  getConnectedChannelMasterData = () => {
+    console.log("getConnectedChannelMasterData");
+    this.personaStore.getConnectedChannelsMasterData(
+      (dataInModel) => {
+        console.log("getConnectedChannelMasterData - callbackOnSuccessHandler");
+        this.connectedChannelMasterData = dataInModel
+          ? dataInModel.toDropdownListValues()
+          : null;
+
+        console.log(this.connectedChannelMasterData);
+      },
+      (error) => {
+        console.log("callbackOnErrorHander");
+        console.log(error);
+        notify(error.message);
+      }
+    );
   };
 
   callbackOnErrorHander = (error) => {
