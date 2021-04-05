@@ -18,6 +18,12 @@ class PersonaTableSelectionModalViewModel {
 
   channelSelectionData = [];
 
+  getPersonaFilter = [];
+
+  aabb = [];
+
+  isFilter = false;
+
   inputRef = null;
   constructor(fragmentStore) {
     makeAutoObservable(this);
@@ -110,6 +116,7 @@ class PersonaTableSelectionModalViewModel {
     this.channelSelectionData = [];
     this.personasMasterData = null;
     this.tableStatus = PAGE_STATUS.LOADING;
+    this.getPersonaFilter = null;
   }
 
   callbackOnErrorHander = (error) => {

@@ -96,7 +96,7 @@ class ComponentContentFormGeneral extends Component {
     if (this.selectedProjectIdFromWizardStep1) {
       console.log("this.contentDisplayProjectNameInWizardStep3ViewModel");
       console.log(this.contentDisplayProjectNameInWizardStep3ViewModel);
-      
+
       this.contentConnectedChannelsByProjectViewModel.renderChannelByProjectId(
         this.selectedProjectIdFromWizardStep1
       );
@@ -187,6 +187,19 @@ class ComponentContentFormGeneral extends Component {
               if (personaIds) {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }
+
+              // console.log("personaIdspersonaIdspersonaIds 222");
+              // console.log(personaIds);
+              // console.log("this.contentConnectedChannelsByProjectViewModel");
+              // console.log(
+              //   this.contentConnectedChannelsByProjectViewModel.newArrayConnectChannels.push(
+              //     personaIds
+              //     {
+              //       des: "des",
+              //       images: "/assets/images/ic-facebook.svg",
+              //     }
+              //   )
+              // );
             },
             clicked: () => {
               console.log("clicked =====");
