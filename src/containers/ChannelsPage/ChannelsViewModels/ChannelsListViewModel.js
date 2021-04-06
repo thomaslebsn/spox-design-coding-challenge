@@ -27,6 +27,8 @@ class ChannelsListViewModel {
 
   showModalCMS = true;
 
+  tumblrConnected = false;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -100,6 +102,12 @@ class ChannelsListViewModel {
                   case "instagram":
                     if (responseResult.connected == 1) {
                       this.instagramConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case "tumblr":
+                    if (responseResult.connected == 1) {
+                      this.tumblrConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
@@ -177,6 +185,11 @@ class ChannelsListViewModel {
               case "wordpress":
                 if (responseResult.connected == 1) {
                   this.wordpressConnected = true;
+                }
+                break;
+              case "tumblr":
+                if (responseResult.connected == 1) {
+                  this.tumblrConnected = true;
                 }
                 break;
 

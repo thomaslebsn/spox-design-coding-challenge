@@ -99,6 +99,7 @@ const ConnectChannels = observer(
         linkedinConnected,
         mailchimpConnected,
         instagramConnected,
+        tumblrConnected,
         wordpressConnected,
       } = this.channelsListViewModel;
 
@@ -116,6 +117,7 @@ const ConnectChannels = observer(
               linkedinConnected={linkedinConnected}
               mailchimpConnected={mailchimpConnected}
               instagramConnected={instagramConnected}
+              tumblrConnected={tumblrConnected}
               wordpressConnected={wordpressConnected}
               viewModel={this.viewModel}
               organizationID={this.state.organizationID}

@@ -28,6 +28,7 @@ export default class ChannelsStore {
         case "linkedin":
         case "mailchimp":
         case "instagram":
+        case "tumblr":
           response = await channelService.getLoginUrl(
             organizationID,
             channelUniqueName
@@ -77,6 +78,7 @@ export default class ChannelsStore {
         case "linkedin":
         case "mailchimp":
         case "instagram":
+        case "tumblr":
         case "wordpress":
           result = await channelService.getCheckConnectStatusChannel(
             organizationID,
