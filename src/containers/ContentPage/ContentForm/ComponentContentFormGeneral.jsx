@@ -15,6 +15,7 @@ import { renderingGroupFieldHandler } from "../../../utils/form";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
 import { Form } from "react-bootstrap";
+import ListConnectedChannelModal from "../../../components/ListConnectedChannelModal";
 
 class ComponentContentFormGeneral extends Component {
   formPropsData = {
@@ -32,9 +33,9 @@ class ComponentContentFormGeneral extends Component {
   projectTableSelectionModalViewModel = null;
   personaTableSelectionModalViewModel = null;
   campaignTableSelectionModalViewModel = null;
-  contentConnectedChannelsByProjectViewModel = null;
+  contentConnectedChannelsByOrganisationViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
-  selectedProjectIdFromWizardStep1 = null;
+  // selectedOrganizationIDFromWizardStep1 = null;
   constructor(props) {
     super(props);
 
@@ -42,10 +43,10 @@ class ComponentContentFormGeneral extends Component {
     // if this component is MOUNTED from Content Module => viewModel is ContentViewModel
     // Otherwise, viewModel is WizardViewModel
     this.viewModel = this.props.viewModel;
-    this.selectedProjectIdFromWizardStep1 = this.props
-      .selectedProjectIdFromWizardStep1
-      ? this.props.selectedProjectIdFromWizardStep1
-      : null;
+    // this.selectedOrganizationIDFromWizardStep1 = this.props
+    //   .selectedOrganizationIDFromWizardStep1
+    //   ? this.props.selectedOrganizationIDFromWizardStep1
+    //   : null;
 
     console.log("ComponentContentFormGeneral - Debug viewModel");
     console.log(this.viewModel);
@@ -70,15 +71,18 @@ class ComponentContentFormGeneral extends Component {
     );
     console.log(this.campaignTableSelectionModalViewModel);
 
-    this.contentConnectedChannelsByProjectViewModel = this.viewModel.getContentConnectedChannelsViewModel();
+    this.contentConnectedChannelsByOrganisationViewModel = this.viewModel.getContentConnectedChannelsViewModel();
     this.contentDisplayProjectNameInWizardStep3ViewModel = this.viewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
     this.viewModel.setForm(this);
+
+    console.log("this.contentConnectedChannelsByOrganisationViewModel 1111");
+    console.log(this.contentConnectedChannelsByOrganisationViewModel);
   }
 
   componentWillUnmount() {
     this.personaTableSelectionModalViewModel.resetObservableProperties();
     this.campaignTableSelectionModalViewModel.resetObservableProperties();
-    this.contentConnectedChannelsByProjectViewModel.resetObservableProperties();
+    this.contentConnectedChannelsByOrganisationViewModel.resetObservableProperties();
     this.contentDisplayProjectNameInWizardStep3ViewModel.resetObservableProperties();
   }
 
@@ -93,17 +97,14 @@ class ComponentContentFormGeneral extends Component {
         this.viewModel.formStatus = PAGE_STATUS.READY;
       }
     }
-    if (this.selectedProjectIdFromWizardStep1) {
-      console.log("this.contentDisplayProjectNameInWizardStep3ViewModel");
-      console.log(this.contentDisplayProjectNameInWizardStep3ViewModel);
+    // if (this.selectedOrganizationIDFromWizardStep1) {
+    //   this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
+    //   this.formPropsData[
+    //     CONTENT_FIELD_KEY.PROJECT
+    //   ] = this.selectedOrganizationIDFromWizardStep1;
+    // }
 
-      this.contentConnectedChannelsByProjectViewModel.renderChannelByProjectId(
-        this.selectedProjectIdFromWizardStep1
-      );
-      this.formPropsData[
-        CONTENT_FIELD_KEY.PROJECT
-      ] = this.selectedProjectIdFromWizardStep1;
-    }
+    this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
   };
 
   generateFormSetting = () => {
@@ -114,19 +115,20 @@ class ComponentContentFormGeneral extends Component {
           label: "Connected Channels",
           key: CONTENT_FIELD_KEY.CHANNELS,
           type: FORM_FIELD_TYPE.LABELCARD,
-          viewModel: this.contentConnectedChannelsByProjectViewModel,
+          viewModel: this.contentConnectedChannelsByOrganisationViewModel,
           value: "",
         }
-      : {
-          label: "Add Channels",
-          key: CONTENT_FIELD_KEY.CHANNELS,
-          type: FORM_FIELD_TYPE.LABELBTN,
-          viewModel: this.contentConnectedChannelsByProjectViewModel,
-          value: "",
-          clicked: () => {
-            this.contentConnectedChannelsByProjectViewModel.openModal();
-          },
-        };
+      : "";
+    // {
+    //     label: "Add Channels",
+    //     key: CONTENT_FIELD_KEY.CHANNELS,
+    //     type: FORM_FIELD_TYPE.LABELBTN,
+    //     viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+    //     value: "",
+    //     clicked: () => {
+    //       this.contentConnectedChannelsByOrganisationViewModel.openModal();
+    //     },
+    //   };
 
     console.log("===============");
     let valueCanva = "";
@@ -167,19 +169,20 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
             viewModel: this.campaignTableSelectionModalViewModel,
             changed: () => {
-              const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
-              if (campaignId) {
-                this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = campaignId;
-              }
+              // const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
+              // if (campaignId) {
+              //   this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = campaignId;
+              // }
             },
             clicked: () => {
-              this.campaignTableSelectionModalViewModel.openModal();
+              // this.campaignTableSelectionModalViewModel.openModal();
             },
           },
           {
             label: "Choose the Persona",
             key: CONTENT_FIELD_KEY.PERSONA,
-            type: FORM_FIELD_TYPE.SELECTION,
+            // type: FORM_FIELD_TYPE.SELECTION,
+            type: FORM_FIELD_TYPE.SELECTIONPERSONA,
             value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             viewModel: this.personaTableSelectionModalViewModel,
             changed: () => {
@@ -298,6 +301,12 @@ class ComponentContentFormGeneral extends Component {
                 .reduce((arr, el) => {
                   return arr.concat(el);
                 }, [])}
+              {!this.props.connectChannelsField && (
+                <ListConnectedChannelModal
+                  field={this.contentConnectedChannelsByOrganisationViewModel}
+                  getValueSelected={this.personaTableSelectionModalViewModel}
+                />
+              )}
             </Form>
             <div className="d-flex justify-content-end">
               <ButtonNormal

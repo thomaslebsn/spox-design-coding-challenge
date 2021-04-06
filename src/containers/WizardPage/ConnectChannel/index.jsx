@@ -113,9 +113,7 @@ const ConnectChannel = observer(
         instagramConnected == true ||
         wordpressConnected == true
       ) {
-        history.push(
-          `${history.location.pathname}/${this.state.organizationID}/content`
-        );
+        history.push(`${history.location.pathname}/content`);
       } else {
         notify("Please choose an connect channel");
       }

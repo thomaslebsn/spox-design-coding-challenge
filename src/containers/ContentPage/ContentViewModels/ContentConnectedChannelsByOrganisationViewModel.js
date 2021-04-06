@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
-class ContentConnectedChannelsByProjectViewModel {
+class ContentConnectedChannelsByOrganisationViewModel {
   contentsStore = null;
 
   formStatus = PAGE_STATUS.LOADING;
@@ -30,10 +30,17 @@ class ContentConnectedChannelsByProjectViewModel {
     this.connectedChannels = null;
   }
 
-  renderChannelByProjectId = (projectId) => {
+  renderChannelByOrganizationID = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    this.contentsStore.getConnectedChannelsByProjectId(
-      projectId,
+    console.log("renderChannelByOrganizationID");
+    this.contentsStore.getConnectedChannelsByOrganizationID(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHander
+    );
+  };
+
+  renderConnectedChannelByPersonaIds = () => {
+    this.contentsStore.getConnectedChannelByPersonaIds(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
     );
@@ -53,14 +60,15 @@ class ContentConnectedChannelsByProjectViewModel {
     const resultInModel = contentConnectedChannelsModel
       ? contentConnectedChannelsModel
       : null;
+    console.log("resultInModel - resultInModel ------");
     console.log(resultInModel);
     this.connectedChannels = resultInModel
       ? resultInModel.toListConnectedChannelsOnContentForm()
       : null;
     this.formStatus = PAGE_STATUS.READY;
-
+    console.log("this.connectedChannels - this.connectedChannels ------");
     console.log(this.connectedChannels);
   };
 }
 
-export default ContentConnectedChannelsByProjectViewModel;
+export default ContentConnectedChannelsByOrganisationViewModel;

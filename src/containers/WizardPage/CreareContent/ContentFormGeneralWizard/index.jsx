@@ -88,6 +88,9 @@ const ContentFormGeneralWizard = observer(
               campaignTableSelectionModalViewModel
             }
             connectChannelsField={true}
+            // selectedOrganizationIDFromWizardStep1={
+            //   this.props.selectedProjectIdFromWizardStep1
+            // }
           />
           <ContentPreviewPersona
             personaTableSelectionModalViewModel={
