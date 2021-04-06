@@ -151,13 +151,13 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
             viewModel: this.projectTableSelectionModalViewModel,
             changed: () => {
-              const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
-              if (projectId) {
-                this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
-              }
+              // const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
+              // if (projectId) {
+              //   this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
+              // }
             },
             clicked: () => {
-              this.projectTableSelectionModalViewModel.openModal();
+              // this.projectTableSelectionModalViewModel.openModal();
             },
           },
           {
@@ -183,28 +183,15 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             viewModel: this.personaTableSelectionModalViewModel,
             changed: () => {
-              const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
-              if (personaIds) {
-                this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
-              }
-
-              // console.log("personaIdspersonaIdspersonaIds 222");
-              // console.log(personaIds);
-              // console.log("this.contentConnectedChannelsByProjectViewModel");
-              // console.log(
-              //   this.contentConnectedChannelsByProjectViewModel.newArrayConnectChannels.push(
-              //     personaIds
-              //     {
-              //       des: "des",
-              //       images: "/assets/images/ic-facebook.svg",
-              //     }
-              //   )
-              // );
+              // const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
+              // if (personaIds) {
+              //   this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
+              // }
             },
             clicked: () => {
-              console.log("clicked =====");
-              console.log(this.personaTableSelectionModalViewModel);
-              this.personaTableSelectionModalViewModel.openModal();
+              // console.log("clicked =====");
+              // console.log(this.personaTableSelectionModalViewModel);
+              // this.personaTableSelectionModalViewModel.openModal();
             },
             multi: true,
           },

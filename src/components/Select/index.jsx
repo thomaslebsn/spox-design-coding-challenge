@@ -1,7 +1,5 @@
 import React from "react";
 
-import { withTranslation } from "react-i18next";
-
 import Select from "react-select";
 
 class SelectComponent extends React.Component {
@@ -12,7 +10,6 @@ class SelectComponent extends React.Component {
   }
 
   render() {
-
     let { isBorder, plColor } = this.props;
 
     const customStyles = {
@@ -24,7 +21,7 @@ class SelectComponent extends React.Component {
         "&:hover": {
           borderColor: isBorder ? "#8bdcbc" : "transparent",
         },
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
       }),
       option: (provided, state) => ({
         ...provided,
@@ -32,23 +29,23 @@ class SelectComponent extends React.Component {
         "&:hover": {
           backgroundColor: state.isSelected ? "#005f89" : "#8bdcbc",
         },
-        backgroundColor: state.isSelected ? "#005f89" : "#FFF"
+        backgroundColor: state.isSelected ? "#005f89" : "#FFF",
       }),
-      indicatorSeparator: (styles) => ({display:'none'}),
-      dropdownIndicator: base => ({
+      indicatorSeparator: (styles) => ({ display: "none" }),
+      dropdownIndicator: (base) => ({
         ...base,
-        color: "text-green"
+        color: "text-green",
       }),
       placeholder: (defaultStyles) => {
         return {
           ...defaultStyles,
           color: plColor,
-        }
-    }
+        };
+      },
     };
 
-    return <Select {...this.props} test='test' styles={customStyles} />;
+    return <Select {...this.props} test="test" styles={customStyles} />;
   }
 }
 
-export default withTranslation("common")(SelectComponent);
+export default SelectComponent;
