@@ -69,6 +69,7 @@ class ComponentConnectaChannel extends Component {
     const {
       listFaceBookFanpageView,
       facebookConnected,
+      youtubeConnected,
       twitterConnected,
       linkedinConnected,
       mailchimpConnected,
@@ -143,6 +144,31 @@ class ComponentConnectaChannel extends Component {
                     </div>
                   </div>
                 )}
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/youtube.jpg"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Youtube
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("youtube");
+                    }}
+                    disabled={youtubeConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {youtubeConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">

@@ -24,6 +24,7 @@ export default class ChannelsStore {
           );
           break;
 
+        case "youtube":
         case "twitter":
         case "linkedin":
         case "mailchimp":
@@ -72,6 +73,7 @@ export default class ChannelsStore {
           );
           break;
 
+        case "youtube":
         case "twitter":
         case "linkedin":
         case "mailchimp":
