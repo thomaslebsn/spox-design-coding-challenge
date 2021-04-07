@@ -401,7 +401,7 @@ export default class ContentStore {
         repondedDataFromLibrary.result
       );
 
-      console.log("contentDataModels contentDataModels");
+      console.log("contentDataModels contentDataModels 3333");
       console.log(contentDataModels);
 
       if (contentDataModels) {

@@ -110,25 +110,36 @@ class ComponentContentFormGeneral extends Component {
   generateFormSetting = () => {
     console.log("re generate Form Setting", this.formPropsData);
 
-    const connectChannelsField = this.props.connectChannelsField
-      ? {
-          label: "Connected Channels",
-          key: CONTENT_FIELD_KEY.CHANNELS,
-          type: FORM_FIELD_TYPE.LABELCARD,
-          viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-          value: "",
-        }
-      : "";
-    // {
-    //     label: "Add Channels",
-    //     key: CONTENT_FIELD_KEY.CHANNELS,
-    //     type: FORM_FIELD_TYPE.LABELBTN,
-    //     viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-    //     value: "",
-    //     clicked: () => {
-    //       this.contentConnectedChannelsByOrganisationViewModel.openModal();
-    //     },
-    //   };
+    const connectChannelsField = {
+      label: "Add Channels",
+      key: CONTENT_FIELD_KEY.CHANNELS,
+      type: FORM_FIELD_TYPE.LABELBTN,
+      viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+      value: "",
+      addConnectChannlesBtn: this.props.addConnectChannlesBtn,
+      clicked: () => {
+        this.contentConnectedChannelsByOrganisationViewModel.openModal();
+      },
+    };
+
+    // const connectChannelsField = this.props.connectChannelsField
+    //   ? {
+    //       label: "Connected Channels",
+    //       key: CONTENT_FIELD_KEY.CHANNELS,
+    //       type: FORM_FIELD_TYPE.LABELCARD,
+    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+    //       value: "",
+    //     }
+    //   : {
+    //       label: "Add Channels",
+    //       key: CONTENT_FIELD_KEY.CHANNELS,
+    //       type: FORM_FIELD_TYPE.LABELBTN,
+    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+    //       value: "",
+    //       clicked: () => {
+    //         this.contentConnectedChannelsByOrganisationViewModel.openModal();
+    //       },
+    //     };
 
     console.log("===============");
     let valueCanva = "";
@@ -190,7 +201,6 @@ class ComponentContentFormGeneral extends Component {
               // if (personaIds) {
               //   this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               // }
-              console.log("aaaaaaaaaaaaaaaaaa");
             },
             clicked: () => {
               // console.log("clicked =====");
@@ -199,10 +209,18 @@ class ComponentContentFormGeneral extends Component {
             },
             multi: true,
             handleOnChange: (value) => {
-              console.log("value 11111111111111");
-              console.log(value);
+              this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
+              let personaIds = this.contentConnectedChannelsByOrganisationViewModel.getSelectedIDs();
+              console.log("personaIdspersonaIds 2222");
+              console.log(personaIds);
+              if (personaIds) {
+                this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
+              }
+
+              let newPersonaIds = personaIds ? personaIds.join(",") : null;
+
               this.contentConnectedChannelsByOrganisationViewModel.renderConnectedChannelByPersonaIds(
-                "1697"
+                newPersonaIds
               );
             },
           },
@@ -309,12 +327,6 @@ class ComponentContentFormGeneral extends Component {
                 .reduce((arr, el) => {
                   return arr.concat(el);
                 }, [])}
-              {!this.props.connectChannelsField && (
-                <ListConnectedChannelModal
-                  field={this.contentConnectedChannelsByOrganisationViewModel}
-                  getValueSelected={this.personaTableSelectionModalViewModel}
-                />
-              )}
             </Form>
             <div className="d-flex justify-content-end">
               <ButtonNormal

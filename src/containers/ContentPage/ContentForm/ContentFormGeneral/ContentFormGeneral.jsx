@@ -82,6 +82,7 @@ const ContentFormGeneral = observer(
             this.campaignTableSelectionModalViewModel
           }
           match={this.props.match}
+          addConnectChannlesBtn={true}
           // selectedOrganizationIDFromWizardStep1={organizationID}
         />
       );

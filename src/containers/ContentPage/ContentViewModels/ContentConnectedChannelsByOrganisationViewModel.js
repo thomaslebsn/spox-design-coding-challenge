@@ -12,14 +12,24 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   show = false;
 
+  multi = false;
+
   newArrayConnectChannels = [];
 
-  getValueSelected = [];
+  getDataValueSelected = [];
+
+  getValueSelectedChannels = [];
+
+  arrayConnectedChannelsFinal = [];
 
   constructor(contentsStore) {
     makeAutoObservable(this);
     this.contentsStore = contentsStore;
   }
+
+  setMulti = (multi) => {
+    this.multi = multi;
+  };
 
   openModal = (inputRef) => {
     this.show = true;
@@ -43,36 +53,41 @@ class ContentConnectedChannelsByOrganisationViewModel {
   };
 
   renderConnectedChannelByPersonaIds = (personaIds) => {
-    console.log("personaIds idsidsids", personaIds);
+    console.log("personaIds idsidsids viewModel", personaIds);
     this.contentsStore.getConnectedChannelByPersonaIds(
-      this.callbackOnSuccessHandler,
+      this.callbackOnSuccessHandlerPersonaIds,
       this.callbackOnErrorHander,
       personaIds
     );
   };
 
   getSelectedIDs = () => {
-    if (!this.personasSelectionData) return null;
-    const convertedInArray = this.personasSelectionData
+    if (!this.getDataValueSelected) return null;
+    const convertedInArray = this.getDataValueSelected
       .map((item) => {
-        console.log("itemitemitemitemitem", item);
-        return item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID];
+        return item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.VALUE];
       })
       .reduce((arr, el) => {
-        const i = arr.findIndex((e) => e.value === el.value);
-
-        if (i === -1) {
-          arr.push(el);
-        } else {
-          arr[i] = el;
-        }
-        return arr;
+        return arr.concat(el);
       }, []);
+
     let result = convertedInArray;
-    if (!this.multi) {
-      result = convertedInArray.length > 0 ? convertedInArray[0] : null;
-    }
+
     return result;
+  };
+
+  getArrayConnectedChannelsFinal = () => {
+    this.arrayConnectedChannelsFinal =
+      this.getValueSelectedChannels.length > 0
+        ? this.getValueSelectedChannels
+        : this.connectedChannels;
+
+    this.arrayConnectedChannelsFinal = Object.values(
+      this.arrayConnectedChannelsFinal.reduce(
+        (acc, cur) => Object.assign(acc, { [cur.des]: cur }),
+        {}
+      )
+    );
   };
 
   callbackOnErrorHander = (error) => {
@@ -94,9 +109,34 @@ class ContentConnectedChannelsByOrganisationViewModel {
     this.connectedChannels = resultInModel
       ? resultInModel.toListConnectedChannelsOnContentForm()
       : null;
+
     this.formStatus = PAGE_STATUS.READY;
     console.log("this.connectedChannels - this.connectedChannels ------");
     console.log(this.connectedChannels);
+
+    this.getArrayConnectedChannelsFinal();
+  };
+
+  callbackOnSuccessHandlerPersonaIds = (contentConnectedChannelsModel) => {
+    console.log(
+      "callbackOnSuccessHandler - contentConnectedChannelsModel ------"
+    );
+    const resultInModel = contentConnectedChannelsModel
+      ? contentConnectedChannelsModel
+      : null;
+    console.log("resultInModel - resultInModel ------");
+    console.log(resultInModel);
+
+    this.getValueSelectedChannels = resultInModel
+      ? resultInModel.toListConnectedChannelsOnContentForm()
+      : null;
+    this.formStatus = PAGE_STATUS.READY;
+    console.log(
+      "this.getValueSelectedChannels - this.getValueSelectedChannels ------"
+    );
+    console.log(this.getValueSelectedChannels);
+
+    this.getArrayConnectedChannelsFinal();
   };
 }
 
