@@ -53,14 +53,6 @@ class ChannelsListViewModel {
     notify(error.message);
   };
 
-  // openModalUpgrade = () => {
-  //   this.showUpgrade = !this.mustUpgrade;
-  // };
-
-  // closeModalUpgrade = () => {
-  //   this.showUpgrade = !this.mustUpgrade;
-  // };
-
   callbackOnSuccessChannel = (response, organizationID, channelUniqueName) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
