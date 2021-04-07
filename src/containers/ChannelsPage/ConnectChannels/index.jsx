@@ -45,17 +45,14 @@ const ConnectChannels = observer(
       // getIdProject = getIdProject.join("");
 
       //call check connected channels
-      this.channelsListViewModel.checkConnectedChannels(
-        this.state.organizationID,
-        [
-          "linkedin",
-          "twitter",
-          "instagram",
-          "facebook",
-          "mailchimp",
-          "wordpress",
-        ]
-      );
+      this.channelsListViewModel.checkConnectedChannels([
+        "linkedin",
+        "twitter",
+        "instagram",
+        "facebook",
+        "mailchimp",
+        "wordpress",
+      ]);
     }
 
     handleCheckbox = (id) => {
@@ -75,7 +72,6 @@ const ConnectChannels = observer(
 
     handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
-        this.state.organizationID,
         this.state.getIDSFanpage
       );
 
