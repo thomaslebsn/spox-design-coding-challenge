@@ -55,7 +55,7 @@ const BillingPlanList = observer(
       document.body.appendChild(script);
 
       //get subscription detail
-      //this.billingPlanListViewModel.initializeData();
+      this.billingPlanListViewModel.initializeData();
     }
 
     handleSelectSubscriptionPlan = (planName) => {

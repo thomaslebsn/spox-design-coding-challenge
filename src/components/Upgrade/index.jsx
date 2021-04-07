@@ -17,11 +17,18 @@ class Upgrade extends React.Component {
         </div>
         <p className="item_upgrade mb-2">
           <span>Unlock more features now! Upgrade to </span>
-          <a href="#" className="text-uppercase text-green fw-bold">OTHER PLAN</a>
+          <a href="#" className="text-uppercase text-green fw-bold">
+            OTHER PLAN
+          </a>
         </p>
         <div>
-          <a href="#" className="link_upgrade btn btn-success w-100">
-            <i><FontAwesomeIcon icon={faCog} /></i>
+          <a
+            href="/billing-plan"
+            className="link_upgrade btn btn-success w-100"
+          >
+            <i>
+              <FontAwesomeIcon icon={faCog} />
+            </i>
             <span className="ms-2">Upgrade</span>
           </a>
         </div>
