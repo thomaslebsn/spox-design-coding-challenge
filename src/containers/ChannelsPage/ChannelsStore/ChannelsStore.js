@@ -59,7 +59,6 @@ export default class ChannelsStore {
   async checkConnectedChannels(
     callbackOnSuccess,
     callbackOnError,
-    organizationID,
     channelType
   ) {
     try {
@@ -69,7 +68,6 @@ export default class ChannelsStore {
       switch (channelType) {
         case "facebook":
           result = await channelService.checkConnectionStatusFacebook(
-            organizationID,
             channelType
           );
           break;
@@ -81,7 +79,6 @@ export default class ChannelsStore {
         case "tumblr":
         case "wordpress":
           result = await channelService.getCheckConnectStatusChannel(
-            organizationID,
             channelType
           );
           break;
@@ -92,7 +89,7 @@ export default class ChannelsStore {
 
       if (result) {
         runInAction(() => {
-          callbackOnSuccess(result, organizationID, channelType);
+          callbackOnSuccess(result, channelType);
         });
       } else {
         callbackOnError({
@@ -111,22 +108,17 @@ export default class ChannelsStore {
   async saveChosseFacebookFanpages(
     callbackOnSuccess,
     callbackOnError,
-    organizationID,
     pageIds
   ) {
     try {
-      console.log("store organizationID", organizationID);
       console.log("store pageIds", pageIds);
       const channelService = new EasiiOrganisationChannelApiService();
-      const response = await channelService.connectMultiFanpage(
-        organizationID,
-        pageIds
-      );
+      const response = await channelService.connectMultiFanpage(pageIds);
 
       console.log("store response", response);
       if (response) {
         runInAction(() => {
-          callbackOnSuccess(response, organizationID, pageIds);
+          callbackOnSuccess(response, pageIds);
         });
       } else {
         callbackOnError({
@@ -142,21 +134,13 @@ export default class ChannelsStore {
     }
   }
 
-  async getFacebookFanpages(
-    callbackOnSuccess,
-    callbackOnError,
-    organizationID,
-    pageIds
-  ) {
+  async getFacebookFanpages(callbackOnSuccess, callbackOnError, pageIds) {
     try {
       const channelService = new EasiiOrganisationChannelApiService();
-      const response = await channelService.getListFanpage(
-        organizationID,
-        pageIds
-      );
+      const response = await channelService.getListFanpage(pageIds);
       if (response) {
         runInAction(() => {
-          callbackOnSuccess(response, organizationID, pageIds);
+          callbackOnSuccess(response, pageIds);
         });
       } else {
         callbackOnError({

@@ -53,7 +53,7 @@ class ChannelsListViewModel {
     notify(error.message);
   };
 
-  callbackOnSuccessChannel = (response, organizationID, channelUniqueName) => {
+  callbackOnSuccessChannel = (response, channelUniqueName) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       console.log("callbackOnSuccessChannel");
@@ -126,12 +126,10 @@ class ChannelsListViewModel {
                 }
               },
               (error) => {},
-              organizationID,
               channelUniqueName
             );
           },
           stepInterval,
-          organizationID,
           channelUniqueName
         );
       }
@@ -140,7 +138,7 @@ class ChannelsListViewModel {
     }
   };
 
-  checkConnectedChannels(organizationID, channels) {
+  checkConnectedChannels(channels) {
     channels.map((channelType) => {
       this.channelsStore.checkConnectedChannels(
         (response) => {
@@ -208,28 +206,22 @@ class ChannelsListViewModel {
           }
         },
         (error) => {},
-        organizationID,
         channelType
       );
     });
   }
 
-  saveChosseFacebookFanpages = (organizationID, pageIds) => {
+  saveChosseFacebookFanpages = (pageIds) => {
     if (pageIds.length > 0) {
       this.channelsStore.saveChosseFacebookFanpages(
         this.callbackOnSuccessListFacebookFanpage,
         this.callbackOnErrorHander,
-        organizationID,
         pageIds
       );
     }
   };
 
-  callbackOnSuccessListFacebookFanpage = (
-    response,
-    organizationID,
-    pageIds
-  ) => {
+  callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookFanpages(
@@ -237,7 +229,6 @@ class ChannelsListViewModel {
           this.listFaceBookFanpageView = respons.result.pages.pages;
         },
         (error) => {},
-        organizationID,
         pageIds
       );
     } else {

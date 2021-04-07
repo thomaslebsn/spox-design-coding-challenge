@@ -52,17 +52,14 @@ const ConnectChannel = observer(
         organizationID: 1,
       };
 
-      this.channelsListViewModel.checkConnectedChannels(
-        this.state.organizationID,
-        [
-          "linkedin",
-          "twitter",
-          "instagram",
-          "facebook",
-          "mailchimp",
-          "wordpress",
-        ]
-      );
+      this.channelsListViewModel.checkConnectedChannels([
+        "linkedin",
+        "twitter",
+        "instagram",
+        "facebook",
+        "mailchimp",
+        "wordpress",
+      ]);
     }
 
     handleCheckbox = (id) => {
@@ -82,7 +79,6 @@ const ConnectChannel = observer(
 
     handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
-        this.state.organizationID,
         this.state.getIDSFanpage
       );
 
