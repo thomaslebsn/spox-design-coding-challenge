@@ -82,7 +82,7 @@ const ContentFormGeneral = observer(
             this.campaignTableSelectionModalViewModel
           }
           match={this.props.match}
-          selectedProjectIdFromWizardStep1={organizationID}
+          // selectedOrganizationIDFromWizardStep1={organizationID}
         />
       );
     }

@@ -18,6 +18,8 @@ class CampaignTableSelectionModalViewModel {
 
   getDataSelectOptions = [];
 
+  getValueSelected = [];
+
   inputRef = null;
   constructor(fragmentStore) {
     makeAutoObservable(this);

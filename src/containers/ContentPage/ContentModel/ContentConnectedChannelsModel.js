@@ -1,19 +1,21 @@
 import { default as BaseModel } from "../../../store/Models/Abstract/BaseModel";
 import BaseItemModel from "../../../store/Models/Abstract/BaseItemModel";
 import {
-  ESI_PROJECT_CHANNEL_API_FIELD_KEY,
-  ESI_PROJECT_CHANNEL_FIELD_KEY,
-} from "../../../constants/ProjectChannelsModule";
+  ESI_ORGANIZATION_CHANNEL_API_FIELD_KEY,
+  ESI_ORGANIZATION_CHANNEL_FIELD_KEY,
+} from "../../../constants/OrganizationChannelsModule";
 
 class ContentConnectedChannelsModel extends BaseModel {
   items = [];
   unTransformedItems = [];
   constructor(entities) {
     if (entities) {
+      console.log("constructor - ContentConnectedChannelsModel");
       super(entities);
-      const projectChannels = entities;
-      this.unTransformedItems = projectChannels;
-      this.items = projectChannels.map((element) => {
+      const organizationChannels = entities;
+      console.log(organizationChannels);
+      this.unTransformedItems = organizationChannels;
+      this.items = organizationChannels.map((element) => {
         return new ContentConnectedChannelItemModel(element);
       });
     }
@@ -28,19 +30,15 @@ class ContentConnectedChannelsModel extends BaseModel {
 }
 
 class ContentConnectedChannelItemModel extends BaseItemModel {
-  channel = null;
-  project = null;
-  handle = "";
+  channelId = null;
   channelName = "";
 
   constructor(entity) {
     if (entity) {
       super(entity);
-      this.channel = entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.CHANNEL] ?? [0];
-      this.project = entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.PROJECT] ?? [0];
-      this.handle = entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.HANDLE] ?? "";
+      this.channelId = entity[ESI_ORGANIZATION_CHANNEL_API_FIELD_KEY.ID] ?? [0];
       this.channelName =
-        entity[ESI_PROJECT_CHANNEL_API_FIELD_KEY.CHANNEL_NAME] ?? "";
+        entity[ESI_ORGANIZATION_CHANNEL_API_FIELD_KEY.CHANNEL_NAME] ?? "";
     }
   }
 
@@ -50,16 +48,8 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
     }
   };
 
-  getChannel = () => {
-    return this.channel;
-  };
-
-  getProject = () => {
-    return this.project;
-  };
-
-  getHandle = () => {
-    return this.handle;
+  getChannelId = () => {
+    return this.channelId;
   };
 
   toConnectedChannelItemOnContentForm = () => {
@@ -94,11 +84,8 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
 
   toObject = () => {
     return {
-      [ESI_PROJECT_CHANNEL_FIELD_KEY.ID]: this.id,
-      [ESI_PROJECT_CHANNEL_FIELD_KEY.CHANNEL]: this.channel,
-      [ESI_PROJECT_CHANNEL_FIELD_KEY.PROJECT]: this.project,
-      [ESI_PROJECT_CHANNEL_FIELD_KEY.HANDLE]: this.handle,
-      [ESI_PROJECT_CHANNEL_FIELD_KEY.CHANNEL_NAME]: this.channelName,
+      [ESI_ORGANIZATION_CHANNEL_FIELD_KEY.ID]: this.channelId,
+      [ESI_ORGANIZATION_CHANNEL_FIELD_KEY.CHANNEL_NAME]: this.channelName,
     };
   };
 }
