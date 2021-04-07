@@ -88,6 +88,7 @@ const ContentFormGeneralWizard = observer(
               campaignTableSelectionModalViewModel
             }
             connectChannelsField={true}
+            addConnectChannlesBtn={false}
           />
           <ContentPreviewPersona
             personaTableSelectionModalViewModel={

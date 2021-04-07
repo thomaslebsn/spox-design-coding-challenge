@@ -7,10 +7,8 @@ import SelectComponent from "../../../components/Select";
 
 import { PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from "../../../constants/PersonaModule";
 
-import "./index.scss";
-
-const FormSelection = observer(
-  class FormSelection extends Component {
+const FormSelectionPersona = observer(
+  class FormSelectionPersona extends Component {
     constructor(props) {
       super(props);
 
@@ -29,10 +27,6 @@ const FormSelection = observer(
       this.viewModel.setMulti(this.field.multi);
     }
 
-    handleChange = (e) => {
-      this.viewModel.getValueSelected = e;
-    };
-
     render() {
       const { multi } = this.viewModel;
 
@@ -40,7 +34,7 @@ const FormSelection = observer(
 
       return (
         <SelectComponent
-          value={this.viewModel.getValueSelected}
+          value={this.field.value}
           options={getDataSelectOptions}
           className="mb-3 text-green"
           isBorder={true}
@@ -48,11 +42,11 @@ const FormSelection = observer(
           //onFocus={this.field.changed}
           onBlur={this.field.blurred}
           isMulti={multi}
-          onChange={this.handleChange}
+          onChange={this.field.handleOnChange}
         />
       );
     }
   }
 );
 
-export default FormSelection;
+export default FormSelectionPersona;

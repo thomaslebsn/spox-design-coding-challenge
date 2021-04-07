@@ -49,20 +49,18 @@ const ConnectChannel = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 5678,
+        organizationID: 1,
       };
 
-      this.channelsListViewModel.checkConnectedChannels(
-        this.state.organizationID,
-        [
-          "linkedin",
-          "twitter",
-          "instagram",
-          "facebook",
-          "mailchimp",
-          "wordpress",
-        ]
-      );
+      this.channelsListViewModel.checkConnectedChannels([
+        "linkedin",
+        "youtube",
+        "twitter",
+        "instagram",
+        "facebook",
+        "mailchimp",
+        "wordpress",
+      ]);
     }
 
     handleCheckbox = (id) => {
@@ -82,7 +80,6 @@ const ConnectChannel = observer(
 
     handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
-        this.state.organizationID,
         this.state.getIDSFanpage
       );
 
@@ -98,6 +95,7 @@ const ConnectChannel = observer(
     next = () => {
       const {
         facebookConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -107,15 +105,14 @@ const ConnectChannel = observer(
 
       if (
         facebookConnected == true ||
+        youtubeConnected == true ||
         twitterConnected == true ||
         linkedinConnected == true ||
         mailchimpConnected == true ||
         instagramConnected == true ||
         wordpressConnected == true
       ) {
-        history.push(
-          `${history.location.pathname}/${this.state.organizationID}/content`
-        );
+        history.push(`${history.location.pathname}/content`);
       } else {
         notify("Please choose an connect channel");
       }
@@ -128,6 +125,7 @@ const ConnectChannel = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -144,6 +142,7 @@ const ConnectChannel = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
               mailchimpConnected={mailchimpConnected}

@@ -11,6 +11,8 @@ class ChannelsListViewModel {
 
   facebookConnected = false;
 
+  youtubeConnected = false;
+
   twitterConnected = false;
 
   linkedinConnected = false;
@@ -42,7 +44,6 @@ class ChannelsListViewModel {
     this.channelsStore.getChannelLoginUrl(
       this.callbackOnSuccessChannel,
       this.callbackOnErrorHander,
-      organizationID,
       channelUniqueName
     );
   };
@@ -53,94 +54,101 @@ class ChannelsListViewModel {
     notify(error.message);
   };
 
-  callbackOnSuccessChannel = (response, organizationID, channelUniqueName) => {
+  callbackOnSuccessChannel = (response, channelUniqueName) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       console.log("callbackOnSuccessChannel");
 
-      if (response.result.must_upgrade) {
-        this.mustUpgrade = true;
-      } else {
-        window.open(response.result.loginUrl, "popup", "width=600,height=600");
-        const stepInterval = 2000;
-        let intervalTimeLimitInMiliseconds = stepInterval * 60;
-        let checkConnectionStatusInterval = setInterval(
-          () => {
-            intervalTimeLimitInMiliseconds -= stepInterval;
-            if (intervalTimeLimitInMiliseconds <= 0) {
-              clearInterval(checkConnectionStatusInterval);
-            }
+      // if (response.result.must_upgrade) {
+      //   this.mustUpgrade = true;
+      //   return;
+      // }
+      window.open(response.result.loginUrl, "popup", "width=600,height=600");
+      const stepInterval = 2000;
+      let intervalTimeLimitInMiliseconds = stepInterval * 60;
+      let checkConnectionStatusInterval = setInterval(
+        () => {
+          intervalTimeLimitInMiliseconds -= stepInterval;
+          if (intervalTimeLimitInMiliseconds <= 0) {
+            clearInterval(checkConnectionStatusInterval);
+          }
 
-            this.channelsStore.checkConnectedChannels(
-              (response) => {
-                if (response) {
-                  this.tableStatus = PAGE_STATUS.READY;
+          console.log("fsdfsdfs");
+          console.log(channelUniqueName);
+          this.channelsStore.checkConnectedChannels(
+            (response) => {
+              if (response) {
+                this.tableStatus = PAGE_STATUS.READY;
 
-                  let responseResult = response.result;
-                  switch (channelUniqueName) {
-                    case "facebook":
-                      if (responseResult.pages.status === "connected") {
-                        this.facebookConnected = true;
-                        clearInterval(checkConnectionStatusInterval);
-                        this.listFaceBookFanpage = responseResult.pages.pages;
-                      }
-                      break;
+                let responseResult = response.result;
+                switch (channelUniqueName) {
+                  case "facebook":
+                    if (responseResult.pages.status === "connected") {
+                      this.facebookConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                      this.listFaceBookFanpage = responseResult.pages.pages;
+                    }
+                    break;
 
-                    case "twitter":
-                      if (responseResult.connected == 1) {
-                        this.twitterConnected = true;
-                        clearInterval(checkConnectionStatusInterval);
-                      }
-                      break;
+                  case "youtube":
+                    if (responseResult.connected == 1) {
+                      this.youtubeConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
 
-                    case "linkedin":
-                      if (responseResult.connected == 1) {
-                        this.linkedinConnected = true;
-                        clearInterval(checkConnectionStatusInterval);
-                      }
-                      break;
+                  case "twitter":
+                    if (responseResult.connected == 1) {
+                      this.twitterConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
 
-                    case "mailchimp":
-                      if (responseResult.connected == 1) {
-                        this.mailchimpConnected = true;
-                        clearInterval(checkConnectionStatusInterval);
-                      }
-                      break;
+                  case "linkedin":
+                    if (responseResult.connected == 1) {
+                      this.linkedinConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
 
-                    case "instagram":
-                      if (responseResult.connected == 1) {
-                        this.instagramConnected = true;
-                        clearInterval(checkConnectionStatusInterval);
-                      }
-                      break;
-                    case "tumblr":
-                      if (responseResult.connected == 1) {
-                        this.tumblrConnected = true;
-                        clearInterval(checkConnectionStatusInterval);
-                      }
-                      break;
+                  case "mailchimp":
+                    if (responseResult.connected == 1) {
+                      this.mailchimpConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
 
-                    default:
-                      break;
-                  }
+                  case "instagram":
+                    if (responseResult.connected == 1) {
+                      this.instagramConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case "tumblr":
+                    if (responseResult.connected == 1) {
+                      this.tumblrConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+
+                  default:
+                    break;
                 }
-              },
-              (error) => {},
-              organizationID,
-              channelUniqueName
-            );
-          },
-          stepInterval,
-          organizationID,
-          channelUniqueName
-        );
-      }
+              }
+            },
+            (error) => {},
+            channelUniqueName
+          );
+        },
+        stepInterval,
+        channelUniqueName
+      );
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
 
-  checkConnectedChannels(organizationID, channels) {
+  checkConnectedChannels(channels) {
     channels.map((channelType) => {
       this.channelsStore.checkConnectedChannels(
         (response) => {
@@ -164,6 +172,12 @@ class ChannelsListViewModel {
                   } else {
                     this.listFaceBookFanpage = listFanpage;
                   }
+                }
+                break;
+
+              case "youtube":
+                if (responseResult.connected == 1) {
+                  this.youtubeConnected = true;
                 }
                 break;
 
@@ -208,28 +222,22 @@ class ChannelsListViewModel {
           }
         },
         (error) => {},
-        organizationID,
         channelType
       );
     });
   }
 
-  saveChosseFacebookFanpages = (organizationID, pageIds) => {
+  saveChosseFacebookFanpages = (pageIds) => {
     if (pageIds.length > 0) {
       this.channelsStore.saveChosseFacebookFanpages(
         this.callbackOnSuccessListFacebookFanpage,
         this.callbackOnErrorHander,
-        organizationID,
         pageIds
       );
     }
   };
 
-  callbackOnSuccessListFacebookFanpage = (
-    response,
-    organizationID,
-    pageIds
-  ) => {
+  callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookFanpages(
@@ -237,7 +245,6 @@ class ChannelsListViewModel {
           this.listFaceBookFanpageView = respons.result.pages.pages;
         },
         (error) => {},
-        organizationID,
         pageIds
       );
     } else {

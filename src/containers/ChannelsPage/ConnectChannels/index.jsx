@@ -37,7 +37,7 @@ const ConnectChannels = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 5678,
+        organizationID: 1,
       };
 
       //get project id from url
@@ -45,17 +45,15 @@ const ConnectChannels = observer(
       // getIdProject = getIdProject.join("");
 
       //call check connected channels
-      this.channelsListViewModel.checkConnectedChannels(
-        this.state.organizationID,
-        [
-          "linkedin",
-          "twitter",
-          "instagram",
-          "facebook",
-          "mailchimp",
-          "wordpress",
-        ]
-      );
+      this.channelsListViewModel.checkConnectedChannels([
+        "linkedin",
+        "youtube",
+        "twitter",
+        "instagram",
+        "facebook",
+        "mailchimp",
+        "wordpress",
+      ]);
     }
 
     handleCheckbox = (id) => {
@@ -75,7 +73,6 @@ const ConnectChannels = observer(
 
     handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
-        this.state.organizationID,
         this.state.getIDSFanpage
       );
 
@@ -95,6 +92,7 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -113,6 +111,7 @@ const ConnectChannels = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
               mailchimpConnected={mailchimpConnected}

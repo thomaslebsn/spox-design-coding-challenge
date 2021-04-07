@@ -10,11 +10,22 @@ class GlobalStore {
   projectMasterData = null;
   campaignMasterData = null;
   personaMasterData = null;
+  connectedChannelsMasterData = null;
   async getProjectMasterData() {
     const projectApiService = new EasiiProjectApiService();
     const respondedData = await projectApiService.getProjectMasterData();
     console.log("GlobalStore - getProjectMasterData");
     console.log(respondedData);
+    this.projectMasterData = respondedData;
+    return this.projectMasterData;
+  }
+
+  async getConnectedChannelsMasterData() {
+    const PersonaApiService = new EasiiPersonaApiService();
+    const respondedData = await PersonaApiService.getConnectedChannelByOrganisationId();
+    console.log("GlobalStore - getConnectedChannelsMasterData");
+    console.log(respondedData);
+    this.connectedChannelsMasterData = respondedData;
     return respondedData;
   }
 
@@ -23,6 +34,7 @@ class GlobalStore {
     const respondedData = await campaignApiService.getCampaignMasterData();
     console.log("GlobalStore - getCampaignMasterData");
     console.log(respondedData);
+    this.campaignMasterData = respondedData;
     return respondedData;
   }
 
@@ -31,6 +43,7 @@ class GlobalStore {
     const respondedData = await PersonaApiService.getPersonaMasterData();
     console.log("GlobalStore - getPersonaMasterData");
     console.log(respondedData);
+    this.personaMasterData = respondedData;
     return respondedData;
   }
 
@@ -45,11 +58,15 @@ class GlobalStore {
       const isForPersonaMasterData = args.isForPersonaMasterData
         ? args.isForPersonaMasterData
         : false;
+      const isForConnectedChannelsMasterData = args.isForConnectedChannelsMasterData
+        ? args.isForConnectedChannelsMasterData
+        : false;
 
       const result = {
         projectMasterData: null,
         campaignMasterData: null,
         personaMasterData: null,
+        connectedChannelsMasterData: null,
       };
       if (isForProjectMasterData === true) {
         const projectMasterData = this.projectMasterData
@@ -76,6 +93,15 @@ class GlobalStore {
           : await this.getPersonaMasterData();
         if (personaMasterData) {
           result.personaMasterData = personaMasterData;
+        }
+      }
+
+      if (isForConnectedChannelsMasterData === true) {
+        const connectedChannelsMasterData = this.connectedChannelsMasterData
+          ? this.connectedChannelsMasterData
+          : await this.getConnectedChannelsMasterData();
+        if (connectedChannelsMasterData) {
+          result.connectedChannelsMasterData = connectedChannelsMasterData;
         }
       }
       runInAction(() => {

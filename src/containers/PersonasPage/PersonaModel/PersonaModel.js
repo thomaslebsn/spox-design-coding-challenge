@@ -15,7 +15,7 @@ class PersonaModel {
   constructor(data) {
     this.id = data[ESI_PERSONA_FIELD_KEY.ID] ?? 0;
     this.name = data[ESI_PERSONA_FIELD_KEY.NAME] ?? "";
-    this.channels = data[ESI_PERSONA_FIELD_KEY.CHANNELS] ?? "";
+    this.channels = data[ESI_PERSONA_FIELD_KEY.CHANNEL] ?? "";
     this.dgname = data[ESI_PERSONA_FIELD_KEY.DG_NAME] ?? "";
     this.age = data[ESI_PERSONA_FIELD_KEY.AGE] ?? 0;
     this.gender =
@@ -275,8 +275,11 @@ class PersonaModel {
           [ESI_PERSONA_FIELD_KEY.ID]: personaData[PERSONA_FIELD_KEY.ID] ?? null,
           [ESI_PERSONA_FIELD_KEY.NAME]:
             personaData[PERSONA_FIELD_KEY.NAME] ?? "",
-          [ESI_PERSONA_FIELD_KEY.CHANNEL]:
-            personaData[PERSONA_FIELD_KEY.CHANNEL] ?? "",
+          [ESI_PERSONA_FIELD_KEY.CHANNEL]: personaData[
+            PERSONA_FIELD_KEY.CHANNELS
+          ]
+            ? personaData[PERSONA_FIELD_KEY.CHANNELS]
+            : "",
           [ESI_PERSONA_FIELD_KEY.AGE]: personaData[PERSONA_FIELD_KEY.AGE] ?? "",
           [ESI_PERSONA_FIELD_KEY.GENDER]:
             personaData[PERSONA_FIELD_KEY.GENDER] ?? "",

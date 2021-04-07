@@ -53,7 +53,7 @@ class WizardPage extends Component {
               <ConnectChannel />
             </Route>
 
-            <Route exact path="/wizard/:id/content">
+            <Route exact path="/wizard/content">
               <CreareContent match={this.props.match} />
             </Route>
           </Suspense>
