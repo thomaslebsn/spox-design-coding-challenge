@@ -183,13 +183,14 @@ class ComponentContentFormGeneral extends Component {
             key: CONTENT_FIELD_KEY.PERSONA,
             // type: FORM_FIELD_TYPE.SELECTION,
             type: FORM_FIELD_TYPE.SELECTIONPERSONA,
-            value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
+            //value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             viewModel: this.personaTableSelectionModalViewModel,
             changed: () => {
               // const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
               // if (personaIds) {
               //   this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               // }
+              console.log("aaaaaaaaaaaaaaaaaa");
             },
             clicked: () => {
               // console.log("clicked =====");
@@ -197,6 +198,13 @@ class ComponentContentFormGeneral extends Component {
               // this.personaTableSelectionModalViewModel.openModal();
             },
             multi: true,
+            handleOnChange: (value) => {
+              console.log("value 11111111111111");
+              console.log(value);
+              this.contentConnectedChannelsByOrganisationViewModel.renderConnectedChannelByPersonaIds(
+                "1697"
+              );
+            },
           },
           {
             label: "Headline",
