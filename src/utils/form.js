@@ -230,21 +230,15 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <FormInformation field={field} />
                 </Form.Group>
               );
-            // case FORM_FIELD_TYPE.LABELBTN:
-            //   return (
-            //     <Form.Group
-            //       key={Math.random(40, 200)}
-            //       className={`mb-3 ${className}`}
-            //     >
-            //       <ListConnectedChannelModal field={field} />
-            //       <ButtonNormal
-            //         className="btn btn-success"
-            //         text={field.label}
-            //         iconStart={true}
-            //         onClick={field.clicked}
-            //       />
-            //     </Form.Group>
-            //   );
+            case FORM_FIELD_TYPE.LABELBTN:
+              return (
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-3 ${className}`}
+                >
+                  <ListConnectedChannelModal field={field} />
+                </Form.Group>
+              );
             default:
               return null;
           }
