@@ -47,6 +47,7 @@ const ConnectChannels = observer(
       //call check connected channels
       this.channelsListViewModel.checkConnectedChannels([
         "linkedin",
+        "youtube",
         "twitter",
         "instagram",
         "facebook",
@@ -91,6 +92,7 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -109,6 +111,7 @@ const ConnectChannels = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
               mailchimpConnected={mailchimpConnected}

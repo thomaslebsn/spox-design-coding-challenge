@@ -86,6 +86,13 @@ class ChannelsListViewModel {
                       }
                       break;
 
+                    case "youtube":
+                      if (responseResult.connected == 1) {
+                        this.youtubeConnected = true;
+                        clearInterval(checkConnectionStatusInterval);
+                      }
+                      break;
+
                     case "twitter":
                       if (responseResult.connected == 1) {
                         this.twitterConnected = true;
@@ -162,6 +169,12 @@ class ChannelsListViewModel {
                   } else {
                     this.listFaceBookFanpage = listFanpage;
                   }
+                }
+                break;
+
+              case "youtube":
+                if (responseResult.connected == 1) {
+                  this.youtubeConnected = true;
                 }
                 break;
 

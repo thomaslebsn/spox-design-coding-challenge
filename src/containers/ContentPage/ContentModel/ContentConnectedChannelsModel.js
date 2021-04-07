@@ -58,6 +58,9 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
       case "facebook":
         icoImage = "/assets/images/facebook.png";
         break;
+      case "youtube":
+        icoImage = "/assets/images/youtube.jpg";
+        break;
       case "twitter":
         icoImage = "/assets/images/twitter.png";
         break;

@@ -54,6 +54,7 @@ const ConnectChannel = observer(
 
       this.channelsListViewModel.checkConnectedChannels([
         "linkedin",
+        "youtube",
         "twitter",
         "instagram",
         "facebook",
