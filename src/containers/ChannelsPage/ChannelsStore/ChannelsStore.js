@@ -7,7 +7,6 @@ export default class ChannelsStore {
   async getChannelLoginUrl(
     callbackOnSuccess,
     callbackOnError,
-    organizationID,
     channelUniqueName
   ) {
     try {
@@ -18,10 +17,7 @@ export default class ChannelsStore {
 
       switch (channelUniqueName) {
         case "facebook":
-          response = await channelService.getLoginUrl(
-            organizationID,
-            channelUniqueName
-          );
+          response = await channelService.getLoginUrl(channelUniqueName);
           break;
 
         case "youtube":
@@ -30,10 +26,7 @@ export default class ChannelsStore {
         case "mailchimp":
         case "instagram":
         case "tumblr":
-          response = await channelService.getLoginUrl(
-            organizationID,
-            channelUniqueName
-          );
+          response = await channelService.getLoginUrl(channelUniqueName);
           break;
 
         default:
@@ -42,7 +35,7 @@ export default class ChannelsStore {
 
       if (response) {
         runInAction(() => {
-          callbackOnSuccess(response, organizationID, channelUniqueName);
+          callbackOnSuccess(response, channelUniqueName);
         });
       } else {
         callbackOnError({
@@ -63,6 +56,7 @@ export default class ChannelsStore {
     channelType
   ) {
     try {
+      console.log(channelType);
       const channelService = new EasiiOrganisationChannelApiService();
       let result = null;
 
