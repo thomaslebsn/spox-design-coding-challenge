@@ -39,7 +39,9 @@ class BillingPlanListViewModel {
     //get init member subscription detail
     this.billingPlanStore.getMemberSubscriptionDetail(
       (response) => {
+        console.log("paddle - initializeData");
         this.subscriptionDetail = response.result.data.subscription;
+        console.log(this.subscriptionDetail);
         this.paddleData = response.result.data.paddleData;
         if (this.subscriptionDetail === null) {
           this.hideChangePlanTable = false;
@@ -114,6 +116,7 @@ class BillingPlanListViewModel {
   //upgrade subscription plan
   changeSubscriptionPlan = (planName) => {
     this.closeModal();
+    this.Paddle = window.Paddle;
     this.Paddle.Spinner.show();
     this.billingPlanStore.changeSubscriptionPlan(
       planName,
@@ -137,6 +140,7 @@ class BillingPlanListViewModel {
 
   //cancel plan
   cancelPlan = () => {
+    this.Paddle = window.Paddle;
     this.Paddle.Spinner.show();
     this.billingPlanStore.cancelSubscription(
       (response) => {

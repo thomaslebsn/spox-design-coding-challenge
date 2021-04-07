@@ -29,6 +29,10 @@ class ChannelsListViewModel {
 
   tumblrConnected = false;
 
+  mustUpgrade = false;
+
+  showUpgrade = false;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -49,83 +53,96 @@ class ChannelsListViewModel {
     notify(error.message);
   };
 
+  // openModalUpgrade = () => {
+  //   this.showUpgrade = !this.mustUpgrade;
+  // };
+
+  // closeModalUpgrade = () => {
+  //   this.showUpgrade = !this.mustUpgrade;
+  // };
+
   callbackOnSuccessChannel = (response, organizationID, channelUniqueName) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
+      console.log("callbackOnSuccessChannel");
 
-      window.open(response.result.loginUrl, "popup", "width=600,height=600");
-      const stepInterval = 2000;
-      let intervalTimeLimitInMiliseconds = stepInterval * 60;
-      let checkConnectionStatusInterval = setInterval(
-        () => {
-          intervalTimeLimitInMiliseconds -= stepInterval;
-          if (intervalTimeLimitInMiliseconds <= 0) {
-            clearInterval(checkConnectionStatusInterval);
-          }
+      if (response.result.must_upgrade) {
+        this.mustUpgrade = true;
+      } else {
+        window.open(response.result.loginUrl, "popup", "width=600,height=600");
+        const stepInterval = 2000;
+        let intervalTimeLimitInMiliseconds = stepInterval * 60;
+        let checkConnectionStatusInterval = setInterval(
+          () => {
+            intervalTimeLimitInMiliseconds -= stepInterval;
+            if (intervalTimeLimitInMiliseconds <= 0) {
+              clearInterval(checkConnectionStatusInterval);
+            }
 
-          this.channelsStore.checkConnectedChannels(
-            (response) => {
-              if (response) {
-                this.tableStatus = PAGE_STATUS.READY;
+            this.channelsStore.checkConnectedChannels(
+              (response) => {
+                if (response) {
+                  this.tableStatus = PAGE_STATUS.READY;
 
-                let responseResult = response.result;
-                switch (channelUniqueName) {
-                  case "facebook":
-                    if (responseResult.pages.status === "connected") {
-                      this.facebookConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                      this.listFaceBookFanpage = responseResult.pages.pages;
-                    }
-                    break;
+                  let responseResult = response.result;
+                  switch (channelUniqueName) {
+                    case "facebook":
+                      if (responseResult.pages.status === "connected") {
+                        this.facebookConnected = true;
+                        clearInterval(checkConnectionStatusInterval);
+                        this.listFaceBookFanpage = responseResult.pages.pages;
+                      }
+                      break;
 
-                  case "twitter":
-                    if (responseResult.connected == 1) {
-                      this.twitterConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
+                    case "twitter":
+                      if (responseResult.connected == 1) {
+                        this.twitterConnected = true;
+                        clearInterval(checkConnectionStatusInterval);
+                      }
+                      break;
 
-                  case "linkedin":
-                    if (responseResult.connected == 1) {
-                      this.linkedinConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
+                    case "linkedin":
+                      if (responseResult.connected == 1) {
+                        this.linkedinConnected = true;
+                        clearInterval(checkConnectionStatusInterval);
+                      }
+                      break;
 
-                  case "mailchimp":
-                    if (responseResult.connected == 1) {
-                      this.mailchimpConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
+                    case "mailchimp":
+                      if (responseResult.connected == 1) {
+                        this.mailchimpConnected = true;
+                        clearInterval(checkConnectionStatusInterval);
+                      }
+                      break;
 
-                  case "instagram":
-                    if (responseResult.connected == 1) {
-                      this.instagramConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
-                  case "tumblr":
-                    if (responseResult.connected == 1) {
-                      this.tumblrConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
+                    case "instagram":
+                      if (responseResult.connected == 1) {
+                        this.instagramConnected = true;
+                        clearInterval(checkConnectionStatusInterval);
+                      }
+                      break;
+                    case "tumblr":
+                      if (responseResult.connected == 1) {
+                        this.tumblrConnected = true;
+                        clearInterval(checkConnectionStatusInterval);
+                      }
+                      break;
 
-                  default:
-                    break;
+                    default:
+                      break;
+                  }
                 }
-              }
-            },
-            (error) => {},
-            organizationID,
-            channelUniqueName
-          );
-        },
-        stepInterval,
-        organizationID,
-        channelUniqueName
-      );
+              },
+              (error) => {},
+              organizationID,
+              channelUniqueName
+            );
+          },
+          stepInterval,
+          organizationID,
+          channelUniqueName
+        );
+      }
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
