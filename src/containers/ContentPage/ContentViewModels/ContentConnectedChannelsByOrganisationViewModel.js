@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
 import PAGE_STATUS from "../../../constants/PageStatus";
+import { PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from "../../../constants/PersonaModule";
 
 class ContentConnectedChannelsByOrganisationViewModel {
   contentsStore = null;
@@ -12,6 +13,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
   show = false;
 
   newArrayConnectChannels = [];
+
+  getValueSelected = [];
 
   constructor(contentsStore) {
     makeAutoObservable(this);
@@ -39,11 +42,37 @@ class ContentConnectedChannelsByOrganisationViewModel {
     );
   };
 
-  renderConnectedChannelByPersonaIds = () => {
+  renderConnectedChannelByPersonaIds = (personaIds) => {
+    console.log("personaIds idsidsids", personaIds);
     this.contentsStore.getConnectedChannelByPersonaIds(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      personaIds
     );
+  };
+
+  getSelectedIDs = () => {
+    if (!this.personasSelectionData) return null;
+    const convertedInArray = this.personasSelectionData
+      .map((item) => {
+        console.log("itemitemitemitemitem", item);
+        return item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.ID];
+      })
+      .reduce((arr, el) => {
+        const i = arr.findIndex((e) => e.value === el.value);
+
+        if (i === -1) {
+          arr.push(el);
+        } else {
+          arr[i] = el;
+        }
+        return arr;
+      }, []);
+    let result = convertedInArray;
+    if (!this.multi) {
+      result = convertedInArray.length > 0 ? convertedInArray[0] : null;
+    }
+    return result;
   };
 
   callbackOnErrorHander = (error) => {

@@ -66,19 +66,21 @@ const ListConnectedChannelModal = observer(
         ? this.viewModel.connectedChannels
         : "";
 
-      let getValueSelected = this.props.getValueSelected
-        ? this.props.getValueSelected.getValueSelected
-        : null;
+      // let getValueSelected = this.props.getValueSelected
+      //   ? this.props.getValueSelected.getValueSelected
+      //   : null;
 
       const newArrayConnectChannels = this.viewModel
         ? this.viewModel.newArrayConnectChannels
         : null;
 
-      let arrayConnectedChannelsFinal =
-        getValueSelected.length > 0 ? null : getConnectedChannels;
+      // let arrayConnectedChannelsFinal =
+      //   getValueSelected.length > 0 ? null : getConnectedChannels;
 
-      console.log("Debuggin -------- getValueSelected");
-      console.log(getValueSelected);
+      let arrayConnectedChannelsFinal = getConnectedChannels;
+
+      // console.log("Debuggin -------- getValueSelected");
+      // console.log(getValueSelected);
 
       return (
         <>

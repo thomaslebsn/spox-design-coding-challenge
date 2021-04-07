@@ -27,10 +27,6 @@ const FormSelectionPersona = observer(
       this.viewModel.setMulti(this.field.multi);
     }
 
-    handleChange = (e) => {
-      this.viewModel.getValueSelected = e;
-    };
-
     render() {
       const { multi } = this.viewModel;
 
@@ -38,7 +34,7 @@ const FormSelectionPersona = observer(
 
       return (
         <SelectComponent
-          value={this.viewModel.getValueSelected}
+          value={this.field.value}
           options={getDataSelectOptions}
           className="mb-3 text-green"
           isBorder={true}
@@ -46,7 +42,7 @@ const FormSelectionPersona = observer(
           //onFocus={this.field.changed}
           onBlur={this.field.blurred}
           isMulti={multi}
-          onChange={this.handleChange}
+          onChange={this.field.handleOnChange}
         />
       );
     }

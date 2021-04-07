@@ -376,14 +376,23 @@ export default class ContentStore {
     }
   }
 
-  async getConnectedChannelByPersonaIds(callbackOnSuccess, callbackOnError) {
+  async getConnectedChannelByPersonaIds(
+    callbackOnSuccess,
+    callbackOnError,
+    personaIds
+  ) {
     try {
       const service = new EasiiPersonaApiService();
 
-      const repondedDataFromLibrary = await service.getConnectedChannelByPersonaIds();
+      console.log("personaIds 3333");
+      console.log(personaIds);
+
+      const repondedDataFromLibrary = await service.getConnectedChannelByPersonaIds(
+        personaIds
+      );
 
       console.log(
-        "repondedDataFromLibrary - getConnectedChannelsByProjectId 2222"
+        "repondedDataFromLibrary - getConnectedChannelByPersonaIds idsids"
       );
 
       console.log(repondedDataFromLibrary);
