@@ -95,6 +95,7 @@ const ConnectChannel = observer(
     next = () => {
       const {
         facebookConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -104,6 +105,7 @@ const ConnectChannel = observer(
 
       if (
         facebookConnected == true ||
+        youtubeConnected == true ||
         twitterConnected == true ||
         linkedinConnected == true ||
         mailchimpConnected == true ||
@@ -123,6 +125,7 @@ const ConnectChannel = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -139,6 +142,7 @@ const ConnectChannel = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
               mailchimpConnected={mailchimpConnected}
