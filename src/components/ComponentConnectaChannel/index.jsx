@@ -17,6 +17,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import Wordpress from "./Wordpress";
 import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
+import Upgrade from "../Upgrade";
+const ModalComponent = lazy(() => import("../../components/Modal"));
 
 class ComponentConnectaChannel extends Component {
   formData = [];
@@ -38,6 +40,7 @@ class ComponentConnectaChannel extends Component {
       panelIndex: "",
       isShowModalWordpress: false,
       showModalCms: false,
+      mustUpgrade: false,
     };
   }
 
@@ -50,6 +53,16 @@ class ComponentConnectaChannel extends Component {
   handleConnectChannel = (name) => {
     let { channelsListViewModel, organizationID } = this.props;
     channelsListViewModel.connectLoginUrl(organizationID, name);
+    console.log(channelsListViewModel.mustUpgrade);
+    this.setState({
+      mustUpgrade: channelsListViewModel.mustUpgrade,
+    });
+  };
+
+  closeModalUpgrade = () => {
+    this.setState({
+      mustUpgrade: false,
+    });
   };
 
   render() {
@@ -65,8 +78,12 @@ class ComponentConnectaChannel extends Component {
       organizationID,
       handleModalCms,
       isModalCms,
+      channelsListViewModel,
     } = this.props;
 
+    console.log("channelsListViewModel" + channelsListViewModel.mustUpgrade);
+    let showModalUpgrade = this.state.mustUpgrade;
+    console.log(showModalUpgrade);
     return (
       <div className="wrapper_tabs">
         <Tabs
@@ -286,6 +303,14 @@ class ComponentConnectaChannel extends Component {
             </div>
           </Tab>
         </Tabs>
+
+        <ModalComponent
+          show={showModalUpgrade}
+          onHide={this.closeModalUpgrade}
+          header={"Please upgrade account"}
+          body={<Upgrade></Upgrade>}
+          key={Math.random(40, 200)}
+        />
       </div>
     );
   }
