@@ -59,15 +59,6 @@ const ContentFormGeneral = observer(
     }
 
     render() {
-      let { match } = this.props;
-      let organizationID = null;
-      if (match && match.params) {
-        // organizationID = match.params.id;
-        organizationID = 1;
-      }
-
-      console.log("organizationID 111", organizationID);
-
       return (
         <ComponentContentFormGeneral
           {...this.props}
@@ -81,9 +72,7 @@ const ContentFormGeneral = observer(
           campaignTableSelectionModalViewModel={
             this.campaignTableSelectionModalViewModel
           }
-          match={this.props.match}
           addConnectChannlesBtn={true}
-          // selectedOrganizationIDFromWizardStep1={organizationID}
         />
       );
     }

@@ -87,16 +87,16 @@ class ComponentContentFormGeneral extends Component {
   }
 
   componentDidMount = () => {
-    const { match } = this.props;
-    console.log("Debugging - Match Params");
-    console.log(match);
-    if (match) {
-      if (match.params.id) {
-        this.viewModel.getContent(match.params.id);
-      } else {
-        this.viewModel.formStatus = PAGE_STATUS.READY;
-      }
-    }
+    // const { match } = this.props;
+    // console.log("Debugging - Match Params");
+    // console.log(match);
+    // if (match) {
+    //   if (match.params.id) {
+    //     this.viewModel.getContent(match.params.id);
+    //   } else {
+    //     this.viewModel.formStatus = PAGE_STATUS.READY;
+    //   }
+    // }
     // if (this.selectedOrganizationIDFromWizardStep1) {
     //   this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
     //   this.formPropsData[
