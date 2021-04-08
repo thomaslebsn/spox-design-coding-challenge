@@ -75,13 +75,6 @@ class ComponentConnectaChannel extends Component {
       channelsListViewModel,
     } = this.props;
 
-    console.log("channelsListViewModel" + channelsListViewModel.mustUpgrade);
-    let showModalUpgrade = this.state.mustUpgrade;
-    console.log("showModalUpgrade render");
-    console.log(showModalUpgrade);
-
-    console.log("mustUpgrade 77771111");
-    console.log(this.props.mustUpgrade);
     return (
       <div className="wrapper_tabs">
         <Tabs

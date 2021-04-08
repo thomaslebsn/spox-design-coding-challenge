@@ -106,6 +106,7 @@ const ConnectChannels = observer(
         instagramConnected,
         tumblrConnected,
         wordpressConnected,
+        mustUpgrade,
       } = this.channelsListViewModel;
 
       return (
@@ -125,6 +126,7 @@ const ConnectChannels = observer(
               instagramConnected={instagramConnected}
               tumblrConnected={tumblrConnected}
               wordpressConnected={wordpressConnected}
+              mustUpgrade={mustUpgrade}
               viewModel={this.viewModel}
               organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}
