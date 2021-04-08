@@ -59,10 +59,11 @@ class ChannelsListViewModel {
       this.tableStatus = PAGE_STATUS.READY;
       console.log("callbackOnSuccessChannel");
 
-      // if (response.result.must_upgrade) {
-      //   this.mustUpgrade = true;
-      //   return;
-      // }
+      if (response.result.must_upgrade) {
+        this.mustUpgrade = true;
+        return;
+      }
+
       window.open(response.result.loginUrl, "popup", "width=600,height=600");
       const stepInterval = 2000;
       let intervalTimeLimitInMiliseconds = stepInterval * 60;
@@ -72,8 +73,6 @@ class ChannelsListViewModel {
           if (intervalTimeLimitInMiliseconds <= 0) {
             clearInterval(checkConnectionStatusInterval);
           }
-
-          console.log("fsdfsdfs");
           console.log(channelUniqueName);
           this.channelsStore.checkConnectedChannels(
             (response) => {
