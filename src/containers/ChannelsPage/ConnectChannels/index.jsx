@@ -27,6 +27,12 @@ const ConnectChannels = observer(
 
       console.log("this.channelsListViewModel - Debug View Model");
       console.log(this.channelsListViewModel);
+      console.log("this.channelsListViewModel.mustUpgrade 1111");
+      console.log(
+        this.channelsListViewModel
+          ? this.channelsListViewModel.mustUpgrade
+          : false
+      );
 
       this.loginCMSChannelFormModalViewModel = viewModel
         ? viewModel.getLoginCMSChannelFormModalViewModel()

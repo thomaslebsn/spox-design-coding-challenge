@@ -63,7 +63,6 @@ class ChannelsListViewModel {
         this.mustUpgrade = true;
         return;
       }
-
       window.open(response.result.loginUrl, "popup", "width=600,height=600");
       const stepInterval = 2000;
       let intervalTimeLimitInMiliseconds = stepInterval * 60;
@@ -80,6 +79,7 @@ class ChannelsListViewModel {
                 this.tableStatus = PAGE_STATUS.READY;
 
                 let responseResult = response.result;
+
                 switch (channelUniqueName) {
                   case "facebook":
                     if (responseResult.pages.status === "connected") {
