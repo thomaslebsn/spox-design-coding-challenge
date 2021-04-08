@@ -60,6 +60,7 @@ const ConnectChannel = observer(
         "facebook",
         "mailchimp",
         "wordpress",
+        "tumblr",
       ]);
     }
 
