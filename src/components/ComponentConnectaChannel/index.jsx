@@ -40,7 +40,6 @@ class ComponentConnectaChannel extends Component {
       panelIndex: "",
       isShowModalWordpress: false,
       showModalCms: false,
-      mustUpgrade: false,
     };
   }
 
@@ -53,16 +52,10 @@ class ComponentConnectaChannel extends Component {
   handleConnectChannel = (name) => {
     let { channelsListViewModel, organizationID } = this.props;
     channelsListViewModel.connectLoginUrl(organizationID, name);
-    console.log(channelsListViewModel.mustUpgrade);
-    this.setState({
-      mustUpgrade: channelsListViewModel.mustUpgrade,
-    });
   };
 
   closeModalUpgrade = () => {
-    this.setState({
-      mustUpgrade: false,
-    });
+    this.props.channelsListViewModel.mustUpgrade = false;
   };
 
   render() {
@@ -82,9 +75,6 @@ class ComponentConnectaChannel extends Component {
       channelsListViewModel,
     } = this.props;
 
-    console.log("channelsListViewModel" + channelsListViewModel.mustUpgrade);
-    let showModalUpgrade = this.state.mustUpgrade;
-    console.log(showModalUpgrade);
     return (
       <div className="wrapper_tabs">
         <Tabs
@@ -331,7 +321,7 @@ class ComponentConnectaChannel extends Component {
         </Tabs>
 
         <ModalComponent
-          show={showModalUpgrade}
+          show={this.props.mustUpgrade}
           onHide={this.closeModalUpgrade}
           header={"Please upgrade account"}
           body={<Upgrade></Upgrade>}

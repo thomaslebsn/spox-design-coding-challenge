@@ -102,6 +102,7 @@ const ConnectChannel = observer(
         mailchimpConnected,
         instagramConnected,
         wordpressConnected,
+        tumblrConnected,
       } = this.channelsListViewModel;
 
       if (
@@ -111,7 +112,8 @@ const ConnectChannel = observer(
         linkedinConnected == true ||
         mailchimpConnected == true ||
         instagramConnected == true ||
-        wordpressConnected == true
+        wordpressConnected == true ||
+        tumblrConnected == true
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
@@ -132,6 +134,8 @@ const ConnectChannel = observer(
         mailchimpConnected,
         instagramConnected,
         wordpressConnected,
+        tumblrConnected,
+        mustUpgrade,
       } = this.channelsListViewModel;
 
       return (
@@ -149,6 +153,8 @@ const ConnectChannel = observer(
               mailchimpConnected={mailchimpConnected}
               instagramConnected={instagramConnected}
               wordpressConnected={wordpressConnected}
+              tumblrConnected={tumblrConnected}
+              mustUpgrade={mustUpgrade}
               viewModel={this.viewModel}
               organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}
