@@ -9,11 +9,11 @@ import ButtonNormal from "../../components/ButtonNormal";
 import BannerLeft from "../../components/BannerLeft";
 import Social from "../../components/Social";
 
-const options = [
+/*const options = [
   { value: "chocolate", label: "Chocolate" },
   { value: "strawberry", label: "Strawberry" },
   { value: "vanilla", label: "Vanilla" },
-];
+];*/
 
 const dataSlider = [
   {
@@ -82,7 +82,7 @@ class Signuppage extends React.Component {
                 id="password"
               />
 
-              <label className="form-label mb-3">
+              {/*<label className="form-label mb-3">
                 {t("txt_what_is_the_main_thing_you_want_to_manage")}
               </label>
 
@@ -91,7 +91,7 @@ class Signuppage extends React.Component {
                 value={selectedOption}
                 onChange={this.handleChange}
                 options={options}
-              />
+              />*/}
 
               <ButtonNormal text="Sign up" />
 
