@@ -38,11 +38,13 @@
   }
 
   .w-260 {
-    width: 70px;
+    width: 80px;
   }
 
   .header_logo {
     color: $white;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 
   .item_collap {
@@ -58,6 +60,10 @@
       .link_menu {
         background-color: $green;
       }
+    }
+
+    &.item_menu_home {
+      padding: 0 !important;
     }
   }
 
@@ -88,6 +94,17 @@
     span {
       display: none;
     }
+  }
+
+  .wr_list_menu_2 {
+    padding: 0 !important;
+  }
+
+  .section_menu_title {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    font-size: 11px;
+    color: $white;
   }
 }
 

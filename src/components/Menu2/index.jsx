@@ -126,10 +126,10 @@ class Menu2 extends React.Component {
     let { dataMenu, activeMenu } = this.state;
     return (
       <nav>
-        <div className="py-1 px-3 item_menu">
+        <div className="py-1 px-3 item_menu item_menu_home">
           <a
             href="/"
-            className="d-flex align-items-center text-blue-0 p-3 link_menu rounded-2 text-decoration-none"
+            className="d-block text-blue-0 p-3 link_menu rounded-2 text-decoration-none"
           >
             <i>
               <FontAwesomeIcon icon={faArrowLeft} />
@@ -140,10 +140,10 @@ class Menu2 extends React.Component {
         {dataMenu.map((item, index) => {
           return (
             <div key={index}>
-              <p className="fs-12 text-uppercase border-top-1 border-bottom-1 py-2 px-3 mb-0">
+              <p className="section_menu_title fs-12 text-uppercase border-top-1 border-bottom-1 py-2 px-3 mb-0">
                 {item.title}
               </p>
-              <ul className="list-unstyled mb-0 py-1 px-3">
+              <ul className="wr_list_menu_2 list-unstyled mb-0 py-1 px-3">
                 {item.listMenu.map((value, key) => {
                   return (
                     <li
