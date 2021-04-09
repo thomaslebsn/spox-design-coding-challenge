@@ -1,9 +1,10 @@
 import React from "react";
 import Dropzone from "react-dropzone";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons/faCloudUploadAlt";
-import { faCog } from "@fortawesome/free-solid-svg-icons/faCog";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCloudUploadAlt} from "@fortawesome/free-solid-svg-icons/faCloudUploadAlt";
+import {faCog} from "@fortawesome/free-solid-svg-icons/faCog";
+import {faUserCog} from "@fortawesome/free-solid-svg-icons/faUserCog";
 
 class ProfilePage extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ProfilePage extends React.Component {
   }
 
   onDrop = (files) => {
-    this.setState({ files });
+    this.setState({files});
   };
 
   render() {
@@ -44,7 +45,7 @@ class ProfilePage extends React.Component {
                 </label>
                 <div className="border-da-1 mb-3">
                   <Dropzone onDrop={this.onDrop}>
-                    {({ getRootProps, getInputProps }) => (
+                    {({getRootProps, getInputProps}) => (
                       <div className="position-relative  cursor-pointer">
                         <div
                           {...getRootProps()}
@@ -56,7 +57,7 @@ class ProfilePage extends React.Component {
                           />
                           <div className="d-flex align-items-center p-3">
                             <i className="fs-1 text-blue-0 opacity-25">
-                              <FontAwesomeIcon icon={faCloudUploadAlt} />
+                              <FontAwesomeIcon icon={faCloudUploadAlt}/>
                             </i>
                             <div className="text-center ms-1">
                               <p className="mb-0">Drag and drop a file here </p>
@@ -127,7 +128,7 @@ class ProfilePage extends React.Component {
                     />
                   </div>
                   <div className="col-6">
-                    <label className="form-label mb-3" htmlFor="name">
+                    <label className="form-label mb-2" htmlFor="name">
                       <span className="text-black opacity-75">Phone </span>
                     </label>
                     <input
@@ -136,35 +137,48 @@ class ProfilePage extends React.Component {
                       id="name"
                     />
                   </div>
+                  <div>
+                    <button
+                      className="btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2">
+                      <i className="text-white">
+                        <FontAwesomeIcon icon={faUserCog}/>
+                      </i>
+                      <span className="flex-1 ps-2 text-white">Update</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
             <div>
-              <div className="d-flex align-items-center justify-content-between mb-3">
+              <div className="d-flex align-items-center justify-content-between mt-3 mb-2">
                 <h2 className="text-blue-0">Password</h2>
               </div>
-              <div className="d-flex align-items-center row">
-                <div className="col-6">
-                  <label className="form-label mb-3" htmlFor="name">
-                    <span className="text-black opacity-75">Old password </span>
-                  </label>
-                  <input type="text" className="form-control mb-3" id="name" />
-                </div>
-                <div className="col-6">
-                  <label className="form-label mb-3" htmlFor="name">
-                    <span className="text-black opacity-75">Password </span>
-                  </label>
-                  <input type="text" className="form-control mb-3" id="name" />
+              <div className='bg-white p-3'>
+                <div className="d-flex align-items-center row">
+                  <div className="col-6">
+                    <label className="form-label mb-3" htmlFor="name">
+                      <span className="text-black opacity-75">Old password </span>
+                    </label>
+                    <input type="text" className="form-control mb-3" id="name"/>
+                  </div>
+                  <div className="col-6">
+                    <label className="form-label mb-3" htmlFor="name">
+                      <span className="text-black opacity-75">Password </span>
+                    </label>
+                    <input type="text" className="form-control mb-3" id="name"/>
+                  </div>
+                  <div>
+                    <button
+                      className="btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2">
+                      <i className="text-white">
+                        <FontAwesomeIcon icon={faCog}/>
+                      </i>
+                      <span className="flex-1 ps-2 text-white">Update</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="d-flex">
-              <button className="btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2 ms-2">
-                <i className="text-white">
-                  <FontAwesomeIcon icon={faCog} />
-                </i>
-                <span className="flex-1 ps-2 text-white">Update</span>
-              </button>
+
             </div>
           </form>
         </div>
