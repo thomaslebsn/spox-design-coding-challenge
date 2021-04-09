@@ -69,12 +69,11 @@
   }
 
   .col-6 {
-    width: 33.33%
+    width: 33.33%;
   }
 }
 
 .row_sub_component {
-
   .wrapper_checkbox,
   .icon_expander {
     display: none;
@@ -86,7 +85,6 @@
 
   &.show_filter_select {
     display: block;
-
   }
 }
 
@@ -94,4 +92,26 @@
   .border-bottom-1.cursor-pointer {
     cursor: inherit !important;
   }
+}
+
+.wr_pagination_number {
+  .btn {
+    display: none;
+    &.active,
+    &.visible_number {
+      display: inline-block;
+    }
+
+    &:first-child {
+      display: none;
+    }
+
+    &:last-child {
+      display: none;
+    }
+  }
+}
+
+.isHidden {
+  display: none !important;
 }
