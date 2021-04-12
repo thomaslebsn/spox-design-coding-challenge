@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 
 import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
 import {
@@ -328,7 +329,22 @@ class ComponentContentFormGeneral extends Component {
                   return arr.concat(el);
                 }, [])}
             </Form>
-            <div className="d-flex justify-content-end">
+            <div
+              className={`d-flex ${
+                this.props.isBackWizardStep
+                  ? "justify-content-between"
+                  : "justify-content-end"
+              }`}
+            >
+              {this.props.isBackWizardStep && (
+                <Button
+                  className="btn btn-light border-success"
+                  onClick={this.props.previousWizardStep}
+                >
+                  Back
+                </Button>
+              )}
+
               <ButtonNormal
                 className="btn btn-success"
                 text="Next"

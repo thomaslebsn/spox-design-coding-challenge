@@ -197,12 +197,12 @@ const ConnectChannel = observer(
               }
             />
           )}
-          <div className="d-flex justify-content-between">
-            <Button
+          <div className="d-flex justify-content-end">
+            {/* <Button
               className="btn btn-light border-success"
               onClick={() => this.props.goToStep(1)}
               text="Back"
-            />
+            /> */}
 
             <ButtonNormal
               className="btn btn-success"
