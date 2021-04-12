@@ -27,6 +27,12 @@ const ConnectChannels = observer(
 
       console.log("this.channelsListViewModel - Debug View Model");
       console.log(this.channelsListViewModel);
+      console.log("this.channelsListViewModel.mustUpgrade 1111");
+      console.log(
+        this.channelsListViewModel
+          ? this.channelsListViewModel.mustUpgrade
+          : false
+      );
 
       this.loginCMSChannelFormModalViewModel = viewModel
         ? viewModel.getLoginCMSChannelFormModalViewModel()
@@ -37,7 +43,7 @@ const ConnectChannels = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 5678,
+        organizationID: 1,
       };
 
       //get project id from url
@@ -45,17 +51,16 @@ const ConnectChannels = observer(
       // getIdProject = getIdProject.join("");
 
       //call check connected channels
-      this.channelsListViewModel.checkConnectedChannels(
-        this.state.organizationID,
-        [
-          "linkedin",
-          "twitter",
-          "instagram",
-          "facebook",
-          "mailchimp",
-          "wordpress",
-        ]
-      );
+      this.channelsListViewModel.checkConnectedChannels([
+        "linkedin",
+        "youtube",
+        "twitter",
+        "instagram",
+        "facebook",
+        "mailchimp",
+        "wordpress",
+        "tumblr",
+      ]);
     }
 
     handleCheckbox = (id) => {
@@ -75,7 +80,6 @@ const ConnectChannels = observer(
 
     handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
-        this.state.organizationID,
         this.state.getIDSFanpage
       );
 
@@ -95,11 +99,14 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
         instagramConnected,
+        tumblrConnected,
         wordpressConnected,
+        mustUpgrade,
       } = this.channelsListViewModel;
 
       return (
@@ -112,11 +119,14 @@ const ConnectChannels = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
               mailchimpConnected={mailchimpConnected}
               instagramConnected={instagramConnected}
+              tumblrConnected={tumblrConnected}
               wordpressConnected={wordpressConnected}
+              mustUpgrade={mustUpgrade}
               viewModel={this.viewModel}
               organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}

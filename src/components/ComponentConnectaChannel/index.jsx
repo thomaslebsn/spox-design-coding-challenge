@@ -17,6 +17,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import Wordpress from "./Wordpress";
 import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
+import Upgrade from "../Upgrade";
+const ModalComponent = lazy(() => import("../../components/Modal"));
 
 class ComponentConnectaChannel extends Component {
   formData = [];
@@ -52,18 +54,25 @@ class ComponentConnectaChannel extends Component {
     channelsListViewModel.connectLoginUrl(organizationID, name);
   };
 
+  closeModalUpgrade = () => {
+    this.props.channelsListViewModel.mustUpgrade = false;
+  };
+
   render() {
     const {
       listFaceBookFanpageView,
       facebookConnected,
+      youtubeConnected,
       twitterConnected,
       linkedinConnected,
       mailchimpConnected,
       instagramConnected,
+      tumblrConnected,
       wordpressConnected,
       organizationID,
       handleModalCms,
       isModalCms,
+      channelsListViewModel,
     } = this.props;
 
     return (
@@ -125,6 +134,31 @@ class ComponentConnectaChannel extends Component {
                     </div>
                   </div>
                 )}
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/youtube.jpg"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Youtube
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("youtube");
+                    }}
+                    disabled={youtubeConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {youtubeConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -201,6 +235,31 @@ class ComponentConnectaChannel extends Component {
                   </button>
                 </div>
               </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/instagram.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Tumblr
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("tumblr");
+                    }}
+                    disabled={tumblrConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {tumblrConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </Tab>
           <Tab eventKey={2} title={"CMS"}>
@@ -260,6 +319,14 @@ class ComponentConnectaChannel extends Component {
             </div>
           </Tab>
         </Tabs>
+
+        <ModalComponent
+          show={this.props.mustUpgrade}
+          onHide={this.closeModalUpgrade}
+          header={"Please upgrade account"}
+          body={<Upgrade></Upgrade>}
+          key={Math.random(40, 200)}
+        />
       </div>
     );
   }

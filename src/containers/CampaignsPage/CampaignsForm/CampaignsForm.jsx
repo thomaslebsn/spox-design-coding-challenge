@@ -96,7 +96,7 @@ const CampaignsForm = observer(
       console.log("populatingFormDataHandler", data);
 
       if (!data) return false;
-      
+
       this.formPropsData[CAMPAIGNS_FIELD_KEY.PROJECT] = data.getProjectId();
       this.formPropsData[CAMPAIGNS_FIELD_KEY.NAME] = data.getName().value;
       this.formPropsData[

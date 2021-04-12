@@ -11,6 +11,8 @@ class ChannelsListViewModel {
 
   facebookConnected = false;
 
+  youtubeConnected = false;
+
   twitterConnected = false;
 
   linkedinConnected = false;
@@ -27,6 +29,12 @@ class ChannelsListViewModel {
 
   showModalCMS = true;
 
+  tumblrConnected = false;
+
+  mustUpgrade = false;
+
+  showUpgrade = false;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -36,7 +44,6 @@ class ChannelsListViewModel {
     this.channelsStore.getChannelLoginUrl(
       this.callbackOnSuccessChannel,
       this.callbackOnErrorHander,
-      organizationID,
       channelUniqueName
     );
   };
@@ -47,10 +54,15 @@ class ChannelsListViewModel {
     notify(error.message);
   };
 
-  callbackOnSuccessChannel = (response, organizationID, channelUniqueName) => {
+  callbackOnSuccessChannel = (response, channelUniqueName) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
+      console.log("callbackOnSuccessChannel");
 
+      if (response.result.must_upgrade) {
+        this.mustUpgrade = true;
+        return;
+      }
       window.open(response.result.loginUrl, "popup", "width=600,height=600");
       const stepInterval = 2000;
       let intervalTimeLimitInMiliseconds = stepInterval * 60;
@@ -60,19 +72,27 @@ class ChannelsListViewModel {
           if (intervalTimeLimitInMiliseconds <= 0) {
             clearInterval(checkConnectionStatusInterval);
           }
-
+          console.log(channelUniqueName);
           this.channelsStore.checkConnectedChannels(
             (response) => {
               if (response) {
                 this.tableStatus = PAGE_STATUS.READY;
 
                 let responseResult = response.result;
+
                 switch (channelUniqueName) {
                   case "facebook":
                     if (responseResult.pages.status === "connected") {
                       this.facebookConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                       this.listFaceBookFanpage = responseResult.pages.pages;
+                    }
+                    break;
+
+                  case "youtube":
+                    if (responseResult.connected == 1) {
+                      this.youtubeConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
                     }
                     break;
 
@@ -103,6 +123,12 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
+                  case "tumblr":
+                    if (responseResult.connected == 1) {
+                      this.tumblrConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
 
                   default:
                     break;
@@ -110,12 +136,10 @@ class ChannelsListViewModel {
               }
             },
             (error) => {},
-            organizationID,
             channelUniqueName
           );
         },
         stepInterval,
-        organizationID,
         channelUniqueName
       );
     } else {
@@ -123,7 +147,7 @@ class ChannelsListViewModel {
     }
   };
 
-  checkConnectedChannels(organizationID, channels) {
+  checkConnectedChannels(channels) {
     channels.map((channelType) => {
       this.channelsStore.checkConnectedChannels(
         (response) => {
@@ -147,6 +171,12 @@ class ChannelsListViewModel {
                   } else {
                     this.listFaceBookFanpage = listFanpage;
                   }
+                }
+                break;
+
+              case "youtube":
+                if (responseResult.connected == 1) {
+                  this.youtubeConnected = true;
                 }
                 break;
 
@@ -179,6 +209,11 @@ class ChannelsListViewModel {
                   this.wordpressConnected = true;
                 }
                 break;
+              case "tumblr":
+                if (responseResult.connected == 1) {
+                  this.tumblrConnected = true;
+                }
+                break;
 
               default:
                 break;
@@ -186,28 +221,22 @@ class ChannelsListViewModel {
           }
         },
         (error) => {},
-        organizationID,
         channelType
       );
     });
   }
 
-  saveChosseFacebookFanpages = (organizationID, pageIds) => {
+  saveChosseFacebookFanpages = (pageIds) => {
     if (pageIds.length > 0) {
       this.channelsStore.saveChosseFacebookFanpages(
         this.callbackOnSuccessListFacebookFanpage,
         this.callbackOnErrorHander,
-        organizationID,
         pageIds
       );
     }
   };
 
-  callbackOnSuccessListFacebookFanpage = (
-    response,
-    organizationID,
-    pageIds
-  ) => {
+  callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookFanpages(
@@ -215,7 +244,6 @@ class ChannelsListViewModel {
           this.listFaceBookFanpageView = respons.result.pages.pages;
         },
         (error) => {},
-        organizationID,
         pageIds
       );
     } else {

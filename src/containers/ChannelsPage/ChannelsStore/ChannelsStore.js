@@ -1,37 +1,32 @@
 import React from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
-import { EasiiProjectChannelApiService } from "easii-io-web-service-library";
+import { EasiiOrganisationChannelApiService } from "easii-io-web-service-library";
 
 export default class ChannelsStore {
   async getChannelLoginUrl(
     callbackOnSuccess,
     callbackOnError,
-    organizationID,
     channelUniqueName
   ) {
     try {
-      const channelService = new EasiiProjectChannelApiService();
+      const channelService = new EasiiOrganisationChannelApiService();
       console.log("channelUniqueName channelUniqueName");
       console.log(channelUniqueName);
       let response = null;
 
       switch (channelUniqueName) {
         case "facebook":
-          response = await channelService.getLoginUrl(
-            organizationID,
-            channelUniqueName
-          );
+          response = await channelService.getLoginUrl(channelUniqueName);
           break;
 
+        case "youtube":
         case "twitter":
         case "linkedin":
         case "mailchimp":
         case "instagram":
-          response = await channelService.getLoginUrl(
-            organizationID,
-            channelUniqueName
-          );
+        case "tumblr":
+          response = await channelService.getLoginUrl(channelUniqueName);
           break;
 
         default:
@@ -40,7 +35,7 @@ export default class ChannelsStore {
 
       if (response) {
         runInAction(() => {
-          callbackOnSuccess(response, organizationID, channelUniqueName);
+          callbackOnSuccess(response, channelUniqueName);
         });
       } else {
         callbackOnError({
@@ -58,28 +53,28 @@ export default class ChannelsStore {
   async checkConnectedChannels(
     callbackOnSuccess,
     callbackOnError,
-    organizationID,
     channelType
   ) {
     try {
-      const channelService = new EasiiProjectChannelApiService();
+      console.log(channelType);
+      const channelService = new EasiiOrganisationChannelApiService();
       let result = null;
 
       switch (channelType) {
         case "facebook":
           result = await channelService.checkConnectionStatusFacebook(
-            organizationID,
             channelType
           );
           break;
 
+        case "youtube":
         case "twitter":
         case "linkedin":
         case "mailchimp":
         case "instagram":
+        case "tumblr":
         case "wordpress":
           result = await channelService.getCheckConnectStatusChannel(
-            organizationID,
             channelType
           );
           break;
@@ -90,7 +85,7 @@ export default class ChannelsStore {
 
       if (result) {
         runInAction(() => {
-          callbackOnSuccess(result, organizationID, channelType);
+          callbackOnSuccess(result, channelType);
         });
       } else {
         callbackOnError({
@@ -109,22 +104,17 @@ export default class ChannelsStore {
   async saveChosseFacebookFanpages(
     callbackOnSuccess,
     callbackOnError,
-    organizationID,
     pageIds
   ) {
     try {
-      console.log("store organizationID", organizationID);
       console.log("store pageIds", pageIds);
-      const channelService = new EasiiProjectChannelApiService();
-      const response = await channelService.connectMultiFanpage(
-        organizationID,
-        pageIds
-      );
+      const channelService = new EasiiOrganisationChannelApiService();
+      const response = await channelService.connectMultiFanpage(pageIds);
 
       console.log("store response", response);
       if (response) {
         runInAction(() => {
-          callbackOnSuccess(response, organizationID, pageIds);
+          callbackOnSuccess(response, pageIds);
         });
       } else {
         callbackOnError({
@@ -140,21 +130,13 @@ export default class ChannelsStore {
     }
   }
 
-  async getFacebookFanpages(
-    callbackOnSuccess,
-    callbackOnError,
-    organizationID,
-    pageIds
-  ) {
+  async getFacebookFanpages(callbackOnSuccess, callbackOnError, pageIds) {
     try {
-      const channelService = new EasiiProjectChannelApiService();
-      const response = await channelService.getListFanpage(
-        organizationID,
-        pageIds
-      );
+      const channelService = new EasiiOrganisationChannelApiService();
+      const response = await channelService.getListFanpage(pageIds);
       if (response) {
         runInAction(() => {
-          callbackOnSuccess(response, organizationID, pageIds);
+          callbackOnSuccess(response, pageIds);
         });
       } else {
         callbackOnError({
@@ -176,7 +158,7 @@ export default class ChannelsStore {
     dataPost,
     channelUniqueName
   ) {
-    const channelService = new EasiiProjectChannelApiService();
+    const channelService = new EasiiOrganisationChannelApiService();
     console.log("channelUniqueName channelUniqueName");
     console.log(channelUniqueName);
     let response = null;

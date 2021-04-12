@@ -8,11 +8,20 @@ import { PersonaViewModelContextProvider } from "./PersonaViewModels/PersonaView
 import ComponentHeaderPage from "../../components/ComponentHeaderPage";
 import { faSave } from "@fortawesome/free-regular-svg-icons/faSave";
 import PersonaTemplate from "../../containers/PersonasPage/PersonaTemplate/PersonaTemplate";
+import GlobalStore from "../../store/Store";
 
 const PersonaFormPage = lazy(() => import("./PersonaForm/PersonaFormPage"));
 const PersonasList = lazy(() => import("./PersonasList/PersonasList"));
 
-const personaStore = new PersonaStore();
+if (!window.globalStore) {
+  window.globalStore = new GlobalStore();
+}
+
+const globalStore = window.globalStore;
+
+const personaStore = new PersonaStore({
+  globalStore: globalStore,
+});
 const personaViewModel = new PersonaViewModel(personaStore);
 
 function Personas({ match }) {
@@ -22,7 +31,7 @@ function Personas({ match }) {
     <PersonaViewModelContextProvider viewModel={personaViewModel}>
       <div className="p-3">
         <Route exact path="/personas">
-        <PersonaTemplate />
+          <PersonaTemplate />
           <div className="d-flex align-items-center justify-content-between mb-4">
             <h2 className="text-blue-0">List Personas</h2>
             <PersonaActionBar />
@@ -30,7 +39,14 @@ function Personas({ match }) {
           <PersonasList />
         </Route>
 
-        <Route exact path={["/personas/create", "/personas/create/bypersonatemplate/:id", "/personas/edit/:id"]}>
+        <Route
+          exact
+          path={[
+            "/personas/create",
+            "/personas/create/bypersonatemplate/:id",
+            "/personas/edit/:id",
+          ]}
+        >
           <div className="py-4 px-3">
             <PersonaFormPage match={match} />
           </div>

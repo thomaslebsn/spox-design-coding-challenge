@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 
 import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
 import {
@@ -15,6 +16,7 @@ import { renderingGroupFieldHandler } from "../../../utils/form";
 import PAGE_STATUS from "../../../constants/PageStatus";
 
 import { Form } from "react-bootstrap";
+import ListConnectedChannelModal from "../../../components/ListConnectedChannelModal";
 
 class ComponentContentFormGeneral extends Component {
   formPropsData = {
@@ -32,9 +34,9 @@ class ComponentContentFormGeneral extends Component {
   projectTableSelectionModalViewModel = null;
   personaTableSelectionModalViewModel = null;
   campaignTableSelectionModalViewModel = null;
-  contentConnectedChannelsByProjectViewModel = null;
+  contentConnectedChannelsByOrganisationViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
-  selectedProjectIdFromWizardStep1 = null;
+  // selectedOrganizationIDFromWizardStep1 = null;
   constructor(props) {
     super(props);
 
@@ -42,10 +44,10 @@ class ComponentContentFormGeneral extends Component {
     // if this component is MOUNTED from Content Module => viewModel is ContentViewModel
     // Otherwise, viewModel is WizardViewModel
     this.viewModel = this.props.viewModel;
-    this.selectedProjectIdFromWizardStep1 = this.props
-      .selectedProjectIdFromWizardStep1
-      ? this.props.selectedProjectIdFromWizardStep1
-      : null;
+    // this.selectedOrganizationIDFromWizardStep1 = this.props
+    //   .selectedOrganizationIDFromWizardStep1
+    //   ? this.props.selectedOrganizationIDFromWizardStep1
+    //   : null;
 
     console.log("ComponentContentFormGeneral - Debug viewModel");
     console.log(this.viewModel);
@@ -70,63 +72,75 @@ class ComponentContentFormGeneral extends Component {
     );
     console.log(this.campaignTableSelectionModalViewModel);
 
-    this.contentConnectedChannelsByProjectViewModel = this.viewModel.getContentConnectedChannelsViewModel();
+    this.contentConnectedChannelsByOrganisationViewModel = this.viewModel.getContentConnectedChannelsViewModel();
     this.contentDisplayProjectNameInWizardStep3ViewModel = this.viewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
     this.viewModel.setForm(this);
+
+    console.log("this.contentConnectedChannelsByOrganisationViewModel 1111");
+    console.log(this.contentConnectedChannelsByOrganisationViewModel);
   }
 
   componentWillUnmount() {
     this.personaTableSelectionModalViewModel.resetObservableProperties();
     this.campaignTableSelectionModalViewModel.resetObservableProperties();
-    this.contentConnectedChannelsByProjectViewModel.resetObservableProperties();
+    this.contentConnectedChannelsByOrganisationViewModel.resetObservableProperties();
     this.contentDisplayProjectNameInWizardStep3ViewModel.resetObservableProperties();
   }
 
   componentDidMount = () => {
-    const { match } = this.props;
-    console.log("Debugging - Match Params");
-    console.log(match);
-    if (match) {
-      if (match.params.id) {
-        this.viewModel.getContent(match.params.id);
-      } else {
-        this.viewModel.formStatus = PAGE_STATUS.READY;
-      }
-    }
-    if (this.selectedProjectIdFromWizardStep1) {
-      console.log("this.contentDisplayProjectNameInWizardStep3ViewModel");
-      console.log(this.contentDisplayProjectNameInWizardStep3ViewModel);
-      
-      this.contentConnectedChannelsByProjectViewModel.renderChannelByProjectId(
-        this.selectedProjectIdFromWizardStep1
-      );
-      this.formPropsData[
-        CONTENT_FIELD_KEY.PROJECT
-      ] = this.selectedProjectIdFromWizardStep1;
-    }
+    // const { match } = this.props;
+    // console.log("Debugging - Match Params");
+    // console.log(match);
+    // if (match) {
+    //   if (match.params.id) {
+    //     this.viewModel.getContent(match.params.id);
+    //   } else {
+    //     this.viewModel.formStatus = PAGE_STATUS.READY;
+    //   }
+    // }
+    // if (this.selectedOrganizationIDFromWizardStep1) {
+    //   this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
+    //   this.formPropsData[
+    //     CONTENT_FIELD_KEY.PROJECT
+    //   ] = this.selectedOrganizationIDFromWizardStep1;
+    // }
+
+    this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
   };
 
   generateFormSetting = () => {
     console.log("re generate Form Setting", this.formPropsData);
 
-    const connectChannelsField = this.props.connectChannelsField
-      ? {
-          label: "Connected Channels",
-          key: CONTENT_FIELD_KEY.CHANNELS,
-          type: FORM_FIELD_TYPE.LABELCARD,
-          viewModel: this.contentConnectedChannelsByProjectViewModel,
-          value: "",
-        }
-      : {
-          label: "Add Channels",
-          key: CONTENT_FIELD_KEY.CHANNELS,
-          type: FORM_FIELD_TYPE.LABELBTN,
-          viewModel: this.contentConnectedChannelsByProjectViewModel,
-          value: "",
-          clicked: () => {
-            this.contentConnectedChannelsByProjectViewModel.openModal();
-          },
-        };
+    const connectChannelsField = {
+      label: "Add Channels",
+      key: CONTENT_FIELD_KEY.CHANNELS,
+      type: FORM_FIELD_TYPE.LABELBTN,
+      viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+      value: "",
+      addConnectChannlesBtn: this.props.addConnectChannlesBtn,
+      clicked: () => {
+        this.contentConnectedChannelsByOrganisationViewModel.openModal();
+      },
+    };
+
+    // const connectChannelsField = this.props.connectChannelsField
+    //   ? {
+    //       label: "Connected Channels",
+    //       key: CONTENT_FIELD_KEY.CHANNELS,
+    //       type: FORM_FIELD_TYPE.LABELCARD,
+    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+    //       value: "",
+    //     }
+    //   : {
+    //       label: "Add Channels",
+    //       key: CONTENT_FIELD_KEY.CHANNELS,
+    //       type: FORM_FIELD_TYPE.LABELBTN,
+    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+    //       value: "",
+    //       clicked: () => {
+    //         this.contentConnectedChannelsByOrganisationViewModel.openModal();
+    //       },
+    //     };
 
     console.log("===============");
     let valueCanva = "";
@@ -151,13 +165,13 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
             viewModel: this.projectTableSelectionModalViewModel,
             changed: () => {
-              const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
-              if (projectId) {
-                this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
-              }
+              // const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
+              // if (projectId) {
+              //   this.formPropsData[CONTENT_FIELD_KEY.PROJECT] = projectId;
+              // }
             },
             clicked: () => {
-              this.projectTableSelectionModalViewModel.openModal();
+              // this.projectTableSelectionModalViewModel.openModal();
             },
           },
           {
@@ -167,33 +181,49 @@ class ComponentContentFormGeneral extends Component {
             value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
             viewModel: this.campaignTableSelectionModalViewModel,
             changed: () => {
-              const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
-              if (campaignId) {
-                this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = campaignId;
-              }
+              // const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
+              // if (campaignId) {
+              //   this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = campaignId;
+              // }
             },
             clicked: () => {
-              this.campaignTableSelectionModalViewModel.openModal();
+              // this.campaignTableSelectionModalViewModel.openModal();
             },
           },
           {
             label: "Choose the Persona",
             key: CONTENT_FIELD_KEY.PERSONA,
-            type: FORM_FIELD_TYPE.SELECTION,
-            value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
+            // type: FORM_FIELD_TYPE.SELECTION,
+            type: FORM_FIELD_TYPE.SELECTIONPERSONA,
+            //value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             viewModel: this.personaTableSelectionModalViewModel,
             changed: () => {
-              const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
+              // const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
+              // if (personaIds) {
+              //   this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
+              // }
+            },
+            clicked: () => {
+              // console.log("clicked =====");
+              // console.log(this.personaTableSelectionModalViewModel);
+              // this.personaTableSelectionModalViewModel.openModal();
+            },
+            multi: true,
+            handleOnChange: (value) => {
+              this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
+              let personaIds = this.contentConnectedChannelsByOrganisationViewModel.getSelectedIDs();
+              console.log("personaIdspersonaIds 2222");
+              console.log(personaIds);
               if (personaIds) {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }
+
+              let newPersonaIds = personaIds ? personaIds.join(",") : null;
+
+              this.contentConnectedChannelsByOrganisationViewModel.renderConnectedChannelByPersonaIds(
+                newPersonaIds
+              );
             },
-            clicked: () => {
-              console.log("clicked =====");
-              console.log(this.personaTableSelectionModalViewModel);
-              this.personaTableSelectionModalViewModel.openModal();
-            },
-            multi: true,
           },
           {
             label: "Headline",
@@ -299,7 +329,22 @@ class ComponentContentFormGeneral extends Component {
                   return arr.concat(el);
                 }, [])}
             </Form>
-            <div className="d-flex justify-content-end">
+            <div
+              className={`d-flex ${
+                this.props.isBackWizardStep
+                  ? "justify-content-between"
+                  : "justify-content-end"
+              }`}
+            >
+              {this.props.isBackWizardStep && (
+                <Button
+                  className="btn btn-light border-success"
+                  onClick={this.props.previousWizardStep}
+                >
+                  Back
+                </Button>
+              )}
+
               <ButtonNormal
                 className="btn btn-success"
                 text="Next"
