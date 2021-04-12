@@ -18,8 +18,9 @@ import Wordpress from "./Wordpress";
 import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
 import Upgrade from "../Upgrade";
+import ButtonConnect from "../ButtonConnect";
+import { CHANNEL_CMS_DRUPAL, CHANNEL_CMS_WORDPRESS } from '../../constants/ChannelModule';
 const ModalComponent = lazy(() => import("../../components/Modal"));
-
 class ComponentConnectaChannel extends Component {
   formData = [];
   channelsListViewModel = null;
@@ -69,16 +70,22 @@ class ComponentConnectaChannel extends Component {
       instagramConnected,
       tumblrConnected,
       wordpressConnected,
+      drupalConnected,
       organizationID,
       handleModalCms,
       isModalCms,
       channelsListViewModel,
+      cmsChannelType
     } = this.props;
+
+    const { isConnectWordpressSuccess, isConnectedDrupalSuccess } = this.loginCMSChannelFormModalViewModel
+
+    console.log('this.props LoginCMS', this.props);
 
     return (
       <div className="wrapper_tabs">
         <Tabs
-          defaultActiveKey="1"
+          defaultActiveKey="2"
           id="connectContent-tab"
           className="bg-white border-0"
         >
@@ -134,7 +141,7 @@ class ComponentConnectaChannel extends Component {
                     </div>
                   </div>
                 )}
-              </div>
+              </div>handleModalCms
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
@@ -276,17 +283,48 @@ class ComponentConnectaChannel extends Component {
                       Wordpress
                     </span>
                   </div>
-                  <LoginChannelCMSFormModal
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.props.setChannelType(CHANNEL_CMS_WORDPRESS);
+                      this.props.handleModalCms("wordpress");
+                    }}
+                    isDisabled={wordpressConnected}
+                    isConnected={wordpressConnected}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/drupal.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Drupal
+                    </span>
+                  </div>
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.props.setChannelType(CHANNEL_CMS_DRUPAL);
+                      this.props.handleModalCms("drupal");
+                    }}
+                    isDisabled={isConnectedDrupalSuccess}
+                    isConnected={isConnectedDrupalSuccess}
+                  />
+                </div>
+              </div>
+                <LoginChannelCMSFormModal
                     handleModalCms={handleModalCms}
                     organizationID={organizationID}
-                    wordpressConnected={wordpressConnected}
                     loginCMSChannelFormModalViewModel={
                       this.loginCMSChannelFormModalViewModel
                     }
                     isModalCms={isModalCms}
-                  />
-                </div>
-              </div>
+                />
             </div>
           </Tab>
           <Tab eventKey={3} title={"Email Marketing"}>

@@ -38,7 +38,6 @@ const ConnectChannel = observer(
         : null;
 
       console.log("this.channelsListViewModel - Debug View Model");
-      console.log(this.channelsListViewModel);
 
       this.loginCMSChannelFormModalViewModel = viewModel
         ? viewModel.getLoginCMSChannelFormModalViewModel()
@@ -61,6 +60,7 @@ const ConnectChannel = observer(
         "mailchimp",
         "wordpress",
         "tumblr",
+        "drupal",
       ]);
     }
 
@@ -103,6 +103,7 @@ const ConnectChannel = observer(
         instagramConnected,
         wordpressConnected,
         tumblrConnected,
+        drupalConnected,
       } = this.channelsListViewModel;
 
       if (
@@ -113,7 +114,8 @@ const ConnectChannel = observer(
         mailchimpConnected == true ||
         instagramConnected == true ||
         wordpressConnected == true ||
-        tumblrConnected == true
+        tumblrConnected == true ||
+        drupalConnected == true
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
@@ -136,6 +138,7 @@ const ConnectChannel = observer(
         wordpressConnected,
         tumblrConnected,
         mustUpgrade,
+        drupalConnected,
       } = this.channelsListViewModel;
 
       return (
@@ -155,6 +158,7 @@ const ConnectChannel = observer(
               wordpressConnected={wordpressConnected}
               tumblrConnected={tumblrConnected}
               mustUpgrade={mustUpgrade}
+              drupalConnected={drupalConnected}
               viewModel={this.viewModel}
               organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}

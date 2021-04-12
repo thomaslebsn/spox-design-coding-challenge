@@ -32,32 +32,39 @@ class LoginChannelCMSFormModal extends Component {
   };
 
   render() {
-    if (this.props.wordpressConnected == true) {
-      this.loginCMSChannelFormModalViewModel.isConnectWordpressSuccess = true;
-    }
+    const { wordpressConnected, drupalConnected, isModalCms } = this.props;
+    const { cmsChannelType, isConnectWordpressSuccess, isConnectedDrupalSuccess, closeModal } = this.loginCMSChannelFormModalViewModel;
 
-    const {
-      isConnectWordpressSuccess,
-      closeModal,
-    } = this.loginCMSChannelFormModalViewModel;
+
+    let header = '';
+    let buttonTitle = '';
+    let isConnected = false;
+    let eventName = '';
+    switch (cmsChannelType) {
+      case 1:
+        header = 'Connect CMS Wordpress';
+        buttonTitle = 'Login Wordpress';
+        eventName = 'wordpress';
+        isConnected = isConnectWordpressSuccess;
+        break;
+      case 2:
+        header = 'Connect CMS Drupal';
+        buttonTitle = 'Login Drupal';
+        eventName = 'drupal';
+        isConnected = isConnectedDrupalSuccess;
+        break;
+      default:
+        header = 'Connect CMS Wordpress';
+        buttonTitle = 'Login Wordpress';
+        break;
+    }
 
     return (
       <React.Fragment>
-        <button
-          className="cursor-pointer btn btn-success"
-          onClick={(e) => {
-            this.props.handleModalCms("wordpress");
-          }}
-          disabled={isConnectWordpressSuccess ? true : false}
-        >
-          <span className="ms-2">
-            {isConnectWordpressSuccess ? "Connected" : "Connect"}
-          </span>
-        </button>
         <ModalComponent
-          show={this.props.isModalCms}
+          show={isModalCms}
           onHide={closeModal}
-          header={"Connect CMS Wordpress"}
+          header={header}
           body={
             <LoginChannelCMSForm
               viewModel={this.loginCMSChannelFormModalViewModel}
@@ -65,10 +72,10 @@ class LoginChannelCMSFormModal extends Component {
           }
           footer={
             <Button
-              onClick={(e) => this.saveCMSHandler("wordpress")}
+              onClick={(e) => this.saveCMSHandler(eventName)}
               className="btn btn-success w-100"
             >
-              <span>Login Wordpress</span>
+              <span>{buttonTitle}</span>
               <i className="ms-1">
                 <FontAwesomeIcon icon={faChevronRight} />
               </i>

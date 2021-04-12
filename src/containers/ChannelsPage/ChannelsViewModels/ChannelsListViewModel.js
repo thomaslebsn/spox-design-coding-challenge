@@ -35,6 +35,15 @@ class ChannelsListViewModel {
 
   showUpgrade = false;
 
+  drupalConnected = false;
+
+  /**
+   * Wordpress: 1
+   * Drupal: 2
+   */
+  cmsChannelType = 1;
+
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -126,6 +135,11 @@ class ChannelsListViewModel {
                   case "tumblr":
                     if (responseResult.connected == 1) {
                       this.tumblrConnected = true;
+                    }
+                    break;
+                  case "drupal":
+                    if (responseResult.connected == 1) {
+                      this.drupalConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
@@ -214,7 +228,11 @@ class ChannelsListViewModel {
                   this.tumblrConnected = true;
                 }
                 break;
-
+              case "drupal":
+                if (responseResult.connected == 1) {
+                  this.drupalConnected = true;
+                }
+                break;
               default:
                 break;
             }

@@ -51,6 +51,7 @@ const ConnectChannels = observer(
       // getIdProject = getIdProject.join("");
 
       //call check connected channels
+
       this.channelsListViewModel.checkConnectedChannels([
         "linkedin",
         "youtube",
@@ -60,6 +61,7 @@ const ConnectChannels = observer(
         "mailchimp",
         "wordpress",
         "tumblr",
+        "drupal",
       ]);
     }
 
@@ -92,6 +94,10 @@ const ConnectChannels = observer(
       this.loginCMSChannelFormModalViewModel.openModal();
     };
 
+    setChannelType = (type) => {
+      this.loginCMSChannelFormModalViewModel.setChannelType(type);
+    }
+
     render() {
       let { showModal } = this.state;
 
@@ -107,6 +113,7 @@ const ConnectChannels = observer(
         tumblrConnected,
         wordpressConnected,
         mustUpgrade,
+        drupalConneted,
       } = this.channelsListViewModel;
 
       return (
@@ -127,10 +134,12 @@ const ConnectChannels = observer(
               tumblrConnected={tumblrConnected}
               wordpressConnected={wordpressConnected}
               mustUpgrade={mustUpgrade}
+              drupalConneted={drupalConneted}
               viewModel={this.viewModel}
               organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
+              setChannelType={this.setChannelType}
             />
           </div>
           {listFaceBookFanpage && (

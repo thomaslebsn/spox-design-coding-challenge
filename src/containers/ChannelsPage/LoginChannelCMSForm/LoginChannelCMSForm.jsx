@@ -28,7 +28,7 @@ const LoginChannelCMSForm = observer(
               label: "Endpoint Url",
               key: "endpoint_url",
               type: FORM_FIELD_TYPE.INPUT,
-              value: "",
+              value: "https://testdp.easii.io",
               required: true,
               validation: "required",
               placeholder: "https://testwp.easii.io",
@@ -40,7 +40,7 @@ const LoginChannelCMSForm = observer(
               label: "Username",
               key: "username",
               type: FORM_FIELD_TYPE.INPUT,
-              value: "",
+              value: "admin",
               required: true,
               validation: "required",
               changed: (event) => {
@@ -52,7 +52,7 @@ const LoginChannelCMSForm = observer(
               key: "password",
               type: FORM_FIELD_TYPE.INPUT,
               typeFormat: FORM_FIELD_TYPE.PASSWORD,
-              value: "",
+              value: "pufmdMCp4Jtj449L",
               required: true,
               validation: "required",
               changed: (event) => {
