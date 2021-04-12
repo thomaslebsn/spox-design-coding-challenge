@@ -3,7 +3,7 @@ import { withTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 
-// import "./index.scss";
+// import "./index.module.scss";
 
 import BannerLeft from "../../components/BannerLeft";
 import TitleAccount from "../../components/TitlePageAccount";

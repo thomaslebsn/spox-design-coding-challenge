@@ -4,7 +4,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectComponent from "../Select";
 
-// import "./index.scss";
+// import "./index.module.scss";
 
 // import styles from "./index.module.scss";
 

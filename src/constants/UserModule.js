@@ -5,6 +5,7 @@ const PROFILE_FIELD_KEY = {
   EMAIL: "email",
   PASSWORD: "password",
   TITLE: "title",
+  BIRTHDAY: "birthday",
   PHONE: "phone",
   ADDRESS: "address",
   ADDRESS_2: "address_2",

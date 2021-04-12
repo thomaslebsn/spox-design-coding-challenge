@@ -5,7 +5,7 @@ import { OverlayTrigger, Popover } from "react-bootstrap";
 import { components } from "react-select";
 import SelectComponent from "../../../components/Select";
 
-// import "./index.scss";
+// import "./index.module.scss";
 
 const Option = (props) => {
   let { text, type } = props.data;
