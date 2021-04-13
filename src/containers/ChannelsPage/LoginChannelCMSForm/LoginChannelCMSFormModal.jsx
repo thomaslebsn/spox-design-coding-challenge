@@ -25,31 +25,30 @@ class LoginChannelCMSFormModal extends Component {
   }
 
   saveCMSHandler = (channelUniqueName) => {
-    this.loginCMSChannelFormModalViewModel.saveCMSHandler(
-      this.props.organizationID,
-      channelUniqueName
-    );
+    this.loginCMSChannelFormModalViewModel.saveCMSHandler(channelUniqueName);
   };
 
   render() {
     const { isModalCms } = this.props;
-    const { cmsChannelType, closeModal } = this.loginCMSChannelFormModalViewModel;
+    const {
+      cmsChannelType,
+      closeModal,
+    } = this.loginCMSChannelFormModalViewModel;
 
-
-    let header = '';
-    let buttonTitle = '';
+    let header = "";
+    let buttonTitle = "";
     let isConnected = false;
-    let eventName = '';
+    let eventName = "";
     switch (cmsChannelType) {
       case 1:
-        header = 'Connect CMS Wordpress';
-        buttonTitle = 'Login Wordpress';
-        eventName = 'wordpress';
+        header = "Connect CMS Wordpress";
+        buttonTitle = "Login Wordpress";
+        eventName = "wordpress";
         break;
       case 2:
-        header = 'Connect CMS Drupal';
-        buttonTitle = 'Login Drupal';
-        eventName = 'drupal';
+        header = "Connect CMS Drupal";
+        buttonTitle = "Login Drupal";
+        eventName = "drupal";
         break;
       default:
         break;

@@ -48,7 +48,6 @@ const ConnectChannel = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 1,
       };
 
       this.channelsListViewModel.checkConnectedChannels([
@@ -160,7 +159,6 @@ const ConnectChannel = observer(
               mustUpgrade={mustUpgrade}
               drupalConnected={drupalConnected}
               viewModel={this.viewModel}
-              organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
             />
