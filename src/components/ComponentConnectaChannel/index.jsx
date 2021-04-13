@@ -82,7 +82,7 @@ class ComponentConnectaChannel extends Component {
     return (
       <div className="wrapper_tabs">
         <Tabs
-          defaultActiveKey="2"
+          defaultActiveKey="1"
           id="connectContent-tab"
           className="bg-white border-0"
         >
