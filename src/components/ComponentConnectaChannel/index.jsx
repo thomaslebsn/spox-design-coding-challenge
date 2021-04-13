@@ -61,6 +61,7 @@ class ComponentConnectaChannel extends Component {
 
   render() {
     const {
+      channelsListViewModel,
       listFaceBookFanpageView,
       facebookConnected,
       youtubeConnected,
@@ -69,18 +70,15 @@ class ComponentConnectaChannel extends Component {
       mailchimpConnected,
       instagramConnected,
       tumblrConnected,
-      wordpressConnected,
-      drupalConnected,
       organizationID,
       handleModalCms,
       isModalCms,
-      channelsListViewModel,
-      cmsChannelType
     } = this.props;
 
-    const { isConnectWordpressSuccess, isConnectedDrupalSuccess } = this.loginCMSChannelFormModalViewModel
-
-    console.log('this.props LoginCMS', this.props);
+    const {
+      drupalConnected,
+      wordpressConnected
+    } = channelsListViewModel;
 
     return (
       <div className="wrapper_tabs">
@@ -312,8 +310,8 @@ class ComponentConnectaChannel extends Component {
                       this.props.setChannelType(CHANNEL_CMS_DRUPAL);
                       this.props.handleModalCms("drupal");
                     }}
-                    isDisabled={isConnectedDrupalSuccess}
-                    isConnected={isConnectedDrupalSuccess}
+                    isDisabled={drupalConnected}
+                    isConnected={drupalConnected}
                   />
                 </div>
               </div>

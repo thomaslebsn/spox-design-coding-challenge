@@ -32,8 +32,8 @@ class LoginChannelCMSFormModal extends Component {
   };
 
   render() {
-    const { wordpressConnected, drupalConnected, isModalCms } = this.props;
-    const { cmsChannelType, isConnectWordpressSuccess, isConnectedDrupalSuccess, closeModal } = this.loginCMSChannelFormModalViewModel;
+    const { isModalCms } = this.props;
+    const { cmsChannelType, closeModal } = this.loginCMSChannelFormModalViewModel;
 
 
     let header = '';
@@ -45,17 +45,13 @@ class LoginChannelCMSFormModal extends Component {
         header = 'Connect CMS Wordpress';
         buttonTitle = 'Login Wordpress';
         eventName = 'wordpress';
-        isConnected = isConnectWordpressSuccess;
         break;
       case 2:
         header = 'Connect CMS Drupal';
         buttonTitle = 'Login Drupal';
         eventName = 'drupal';
-        isConnected = isConnectedDrupalSuccess;
         break;
       default:
-        header = 'Connect CMS Wordpress';
-        buttonTitle = 'Login Wordpress';
         break;
     }
 

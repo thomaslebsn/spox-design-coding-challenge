@@ -16,8 +16,6 @@ class LoginCMSChannelFormModalViewModel {
   constructor(projectStore) {
     makeAutoObservable(this);
     this.projectStore = projectStore;
-    this.channelsListViewModel = new ChannelsListViewModel(projectStore); 
-    console.log('this.channelsListViewModel', this.channelsListViewModel);
   }
 
   setForm = (loginChannelCMSFormComponent) => {
@@ -32,6 +30,10 @@ class LoginCMSChannelFormModalViewModel {
     this.editMode = false;
     this.show = false;
   };
+
+  setChannelsListViewModelInstance = (channelsListViewModelInstance) => {
+    this.channelsListViewModel = channelsListViewModelInstance;
+  }
 
   setChannelType = (type) => {
     this.cmsChannelType = type;
@@ -51,19 +53,22 @@ class LoginCMSChannelFormModalViewModel {
 
   callbackOnSuccessCMS = () => {
     console.log("callbackOnSuccessCMS");
-    // console.log('this', this);
-    // switch (this.cmsChannelType) {
-    //   case CHANNEL_CMS_WORDPRESS:
-    //     // this.isConnectWordpressSuccess = true;
-    //     this.channelsListViewModel.wordpres
-    //     break;
-    //   case CHANNEL_CMS_DRUPAL:
-    //     // this.isConnectedDrupalSuccess = true;
-    //     break;
-    //   default:
-    //     break;
-    // }
-    this.props.
+    console.log('this.channelsListViewModel LOGIN ', this.channelsListViewModel);
+    const { 
+      drupalConnected, 
+      wordpressConnected,
+    } = this.channelsListViewModel;
+    switch (this.cmsChannelType) {
+      case CHANNEL_CMS_WORDPRESS:
+        this.channelsListViewModel.wordpressConnected = true;
+        break;
+      case CHANNEL_CMS_DRUPAL:
+        this.channelsListViewModel.drupalConnected = true;
+        break;
+      default:
+        break;
+    }
+    
     
     this.closeModal();
   };

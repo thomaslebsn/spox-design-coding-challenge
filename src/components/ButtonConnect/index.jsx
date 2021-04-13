@@ -9,7 +9,7 @@ class ButtonConnect extends React.Component {
             type="button" 
             className={`cursor-pointer btn ${className ? className : 'btn-success'}`} 
             onClick={onClick}
-            disabled={false}
+            disabled={isDisabled}
         >
             <span className="ms-2">
                 {isConnected ? "Connected" : "Connect"}
