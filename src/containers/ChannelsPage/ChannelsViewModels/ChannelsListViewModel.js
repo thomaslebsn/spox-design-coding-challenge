@@ -43,13 +43,12 @@ class ChannelsListViewModel {
    */
   cmsChannelType = 1;
 
-
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
   }
 
-  connectLoginUrl = (organizationID, channelUniqueName) => {
+  connectLoginUrl = (channelUniqueName) => {
     this.channelsStore.getChannelLoginUrl(
       this.callbackOnSuccessChannel,
       this.callbackOnErrorHander,

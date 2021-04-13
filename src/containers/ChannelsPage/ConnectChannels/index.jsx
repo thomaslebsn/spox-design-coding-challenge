@@ -43,12 +43,7 @@ const ConnectChannels = observer(
         showModal: true,
         getIDSFanpage: [],
         isWordpressConnected: false,
-        organizationID: 1,
       };
-
-      //get project id from url
-      // let getIdProject = history.location.pathname.match(/\d/g);
-      // getIdProject = getIdProject.join("");
 
       //call check connected channels
 
@@ -96,7 +91,7 @@ const ConnectChannels = observer(
 
     setChannelType = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
-    }
+    };
 
     render() {
       let { showModal } = this.state;
@@ -136,7 +131,6 @@ const ConnectChannels = observer(
               mustUpgrade={mustUpgrade}
               drupalConneted={drupalConneted}
               viewModel={this.viewModel}
-              organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
               setChannelType={this.setChannelType}

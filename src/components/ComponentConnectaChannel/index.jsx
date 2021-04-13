@@ -19,7 +19,10 @@ import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannel
 import styles from "./index.module.scss";
 import Upgrade from "../Upgrade";
 import ButtonConnect from "../ButtonConnect";
-import { CHANNEL_CMS_DRUPAL, CHANNEL_CMS_WORDPRESS } from '../../constants/ChannelModule';
+import {
+  CHANNEL_CMS_DRUPAL,
+  CHANNEL_CMS_WORDPRESS,
+} from "../../constants/ChannelModule";
 const ModalComponent = lazy(() => import("../../components/Modal"));
 class ComponentConnectaChannel extends Component {
   formData = [];
@@ -51,8 +54,8 @@ class ComponentConnectaChannel extends Component {
   };
 
   handleConnectChannel = (name) => {
-    let { channelsListViewModel, organizationID } = this.props;
-    channelsListViewModel.connectLoginUrl(organizationID, name);
+    let { channelsListViewModel } = this.props;
+    channelsListViewModel.connectLoginUrl(name);
   };
 
   closeModalUpgrade = () => {
@@ -70,15 +73,11 @@ class ComponentConnectaChannel extends Component {
       mailchimpConnected,
       instagramConnected,
       tumblrConnected,
-      organizationID,
       handleModalCms,
       isModalCms,
     } = this.props;
 
-    const {
-      drupalConnected,
-      wordpressConnected
-    } = channelsListViewModel;
+    const { drupalConnected, wordpressConnected } = channelsListViewModel;
 
     return (
       <div className="wrapper_tabs">
@@ -145,7 +144,32 @@ class ComponentConnectaChannel extends Component {
                   <div className="d-flex align-items-center">
                     <img
                       className="img-avatar"
-                      src={"/assets/images/youtube.jpg"}
+                      src={"/assets/images/instagram.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Instagram
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("instagram");
+                    }}
+                    disabled={instagramConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {instagramConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/youtube.png"}
                       alt=""
                     />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">
@@ -220,32 +244,7 @@ class ComponentConnectaChannel extends Component {
                   <div className="d-flex align-items-center">
                     <img
                       className="img-avatar"
-                      src={"/assets/images/instagram.png"}
-                      alt=""
-                    />
-                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
-                      Instagram
-                    </span>
-                  </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel("instagram");
-                    }}
-                    disabled={instagramConnected ? true : false}
-                  >
-                    <span className="ms-2">
-                      {instagramConnected ? "Connected" : "Connect"}
-                    </span>
-                  </button>
-                </div>
-              </div>
-              <div className="bg-white rounded-3 mb-4">
-                <div className="d-flex align-items-center justify-content-between p-3">
-                  <div className="d-flex align-items-center">
-                    <img
-                      className="img-avatar"
-                      src={"/assets/images/instagram.png"}
+                      src={"/assets/images/tumblr.png"}
                       alt=""
                     />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">
@@ -315,14 +314,13 @@ class ComponentConnectaChannel extends Component {
                   />
                 </div>
               </div>
-                <LoginChannelCMSFormModal
-                    handleModalCms={handleModalCms}
-                    organizationID={organizationID}
-                    loginCMSChannelFormModalViewModel={
-                      this.loginCMSChannelFormModalViewModel
-                    }
-                    isModalCms={isModalCms}
-                />
+              <LoginChannelCMSFormModal
+                handleModalCms={handleModalCms}
+                loginCMSChannelFormModalViewModel={
+                  this.loginCMSChannelFormModalViewModel
+                }
+                isModalCms={isModalCms}
+              />
             </div>
           </Tab>
           <Tab eventKey={3} title={"Email Marketing"}>

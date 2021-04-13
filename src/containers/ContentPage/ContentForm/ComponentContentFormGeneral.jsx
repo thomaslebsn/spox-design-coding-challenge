@@ -36,18 +36,11 @@ class ComponentContentFormGeneral extends Component {
   campaignTableSelectionModalViewModel = null;
   contentConnectedChannelsByOrganisationViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
-  // selectedOrganizationIDFromWizardStep1 = null;
   constructor(props) {
     super(props);
 
     this.validator = new SimpleReactValidator();
-    // if this component is MOUNTED from Content Module => viewModel is ContentViewModel
-    // Otherwise, viewModel is WizardViewModel
     this.viewModel = this.props.viewModel;
-    // this.selectedOrganizationIDFromWizardStep1 = this.props
-    //   .selectedOrganizationIDFromWizardStep1
-    //   ? this.props.selectedOrganizationIDFromWizardStep1
-    //   : null;
 
     console.log("ComponentContentFormGeneral - Debug viewModel");
     console.log(this.viewModel);
@@ -88,23 +81,6 @@ class ComponentContentFormGeneral extends Component {
   }
 
   componentDidMount = () => {
-    // const { match } = this.props;
-    // console.log("Debugging - Match Params");
-    // console.log(match);
-    // if (match) {
-    //   if (match.params.id) {
-    //     this.viewModel.getContent(match.params.id);
-    //   } else {
-    //     this.viewModel.formStatus = PAGE_STATUS.READY;
-    //   }
-    // }
-    // if (this.selectedOrganizationIDFromWizardStep1) {
-    //   this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
-    //   this.formPropsData[
-    //     CONTENT_FIELD_KEY.PROJECT
-    //   ] = this.selectedOrganizationIDFromWizardStep1;
-    // }
-
     this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
   };
 
