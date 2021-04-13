@@ -31,7 +31,7 @@ const LoginChannelCMSForm = observer(
               value: "",
               required: true,
               validation: "required",
-              placeholder: "https://testwp.easii.io",
+              placeholder: "",
               changed: (event) => {
                 this.formPropsData.endpoint_url = event.target.value;
               },

@@ -13,6 +13,7 @@ class ChannelsViewModel {
       this.loginCMSChannelFormModalViewModel = new LoginCMSChannelFormModalViewModel(
         channelsStore
       );
+      this.loginCMSChannelFormModalViewModel.setChannelsListViewModelInstance(this.ChannelsListViewModel);
     }
   }
 
