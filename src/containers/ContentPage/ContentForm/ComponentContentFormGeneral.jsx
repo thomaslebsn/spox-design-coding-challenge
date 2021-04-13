@@ -211,7 +211,9 @@ class ComponentContentFormGeneral extends Component {
             multi: true,
             handleOnChange: (value) => {
               this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
+              this.personaTableSelectionModalViewModel.getValueSelected = value;
               let personaIds = this.contentConnectedChannelsByOrganisationViewModel.getSelectedIDs();
+
               console.log("personaIdspersonaIds 2222");
               console.log(personaIds);
               if (personaIds) {
