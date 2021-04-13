@@ -139,7 +139,7 @@ class ComponentConnectaChannel extends Component {
                     </div>
                   </div>
                 )}
-              </div>handleModalCms
+              </div>
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
