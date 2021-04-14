@@ -58,8 +58,10 @@ const FormSelectDropdown = observer(
       console.log("[FormSelectDropdown] render", this.field);
       console.log("[FormSelectDropdown] Options ", this.field.option);
       let selectedObject = null;
-      if(this.field.option && Array.isArray(this.field.option)){
-        selectedObject = this.field.option.filter((item) => parseInt(item.value) === parseInt(this.field.value));
+      if (this.field.option && Array.isArray(this.field.option)) {
+        selectedObject = this.field.option.filter(
+          (item) => parseInt(item.value) === parseInt(this.field.value)
+        );
       }
       return (
         <SelectComponent
