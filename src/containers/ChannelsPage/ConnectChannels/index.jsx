@@ -57,7 +57,8 @@ const ConnectChannels = observer(
         "wordpress",
         "tumblr",
         "drupal",
-        "medium"
+        "medium",
+        "joomla"
       ]);
     }
 
@@ -111,6 +112,7 @@ const ConnectChannels = observer(
         mustUpgrade,
         drupalConneted,
         mediumConnected,
+        joomlaConnected,
       } = this.channelsListViewModel;
 
       console.log('this.channelsListViewModel', this.channelsListViewModel)
@@ -135,6 +137,7 @@ const ConnectChannels = observer(
               mustUpgrade={mustUpgrade}
               drupalConneted={drupalConneted}
               mediumConnected={mediumConnected}
+              joomlaConnected={joomlaConnected}
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}

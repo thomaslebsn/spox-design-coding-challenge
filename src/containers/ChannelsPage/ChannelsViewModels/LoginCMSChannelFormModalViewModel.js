@@ -5,6 +5,7 @@ import {
   CHANNEL_CMS_DRUPAL, 
   CHANNEL_CMS_WORDPRESS,
   CHANNEL_CMS_MEDIUM,
+  CHANNEL_CMS_JOOMLA,
 } from "../../../constants/ChannelModule";
 
 class LoginCMSChannelFormModalViewModel {
@@ -65,6 +66,9 @@ class LoginCMSChannelFormModalViewModel {
         break;
       case CHANNEL_CMS_MEDIUM:
         this.channelsListViewModel.mediumConnected = true;
+        break;
+      case CHANNEL_CMS_JOOMLA:
+        this.channelsListViewModel.joomlaConnected = true;
         break;
       default:
         break;

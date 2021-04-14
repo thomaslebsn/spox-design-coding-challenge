@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import history from "../../../routes/history";
-import { CHANNEL_CMS_DRUPAL, CHANNEL_CMS_MEDIUM, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
+import { CHANNEL_CMS_DRUPAL, CHANNEL_CMS_JOOMLA, CHANNEL_CMS_MEDIUM, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
 
 const ModalComponent = lazy(() => import("../../../components/Modal"));
 const LoginChannelCMSForm = lazy(() => import("./LoginChannelCMSForm"));
@@ -52,9 +52,15 @@ class LoginChannelCMSFormModal extends Component {
         eventName = "drupal";
         break;
       case CHANNEL_CMS_MEDIUM:
-        header = 'Connect CMS Medium';
+        header = "Connect CMS Medium";
         buttonTitle = "Connect";
         eventName = "medium";
+        break;
+      case CHANNEL_CMS_JOOMLA:
+        header = "Connect CMS Joomla";
+        buttonTitle = "Connect";
+        eventName = "joomla";
+        break;
       default:
         break;
     }

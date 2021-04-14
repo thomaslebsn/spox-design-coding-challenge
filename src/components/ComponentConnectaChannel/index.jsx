@@ -21,6 +21,7 @@ import Upgrade from "../Upgrade";
 import ButtonConnect from "../ButtonConnect";
 import {
   CHANNEL_CMS_DRUPAL,
+  CHANNEL_CMS_JOOMLA,
   CHANNEL_CMS_MEDIUM,
   CHANNEL_CMS_WORDPRESS,
 } from "../../constants/ChannelModule";
@@ -75,6 +76,7 @@ class ComponentConnectaChannel extends Component {
       instagramConnected,
       tumblrConnected,
       mediumConnected,
+      joomlaConnected,
       handleModalCms,
       isModalCms,
     } = this.props;
@@ -335,6 +337,28 @@ class ComponentConnectaChannel extends Component {
                     }}
                     isDisabled={mediumConnected}
                     isConnected={mediumConnected}
+                  />
+                </div>
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/joomla.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Joomla
+                    </span>
+                  </div>
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.props.setChannelType(CHANNEL_CMS_JOOMLA);
+                      this.props.handleModalCms("joomla");
+                    }}
+                    isDisabled={joomlaConnected}
+                    isConnected={joomlaConnected}
                   />
                 </div>
               </div>

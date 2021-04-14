@@ -76,6 +76,7 @@ export default class ChannelsStore {
         case "wordpress":
         case "drupal":
         case "medium":
+        case "joomla":
           result = await channelService.getCheckConnectStatusChannel(
             channelType
           );
@@ -169,6 +170,7 @@ export default class ChannelsStore {
       case "wordpress":
       case "drupal":
       case "medium":
+      case "joomla":
         response = await channelService.doLoginCMS(dataPost);
         break;
       default:
