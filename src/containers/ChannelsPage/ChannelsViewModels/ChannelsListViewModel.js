@@ -23,6 +23,8 @@ class ChannelsListViewModel {
 
   wordpressConnected = false;
 
+  mediumConnected = false;
+
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
@@ -142,6 +144,12 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
+                  case "medium":
+                    if (responseResult.connected == 1) {
+                      this.mediumConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
 
                   default:
                     break;
@@ -230,6 +238,11 @@ class ChannelsListViewModel {
               case "drupal":
                 if (responseResult.connected == 1) {
                   this.drupalConnected = true;
+                }
+                break;
+              case "medium":
+                if (responseResult.connected == 1) {
+                  this.mediumConnected = true;
                 }
                 break;
               default:

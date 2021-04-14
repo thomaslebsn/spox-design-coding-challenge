@@ -21,6 +21,7 @@ import Upgrade from "../Upgrade";
 import ButtonConnect from "../ButtonConnect";
 import {
   CHANNEL_CMS_DRUPAL,
+  CHANNEL_CMS_MEDIUM,
   CHANNEL_CMS_WORDPRESS,
 } from "../../constants/ChannelModule";
 const ModalComponent = lazy(() => import("../../components/Modal"));
@@ -73,6 +74,7 @@ class ComponentConnectaChannel extends Component {
       mailchimpConnected,
       instagramConnected,
       tumblrConnected,
+      mediumConnected,
       handleModalCms,
       isModalCms,
     } = this.props;
@@ -311,6 +313,28 @@ class ComponentConnectaChannel extends Component {
                     }}
                     isDisabled={drupalConnected}
                     isConnected={drupalConnected}
+                  />
+                </div>
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/medium.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Medium
+                    </span>
+                  </div>
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.props.setChannelType(CHANNEL_CMS_MEDIUM);
+                      this.props.handleModalCms("medium");
+                    }}
+                    isDisabled={mediumConnected}
+                    isConnected={mediumConnected}
                   />
                 </div>
               </div>

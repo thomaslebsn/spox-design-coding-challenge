@@ -8,9 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import history from "../../../routes/history";
+import { CHANNEL_CMS_DRUPAL, CHANNEL_CMS_MEDIUM, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
 
 const ModalComponent = lazy(() => import("../../../components/Modal"));
 const LoginChannelCMSForm = lazy(() => import("./LoginChannelCMSForm"));
+const LoginChannelCMSMedium = lazy(() => import("./LoginChannelCMSMedium"));
 
 class LoginChannelCMSFormModal extends Component {
   loginCMSChannelFormModalViewModel = null;
@@ -37,19 +39,22 @@ class LoginChannelCMSFormModal extends Component {
 
     let header = "";
     let buttonTitle = "";
-    let isConnected = false;
     let eventName = "";
     switch (cmsChannelType) {
-      case 1:
+      case CHANNEL_CMS_WORDPRESS:
         header = "Connect CMS Wordpress";
         buttonTitle = "Login Wordpress";
         eventName = "wordpress";
         break;
-      case 2:
+      case CHANNEL_CMS_DRUPAL:
         header = "Connect CMS Drupal";
         buttonTitle = "Login Drupal";
         eventName = "drupal";
         break;
+      case CHANNEL_CMS_MEDIUM:
+        header = 'Connect CMS Medium';
+        buttonTitle = "Connect";
+        eventName = "medium";
       default:
         break;
     }
@@ -61,9 +66,15 @@ class LoginChannelCMSFormModal extends Component {
           onHide={closeModal}
           header={header}
           body={
-            <LoginChannelCMSForm
-              viewModel={this.loginCMSChannelFormModalViewModel}
-            />
+            cmsChannelType === CHANNEL_CMS_MEDIUM ? (
+              <LoginChannelCMSMedium
+                viewModel={this.loginCMSChannelFormModalViewModel}
+              />
+            ) : (
+              <LoginChannelCMSForm
+                viewModel={this.loginCMSChannelFormModalViewModel}
+              />
+            )
           }
           footer={
             <Button
