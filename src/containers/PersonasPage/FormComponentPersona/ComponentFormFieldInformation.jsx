@@ -116,7 +116,7 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
     type: FORM_FIELD_TYPE.DROPDOWN,
     value:
       formPropsData[PERSONA_FIELD_KEY.CHANNELS] != ""
-        ? JSON.parse(formPropsData[PERSONA_FIELD_KEY.CHANNELS])
+        ? formPropsData[PERSONA_FIELD_KEY.CHANNELS]
         : "",
 
     defaultValue: formPropsData["connected_channels_master_data"],
