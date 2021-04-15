@@ -71,7 +71,11 @@ const optionInterest = [
   },
 ];
 
-const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
+const ComponentFormFieldInformation = ({
+  validator,
+  formPropsData,
+  viewModel,
+}) => {
   let information = [
     {
       label: "Tools",
@@ -181,7 +185,7 @@ const ComponentFormFieldInformation = ({ validator, formPropsData }) => {
       >
         <Label text={"Channels"} required={true} />
         <FormSelectDropdown field={fieldChannels} />
-        <ComponentLinkChannels />
+        <ComponentLinkChannels viewModel={viewModel} />
       </Form.Group>
       {/* <Form.Group
         key={Math.random(40, 200)}
