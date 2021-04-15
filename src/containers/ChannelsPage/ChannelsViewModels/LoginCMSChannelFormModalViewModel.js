@@ -1,9 +1,12 @@
 import { makeAutoObservable } from "mobx";
 import { notify } from "../../../components/Toast";
 
-import PAGE_STATUS from "../../../constants/PageStatus";
-import { CHANNEL_CMS_DRUPAL, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
-import ChannelsListViewModel from "./ChannelsListViewModel";
+import { 
+  CHANNEL_CMS_DRUPAL, 
+  CHANNEL_CMS_WORDPRESS,
+  CHANNEL_CMS_MEDIUM,
+  CHANNEL_CMS_JOOMLA,
+} from "../../../constants/ChannelModule";
 
 class LoginCMSChannelFormModalViewModel {
   show = false;
@@ -39,10 +42,11 @@ class LoginCMSChannelFormModalViewModel {
     this.cmsChannelType = type;
   }
 
-  saveCMSHandler = (projectId, channelUniqueName) => {
+  saveCMSHandler = (channelUniqueName) => {
     let dataPost = this.loginChannelCMSFormComponent.formPropsData;
     dataPost.channelType = channelUniqueName;
-    dataPost.projectId = projectId;
+    dataPost.projectId = channelUniqueName;
+
     this.projectStore.connectCMS(
       this.callbackOnSuccessCMS,
       this.callbackOnErrorHander,
@@ -53,11 +57,6 @@ class LoginCMSChannelFormModalViewModel {
 
   callbackOnSuccessCMS = () => {
     console.log("callbackOnSuccessCMS");
-    console.log('this.channelsListViewModel LOGIN ', this.channelsListViewModel);
-    const { 
-      drupalConnected, 
-      wordpressConnected,
-    } = this.channelsListViewModel;
     switch (this.cmsChannelType) {
       case CHANNEL_CMS_WORDPRESS:
         this.channelsListViewModel.wordpressConnected = true;
@@ -65,10 +64,15 @@ class LoginCMSChannelFormModalViewModel {
       case CHANNEL_CMS_DRUPAL:
         this.channelsListViewModel.drupalConnected = true;
         break;
+      case CHANNEL_CMS_MEDIUM:
+        this.channelsListViewModel.mediumConnected = true;
+        break;
+      case CHANNEL_CMS_JOOMLA:
+        this.channelsListViewModel.joomlaConnected = true;
+        break;
       default:
         break;
     }
-    
     
     this.closeModal();
   };

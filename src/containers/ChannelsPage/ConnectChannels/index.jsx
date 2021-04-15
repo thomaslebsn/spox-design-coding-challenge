@@ -57,6 +57,8 @@ const ConnectChannels = observer(
         "wordpress",
         "tumblr",
         "drupal",
+        "medium",
+        "joomla"
       ]);
     }
 
@@ -109,7 +111,11 @@ const ConnectChannels = observer(
         wordpressConnected,
         mustUpgrade,
         drupalConneted,
+        mediumConnected,
+        joomlaConnected,
       } = this.channelsListViewModel;
+
+      console.log('this.channelsListViewModel', this.channelsListViewModel)
 
       return (
         <div className="py-4 px-3">
@@ -130,6 +136,8 @@ const ConnectChannels = observer(
               wordpressConnected={wordpressConnected}
               mustUpgrade={mustUpgrade}
               drupalConneted={drupalConneted}
+              mediumConnected={mediumConnected}
+              joomlaConnected={joomlaConnected}
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
