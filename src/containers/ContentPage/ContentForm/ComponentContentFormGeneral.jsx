@@ -27,6 +27,7 @@ class ComponentContentFormGeneral extends Component {
     [CONTENT_FIELD_KEY.DESCRIPTION]: "",
     [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: "",
     [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: "",
+    [CONTENT_FIELD_KEY.DAM]: "",
   };
   validator = null;
   isEditMode = false;
@@ -220,6 +221,22 @@ class ComponentContentFormGeneral extends Component {
             label: "Content",
             key: CONTENT_FIELD_KEY.THEME,
             type: FORM_FIELD_TYPE.CANVA,
+            required: true,
+            validation: "required",
+            value: valueCanva,
+            changed: ({ exportUrl, designId }) => {
+              console.log("[Canva Field] changed", { exportUrl, designId });
+              this.formPropsData[
+                CONTENT_FIELD_KEY.CANVA_EXPORTED_URL
+              ] = exportUrl;
+              this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
+            },
+            blurred: this.blurringFieldHandler,
+          },
+          {
+            label: "Dam button",
+            key: CONTENT_FIELD_KEY.THEME,
+            type: FORM_FIELD_TYPE.DAM,
             required: true,
             validation: "required",
             value: valueCanva,
