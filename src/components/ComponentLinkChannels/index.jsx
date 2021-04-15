@@ -8,7 +8,7 @@ class ComponentLinkChannels extends React.Component {
 
   render() {
     let { viewModel } = this.props;
-    let channelsLogo = viewModel ? viewModel.connectedChannelMasterData : null;
+    let channelsLogo = viewModel ? viewModel.connectedChannelMasterData : [];
 
     return (
       <ul className="list-unstyled d-flex align-items-center">
