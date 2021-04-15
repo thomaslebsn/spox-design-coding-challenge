@@ -3,6 +3,7 @@ import Label from "../components/Form/Label";
 import { FORM_FIELD_TYPE } from "../constants/FormFieldType";
 import { Form } from "react-bootstrap";
 import CanvaButton from "../components/CanvaButton";
+import DamButton from "../components/DamButton";
 import ListConnectedChannel from "../components/ListConnectedChannel";
 import ListConnectedChannelModal from "../components/ListConnectedChannelModal";
 import ButtonNormal from "../components/ButtonNormal";
@@ -194,6 +195,26 @@ const renderingGroupFieldHandler = (group, validator) => {
                     required={field.required ?? false}
                   />
                   <CanvaButton key={Math.random(40, 200)} field={field} />
+                  {field.validation &&
+                    validator.message(
+                      field.label,
+                      field.value,
+                      field.validation,
+                      { className: "text-danger" }
+                    )}
+                </Form.Group>
+              );
+            case FORM_FIELD_TYPE.DAM:
+              return (
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  className={`mb-3 ${className}`}
+                >
+                  <Label
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
+                  <DamButton key={Math.random(40, 200)} field={field} />
                   {field.validation &&
                     validator.message(
                       field.label,
