@@ -221,7 +221,7 @@ class ChannelsListViewModel {
                 break;
 
               case "fbad":
-                console.log('2222222222222222222', responseResult);
+                console.log('2222222222222222222', response);
                 if (responseResult.pages.status === "connected") {
                   this.facebookAdsConnected = true;
                   console.log('HA02', responseResult);

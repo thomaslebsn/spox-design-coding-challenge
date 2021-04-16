@@ -20,6 +20,8 @@ class ProjectsListViewModel {
 
   facebookConnected = false;
 
+  facebookAdsConnected = false;
+
   youtubeConnected = false;
 
   twitterConnected = false;

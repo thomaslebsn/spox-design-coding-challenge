@@ -59,7 +59,8 @@ const ConnectChannels = observer(
         "tumblr",
         "drupal",
         "medium",
-        "joomla"
+        "joomla",
+          "fbad"
       ]);
     }
 
