@@ -100,10 +100,11 @@ class ChannelsListViewModel {
 
                 switch (channelUniqueName) {
                   case "fbad": //facebookAdConnected
-                    if (responseResult.pages.status === "connected") {
+                      console.log('HA01', responseResult);
+                    if (responseResult.adAccounts.status === "connected") {
                       this.facebookAdsConnected= true;
                       clearInterval(checkConnectionStatusInterval);
-                      this.listFaceBookAdsAccount = responseResult.pages.pages;
+                      this.listFaceBookAdsAccount = responseResult.adAccounts.adAccounts;
                     }
                     break;
 
@@ -220,8 +221,9 @@ class ChannelsListViewModel {
               case "fbad":
                 if (responseResult.pages.status === "connected") {
                   this.facebookAdsConnected = true;
-                  let listAdAccountsConnected = responseResult.pages.connected;
-                  let listAdAccounts = responseResult.pages.pages;
+                  console.log('HA01', responseResult);
+                  let listAdAccountsConnected = responseResult.adAccounts.connected;
+                  let listAdAccounts = responseResult.adAccounts.adAccounts;
 
                   if (listAdAccountsConnected.length > 0) {
                     this.listFaceBookAdsAccountView = [];
@@ -342,7 +344,8 @@ class ChannelsListViewModel {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookAdAccounts(
           (res) => {
-            this.listFaceBookAdsAccountView = res.result.pages.pages;
+            console.log('HA01', res);
+            this.listFaceBookAdsAccountView = res.result.adAccounts.adAccounts;
           },
           (error) => {},
           accountIds
