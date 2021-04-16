@@ -80,6 +80,7 @@ const ListConnectedChannelModal = observer(
       return (
         <>
           <div className="row w-100 d-flex align-items-center mb-3 mt-4">
+            <p className="text-black">Connected Channels</p>
             <div className="rounded-2 px-3 py-2 h-100 d-flex align-items-center">
               <div className="row w-100">
                 {arrayConnectedChannelsFinal

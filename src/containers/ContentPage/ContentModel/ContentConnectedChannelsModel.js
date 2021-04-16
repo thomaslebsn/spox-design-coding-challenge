@@ -59,7 +59,7 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
         icoImage = "/assets/images/facebook.png";
         break;
       case "youtube":
-        icoImage = "/assets/images/youtube.jpg";
+        icoImage = "/assets/images/youtube.png";
         break;
       case "twitter":
         icoImage = "/assets/images/twitter.png";
@@ -75,6 +75,12 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
         break;
       case "instagram":
         icoImage = "/assets/images/instagram.png";
+        break;
+      case "joomla":
+        icoImage = "/assets/images/joomla.png";
+        break;
+      case "medium":
+        icoImage = "/assets/images/medium.png";
         break;
       default:
         icoImage = null;
