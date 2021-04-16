@@ -60,6 +60,7 @@ const ConnectChannel = observer(
         "wordpress",
         "tumblr",
         "drupal",
+        "joomla",
       ]);
     }
 
@@ -103,6 +104,7 @@ const ConnectChannel = observer(
         wordpressConnected,
         tumblrConnected,
         drupalConnected,
+        joomlaConnected,
       } = this.channelsListViewModel;
 
       if (
@@ -114,7 +116,8 @@ const ConnectChannel = observer(
         instagramConnected == true ||
         wordpressConnected == true ||
         tumblrConnected == true ||
-        drupalConnected == true
+        drupalConnected == true ||
+        joomlaConnected == true
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
@@ -138,6 +141,7 @@ const ConnectChannel = observer(
         tumblrConnected,
         mustUpgrade,
         drupalConnected,
+        joomlaConnected,
       } = this.channelsListViewModel;
 
       return (
@@ -158,6 +162,7 @@ const ConnectChannel = observer(
               tumblrConnected={tumblrConnected}
               mustUpgrade={mustUpgrade}
               drupalConnected={drupalConnected}
+              joomlaConnected={joomlaConnected}
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
