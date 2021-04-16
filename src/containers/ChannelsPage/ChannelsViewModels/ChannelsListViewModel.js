@@ -101,10 +101,11 @@ class ChannelsListViewModel {
                 switch (channelUniqueName) {
                   case "fbad": //facebookAdConnected
                       console.log('HA01', responseResult);
-                    if (responseResult.adAccounts.status === "connected") {
+                    if (responseResult.pages.status === "connected") {
                       this.facebookAdsConnected= true;
                       clearInterval(checkConnectionStatusInterval);
-                      this.listFaceBookAdsAccount = responseResult.adAccounts.adAccounts;
+                      console.log('11111111111111111111111111', responseResult);
+                      this.listFaceBookAdsAccount = responseResult.pages.adAccounts;
                     }
                     break;
 
@@ -193,6 +194,7 @@ class ChannelsListViewModel {
 
   checkConnectedChannels(channels) {
     channels.map((channelType) => {
+      console.log('----------------', channelType);
       this.channelsStore.checkConnectedChannels(
         (response) => {
           if (response) {
@@ -219,11 +221,12 @@ class ChannelsListViewModel {
                 break;
 
               case "fbad":
+                console.log('2222222222222222222', responseResult);
                 if (responseResult.pages.status === "connected") {
                   this.facebookAdsConnected = true;
-                  console.log('HA01', responseResult);
+                  console.log('HA02', responseResult);
                   let listAdAccountsConnected = responseResult.adAccounts.connected;
-                  let listAdAccounts = responseResult.adAccounts.adAccounts;
+                  let listAdAccounts = responseResult.pages.adAccounts;
 
                   if (listAdAccountsConnected.length > 0) {
                     this.listFaceBookAdsAccountView = [];
@@ -344,8 +347,8 @@ class ChannelsListViewModel {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookAdAccounts(
           (res) => {
-            console.log('HA01', res);
-            this.listFaceBookAdsAccountView = res.result.adAccounts.adAccounts;
+            console.log('HA03', res);
+            this.listFaceBookAdsAccountView = res.result.pages.adAccounts;
           },
           (error) => {},
           accountIds
