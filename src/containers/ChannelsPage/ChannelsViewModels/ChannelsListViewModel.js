@@ -11,6 +11,8 @@ class ChannelsListViewModel {
 
   facebookConnected = false;
 
+  facebookAdsConnected = false;
+
   youtubeConnected = false;
 
   twitterConnected = false;
@@ -97,6 +99,14 @@ class ChannelsListViewModel {
                 let responseResult = response.result;
 
                 switch (channelUniqueName) {
+                  case "fbad": //facebookAdConnected
+                    if (responseResult.pages.status === "connected") {
+                      this.facebookAdsConnected= true;
+                      clearInterval(checkConnectionStatusInterval);
+                      this.listFaceBookAdsAccount = responseResult.pages.pages;
+                    }
+                    break;
+
                   case "facebook":
                     if (responseResult.pages.status === "connected") {
                       this.facebookConnected = true;

@@ -36,6 +36,10 @@ class ProjectsListViewModel {
 
   listFaceBookFanpageView = null;
 
+  listFaceBookAdsAccount = null;
+
+  listFaceBookAdsAccountView = null;
+
   showModalCMS = true;
 
   isList = true;
