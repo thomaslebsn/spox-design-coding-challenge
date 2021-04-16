@@ -63,6 +63,10 @@ export default class ChannelsStore {
 
       switch (channelType) {
         case "fbad":
+          result = await channelService.checkConnectionStatusFacebookAd(
+              channelType
+          );
+          break;
         case "facebook":
           result = await channelService.checkConnectionStatusFacebook(
             channelType

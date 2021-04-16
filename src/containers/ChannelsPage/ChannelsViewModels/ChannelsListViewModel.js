@@ -105,7 +105,7 @@ class ChannelsListViewModel {
                       this.facebookAdsConnected= true;
                       clearInterval(checkConnectionStatusInterval);
                       console.log('11111111111111111111111111', responseResult);
-                      this.listFaceBookAdsAccount = responseResult.pages.adAccounts;
+                      this.listFaceBookAdsAccount = responseResult.pages.pages;
                     }
                     break;
 
@@ -225,8 +225,8 @@ class ChannelsListViewModel {
                 if (responseResult.pages.status === "connected") {
                   this.facebookAdsConnected = true;
                   console.log('HA02', responseResult);
-                  let listAdAccountsConnected = responseResult.adAccounts.connected;
-                  let listAdAccounts = responseResult.pages.adAccounts;
+                  let listAdAccountsConnected = responseResult.pages.connected;
+                  let listAdAccounts = responseResult.pages.pages;
 
                   if (listAdAccountsConnected.length > 0) {
                     this.listFaceBookAdsAccountView = [];
@@ -348,7 +348,7 @@ class ChannelsListViewModel {
       this.channelsStore.getFacebookAdAccounts(
           (res) => {
             console.log('HA03', res);
-            this.listFaceBookAdsAccountView = res.result.pages.adAccounts;
+            this.listFaceBookAdsAccountView = res.result.pages.pages;
           },
           (error) => {},
           accountIds
