@@ -129,6 +129,9 @@ const ConnectChannel = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        listFacebookAdsAcount,
+        listFaceBookAdsAccountView,
+        facebookAdsConnected,
         youtubeConnected,
         twitterConnected,
         linkedinConnected,
@@ -149,6 +152,10 @@ const ConnectChannel = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              listFaceBookAdsAccountView={
+                listFaceBookAdsAccountView ? listFaceBookAdsAccountView : null
+              }
+              facebookAdsConnected={facebookAdsConnected}
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
@@ -198,6 +205,42 @@ const ConnectChannel = observer(
                 </button>
               }
             />
+          )}
+          {listFacebookAdsAcount && (
+              <ModalComponent
+                  header={"Facebook Ads"}
+                  body={
+                    <div>
+                      <ul className="list-unstyled align-items-center">
+                        {listFacebookAdsAcount &&
+                        listFacebookAdsAcount.map((value, key) => {
+                          return (
+                              <ComponentItemFanpage
+                                  key={key}
+                                  name={value.name}
+                                  handleCheckbox={(e) => {
+                                    this.handleCheckbox(value.id);
+                                  }}
+                              />
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  }
+                  show={showModal}
+                  onHide={this.handleCloseModal}
+                  footer={
+                    <button
+                        onClick={this.handleSaveAdsAccount}
+                        className="btn btn-success w-100"
+                    >
+                      <span>Save</span>
+                      <i className="ms-1">
+                        <FontAwesomeIcon icon={faChevronRight} />
+                      </i>
+                    </button>
+                  }
+              />
           )}
           <div className="d-flex justify-content-end">
             {/* <Button

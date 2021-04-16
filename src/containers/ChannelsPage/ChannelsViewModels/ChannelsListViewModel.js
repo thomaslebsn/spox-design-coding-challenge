@@ -31,6 +31,10 @@ class ChannelsListViewModel {
 
   listFaceBookFanpageView = null;
 
+  listFaceBookAdsAccount = null;
+
+  listFaceBookAdsAccountView = null;
+
   showModalCMS = true;
 
   tumblrConnected = false;
@@ -203,6 +207,25 @@ class ChannelsListViewModel {
                 }
                 break;
 
+              case "fbad":
+                if (responseResult.pages.status === "connected") {
+                  this.facebookAdsConnected = true;
+                  let listAdAccountsConnected = responseResult.pages.connected;
+                  let listAdAccounts = responseResult.pages.pages;
+
+                  if (listAdAccountsConnected.length > 0) {
+                    this.listFaceBookAdsAccountView = [];
+                    listAdAccounts.map((adAccount) => {
+                      if (listAdAccountsConnected.indexOf(adAccount.id) > -1) {
+                        this.listFaceBookAdsAccountView.push(adAccount);
+                      }
+                    });
+                  } else {
+                    this.listFaceBookAdsAccount = listAdAccounts;
+                  }
+                }
+                break;
+
               case "youtube":
                 if (responseResult.connected == 1) {
                   this.youtubeConnected = true;
@@ -279,6 +302,16 @@ class ChannelsListViewModel {
     }
   };
 
+  saveChosseFacebookAdAccount = (accountIds) => {
+    if (accountIds.length > 0) {
+      this.channelsStore.saveChosseFacebookAdAccount(
+          this.callbackOnSuccessListFacebookAdAccount(),
+          this.callbackOnErrorHander,
+          accountIds
+      );
+    }
+  };
+
   callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
@@ -288,6 +321,21 @@ class ChannelsListViewModel {
         },
         (error) => {},
         pageIds
+      );
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
+
+  callbackOnSuccessListFacebookAdAccount = (response, accountIds) => {
+    if (response) {
+      this.tableStatus = PAGE_STATUS.READY;
+      this.channelsStore.getFacebookAdAccounts(
+          (res) => {
+            this.listFaceBookAdsAccountView = res.result.pages.pages;
+          },
+          (error) => {},
+          accountIds
       );
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
