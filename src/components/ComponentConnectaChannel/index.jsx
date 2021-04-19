@@ -2,19 +2,8 @@ import React, { Component, lazy } from "react";
 import {
   Tab,
   Tabs,
-  Button,
-  Nav,
-  Accordion,
-  useAccordionToggle,
 } from "react-bootstrap";
-import history from "../../routes/history";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
-import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import Wordpress from "./Wordpress";
 import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
 import Upgrade from "../Upgrade";
@@ -31,8 +20,6 @@ class ComponentConnectaChannel extends Component {
   channelsListViewModel = null;
   constructor(props) {
     super(props);
-
-    console.log(this.props);
 
     this.channelsListViewModel = this.props.channelsListViewModel;
 
