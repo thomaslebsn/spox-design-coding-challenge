@@ -2,19 +2,8 @@ import React, { Component, lazy } from "react";
 import {
   Tab,
   Tabs,
-  Button,
-  Nav,
-  Accordion,
-  useAccordionToggle,
 } from "react-bootstrap";
-import history from "../../routes/history";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
-import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import Wordpress from "./Wordpress";
 import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
 import Upgrade from "../Upgrade";
@@ -31,8 +20,6 @@ class ComponentConnectaChannel extends Component {
   channelsListViewModel = null;
   constructor(props) {
     super(props);
-
-    console.log(this.props);
 
     this.channelsListViewModel = this.props.channelsListViewModel;
 
@@ -268,6 +255,31 @@ class ComponentConnectaChannel extends Component {
                   </button>
                 </div>
               </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/medium.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Medium
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.props.handleModalCms(CHANNEL_CMS_MEDIUM);
+                    }}
+                    disabled={mediumConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {mediumConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </Tab>
           <Tab eventKey={2} title={"CMS"}>
@@ -286,8 +298,7 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   <ButtonConnect
                     onClick={(e) => {
-                      this.props.setChannelType(CHANNEL_CMS_WORDPRESS);
-                      this.props.handleModalCms("wordpress");
+                      this.props.handleModalCms(CHANNEL_CMS_WORDPRESS);
                     }}
                     isDisabled={wordpressConnected}
                     isConnected={wordpressConnected}
@@ -310,33 +321,10 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   <ButtonConnect
                     onClick={(e) => {
-                      this.props.setChannelType(CHANNEL_CMS_DRUPAL);
-                      this.props.handleModalCms("drupal");
+                      this.props.handleModalCms(CHANNEL_CMS_DRUPAL);
                     }}
                     isDisabled={drupalConnected}
                     isConnected={drupalConnected}
-                  />
-                </div>
-              </div>
-              <div className="bg-white rounded-3 mb-4">
-                <div className="d-flex align-items-center justify-content-between p-3">
-                  <div className="d-flex align-items-center">
-                    <img
-                      className="img-avatar"
-                      src={"/assets/images/medium.png"}
-                      alt=""
-                    />
-                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
-                      Medium
-                    </span>
-                  </div>
-                  <ButtonConnect
-                    onClick={(e) => {
-                      this.props.setChannelType(CHANNEL_CMS_MEDIUM);
-                      this.props.handleModalCms("medium");
-                    }}
-                    isDisabled={mediumConnected}
-                    isConnected={mediumConnected}
                   />
                 </div>
               </div>
@@ -354,21 +342,20 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   <ButtonConnect
                     onClick={(e) => {
-                      this.props.setChannelType(CHANNEL_CMS_JOOMLA);
-                      this.props.handleModalCms("joomla");
+                      this.props.handleModalCms(CHANNEL_CMS_JOOMLA);
                     }}
                     isDisabled={joomlaConnected}
                     isConnected={joomlaConnected}
                   />
                 </div>
               </div>
-              <LoginChannelCMSFormModal
+              {/* <LoginChannelCMSFormModal
                 handleModalCms={handleModalCms}
                 loginCMSChannelFormModalViewModel={
                   this.loginCMSChannelFormModalViewModel
                 }
                 isModalCms={isModalCms}
-              />
+              /> */}
             </div>
           </Tab>
           <Tab eventKey={3} title={"Email Marketing"}>
@@ -401,7 +388,13 @@ class ComponentConnectaChannel extends Component {
             </div>
           </Tab>
         </Tabs>
-
+        <LoginChannelCMSFormModal
+                handleModalCms={handleModalCms}
+                loginCMSChannelFormModalViewModel={
+                  this.loginCMSChannelFormModalViewModel
+                }
+                isModalCms={isModalCms}
+              />
         <ModalComponent
           show={this.props.mustUpgrade}
           onHide={this.closeModalUpgrade}
