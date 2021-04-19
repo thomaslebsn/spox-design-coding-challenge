@@ -87,12 +87,9 @@ const ConnectChannels = observer(
       });
     };
 
-    handleModalCms = () => {
-      this.loginCMSChannelFormModalViewModel.openModal();
-    };
-
-    setChannelType = (type) => {
+    handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
+      this.loginCMSChannelFormModalViewModel.openModal();
     };
 
     render() {
@@ -141,7 +138,6 @@ const ConnectChannels = observer(
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
-              setChannelType={this.setChannelType}
             />
           </div>
           {listFaceBookFanpage && (
