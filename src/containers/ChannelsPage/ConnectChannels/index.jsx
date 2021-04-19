@@ -111,7 +111,7 @@ const ConnectChannels = observer(
         );
 
         this.setState({
-            showModalFbad: false,
+            showModal: false,
         });
     };
 
@@ -238,7 +238,7 @@ const ConnectChannels = observer(
                         </div>
                     }
                     show={showModal}
-                    onHide={this.handleCloseModalFbad}
+                    onHide={this.handleCloseModal}
                     footer={
                         <button
                             onClick={this.handleSaveAdsAccount}
