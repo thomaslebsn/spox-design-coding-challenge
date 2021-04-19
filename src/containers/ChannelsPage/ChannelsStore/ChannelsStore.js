@@ -29,7 +29,6 @@ export default class ChannelsStore {
         case "tumblr":
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
-
         default:
           break;
       }

@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { notify } from "../../../components/Toast";
+import { CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
 
 class ChannelsListViewModel {
   channelsStore = null;
@@ -47,11 +48,8 @@ class ChannelsListViewModel {
 
   drupalConnected = false;
 
-  /**
-   * Wordpress: 1
-   * Drupal: 2
-   */
-  cmsChannelType = 1;
+
+  cmsChannelType = CHANNEL_CMS_WORDPRESS;
 
   constructor(channelsStore) {
     makeAutoObservable(this);

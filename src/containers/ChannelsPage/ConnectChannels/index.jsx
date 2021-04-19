@@ -39,12 +39,12 @@ const ConnectChannels = observer(
         : null;
 
       this.state = {
-        channels: [],
-        showModal: true,
-        showModalFbad: true,
-        getIDSFanpage: [],
-        getIDSAdAccount: [],
-        isWordpressConnected: false,
+          channels: [],
+          showModal: true,
+          showModalFbad: true,
+          getIDSFanpage: [],
+          getIDSAdAccount: [],
+          isWordpressConnected: false,
       };
 
       //call check connected channels
@@ -61,7 +61,7 @@ const ConnectChannels = observer(
         "drupal",
         "medium",
         "joomla",
-        "fbad"
+        "fbad",
       ]);
     }
 
@@ -74,6 +74,12 @@ const ConnectChannels = observer(
       });
     };
 
+    handleCloseModal = () => {
+      this.setState({
+        showModal: false,
+      });
+    };
+
       handleCheckboxAdAccounts = (id) => {
           let getIDSAdAccount = this.state.getIDSAdAccount;
           getIDSAdAccount.push(id);
@@ -83,19 +89,25 @@ const ConnectChannels = observer(
           });
       };
 
-    handleCloseModal = () => {
-      this.setState({
-        showModal: false,
-      });
-    };
-
       handleCloseModalFbad = () => {
           this.setState({
               showModalFbad: false,
           });
       };
 
-    handleSaveFanpage = () => {
+      handleSaveAdsAccount = () => {
+          this.channelsListViewModel.saveChosseFacebookAdAccount(
+              this.state.getIDSAdAccount
+          );
+
+          this.setState({
+              showModal: false,
+          });
+      };
+
+
+
+      handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
         this.state.getIDSFanpage
       );
@@ -105,22 +117,9 @@ const ConnectChannels = observer(
       });
     };
 
-    handleSaveAdsAccount = () => {
-        this.channelsListViewModel.saveChosseFacebookAdAccount(
-            this.state.getIDSAdAccount
-        );
-
-        this.setState({
-            showModal: false,
-        });
-    };
-
-    handleModalCms = () => {
-      this.loginCMSChannelFormModalViewModel.openModal();
-    };
-
-    setChannelType = (type) => {
+    handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
+      this.loginCMSChannelFormModalViewModel.openModal();
     };
 
     render() {
@@ -130,10 +129,10 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
-        listFacebookAdsAccount,
-        listFacebookAdsAccountView,
-        facebookAdsConnected,
-        youtubeConnected,
+          listFacebookAdsAccount,
+          listFacebookAdsAccountView,
+          facebookAdsConnected,
+          youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -162,6 +161,7 @@ const ConnectChannels = observer(
               }
               facebookConnected={facebookConnected}
               facebookAdsConnected={facebookAdsConnected}
+
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
@@ -176,7 +176,6 @@ const ConnectChannels = observer(
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
-              setChannelType={this.setChannelType}
             />
           </div>
           {listFaceBookFanpage && (
@@ -251,6 +250,7 @@ const ConnectChannels = observer(
                     }
                 />
             )}
+
         </div>
       );
     }

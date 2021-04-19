@@ -11,8 +11,6 @@ import {
 class LoginCMSChannelFormModalViewModel {
   show = false;
   projectStore = null;
-  isConnectWordpressSuccess = false;
-  isConnectedDrupalSuccess = false;
   cmsChannelType = CHANNEL_CMS_WORDPRESS;
   channelsListViewModel = null;
 
