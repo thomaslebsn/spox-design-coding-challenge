@@ -55,6 +55,9 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
   toConnectedChannelItemOnContentForm = () => {
     let icoImage = null;
     switch (this.channelName.toLowerCase()) {
+      case "fbad":
+        icoImage = "/assets/images/facebook.png";
+        break;
       case "facebook":
         icoImage = "/assets/images/facebook.png";
         break;

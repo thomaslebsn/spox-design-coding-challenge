@@ -16,6 +16,7 @@ export default class ChannelsStore {
       let response = null;
 
       switch (channelUniqueName) {
+        case "fbad":
         case "facebook":
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
@@ -60,6 +61,11 @@ export default class ChannelsStore {
       let result = null;
 
       switch (channelType) {
+        case "fbad":
+          result = await channelService.checkConnectionStatusFacebookAd(
+              channelType
+          );
+          break;
         case "facebook":
           result = await channelService.checkConnectionStatusFacebook(
             channelType
@@ -132,6 +138,35 @@ export default class ChannelsStore {
     }
   }
 
+  async saveChosseFacebookAdAccount(
+      callbackOnSuccess,
+      callbackOnError,
+      pageIds
+  ) {
+    try {
+      console.log("store pageIds", pageIds);
+      const channelService = new EasiiOrganisationChannelApiService();
+      const response = await channelService.connectMultiAdAccount(pageIds);
+
+      console.log("store response", response);
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, pageIds);
+        });
+      } else {
+        callbackOnError({
+          message:
+              "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
   async getFacebookFanpages(callbackOnSuccess, callbackOnError, pageIds) {
     try {
       const channelService = new EasiiOrganisationChannelApiService();
@@ -144,6 +179,28 @@ export default class ChannelsStore {
         callbackOnError({
           message:
             "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
+  async getFacebookAdAccounts(callbackOnSuccess, callbackOnError, accountIds) {
+    try {
+      const channelService = new EasiiOrganisationChannelApiService();
+      const response = await channelService.getListAdAccounts(accountIds);
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, accountIds);
+        });
+      } else {
+        callbackOnError({
+          message:
+              "[intervalAskForConnectedChannels] - Something went wrong from Server response",
         });
       }
     } catch (error) {

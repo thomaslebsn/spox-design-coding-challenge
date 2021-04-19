@@ -46,7 +46,9 @@ const ConnectChannel = observer(
       this.state = {
         channels: [],
         showModal: true,
+        showModalFbad: true,
         getIDSFanpage: [],
+        getIDSAdAccount: [],
         isWordpressConnected: false,
       };
 
@@ -61,6 +63,7 @@ const ConnectChannel = observer(
         "tumblr",
         "drupal",
         "joomla",
+          "fbad"
       ]);
     }
 
@@ -70,6 +73,15 @@ const ConnectChannel = observer(
 
       this.setState({
         getIDFanpage: getIDSFanpage,
+      });
+    };
+
+    handleCheckboxAdAccounts = (id) => {
+      let getIDSAdAccount = this.state.getIDSAdAccount;
+      getIDSAdAccount.push(id);
+
+      this.setState({
+        getIDSAdAccount: getIDSAdAccount,
       });
     };
 
@@ -88,6 +100,17 @@ const ConnectChannel = observer(
         showModal: false,
       });
     };
+
+    handleSaveAdsAccount = () => {
+      this.channelsListViewModel.saveChosseFacebookAdAccount(
+          this.state.getIDSAdAccount
+      );
+
+      this.setState({
+        showModal: false,
+      });
+    };
+
 
     handleModalCms = () => {
       this.loginCMSChannelFormModalViewModel.openModal();
@@ -132,6 +155,9 @@ const ConnectChannel = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        listFacebookAdsAccount,
+        listFacebookAdsAccountView,
+        facebookAdsConnected,
         youtubeConnected,
         twitterConnected,
         linkedinConnected,
@@ -153,6 +179,10 @@ const ConnectChannel = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              listFacebookAdsAccountView={
+                listFacebookAdsAccountView ? listFacebookAdsAccountView : null
+              }
+              facebookAdsConnected={facebookAdsConnected}
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
@@ -203,6 +233,42 @@ const ConnectChannel = observer(
                 </button>
               }
             />
+          )}
+          {listFacebookAdsAccount && (
+              <ModalComponent
+                  header={"Facebook Ads"}
+                  body={
+                    <div>
+                      <ul className="list-unstyled align-items-center">
+                        {listFacebookAdsAccount &&
+                        listFacebookAdsAccount.map((value, key) => {
+                          return (
+                              <ComponentItemFanpage
+                                  key={key}
+                                  name={value.name}
+                                  handleCheckbox={(e) => {
+                                    this.handleCheckboxAdAccounts(value.id);
+                                  }}
+                              />
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  }
+                  show={showModal}
+                  onHide={this.handleCloseModal}
+                  footer={
+                    <button
+                        onClick={this.handleSaveAdsAccount}
+                        className="btn btn-success w-100"
+                    >
+                      <span>Save</span>
+                      <i className="ms-1">
+                        <FontAwesomeIcon icon={faChevronRight} />
+                      </i>
+                    </button>
+                  }
+              />
           )}
           <div className="d-flex justify-content-end">
             {/* <Button

@@ -39,10 +39,12 @@ const ConnectChannels = observer(
         : null;
 
       this.state = {
-        channels: [],
-        showModal: true,
-        getIDSFanpage: [],
-        isWordpressConnected: false,
+          channels: [],
+          showModal: true,
+          showModalFbad: true,
+          getIDSFanpage: [],
+          getIDSAdAccount: [],
+          isWordpressConnected: false,
       };
 
       //call check connected channels
@@ -58,7 +60,8 @@ const ConnectChannels = observer(
         "tumblr",
         "drupal",
         "medium",
-        "joomla"
+        "joomla",
+        "fbad",
       ]);
     }
 
@@ -77,7 +80,34 @@ const ConnectChannels = observer(
       });
     };
 
-    handleSaveFanpage = () => {
+      handleCheckboxAdAccounts = (id) => {
+          let getIDSAdAccount = this.state.getIDSAdAccount;
+          getIDSAdAccount.push(id);
+
+          this.setState({
+              getIDSAdAccount: getIDSAdAccount,
+          });
+      };
+
+      handleCloseModalFbad = () => {
+          this.setState({
+              showModalFbad: false,
+          });
+      };
+
+      handleSaveAdsAccount = () => {
+          this.channelsListViewModel.saveChosseFacebookAdAccount(
+              this.state.getIDSAdAccount
+          );
+
+          this.setState({
+              showModal: false,
+          });
+      };
+
+
+
+      handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
         this.state.getIDSFanpage
       );
@@ -99,7 +129,10 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
-        youtubeConnected,
+          listFacebookAdsAccount,
+          listFacebookAdsAccountView,
+          facebookAdsConnected,
+          youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -123,7 +156,12 @@ const ConnectChannels = observer(
               listFaceBookFanpageView={
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
+              listFacebookAdsAccountView={
+                  listFacebookAdsAccountView ? listFacebookAdsAccountView : null
+              }
               facebookConnected={facebookConnected}
+              facebookAdsConnected={facebookAdsConnected}
+
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
@@ -176,6 +214,43 @@ const ConnectChannels = observer(
               }
             />
           )}
+            {listFacebookAdsAccount && (
+                <ModalComponent
+                    header={"Facebook Ad Accounts"}
+                    body={
+                        <div>
+                            <ul className="list-unstyled align-items-center">
+                                {listFacebookAdsAccount &&
+                                listFacebookAdsAccount.map((value, key) => {
+                                    return (
+                                        <ComponentItemFanpage
+                                            key={key}
+                                            name={value.name}
+                                            handleCheckbox={(e) => {
+                                                this.handleCheckboxAdAccounts(value.id);
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    }
+                    show={showModal}
+                    onHide={this.handleCloseModal}
+                    footer={
+                        <button
+                            onClick={this.handleSaveAdsAccount}
+                            className="btn btn-success w-100"
+                        >
+                            <span>Save</span>
+                            <i className="ms-1">
+                                <FontAwesomeIcon icon={faChevronRight} />
+                            </i>
+                        </button>
+                    }
+                />
+            )}
+
         </div>
       );
     }

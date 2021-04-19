@@ -51,6 +51,9 @@ class ContentModel {
       this.channelAttachments.getItems().map((element) => {
         let icoImage = null;
         switch (element.channelName.toLowerCase()) {
+          case "fbad":
+            icoImage = "/assets/images/facebook.png";
+            break;
           case "facebook":
             icoImage = "/assets/images/facebook.png";
             break;

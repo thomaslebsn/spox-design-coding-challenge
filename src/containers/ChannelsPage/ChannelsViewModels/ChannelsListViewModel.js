@@ -12,6 +12,8 @@ class ChannelsListViewModel {
 
   facebookConnected = false;
 
+  facebookAdsConnected = false;
+
   youtubeConnected = false;
 
   twitterConnected = false;
@@ -31,6 +33,10 @@ class ChannelsListViewModel {
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
+
+  listFacebookAdsAccount = null;
+
+  listFacebookAdsAccountView = null;
 
   showModalCMS = true;
 
@@ -91,6 +97,14 @@ class ChannelsListViewModel {
                 let responseResult = response.result;
 
                 switch (channelUniqueName) {
+                  case "fbad": //facebookAdConnected
+                    if (responseResult.pages.status === "connected") {
+                      this.facebookAdsConnected= true;
+                      clearInterval(checkConnectionStatusInterval);
+                      this.listFacebookAdsAccount = responseResult.pages.adAccounts;
+                    }
+                    break;
+
                   case "facebook":
                     if (responseResult.pages.status === "connected") {
                       this.facebookConnected = true;
@@ -176,6 +190,7 @@ class ChannelsListViewModel {
 
   checkConnectedChannels(channels) {
     channels.map((channelType) => {
+      console.log('----------------', channelType);
       this.channelsStore.checkConnectedChannels(
         (response) => {
           if (response) {
@@ -197,6 +212,25 @@ class ChannelsListViewModel {
                     });
                   } else {
                     this.listFaceBookFanpage = listFanpage;
+                  }
+                }
+                break;
+
+              case "fbad":
+                if (responseResult.pages.status === "connected") {
+                  this.facebookAdsConnected = true;
+                  let listAdAccountsConnected = responseResult.pages.connected;
+                  let listAdAccounts = responseResult.pages.adAccounts;
+
+                  if (listAdAccountsConnected.length > 0) {
+                    this.listFacebookAdsAccountView = [];
+                    listAdAccounts.map((adAccount) => {
+                      if (listAdAccountsConnected.indexOf(adAccount.id) > -1) {
+                        this.listFacebookAdsAccountView.push(adAccount);
+                      }
+                    });
+                  } else {
+                    this.listFacebookAdsAccount = listAdAccounts;
                   }
                 }
                 break;
@@ -277,6 +311,16 @@ class ChannelsListViewModel {
     }
   };
 
+  saveChosseFacebookAdAccount = (accountIds) => {
+    if (accountIds.length > 0) {
+      this.channelsStore.saveChosseFacebookAdAccount(
+          this.callbackOnSuccessListFacebookAdAccount(),
+          this.callbackOnErrorHander,
+          accountIds
+      );
+    }
+  };
+
   callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
@@ -286,6 +330,23 @@ class ChannelsListViewModel {
         },
         (error) => {},
         pageIds
+      );
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
+
+  callbackOnSuccessListFacebookAdAccount = (response, accountIds) => {
+    console.log('HA03 AAAAAAAAAAAA', response);
+    if (response) {
+      this.tableStatus = PAGE_STATUS.READY;
+      this.channelsStore.getFacebookAdAccounts(
+          (res) => {
+            console.log('HA03', res);
+            this.listFacebookAdsAccountView = res.result.pages.adAccounts;
+          },
+          (error) => {},
+          accountIds
       );
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;

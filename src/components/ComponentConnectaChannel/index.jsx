@@ -56,6 +56,8 @@ class ComponentConnectaChannel extends Component {
       channelsListViewModel,
       listFaceBookFanpageView,
       facebookConnected,
+      listFacebookAdsAccountView,
+      facebookAdsConnected,
       youtubeConnected,
       twitterConnected,
       linkedinConnected,
@@ -282,8 +284,63 @@ class ComponentConnectaChannel extends Component {
               </div>
             </div>
           </Tab>
-          <Tab eventKey={2} title={"CMS"}>
+          <Tab eventKey={2} title={"Advertising"}>
             <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                        className="img-avatar"
+                        src={"/assets/images/facebook.png"}
+                        alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Facebook Ads
+                    </span>
+                  </div>
+                  <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel("fbad");
+                      }}
+                      disabled={facebookAdsConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {facebookAdsConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+                {listFacebookAdsAccountView && (
+                    <div className="p-3">
+                      <div className={`list_content`}>
+                        <div className="py-2 px-3 bg-blue d-flex rounded-2">
+                          <div className="col-4">Name</div>
+                          <div className="col-6 text-end">Action</div>
+                        </div>
+                        <div className={`list_main `}>
+                          {listFacebookAdsAccountView.map((value, key) => {
+                            return (
+                                <div
+                                    key={key}
+                                    className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
+                                >
+                                  <div className="col-4">
+                                    <div className="d-flex align-items-center">
+                                      <span className="ms-2">{value.name}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                )}
+              </div>
+            </div>
+          </Tab>
+          <Tab eventKey={3} title={"CMS"}>
+          <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
@@ -358,7 +415,7 @@ class ComponentConnectaChannel extends Component {
               /> */}
             </div>
           </Tab>
-          <Tab eventKey={3} title={"Email Marketing"}>
+          <Tab eventKey={4} title={"Email Marketing"}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
