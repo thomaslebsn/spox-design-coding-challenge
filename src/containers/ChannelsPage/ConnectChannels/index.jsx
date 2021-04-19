@@ -41,6 +41,7 @@ const ConnectChannels = observer(
       this.state = {
         channels: [],
         showModal: true,
+        showModalFbad: true,
         getIDSFanpage: [],
         getIDSAdAccount: [],
         isWordpressConnected: false,
@@ -60,27 +61,39 @@ const ConnectChannels = observer(
         "drupal",
         "medium",
         "joomla",
-          "fbad"
+        "fbad"
       ]);
     }
 
     handleCheckbox = (id) => {
       let getIDSFanpage = this.state.getIDSFanpage;
-      let getIDSAdAccount = this.state.getIDSAdAccount;
       getIDSFanpage.push(id);
-      getIDSAdAccount.push(id);
 
       this.setState({
         getIDFanpage: getIDSFanpage,
-        getIDSAdAccount: getIDSAdAccount,
       });
     };
+
+      handleCheckboxAdAccounts = (id) => {
+          let getIDSAdAccount = this.state.getIDSAdAccount;
+          getIDSAdAccount.push(id);
+
+          this.setState({
+              getIDSAdAccount: getIDSAdAccount,
+          });
+      };
 
     handleCloseModal = () => {
       this.setState({
         showModal: false,
       });
     };
+
+      handleCloseModalFbad = () => {
+          this.setState({
+              showModalFbad: false,
+          });
+      };
 
     handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
@@ -98,7 +111,7 @@ const ConnectChannels = observer(
         );
 
         this.setState({
-            showModal: false,
+            showModalFbad: false,
         });
     };
 
@@ -202,9 +215,10 @@ const ConnectChannels = observer(
               }
             />
           )}
+            {console.log('Debug listFaceBookAdsAccountView', listFaceBookAdsAccountView)}
             {listFacebookAdsAcount && (
                 <ModalComponent
-                    header={"Facebook Ads"}
+                    header={"Facebook Ad Accounts"}
                     body={
                         <div>
                             <ul className="list-unstyled align-items-center">
@@ -215,7 +229,7 @@ const ConnectChannels = observer(
                                             key={key}
                                             name={value.name}
                                             handleCheckbox={(e) => {
-                                                this.handleCheckbox(value.id);
+                                                this.handleCheckboxAdAccounts(value.id);
                                             }}
                                         />
                                     );
@@ -223,8 +237,8 @@ const ConnectChannels = observer(
                             </ul>
                         </div>
                     }
-                    show={showModal}
-                    onHide={this.handleCloseModal}
+                    show={this.state.showModalFbad}
+                    onHide={this.handleCloseModalFbad}
                     footer={
                         <button
                             onClick={this.handleSaveAdsAccount}

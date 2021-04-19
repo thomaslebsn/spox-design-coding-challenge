@@ -100,12 +100,12 @@ class ChannelsListViewModel {
 
                 switch (channelUniqueName) {
                   case "fbad": //facebookAdConnected
-                      console.log('HA01', responseResult);
+                      console.log('ZZZZZZZZZZZZZZZZZZZZZZZ', response);
                     if (responseResult.pages.status === "connected") {
                       this.facebookAdsConnected= true;
                       clearInterval(checkConnectionStatusInterval);
                       console.log('11111111111111111111111111', responseResult);
-                      this.listFaceBookAdsAccount = responseResult.pages.pages;
+                      this.listFaceBookAdsAccount = responseResult.pages.adAccounts;
                     }
                     break;
 
@@ -226,7 +226,8 @@ class ChannelsListViewModel {
                   this.facebookAdsConnected = true;
                   console.log('HA02', responseResult);
                   let listAdAccountsConnected = responseResult.pages.connected;
-                  let listAdAccounts = responseResult.pages.pages;
+                  let listAdAccounts = responseResult.pages.adAccounts;
+                  console.log('AD ACCOUNTS ARE: ', listAdAccounts);
 
                   if (listAdAccountsConnected.length > 0) {
                     this.listFaceBookAdsAccountView = [];
@@ -343,12 +344,13 @@ class ChannelsListViewModel {
   };
 
   callbackOnSuccessListFacebookAdAccount = (response, accountIds) => {
+    console.log('HA03 AAAAAAAAAAAA', response);
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookAdAccounts(
           (res) => {
             console.log('HA03', res);
-            this.listFaceBookAdsAccountView = res.result.pages.pages;
+            this.listFaceBookAdsAccountView = res.result.pages.adAccounts;
           },
           (error) => {},
           accountIds

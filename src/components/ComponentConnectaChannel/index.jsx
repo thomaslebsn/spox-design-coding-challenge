@@ -306,6 +306,7 @@ class ComponentConnectaChannel extends Component {
                           <div className="col-6 text-end">Action</div>
                         </div>
                         <div className={`list_main `}>
+                          {console.log('listFaceBookAdsAccountView AAAAAAA', listFaceBookAdsAccountView)}
                           {listFaceBookAdsAccountView.map((value, key) => {
                             return (
                                 <div
