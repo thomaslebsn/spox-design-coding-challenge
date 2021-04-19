@@ -215,7 +215,6 @@ const ConnectChannels = observer(
               }
             />
           )}
-            {console.log('Debug listFacebookAdsAccountView', listFacebookAdsAccount)}
             {listFacebookAdsAccount && (
                 <ModalComponent
                     header={"Facebook Ad Accounts"}

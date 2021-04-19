@@ -46,7 +46,9 @@ const ConnectChannel = observer(
       this.state = {
         channels: [],
         showModal: true,
+        showModalFbad: true,
         getIDSFanpage: [],
+        getIDSAdAccount: [],
         isWordpressConnected: false,
       };
 
@@ -61,6 +63,7 @@ const ConnectChannel = observer(
         "tumblr",
         "drupal",
         "joomla",
+          "fbad"
       ]);
     }
 
@@ -70,6 +73,15 @@ const ConnectChannel = observer(
 
       this.setState({
         getIDFanpage: getIDSFanpage,
+      });
+    };
+
+    handleCheckboxAdAccounts = (id) => {
+      let getIDSAdAccount = this.state.getIDSAdAccount;
+      getIDSAdAccount.push(id);
+
+      this.setState({
+        getIDSAdAccount: getIDSAdAccount,
       });
     };
 
@@ -88,6 +100,17 @@ const ConnectChannel = observer(
         showModal: false,
       });
     };
+
+    handleSaveAdsAccount = () => {
+      this.channelsListViewModel.saveChosseFacebookAdAccount(
+          this.state.getIDSAdAccount
+      );
+
+      this.setState({
+        showModal: false,
+      });
+    };
+
 
     handleModalCms = () => {
       this.loginCMSChannelFormModalViewModel.openModal();
@@ -224,7 +247,7 @@ const ConnectChannel = observer(
                                   key={key}
                                   name={value.name}
                                   handleCheckbox={(e) => {
-                                    this.handleCheckbox(value.id);
+                                    this.handleCheckboxAdAccounts(value.id);
                                   }}
                               />
                           );
