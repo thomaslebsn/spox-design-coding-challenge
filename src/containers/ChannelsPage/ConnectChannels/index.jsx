@@ -130,8 +130,8 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
-        listFacebookAdsAcount,
-        listFaceBookAdsAccountView,
+        listFacebookAdsAccount,
+        listFacebookAdsAccountView,
         facebookAdsConnected,
         youtubeConnected,
         twitterConnected,
@@ -157,8 +157,8 @@ const ConnectChannels = observer(
               listFaceBookFanpageView={
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
-              listFaceBookAdsAccountView={
-                  listFaceBookAdsAccountView ? listFaceBookAdsAccountView : null
+              listFacebookAdsAccountView={
+                  listFacebookAdsAccountView ? listFacebookAdsAccountView : null
               }
               facebookConnected={facebookConnected}
               facebookAdsConnected={facebookAdsConnected}
@@ -215,15 +215,15 @@ const ConnectChannels = observer(
               }
             />
           )}
-            {console.log('Debug listFaceBookAdsAccountView', listFaceBookAdsAccountView)}
-            {listFacebookAdsAcount && (
+            {console.log('Debug listFacebookAdsAccountView', listFacebookAdsAccount)}
+            {listFacebookAdsAccount && (
                 <ModalComponent
                     header={"Facebook Ad Accounts"}
                     body={
                         <div>
                             <ul className="list-unstyled align-items-center">
-                                {listFacebookAdsAcount &&
-                                listFacebookAdsAcount.map((value, key) => {
+                                {listFacebookAdsAccount &&
+                                listFacebookAdsAccount.map((value, key) => {
                                     return (
                                         <ComponentItemFanpage
                                             key={key}
@@ -237,7 +237,7 @@ const ConnectChannels = observer(
                             </ul>
                         </div>
                     }
-                    show={this.state.showModalFbad}
+                    show={showModal}
                     onHide={this.handleCloseModalFbad}
                     footer={
                         <button

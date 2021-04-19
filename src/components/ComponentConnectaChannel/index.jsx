@@ -69,7 +69,7 @@ class ComponentConnectaChannel extends Component {
       channelsListViewModel,
       listFaceBookFanpageView,
       facebookConnected,
-      listFaceBookAdsAccountView,
+      listFacebookAdsAccountView,
       facebookAdsConnected,
       youtubeConnected,
       twitterConnected,
@@ -298,7 +298,7 @@ class ComponentConnectaChannel extends Component {
                     </span>
                   </button>
                 </div>
-                {listFaceBookAdsAccountView && (
+                {listFacebookAdsAccountView && (
                     <div className="p-3">
                       <div className={`list_content`}>
                         <div className="py-2 px-3 bg-blue d-flex rounded-2">
@@ -306,8 +306,8 @@ class ComponentConnectaChannel extends Component {
                           <div className="col-6 text-end">Action</div>
                         </div>
                         <div className={`list_main `}>
-                          {console.log('listFaceBookAdsAccountView AAAAAAA', listFaceBookAdsAccountView)}
-                          {listFaceBookAdsAccountView.map((value, key) => {
+                          {console.log('listFacebookAdsAccountView AAAAAAA', listFacebookAdsAccountView)}
+                          {listFacebookAdsAccountView.map((value, key) => {
                             return (
                                 <div
                                     key={key}

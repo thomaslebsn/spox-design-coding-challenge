@@ -33,9 +33,9 @@ class ChannelsListViewModel {
 
   listFaceBookFanpageView = null;
 
-  listFaceBookAdsAccount = null;
+  listFacebookAdsAccount = null;
 
-  listFaceBookAdsAccountView = null;
+  listFacebookAdsAccountView = null;
 
   showModalCMS = true;
 
@@ -100,12 +100,10 @@ class ChannelsListViewModel {
 
                 switch (channelUniqueName) {
                   case "fbad": //facebookAdConnected
-                      console.log('ZZZZZZZZZZZZZZZZZZZZZZZ', response);
                     if (responseResult.pages.status === "connected") {
                       this.facebookAdsConnected= true;
                       clearInterval(checkConnectionStatusInterval);
-                      console.log('11111111111111111111111111', responseResult);
-                      this.listFaceBookAdsAccount = responseResult.pages.adAccounts;
+                      this.listFacebookAdsAccount = responseResult.pages.adAccounts;
                     }
                     break;
 
@@ -221,23 +219,20 @@ class ChannelsListViewModel {
                 break;
 
               case "fbad":
-                console.log('2222222222222222222', response);
                 if (responseResult.pages.status === "connected") {
                   this.facebookAdsConnected = true;
-                  console.log('HA02', responseResult);
                   let listAdAccountsConnected = responseResult.pages.connected;
                   let listAdAccounts = responseResult.pages.adAccounts;
-                  console.log('AD ACCOUNTS ARE: ', listAdAccounts);
 
                   if (listAdAccountsConnected.length > 0) {
-                    this.listFaceBookAdsAccountView = [];
+                    this.listFacebookAdsAccountView = [];
                     listAdAccounts.map((adAccount) => {
                       if (listAdAccountsConnected.indexOf(adAccount.id) > -1) {
-                        this.listFaceBookAdsAccountView.push(adAccount);
+                        this.listFacebookAdsAccountView.push(adAccount);
                       }
                     });
                   } else {
-                    this.listFaceBookAdsAccount = listAdAccounts;
+                    this.listFacebookAdsAccount = listAdAccounts;
                   }
                 }
                 break;
@@ -350,7 +345,7 @@ class ChannelsListViewModel {
       this.channelsStore.getFacebookAdAccounts(
           (res) => {
             console.log('HA03', res);
-            this.listFaceBookAdsAccountView = res.result.pages.adAccounts;
+            this.listFacebookAdsAccountView = res.result.pages.adAccounts;
           },
           (error) => {},
           accountIds

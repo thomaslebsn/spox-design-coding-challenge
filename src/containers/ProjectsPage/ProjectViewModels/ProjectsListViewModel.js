@@ -38,9 +38,9 @@ class ProjectsListViewModel {
 
   listFaceBookFanpageView = null;
 
-  listFaceBookAdsAccount = null;
+  listFacebookAdsAccount = null;
 
-  listFaceBookAdsAccountView = null;
+  listFacebookAdsAccountView = null;
 
   showModalCMS = true;
 

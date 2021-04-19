@@ -132,8 +132,8 @@ const ConnectChannel = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
-        listFacebookAdsAcount,
-        listFaceBookAdsAccountView,
+        listFacebookAdsAccount,
+        listFacebookAdsAccountView,
         facebookAdsConnected,
         youtubeConnected,
         twitterConnected,
@@ -156,8 +156,8 @@ const ConnectChannel = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
-              listFaceBookAdsAccountView={
-                listFaceBookAdsAccountView ? listFaceBookAdsAccountView : null
+              listFacebookAdsAccountView={
+                listFacebookAdsAccountView ? listFacebookAdsAccountView : null
               }
               facebookAdsConnected={facebookAdsConnected}
               youtubeConnected={youtubeConnected}
@@ -211,14 +211,14 @@ const ConnectChannel = observer(
               }
             />
           )}
-          {listFacebookAdsAcount && (
+          {listFacebookAdsAccount && (
               <ModalComponent
                   header={"Facebook Ads"}
                   body={
                     <div>
                       <ul className="list-unstyled align-items-center">
-                        {listFacebookAdsAcount &&
-                        listFacebookAdsAcount.map((value, key) => {
+                        {listFacebookAdsAccount &&
+                        listFacebookAdsAccount.map((value, key) => {
                           return (
                               <ComponentItemFanpage
                                   key={key}
