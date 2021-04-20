@@ -12,10 +12,6 @@ const FormSelectionPersona = observer(
     constructor(props) {
       super(props);
 
-      this.state = {
-        isFilterPersona: null,
-      };
-
       this.field = this.props.field;
 
       this.viewModel = this.field.viewModel;

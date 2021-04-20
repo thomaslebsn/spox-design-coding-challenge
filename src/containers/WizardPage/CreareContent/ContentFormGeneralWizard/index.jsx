@@ -96,6 +96,26 @@ const ContentFormGeneralWizard = observer(
             addConnectChannlesBtn={false}
             isBackWizardStep={true}
             previousWizardStep={this.previousWizardStep}
+            getDataSelectOptionsProject={
+              projectTableSelectionModalViewModel
+                ? projectTableSelectionModalViewModel.getDataSelectOptions
+                : []
+            }
+            getValueSelectedProject={
+              projectTableSelectionModalViewModel
+                ? projectTableSelectionModalViewModel.getValueSelected
+                : []
+            }
+            getDataSelectOptionsCampaign={
+              campaignTableSelectionModalViewModel
+                ? campaignTableSelectionModalViewModel.getDataSelectOptions
+                : []
+            }
+            getValueSelectedCampaign={
+              campaignTableSelectionModalViewModel
+                ? campaignTableSelectionModalViewModel.getValueSelected
+                : []
+            }
           />
           <ContentPreviewPersona
             personaTableSelectionModalViewModel={

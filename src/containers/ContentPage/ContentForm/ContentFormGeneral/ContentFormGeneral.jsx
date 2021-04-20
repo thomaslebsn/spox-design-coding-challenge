@@ -73,6 +73,26 @@ const ContentFormGeneral = observer(
             this.campaignTableSelectionModalViewModel
           }
           addConnectChannlesBtn={true}
+          getDataSelectOptionsProject={
+            this.projectTableSelectionModalViewModel
+              ? this.projectTableSelectionModalViewModel.getDataSelectOptions
+              : []
+          }
+          getValueSelectedProject={
+            this.projectTableSelectionModalViewModel
+              ? this.projectTableSelectionModalViewModel.getValueSelected
+              : []
+          }
+          getDataSelectOptionsCampaign={
+            this.campaignTableSelectionModalViewModel
+              ? this.campaignTableSelectionModalViewModel.getDataSelectOptions
+              : []
+          }
+          getValueSelectedCampaign={
+            this.campaignTableSelectionModalViewModel
+              ? this.campaignTableSelectionModalViewModel.getValueSelected
+              : []
+          }
         />
       );
     }
