@@ -1,11 +1,7 @@
 import React, { Component, lazy } from "react";
 
 import { observer } from "mobx-react";
-
-import ModalComponent from "../../../components/Modal";
 import SelectComponent from "../../../components/Select";
-
-import { PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from "../../../constants/PersonaModule";
 
 import "./index.scss";
 
@@ -14,9 +10,7 @@ const FormSelection = observer(
     constructor(props) {
       super(props);
 
-      this.state = {
-        isFilterPersona: null,
-      };
+      this.state = {};
 
       this.field = this.props.field;
 

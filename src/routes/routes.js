@@ -1,12 +1,9 @@
 import React, { lazy } from "react";
 
-// const HomePage = lazy(() => import("../pages/Homepage"));
-
 const Signuppage = lazy(() => import("../pages/Signuppage"));
 const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("../pages/VerifyEmailPage"));
 
-// const ChannelsPage = lazy(() => import("../pages/ChannelsPage"));
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
 const CalendarPage = lazy(() => import("../pages/CalendarPage"));
 

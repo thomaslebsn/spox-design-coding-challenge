@@ -1,5 +1,4 @@
 import React from "react";
-import { withTranslation } from "react-i18next";
 import "./index.scss";
 
 class Projects extends React.Component {
@@ -9,15 +8,12 @@ class Projects extends React.Component {
   }
 
   render() {
-    const { t, i18n, projects } = this.props;
-
-    console.log("projectsprojects 66666");
-    console.log(projects);
+    const { projects, PROJECT_COLUMN_INDICATOR } = this.props;
 
     return (
       <div className="bg-white p-3">
         <div className="d-flex justify-content-between mb-2">
-          <h4>{t("txt_projects")}</h4>
+          <h4>Projects</h4>
         </div>
         <div className="py-2 px-3 bg-blue">
           <div className="row">
@@ -39,12 +35,7 @@ class Projects extends React.Component {
                 >
                   <div className="col-9">
                     <div className="d-flex align-items-center">
-                      {/* <img
-                        src={value.logo}
-                        alt={value.logo}
-                        className="img-avatar"
-                      /> */}
-                      <span>{value.name}</span>
+                      <span>{value[PROJECT_COLUMN_INDICATOR.NAME]}</span>
                     </div>
                   </div>
                   <div className="col-3">
@@ -71,4 +62,4 @@ class Projects extends React.Component {
   }
 }
 
-export default withTranslation("common")(Projects);
+export default Projects;
