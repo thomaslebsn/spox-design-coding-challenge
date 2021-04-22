@@ -2,6 +2,7 @@ import React from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { EasiiOrganisationChannelApiService } from "easii-io-web-service-library";
+import { CHANNEL_ADS_GOOGLE } from "../../../constants/ChannelModule";
 
 export default class ChannelsStore {
   async getChannelLoginUrl(
@@ -27,6 +28,7 @@ export default class ChannelsStore {
         case "mailchimp":
         case "instagram":
         case "tumblr":
+        case CHANNEL_ADS_GOOGLE:
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
         default:
@@ -82,6 +84,7 @@ export default class ChannelsStore {
         case "drupal":
         case "medium":
         case "joomla":
+        case CHANNEL_ADS_GOOGLE:
           result = await channelService.getCheckConnectStatusChannel(
             channelType
           );

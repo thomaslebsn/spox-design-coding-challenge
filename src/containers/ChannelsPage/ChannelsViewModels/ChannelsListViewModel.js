@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { notify } from "../../../components/Toast";
-import { CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
+import { CHANNEL_ADS_GOOGLE, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
 
 class ChannelsListViewModel {
   channelsStore = null;
@@ -47,6 +47,8 @@ class ChannelsListViewModel {
   showUpgrade = false;
 
   drupalConnected = false;
+
+  googleadsConnected = false;
 
 
   cmsChannelType = CHANNEL_CMS_WORDPRESS;
@@ -99,9 +101,10 @@ class ChannelsListViewModel {
                 switch (channelUniqueName) {
                   case "fbad": //facebookAdConnected
                     if (responseResult.pages.status === "connected") {
-                      this.facebookAdsConnected= true;
+                      this.facebookAdsConnected = true;
                       clearInterval(checkConnectionStatusInterval);
-                      this.listFacebookAdsAccount = responseResult.pages.adAccounts;
+                      this.listFacebookAdsAccount =
+                        responseResult.pages.adAccounts;
                     }
                     break;
 
@@ -169,7 +172,13 @@ class ChannelsListViewModel {
                       this.joomlaConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
-                    break;  
+                    break;
+                  case CHANNEL_ADS_GOOGLE:
+                    if (responseResult.connected == 1) {
+                      this.googleadsConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
 
                   default:
                     break;
@@ -288,6 +297,11 @@ class ChannelsListViewModel {
               case "joomla":
                 if (responseResult.connected == 1) {
                   this.joomlaConnected = true;
+                }
+                break;
+              case CHANNEL_ADS_GOOGLE:
+                if (responseResult.connected == 1) {
+                  this.googleadsConnected = true;
                 }
                 break;
               default:
