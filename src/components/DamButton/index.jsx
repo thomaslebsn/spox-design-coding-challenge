@@ -1,8 +1,10 @@
 import React, { Component, lazy } from "react";
-import "./index.scss";
+
 import Iframe from "react-iframe";
 import { AUTHORIZATION_KEY, AXIOS_CONFIGS } from "easii-io-web-service-library";
 import { io } from "socket.io-client";
+import "./index.scss";
+
 const ModalComponent = lazy(() => import("../../components/Modal"));
 
 const socket = io(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ":9999");
@@ -54,16 +56,17 @@ class DamButton extends React.Component {
           body={
             <Iframe
               url={urlDam}
-              width="450px"
-              height="450px"
-              id="myId"
-              className="myClassname"
+              width="100%"
+              height="100%"
+              id="ifram_digital_assets"
+              className="myClassname ifram_digital_assets"
               display="initial"
               position="relative"
             />
           }
           show={this.state.showModal}
           onHide={this.closeModal}
+          dialogClassName="modal-fullscreen modal_digital_assets "
         />
       </>
     );
