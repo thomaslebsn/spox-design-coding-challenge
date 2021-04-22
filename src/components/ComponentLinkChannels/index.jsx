@@ -12,17 +12,18 @@ class ComponentLinkChannels extends React.Component {
 
     return (
       <ul className="list-unstyled d-flex align-items-center">
-        {channelsLogo.map((value, key) => {
-          return (
-            <li key={key} className="me-2">
-              <img
-                src={`/assets/images/${value.label}.png`}
-                alt=""
-                className="img-avatar"
-              />
-            </li>
-          );
-        })}
+        {channelsLogo &&
+          channelsLogo.map((value, key) => {
+            return (
+              <li key={key} className="me-2">
+                <img
+                  src={`/assets/images/${value.label}.png`}
+                  alt=""
+                  className="img-avatar"
+                />
+              </li>
+            );
+          })}
       </ul>
     );
   }

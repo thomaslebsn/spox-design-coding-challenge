@@ -128,7 +128,7 @@ const ComponentFormFieldInformation = ({
     validation: "required",
     option: formPropsData["connected_channels_master_data"],
     changed: (data) => {
-      let values = data.map((e) => e.value);
+      let values = data && data.map((e) => e.value);
       formPropsData[PERSONA_FIELD_KEY.CHANNELS] = values;
     },
     isMulti: true,
@@ -184,7 +184,7 @@ const ComponentFormFieldInformation = ({
         className={`mb-4 border-start-5 bg-white p-2 px-3 rounded-2`}
       >
         <Label text={"Channels"} required={true} />
-        <FormSelectDropdown field={fieldChannels} />
+        <FormSelectDropdown field={fieldChannels ? fieldChannels : null} />
         <ComponentLinkChannels viewModel={viewModel} />
       </Form.Group>
       {/* <Form.Group
