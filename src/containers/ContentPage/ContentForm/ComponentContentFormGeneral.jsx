@@ -131,7 +131,7 @@ class ComponentContentFormGeneral extends Component {
         designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
       };
     }
-    console.log(valueCanva);
+
     return [
       {
         fields: [
@@ -141,6 +141,8 @@ class ComponentContentFormGeneral extends Component {
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
             viewModel: this.projectTableSelectionModalViewModel,
+            getDataSelectOptions: this.props.getDataSelectOptionsProject,
+            getValueSelected: this.props.getValueSelectedProject,
             changed: () => {
               // const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
               // if (projectId) {
@@ -150,6 +152,9 @@ class ComponentContentFormGeneral extends Component {
             clicked: () => {
               // this.projectTableSelectionModalViewModel.openModal();
             },
+            handleChange: (value) => {
+              this.projectTableSelectionModalViewModel.getValueSelected = value;
+            },
           },
           {
             label: "Choose the Campaign",
@@ -157,6 +162,8 @@ class ComponentContentFormGeneral extends Component {
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
             viewModel: this.campaignTableSelectionModalViewModel,
+            getDataSelectOptions: this.props.getDataSelectOptionsCampaign,
+            getValueSelected: this.props.getValueSelectedCampaign,
             changed: () => {
               // const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
               // if (campaignId) {
@@ -166,14 +173,18 @@ class ComponentContentFormGeneral extends Component {
             clicked: () => {
               // this.campaignTableSelectionModalViewModel.openModal();
             },
+            handleChange: (value) => {
+              this.campaignTableSelectionModalViewModel.getValueSelected = value;
+            },
           },
           {
             label: "Choose the Persona",
             key: CONTENT_FIELD_KEY.PERSONA,
-            // type: FORM_FIELD_TYPE.SELECTION,
             type: FORM_FIELD_TYPE.SELECTIONPERSONA,
-            //value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
+            value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             viewModel: this.personaTableSelectionModalViewModel,
+            getDataSelectOptions: this.props.getDataSelectOptionsPersona,
+            getValueSelected: this.props.getValueSelectedPersona,
             changed: () => {
               // const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
               // if (personaIds) {
@@ -187,12 +198,10 @@ class ComponentContentFormGeneral extends Component {
             },
             multi: true,
             handleOnChange: (value) => {
-              this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
               this.personaTableSelectionModalViewModel.getValueSelected = value;
+              this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
               let personaIds = this.contentConnectedChannelsByOrganisationViewModel.getSelectedIDs();
 
-              console.log("personaIdspersonaIds 2222");
-              console.log(personaIds);
               if (personaIds) {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }
@@ -307,6 +316,13 @@ class ComponentContentFormGeneral extends Component {
     const formSetting = this.generateFormSetting();
 
     // const { formStatus } = this.personaFormViewModel;
+
+    console.log("this.projectTableSelectionModalViewModel 111");
+    console.log(
+      this.projectTableSelectionModalViewModel
+        ? this.projectTableSelectionModalViewModel.getDataSelectOptions
+        : null
+    );
 
     return (
       <>

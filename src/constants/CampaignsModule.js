@@ -10,7 +10,6 @@ const CAMPAIGNS_FIELD_KEY = {
   PUBLISHED_CONTENT: "campaigns-published-content",
   PROGRESS: "campaigns-progress",
   PERCENT_COMPLETE: "campaigns-percent-complete",
-  STATUS: "campaigns-status",
 };
 
 const CAMPAIGN_API_FIELD_KEY = {
@@ -25,7 +24,6 @@ const CAMPAIGN_API_FIELD_KEY = {
   SCHEDUDE_POST: "no_scheduled_posts",
   PUBLISHED_CONTENT: "no_published_posts",
   PERCENT_COMPLETE: "percnet_complete",
-  STATUS: "published",
 };
 
 export { CAMPAIGNS_FIELD_KEY, CAMPAIGN_API_FIELD_KEY };
