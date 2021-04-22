@@ -6,6 +6,7 @@ import styles from "./index.module.scss";
 import Upgrade from "../Upgrade";
 import ButtonConnect from "../ButtonConnect";
 import {
+  CHANNEL_ADS_GOOGLE,
   CHANNEL_CMS_DRUPAL,
   CHANNEL_CMS_JOOMLA,
   CHANNEL_CMS_MEDIUM,
@@ -352,7 +353,7 @@ class ComponentConnectaChannel extends Component {
                   <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel("googleads");
+                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
                       }}
                       disabled={googleadsConnected}
                   >
