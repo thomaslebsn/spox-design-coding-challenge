@@ -68,6 +68,7 @@ class ComponentConnectaChannel extends Component {
       joomlaConnected,
       handleModalCms,
       isModalCms,
+      googleadsConnected,
     } = this.props;
 
     const { drupalConnected, wordpressConnected } = channelsListViewModel;
@@ -336,6 +337,34 @@ class ComponentConnectaChannel extends Component {
                       </div>
                     </div>
                 )}
+              </div>
+            </div>
+            <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                        className="img-avatar"
+                        src={"/assets/images/googleadword.png"}
+                        alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Google Adwords
+                    </span>
+                  </div>
+                  <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel("googleads");
+                      }}
+                      disabled={googleadsConnected}
+                  >
+                    <span className="ms-2">
+                      {googleadsConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+               
               </div>
             </div>
           </Tab>
