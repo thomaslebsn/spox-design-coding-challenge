@@ -76,7 +76,6 @@ class ChannelsListViewModel {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       console.log("callbackOnSuccessChannel");
-
       if (response.result.must_upgrade) {
         this.mustUpgrade = true;
         return;
