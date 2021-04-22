@@ -180,10 +180,11 @@ class ComponentContentFormGeneral extends Component {
           {
             label: "Choose the Persona",
             key: CONTENT_FIELD_KEY.PERSONA,
-            // type: FORM_FIELD_TYPE.SELECTION,
             type: FORM_FIELD_TYPE.SELECTIONPERSONA,
-            //value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
+            value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             viewModel: this.personaTableSelectionModalViewModel,
+            getDataSelectOptions: this.props.getDataSelectOptionsPersona,
+            getValueSelected: this.props.getValueSelectedPersona,
             changed: () => {
               // const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
               // if (personaIds) {
@@ -197,12 +198,10 @@ class ComponentContentFormGeneral extends Component {
             },
             multi: true,
             handleOnChange: (value) => {
-              this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
               this.personaTableSelectionModalViewModel.getValueSelected = value;
+              this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
               let personaIds = this.contentConnectedChannelsByOrganisationViewModel.getSelectedIDs();
 
-              console.log("personaIdspersonaIds 2222");
-              console.log(personaIds);
               if (personaIds) {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }

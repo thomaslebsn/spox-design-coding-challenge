@@ -14,10 +14,6 @@ class FormSelection extends Component {
     this.viewModel.setMulti(this.field.multi);
   }
 
-  handleChange = (e) => {
-    this.viewModel.getValueSelected = e;
-  };
-
   render() {
     const { multi } = this.viewModel;
 

@@ -93,6 +93,16 @@ const ContentFormGeneral = observer(
               ? this.campaignTableSelectionModalViewModel.getValueSelected
               : []
           }
+          getDataSelectOptionsPersona={
+            this.personaTableSelectionModalViewModel
+              ? this.personaTableSelectionModalViewModel.getDataSelectOptions
+              : []
+          }
+          getValueSelectedPersona={
+            this.personaTableSelectionModalViewModel
+              ? this.personaTableSelectionModalViewModel.getValueSelected
+              : []
+          }
         />
       );
     }

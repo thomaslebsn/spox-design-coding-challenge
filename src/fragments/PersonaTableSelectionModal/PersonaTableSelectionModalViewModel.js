@@ -131,7 +131,7 @@ class PersonaTableSelectionModalViewModel {
     if (personaModelData) {
       this.tableStatus = PAGE_STATUS.READY;
 
-      this.personasMasterData = personaModelData.toTableRowsData();
+      this.personasMasterData = personaModelData.toDropdownFullListValues();
       // NEW
       this.getDataSelectOptions = personaModelData.toDropdownListValues();
       console.log("toTableRowsData");

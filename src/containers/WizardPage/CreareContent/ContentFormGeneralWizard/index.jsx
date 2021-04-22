@@ -116,6 +116,16 @@ const ContentFormGeneralWizard = observer(
                 ? campaignTableSelectionModalViewModel.getValueSelected
                 : []
             }
+            getDataSelectOptionsPersona={
+              personaTableSelectionModalViewModel
+                ? personaTableSelectionModalViewModel.getDataSelectOptions
+                : []
+            }
+            getValueSelectedPersona={
+              personaTableSelectionModalViewModel
+                ? personaTableSelectionModalViewModel.getValueSelected
+                : []
+            }
           />
           <ContentPreviewPersona
             personaTableSelectionModalViewModel={
