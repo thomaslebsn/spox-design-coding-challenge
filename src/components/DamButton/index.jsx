@@ -10,6 +10,7 @@ const ModalComponent = lazy(() => import("../../components/Modal"));
 const socket = io(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ":9999");
 
 class DamButton extends React.Component {
+    _isMounted = false;
   constructor(props) {
     super(props);
     this.socket = socket;
@@ -19,6 +20,8 @@ class DamButton extends React.Component {
   }
 
   handleClick = () => {
+      console.log(AUTHORIZATION_KEY.TOKEN_USER);
+      console.log(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ":9999");
     this.socket.emit(
       "join room",
       localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER)
@@ -29,18 +32,27 @@ class DamButton extends React.Component {
     });
   };
 
-  componentDidMount = () => {};
-
   closeModal = (s) => {
     this.setState({
       showModal: false,
     });
   };
 
-  render() {
-    this.socket.on("response assets", (roomId, data) => {
-      console.log(data);
-    });
+    componentDidMount = () => {
+        this._isMounted = true;
+
+        this.socket.on("response assets", (roomId, data) => {
+            if (this._isMounted) {
+                this.closeModal();
+            }
+        });
+    }
+
+    componentWillUnmount = () => {
+        this._isMounted = false;
+    }
+
+    render() {
 
     const urlDam =
       AXIOS_CONFIGS.BASE_ENDPOINT_URL +
