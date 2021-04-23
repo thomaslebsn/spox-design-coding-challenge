@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import { notify } from "../../../components/Toast";
-import { CHANNEL_ADS_GOOGLE, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
+import { makeAutoObservable } from 'mobx';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { notify } from '../../../components/Toast';
+import { CHANNEL_ADS_GOOGLE, CHANNEL_CMS_WORDPRESS } from '../../../constants/ChannelModule';
 
 class ChannelsListViewModel {
   channelsStore = null;
@@ -50,7 +50,6 @@ class ChannelsListViewModel {
 
   googleadsConnected = false;
 
-
   cmsChannelType = CHANNEL_CMS_WORDPRESS;
 
   constructor(channelsStore) {
@@ -67,7 +66,7 @@ class ChannelsListViewModel {
   };
 
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
+    console.log('callbackOnErrorHander');
     console.log(error);
     notify(error.message);
   };
@@ -75,12 +74,12 @@ class ChannelsListViewModel {
   callbackOnSuccessChannel = (response, channelUniqueName) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
-      console.log("callbackOnSuccessChannel");
+      console.log('callbackOnSuccessChannel');
       if (response.result.must_upgrade) {
         this.mustUpgrade = true;
         return;
       }
-      window.open(response.result.loginUrl, "popup", "width=600,height=600");
+      window.open(response.result.loginUrl, 'popup', 'width=600,height=600');
       const stepInterval = 2000;
       let intervalTimeLimitInMiliseconds = stepInterval * 60;
       let checkConnectionStatusInterval = setInterval(
@@ -98,75 +97,74 @@ class ChannelsListViewModel {
                 let responseResult = response.result;
 
                 switch (channelUniqueName) {
-                  case "fbad": //facebookAdConnected
-                    if (responseResult.pages.status === "connected") {
+                  case 'fbad': //facebookAdConnected
+                    if (responseResult.pages.status === 'connected') {
                       this.facebookAdsConnected = true;
                       clearInterval(checkConnectionStatusInterval);
-                      this.listFacebookAdsAccount =
-                        responseResult.pages.adAccounts;
+                      this.listFacebookAdsAccount = responseResult.pages.adAccounts;
                     }
                     break;
 
-                  case "facebook":
-                    if (responseResult.pages.status === "connected") {
+                  case 'facebook':
+                    if (responseResult.pages.status === 'connected') {
                       this.facebookConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                       this.listFaceBookFanpage = responseResult.pages.pages;
                     }
                     break;
 
-                  case "youtube":
+                  case 'youtube':
                     if (responseResult.connected == 1) {
                       this.youtubeConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
 
-                  case "twitter":
+                  case 'twitter':
                     if (responseResult.connected == 1) {
                       this.twitterConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
 
-                  case "linkedin":
+                  case 'linkedin':
                     if (responseResult.connected == 1) {
                       this.linkedinConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
 
-                  case "mailchimp":
+                  case 'mailchimp':
                     if (responseResult.connected == 1) {
                       this.mailchimpConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
 
-                  case "instagram":
+                  case 'instagram':
                     if (responseResult.connected == 1) {
                       this.instagramConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-                  case "tumblr":
+                  case 'tumblr':
                     if (responseResult.connected == 1) {
                       this.tumblrConnected = true;
                     }
                     break;
-                  case "drupal":
+                  case 'drupal':
                     if (responseResult.connected == 1) {
                       this.drupalConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-                  case "medium":
+                  case 'medium':
                     if (responseResult.connected == 1) {
                       this.mediumConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-                  case "joomla":
+                  case 'joomla':
                     if (responseResult.connected == 1) {
                       this.joomlaConnected = true;
                       clearInterval(checkConnectionStatusInterval);
@@ -205,27 +203,27 @@ class ChannelsListViewModel {
             let responseResult = response.result;
 
             switch (channelType) {
-              case "facebook":
-                if (responseResult.pages.status === "connected") {
+              case 'facebook':
+                if (responseResult.pages.status === 'connected') {
                   this.facebookConnected = true;
                   let listFpConnected = responseResult.pages.connected;
                   let listFanpage = responseResult.pages.pages;
 
-                  if (listFpConnected.length > 0) {
-                    this.listFaceBookFanpageView = [];
-                    listFanpage.map((fanpage) => {
-                      if (listFpConnected.indexOf(fanpage.id) > -1) {
-                        this.listFaceBookFanpageView.push(fanpage);
-                      }
-                    });
-                  } else {
-                    this.listFaceBookFanpage = listFanpage;
-                  }
+                  //if (listFpConnected.length > 0) {
+                  this.listFaceBookFanpageView = [];
+                  listFanpage.map((fanpage) => {
+                    //if (listFpConnected.indexOf(fanpage.id) > -1) {
+                    this.listFaceBookFanpageView.push(fanpage);
+                    //}
+                  });
+                  // } else {
+                  //   this.listFaceBookFanpage = listFanpage;
+                  // }
                 }
                 break;
 
-              case "fbad":
-                if (responseResult.pages.status === "connected") {
+              case 'fbad':
+                if (responseResult.pages.status === 'connected') {
                   this.facebookAdsConnected = true;
                   let listAdAccountsConnected = responseResult.pages.connected;
                   let listAdAccounts = responseResult.pages.adAccounts;
@@ -243,57 +241,57 @@ class ChannelsListViewModel {
                 }
                 break;
 
-              case "youtube":
+              case 'youtube':
                 if (responseResult.connected == 1) {
                   this.youtubeConnected = true;
                 }
                 break;
 
-              case "twitter":
+              case 'twitter':
                 if (responseResult.connected == 1) {
                   this.twitterConnected = true;
                 }
                 break;
 
-              case "linkedin":
+              case 'linkedin':
                 if (responseResult.connected == 1) {
                   this.linkedinConnected = true;
                 }
                 break;
 
-              case "mailchimp":
+              case 'mailchimp':
                 if (responseResult.connected == 1) {
                   this.mailchimpConnected = true;
                 }
                 break;
 
-              case "instagram":
+              case 'instagram':
                 if (responseResult.connected == 1) {
                   this.instagramConnected = true;
                 }
                 break;
 
-              case "wordpress":
+              case 'wordpress':
                 if (responseResult.connected == 1) {
                   this.wordpressConnected = true;
                 }
                 break;
-              case "tumblr":
+              case 'tumblr':
                 if (responseResult.connected == 1) {
                   this.tumblrConnected = true;
                 }
                 break;
-              case "drupal":
+              case 'drupal':
                 if (responseResult.connected == 1) {
                   this.drupalConnected = true;
                 }
                 break;
-              case "medium":
+              case 'medium':
                 if (responseResult.connected == 1) {
                   this.mediumConnected = true;
                 }
                 break;
-              case "joomla":
+              case 'joomla':
                 if (responseResult.connected == 1) {
                   this.joomlaConnected = true;
                 }
@@ -327,9 +325,9 @@ class ChannelsListViewModel {
   saveChosseFacebookAdAccount = (accountIds) => {
     if (accountIds.length > 0) {
       this.channelsStore.saveChosseFacebookAdAccount(
-          this.callbackOnSuccessListFacebookAdAccount(),
-          this.callbackOnErrorHander,
-          accountIds
+        this.callbackOnSuccessListFacebookAdAccount(),
+        this.callbackOnErrorHander,
+        accountIds
       );
     }
   };
@@ -354,12 +352,12 @@ class ChannelsListViewModel {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookAdAccounts(
-          (res) => {
-            console.log('HA03', res);
-            this.listFacebookAdsAccountView = res.result.pages.adAccounts;
-          },
-          (error) => {},
-          accountIds
+        (res) => {
+          console.log('HA03', res);
+          this.listFacebookAdsAccountView = res.result.pages.adAccounts;
+        },
+        (error) => {},
+        accountIds
       );
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
