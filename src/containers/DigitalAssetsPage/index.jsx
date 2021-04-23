@@ -8,7 +8,7 @@ import { AUTHORIZATION_KEY, AXIOS_CONFIGS } from "easii-io-web-service-library";
 function DigitalAssetsPage() {
   const urlDam =
     AXIOS_CONFIGS.BASE_ENDPOINT_URL +
-    "/administrator/index.php?option=com_aesir_dam&view=collection_assets&tmpl=component&token=" +
+    "/administrator/index.php?option=com_aesir_dam&view=collection_assets&token=" +
     localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER);
   return (
     <div className="py-4 px-3 h-100 flex-direction-column">
