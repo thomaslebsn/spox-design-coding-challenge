@@ -9,6 +9,7 @@ import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { CHANNEL_ADS_GOOGLE } from "../../../constants/ChannelModule";
 
 const ConnectChannels = observer(
   class ConnectChannels extends Component {
@@ -62,6 +63,7 @@ const ConnectChannels = observer(
         "medium",
         "joomla",
         "fbad",
+        CHANNEL_ADS_GOOGLE,
       ]);
     }
 
@@ -143,6 +145,7 @@ const ConnectChannels = observer(
         drupalConneted,
         mediumConnected,
         joomlaConnected,
+        googleadsConnected
       } = this.channelsListViewModel;
 
       console.log('this.channelsListViewModel', this.channelsListViewModel)
@@ -176,6 +179,7 @@ const ConnectChannels = observer(
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
+              googleadsConnected={googleadsConnected}
             />
           </div>
           {listFaceBookFanpage && (
