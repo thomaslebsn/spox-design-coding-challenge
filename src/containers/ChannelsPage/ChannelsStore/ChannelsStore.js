@@ -18,7 +18,7 @@ export default class ChannelsStore {
 
     switch (channelUniqueName) {
       case 'facebook':
-        response = await channelService.disconnectAFacebookPage(channelUniqueName, pageId);
+        response = await channelService.disconnectFanpage(channelUniqueName, pageId);
         break;
       default:
         break;
