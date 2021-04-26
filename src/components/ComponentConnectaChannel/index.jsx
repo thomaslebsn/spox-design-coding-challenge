@@ -54,6 +54,8 @@ class ComponentConnectaChannel extends Component {
 
     if (channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
       channelsListViewModel.disconnectAFacebookPage(name, id);
+    } else {
+      channelsListViewModel.connectAFacebookPage(name, id);
     }
   };
 

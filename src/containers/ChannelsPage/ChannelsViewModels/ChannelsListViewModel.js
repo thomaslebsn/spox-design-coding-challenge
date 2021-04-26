@@ -84,7 +84,26 @@ class ChannelsListViewModel {
     );
   };
 
+  connectAFacebookPage = (channelUniqueName, pageId) => {
+    this.channelsStore.connectAFacebookPage(
+      this.callbackOnConnectAFacebookPageSuccess,
+      this.callbackOnErrorHander,
+      channelUniqueName,
+      pageId
+    );
+  };
+
   callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+    if (response) {
+      console.log('HERERERERERE', pageId);
+      this.tableStatus = PAGE_STATUS.READY;
+      console.log('Hello facebookPagesStatus', this.listFacebookFanpageConnected);
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
+
+  callbackOnConnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
     if (response) {
       console.log('HERERERERERE', pageId);
       this.tableStatus = PAGE_STATUS.READY;
