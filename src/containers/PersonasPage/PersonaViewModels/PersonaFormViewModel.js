@@ -1,13 +1,15 @@
-import { makeAutoObservable } from "mobx";
-import { notify } from "../../../components/Toast";
-import history from "../../../routes/history";
+import { makeAutoObservable } from 'mobx';
+import { notify } from '../../../components/Toast';
+import history from '../../../routes/history';
 
-import PAGE_STATUS from "../../../constants/PageStatus";
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from '../../../constants/PersonaModule';
 
 class PersonaFormViewModel {
   personaListViewModel = null;
 
   personaStore = null;
+
   personaFormComponent = null;
 
   formStatus = PAGE_STATUS.LOADING;
@@ -15,6 +17,8 @@ class PersonaFormViewModel {
   previewPersonaData = null;
 
   connectedChannelMasterData = null;
+
+  getDataValueSelected = [];
 
   constructor(personaStore) {
     makeAutoObservable(this);
@@ -36,11 +40,7 @@ class PersonaFormViewModel {
 
   getPersona = (id) => {
     this.formStatus = PAGE_STATUS.LOADING;
-    this.personaStore.getPersona(
-      id,
-      this.setEditPersona,
-      this.callbackOnErrorHander
-    );
+    this.personaStore.getPersona(id, this.setEditPersona, this.callbackOnErrorHander);
   };
 
   getPersonaTemplate = (id) => {
@@ -54,7 +54,7 @@ class PersonaFormViewModel {
 
   setCreatePersonaByTemplate = (data) => {
     this.formStatus = PAGE_STATUS.READY;
-    console.log("setCreatePersonaByTemplate");
+    console.log('setCreatePersonaByTemplate');
     // Override data to recognize is to create new persona from persona template
     data[0].id = 0;
     this.personaFormComponent.populatingFormDataHandler(data[0]);
@@ -76,7 +76,7 @@ class PersonaFormViewModel {
 
     const isFormValid = true;
 
-    console.log("Persona Creation - isFormValid:");
+    console.log('Persona Creation - isFormValid:');
     console.log(isFormValid);
 
     if (this.editMode) {
@@ -95,18 +95,16 @@ class PersonaFormViewModel {
   };
 
   getConnectedChannelMasterData = () => {
-    console.log("getConnectedChannelMasterData");
+    console.log('getConnectedChannelMasterData');
     this.personaStore.getConnectedChannelsMasterData(
       (dataInModel) => {
-        console.log("getConnectedChannelMasterData - callbackOnSuccessHandler");
-        this.connectedChannelMasterData = dataInModel
-          ? dataInModel.toDropdownListValues()
-          : null;
+        console.log('getConnectedChannelMasterData - callbackOnSuccessHandler');
+        this.connectedChannelMasterData = dataInModel ? dataInModel.toDropdownListValues() : null;
 
         console.log(this.connectedChannelMasterData);
       },
       (error) => {
-        console.log("callbackOnErrorHander");
+        console.log('callbackOnErrorHander');
         console.log(error);
         notify(error.message);
       }
@@ -114,15 +112,15 @@ class PersonaFormViewModel {
   };
 
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
+    console.log('callbackOnErrorHander');
     console.log(error);
     notify(error.message);
   };
 
   callbackOnSuccessHandler = () => {
-    console.log("callbackOnSuccessHandler");
+    console.log('callbackOnSuccessHandler');
     this.formStatus = PAGE_STATUS.READY;
-    history.push("/personas");
+    history.push('/personas');
   };
 }
 
