@@ -5,7 +5,12 @@ import { EasiiOrganisationChannelApiService } from 'easii-io-web-service-library
 import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
 
 export default class ChannelsStore {
-  async disconnectAFacebookPage(callbackOnSuccess, callbackOnError, channelUniqueName, pageId) {
+  async disconnectAFacebookPage(
+    callbackOnDisconnectAFacebookPageSuccess,
+    callbackOnError,
+    channelUniqueName,
+    pageId
+  ) {
     const channelService = new EasiiOrganisationChannelApiService();
     console.log('channelUniqueName channelUniqueName', channelUniqueName);
     console.log('channelPageId:', pageId);
@@ -13,6 +18,7 @@ export default class ChannelsStore {
 
     switch (channelUniqueName) {
       case 'facebook':
+        response = await channelService.getLoginUrl(channelUniqueName);
         break;
       default:
         break;
@@ -20,7 +26,7 @@ export default class ChannelsStore {
 
     if (response) {
       runInAction(() => {
-        callbackOnSuccess(response, channelUniqueName, pageId);
+        callbackOnDisconnectAFacebookPageSuccess(response, channelUniqueName, pageId);
       });
     } else {
       callbackOnError({

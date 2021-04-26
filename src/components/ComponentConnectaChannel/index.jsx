@@ -116,22 +116,24 @@ class ComponentConnectaChannel extends Component {
                                   <span className="ms-2">{value.name}</span>
                                 </div>
                               </div>
+                              <div className="col-6 text-end">
+                                <button
+                                  type="button"
+                                  className="cursor-pointer btn"
+                                  // onClick={onBtnDisconnectClick}
+                                  // disabled={isDisabled}
+                                  onClick={(e) => {
+                                    this.handleDisconnectAFacebookPage('facebook', key);
+                                  }}
+                                >
+                                  {/* <span className="ms-2">{isConnected ? 'Connected' : 'Connect'}</span> */}
+                                  <span className="ms-2">Disconnect</span>
+                                </button>
+                              </div>
                             </div>
                           );
                         })}
                       </div>
-                      <button
-                        type="button"
-                        className="cursor-pointer btn"
-                        // onClick={onBtnDisconnectClick}
-                        // disabled={isDisabled}
-                        onClick={(e) => {
-                          this.handleDisconnectAFacebookPage('facebook');
-                        }}
-                      >
-                        {/* <span className="ms-2">{isConnected ? 'Connected' : 'Connect'}</span> */}
-                        <span className="ms-2">Disconnect</span>
-                      </button>
                     </div>
                   </div>
                 )}
