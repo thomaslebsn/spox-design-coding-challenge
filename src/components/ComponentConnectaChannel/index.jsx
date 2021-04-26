@@ -60,11 +60,10 @@ class ComponentConnectaChannel extends Component {
   };
 
   render() {
-    const {
+    let {
       channelsListViewModel,
       listFaceBookFanpageView,
       facebookConnected,
-      listFacebookFanpageConnected,
       listFacebookAdsAccountView,
       facebookAdsConnected,
       youtubeConnected,
@@ -78,9 +77,16 @@ class ComponentConnectaChannel extends Component {
       handleModalCms,
       isModalCms,
       googleadsConnected,
+      fanpagesConnected,
     } = this.props;
-
-    const { drupalConnected, wordpressConnected } = channelsListViewModel;
+    console.log('fanpagesConnected');
+    console.log(fanpagesConnected);
+    const {
+      drupalConnected,
+      wordpressConnected,
+      listFacebookFanpageConnected,
+    } = channelsListViewModel;
+    // listFacebookFanpageConnected = channelsListViewModel.checkConnectedFacebookFanpage();
 
     return (
       <div className="wrapper_tabs">
@@ -129,7 +135,9 @@ class ComponentConnectaChannel extends Component {
                                   // onClick={onBtnDisconnectClick}
                                   // disabled={isDisabled}
                                   onClick={(e) => {
-                                    this.handleDisconnectAFacebookPage('facebook', value.id);
+                                    // this.handleDisconnectAFacebookPage('facebook', value.id);
+                                    // this.checkConnectedFacebookFanpage(value.id);
+                                    this.props.handleConnectedFanpage('facebook', value.id);
                                   }}
                                 >
                                   <span className="ms-2">

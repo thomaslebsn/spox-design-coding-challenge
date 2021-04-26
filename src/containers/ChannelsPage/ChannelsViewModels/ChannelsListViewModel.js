@@ -14,6 +14,8 @@ class ChannelsListViewModel {
 
   listFacebookFanpageConnected = null;
 
+  isPageConnected = false;
+
   facebookAdsConnected = false;
 
   youtubeConnected = false;
@@ -35,8 +37,6 @@ class ChannelsListViewModel {
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
-
-  listFacebookFanpageConnected = null;
 
   listFacebookAdsAccount = null;
 
@@ -155,10 +155,9 @@ class ChannelsListViewModel {
                   case 'facebook':
                     if (responseResult.pages.status === 'connected') {
                       this.facebookConnected = true;
-                      this.listFacebookFanpageConnected = responseResult.pages.connected;
-                      console.log(this.listFacebookFanpageConnected);
                       clearInterval(checkConnectionStatusInterval);
                       this.listFaceBookFanpage = responseResult.pages.pages;
+                      this.listFacebookFanpageConnected = responseResult.pages.connected;
                     }
                     break;
 
@@ -242,6 +241,10 @@ class ChannelsListViewModel {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
   };
+
+  checkConnectedFacebookFanpage() {
+    return this.listFacebookFanpageConnected;
+  }
 
   checkConnectedChannels(channels) {
     channels.map((channelType) => {
