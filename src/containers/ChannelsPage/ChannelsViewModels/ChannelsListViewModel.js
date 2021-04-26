@@ -109,9 +109,7 @@ class ChannelsListViewModel {
 
   callbackOnConnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
     if (response) {
-      console.log('ConnectAAAAAAAAAAA', pageId);
       this.tableStatus = PAGE_STATUS.READY;
-      console.log('Hello facebookPagesStatus', this.listFacebookFanpageConnected);
       this.listFacebookFanpageConnected.push(pageId);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;

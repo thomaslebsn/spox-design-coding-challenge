@@ -117,32 +117,37 @@ const ConnectChannels = observer(
     };
 
     handleConnectedFanpage = (channelType, id) => {
-      console.log('handleConnectedFanpage');
-      console.log(channelType);
-      console.log(id);
+      let newData = [...this.state.fanpagesConnected];
+
+      console.log('listFacebookFanpageConnected');
+      console.log(this.channelsListViewModel.listFacebookFanpageConnected);
 
       if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
         this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+        let i = newData.indexOf(id);
+        if (i > -1) {
+          newData.slice(i, 1);
+        }
       } else {
         this.channelsListViewModel.connectAFacebookPage(channelType, id);
+        newData.push(id);
       }
 
       this.setState({
-        fanpagesConnected: [...this.state.fanpagesConnected, id],
+        fanpagesConnected: newData,
       });
-      this.fanpagesConnected.push(id);
-      console.log(this.state.fanpagesConnected);
-      console.log('=======312');
-      this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
+
+      // this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
+      // this.listFacebookFanpageConnected = newData;
 
       console.log(this.channelsListViewModel.listFacebookFanpageConnected);
     };
 
     render() {
-      console.log('==========================');
-
       let { showModal, fanpagesConnected } = this.state;
       this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
+
+      console.log('this.listFacebookFanpageConnected', this.listFacebookFanpageConnected);
 
       const {
         listFaceBookFanpage,
