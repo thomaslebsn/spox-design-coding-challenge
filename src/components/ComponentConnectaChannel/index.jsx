@@ -51,7 +51,10 @@ class ComponentConnectaChannel extends Component {
 
   handleDisconnectAFacebookPage = (name, id) => {
     let { channelsListViewModel } = this.props;
-    channelsListViewModel.disconnectAFacebookPage(name, id);
+
+    if (channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+      channelsListViewModel.disconnectAFacebookPage(name, id);
+    }
   };
 
   render() {
@@ -127,15 +130,7 @@ class ComponentConnectaChannel extends Component {
                                     this.handleDisconnectAFacebookPage('facebook', value.id);
                                   }}
                                 >
-                                  {/* <span className="ms-2">{isConnected ? 'Connected' : 'Connect'}</span> */}
                                   <span className="ms-2">
-                                    {console.log(
-                                      '11111 listFacebookFanpageConnected',
-                                      listFacebookFanpageConnected
-                                    )}
-                                    {/* {listFacebookFanpageConnected[value.id] == 'Disconnected'
-                                      ? 'Connect'
-                                      : 'Disconnect'} */}
                                     {listFacebookFanpageConnected.indexOf(value.id) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
