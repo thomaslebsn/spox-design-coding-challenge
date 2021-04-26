@@ -73,14 +73,20 @@ class ChannelsListViewModel {
 
   disconnectAFacebookPage = (channelUniqueName, pageId) => {
     this.channelsStore.disconnectAFacebookPage(
-      this.callbackOnSuccessChannel,
+      this.callbackOnDisconnectAFacebookPageSuccess,
       this.callbackOnErrorHander,
       channelUniqueName,
       pageId
     );
   };
 
-  callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {};
+  callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+    if (response) {
+      console.log('HERERERERERE');
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
 
   callbackOnSuccessChannel = (response, channelUniqueName, pageId) => {
     if (response) {
