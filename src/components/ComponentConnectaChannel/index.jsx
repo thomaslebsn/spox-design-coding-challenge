@@ -123,7 +123,7 @@ class ComponentConnectaChannel extends Component {
                                   // onClick={onBtnDisconnectClick}
                                   // disabled={isDisabled}
                                   onClick={(e) => {
-                                    this.handleDisconnectAFacebookPage('facebook', key);
+                                    this.handleDisconnectAFacebookPage('facebook', value.id);
                                   }}
                                 >
                                   {/* <span className="ms-2">{isConnected ? 'Connected' : 'Connect'}</span> */}

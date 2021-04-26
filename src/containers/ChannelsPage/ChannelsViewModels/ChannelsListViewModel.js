@@ -82,7 +82,7 @@ class ChannelsListViewModel {
 
   callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
     if (response) {
-      console.log('HERERERERERE');
+      console.log('HERERERERERE', response);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
