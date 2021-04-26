@@ -98,6 +98,10 @@ class ChannelsListViewModel {
       console.log('HERERERERERE', pageId);
       this.tableStatus = PAGE_STATUS.READY;
       console.log('Hello facebookPagesStatus', this.listFacebookFanpageConnected);
+      const index = this.listFacebookFanpageConnected.indexOf(pageId);
+      if (index > -1) {
+        this.listFacebookFanpageConnected.splice(index, 1);
+      }
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
@@ -105,9 +109,10 @@ class ChannelsListViewModel {
 
   callbackOnConnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
     if (response) {
-      console.log('HERERERERERE', pageId);
+      console.log('ConnectAAAAAAAAAAA', pageId);
       this.tableStatus = PAGE_STATUS.READY;
       console.log('Hello facebookPagesStatus', this.listFacebookFanpageConnected);
+      this.listFacebookFanpageConnected.push(pageId);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
