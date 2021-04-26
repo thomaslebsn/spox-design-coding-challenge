@@ -59,6 +59,7 @@ class ComponentConnectaChannel extends Component {
       channelsListViewModel,
       listFaceBookFanpageView,
       facebookConnected,
+      listFacebookFanpageConnected,
       listFacebookAdsAccountView,
       facebookAdsConnected,
       youtubeConnected,
@@ -127,7 +128,18 @@ class ComponentConnectaChannel extends Component {
                                   }}
                                 >
                                   {/* <span className="ms-2">{isConnected ? 'Connected' : 'Connect'}</span> */}
-                                  <span className="ms-2">Disconnect</span>
+                                  <span className="ms-2">
+                                    {console.log(
+                                      '11111 listFacebookFanpageConnected',
+                                      listFacebookFanpageConnected
+                                    )}
+                                    {/* {listFacebookFanpageConnected[value.id] == 'Disconnected'
+                                      ? 'Connect'
+                                      : 'Disconnect'} */}
+                                    {listFacebookFanpageConnected.indexOf(value.id) > -1
+                                      ? 'Disconnect'
+                                      : 'Connect'}
+                                  </span>
                                 </button>
                               </div>
                             </div>

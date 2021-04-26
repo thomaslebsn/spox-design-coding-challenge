@@ -12,6 +12,8 @@ class ChannelsListViewModel {
 
   facebookConnected = false;
 
+  listFacebookFanpageConnected = null;
+
   facebookAdsConnected = false;
 
   youtubeConnected = false;
@@ -33,6 +35,8 @@ class ChannelsListViewModel {
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
+
+  listFacebookFanpageConnected = null;
 
   listFacebookAdsAccount = null;
 
@@ -82,7 +86,9 @@ class ChannelsListViewModel {
 
   callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
     if (response) {
-      console.log('HERERERERERE', response);
+      console.log('HERERERERERE', pageId);
+      this.tableStatus = PAGE_STATUS.READY;
+      console.log('Hello facebookPagesStatus', this.listFacebookFanpageConnected);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
@@ -125,6 +131,8 @@ class ChannelsListViewModel {
                   case 'facebook':
                     if (responseResult.pages.status === 'connected') {
                       this.facebookConnected = true;
+                      this.listFacebookFanpageConnected = responseResult.pages.connected;
+                      console.log(this.listFacebookFanpageConnected);
                       clearInterval(checkConnectionStatusInterval);
                       this.listFaceBookFanpage = responseResult.pages.pages;
                     }
@@ -225,17 +233,16 @@ class ChannelsListViewModel {
                   this.facebookConnected = true;
                   let listFpConnected = responseResult.pages.connected;
                   let listFanpage = responseResult.pages.pages;
+                  this.listFacebookFanpageConnected = responseResult.pages.connected;
+                  console.log(
+                    'Mamia listFacebookFanpageConnected',
+                    this.listFacebookFanpageConnected
+                  );
 
-                  //if (listFpConnected.length > 0) {
                   this.listFaceBookFanpageView = [];
                   listFanpage.map((fanpage) => {
-                    //if (listFpConnected.indexOf(fanpage.id) > -1) {
                     this.listFaceBookFanpageView.push(fanpage);
-                    //}
                   });
-                  // } else {
-                  //   this.listFaceBookFanpage = listFanpage;
-                  // }
                 }
                 break;
 
@@ -365,12 +372,10 @@ class ChannelsListViewModel {
   };
 
   callbackOnSuccessListFacebookAdAccount = (response, accountIds) => {
-    console.log('HA03 AAAAAAAAAAAA', response);
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookAdAccounts(
         (res) => {
-          console.log('HA03', res);
           this.listFacebookAdsAccountView = res.result.pages.adAccounts;
         },
         (error) => {},
