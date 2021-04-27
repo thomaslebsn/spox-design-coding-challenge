@@ -10,39 +10,57 @@ class ComponentFBITads extends React.Component {
   }
 
   render() {
-    console.log('getDataValueSelected 1111');
-    console.log(this.props.getDataValueSelected);
+    let { getDataValueSelectedPersona } = this.props;
+
     return (
       <div className="wrapper_tabs wrapper_tabs_2">
-        <Tabs defaultActiveKey="1" id="fbit-tab" className="bg-white border-0">
-          <Tab eventKey={1} title={'Facebook/Instagram Ads'}>
-            <SelectComponentAds
-              title={'Demographics'}
-              getDataSelectOptions={this.props.getDataSelectOptionsFBITDemographics}
-            />
-            <SelectComponentAds
-              title={'Interests'}
-              getDataSelectOptions={this.props.getDataSelectOptionsFBITInterests}
-            />
-            <SelectComponentAds
-              title={'Behaviours'}
-              getDataSelectOptions={this.props.getDataSelectOptionsFBITBehaviours}
-            />
-          </Tab>
-          <Tab eventKey={2} title={'Google Ads'}>
-            <SelectComponentAds
-              title={'Demographics'}
-              getDataSelectOptions={this.props.getDataSelectOptionsGGemographics}
-            />
-            <SelectComponentAds
-              title={'Interests'}
-              getDataSelectOptions={this.props.getDataSelectOptionsGGInterests}
-            />
-            <SelectComponentAds
-              title={'Behaviours'}
-              getDataSelectOptions={this.props.getDataSelectOptionsGGBehaviours}
-            />
-          </Tab>
+        <Tabs
+          defaultActiveKey={
+            getDataValueSelectedPersona && getDataValueSelectedPersona.indexOf('fbad') > -1
+              ? '1'
+              : '2'
+          }
+          id="fbit-tab"
+          className={`${
+            getDataValueSelectedPersona &&
+            (getDataValueSelectedPersona.indexOf('fbad') > -1 ||
+              getDataValueSelectedPersona.indexOf('youtube') > -1)
+              ? 'border-bottom-1 border-color'
+              : ''
+          }`}
+        >
+          {getDataValueSelectedPersona && getDataValueSelectedPersona.indexOf('fbad') > -1 && (
+            <Tab eventKey={1} title={'Facebook/Instagram Ads'}>
+              <SelectComponentAds
+                title={'Demographics'}
+                getDataSelectOptions={this.props.getDataSelectOptionsFBITDemographics}
+              />
+              <SelectComponentAds
+                title={'Interests'}
+                getDataSelectOptions={this.props.getDataSelectOptionsFBITInterests}
+              />
+              <SelectComponentAds
+                title={'Behaviours'}
+                getDataSelectOptions={this.props.getDataSelectOptionsFBITBehaviours}
+              />
+            </Tab>
+          )}
+          {getDataValueSelectedPersona && getDataValueSelectedPersona.indexOf('youtube') > -1 && (
+            <Tab eventKey={2} title={'Google Ads'}>
+              <SelectComponentAds
+                title={'Demographics'}
+                getDataSelectOptions={this.props.getDataSelectOptionsGGemographics}
+              />
+              <SelectComponentAds
+                title={'Interests'}
+                getDataSelectOptions={this.props.getDataSelectOptionsGGInterests}
+              />
+              <SelectComponentAds
+                title={'Behaviours'}
+                getDataSelectOptions={this.props.getDataSelectOptionsGGBehaviours}
+              />
+            </Tab>
+          )}
         </Tabs>
       </div>
     );

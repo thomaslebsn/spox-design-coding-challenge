@@ -5,35 +5,34 @@ import { FORM_FIELD_TYPE } from '../../../constants/FormFieldType';
 import { PERSONA_FIELD_KEY } from '../../../constants/PersonaModule';
 
 import ComponentLinkChannels from '../../../components/ComponentLinkChannels';
+import SelectComponent from '../../../components/Select';
 import FormSelectDropdown from '../../../components/Form/FormSelectDropdown';
+import SelectComponentAds from '../../../components/ComponentFBITads/SelectComponentAds';
 
 const ComponentFormChannels = ({ validator, formPropsData, viewModel }) => {
-  let fieldChannels = {
-    label: 'Channels',
-    key: PERSONA_FIELD_KEY.CHANNELS,
-    type: FORM_FIELD_TYPE.DROPDOWN,
-    value:
-      formPropsData[PERSONA_FIELD_KEY.CHANNELS] != ''
-        ? formPropsData[PERSONA_FIELD_KEY.CHANNELS]
-        : '',
+  const handleChangeChannels = (value) => {
+    viewModel.getSelectedLabels(value);
 
-    defaultValue: formPropsData['connected_channels_master_data'],
-    required: true,
-    validation: 'required',
-    option: formPropsData['connected_channels_master_data'],
-    changed: (data) => {
-      let values = data && data.map((e) => e.value);
-      // let labels = data && data.map((e) => e.label);
-      formPropsData[PERSONA_FIELD_KEY.CHANNELS] = values;
-
-      // viewModel.getDataValueSelected.push(labels);
-    },
-    isMulti: true,
+    viewModel.getDataValueSelectedIds = value;
+    let personaIds = viewModel.getSelectedIDs();
+    if (personaIds) {
+      formPropsData[PERSONA_FIELD_KEY.CHANNELS] = personaIds;
+    }
   };
+
   return (
     <>
       <Form.Group key={Math.random(40, 200)} className={``}>
-        <FormSelectDropdown field={fieldChannels ? fieldChannels : null} />
+        <SelectComponent
+          // defaultValue
+          value={viewModel.getDataValueSelectedIds ? viewModel.getDataValueSelectedIds : null}
+          options={formPropsData['connected_channels_master_data']}
+          className="mb-3 text-green"
+          isBorder={true}
+          plColor="rgba(8, 18, 64, 0.8)"
+          isMulti={true}
+          onChange={handleChangeChannels}
+        />
         <ComponentLinkChannels viewModel={viewModel} />
       </Form.Group>
     </>

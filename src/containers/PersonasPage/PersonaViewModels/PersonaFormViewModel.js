@@ -18,7 +18,9 @@ class PersonaFormViewModel {
 
   connectedChannelMasterData = null;
 
-  getDataValueSelected = [];
+  getDataValueSelectedPersona = [];
+
+  getDataValueSelectedIds = [];
 
   constructor(personaStore) {
     makeAutoObservable(this);
@@ -121,6 +123,27 @@ class PersonaFormViewModel {
     console.log('callbackOnSuccessHandler');
     this.formStatus = PAGE_STATUS.READY;
     history.push('/personas');
+  };
+
+  getSelectedLabels = (value) => {
+    let labels = value && value.map((e) => e.label);
+
+    this.getDataValueSelectedPersona = labels;
+  };
+
+  getSelectedIDs = () => {
+    if (!this.getDataValueSelectedIds) return null;
+    const convertedInArray = this.getDataValueSelectedIds
+      .map((item) => {
+        return item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.VALUE];
+      })
+      .reduce((arr, el) => {
+        return arr.concat(el);
+      }, []);
+
+    let result = convertedInArray;
+
+    return result;
   };
 }
 

@@ -22,11 +22,18 @@ import { renderingGroupFieldHandler } from '../../../utils/form';
 import { faSave } from '@fortawesome/free-regular-svg-icons/faSave';
 import ComponentFormChannels from '../FormComponentPersona/ComponentFormChannels';
 import ComponentFBITads from '../../../components/ComponentFBITads';
+import ComponentLocations from '../../../components/ComponentLocations';
 
 const getDataSelectOptionsFBITDemographics = [
   { value: 'interior-design', label: 'Interior design' },
   { value: 'fashion-design', label: 'Fashion design' },
   { value: 'graphic-design', label: 'Graphic design' },
+];
+
+const getLocationsPesona = [
+  { value: 'location-1', label: 'People living in or recently in this location' },
+  { value: 'location-2', label: 'People living in or recently in this location 1' },
+  { value: 'location-3', label: 'People living in or recently in this location 2' },
 ];
 
 const PersonaFormPage = observer(
@@ -116,12 +123,24 @@ const PersonaFormPage = observer(
 
     getFormPropsData = () => this.formPropsData;
 
-    renderingFormHandler = () => {
+    render() {
+      console.log('[PersonaFormPage] rerender.....');
+
+      this.validator.purgeFields();
+
+      const { formStatus } = this.personaFormViewModel;
+      this.formPropsData[
+        'connected_channels_master_data'
+      ] = this.personaFormViewModel.connectedChannelMasterData;
+
       console.log(this.formPropsData);
 
-      //this.formPropsData[PERSONA_FIELD_KEY.DG_NAME] = event.target.value;
+      console.log('getDataValueSelectedPersona');
+      console.log(this.personaFormViewModel.getDataValueSelectedPersona);
 
-      return (
+      return formStatus === PAGE_STATUS.LOADING ? (
+        <Spinner />
+      ) : (
         <Form key={Math.random(40, 200)} className="row">
           <div className="mb-4">
             <ComponentHeaderPage
@@ -138,7 +157,11 @@ const PersonaFormPage = observer(
             />
             <div className="border-start-5 bg-white p-2 px-3 mb-3 rounded-2">
               <p className="text-blue-0 opacity-75 mb-2 fs-5">General</p>
-              <div></div>
+              <ComponentLocations
+                validator={this.validator}
+                formPropsData={this.formPropsData}
+                getDataSelectOptions={getLocationsPesona}
+              />
             </div>
             <div className="border-start-5 bg-white p-2 px-3 mb-3 rounded-2">
               <p className="text-blue-0 opacity-75 mb-2 fs-5">Channels</p>
@@ -159,27 +182,11 @@ const PersonaFormPage = observer(
               getDataSelectOptionsGGemographics={getDataSelectOptionsFBITDemographics}
               getDataSelectOptionsGGInterests={getDataSelectOptionsFBITDemographics}
               getDataSelectOptionsGGBehaviours={getDataSelectOptionsFBITDemographics}
-              getDataValueSelected={
-                this.personaFormViewModel.getDataValueSelected
-                  ? this.personaFormViewModel.getDataValueSelected
-                  : null
-              }
+              getDataValueSelectedPersona={this.personaFormViewModel.getDataValueSelectedPersona}
             />
           </div>
         </Form>
       );
-    };
-
-    render() {
-      console.log('[PersonaFormPage] rerender.....');
-
-      this.validator.purgeFields();
-
-      const { formStatus } = this.personaFormViewModel;
-      this.formPropsData[
-        'connected_channels_master_data'
-      ] = this.personaFormViewModel.connectedChannelMasterData;
-      return formStatus === PAGE_STATUS.LOADING ? <Spinner /> : this.renderingFormHandler();
     }
   }
 );
