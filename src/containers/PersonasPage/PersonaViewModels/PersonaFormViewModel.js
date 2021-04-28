@@ -22,6 +22,8 @@ class PersonaFormViewModel {
 
   getDataValueSelectedIds = [];
 
+  getAge = null;
+
   constructor(personaStore) {
     makeAutoObservable(this);
     this.personaStore = personaStore;

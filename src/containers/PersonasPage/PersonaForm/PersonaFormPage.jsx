@@ -36,6 +36,18 @@ const getLocationsPesona = [
   { value: 'location-3', label: 'People living in or recently in this location 2' },
 ];
 
+const getDataSelectOptionsAge = [
+  { value: '18', label: '18' },
+  { value: '19', label: '19' },
+  { value: '20', label: '20' },
+  { value: '21', label: '21' },
+  { value: '62', label: '62' },
+  { value: '63', label: '63' },
+  { value: '64', label: '64' },
+  { value: '65', label: '65' },
+  { value: '65+', label: '65+' },
+];
+
 const PersonaFormPage = observer(
   class PersonaFormPage extends Component {
     formPropsData = {
@@ -161,6 +173,9 @@ const PersonaFormPage = observer(
                 validator={this.validator}
                 formPropsData={this.formPropsData}
                 getDataSelectOptions={getLocationsPesona}
+                getDataSelectOptionsAge={getDataSelectOptionsAge}
+                viewModel={this.personaFormViewModel}
+                getAge={this.personaFormViewModel.getAge}
               />
             </div>
             <div className="border-start-5 bg-white p-2 px-3 mb-3 rounded-2">
