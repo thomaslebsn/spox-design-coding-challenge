@@ -1,5 +1,5 @@
-import React, { Component, lazy } from "react";
-import SelectComponent from "../../../components/Select";
+import React, { Component, lazy } from 'react';
+import SelectComponent from '../../../components/Select';
 
 class FormSelectionPersona extends Component {
   constructor(props) {
@@ -15,6 +15,10 @@ class FormSelectionPersona extends Component {
   render() {
     const { multi } = this.viewModel;
 
+    console.log('this.field.getValueSelected 123');
+    console.log(this.field.getValueSelected);
+    console.log(this.field.getDataSelectOptions);
+
     return (
       <SelectComponent
         value={this.field.getValueSelected}
@@ -26,6 +30,8 @@ class FormSelectionPersona extends Component {
         onBlur={this.field.blurred}
         isMulti={multi}
         onChange={this.field.handleOnChange}
+        // getOptionLabel={(option) => option.label}
+        // getOptionValue={(option) => option.val}
       />
     );
   }
