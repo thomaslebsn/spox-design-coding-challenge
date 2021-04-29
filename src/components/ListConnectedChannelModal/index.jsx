@@ -92,7 +92,7 @@ class ListConnectedChannelModal extends React.Component {
               Add Channels
             </a>
           </div>
-          <div className="rounded-2 px-3 pt-4 h-100 d-flex align-items-center bg-blue-3">
+          <div className="rounded-2 px-3 py-4 h-100 d-flex align-items-center bg-blue-3">
             <div className="row w-100">
               {arrayConnectedChannelsFinal
                 ? arrayConnectedChannelsFinal.map((value, key) => {

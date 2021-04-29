@@ -24,7 +24,7 @@ class ComponentContentFormGeneral extends Component {
     [CONTENT_FIELD_KEY.PROJECT]: '',
     [CONTENT_FIELD_KEY.CAMPAIGN]: '',
     [CONTENT_FIELD_KEY.PERSONA]: '',
-    [CONTENT_FIELD_KEY.DESCRIPTION]: '',
+    [CONTENT_FIELD_KEY.DESCRIPTION]: null,
     [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: '',
     [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: '',
     [CONTENT_FIELD_KEY.DAM]: '',
@@ -40,7 +40,21 @@ class ComponentContentFormGeneral extends Component {
   constructor(props) {
     super(props);
 
-    this.validator = new SimpleReactValidator();
+    this.validator = new SimpleReactValidator({
+      validators: {
+        desc: {
+          message: 'The :attribute must be a valid.',
+          rule: (val) => {
+            let isEmpty = (o) =>
+              o.constructor.name === 'Object'
+                ? Object.keys(o).reduce((y, z) => y && isEmpty(o[z]), true)
+                : o.length === 0;
+
+            return !isEmpty(val);
+          },
+        },
+      },
+    });
     this.viewModel = this.props.viewModel;
 
     console.log('ComponentContentFormGeneral - Debug viewModel');
@@ -84,38 +98,6 @@ class ComponentContentFormGeneral extends Component {
   generateFormSetting = () => {
     console.log('re generate Form Setting', this.formPropsData);
 
-    // const connectChannelsField = {
-    //   label: 'Add Channels',
-    //   key: CONTENT_FIELD_KEY.CHANNELS,
-    //   type: FORM_FIELD_TYPE.LABELBTN,
-    //   viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-    //   value: '',
-    //   addConnectChannlesBtn: this.props.addConnectChannlesBtn,
-    //   clicked: () => {
-    //     this.contentConnectedChannelsByOrganisationViewModel.openModal();
-    //   },
-    // };
-
-    // const connectChannelsField = this.props.connectChannelsField
-    //   ? {
-    //       label: "Connected Channels",
-    //       key: CONTENT_FIELD_KEY.CHANNELS,
-    //       type: FORM_FIELD_TYPE.LABELCARD,
-    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-    //       value: "",
-    //     }
-    //   : {
-    //       label: "Add Channels",
-    //       key: CONTENT_FIELD_KEY.CHANNELS,
-    //       type: FORM_FIELD_TYPE.LABELBTN,
-    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-    //       value: "",
-    //       clicked: () => {
-    //         this.contentConnectedChannelsByOrganisationViewModel.openModal();
-    //       },
-    //     };
-
-    console.log('===============');
     let valueCanva = '';
 
     if (
@@ -221,21 +203,6 @@ class ComponentContentFormGeneral extends Component {
             },
             blurred: this.blurringFieldHandler,
           },
-          // connectChannelsField,
-          {
-            label: 'Content',
-            key: CONTENT_FIELD_KEY.THEME,
-            type: FORM_FIELD_TYPE.CANVA,
-            required: true,
-            validation: 'required',
-            value: valueCanva,
-            changed: ({ exportUrl, designId }) => {
-              console.log('[Canva Field] changed', { exportUrl, designId });
-              this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] = exportUrl;
-              this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
-            },
-            blurred: this.blurringFieldHandler,
-          },
           {
             label: 'Dam button',
             key: CONTENT_FIELD_KEY.THEME,
@@ -247,6 +214,30 @@ class ComponentContentFormGeneral extends Component {
               console.log('[Canva Field] changed', { exportUrl, designId });
               this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] = exportUrl;
               this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
+            },
+            blurred: this.blurringFieldHandler,
+          },
+        ],
+      },
+    ];
+  };
+
+  generateFormSettingDescription = () => {
+    return [
+      {
+        fields: [
+          {
+            label: 'Content Description',
+            key: 'Description',
+            type: FORM_FIELD_TYPE.DESCRIPTION,
+            value: this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION],
+            required: true,
+            validation: 'required|desc',
+            viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+            changed: (data) => {
+              console.log('[Content - FormGeneral] - DESCRIPTION changed', data);
+
+              this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] = data;
             },
             blurred: this.blurringFieldHandler,
           },
@@ -303,20 +294,13 @@ class ComponentContentFormGeneral extends Component {
 
     const formSetting = this.generateFormSetting();
 
-    // const { formStatus } = this.personaFormViewModel;
-
-    console.log('this.projectTableSelectionModalViewModel 111');
-    console.log(
-      this.projectTableSelectionModalViewModel
-        ? this.projectTableSelectionModalViewModel.getDataSelectOptions
-        : null
-    );
+    const formSettingDescription = this.generateFormSettingDescription();
 
     return (
       <div className="pe-65">
         <h3 className="mb-4">General</h3>
         <div className="bg-white p-4">
-          <div>
+          <div className="d-flex">
             <div className="w-450">
               <div>
                 <Form key={Math.random(40, 200)}>
@@ -339,26 +323,38 @@ class ComponentContentFormGeneral extends Component {
                 </div>
               </div>
             </div>
-            <div
-              className={`d-flex border-top-1 pt-3 ${
-                this.props.isBackWizardStep ? 'justify-content-between' : 'justify-content-end'
-              }`}
-            >
-              {this.props.isBackWizardStep && (
-                <Button
-                  className="btn btn-light border-success"
-                  onClick={this.props.previousWizardStep}
-                >
-                  Back
-                </Button>
-              )}
-
-              <ButtonNormal
-                className="btn btn-success px-4"
-                text="Next"
-                onClick={this.next}
-              ></ButtonNormal>
+            <div className="flex-1 ps-4">
+              <Form key={Math.random(40, 200)}>
+                {Object.keys(formSettingDescription)
+                  .map((groupIndex) => {
+                    return [...Array(formSettingDescription[groupIndex])].map((group) => {
+                      return renderingGroupFieldHandler(group, this.validator);
+                    });
+                  })
+                  .reduce((arr, el) => {
+                    return arr.concat(el);
+                  }, [])}
+              </Form>
             </div>
+          </div>
+          <div
+            className={`d-flex border-top-1 pt-3 ${
+              this.props.isBackWizardStep ? 'justify-content-between' : 'justify-content-end'
+            }`}
+          >
+            {this.props.isBackWizardStep && (
+              <Button
+                className="btn btn-light border-success"
+                onClick={this.props.previousWizardStep}
+              >
+                Back
+              </Button>
+            )}
+            <ButtonNormal
+              className="btn btn-success px-4"
+              text="Next"
+              onClick={this.next}
+            ></ButtonNormal>
           </div>
         </div>
       </div>

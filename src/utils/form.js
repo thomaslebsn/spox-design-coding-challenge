@@ -2,7 +2,6 @@ import React, { lazy } from 'react';
 import Label from '../components/Form/Label';
 import { FORM_FIELD_TYPE } from '../constants/FormFieldType';
 import { Form } from 'react-bootstrap';
-import CanvaButton from '../components/CanvaButton';
 import DamButton from '../components/DamButton';
 import ListConnectedChannel from '../components/ListConnectedChannel';
 import ListConnectedChannelModal from '../components/ListConnectedChannelModal';
@@ -15,6 +14,12 @@ const FormSelectionPersona = lazy(() => import('../components/Form/FormSelection
 const FormInformation = lazy(() => import('../components/FormInformation'));
 const FormTab = lazy(() => import('../components/Form/FormTab'));
 const FormSelectDropdown = lazy(() => import('../components/Form/FormSelectDropdown'));
+
+const ContentFormDescription = lazy(() =>
+  import('../containers/ContentPage/ContentForm/ContentFormDescription')
+);
+
+const CanvaButton = lazy(() => import('../components/CanvaButton'));
 
 const renderingGroupFieldHandler = (group, validator) => {
   return Object.keys(group.fields)
@@ -161,6 +166,18 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <ListConnectedChannelModal field={field} />
                 </Form.Group>
               );
+            case FORM_FIELD_TYPE.DESCRIPTION:
+              return (
+                <Form.Group key={Math.random(40, 200)} className={`mb-3 ${className}`}>
+                  <Label text={field.label} required={field.required ?? false} />
+                  <ContentFormDescription field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.value, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
+
             default:
               return null;
           }
