@@ -59,10 +59,7 @@ class ListConnectedChannelModal extends React.Component {
   };
 
   handleDeleteConnectChannel = (index) => {
-    let arrayConnectedChannelsFinal = this.viewModel.arrayConnectedChannelsFinal;
-
-    arrayConnectedChannelsFinal.splice(index, 1);
-    this.viewModel.arrayConnectedChannelsFinal = arrayConnectedChannelsFinal;
+    this.viewModel.handleDeleteConnectChannel(index);
   };
 
   handleShowModalChannels = () => {
@@ -75,6 +72,9 @@ class ListConnectedChannelModal extends React.Component {
     let arrayConnectedChannelsFinal = this.props.arrayConnectedChannelsFinal
       ? this.props.arrayConnectedChannelsFinal
       : '';
+
+    console.log('arrayConnectedChannelsFinalrender123');
+    console.log(arrayConnectedChannelsFinal);
 
     return (
       <>
@@ -92,14 +92,14 @@ class ListConnectedChannelModal extends React.Component {
               Add Channels
             </a>
           </div>
-          <div className="rounded-2 px-3 py-2 h-100 d-flex align-items-center">
+          <div className="rounded-2 px-3 pt-4 h-100 d-flex align-items-center bg-blue-3">
             <div className="row w-100">
               {arrayConnectedChannelsFinal
                 ? arrayConnectedChannelsFinal.map((value, key) => {
                     return (
                       <div
                         key={Math.random(10000, 20000)}
-                        className={`item_social ${styles.item_social} col-2 mb-2 cursor-pointer position-relative `}
+                        className={`item_social ${styles.item_social} col-3 mb-4 cursor-pointer position-relative `}
                       >
                         <a
                           href={void 0}
@@ -116,7 +116,7 @@ class ListConnectedChannelModal extends React.Component {
                           >
                             <img alt={value.des} src={value.images} className="img-avatar" />
                           </p>
-                          <p className="text-blue-0 opacity-50 mb-0">{value.des}</p>
+                          <p className="text-blue-0 opacity-75 mb-0">{value.des}</p>
                         </div>
                       </div>
                     );

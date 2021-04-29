@@ -51,6 +51,10 @@ textarea {
   transition: all 0.4s ease;
 }
 
+.w-450 {
+  width: 450px;
+}
+
 .pd-t-80 {
   padding-top: 80px;
 }
@@ -136,6 +140,10 @@ textarea {
 
 .btn-light {
   border-color: $secondary;
+}
+
+.pe-65 {
+  padding-right: 65px;
 }
 
 //Change style tab

@@ -313,30 +313,34 @@ class ComponentContentFormGeneral extends Component {
     );
 
     return (
-      <>
-        <div className="col-6">
-          <h3 className="mb-4">General</h3>
-          <div className="bg-white p-4">
-            <Form key={Math.random(40, 200)}>
-              {Object.keys(formSetting)
-                .map((groupIndex) => {
-                  return [...Array(formSetting[groupIndex])].map((group) => {
-                    return renderingGroupFieldHandler(group, this.validator);
-                  });
-                })
-                .reduce((arr, el) => {
-                  return arr.concat(el);
-                }, [])}
-            </Form>
-            <div>
-              <ListConnectedChannelModal
-                viewModel={this.contentConnectedChannelsByOrganisationViewModel}
-                showModalChannels={this.props.showModalChannels}
-                arrayConnectedChannelsFinal={this.props.arrayConnectedChannelsFinal}
-              />
+      <div className="pe-65">
+        <h3 className="mb-4">General</h3>
+        <div className="bg-white p-4">
+          <div>
+            <div className="w-450">
+              <div>
+                <Form key={Math.random(40, 200)}>
+                  {Object.keys(formSetting)
+                    .map((groupIndex) => {
+                      return [...Array(formSetting[groupIndex])].map((group) => {
+                        return renderingGroupFieldHandler(group, this.validator);
+                      });
+                    })
+                    .reduce((arr, el) => {
+                      return arr.concat(el);
+                    }, [])}
+                </Form>
+                <div>
+                  <ListConnectedChannelModal
+                    viewModel={this.contentConnectedChannelsByOrganisationViewModel}
+                    showModalChannels={this.props.showModalChannels}
+                    arrayConnectedChannelsFinal={this.props.arrayConnectedChannelsFinal}
+                  />
+                </div>
+              </div>
             </div>
             <div
-              className={`d-flex ${
+              className={`d-flex border-top-1 pt-3 ${
                 this.props.isBackWizardStep ? 'justify-content-between' : 'justify-content-end'
               }`}
             >
@@ -350,14 +354,14 @@ class ComponentContentFormGeneral extends Component {
               )}
 
               <ButtonNormal
-                className="btn btn-success"
+                className="btn btn-success px-4"
                 text="Next"
                 onClick={this.next}
               ></ButtonNormal>
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

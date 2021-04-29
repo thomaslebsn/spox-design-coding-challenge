@@ -90,6 +90,14 @@ class ContentConnectedChannelsByOrganisationViewModel {
     );
   };
 
+  handleDeleteConnectChannel = (index) => {
+    let arrayConnectedChannelsFinal = this.arrayConnectedChannelsFinal;
+
+    arrayConnectedChannelsFinal.splice(index, 1);
+
+    this.arrayConnectedChannelsFinal = [...arrayConnectedChannelsFinal];
+  };
+
   callbackOnErrorHander = (error) => {
     console.log('callbackOnErrorHander - content');
     console.log(error);
