@@ -22,6 +22,7 @@ const CONTENT_FIELD_KEY = {
   CONTENT_THEMES: "content-themes",
   CANVA_EXPORTED_URL: "canva-exported-url",
   CANVA_DESIGN_ID: "canva-design-id",
+  DAM: "dam",
 };
 
 const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {
@@ -45,6 +46,7 @@ const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {
   CONTENT_TO_POST: "content_to_post",
   CANVA_EXPORTED_URL: "canva_exported_url",
   CANVA_DESIGN_ID: "canva_design_id",
+  DAM: "dam",
 };
 
 export { CONTENT_FIELD_KEY, ESI_CONTENT_API_RESPONSE_FIELD_KEY };

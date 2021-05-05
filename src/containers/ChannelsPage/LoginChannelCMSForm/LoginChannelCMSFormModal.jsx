@@ -8,9 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import history from "../../../routes/history";
+import { CHANNEL_CMS_DRUPAL, CHANNEL_CMS_JOOMLA, CHANNEL_CMS_MEDIUM, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
 
 const ModalComponent = lazy(() => import("../../../components/Modal"));
 const LoginChannelCMSForm = lazy(() => import("./LoginChannelCMSForm"));
+const LoginChannelCMSMedium = lazy(() => import("./LoginChannelCMSMedium"));
 
 class LoginChannelCMSFormModal extends Component {
   loginCMSChannelFormModalViewModel = null;
@@ -25,50 +27,67 @@ class LoginChannelCMSFormModal extends Component {
   }
 
   saveCMSHandler = (channelUniqueName) => {
-    this.loginCMSChannelFormModalViewModel.saveCMSHandler(
-      this.props.organizationID,
-      channelUniqueName
-    );
+    this.loginCMSChannelFormModalViewModel.saveCMSHandler(channelUniqueName);
   };
 
   render() {
-    if (this.props.wordpressConnected == true) {
-      this.loginCMSChannelFormModalViewModel.isConnectWordpressSuccess = true;
-    }
-
+    const { isModalCms } = this.props;
     const {
-      isConnectWordpressSuccess,
+      cmsChannelType,
       closeModal,
     } = this.loginCMSChannelFormModalViewModel;
 
+    let header = "";
+    let buttonTitle = "";
+    let eventName = "";
+    switch (cmsChannelType) {
+      case CHANNEL_CMS_WORDPRESS:
+        header = "Connect CMS Wordpress";
+        buttonTitle = "Login Wordpress";
+        eventName = "wordpress";
+        break;
+      case CHANNEL_CMS_DRUPAL:
+        header = "Connect CMS Drupal";
+        buttonTitle = "Login Drupal";
+        eventName = "drupal";
+        break;
+      case CHANNEL_CMS_MEDIUM:
+        header = "Connect CMS Medium";
+        buttonTitle = "Connect";
+        eventName = "medium";
+        break;
+      case CHANNEL_CMS_JOOMLA:
+        header = "Connect CMS Joomla";
+        buttonTitle = "Connect";
+        eventName = "joomla";
+        break;
+      default:
+        break;
+    }
+
     return (
       <React.Fragment>
-        <button
-          className="cursor-pointer btn btn-success"
-          onClick={(e) => {
-            this.props.handleModalCms("wordpress");
-          }}
-          disabled={isConnectWordpressSuccess ? true : false}
-        >
-          <span className="ms-2">
-            {isConnectWordpressSuccess ? "Connected" : "Connect"}
-          </span>
-        </button>
         <ModalComponent
-          show={this.props.isModalCms}
+          show={isModalCms}
           onHide={closeModal}
-          header={"Connect CMS Wordpress"}
+          header={header}
           body={
-            <LoginChannelCMSForm
-              viewModel={this.loginCMSChannelFormModalViewModel}
-            />
+            cmsChannelType === CHANNEL_CMS_MEDIUM ? (
+              <LoginChannelCMSMedium
+                viewModel={this.loginCMSChannelFormModalViewModel}
+              />
+            ) : (
+              <LoginChannelCMSForm
+                viewModel={this.loginCMSChannelFormModalViewModel}
+              />
+            )
           }
           footer={
             <Button
-              onClick={(e) => this.saveCMSHandler("wordpress")}
+              onClick={(e) => this.saveCMSHandler(eventName)}
               className="btn btn-success w-100"
             >
-              <span>Login Wordpress</span>
+              <span>{buttonTitle}</span>
               <i className="ms-1">
                 <FontAwesomeIcon icon={faChevronRight} />
               </i>

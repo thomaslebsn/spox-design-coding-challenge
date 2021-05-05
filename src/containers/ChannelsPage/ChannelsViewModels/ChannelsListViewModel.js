@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { notify } from "../../../components/Toast";
+import { CHANNEL_ADS_GOOGLE, CHANNEL_CMS_WORDPRESS } from "../../../constants/ChannelModule";
 
 class ChannelsListViewModel {
   channelsStore = null;
@@ -10,6 +11,8 @@ class ChannelsListViewModel {
   tableStatus = PAGE_STATUS.LOADING;
 
   facebookConnected = false;
+
+  facebookAdsConnected = false;
 
   youtubeConnected = false;
 
@@ -23,9 +26,17 @@ class ChannelsListViewModel {
 
   wordpressConnected = false;
 
+  mediumConnected = false;
+
+  joomlaConnected = false;
+
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
+
+  listFacebookAdsAccount = null;
+
+  listFacebookAdsAccountView = null;
 
   showModalCMS = true;
 
@@ -35,12 +46,19 @@ class ChannelsListViewModel {
 
   showUpgrade = false;
 
+  drupalConnected = false;
+
+  googleadsConnected = false;
+
+
+  cmsChannelType = CHANNEL_CMS_WORDPRESS;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
   }
 
-  connectLoginUrl = (organizationID, channelUniqueName) => {
+  connectLoginUrl = (channelUniqueName) => {
     this.channelsStore.getChannelLoginUrl(
       this.callbackOnSuccessChannel,
       this.callbackOnErrorHander,
@@ -58,7 +76,6 @@ class ChannelsListViewModel {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       console.log("callbackOnSuccessChannel");
-
       if (response.result.must_upgrade) {
         this.mustUpgrade = true;
         return;
@@ -81,6 +98,15 @@ class ChannelsListViewModel {
                 let responseResult = response.result;
 
                 switch (channelUniqueName) {
+                  case "fbad": //facebookAdConnected
+                    if (responseResult.pages.status === "connected") {
+                      this.facebookAdsConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                      this.listFacebookAdsAccount =
+                        responseResult.pages.adAccounts;
+                    }
+                    break;
+
                   case "facebook":
                     if (responseResult.pages.status === "connected") {
                       this.facebookConnected = true;
@@ -126,6 +152,29 @@ class ChannelsListViewModel {
                   case "tumblr":
                     if (responseResult.connected == 1) {
                       this.tumblrConnected = true;
+                    }
+                    break;
+                  case "drupal":
+                    if (responseResult.connected == 1) {
+                      this.drupalConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case "medium":
+                    if (responseResult.connected == 1) {
+                      this.mediumConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case "joomla":
+                    if (responseResult.connected == 1) {
+                      this.joomlaConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case CHANNEL_ADS_GOOGLE:
+                    if (responseResult.connected == 1) {
+                      this.googleadsConnected = true;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
@@ -149,6 +198,7 @@ class ChannelsListViewModel {
 
   checkConnectedChannels(channels) {
     channels.map((channelType) => {
+      console.log('----------------', channelType);
       this.channelsStore.checkConnectedChannels(
         (response) => {
           if (response) {
@@ -170,6 +220,25 @@ class ChannelsListViewModel {
                     });
                   } else {
                     this.listFaceBookFanpage = listFanpage;
+                  }
+                }
+                break;
+
+              case "fbad":
+                if (responseResult.pages.status === "connected") {
+                  this.facebookAdsConnected = true;
+                  let listAdAccountsConnected = responseResult.pages.connected;
+                  let listAdAccounts = responseResult.pages.adAccounts;
+
+                  if (listAdAccountsConnected.length > 0) {
+                    this.listFacebookAdsAccountView = [];
+                    listAdAccounts.map((adAccount) => {
+                      if (listAdAccountsConnected.indexOf(adAccount.id) > -1) {
+                        this.listFacebookAdsAccountView.push(adAccount);
+                      }
+                    });
+                  } else {
+                    this.listFacebookAdsAccount = listAdAccounts;
                   }
                 }
                 break;
@@ -214,7 +283,26 @@ class ChannelsListViewModel {
                   this.tumblrConnected = true;
                 }
                 break;
-
+              case "drupal":
+                if (responseResult.connected == 1) {
+                  this.drupalConnected = true;
+                }
+                break;
+              case "medium":
+                if (responseResult.connected == 1) {
+                  this.mediumConnected = true;
+                }
+                break;
+              case "joomla":
+                if (responseResult.connected == 1) {
+                  this.joomlaConnected = true;
+                }
+                break;
+              case CHANNEL_ADS_GOOGLE:
+                if (responseResult.connected == 1) {
+                  this.googleadsConnected = true;
+                }
+                break;
               default:
                 break;
             }
@@ -236,6 +324,16 @@ class ChannelsListViewModel {
     }
   };
 
+  saveChosseFacebookAdAccount = (accountIds) => {
+    if (accountIds.length > 0) {
+      this.channelsStore.saveChosseFacebookAdAccount(
+          this.callbackOnSuccessListFacebookAdAccount(),
+          this.callbackOnErrorHander,
+          accountIds
+      );
+    }
+  };
+
   callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
@@ -245,6 +343,23 @@ class ChannelsListViewModel {
         },
         (error) => {},
         pageIds
+      );
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
+
+  callbackOnSuccessListFacebookAdAccount = (response, accountIds) => {
+    console.log('HA03 AAAAAAAAAAAA', response);
+    if (response) {
+      this.tableStatus = PAGE_STATUS.READY;
+      this.channelsStore.getFacebookAdAccounts(
+          (res) => {
+            console.log('HA03', res);
+            this.listFacebookAdsAccountView = res.result.pages.adAccounts;
+          },
+          (error) => {},
+          accountIds
       );
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;

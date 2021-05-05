@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 
 import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
 import {
@@ -26,6 +27,7 @@ class ComponentContentFormGeneral extends Component {
     [CONTENT_FIELD_KEY.DESCRIPTION]: "",
     [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: "",
     [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: "",
+    [CONTENT_FIELD_KEY.DAM]: "",
   };
   validator = null;
   isEditMode = false;
@@ -35,18 +37,11 @@ class ComponentContentFormGeneral extends Component {
   campaignTableSelectionModalViewModel = null;
   contentConnectedChannelsByOrganisationViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
-  // selectedOrganizationIDFromWizardStep1 = null;
   constructor(props) {
     super(props);
 
     this.validator = new SimpleReactValidator();
-    // if this component is MOUNTED from Content Module => viewModel is ContentViewModel
-    // Otherwise, viewModel is WizardViewModel
     this.viewModel = this.props.viewModel;
-    // this.selectedOrganizationIDFromWizardStep1 = this.props
-    //   .selectedOrganizationIDFromWizardStep1
-    //   ? this.props.selectedOrganizationIDFromWizardStep1
-    //   : null;
 
     console.log("ComponentContentFormGeneral - Debug viewModel");
     console.log(this.viewModel);
@@ -87,23 +82,6 @@ class ComponentContentFormGeneral extends Component {
   }
 
   componentDidMount = () => {
-    // const { match } = this.props;
-    // console.log("Debugging - Match Params");
-    // console.log(match);
-    // if (match) {
-    //   if (match.params.id) {
-    //     this.viewModel.getContent(match.params.id);
-    //   } else {
-    //     this.viewModel.formStatus = PAGE_STATUS.READY;
-    //   }
-    // }
-    // if (this.selectedOrganizationIDFromWizardStep1) {
-    //   this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
-    //   this.formPropsData[
-    //     CONTENT_FIELD_KEY.PROJECT
-    //   ] = this.selectedOrganizationIDFromWizardStep1;
-    // }
-
     this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
   };
 
@@ -153,7 +131,7 @@ class ComponentContentFormGeneral extends Component {
         designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
       };
     }
-    console.log(valueCanva);
+
     return [
       {
         fields: [
@@ -163,6 +141,8 @@ class ComponentContentFormGeneral extends Component {
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
             viewModel: this.projectTableSelectionModalViewModel,
+            getDataSelectOptions: this.props.getDataSelectOptionsProject,
+            getValueSelected: this.props.getValueSelectedProject,
             changed: () => {
               // const projectId = this.projectTableSelectionModalViewModel.getSelectedIDs();
               // if (projectId) {
@@ -172,6 +152,9 @@ class ComponentContentFormGeneral extends Component {
             clicked: () => {
               // this.projectTableSelectionModalViewModel.openModal();
             },
+            handleChange: (value) => {
+              this.projectTableSelectionModalViewModel.getValueSelected = value;
+            },
           },
           {
             label: "Choose the Campaign",
@@ -179,6 +162,8 @@ class ComponentContentFormGeneral extends Component {
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
             viewModel: this.campaignTableSelectionModalViewModel,
+            getDataSelectOptions: this.props.getDataSelectOptionsCampaign,
+            getValueSelected: this.props.getValueSelectedCampaign,
             changed: () => {
               // const campaignId = this.campaignTableSelectionModalViewModel.getSelectedIDs();
               // if (campaignId) {
@@ -188,14 +173,18 @@ class ComponentContentFormGeneral extends Component {
             clicked: () => {
               // this.campaignTableSelectionModalViewModel.openModal();
             },
+            handleChange: (value) => {
+              this.campaignTableSelectionModalViewModel.getValueSelected = value;
+            },
           },
           {
             label: "Choose the Persona",
             key: CONTENT_FIELD_KEY.PERSONA,
-            // type: FORM_FIELD_TYPE.SELECTION,
             type: FORM_FIELD_TYPE.SELECTIONPERSONA,
-            //value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
+            value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
             viewModel: this.personaTableSelectionModalViewModel,
+            getDataSelectOptions: this.props.getDataSelectOptionsPersona,
+            getValueSelected: this.props.getValueSelectedPersona,
             changed: () => {
               // const personaIds = this.personaTableSelectionModalViewModel.getSelectedIDs();
               // if (personaIds) {
@@ -209,10 +198,10 @@ class ComponentContentFormGeneral extends Component {
             },
             multi: true,
             handleOnChange: (value) => {
+              this.personaTableSelectionModalViewModel.getValueSelected = value;
               this.contentConnectedChannelsByOrganisationViewModel.getDataValueSelected = value;
               let personaIds = this.contentConnectedChannelsByOrganisationViewModel.getSelectedIDs();
-              console.log("personaIdspersonaIds 2222");
-              console.log(personaIds);
+
               if (personaIds) {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }
@@ -241,6 +230,22 @@ class ComponentContentFormGeneral extends Component {
             label: "Content",
             key: CONTENT_FIELD_KEY.THEME,
             type: FORM_FIELD_TYPE.CANVA,
+            required: true,
+            validation: "required",
+            value: valueCanva,
+            changed: ({ exportUrl, designId }) => {
+              console.log("[Canva Field] changed", { exportUrl, designId });
+              this.formPropsData[
+                CONTENT_FIELD_KEY.CANVA_EXPORTED_URL
+              ] = exportUrl;
+              this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
+            },
+            blurred: this.blurringFieldHandler,
+          },
+          {
+            label: "Dam button",
+            key: CONTENT_FIELD_KEY.THEME,
+            type: FORM_FIELD_TYPE.DAM,
             required: true,
             validation: "required",
             value: valueCanva,
@@ -312,6 +317,13 @@ class ComponentContentFormGeneral extends Component {
 
     // const { formStatus } = this.personaFormViewModel;
 
+    console.log("this.projectTableSelectionModalViewModel 111");
+    console.log(
+      this.projectTableSelectionModalViewModel
+        ? this.projectTableSelectionModalViewModel.getDataSelectOptions
+        : null
+    );
+
     return (
       <>
         <div className="col-6">
@@ -328,7 +340,22 @@ class ComponentContentFormGeneral extends Component {
                   return arr.concat(el);
                 }, [])}
             </Form>
-            <div className="d-flex justify-content-end">
+            <div
+              className={`d-flex ${
+                this.props.isBackWizardStep
+                  ? "justify-content-between"
+                  : "justify-content-end"
+              }`}
+            >
+              {this.props.isBackWizardStep && (
+                <Button
+                  className="btn btn-light border-success"
+                  onClick={this.props.previousWizardStep}
+                >
+                  Back
+                </Button>
+              )}
+
               <ButtonNormal
                 className="btn btn-success"
                 text="Next"

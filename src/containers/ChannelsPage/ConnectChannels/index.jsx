@@ -9,6 +9,7 @@ import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { CHANNEL_ADS_GOOGLE } from "../../../constants/ChannelModule";
 
 const ConnectChannels = observer(
   class ConnectChannels extends Component {
@@ -39,18 +40,16 @@ const ConnectChannels = observer(
         : null;
 
       this.state = {
-        channels: [],
-        showModal: true,
-        getIDSFanpage: [],
-        isWordpressConnected: false,
-        organizationID: 1,
+          channels: [],
+          showModal: true,
+          showModalFbad: true,
+          getIDSFanpage: [],
+          getIDSAdAccount: [],
+          isWordpressConnected: false,
       };
 
-      //get project id from url
-      // let getIdProject = history.location.pathname.match(/\d/g);
-      // getIdProject = getIdProject.join("");
-
       //call check connected channels
+
       this.channelsListViewModel.checkConnectedChannels([
         "linkedin",
         "youtube",
@@ -60,6 +59,11 @@ const ConnectChannels = observer(
         "mailchimp",
         "wordpress",
         "tumblr",
+        "drupal",
+        "medium",
+        "joomla",
+        "fbad",
+        CHANNEL_ADS_GOOGLE,
       ]);
     }
 
@@ -78,7 +82,34 @@ const ConnectChannels = observer(
       });
     };
 
-    handleSaveFanpage = () => {
+      handleCheckboxAdAccounts = (id) => {
+          let getIDSAdAccount = this.state.getIDSAdAccount;
+          getIDSAdAccount.push(id);
+
+          this.setState({
+              getIDSAdAccount: getIDSAdAccount,
+          });
+      };
+
+      handleCloseModalFbad = () => {
+          this.setState({
+              showModalFbad: false,
+          });
+      };
+
+      handleSaveAdsAccount = () => {
+          this.channelsListViewModel.saveChosseFacebookAdAccount(
+              this.state.getIDSAdAccount
+          );
+
+          this.setState({
+              showModal: false,
+          });
+      };
+
+
+
+      handleSaveFanpage = () => {
       this.channelsListViewModel.saveChosseFacebookFanpages(
         this.state.getIDSFanpage
       );
@@ -88,7 +119,8 @@ const ConnectChannels = observer(
       });
     };
 
-    handleModalCms = () => {
+    handleModalCms = (type) => {
+      this.loginCMSChannelFormModalViewModel.setChannelType(type);
       this.loginCMSChannelFormModalViewModel.openModal();
     };
 
@@ -99,7 +131,10 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
-        youtubeConnected,
+          listFacebookAdsAccount,
+          listFacebookAdsAccountView,
+          facebookAdsConnected,
+          youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -107,7 +142,13 @@ const ConnectChannels = observer(
         tumblrConnected,
         wordpressConnected,
         mustUpgrade,
+        drupalConneted,
+        mediumConnected,
+        joomlaConnected,
+        googleadsConnected
       } = this.channelsListViewModel;
+
+      console.log('this.channelsListViewModel', this.channelsListViewModel)
 
       return (
         <div className="py-4 px-3">
@@ -118,7 +159,12 @@ const ConnectChannels = observer(
               listFaceBookFanpageView={
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
+              listFacebookAdsAccountView={
+                  listFacebookAdsAccountView ? listFacebookAdsAccountView : null
+              }
               facebookConnected={facebookConnected}
+              facebookAdsConnected={facebookAdsConnected}
+
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
@@ -127,10 +173,13 @@ const ConnectChannels = observer(
               tumblrConnected={tumblrConnected}
               wordpressConnected={wordpressConnected}
               mustUpgrade={mustUpgrade}
+              drupalConneted={drupalConneted}
+              mediumConnected={mediumConnected}
+              joomlaConnected={joomlaConnected}
               viewModel={this.viewModel}
-              organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
+              googleadsConnected={googleadsConnected}
             />
           </div>
           {listFaceBookFanpage && (
@@ -169,6 +218,43 @@ const ConnectChannels = observer(
               }
             />
           )}
+            {listFacebookAdsAccount && (
+                <ModalComponent
+                    header={"Facebook Ad Accounts"}
+                    body={
+                        <div>
+                            <ul className="list-unstyled align-items-center">
+                                {listFacebookAdsAccount &&
+                                listFacebookAdsAccount.map((value, key) => {
+                                    return (
+                                        <ComponentItemFanpage
+                                            key={key}
+                                            name={value.name}
+                                            handleCheckbox={(e) => {
+                                                this.handleCheckboxAdAccounts(value.id);
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    }
+                    show={showModal}
+                    onHide={this.handleCloseModal}
+                    footer={
+                        <button
+                            onClick={this.handleSaveAdsAccount}
+                            className="btn btn-success w-100"
+                        >
+                            <span>Save</span>
+                            <i className="ms-1">
+                                <FontAwesomeIcon icon={faChevronRight} />
+                            </i>
+                        </button>
+                    }
+                />
+            )}
+
         </div>
       );
     }

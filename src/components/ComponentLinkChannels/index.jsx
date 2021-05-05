@@ -3,42 +3,27 @@ import React from "react";
 class ComponentLinkChannels extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [
-        {
-          icon: "/assets/images/ic-facebook.svg",
-          link: "#",
-        },
-        {
-          icon: "/assets/images/ic-facebook.svg",
-          link: "#",
-        },
-        {
-          icon: "/assets/images/ic-facebook.svg",
-          link: "#",
-        },
-        {
-          icon: "/assets/images/ic-facebook.svg",
-          link: "#",
-        },
-      ],
-    };
+    this.state = {};
   }
 
   render() {
-    let { data } = this.state;
+    let { viewModel } = this.props;
+    let channelsLogo = viewModel ? viewModel.connectedChannelMasterData : [];
 
     return (
       <ul className="list-unstyled d-flex align-items-center">
-        {data.map((value, key) => {
-          return (
-            <li key={key}>
-              <a href={void 0} href={value.link}>
-                <img src={value.icon} alt="" className="img-avatar" />
-              </a>
-            </li>
-          );
-        })}
+        {channelsLogo &&
+          channelsLogo.map((value, key) => {
+            return (
+              <li key={key} className="me-2">
+                <img
+                  src={`/assets/images/${value.label}.png`}
+                  alt=""
+                  className="img-avatar"
+                />
+              </li>
+            );
+          })}
       </ul>
     );
   }

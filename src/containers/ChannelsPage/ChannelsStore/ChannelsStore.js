@@ -2,6 +2,7 @@ import React from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { EasiiOrganisationChannelApiService } from "easii-io-web-service-library";
+import { CHANNEL_ADS_GOOGLE } from "../../../constants/ChannelModule";
 
 export default class ChannelsStore {
   async getChannelLoginUrl(
@@ -16,6 +17,7 @@ export default class ChannelsStore {
       let response = null;
 
       switch (channelUniqueName) {
+        case "fbad":
         case "facebook":
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
@@ -26,9 +28,9 @@ export default class ChannelsStore {
         case "mailchimp":
         case "instagram":
         case "tumblr":
+        case CHANNEL_ADS_GOOGLE:
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
-
         default:
           break;
       }
@@ -61,6 +63,11 @@ export default class ChannelsStore {
       let result = null;
 
       switch (channelType) {
+        case "fbad":
+          result = await channelService.checkConnectionStatusFacebookAd(
+              channelType
+          );
+          break;
         case "facebook":
           result = await channelService.checkConnectionStatusFacebook(
             channelType
@@ -74,6 +81,10 @@ export default class ChannelsStore {
         case "instagram":
         case "tumblr":
         case "wordpress":
+        case "drupal":
+        case "medium":
+        case "joomla":
+        case CHANNEL_ADS_GOOGLE:
           result = await channelService.getCheckConnectStatusChannel(
             channelType
           );
@@ -130,6 +141,35 @@ export default class ChannelsStore {
     }
   }
 
+  async saveChosseFacebookAdAccount(
+      callbackOnSuccess,
+      callbackOnError,
+      pageIds
+  ) {
+    try {
+      console.log("store pageIds", pageIds);
+      const channelService = new EasiiOrganisationChannelApiService();
+      const response = await channelService.connectMultiAdAccount(pageIds);
+
+      console.log("store response", response);
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, pageIds);
+        });
+      } else {
+        callbackOnError({
+          message:
+              "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
   async getFacebookFanpages(callbackOnSuccess, callbackOnError, pageIds) {
     try {
       const channelService = new EasiiOrganisationChannelApiService();
@@ -142,6 +182,28 @@ export default class ChannelsStore {
         callbackOnError({
           message:
             "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+      });
+    }
+  }
+
+  async getFacebookAdAccounts(callbackOnSuccess, callbackOnError, accountIds) {
+    try {
+      const channelService = new EasiiOrganisationChannelApiService();
+      const response = await channelService.getListAdAccounts(accountIds);
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response, accountIds);
+        });
+      } else {
+        callbackOnError({
+          message:
+              "[intervalAskForConnectedChannels] - Something went wrong from Server response",
         });
       }
     } catch (error) {
@@ -165,6 +227,9 @@ export default class ChannelsStore {
 
     switch (channelUniqueName) {
       case "wordpress":
+      case "drupal":
+      case "medium":
+      case "joomla":
         response = await channelService.doLoginCMS(dataPost);
         break;
       default:

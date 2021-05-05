@@ -20,6 +20,8 @@ class ProjectsListViewModel {
 
   facebookConnected = false;
 
+  facebookAdsConnected = false;
+
   youtubeConnected = false;
 
   twitterConnected = false;
@@ -35,6 +37,10 @@ class ProjectsListViewModel {
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
+
+  listFacebookAdsAccount = null;
+
+  listFacebookAdsAccountView = null;
 
   showModalCMS = true;
 

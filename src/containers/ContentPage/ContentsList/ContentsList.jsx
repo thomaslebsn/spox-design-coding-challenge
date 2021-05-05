@@ -126,7 +126,7 @@ const ContentsList = observer(
                     width="20"
                     className="position-absolute bottom-0 end-0"
                   />
-                  <Image src={item.image} rounded width="50" />
+                  <Image src={item.image} rounded width="40" />
                 </div>
               ))}
             </div>

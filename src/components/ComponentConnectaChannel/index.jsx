@@ -1,32 +1,23 @@
 import React, { Component, lazy } from "react";
-import {
-  Tab,
-  Tabs,
-  Button,
-  Nav,
-  Accordion,
-  useAccordionToggle,
-} from "react-bootstrap";
-import history from "../../routes/history";
+import { Tab, Tabs } from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
-import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import Wordpress from "./Wordpress";
 import LoginChannelCMSFormModal from "../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal";
 import styles from "./index.module.scss";
 import Upgrade from "../Upgrade";
+import ButtonConnect from "../ButtonConnect";
+import {
+  CHANNEL_ADS_GOOGLE,
+  CHANNEL_CMS_DRUPAL,
+  CHANNEL_CMS_JOOMLA,
+  CHANNEL_CMS_MEDIUM,
+  CHANNEL_CMS_WORDPRESS,
+} from "../../constants/ChannelModule";
 const ModalComponent = lazy(() => import("../../components/Modal"));
-
 class ComponentConnectaChannel extends Component {
   formData = [];
   channelsListViewModel = null;
   constructor(props) {
     super(props);
-
-    console.log(this.props);
 
     this.channelsListViewModel = this.props.channelsListViewModel;
 
@@ -50,8 +41,8 @@ class ComponentConnectaChannel extends Component {
   };
 
   handleConnectChannel = (name) => {
-    let { channelsListViewModel, organizationID } = this.props;
-    channelsListViewModel.connectLoginUrl(organizationID, name);
+    let { channelsListViewModel } = this.props;
+    channelsListViewModel.connectLoginUrl(name);
   };
 
   closeModalUpgrade = () => {
@@ -60,20 +51,25 @@ class ComponentConnectaChannel extends Component {
 
   render() {
     const {
+      channelsListViewModel,
       listFaceBookFanpageView,
       facebookConnected,
+      listFacebookAdsAccountView,
+      facebookAdsConnected,
       youtubeConnected,
       twitterConnected,
       linkedinConnected,
       mailchimpConnected,
       instagramConnected,
       tumblrConnected,
-      wordpressConnected,
-      organizationID,
+      mediumConnected,
+      joomlaConnected,
       handleModalCms,
       isModalCms,
-      channelsListViewModel,
+      googleadsConnected,
     } = this.props;
+
+    const { drupalConnected, wordpressConnected } = channelsListViewModel;
 
     return (
       <div className="wrapper_tabs">
@@ -140,7 +136,32 @@ class ComponentConnectaChannel extends Component {
                   <div className="d-flex align-items-center">
                     <img
                       className="img-avatar"
-                      src={"/assets/images/youtube.jpg"}
+                      src={"/assets/images/instagram.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Instagram
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("instagram");
+                    }}
+                    disabled={instagramConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {instagramConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/youtube.png"}
                       alt=""
                     />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">
@@ -215,32 +236,7 @@ class ComponentConnectaChannel extends Component {
                   <div className="d-flex align-items-center">
                     <img
                       className="img-avatar"
-                      src={"/assets/images/instagram.png"}
-                      alt=""
-                    />
-                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
-                      Instagram
-                    </span>
-                  </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel("instagram");
-                    }}
-                    disabled={instagramConnected ? true : false}
-                  >
-                    <span className="ms-2">
-                      {instagramConnected ? "Connected" : "Connect"}
-                    </span>
-                  </button>
-                </div>
-              </div>
-              <div className="bg-white rounded-3 mb-4">
-                <div className="d-flex align-items-center justify-content-between p-3">
-                  <div className="d-flex align-items-center">
-                    <img
-                      className="img-avatar"
-                      src={"/assets/images/instagram.png"}
+                      src={"/assets/images/tumblr.png"}
                       alt=""
                     />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">
@@ -260,9 +256,117 @@ class ComponentConnectaChannel extends Component {
                   </button>
                 </div>
               </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/medium.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Medium
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.props.handleModalCms(CHANNEL_CMS_MEDIUM);
+                    }}
+                    disabled={mediumConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {mediumConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </Tab>
-          <Tab eventKey={2} title={"CMS"}>
+          <Tab eventKey={2} title={"Advertising"}>
+            <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/fbad.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Facebook Ads
+                    </span>
+                  </div>
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel("fbad");
+                    }}
+                    disabled={facebookAdsConnected ? true : false}
+                  >
+                    <span className="ms-2">
+                      {facebookAdsConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+                {listFacebookAdsAccountView && (
+                  <div className="p-3">
+                    <div className={`list_content`}>
+                      <div className="py-2 px-3 bg-blue d-flex rounded-2">
+                        <div className="col-4">Name</div>
+                        <div className="col-6 text-end">Action</div>
+                      </div>
+                      <div className={`list_main `}>
+                        {listFacebookAdsAccountView.map((value, key) => {
+                          return (
+                            <div
+                              key={key}
+                              className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
+                            >
+                              <div className="col-4">
+                                <div className="d-flex align-items-center">
+                                  <span className="ms-2">{value.name}</span>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                        className="img-avatar"
+                        src={"/assets/images/googleadword.png"}
+                        alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Google Adwords
+                    </span>
+                  </div>
+                  <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
+                      }}
+                      disabled={googleadsConnected}
+                  >
+                    <span className="ms-2">
+                      {googleadsConnected ? "Connected" : "Connect"}
+                    </span>
+                  </button>
+                </div>
+               
+              </div>
+            </div>
+          </Tab>
+          <Tab eventKey={3} title={"CMS"}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -276,20 +380,69 @@ class ComponentConnectaChannel extends Component {
                       Wordpress
                     </span>
                   </div>
-                  <LoginChannelCMSFormModal
-                    handleModalCms={handleModalCms}
-                    organizationID={organizationID}
-                    wordpressConnected={wordpressConnected}
-                    loginCMSChannelFormModalViewModel={
-                      this.loginCMSChannelFormModalViewModel
-                    }
-                    isModalCms={isModalCms}
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.props.handleModalCms(CHANNEL_CMS_WORDPRESS);
+                    }}
+                    isDisabled={wordpressConnected}
+                    isConnected={wordpressConnected}
                   />
                 </div>
               </div>
             </div>
+            <div className="mt-4">
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/drupal.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Drupal
+                    </span>
+                  </div>
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.props.handleModalCms(CHANNEL_CMS_DRUPAL);
+                    }}
+                    isDisabled={drupalConnected}
+                    isConnected={drupalConnected}
+                  />
+                </div>
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={"/assets/images/joomla.png"}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Joomla
+                    </span>
+                  </div>
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.props.handleModalCms(CHANNEL_CMS_JOOMLA);
+                    }}
+                    isDisabled={joomlaConnected}
+                    isConnected={joomlaConnected}
+                  />
+                </div>
+              </div>
+              {/* <LoginChannelCMSFormModal
+                handleModalCms={handleModalCms}
+                loginCMSChannelFormModalViewModel={
+                  this.loginCMSChannelFormModalViewModel
+                }
+                isModalCms={isModalCms}
+              /> */}
+            </div>
           </Tab>
-          <Tab eventKey={3} title={"Email Marketing"}>
+          <Tab eventKey={4} title={"Email Marketing"}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -319,7 +472,13 @@ class ComponentConnectaChannel extends Component {
             </div>
           </Tab>
         </Tabs>
-
+        <LoginChannelCMSFormModal
+          handleModalCms={handleModalCms}
+          loginCMSChannelFormModalViewModel={
+            this.loginCMSChannelFormModalViewModel
+          }
+          isModalCms={isModalCms}
+        />
         <ModalComponent
           show={this.props.mustUpgrade}
           onHide={this.closeModalUpgrade}

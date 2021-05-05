@@ -4,6 +4,7 @@ import Chart from "react-google-charts";
 const data = [
   ["", "Comments", "Followers", "Posts", "Engagement"],
   ["Facebook", 1000, 400, 200, 100],
+  ["Facebook Ads", 1000, 400, 200, 100],
   ["Youtube", 1170, 460, 250, 800],
   ["Joomla", 660, 1120, 300, 700],
   ["Twitter", 1030, 540, 350, 50],

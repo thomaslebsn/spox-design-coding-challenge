@@ -48,10 +48,10 @@ const InvesterContactFormModal = observer(
           <div className="position-fixed end-0 bottom-0 me-4 mb-3 z-index-100">
             <a
               href={void 0}
-              className="border-0 bg-white shadow-lg rounded-circle w-55 h-55 cursor-pointer d-flex align-items-center justify-content-center"
+              className="border-0 bg-white shadow-lg rounded-circle w-55 h-55 cursor-pointer d-flex align-items-center justify-content-center bg-green"
               onClick={this.investerContactFormViewModel.openModal}
             >
-              <i className="text-green fs-4">
+              <i className="text-white fs-4">
                 <FontAwesomeIcon icon={faCommentAlt} />
               </i>
             </a>

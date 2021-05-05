@@ -1,9 +1,9 @@
-import React, { Component, lazy } from "react";
+import React, { Component, lazy } from 'react';
 
-import { observer } from "mobx-react";
-import { OverlayTrigger, Popover } from "react-bootstrap";
-import { components } from "react-select";
-import SelectComponent from "../../../components/Select";
+import { observer } from 'mobx-react';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { components } from 'react-select';
+import SelectComponent from '../../../components/Select';
 
 // import "./index.module.scss";
 
@@ -46,35 +46,35 @@ const popover = (props) => {
   );
 };
 
-const FormSelectDropdown = observer(
-  class FormSelectDropdown extends Component {
-    constructor(props) {
-      super(props);
+class FormSelectDropdown extends Component {
+  constructor(props) {
+    super(props);
 
-      this.field = this.props.field;
-    }
+    this.field = this.props.field;
+  }
 
-    render() {
-      console.log("[FormSelectDropdown] render", this.field);
-      console.log("[FormSelectDropdown] Options ", this.field.option);
-      let selectedObject = null;
-      if(this.field.option && Array.isArray(this.field.option)){
-        selectedObject = this.field.option.filter((item) => parseInt(item.value) === parseInt(this.field.value));
-      }
-      return (
-        <SelectComponent
-          defaultValue={selectedObject}
-          onChange={this.field.changed}
-          options={this.field.option}
-          className="mb-3 text-green"
-          isBorder={true}
-          plColor="rgba(8, 18, 64, 0.8)"
-          isMulti={this.field.isMulti}
-          components={this.field.isComponents ? { Option } : null}
-        />
+  render() {
+    console.log('[FormSelectDropdown] render', this.field);
+    console.log('[FormSelectDropdown] Options ', this.field.option);
+    let selectedObject = null;
+    if (this.field.option && Array.isArray(this.field.option)) {
+      selectedObject = this.field.option.filter(
+        (item) => parseInt(item.value) === parseInt(this.field.value)
       );
     }
+    return (
+      <SelectComponent
+        defaultValue={selectedObject}
+        onChange={this.field.changed}
+        options={this.field.option}
+        className="mb-3 text-green"
+        isBorder={true}
+        plColor="rgba(8, 18, 64, 0.8)"
+        isMulti={this.field.isMulti}
+        components={this.field.isComponents ? { Option } : null}
+      />
+    );
   }
-);
+}
 
 export default FormSelectDropdown;

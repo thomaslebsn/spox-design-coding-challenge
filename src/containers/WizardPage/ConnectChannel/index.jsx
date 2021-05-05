@@ -38,7 +38,6 @@ const ConnectChannel = observer(
         : null;
 
       console.log("this.channelsListViewModel - Debug View Model");
-      console.log(this.channelsListViewModel);
 
       this.loginCMSChannelFormModalViewModel = viewModel
         ? viewModel.getLoginCMSChannelFormModalViewModel()
@@ -47,9 +46,10 @@ const ConnectChannel = observer(
       this.state = {
         channels: [],
         showModal: true,
+        showModalFbad: true,
         getIDSFanpage: [],
+        getIDSAdAccount: [],
         isWordpressConnected: false,
-        organizationID: 1,
       };
 
       this.channelsListViewModel.checkConnectedChannels([
@@ -61,6 +61,9 @@ const ConnectChannel = observer(
         "mailchimp",
         "wordpress",
         "tumblr",
+        "drupal",
+        "joomla",
+          "fbad"
       ]);
     }
 
@@ -70,6 +73,15 @@ const ConnectChannel = observer(
 
       this.setState({
         getIDFanpage: getIDSFanpage,
+      });
+    };
+
+    handleCheckboxAdAccounts = (id) => {
+      let getIDSAdAccount = this.state.getIDSAdAccount;
+      getIDSAdAccount.push(id);
+
+      this.setState({
+        getIDSAdAccount: getIDSAdAccount,
       });
     };
 
@@ -89,6 +101,17 @@ const ConnectChannel = observer(
       });
     };
 
+    handleSaveAdsAccount = () => {
+      this.channelsListViewModel.saveChosseFacebookAdAccount(
+          this.state.getIDSAdAccount
+      );
+
+      this.setState({
+        showModal: false,
+      });
+    };
+
+
     handleModalCms = () => {
       this.loginCMSChannelFormModalViewModel.openModal();
     };
@@ -103,6 +126,8 @@ const ConnectChannel = observer(
         instagramConnected,
         wordpressConnected,
         tumblrConnected,
+        drupalConnected,
+        joomlaConnected,
       } = this.channelsListViewModel;
 
       if (
@@ -113,7 +138,9 @@ const ConnectChannel = observer(
         mailchimpConnected == true ||
         instagramConnected == true ||
         wordpressConnected == true ||
-        tumblrConnected == true
+        tumblrConnected == true ||
+        drupalConnected == true ||
+        joomlaConnected == true
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
@@ -128,6 +155,9 @@ const ConnectChannel = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
+        listFacebookAdsAccount,
+        listFacebookAdsAccountView,
+        facebookAdsConnected,
         youtubeConnected,
         twitterConnected,
         linkedinConnected,
@@ -136,6 +166,8 @@ const ConnectChannel = observer(
         wordpressConnected,
         tumblrConnected,
         mustUpgrade,
+        drupalConnected,
+        joomlaConnected,
       } = this.channelsListViewModel;
 
       return (
@@ -147,6 +179,10 @@ const ConnectChannel = observer(
                 listFaceBookFanpageView ? listFaceBookFanpageView : null
               }
               facebookConnected={facebookConnected}
+              listFacebookAdsAccountView={
+                listFacebookAdsAccountView ? listFacebookAdsAccountView : null
+              }
+              facebookAdsConnected={facebookAdsConnected}
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
@@ -155,8 +191,9 @@ const ConnectChannel = observer(
               wordpressConnected={wordpressConnected}
               tumblrConnected={tumblrConnected}
               mustUpgrade={mustUpgrade}
+              drupalConnected={drupalConnected}
+              joomlaConnected={joomlaConnected}
               viewModel={this.viewModel}
-              organizationID={this.state.organizationID}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
             />
@@ -197,12 +234,48 @@ const ConnectChannel = observer(
               }
             />
           )}
-          <div className="d-flex justify-content-between">
-            <Button
+          {listFacebookAdsAccount && (
+              <ModalComponent
+                  header={"Facebook Ads"}
+                  body={
+                    <div>
+                      <ul className="list-unstyled align-items-center">
+                        {listFacebookAdsAccount &&
+                        listFacebookAdsAccount.map((value, key) => {
+                          return (
+                              <ComponentItemFanpage
+                                  key={key}
+                                  name={value.name}
+                                  handleCheckbox={(e) => {
+                                    this.handleCheckboxAdAccounts(value.id);
+                                  }}
+                              />
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  }
+                  show={showModal}
+                  onHide={this.handleCloseModal}
+                  footer={
+                    <button
+                        onClick={this.handleSaveAdsAccount}
+                        className="btn btn-success w-100"
+                    >
+                      <span>Save</span>
+                      <i className="ms-1">
+                        <FontAwesomeIcon icon={faChevronRight} />
+                      </i>
+                    </button>
+                  }
+              />
+          )}
+          <div className="d-flex justify-content-end">
+            {/* <Button
               className="btn btn-light border-success"
               onClick={() => this.props.goToStep(1)}
               text="Back"
-            />
+            /> */}
 
             <ButtonNormal
               className="btn btn-success"

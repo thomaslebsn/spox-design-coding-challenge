@@ -11,16 +11,12 @@ import {
 import { useMemo } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
 import { faList } from "@fortawesome/free-solid-svg-icons/faList";
 import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
 import { faFilter } from "@fortawesome/free-solid-svg-icons/faFilter";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons/faChevronUp";
-import FormSelectDropdown from "../../components/Form/FormSelectDropdown";
-
 import styles from "./index.module.scss";
 import "./index.scss";
 
@@ -28,7 +24,7 @@ import GlobalFilter from "./GlobalFilter";
 import SubRowAsync from "./RowSubComponent";
 import ComponentDatepicker from "../ComponentDatepicker";
 import ComponentFilter from "../ComponentFilter";
-import {FORM_FIELD_TYPE} from "../../constants/FormFieldType";
+import PaginationComponent from "./PaginationComponent";
 
 const Table = ({
   rowData,
@@ -216,58 +212,6 @@ const Table = ({
       ...getState,
       isFilter: !getState.isFilter,
     });
-  };
-
-  const handlePreviousPage = (i) => {
-    listViewModel.getPagination(pagination.page - 1, isList);
-  };
-
-  const handleGoToPage = (i) => {
-    listViewModel.getPagination(i, isList);
-  };
-
-  const handleNextPage = () => {
-    listViewModel.getPagination(pagination.page + 1, isList);
-  };
-
-  const paginationHTML = () => {
-    let paginationHTML = [];
-    for (let i = 1; i <= pagination.totalPages; i++) {
-      paginationHTML.push(
-        <button
-          key={i}
-          onClick={() => handleGoToPage(i)}
-          className={`btn ${styles.btn} border-1 border-gray p-0 fs-6 ${
-            i === pagination.page
-              ? "bg-green text-white border-green"
-              : "text-black-50"
-          }`}
-        >
-          {i}
-        </button>
-      );
-    }
-
-    return paginationHTML;
-  };
-
-  let pageSizeDropdown = {
-    label: "Page size",
-    key: 'page_size',
-    type: FORM_FIELD_TYPE.DROPDOWN,
-    value: pageSize,
-    required: false,
-    option: [
-      { value: 5, label: 'Show 5' },
-      { value: 10, label: 'Show 10' },
-      { value: 15, label: 'Show 15' },
-      { value: 20, label: 'Show 20' },
-    ],
-    changed: (object) => {
-      listViewModel.pageSize = object.value;
-      listViewModel.getPagination(0, isList);
-    },
-    isMulti: false,
   };
 
   return (
@@ -481,32 +425,12 @@ const Table = ({
           <div className="pagination d-flex align-items-center justify-content-between">
             {pagination && (
               <>
-                <div className="w-150">
-                  <FormSelectDropdown field={pageSizeDropdown} />
-                </div>
-                <div className={"ps-3 col-md-6"}>
-                  <button
-                    //onClick={() => previousPage()}
-                    onClick={() => handlePreviousPage()}
-                    disabled={pagination && pagination.page <= 1 ? true : false}
-                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                  >
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                  </button>
-                  {paginationHTML()}
-                  <button
-                    //onClick={() => nextPage()}
-                    onClick={() => handleNextPage()}
-                    disabled={
-                      pagination && pagination.page === pagination.totalPages
-                        ? true
-                        : false
-                    }
-                    className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                  >
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </button>
-                </div>
+                <PaginationComponent
+                  pagination={pagination}
+                  pageSize={pageSize}
+                  listViewModel={listViewModel}
+                  isList={isList}
+                />
               </>
             )}
           </div>
@@ -555,34 +479,14 @@ const Table = ({
 
           <div className="pagination d-flex align-items-center justify-content-between">
             {pagination && (
-            <>
-              <div className="w-150">
-                <FormSelectDropdown field={pageSizeDropdown} />
-              </div>
-              <div className={"ps-3 col-md-6"}>
-                <button
-                  //onClick={() => previousPage()}
-                  onClick={() => handlePreviousPage()}
-                  disabled={pagination && pagination.page <= 1 ? true : false}
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                {paginationHTML()}
-                <button
-                  //onClick={() => nextPage()}
-                  onClick={() => handleNextPage()}
-                  disabled={
-                    pagination && pagination.page === pagination.totalPages
-                      ? true
-                      : false
-                  }
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
-              </div>
-            </>
+              <>
+                <PaginationComponent
+                  pagination={pagination}
+                  pageSize={pageSize}
+                  listViewModel={listViewModel}
+                  isList={isList}
+                />
+              </>
             )}
           </div>
         </div>

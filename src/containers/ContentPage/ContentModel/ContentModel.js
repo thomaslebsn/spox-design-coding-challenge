@@ -54,8 +54,11 @@ class ContentModel {
           case "facebook":
             icoImage = "/assets/images/facebook.png";
             break;
+          case "fbad":
+            icoImage = "/assets/images/fbad.png";
+            break;
           case "youtube":
-            icoImage = "/assets/images/youtube.jpg";
+            icoImage = "/assets/images/youtube.png";
             break;
           case "twitter":
             icoImage = "/assets/images/twitter.png";
@@ -71,6 +74,15 @@ class ContentModel {
             break;
           case "instagram":
             icoImage = "/assets/images/instagram.png";
+            break;
+          case "joomla":
+            icoImage = "/assets/images/joomla.png";
+            break;
+          case "medium":
+            icoImage = "/assets/images/medium.png";
+            break;
+          case "tumblr":
+            icoImage = "/assets/images/tumblr.png";
             break;
           default:
             icoImage = null;
