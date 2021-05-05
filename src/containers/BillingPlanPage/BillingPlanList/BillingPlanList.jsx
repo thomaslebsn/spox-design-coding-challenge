@@ -12,25 +12,6 @@ import './index.scss';
 
 const ModalComponent = lazy(() => import('../../../components/Modal'));
 
-const data = [
-  {
-    id: '123',
-    plan: 'Small',
-    amount: '29.00',
-    date: '20/09/2020',
-    status: 1,
-    receipt: 'PDF',
-  },
-  {
-    id: '123',
-    plan: 'Small',
-    amount: '29.00',
-    date: '20/09/2020',
-    status: 1,
-    receipt: 'PDF',
-  },
-];
-
 const BillingPlanList = observer(
   class BillingPlanList extends Component {
     billingPlanListViewModel = null;
@@ -47,6 +28,7 @@ const BillingPlanList = observer(
     }
 
     componentDidMount() {
+      console.log('init data');
       const script = document.createElement('script');
       script.src = 'https://cdn.paddle.com/paddle/paddle.js';
       script.async = true;
@@ -77,7 +59,8 @@ const BillingPlanList = observer(
         subscriptionDetail,
         invoices,
       } = this.billingPlanListViewModel;
-
+      console.log('================ subscriptionDetail');
+      console.log(subscriptionDetail);
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (

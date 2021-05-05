@@ -64,10 +64,19 @@ class ComponentPlanPayment extends React.Component {
               <p className="mb-3">Next payment</p>
               <div className="mb-3">
                 <p className="mb-0">
-                  <span className="fw-medium fs-4">{subscriptionDetail.amount}</span>
+                  <span className="fw-medium fs-4">
+                    {subscriptionDetail.next_payment !== undefined
+                      ? subscriptionDetail.next_payment.amount
+                      : subscriptionDetail.last_payment.amount}
+                  </span>
                   <span>.00</span>
                 </p>
-                <p className="mb-0 opacity-75">on {subscriptionDetail.next_bill_date}</p>
+                <p className="mb-0 opacity-75">
+                  on{' '}
+                  {subscriptionDetail.next_payment !== undefined
+                    ? subscriptionDetail.next_payment.date
+                    : subscriptionDetail.last_payment.date}
+                </p>
               </div>
               <button
                 className="btn border-da-1 border-red text-red-1"

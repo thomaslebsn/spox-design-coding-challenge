@@ -10,16 +10,7 @@ class BillingPlanListViewModel {
   show = false;
   hideChangePlanTable = true;
   paddleData = null;
-  // subscriptionDetail = null;
-  subscriptionDetail = {
-    next_payment_amount: 99,
-    next_payment_date: 'Apr 29, 2021',
-    name: 'Pro',
-    plan_detail: {
-      amount: 99,
-      name: 'Pro',
-    },
-  };
+  subscriptionDetail = null;
   invoices = [];
 
   constructor(billingPlanStore) {
@@ -117,9 +108,14 @@ class BillingPlanListViewModel {
   //get pay link
   getPayLinkModel = (planName) => {
     this.closeModal();
-
+    console.log('getPayLinkModel');
+    console.log(this.subscriptionDetail);
     //only get pay link when subscription plan detail is empty
-    if (this.subscriptionDetail === null || this.subscriptionDetail === undefined) {
+    if (
+      this.subscriptionDetail === null ||
+      this.subscriptionDetail === undefined ||
+      this.subscriptionDetail.paddle_status === 'deleted'
+    ) {
       this.Paddle.Spinner.show();
       this.billingPlanStore.getPayLink(
         planName,
@@ -151,14 +147,16 @@ class BillingPlanListViewModel {
     this.billingPlanStore.changeSubscriptionPlan(
       planName,
       (response) => {
+        console.log('model - changeSubscriptionPlan');
+        console.log(response);
         this.Paddle.Spinner.hide();
-        if (response.result.data === true) {
+        if (response == true) {
           notify('Update subscription success');
           setTimeout(() => {
             window.location.reload();
           }, 500);
         } else {
-          notify(response.result.data.error, 'error');
+          notify(response, 'error');
         }
       },
       (response) => {

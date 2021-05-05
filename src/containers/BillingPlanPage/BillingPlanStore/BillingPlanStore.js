@@ -79,7 +79,7 @@ export default class BillingPlanStore {
       const billingPlanService = new EasiiBillingPlanApiService();
       let response = null;
 
-      response = await billingPlanService.cancelSubscription();
+      response = await billingPlanService.cancelSubscription(this.memberId);
 
       if (response) {
         runInAction(() => {
@@ -102,8 +102,10 @@ export default class BillingPlanStore {
     try {
       const billingPlanService = new EasiiBillingPlanApiService();
       let response = null;
-
-      response = await billingPlanService.changeSubscriptionPlan(planName);
+      console.log('changeSubscriptionPlan');
+      console.log(this.memberId);
+      response = await billingPlanService.changeSubscriptionPlan(planName, this.memberId);
+      console.log(response);
 
       if (response) {
         runInAction(() => {
