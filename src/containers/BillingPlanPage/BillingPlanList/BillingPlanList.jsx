@@ -1,33 +1,33 @@
-import React, { Component, lazy } from "react";
-import { observer } from "mobx-react";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import { withBillingPlanViewModel } from "../BillingPlanViewModel/BillingPlanViewModelContextProvider";
+import React, { Component, lazy } from 'react';
+import { observer } from 'mobx-react';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { withBillingPlanViewModel } from '../BillingPlanViewModel/BillingPlanViewModelContextProvider';
 
-import Spinner from "../../../components/Spinner";
-import ComponentBillingPlan from "../../../components/ComponentBillingPlan";
-import ComponentPlanPayment from "../../../components/ComponentPlanPayment";
-import ComponentInvoices from "../../../components/ComponentInvoices";
+import Spinner from '../../../components/Spinner';
+import ComponentBillingPlan from '../../../components/ComponentBillingPlan';
+import ComponentPlanPayment from '../../../components/ComponentPlanPayment';
+import ComponentInvoices from '../../../components/ComponentInvoices';
 
-import "./index.scss";
+import './index.scss';
 
-const ModalComponent = lazy(() => import("../../../components/Modal"));
+const ModalComponent = lazy(() => import('../../../components/Modal'));
 
 const data = [
   {
-    id: "123",
-    plan: "Small",
-    amount: "29.00",
-    date: "20/09/2020",
+    id: '123',
+    plan: 'Small',
+    amount: '29.00',
+    date: '20/09/2020',
     status: 1,
-    receipt: "PDF",
+    receipt: 'PDF',
   },
   {
-    id: "123",
-    plan: "Small",
-    amount: "29.00",
-    date: "20/09/2020",
+    id: '123',
+    plan: 'Small',
+    amount: '29.00',
+    date: '20/09/2020',
     status: 1,
-    receipt: "PDF",
+    receipt: 'PDF',
   },
 ];
 
@@ -37,20 +37,18 @@ const BillingPlanList = observer(
     constructor(props) {
       super(props);
       const { viewModel } = props;
-      console.log("BillingPlanList - Debug View Model");
+      console.log('BillingPlanList - Debug View Model');
       console.log(viewModel);
 
-      this.billingPlanListViewModel = viewModel
-        ? viewModel.getBillingPlanListViewModel()
-        : null;
+      this.billingPlanListViewModel = viewModel ? viewModel.getBillingPlanListViewModel() : null;
 
-      console.log("this.billingPlanListViewModel - Debug View Model");
+      console.log('this.billingPlanListViewModel - Debug View Model');
       console.log(this.billingPlanListViewModel);
     }
 
     componentDidMount() {
-      const script = document.createElement("script");
-      script.src = "https://cdn.paddle.com/paddle/paddle.js";
+      const script = document.createElement('script');
+      script.src = 'https://cdn.paddle.com/paddle/paddle.js';
       script.async = true;
       document.body.appendChild(script);
 
