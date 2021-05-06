@@ -40,7 +40,7 @@ class CanvaButton extends React.Component {
     }
 
     return (
-      <>
+      <div className={`${exportUrl ? 'w-50' : ''}`}>
         <button
           className="canva-btn canva-btn-theme-default canva-btn-size-m"
           onClick={this.handleClick}
@@ -51,12 +51,12 @@ class CanvaButton extends React.Component {
         </button>
         {exportUrl && (
           <div className={`d-flex justify-content-start border-top mt-4`}>
-            <div key={designId} className="position-relative w-25 m-2">
+            <div key={designId} className="position-relative w-50 m-2">
               <img className={`img-thumbnail rounded imgTab`} alt={exportUrl} src={exportUrl} />
             </div>
           </div>
         )}
-      </>
+      </div>
     );
   }
 }

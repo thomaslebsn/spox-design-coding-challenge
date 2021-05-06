@@ -14,6 +14,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   multi = false;
 
+  isAdvanceMode = false;
+
   newArrayConnectChannels = [];
 
   getDataValueSelected = [];
@@ -21,6 +23,44 @@ class ContentConnectedChannelsByOrganisationViewModel {
   getValueSelectedChannels = [];
 
   arrayConnectedChannelsFinal = [];
+
+  dataContentDescriptionSingle = {
+    data: '',
+    media: [],
+  };
+
+  dataContentDescriptionSocial = {
+    social: {
+      facebook: {
+        data: '',
+        media: [],
+      },
+      instagram: {
+        data: '',
+        media: [],
+      },
+      linkedIn: {
+        data: '',
+        media: [],
+      },
+    },
+    cms: {
+      joomla: {
+        data: '',
+        media: [],
+      },
+      wordpress: {
+        data: '',
+        media: [],
+      },
+    },
+    mail: {
+      mailchimp: {
+        data: '',
+        media: [],
+      },
+    },
+  };
 
   constructor(contentsStore) {
     makeAutoObservable(this);
@@ -135,6 +175,10 @@ class ContentConnectedChannelsByOrganisationViewModel {
     console.log(this.getValueSelectedChannels);
 
     this.getArrayConnectedChannelsFinal();
+  };
+
+  handleAdvanceMode = () => {
+    this.isAdvanceMode = !this.isAdvanceMode;
   };
 }
 

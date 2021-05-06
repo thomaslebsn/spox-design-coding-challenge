@@ -35,7 +35,7 @@ const renderingGroupFieldHandler = (group, validator) => {
 
                   <Form.Control
                     as="input"
-                    defaultValue={field.value}
+                    defaultValue={field.value ?? ''}
                     type={field.typeFormat ? 'password' : 'text'}
                     required={field.required ?? false}
                     id={field.key}
@@ -125,8 +125,9 @@ const renderingGroupFieldHandler = (group, validator) => {
 
             case FORM_FIELD_TYPE.CANVA:
               return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-3 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                <Form.Group key={Math.random(40, 200)} className={`${className}`}>
+                  {field.label && <Label text={field.label} required={field.required ?? false} />}
+
                   <CanvaButton key={Math.random(40, 200)} field={field} />
                   {field.validation &&
                     validator.message(field.label, field.value, field.validation, {
@@ -136,8 +137,9 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
             case FORM_FIELD_TYPE.DAM:
               return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-3 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                <Form.Group key={Math.random(40, 200)} className={`${className}`}>
+                  {field.label && <Label text={field.label} required={field.required ?? false} />}
+
                   <DamButton key={Math.random(40, 200)} field={field} />
                   {field.validation &&
                     validator.message(field.label, field.value, field.validation, {
@@ -168,8 +170,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
             case FORM_FIELD_TYPE.DESCRIPTION:
               return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-3 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                <Form.Group key={Math.random(40, 200)} className={`${className}`}>
                   <ContentFormDescription field={field} />
                   {field.validation &&
                     validator.message(field.label, field.value, field.validation, {

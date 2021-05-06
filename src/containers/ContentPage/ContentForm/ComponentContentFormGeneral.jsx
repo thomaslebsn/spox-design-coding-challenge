@@ -98,18 +98,6 @@ class ComponentContentFormGeneral extends Component {
   generateFormSetting = () => {
     console.log('re generate Form Setting', this.formPropsData);
 
-    let valueCanva = '';
-
-    if (
-      this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] !== '' &&
-      this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] !== ''
-    ) {
-      valueCanva = {
-        exportedUrl: this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
-        designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
-      };
-    }
-
     return [
       {
         fields: [
@@ -203,26 +191,24 @@ class ComponentContentFormGeneral extends Component {
             },
             blurred: this.blurringFieldHandler,
           },
-          {
-            label: 'Dam button',
-            key: CONTENT_FIELD_KEY.THEME,
-            type: FORM_FIELD_TYPE.DAM,
-            required: true,
-            validation: 'required',
-            value: valueCanva,
-            changed: ({ exportUrl, designId }) => {
-              console.log('[Canva Field] changed', { exportUrl, designId });
-              this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] = exportUrl;
-              this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
-            },
-            blurred: this.blurringFieldHandler,
-          },
         ],
       },
     ];
   };
 
   generateFormSettingDescription = () => {
+    let valueCanva = '';
+
+    if (
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] !== '' &&
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] !== ''
+    ) {
+      valueCanva = {
+        exportedUrl: this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
+        designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+      };
+    }
+
     return [
       {
         fields: [
@@ -234,10 +220,19 @@ class ComponentContentFormGeneral extends Component {
             required: true,
             validation: 'required|desc',
             viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-            changed: (data) => {
-              console.log('[Content - FormGeneral] - DESCRIPTION changed', data);
+            dataContentDescriptionSingle: this.props.dataContentDescriptionSingle,
+            dataContentDescriptionSocial: this.props.dataContentDescriptionSocial,
+            isAdvanceMode: this.props.isAdvanceMode,
+            handleChange: (data) => {
+              console.log('data data data data 12345677999');
+              console.log(data);
+              console.log(this.contentConnectedChannelsByOrganisationViewModel);
+              console.log(this.props.dataContentDescriptionSingle);
+              console.log(this.props.dataContentDescriptionSocial);
 
-              this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] = data;
+              this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] = this.props.isAdvanceMode
+                ? this.props.dataContentDescriptionSocial
+                : this.props.dataContentDescriptionSingle;
             },
             blurred: this.blurringFieldHandler,
           },
@@ -300,10 +295,10 @@ class ComponentContentFormGeneral extends Component {
       <div className="pe-65">
         <h3 className="mb-4">General</h3>
         <div className="bg-white p-4">
-          <div className="d-flex">
-            <div className="w-450">
-              <div>
-                <Form key={Math.random(40, 200)}>
+          <Form key={Math.random(40, 200)}>
+            <div className="d-flex">
+              <div className="w-450">
+                <div>
                   {Object.keys(formSetting)
                     .map((groupIndex) => {
                       return [...Array(formSetting[groupIndex])].map((group) => {
@@ -313,18 +308,17 @@ class ComponentContentFormGeneral extends Component {
                     .reduce((arr, el) => {
                       return arr.concat(el);
                     }, [])}
-                </Form>
-                <div>
-                  <ListConnectedChannelModal
-                    viewModel={this.contentConnectedChannelsByOrganisationViewModel}
-                    showModalChannels={this.props.showModalChannels}
-                    arrayConnectedChannelsFinal={this.props.arrayConnectedChannelsFinal}
-                  />
+
+                  <div>
+                    <ListConnectedChannelModal
+                      viewModel={this.contentConnectedChannelsByOrganisationViewModel}
+                      showModalChannels={this.props.showModalChannels}
+                      arrayConnectedChannelsFinal={this.props.arrayConnectedChannelsFinal}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex-1 ps-4">
-              <Form key={Math.random(40, 200)}>
+              <div className="flex-1 ps-4">
                 {Object.keys(formSettingDescription)
                   .map((groupIndex) => {
                     return [...Array(formSettingDescription[groupIndex])].map((group) => {
@@ -334,9 +328,9 @@ class ComponentContentFormGeneral extends Component {
                   .reduce((arr, el) => {
                     return arr.concat(el);
                   }, [])}
-              </Form>
+              </div>
             </div>
-          </div>
+          </Form>
           <div
             className={`d-flex border-top-1 pt-3 ${
               this.props.isBackWizardStep ? 'justify-content-between' : 'justify-content-end'

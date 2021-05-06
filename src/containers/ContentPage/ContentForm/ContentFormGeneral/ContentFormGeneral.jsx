@@ -104,6 +104,13 @@ const ContentFormGeneral = observer(
           arrayConnectedChannelsFinal={
             this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal
           }
+          dataContentDescriptionSingle={
+            this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle
+          }
+          dataContentDescriptionSocial={
+            this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial
+          }
+          isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
         />
       );
     }
