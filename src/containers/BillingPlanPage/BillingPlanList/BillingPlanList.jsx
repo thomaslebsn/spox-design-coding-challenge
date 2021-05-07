@@ -61,6 +61,7 @@ const BillingPlanList = observer(
       } = this.billingPlanListViewModel;
       console.log('================ subscriptionDetail');
       console.log(subscriptionDetail);
+      console.log(invoices);
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
@@ -90,7 +91,7 @@ const BillingPlanList = observer(
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h2 className="text-blue-0 mb-0">Invoices</h2>
             </div>
-            <ComponentInvoices data={invoices} />
+            {invoices && <ComponentInvoices data={invoices} />}
           </div>
           <ModalComponent
             show={show}

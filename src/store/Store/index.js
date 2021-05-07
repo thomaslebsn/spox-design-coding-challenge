@@ -1,20 +1,22 @@
-import { runInAction } from "mobx";
+import { runInAction } from 'mobx';
 
 import {
   EasiiProjectApiService,
   EasiiCampaignApiService,
   EasiiPersonaApiService,
-} from "easii-io-web-service-library";
+} from 'easii-io-web-service-library';
 
 class GlobalStore {
   projectMasterData = null;
   campaignMasterData = null;
   personaMasterData = null;
   connectedChannelsMasterData = null;
+  memberSubscriptionFeatureMasterData = null;
+
   async getProjectMasterData() {
     const projectApiService = new EasiiProjectApiService();
     const respondedData = await projectApiService.getProjectMasterData();
-    console.log("GlobalStore - getProjectMasterData");
+    console.log('GlobalStore - getProjectMasterData');
     console.log(respondedData);
     this.projectMasterData = respondedData;
     return this.projectMasterData;
@@ -23,7 +25,7 @@ class GlobalStore {
   async getConnectedChannelsMasterData() {
     const PersonaApiService = new EasiiPersonaApiService();
     const respondedData = await PersonaApiService.getConnectedChannelByOrganisationId();
-    console.log("GlobalStore - getConnectedChannelsMasterData");
+    console.log('GlobalStore - getConnectedChannelsMasterData');
     console.log(respondedData);
     this.connectedChannelsMasterData = respondedData;
     return respondedData;
@@ -32,7 +34,7 @@ class GlobalStore {
   async getCampaignMasterData() {
     const campaignApiService = new EasiiCampaignApiService();
     const respondedData = await campaignApiService.getCampaignMasterData();
-    console.log("GlobalStore - getCampaignMasterData");
+    console.log('GlobalStore - getCampaignMasterData');
     console.log(respondedData);
     this.campaignMasterData = respondedData;
     return respondedData;
@@ -41,7 +43,7 @@ class GlobalStore {
   async getPersonaMasterData() {
     const PersonaApiService = new EasiiPersonaApiService();
     const respondedData = await PersonaApiService.getPersonaMasterData();
-    console.log("GlobalStore - getPersonaMasterData");
+    console.log('GlobalStore - getPersonaMasterData');
     console.log(respondedData);
     this.personaMasterData = respondedData;
     return respondedData;
@@ -49,9 +51,7 @@ class GlobalStore {
 
   async getMasterData(args, callbackOnSuccess, callbackOnError) {
     try {
-      const isForProjectMasterData = args.isForProjectMaster
-        ? args.isForProjectMaster
-        : false;
+      const isForProjectMasterData = args.isForProjectMaster ? args.isForProjectMaster : false;
       const isForCampaignMasterData = args.isForCampaignMasterData
         ? args.isForCampaignMasterData
         : false;

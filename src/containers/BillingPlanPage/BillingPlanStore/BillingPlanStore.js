@@ -128,19 +128,13 @@ export default class BillingPlanStore {
     try {
       const billingPlanService = new EasiiBillingPlanApiService();
       let response = null;
-
       response = await billingPlanService.getMemberSubscriptionDetail(this.memberId);
       console.log('getMemberSubscriptionDetail - store');
       console.log(response);
-      if (response) {
-        runInAction(() => {
-          callbackOnSuccess(response);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
+
+      runInAction(() => {
+        callbackOnSuccess(response);
+      });
     } catch (error) {
       console.log(error);
       runInAction(() => {

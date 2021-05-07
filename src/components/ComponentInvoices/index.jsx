@@ -60,7 +60,7 @@ class ComponentInvoices extends React.Component {
                 </div>
                 <div className="col-2 text-center">
                   <span>
-                    <a href="{value.receipt_url}">PDF</a>
+                    <a href={value.receipt_url}>PDF</a>
                   </span>
                 </div>
               </div>
