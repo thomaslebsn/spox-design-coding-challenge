@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { Tab, Row, Nav, Col } from "react-bootstrap";
+import React, { Component } from 'react';
+import { Tab, Row, Nav, Col } from 'react-bootstrap';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
-import ItemSchedule from "./ItemSchedule";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
+import ItemSchedule from './ItemSchedule';
 
-import { CONTENT_FIELD_KEY } from "../../constants/ContentModule";
+import { CONTENT_FIELD_KEY } from '../../constants/ContentModule';
 
 class ComponentSchedule extends Component {
   formPropsData = {
-    [CONTENT_FIELD_KEY.START_DATE]: "",
-    [CONTENT_FIELD_KEY.END_DATE]: "",
+    [CONTENT_FIELD_KEY.START_DATE]: '',
+    [CONTENT_FIELD_KEY.END_DATE]: '',
   };
 
   constructor() {
@@ -21,21 +21,21 @@ class ComponentSchedule extends Component {
       data: [
         {
           id: 1,
-          title: "Facebook",
+          title: 'Facebook',
           schedule: [
             {
               id: 1,
-              image: "/assets/images/avatar-1.png",
-              name: "Miley Cyrus",
+              image: '/assets/images/avatar-1.png',
+              name: 'Miley Cyrus',
               numbers: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               days: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               startDateTime: new Date(),
               timeDate: new Date(),
@@ -45,17 +45,17 @@ class ComponentSchedule extends Component {
             },
             {
               id: 2,
-              image: "/assets/images/avatar-1.png",
-              name: "Miley Cyrus",
+              image: '/assets/images/avatar-1.png',
+              name: 'Miley Cyrus',
               numbers: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               days: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               startDateTime: new Date(),
               timeDate: new Date(),
@@ -67,21 +67,21 @@ class ComponentSchedule extends Component {
         },
         {
           id: 2,
-          title: "Instagram",
+          title: 'Instagram',
           schedule: [
             {
               id: 1,
-              image: "/assets/images/avatar-1.png",
-              name: "Miley Cyrus 1",
+              image: '/assets/images/avatar-1.png',
+              name: 'Miley Cyrus 1',
               numbers: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               days: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               startDateTime: new Date(),
               timeDate: new Date(),
@@ -91,17 +91,17 @@ class ComponentSchedule extends Component {
             },
             {
               id: 2,
-              image: "/assets/images/avatar-1.png",
-              name: "Miley Cyrus 1",
+              image: '/assets/images/avatar-1.png',
+              name: 'Miley Cyrus 1',
               numbers: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               days: [
-                { value: "01", label: "01" },
-                { value: "02", label: "02" },
-                { value: "03", label: "03" },
+                { value: '01', label: '01' },
+                { value: '02', label: '02' },
+                { value: '03', label: '03' },
               ],
               startDateTime: new Date(),
               timeDate: new Date(),
@@ -121,8 +121,7 @@ class ComponentSchedule extends Component {
     data.map((value) => {
       value.schedule.map((item) => ({
         ...item,
-        isToggle:
-          item.id === name ? (item.isToggle = !item.isToggle) : item.isToggle,
+        isToggle: item.id === name ? (item.isToggle = !item.isToggle) : item.isToggle,
       }));
     });
 
@@ -136,9 +135,9 @@ class ComponentSchedule extends Component {
     let { isSwitch } = this.props;
     return (
       <Tab.Container id="left-tabs-example" defaultActiveKey="1">
-        <Row>
+        <div>
           {isSwitch && (
-            <Col sm={3} className="bg-blue-3 py-2 tabs_content">
+            <div className="bg-blue-3 py-2 tabs_content">
               <Nav variant="pills" className="flex-column">
                 {data.map((tab) => {
                   return (
@@ -150,10 +149,10 @@ class ComponentSchedule extends Component {
                   );
                 })}
               </Nav>
-            </Col>
+            </div>
           )}
 
-          <Col sm={isSwitch ? 9 : 12} className="col-9 bg-blue py-3">
+          <div className="bg-blue p-3">
             <Tab.Content>
               {data.map((value) => {
                 return (
@@ -161,21 +160,17 @@ class ComponentSchedule extends Component {
                     <div>
                       {value.schedule.map((item, key) => {
                         return (
-                          <div key={key}>
+                          <div key={key} className="border-bottom-1 mb-2 item_tab_sm_publish">
                             <div
                               className="mb-2 d-flex align-items-center justify-content-between cursor-pointer"
                               onClick={() => this.handleToggle(item.id)}
                             >
                               <div className="d-flex align-items-center">
                                 <img className="img-avatar" src={item.image} />
-                                <span className="ps-2 text-black opacity-75">
-                                  {item.name}
-                                </span>
+                                <span className="ps-2 text-black opacity-75">{item.name}</span>
                               </div>
                               <i className="text-green fs-5">
-                                <FontAwesomeIcon
-                                  icon={item.isToggle ? faMinus : faPlus}
-                                />
+                                <FontAwesomeIcon icon={item.isToggle ? faMinus : faPlus} />
                               </i>
                             </div>
                             <div className="wr_item_schedule">
@@ -189,8 +184,8 @@ class ComponentSchedule extends Component {
                 );
               })}
             </Tab.Content>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </Tab.Container>
     );
   }

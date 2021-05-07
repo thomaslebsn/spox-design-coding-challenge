@@ -51,8 +51,6 @@ class ContentFormDescription extends Component {
   };
 
   handChangeAdvanceMode = () => {
-    console.log('this.viewModel 77777');
-    console.log(this.viewModel);
     this.viewModel.handleAdvanceMode();
   };
 
