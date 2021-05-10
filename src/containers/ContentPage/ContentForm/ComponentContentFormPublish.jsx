@@ -34,7 +34,7 @@ class ComponentContentFormPublish extends Component {
     this.state = {
       social: true,
       cms: true,
-      isChecked: 'radio_1',
+      isCheckedSocial: 'social_post_now',
       isSwitch: false,
     };
 
@@ -83,9 +83,9 @@ class ComponentContentFormPublish extends Component {
   handleRadioSocial = (name) => {
     console.log('namenamename 123');
     console.log(name);
-    // this.setState({
-    //   isChecked: name,
-    // });
+    this.setState({
+      isCheckedSocial: name,
+    });
   };
 
   handleChangeSwitch = (checked) => {
@@ -96,7 +96,7 @@ class ComponentContentFormPublish extends Component {
   };
 
   render() {
-    let { isChecked, isSwitch, dataPublishTab } = this.state;
+    let { isCheckedSocial, isSwitch } = this.state;
     let publishContentConnectChannels = this.viewModel.publishContentConnectChannels;
     console.log('[Content - FormPublish] - re-render .........');
 
@@ -140,7 +140,10 @@ class ComponentContentFormPublish extends Component {
                 </div>
                 <Accordion.Collapse eventKey="0">
                   <div className="p-3 border-1">
-                    <SocialMedia handleRadio={(name) => this.handleRadioSocial(name)} />
+                    <SocialMedia
+                      handleRadio={(name) => this.handleRadioSocial(name)}
+                      isChecked={isCheckedSocial}
+                    />
                   </div>
                 </Accordion.Collapse>
               </Accordion>

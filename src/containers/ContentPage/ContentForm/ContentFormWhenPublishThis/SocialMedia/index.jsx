@@ -17,9 +17,9 @@ class SocialMedia extends Component {
               className="form-check-input"
               type="radio"
               id="social_post_now"
-              checked={isChecked === name ? true : false}
+              checked={isChecked === 'social_post_now' ? true : false}
               name={name}
-              onClick={handleRadio('social_post_now')}
+              onClick={() => handleRadio('social_post_now')}
             />
             <label className="form-check-label" htmlFor="social_post_now">
               Post now
@@ -33,9 +33,9 @@ class SocialMedia extends Component {
                 className="form-check-input"
                 type="radio"
                 id="social_schedule"
-                checked={isChecked === 'radio_2' ? true : false}
+                checked={isChecked === 'social_schedule' ? true : false}
                 name="radio_2"
-                onClick={handleRadio('social_schedule')}
+                onClick={() => handleRadio('social_schedule')}
               />
               <label className="form-check-label" htmlFor="social_schedule">
                 Schedule
@@ -58,9 +58,9 @@ class SocialMedia extends Component {
               className="form-check-input"
               type="radio"
               id="social_save"
-              checked={isChecked === 'radio_3' ? true : false}
+              checked={isChecked === 'social_save' ? true : false}
               name="radio_3"
-              onClick={handleRadio('social_save')}
+              onClick={() => handleRadio('social_save')}
             />
             <label className="form-check-label" htmlFor="social_save">
               Save as draft
