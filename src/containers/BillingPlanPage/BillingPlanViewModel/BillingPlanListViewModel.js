@@ -66,7 +66,7 @@ class BillingPlanListViewModel {
           console.log('Complete');
           setTimeout(() => {
             window.location.reload();
-          }, 1000);
+          }, 1500);
         } else if (data.event === 'Checkout.Close') {
           console.log('Close');
         }
