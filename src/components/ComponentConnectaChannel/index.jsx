@@ -56,7 +56,6 @@ class ComponentConnectaChannel extends Component {
   };
 
   isAllowedConnectChannel = (channelType, groupType) => {
-    console.log('isAllowedConnectSocialMedia');
     switch (groupType) {
       case 'social_media':
         const { socialMediaFeaturesMasterData, countSocialMediaConnected } = this.props;
@@ -131,6 +130,8 @@ class ComponentConnectaChannel extends Component {
   };
 
   render() {
+    console.log('============ Before Render ================');
+    console.log(this.props);
     const {
       channelsListViewModel,
       listFaceBookFanpageView,

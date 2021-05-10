@@ -115,6 +115,8 @@ const ConnectChannels = observer(
 
     handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
+      console.log('handleModalCms');
+      console.log(this.loginCMSChannelFormModalViewModel);
       this.loginCMSChannelFormModalViewModel.openModal();
     };
 
