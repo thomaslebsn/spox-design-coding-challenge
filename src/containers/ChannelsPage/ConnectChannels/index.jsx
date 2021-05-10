@@ -1,15 +1,15 @@
-import React, { Component, lazy } from "react";
-import { observer } from "mobx-react";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import { withChannelsViewModel } from "../ChannelsViewModels/ChannelsViewModelContextProvider";
-import Spinner from "../../../components/Spinner";
-import ComponentConnectaChannel from "../../../components/ComponentConnectaChannel";
-import ModalComponent from "../../../components/Modal";
-import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
+import React, { Component, lazy } from 'react';
+import { observer } from 'mobx-react';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { withChannelsViewModel } from '../ChannelsViewModels/ChannelsViewModelContextProvider';
+import Spinner from '../../../components/Spinner';
+import ComponentConnectaChannel from '../../../components/ComponentConnectaChannel';
+import ModalComponent from '../../../components/Modal';
+import ComponentItemFanpage from '../../../components/ComponentItemFanpage';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import { CHANNEL_ADS_GOOGLE } from "../../../constants/ChannelModule";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
+import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
 
 const ConnectChannels = observer(
   class ConnectChannels extends Component {
@@ -17,54 +17,54 @@ const ConnectChannels = observer(
     constructor(props) {
       super(props);
       const { viewModel } = props;
-      console.log("ChannelsList - Debug View Model");
+      console.log('ChannelsList - Debug View Model');
       console.log(viewModel);
 
       this.viewModel = viewModel;
 
-      this.channelsListViewModel = viewModel
-        ? viewModel.getChannelsListViewModel()
-        : null;
+      this.channelsListViewModel = viewModel ? viewModel.getChannelsListViewModel() : null;
 
-      console.log("this.channelsListViewModel - Debug View Model");
+      console.log('this.channelsListViewModel - Debug View Model');
       console.log(this.channelsListViewModel);
-      console.log("this.channelsListViewModel.mustUpgrade 1111");
-      console.log(
-        this.channelsListViewModel
-          ? this.channelsListViewModel.mustUpgrade
-          : false
-      );
+      console.log('this.channelsListViewModel.mustUpgrade 1111');
+      console.log(this.channelsListViewModel ? this.channelsListViewModel.mustUpgrade : false);
 
       this.loginCMSChannelFormModalViewModel = viewModel
         ? viewModel.getLoginCMSChannelFormModalViewModel()
         : null;
 
       this.state = {
-          channels: [],
-          showModal: true,
-          showModalFbad: true,
-          getIDSFanpage: [],
-          getIDSAdAccount: [],
-          isWordpressConnected: false,
+        channels: [],
+        showModal: true,
+        showModalFbad: true,
+        getIDSFanpage: [],
+        getIDSAdAccount: [],
+        isWordpressConnected: false,
       };
 
       //call check connected channels
 
       this.channelsListViewModel.checkConnectedChannels([
-        "linkedin",
-        "youtube",
-        "twitter",
-        "instagram",
-        "facebook",
-        "mailchimp",
-        "wordpress",
-        "tumblr",
-        "drupal",
-        "medium",
-        "joomla",
-        "fbad",
+        'linkedin',
+        'youtube',
+        'twitter',
+        'instagram',
+        'facebook',
+        'mailchimp',
+        'wordpress',
+        'tumblr',
+        'drupal',
+        'medium',
+        'joomla',
+        'fbad',
         CHANNEL_ADS_GOOGLE,
       ]);
+    }
+
+    componentDidMount() {
+      console.log('componentDidMount');
+      this.channelsListViewModel.resetObservableProperties();
+      this.channelsListViewModel.initMemberFeaturesMasterData();
     }
 
     handleCheckbox = (id) => {
@@ -82,37 +82,31 @@ const ConnectChannels = observer(
       });
     };
 
-      handleCheckboxAdAccounts = (id) => {
-          let getIDSAdAccount = this.state.getIDSAdAccount;
-          getIDSAdAccount.push(id);
+    handleCheckboxAdAccounts = (id) => {
+      let getIDSAdAccount = this.state.getIDSAdAccount;
+      getIDSAdAccount.push(id);
 
-          this.setState({
-              getIDSAdAccount: getIDSAdAccount,
-          });
-      };
+      this.setState({
+        getIDSAdAccount: getIDSAdAccount,
+      });
+    };
 
-      handleCloseModalFbad = () => {
-          this.setState({
-              showModalFbad: false,
-          });
-      };
+    handleCloseModalFbad = () => {
+      this.setState({
+        showModalFbad: false,
+      });
+    };
 
-      handleSaveAdsAccount = () => {
-          this.channelsListViewModel.saveChosseFacebookAdAccount(
-              this.state.getIDSAdAccount
-          );
+    handleSaveAdsAccount = () => {
+      this.channelsListViewModel.saveChosseFacebookAdAccount(this.state.getIDSAdAccount);
 
-          this.setState({
-              showModal: false,
-          });
-      };
+      this.setState({
+        showModal: false,
+      });
+    };
 
-
-
-      handleSaveFanpage = () => {
-      this.channelsListViewModel.saveChosseFacebookFanpages(
-        this.state.getIDSFanpage
-      );
+    handleSaveFanpage = () => {
+      this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
 
       this.setState({
         showModal: false,
@@ -131,10 +125,10 @@ const ConnectChannels = observer(
         listFaceBookFanpage,
         listFaceBookFanpageView,
         facebookConnected,
-          listFacebookAdsAccount,
-          listFacebookAdsAccountView,
-          facebookAdsConnected,
-          youtubeConnected,
+        listFacebookAdsAccount,
+        listFacebookAdsAccountView,
+        facebookAdsConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
@@ -145,10 +139,18 @@ const ConnectChannels = observer(
         drupalConneted,
         mediumConnected,
         joomlaConnected,
-        googleadsConnected
+        googleadsConnected,
+        advertisingFeaturesMasterData,
+        cmsFeaturesMasterData,
+        socialMediaFeaturesMasterData,
+        emailMarketingFeaturesMasterData,
+        countCMSConnected,
+        countAdvertisingConnected,
+        countEmailMarketingConnected,
+        countSocialMediaConnected,
       } = this.channelsListViewModel;
 
-      console.log('this.channelsListViewModel', this.channelsListViewModel)
+      console.log('this.channelsListViewModel', this.channelsListViewModel);
 
       return (
         <div className="py-4 px-3">
@@ -156,15 +158,12 @@ const ConnectChannels = observer(
           <div>
             <ComponentConnectaChannel
               channelsListViewModel={this.channelsListViewModel}
-              listFaceBookFanpageView={
-                listFaceBookFanpageView ? listFaceBookFanpageView : null
-              }
+              listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
               listFacebookAdsAccountView={
-                  listFacebookAdsAccountView ? listFacebookAdsAccountView : null
+                listFacebookAdsAccountView ? listFacebookAdsAccountView : null
               }
               facebookConnected={facebookConnected}
               facebookAdsConnected={facebookAdsConnected}
-
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
@@ -180,11 +179,19 @@ const ConnectChannels = observer(
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
               googleadsConnected={googleadsConnected}
+              advertisingFeaturesMasterData={advertisingFeaturesMasterData}
+              cmsFeaturesMasterData={cmsFeaturesMasterData}
+              socialMediaFeaturesMasterData={socialMediaFeaturesMasterData}
+              emailMarketingFeaturesMasterData={emailMarketingFeaturesMasterData}
+              countCMSConnected={countCMSConnected}
+              countAdvertisingConnected={countAdvertisingConnected}
+              countEmailMarketingConnected={countEmailMarketingConnected}
+              countSocialMediaConnected={countSocialMediaConnected}
             />
           </div>
           {listFaceBookFanpage && (
             <ModalComponent
-              header={"Facebook Fanpage"}
+              header={'Facebook Fanpage'}
               body={
                 <div>
                   <ul className="list-unstyled align-items-center">
@@ -206,10 +213,7 @@ const ConnectChannels = observer(
               show={showModal}
               onHide={this.handleCloseModal}
               footer={
-                <button
-                  onClick={this.handleSaveFanpage}
-                  className="btn btn-success w-100"
-                >
+                <button onClick={this.handleSaveFanpage} className="btn btn-success w-100">
                   <span>Save</span>
                   <i className="ms-1">
                     <FontAwesomeIcon icon={faChevronRight} />
@@ -218,43 +222,39 @@ const ConnectChannels = observer(
               }
             />
           )}
-            {listFacebookAdsAccount && (
-                <ModalComponent
-                    header={"Facebook Ad Accounts"}
-                    body={
-                        <div>
-                            <ul className="list-unstyled align-items-center">
-                                {listFacebookAdsAccount &&
-                                listFacebookAdsAccount.map((value, key) => {
-                                    return (
-                                        <ComponentItemFanpage
-                                            key={key}
-                                            name={value.name}
-                                            handleCheckbox={(e) => {
-                                                this.handleCheckboxAdAccounts(value.id);
-                                            }}
-                                        />
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                    }
-                    show={showModal}
-                    onHide={this.handleCloseModal}
-                    footer={
-                        <button
-                            onClick={this.handleSaveAdsAccount}
-                            className="btn btn-success w-100"
-                        >
-                            <span>Save</span>
-                            <i className="ms-1">
-                                <FontAwesomeIcon icon={faChevronRight} />
-                            </i>
-                        </button>
-                    }
-                />
-            )}
-
+          {listFacebookAdsAccount && (
+            <ModalComponent
+              header={'Facebook Ad Accounts'}
+              body={
+                <div>
+                  <ul className="list-unstyled align-items-center">
+                    {listFacebookAdsAccount &&
+                      listFacebookAdsAccount.map((value, key) => {
+                        return (
+                          <ComponentItemFanpage
+                            key={key}
+                            name={value.name}
+                            handleCheckbox={(e) => {
+                              this.handleCheckboxAdAccounts(value.id);
+                            }}
+                          />
+                        );
+                      })}
+                  </ul>
+                </div>
+              }
+              show={showModal}
+              onHide={this.handleCloseModal}
+              footer={
+                <button onClick={this.handleSaveAdsAccount} className="btn btn-success w-100">
+                  <span>Save</span>
+                  <i className="ms-1">
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </i>
+                </button>
+              }
+            />
+          )}
         </div>
       );
     }

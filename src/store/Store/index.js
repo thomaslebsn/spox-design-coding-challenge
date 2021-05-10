@@ -4,6 +4,8 @@ import {
   EasiiProjectApiService,
   EasiiCampaignApiService,
   EasiiPersonaApiService,
+  EasiiBillingPlanApiService,
+  AUTHORIZATION_KEY,
 } from 'easii-io-web-service-library';
 
 class GlobalStore {
@@ -11,7 +13,17 @@ class GlobalStore {
   campaignMasterData = null;
   personaMasterData = null;
   connectedChannelsMasterData = null;
-  memberSubscriptionFeatureMasterData = null;
+  memberFeaturesMasterData = null;
+  memberId = localStorage.getItem(AUTHORIZATION_KEY.MEMBER_ID) ?? 0;
+
+  async getMemberFeaturesMasterData() {
+    const service = new EasiiBillingPlanApiService();
+    const respondedData = await service.getFeaturesMember(this.memberId);
+    console.log('GlobalStore - getMemberFeaturesMasterData');
+    console.log(respondedData);
+    this.memberFeaturesMasterData = respondedData;
+    return this.memberFeaturesMasterData;
+  }
 
   async getProjectMasterData() {
     const projectApiService = new EasiiProjectApiService();
@@ -61,13 +73,18 @@ class GlobalStore {
       const isForConnectedChannelsMasterData = args.isForConnectedChannelsMasterData
         ? args.isForConnectedChannelsMasterData
         : false;
+      const isForMemberFeaturesMasterData = args.isForMemberFeaturesMasterData
+        ? args.isForMemberFeaturesMasterData
+        : false;
 
       const result = {
         projectMasterData: null,
         campaignMasterData: null,
         personaMasterData: null,
         connectedChannelsMasterData: null,
+        memberFeaturesMasterData: null,
       };
+
       if (isForProjectMasterData === true) {
         const projectMasterData = this.projectMasterData
           ? this.projectMasterData
@@ -75,6 +92,15 @@ class GlobalStore {
         // const projectMasterData =  await this.getProjectMasterData();
         if (projectMasterData) {
           result.projectMasterData = projectMasterData;
+        }
+      }
+
+      if (isForMemberFeaturesMasterData === true) {
+        const memberFeaturesMasterData = this.memberFeaturesMasterData
+          ? this.memberFeaturesMasterData
+          : await this.getMemberFeaturesMasterData();
+        if (memberFeaturesMasterData) {
+          result.memberFeaturesMasterData = memberFeaturesMasterData;
         }
       }
 

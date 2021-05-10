@@ -1,33 +1,38 @@
-import React from "react";
-import { makeAutoObservable, runInAction } from "mobx";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import { EasiiOrganisationChannelApiService } from "easii-io-web-service-library";
-import { CHANNEL_ADS_GOOGLE } from "../../../constants/ChannelModule";
+import React from 'react';
+import { makeAutoObservable, runInAction } from 'mobx';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { EasiiOrganisationChannelApiService } from 'easii-io-web-service-library';
+import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
+import { MemberFeaturesMasterDataModel } from '../../../store/Models/MasterDataModels/MemberFeaturesMasterDataModel';
 
 export default class ChannelsStore {
-  async getChannelLoginUrl(
-    callbackOnSuccess,
-    callbackOnError,
-    channelUniqueName
-  ) {
+  globalStore = null;
+
+  constructor(args = {}) {
+    if (args) {
+      this.globalStore = args.globalStore ? args.globalStore : null;
+    }
+  }
+
+  async getChannelLoginUrl(callbackOnSuccess, callbackOnError, channelUniqueName) {
     try {
       const channelService = new EasiiOrganisationChannelApiService();
-      console.log("channelUniqueName channelUniqueName");
+      console.log('channelUniqueName channelUniqueName');
       console.log(channelUniqueName);
       let response = null;
 
       switch (channelUniqueName) {
-        case "fbad":
-        case "facebook":
+        case 'fbad':
+        case 'facebook':
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
 
-        case "youtube":
-        case "twitter":
-        case "linkedin":
-        case "mailchimp":
-        case "instagram":
-        case "tumblr":
+        case 'youtube':
+        case 'twitter':
+        case 'linkedin':
+        case 'mailchimp':
+        case 'instagram':
+        case 'tumblr':
         case CHANNEL_ADS_GOOGLE:
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
@@ -41,7 +46,7 @@ export default class ChannelsStore {
         });
       } else {
         callbackOnError({
-          message: "Something went wrong from Server response",
+          message: 'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -52,42 +57,32 @@ export default class ChannelsStore {
     }
   }
 
-  async checkConnectedChannels(
-    callbackOnSuccess,
-    callbackOnError,
-    channelType
-  ) {
+  async checkConnectedChannels(callbackOnSuccess, callbackOnError, channelType) {
     try {
       console.log(channelType);
       const channelService = new EasiiOrganisationChannelApiService();
       let result = null;
 
       switch (channelType) {
-        case "fbad":
-          result = await channelService.checkConnectionStatusFacebookAd(
-              channelType
-          );
+        case 'fbad':
+          result = await channelService.checkConnectionStatusFacebookAd(channelType);
           break;
-        case "facebook":
-          result = await channelService.checkConnectionStatusFacebook(
-            channelType
-          );
+        case 'facebook':
+          result = await channelService.checkConnectionStatusFacebook(channelType);
           break;
 
-        case "youtube":
-        case "twitter":
-        case "linkedin":
-        case "mailchimp":
-        case "instagram":
-        case "tumblr":
-        case "wordpress":
-        case "drupal":
-        case "medium":
-        case "joomla":
+        case 'youtube':
+        case 'twitter':
+        case 'linkedin':
+        case 'mailchimp':
+        case 'instagram':
+        case 'tumblr':
+        case 'wordpress':
+        case 'drupal':
+        case 'medium':
+        case 'joomla':
         case CHANNEL_ADS_GOOGLE:
-          result = await channelService.getCheckConnectStatusChannel(
-            channelType
-          );
+          result = await channelService.getCheckConnectStatusChannel(channelType);
           break;
 
         default:
@@ -100,72 +95,61 @@ export default class ChannelsStore {
         });
       } else {
         callbackOnError({
-          message:
-            "[checkConnectedChannels] - Something went wrong from Server response",
+          message: '[checkConnectedChannels] - Something went wrong from Server response',
         });
       }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        callbackOnError("[checkConnectedChannels] - " + error);
+        callbackOnError('[checkConnectedChannels] - ' + error);
       });
     }
   }
 
-  async saveChosseFacebookFanpages(
-    callbackOnSuccess,
-    callbackOnError,
-    pageIds
-  ) {
+  async saveChosseFacebookFanpages(callbackOnSuccess, callbackOnError, pageIds) {
     try {
-      console.log("store pageIds", pageIds);
+      console.log('store pageIds', pageIds);
       const channelService = new EasiiOrganisationChannelApiService();
       const response = await channelService.connectMultiFanpage(pageIds);
 
-      console.log("store response", response);
+      console.log('store response', response);
       if (response) {
         runInAction(() => {
           callbackOnSuccess(response, pageIds);
         });
       } else {
         callbackOnError({
-          message:
-            "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+          message: '[intervalAskForConnectedChannels] - Something went wrong from Server response',
         });
       }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+        callbackOnError('[intervalAskForConnectedChannels] - ' + error);
       });
     }
   }
 
-  async saveChosseFacebookAdAccount(
-      callbackOnSuccess,
-      callbackOnError,
-      pageIds
-  ) {
+  async saveChosseFacebookAdAccount(callbackOnSuccess, callbackOnError, pageIds) {
     try {
-      console.log("store pageIds", pageIds);
+      console.log('store pageIds', pageIds);
       const channelService = new EasiiOrganisationChannelApiService();
       const response = await channelService.connectMultiAdAccount(pageIds);
 
-      console.log("store response", response);
+      console.log('store response', response);
       if (response) {
         runInAction(() => {
           callbackOnSuccess(response, pageIds);
         });
       } else {
         callbackOnError({
-          message:
-              "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+          message: '[intervalAskForConnectedChannels] - Something went wrong from Server response',
         });
       }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+        callbackOnError('[intervalAskForConnectedChannels] - ' + error);
       });
     }
   }
@@ -180,14 +164,13 @@ export default class ChannelsStore {
         });
       } else {
         callbackOnError({
-          message:
-            "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+          message: '[intervalAskForConnectedChannels] - Something went wrong from Server response',
         });
       }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+        callbackOnError('[intervalAskForConnectedChannels] - ' + error);
       });
     }
   }
@@ -202,34 +185,28 @@ export default class ChannelsStore {
         });
       } else {
         callbackOnError({
-          message:
-              "[intervalAskForConnectedChannels] - Something went wrong from Server response",
+          message: '[intervalAskForConnectedChannels] - Something went wrong from Server response',
         });
       }
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        callbackOnError("[intervalAskForConnectedChannels] - " + error);
+        callbackOnError('[intervalAskForConnectedChannels] - ' + error);
       });
     }
   }
 
-  async connectCMS(
-    callbackOnSuccess,
-    callbackOnError,
-    dataPost,
-    channelUniqueName
-  ) {
+  async connectCMS(callbackOnSuccess, callbackOnError, dataPost, channelUniqueName) {
     const channelService = new EasiiOrganisationChannelApiService();
-    console.log("channelUniqueName channelUniqueName");
+    console.log('channelUniqueName channelUniqueName');
     console.log(channelUniqueName);
     let response = null;
 
     switch (channelUniqueName) {
-      case "wordpress":
-      case "drupal":
-      case "medium":
-      case "joomla":
+      case 'wordpress':
+      case 'drupal':
+      case 'medium':
+      case 'joomla':
         response = await channelService.doLoginCMS(dataPost);
         break;
       default:
@@ -242,7 +219,63 @@ export default class ChannelsStore {
       });
     } else {
       callbackOnError({
-        message: "Something went wrong from Server response",
+        message: 'Something went wrong from Server response',
+      });
+    }
+  }
+
+  async getFeaturesMemberMasterData(callbackOnSuccess, callbackOnError) {
+    try {
+      if (!this.globalStore) {
+        runInAction(() => {
+          callbackOnError({
+            message: 'Global Store is NULL',
+          });
+        });
+      } else {
+        console.log('Content Store - Get Global Store');
+        console.log(this.globalStore);
+        await this.globalStore.getMasterData(
+          {
+            isForMemberFeaturesMasterData: true,
+          },
+          (result) => {
+            try {
+              console.log('Content - getMasterData');
+              console.log(result);
+
+              const resultInModel = new MemberFeaturesMasterDataModel(
+                result && result.memberFeaturesMasterData ? result.memberFeaturesMasterData : null
+              );
+
+              console.log('after - MemberFeaturesMasterDataModel');
+              runInAction(() => {
+                callbackOnSuccess(resultInModel);
+              });
+            } catch (error) {
+              runInAction(() => {
+                callbackOnError({
+                  message:
+                    'resultInModel - ChannelsStore - getMasterData - Something went wrong from Server response',
+                });
+              });
+            }
+          },
+          (error) => {
+            runInAction(() => {
+              callbackOnError({
+                message:
+                  'ChannelsStore - getMasterData - Something went wrong from Server response : ' +
+                  error,
+              });
+            });
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
       });
     }
   }
