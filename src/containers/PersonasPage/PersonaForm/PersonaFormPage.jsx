@@ -191,6 +191,38 @@ const PersonaFormPage = observer(
             </div>
           </div>
           <div className="col-8">
+            <div>
+              <ComponentFormFieldBio
+                validator={this.validator}
+                formPropsData={this.formPropsData}
+              />
+              <div className="row">
+                <div className="col-6">
+                  <div>
+                    <p className="text-blue-0 opacity-75 fs-bold bg-blue-3 p-2">
+                      Sources of information
+                    </p>
+                    <ComponentFormFieldInformation
+                      validator={this.validator}
+                      formPropsData={this.formPropsData}
+                    />
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div>
+                    <p className="text-blue-0 opacity-75 fs-bold bg-blue-3 p-2">
+                      Goals - Challenges - Paint point
+                    </p>
+                    <div>
+                      <ComponentFormFieldGCP
+                        validator={this.validator}
+                        formPropsData={this.formPropsData}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <ComponentFBITads
               getDataSelectOptionsFBITDemographics={getDataSelectOptionsFBITDemographics}
               getDataSelectOptionsFBITInterests={getDataSelectOptionsFBITDemographics}
