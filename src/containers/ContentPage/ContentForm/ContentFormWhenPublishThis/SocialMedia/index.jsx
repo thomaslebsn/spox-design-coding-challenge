@@ -5,10 +5,27 @@ import ComponentSwitch from '../../../../../components/ComponentSwitch';
 class SocialMedia extends Component {
   constructor() {
     super();
+
+    this.state = {
+      isChecked: 'social_post_now',
+      isSwitch: false,
+    };
   }
 
+  handleRadio = (name) => {
+    this.setState({
+      isChecked: name,
+    });
+  };
+
+  handleChangeSwitch = () => {
+    this.setState({
+      isSwitch: !this.state.isSwitch,
+    });
+  };
+
   render() {
-    let { handleRadio, name, isChecked } = this.props;
+    let { isChecked, isSwitch } = this.state;
     return (
       <div>
         <div className="d-flex mb-3">
@@ -18,8 +35,8 @@ class SocialMedia extends Component {
               type="radio"
               id="social_post_now"
               checked={isChecked === 'social_post_now' ? true : false}
-              name={name}
-              onClick={() => handleRadio('social_post_now')}
+              name={'social_post_now'}
+              onClick={() => this.handleRadio('social_post_now')}
             />
             <label className="form-check-label" htmlFor="social_post_now">
               Post now
@@ -34,23 +51,25 @@ class SocialMedia extends Component {
                 type="radio"
                 id="social_schedule"
                 checked={isChecked === 'social_schedule' ? true : false}
-                name="radio_2"
-                onClick={() => handleRadio('social_schedule')}
+                name="social_schedule"
+                onClick={() => this.handleRadio('social_schedule')}
               />
               <label className="form-check-label" htmlFor="social_schedule">
                 Schedule
               </label>
             </div>
-            {/* <ComponentSwitch
-                          checked={isSwitch}
-                          handleChange={this.handleChangeSwitch}
-                          text={'Customize schedule for each channel'}
-                          id="customize_schedule"
-                        /> */}
-            <ComponentSwitch text={'Customize schedule for each channel'} id="customize_schedule" />
+            {isChecked === 'social_schedule' && (
+              <ComponentSwitch
+                checked={isSwitch}
+                handleChange={this.handleChangeSwitch}
+                text={'Customize schedule for each channel'}
+                id="customize_schedule"
+              />
+            )}
           </div>
-          {/* <ComponentSchedule isSwitch={isSwitch} /> */}
-          <ComponentSchedule />
+          {isChecked === 'social_schedule' && (
+            <ComponentSchedule isSwitch={isSwitch} regularly={true} />
+          )}
         </div>
         <div className="d-flex mb-2">
           <div className="form-check">
@@ -59,8 +78,8 @@ class SocialMedia extends Component {
               type="radio"
               id="social_save"
               checked={isChecked === 'social_save' ? true : false}
-              name="radio_3"
-              onClick={() => handleRadio('social_save')}
+              name="social_save"
+              onClick={() => this.handleRadio('social_save')}
             />
             <label className="form-check-label" htmlFor="social_save">
               Save as draft

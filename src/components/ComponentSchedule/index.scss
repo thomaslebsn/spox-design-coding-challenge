@@ -1,6 +1,8 @@
 @import "../../scss/utils/bootstrap.scss";
 
 .wr_item_schedule {
+  background-color: $color-blue-4;
+
   .react-datepicker-wrapper {
     width: 100%;
   }
@@ -44,11 +46,13 @@
 .tabs_content {
   .nav-pills {
     .nav-link {
-      color: $black;
+      color: rgba($color: $color-blue, $alpha: 0.5);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
 
       &.active {
-        background-color: $white;
-        color: $color-blue-3
+        background-color: $color-blue-3;
+        color: $white;
       }
     }
   }

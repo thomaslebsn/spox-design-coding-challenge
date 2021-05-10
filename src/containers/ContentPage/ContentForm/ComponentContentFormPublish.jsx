@@ -23,6 +23,8 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import Spinner from '../../../components/Spinner';
 import ComponentPublishListChannels from '../../../components/ComponentPublishListChannels';
 import SocialMedia from './ContentFormWhenPublishThis/SocialMedia';
+import ManagementSystem from './ContentFormWhenPublishThis/ManagementSystem';
+import EmailMarketing from './ContentFormWhenPublishThis/EmailMarketing';
 
 class ComponentContentFormPublish extends Component {
   formPropsData = {};
@@ -34,15 +36,11 @@ class ComponentContentFormPublish extends Component {
     this.state = {
       social: true,
       cms: true,
-      isCheckedSocial: 'social_post_now',
-      isSwitch: false,
+      email: false,
     };
 
     this.validator = new SimpleReactValidator();
     this.viewModel = this.props.viewModel;
-
-    console.log('this.viewModel 123456789');
-    console.log(this.viewModel);
   }
 
   post = () => {
@@ -80,23 +78,7 @@ class ComponentContentFormPublish extends Component {
     this.handleCheck(name);
   };
 
-  handleRadioSocial = (name) => {
-    console.log('namenamename 123');
-    console.log(name);
-    this.setState({
-      isCheckedSocial: name,
-    });
-  };
-
-  handleChangeSwitch = (checked) => {
-    console.log('isSwitch isSwitch', this.state.isSwitch);
-    this.setState({
-      isSwitch: !this.state.isSwitch,
-    });
-  };
-
   render() {
-    let { isCheckedSocial, isSwitch } = this.state;
     let publishContentConnectChannels = this.viewModel.publishContentConnectChannels;
     console.log('[Content - FormPublish] - re-render .........');
 
@@ -140,10 +122,7 @@ class ComponentContentFormPublish extends Component {
                 </div>
                 <Accordion.Collapse eventKey="0">
                   <div className="p-3 border-1">
-                    <SocialMedia
-                      handleRadio={(name) => this.handleRadioSocial(name)}
-                      isChecked={isCheckedSocial}
-                    />
+                    <SocialMedia />
                   </div>
                 </Accordion.Collapse>
               </Accordion>
@@ -159,6 +138,29 @@ class ComponentContentFormPublish extends Component {
                     <FontAwesomeIcon icon={this.state.cms ? faMinus : faPlus} color="#16b979" />
                   </Accordion.Toggle>
                 </div>
+                <Accordion.Collapse eventKey="0">
+                  <div className="p-3 border-1">
+                    <ManagementSystem />
+                  </div>
+                </Accordion.Collapse>
+              </Accordion>
+              <Accordion defaultActiveKey="0">
+                <div>
+                  <Accordion.Toggle
+                    as={Button}
+                    className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
+                    eventKey="0"
+                    onClick={() => this.setState({ email: !this.state.email })}
+                  >
+                    Email Marketing
+                    <FontAwesomeIcon icon={this.state.email ? faMinus : faPlus} color="#16b979" />
+                  </Accordion.Toggle>
+                </div>
+                <Accordion.Collapse eventKey="0">
+                  <div className="p-3 border-1">
+                    <EmailMarketing />
+                  </div>
+                </Accordion.Collapse>
               </Accordion>
             </div>
           </div>
