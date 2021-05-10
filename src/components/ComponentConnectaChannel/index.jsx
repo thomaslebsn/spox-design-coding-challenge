@@ -117,7 +117,10 @@ class ComponentConnectaChannel extends Component {
     console.log(featuresChannelMasterData);
     const featureChannel = this.getFeatureByChannelType(featuresChannelMasterData, channelType);
 
-    return featureChannel.enable === 1 && featureChannel.option > countConnectedChannel;
+    return (
+      featureChannel.enable === 1 &&
+      (!featureChannel.option || featureChannel.option > countConnectedChannel)
+    );
   };
 
   handleConnectChannel = (name) => {
