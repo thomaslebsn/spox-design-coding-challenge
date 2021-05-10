@@ -1,11 +1,20 @@
-import React, { Component, lazy, Suspense } from "react";
-import ChannelsStore from "./ChannelsStore/ChannelsStore";
-import ChannelsViewModel from "./ChannelsViewModels/ChannelsViewModel";
-import { ChannelsViewModelContextProvider } from "./ChannelsViewModels/ChannelsViewModelContextProvider";
-import ChannelsList from "./ChannelsList/ChannelsList";
-import ConnectChannels from "./ConnectChannels";
+import React, { Component, lazy, Suspense } from 'react';
+import ChannelsStore from './ChannelsStore/ChannelsStore';
+import ChannelsViewModel from './ChannelsViewModels/ChannelsViewModel';
+import { ChannelsViewModelContextProvider } from './ChannelsViewModels/ChannelsViewModelContextProvider';
+import ChannelsList from './ChannelsList/ChannelsList';
+import ConnectChannels from './ConnectChannels';
+import GlobalStore from '../../store/Store';
 
-const channelsStore = new ChannelsStore();
+if (!window.globalStore) {
+  window.globalStore = new GlobalStore();
+}
+
+const globalStore = window.globalStore;
+
+const channelsStore = new ChannelsStore({
+  globalStore: globalStore,
+});
 const channelsViewModel = new ChannelsViewModel(channelsStore);
 
 class channelsPage extends Component {
