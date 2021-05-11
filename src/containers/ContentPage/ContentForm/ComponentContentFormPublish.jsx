@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import { Button, Accordion, Image } from 'react-bootstrap';
 
 import { PERSONA_FIELD_KEY } from '../../../constants/PersonaModule';
@@ -6,25 +6,21 @@ import { FORM_FIELD_TYPE } from '../../../constants/FormFieldType';
 import { CONTENT_FIELD_KEY } from '../../../constants/ContentModule';
 
 import ButtonNormal from '../../../components/ButtonNormal';
-import ComponentSwitch from '../../../components/ComponentSwitch';
-import ComponentSchedule from '../../../components/ComponentSchedule';
-import FormSelectDropdown from '../../../components/Form/FormSelectDropdown';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
 
 import SimpleReactValidator from 'simple-react-validator';
 
-import { observer } from 'mobx-react';
-import { withContentViewModel } from '../ContentViewModels/ContentViewModelContextProvider';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import Spinner from '../../../components/Spinner';
 import ComponentPublishListChannels from '../../../components/ComponentPublishListChannels';
 import SocialMedia from './ContentFormWhenPublishThis/SocialMedia';
 import ManagementSystem from './ContentFormWhenPublishThis/ManagementSystem';
 import EmailMarketing from './ContentFormWhenPublishThis/EmailMarketing';
+
+const ContentSetupAds = lazy(() => import('./ContentSetupAds/ContentSetupAds'));
 
 class ComponentContentFormPublish extends Component {
   formPropsData = {};
@@ -37,11 +33,22 @@ class ComponentContentFormPublish extends Component {
       social: true,
       cms: true,
       email: false,
+      schedule: false,
     };
 
     this.validator = new SimpleReactValidator();
     this.viewModel = this.props.viewModel;
   }
+
+  schedule = () => {
+    if (this.isFormValid()) {
+      this.props.nextStep();
+    }
+
+    this.setState({
+      schedule: true,
+    });
+  };
 
   post = () => {
     if (this.isFormValid()) {
@@ -82,100 +89,146 @@ class ComponentContentFormPublish extends Component {
     let publishContentConnectChannels = this.viewModel.publishContentConnectChannels;
     console.log('[Content - FormPublish] - re-render .........');
 
-    let { formStatus } = this.props;
+    let { formStatus, arrayConnectedChannelsFinal } = this.props;
+    let { schedule } = this.state;
+
+    let labelsConnectedChannels =
+      arrayConnectedChannelsFinal && arrayConnectedChannelsFinal.map((e) => e.des);
+
+    let checkSetupAds =
+      labelsConnectedChannels &&
+      (labelsConnectedChannels.indexOf('fbad') > -1 ||
+        labelsConnectedChannels.indexOf('youtube') > -1) &&
+      !schedule;
 
     return formStatus === PAGE_STATUS.LOADING ? (
       <Spinner />
     ) : (
       <div className="pe-80">
-        <h3 className="mb-4">Publish</h3>
-        <div className="bg-white p-4">
-          <div className="row">
-            <div className="col-5 pe-3">
-              <div>
-                {publishContentConnectChannels &&
-                  publishContentConnectChannels.map((value, key) => {
-                    return (
-                      <div key={key} className="mb-4">
-                        <ComponentPublishListChannels
-                          value={value}
-                          handleDeselectAll={(e) => this.handleDeselectAll(value, key)}
-                        />
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-            <div className="col-5 ps-3">
-              <h6 className="text-blue mb-0 mb-3">When to publish this?</h6>
-              <Accordion defaultActiveKey="0" className="mb-3">
-                <div>
-                  <Accordion.Toggle
-                    as={Button}
-                    className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
-                    eventKey="0"
-                    onClick={() => this.setState({ social: !this.state.social })}
-                  >
-                    Social Media
-                    <FontAwesomeIcon icon={this.state.social ? faMinus : faPlus} color="#16b979" />
-                  </Accordion.Toggle>
-                </div>
-                <Accordion.Collapse eventKey="0">
-                  <div className="p-3 border-1">
-                    <SocialMedia />
-                  </div>
-                </Accordion.Collapse>
-              </Accordion>
-              <Accordion defaultActiveKey="0" className="mb-3">
-                <div>
-                  <Accordion.Toggle
-                    as={Button}
-                    className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
-                    eventKey="0"
-                    onClick={() => this.setState({ cms: !this.state.cms })}
-                  >
-                    Content Management System (CMS)
-                    <FontAwesomeIcon icon={this.state.cms ? faMinus : faPlus} color="#16b979" />
-                  </Accordion.Toggle>
-                </div>
-                <Accordion.Collapse eventKey="0">
-                  <div className="p-3 border-1">
-                    <ManagementSystem />
-                  </div>
-                </Accordion.Collapse>
-              </Accordion>
-              <Accordion defaultActiveKey="0">
-                <div>
-                  <Accordion.Toggle
-                    as={Button}
-                    className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
-                    eventKey="0"
-                    onClick={() => this.setState({ email: !this.state.email })}
-                  >
-                    Email Marketing
-                    <FontAwesomeIcon icon={this.state.email ? faMinus : faPlus} color="#16b979" />
-                  </Accordion.Toggle>
-                </div>
-                <Accordion.Collapse eventKey="0">
-                  <div className="p-3 border-1">
-                    <EmailMarketing />
-                  </div>
-                </Accordion.Collapse>
-              </Accordion>
+        {checkSetupAds ? (
+          <div>
+            <h3 className="mb-4">Setup Ads</h3>
+            <div className="bg-white p-4">
+              <ContentSetupAds
+                labelsConnectedChannels={labelsConnectedChannels}
+                FORM_FIELD_TYPE={FORM_FIELD_TYPE}
+                CONTENT_FIELD_KEY={CONTENT_FIELD_KEY}
+                formPropsData={this.formPropsData}
+              />
             </div>
           </div>
-          <div className="d-flex justify-content-between border-top-1 pt-3">
+        ) : (
+          <div>
+            <h3 className="mb-4">Publish</h3>
+            <div className="bg-white p-4">
+              <div className="row">
+                <div className="col-5">
+                  <div>
+                    {publishContentConnectChannels &&
+                      publishContentConnectChannels.map((value, key) => {
+                        return (
+                          <div key={key} className="mb-4">
+                            <ComponentPublishListChannels
+                              value={value}
+                              handleDeselectAll={(e) => this.handleDeselectAll(value, key)}
+                            />
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+                <div className="col-5">
+                  <h6 className="text-blue mb-0 mb-3">When to publish this?</h6>
+                  <Accordion defaultActiveKey="0" className="mb-3">
+                    <div>
+                      <Accordion.Toggle
+                        as={Button}
+                        className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
+                        eventKey="0"
+                        onClick={() => this.setState({ social: !this.state.social })}
+                      >
+                        Social Media
+                        <FontAwesomeIcon
+                          icon={this.state.social ? faMinus : faPlus}
+                          color="#16b979"
+                        />
+                      </Accordion.Toggle>
+                    </div>
+                    <Accordion.Collapse eventKey="0">
+                      <div className="p-3 border-1">
+                        <SocialMedia />
+                      </div>
+                    </Accordion.Collapse>
+                  </Accordion>
+                  <Accordion defaultActiveKey="0" className="mb-3">
+                    <div>
+                      <Accordion.Toggle
+                        as={Button}
+                        className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
+                        eventKey="0"
+                        onClick={() => this.setState({ cms: !this.state.cms })}
+                      >
+                        Content Management System (CMS)
+                        <FontAwesomeIcon icon={this.state.cms ? faMinus : faPlus} color="#16b979" />
+                      </Accordion.Toggle>
+                    </div>
+                    <Accordion.Collapse eventKey="0">
+                      <div className="p-3 border-1">
+                        <ManagementSystem />
+                      </div>
+                    </Accordion.Collapse>
+                  </Accordion>
+                  <Accordion>
+                    <div>
+                      <Accordion.Toggle
+                        as={Button}
+                        className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
+                        eventKey="0"
+                        onClick={() => this.setState({ email: !this.state.email })}
+                      >
+                        Email Marketing
+                        <FontAwesomeIcon
+                          icon={this.state.email ? faMinus : faPlus}
+                          color="#16b979"
+                        />
+                      </Accordion.Toggle>
+                    </div>
+                    <Accordion.Collapse eventKey="0">
+                      <div className="p-3 border-1">
+                        <EmailMarketing />
+                      </div>
+                    </Accordion.Collapse>
+                  </Accordion>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="px-3 bg-white pb-3">
+          <div className="border-top-1 pt-3 d-flex justify-content-between">
             <Button className="btn btn-light border-success" onClick={this.props.previousStep}>
               Back
             </Button>
-            {/* <div className="w-180">
-                <FormSelectDropdown field={fieldApproval} />
-              </div> */}
-            <ButtonNormal
-              className="btn btn-success"
-              text="Post"
-              onClick={this.post}
-            ></ButtonNormal>
+            <div>
+              {checkSetupAds ? (
+                <>
+                  {!schedule && (
+                    <ButtonNormal
+                      className="btn btn-success"
+                      text="Next"
+                      onClick={this.schedule}
+                    ></ButtonNormal>
+                  )}
+                </>
+              ) : (
+                <ButtonNormal
+                  className="btn btn-success"
+                  text="Post"
+                  onClick={this.post}
+                ></ButtonNormal>
+              )}
+            </div>
           </div>
         </div>
       </div>

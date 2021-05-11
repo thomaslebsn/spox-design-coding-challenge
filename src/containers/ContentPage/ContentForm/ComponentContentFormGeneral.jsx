@@ -224,12 +224,6 @@ class ComponentContentFormGeneral extends Component {
             dataContentDescriptionSocial: this.props.dataContentDescriptionSocial,
             isAdvanceMode: this.props.isAdvanceMode,
             handleChange: (data) => {
-              console.log('data data data data 12345677999');
-              console.log(data);
-              console.log(this.contentConnectedChannelsByOrganisationViewModel);
-              console.log(this.props.dataContentDescriptionSingle);
-              console.log(this.props.dataContentDescriptionSocial);
-
               this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] = this.props.isAdvanceMode
                 ? this.props.dataContentDescriptionSocial
                 : this.props.dataContentDescriptionSingle;
@@ -285,6 +279,8 @@ class ComponentContentFormGeneral extends Component {
   };
 
   render() {
+    console.log(this.contentConnectedChannelsByOrganisationViewModel);
+    console.log('this.contentConnectedChannelsByOrganisationViewModel 123');
     console.log('[Content - FormGeneral] - re-render .........');
 
     const formSetting = this.generateFormSetting();
@@ -292,7 +288,7 @@ class ComponentContentFormGeneral extends Component {
     const formSettingDescription = this.generateFormSettingDescription();
 
     return (
-      <div className="pe-65">
+      <div className="pe-80">
         <h3 className="mb-4">General</h3>
         <div className="bg-white p-4">
           <Form key={Math.random(40, 200)}>
