@@ -1,12 +1,12 @@
-import { makeAutoObservable } from "mobx";
-import { notify } from "../../../components/Toast";
+import { makeAutoObservable } from 'mobx';
+import { notify } from '../../../components/Toast';
 
-import { 
-  CHANNEL_CMS_DRUPAL, 
+import {
+  CHANNEL_CMS_DRUPAL,
   CHANNEL_CMS_WORDPRESS,
   CHANNEL_CMS_MEDIUM,
   CHANNEL_CMS_JOOMLA,
-} from "../../../constants/ChannelModule";
+} from '../../../constants/ChannelModule';
 
 class LoginCMSChannelFormModalViewModel {
   show = false;
@@ -34,11 +34,11 @@ class LoginCMSChannelFormModalViewModel {
 
   setChannelsListViewModelInstance = (channelsListViewModelInstance) => {
     this.channelsListViewModel = channelsListViewModelInstance;
-  }
+  };
 
   setChannelType = (type) => {
     this.cmsChannelType = type;
-  }
+  };
 
   saveCMSHandler = (channelUniqueName) => {
     let dataPost = this.loginChannelCMSFormComponent.formPropsData;
@@ -54,35 +54,39 @@ class LoginCMSChannelFormModalViewModel {
   };
 
   callbackOnSuccessCMS = () => {
-    console.log("callbackOnSuccessCMS");
+    console.log('callbackOnSuccessCMS');
     switch (this.cmsChannelType) {
       case CHANNEL_CMS_WORDPRESS:
         this.channelsListViewModel.wordpressConnected = true;
+        this.channelsListViewModel.countCMSConnected++;
         break;
       case CHANNEL_CMS_DRUPAL:
         this.channelsListViewModel.drupalConnected = true;
+        this.channelsListViewModel.countCMSConnected++;
         break;
       case CHANNEL_CMS_MEDIUM:
         this.channelsListViewModel.mediumConnected = true;
+        this.channelsListViewModel.countCMSConnected++;
         break;
       case CHANNEL_CMS_JOOMLA:
         this.channelsListViewModel.joomlaConnected = true;
+        this.channelsListViewModel.countCMSConnected++;
         break;
       default:
         break;
     }
-    
+
     this.closeModal();
   };
 
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
+    console.log('callbackOnErrorHander');
     console.log(error);
     notify(error.message);
   };
 
   callbackOnSuccessHandler = () => {
-    console.log("callbackOnSuccessHandler");
+    console.log('callbackOnSuccessHandler');
     this.closeModal();
     this.campaignsListViewModel.refreshTableCampaignsList();
   };

@@ -1,35 +1,16 @@
-import React, { Component, lazy } from "react";
-import { observer } from "mobx-react";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import { withBillingPlanViewModel } from "../BillingPlanViewModel/BillingPlanViewModelContextProvider";
+import React, { Component, lazy } from 'react';
+import { observer } from 'mobx-react';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { withBillingPlanViewModel } from '../BillingPlanViewModel/BillingPlanViewModelContextProvider';
 
-import Spinner from "../../../components/Spinner";
-import ComponentBillingPlan from "../../../components/ComponentBillingPlan";
-import ComponentPlanPayment from "../../../components/ComponentPlanPayment";
-import ComponentInvoices from "../../../components/ComponentInvoices";
+import Spinner from '../../../components/Spinner';
+import ComponentBillingPlan from '../../../components/ComponentBillingPlan';
+import ComponentPlanPayment from '../../../components/ComponentPlanPayment';
+import ComponentInvoices from '../../../components/ComponentInvoices';
 
-import "./index.scss";
+import './index.scss';
 
-const ModalComponent = lazy(() => import("../../../components/Modal"));
-
-const data = [
-  {
-    id: "123",
-    plan: "Small",
-    amount: "29.00",
-    date: "20/09/2020",
-    status: 1,
-    receipt: "PDF",
-  },
-  {
-    id: "123",
-    plan: "Small",
-    amount: "29.00",
-    date: "20/09/2020",
-    status: 1,
-    receipt: "PDF",
-  },
-];
+const ModalComponent = lazy(() => import('../../../components/Modal'));
 
 const BillingPlanList = observer(
   class BillingPlanList extends Component {
@@ -37,20 +18,19 @@ const BillingPlanList = observer(
     constructor(props) {
       super(props);
       const { viewModel } = props;
-      console.log("BillingPlanList - Debug View Model");
+      console.log('BillingPlanList - Debug View Model');
       console.log(viewModel);
 
-      this.billingPlanListViewModel = viewModel
-        ? viewModel.getBillingPlanListViewModel()
-        : null;
+      this.billingPlanListViewModel = viewModel ? viewModel.getBillingPlanListViewModel() : null;
 
-      console.log("this.billingPlanListViewModel - Debug View Model");
+      console.log('this.billingPlanListViewModel - Debug View Model');
       console.log(this.billingPlanListViewModel);
     }
 
     componentDidMount() {
-      const script = document.createElement("script");
-      script.src = "https://cdn.paddle.com/paddle/paddle.js";
+      console.log('init data');
+      const script = document.createElement('script');
+      script.src = 'https://cdn.paddle.com/paddle/paddle.js';
       script.async = true;
       document.body.appendChild(script);
 
@@ -79,7 +59,9 @@ const BillingPlanList = observer(
         subscriptionDetail,
         invoices,
       } = this.billingPlanListViewModel;
-
+      console.log('================ subscriptionDetail');
+      console.log(subscriptionDetail);
+      console.log(invoices);
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
@@ -109,7 +91,7 @@ const BillingPlanList = observer(
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h2 className="text-blue-0 mb-0">Invoices</h2>
             </div>
-            <ComponentInvoices data={invoices} />
+            {invoices && <ComponentInvoices data={invoices} />}
           </div>
           <ModalComponent
             show={show}

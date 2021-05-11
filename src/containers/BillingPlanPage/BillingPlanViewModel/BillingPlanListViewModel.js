@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx";
-import { BILLING_PLAN_COLUMN_INDICATOR } from "../../../constants/BillingPlanModule";
-import { notify } from "../../../components/Toast";
-import PAGE_STATUS from "../../../constants/PageStatus";
+import { makeAutoObservable } from 'mobx';
+import { BILLING_PLAN_COLUMN_INDICATOR } from '../../../constants/BillingPlanModule';
+import { notify } from '../../../components/Toast';
+import PAGE_STATUS from '../../../constants/PageStatus';
 
 class BillingPlanListViewModel {
   billingPlanStore = null;
@@ -10,16 +10,7 @@ class BillingPlanListViewModel {
   show = false;
   hideChangePlanTable = true;
   paddleData = null;
-  // subscriptionDetail = null;
-  subscriptionDetail = {
-    next_payment_amount: 99,
-    next_payment_date: "Apr 29, 2021",
-    name: "Pro",
-    plan_detail: {
-      amount: 99,
-      name: "Pro",
-    },
-  };
+  subscriptionDetail = null;
   invoices = [];
 
   constructor(billingPlanStore) {
@@ -39,11 +30,12 @@ class BillingPlanListViewModel {
     //get init member subscription detail
     this.billingPlanStore.getMemberSubscriptionDetail(
       (response) => {
-        console.log("paddle - initializeData");
-        this.subscriptionDetail = response.result.data.subscription;
+        console.log('paddle - initializeData');
+        console.log(response);
+        this.subscriptionDetail = response.subscription;
         console.log(this.subscriptionDetail);
-        this.paddleData = response.result.data.paddleData;
-        if (this.subscriptionDetail === null) {
+        this.paddleData = response.paddleData;
+        if (this.subscriptionDetail === null || this.subscriptionDetail === undefined) {
           this.hideChangePlanTable = false;
         }
 
@@ -70,13 +62,13 @@ class BillingPlanListViewModel {
       vendor: parseInt(this.paddleData.vendorId), // paddle vendor id
       eventCallback: function (data) {
         // The data.event will specify the event type
-        if (data.event === "Checkout.Complete") {
-          console.log("Complete");
+        if (data.event === 'Checkout.Complete') {
+          console.log('Complete');
           setTimeout(() => {
             window.location.reload();
-          }, 1000);
-        } else if (data.event === "Checkout.Close") {
-          console.log("Close");
+          }, 1500);
+        } else if (data.event === 'Checkout.Close') {
+          console.log('Close');
         }
 
         console.log(data.eventData);
@@ -84,20 +76,54 @@ class BillingPlanListViewModel {
     });
   }
 
+  // //get pay link
+  // getPayLinkModel = (planName) => {
+  //   this.closeModal();
+
+  //   //only get pay link when subscription plan detail is empty
+  //   if (this.subscriptionDetail === null) {
+  //     this.Paddle.Spinner.show();
+  //     this.billingPlanStore.getPayLink(
+  //       planName,
+  //       (response) => {
+  //         this.Paddle.Spinner.hide();
+  //         if (response && response.result.pay_link) {
+  //           this.Paddle.Checkout.open({
+  //             override: response.result.pay_link,
+  //           });
+  //         } else {
+  //           this.tableStatus = PAGE_STATUS.ERROR;
+  //         }
+  //       },
+  //       (error) => {
+  //         this.Paddle.Spinner.hide();
+  //         notify(error.message);
+  //       }
+  //     );
+  //   } else {
+  //     this.changeSubscriptionPlan(planName);
+  //   }
+  // };
+
   //get pay link
   getPayLinkModel = (planName) => {
     this.closeModal();
-
+    console.log('getPayLinkModel');
+    console.log(this.subscriptionDetail);
     //only get pay link when subscription plan detail is empty
-    if (this.subscriptionDetail === null) {
+    if (
+      this.subscriptionDetail === null ||
+      this.subscriptionDetail === undefined ||
+      this.subscriptionDetail.paddle_status === 'deleted'
+    ) {
       this.Paddle.Spinner.show();
       this.billingPlanStore.getPayLink(
         planName,
         (response) => {
           this.Paddle.Spinner.hide();
-          if (response && response.result.pay_link) {
+          if (response) {
             this.Paddle.Checkout.open({
-              override: response.result.pay_link,
+              override: response,
             });
           } else {
             this.tableStatus = PAGE_STATUS.ERROR;
@@ -121,19 +147,21 @@ class BillingPlanListViewModel {
     this.billingPlanStore.changeSubscriptionPlan(
       planName,
       (response) => {
+        console.log('model - changeSubscriptionPlan');
+        console.log(response);
         this.Paddle.Spinner.hide();
-        if (response.result.data === true) {
-          notify("Update subscription success");
+        if (response == true) {
+          notify('Update subscription success');
           setTimeout(() => {
             window.location.reload();
           }, 500);
         } else {
-          notify(response.result.data.error, "error");
+          notify(response, 'error');
         }
       },
       (response) => {
         this.Paddle.Spinner.hide();
-        notify(response.message, "error");
+        notify(response.message, 'error');
       }
     );
   };
@@ -146,16 +174,16 @@ class BillingPlanListViewModel {
       (response) => {
         this.Paddle.Spinner.hide();
         if (response.result.data === true) {
-          notify("Cancel subscription success");
+          notify('Cancel subscription success');
           this.hideChangePlanTable = false;
           this.subscriptionDetail = null;
         } else {
-          notify(response.result.data.error, "error");
+          notify(response.result.data.error, 'error');
         }
       },
       (response) => {
         this.Paddle.Spinner.hide();
-        notify(response.message, "error");
+        notify(response.message, 'error');
       }
     );
   };
