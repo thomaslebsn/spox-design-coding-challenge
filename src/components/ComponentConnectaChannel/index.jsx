@@ -13,6 +13,7 @@ import {
   CHANNEL_CMS_MEDIUM,
   CHANNEL_CMS_WORDPRESS,
 } from '../../constants/ChannelModule';
+import { EASII_CONFIGS } from 'easii-io-web-service-library';
 
 const ModalComponent = lazy(() => import('../../components/Modal'));
 class ComponentConnectaChannel extends Component {
@@ -56,6 +57,10 @@ class ComponentConnectaChannel extends Component {
   };
 
   isAllowedConnectChannel = (channelType, groupType) => {
+    if (!EASII_CONFIGS.ENABLE_PRICING_PLAN) {
+      return true;
+    }
+
     switch (groupType) {
       case 'social_media':
         const { socialMediaFeaturesMasterData, countSocialMediaConnected } = this.props;
@@ -494,7 +499,6 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/mailchimp.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Mailchimp</span>
                   </div>
-                  {/* {wordpressConnected || this.isAllowedConnectChannel(CHANNEL_CMS_WORDPRESS, 'cms') ? () : (<ButtonUpgrade/>)} */}
                   {mailchimpConnected ||
                   this.isAllowedConnectChannel('mailchimp', 'email_marketing') ? (
                     <button

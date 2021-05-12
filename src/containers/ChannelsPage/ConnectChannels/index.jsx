@@ -153,7 +153,7 @@ const ConnectChannels = observer(
       } = this.channelsListViewModel;
 
       console.log('this.channelsListViewModel', this.channelsListViewModel);
-
+      console.log(listFaceBookFanpageView);
       return (
         <div className="py-4 px-3">
           <h2 className="text-blue-0 mb-4">Connect a Channel</h2>
