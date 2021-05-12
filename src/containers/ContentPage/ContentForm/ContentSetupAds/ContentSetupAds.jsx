@@ -20,7 +20,13 @@ class ContentSetupAds extends Component {
   }
 
   render() {
-    let { labelsConnectedChannels, FORM_FIELD_TYPE, CONTENT_FIELD_KEY, formPropsData } = this.props;
+    let {
+      labelsConnectedChannels,
+      FORM_FIELD_TYPE,
+      CONTENT_FIELD_KEY,
+      formPropsData,
+      nextStep2Ads,
+    } = this.props;
     return (
       <div className="wrapper_tabs wrapper_tabs_2">
         <Tabs
@@ -42,6 +48,7 @@ class ContentSetupAds extends Component {
                 FORM_FIELD_TYPE={FORM_FIELD_TYPE}
                 CONTENT_FIELD_KEY={CONTENT_FIELD_KEY}
                 formPropsData={formPropsData}
+                nextStep2Ads={nextStep2Ads}
               />
             </Tab>
           )}

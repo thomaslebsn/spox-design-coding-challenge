@@ -34,6 +34,7 @@ class ComponentContentFormPublish extends Component {
       cms: true,
       email: false,
       schedule: false,
+      nextStep2Ads: false,
     };
 
     this.validator = new SimpleReactValidator();
@@ -85,12 +86,18 @@ class ComponentContentFormPublish extends Component {
     this.handleCheck(name);
   };
 
+  handleNextStep2Ads = () => {
+    this.setState({
+      nextStep2Ads: true,
+    });
+  };
+
   render() {
     let publishContentConnectChannels = this.viewModel.publishContentConnectChannels;
     console.log('[Content - FormPublish] - re-render .........');
 
     let { formStatus, arrayConnectedChannelsFinal } = this.props;
-    let { schedule } = this.state;
+    let { schedule, nextStep2Ads } = this.state;
 
     let labelsConnectedChannels =
       arrayConnectedChannelsFinal && arrayConnectedChannelsFinal.map((e) => e.des);
@@ -114,6 +121,7 @@ class ComponentContentFormPublish extends Component {
                 FORM_FIELD_TYPE={FORM_FIELD_TYPE}
                 CONTENT_FIELD_KEY={CONTENT_FIELD_KEY}
                 formPropsData={this.formPropsData}
+                nextStep2Ads={nextStep2Ads}
               />
             </div>
           </div>
@@ -214,11 +222,21 @@ class ComponentContentFormPublish extends Component {
               {checkSetupAds ? (
                 <>
                   {!schedule && (
-                    <ButtonNormal
-                      className="btn btn-success"
-                      text="Next"
-                      onClick={this.schedule}
-                    ></ButtonNormal>
+                    <>
+                      {!nextStep2Ads ? (
+                        <ButtonNormal
+                          className="btn btn-success"
+                          text="Next"
+                          onClick={this.handleNextStep2Ads}
+                        ></ButtonNormal>
+                      ) : (
+                        <ButtonNormal
+                          className="btn btn-success"
+                          text="Next"
+                          onClick={this.schedule}
+                        ></ButtonNormal>
+                      )}
+                    </>
                   )}
                 </>
               ) : (

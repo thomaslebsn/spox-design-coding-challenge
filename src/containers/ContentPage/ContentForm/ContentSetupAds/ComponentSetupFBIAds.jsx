@@ -1,6 +1,6 @@
 import React, { Component, lazy } from 'react';
 import { Form } from 'react-bootstrap';
-import { renderingGroupFieldHandler } from '../../../../utils/form';
+import { ProgressBar } from 'react-bootstrap';
 import SelectComponent from '../../../../components/Select';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,11 +8,43 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons/faEdit';
 import { faImage } from '@fortawesome/free-regular-svg-icons/faImage';
 
 import './index.scss';
+import ComponentPreview from '../../../../components/ComponentPreview';
+import ComponentCarouselCard from '../../../../components/ComponentCarouselCard';
+import DatePickerDay from '../../../../components/ComponentSchedule/DatePickerDay';
+import DatePickerTime from '../../../../components/ComponentSchedule/DatePickerTime';
+import Checkbox from '../../../../components/Checkbox';
 
 const facebookFanpage = [
   { value: '01', label: 'redWEB Fanpage' },
   { value: '02', label: 'redWEB Fanpage 2' },
   { value: '03', label: 'redWEB Fanpage 3' },
+];
+
+const dataAudience = [
+  {
+    name: 'Location',
+    des: ['Vietnam', 'Hochiminh City'],
+  },
+  {
+    name: 'Age',
+    des: ['18 - 65+'],
+  },
+  {
+    name: 'Gender',
+    des: ['All genders'],
+  },
+  {
+    name: 'Audiences',
+    des: ['Lorem ipsum dolor sit amet'],
+  },
+  {
+    name: 'Language',
+    des: ['English'],
+  },
+  {
+    name: 'Detailed Targeting',
+    des: ['All demographics, Interests and behaviors'],
+  },
 ];
 
 class ComponentSetupFBIAds extends Component {
@@ -23,6 +55,9 @@ class ComponentSetupFBIAds extends Component {
       trafficCheck: 'traffic_website',
       formatCheck: 'format_single',
       destinationCheck: 'destination_website',
+      startDateTime: new Date(),
+      timeDate: new Date(),
+      isEndDate: false,
     };
   }
 
@@ -44,15 +79,192 @@ class ComponentSetupFBIAds extends Component {
     });
   };
 
+  handleEndDay = () => {
+    this.setState({
+      isEndDate: !this.state.isEndDate,
+    });
+  };
+
   render() {
-    let { trafficCheck, formatCheck, destinationCheck } = this.state;
-    let { FORM_FIELD_TYPE, CONTENT_FIELD_KEY, formPropsData } = this.props;
+    let {
+      trafficCheck,
+      formatCheck,
+      destinationCheck,
+      startDateTime,
+      timeDate,
+      isEndDate,
+    } = this.state;
+    let { FORM_FIELD_TYPE, CONTENT_FIELD_KEY, formPropsData, nextStep2Ads } = this.props;
 
     return (
       <div className="pt-3">
-        <div className="row">
-          <div className="col-4">
-            <Form key={Math.random(40, 200)}>
+        {!nextStep2Ads ? (
+          <div className="row">
+            <div className="col-7">
+              <div className="mb-3">
+                <h5>Ad Set Name</h5>
+                <Form.Control
+                  as="input"
+                  type={'text'}
+                  id={'name'}
+                  // onChange={field.changed ?? undefined}
+                  className={`form-control`}
+                />
+              </div>
+              <div className="mb-3">
+                <h5>Budget & Schedule</h5>
+                <div>
+                  <p className="mb-2">Budget</p>
+                  <div className="d-flex">
+                    <div className="w-50">
+                      <SelectComponent
+                        name="numbers"
+                        onChange={this.handleSelect}
+                        options={facebookFanpage}
+                        className="text-green bg-white radius-end-0"
+                        isBorder={true}
+                        plColor="rgba(8, 18, 64, 0.8)"
+                      />
+                    </div>
+                    <div className="w-50">
+                      <SelectComponent
+                        name="numbers"
+                        onChange={this.handleSelect}
+                        options={facebookFanpage}
+                        className="text-green bg-white"
+                        isBorder={true}
+                        plColor="rgba(8, 18, 64, 0.8)"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-3">
+                <h5>Schedule</h5>
+                <div>
+                  <p className="mb-2">Start Date</p>
+                  <div className="d-flex mb-3 wr_item_schedule wr_item_schedule_transparent">
+                    <div className="item">
+                      <DatePickerDay field={startDateTime} />
+                    </div>
+                    <div className="item">
+                      <DatePickerTime field={timeDate} />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-2 d-flex">
+                    <Checkbox checked={isEndDate} onCheckBoxChange={this.handleEndDay} /> End Date
+                  </p>
+                  {isEndDate && (
+                    <div className="d-flex mb-3 wr_item_schedule wr_item_schedule_transparent">
+                      <div className="item">
+                        <DatePickerDay field={startDateTime} />
+                      </div>
+                      <div className="item">
+                        <DatePickerTime field={timeDate} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="mb-3">
+                <h5>Audience</h5>
+                <p>Define who you want to see your ads.</p>
+                <div>
+                  {dataAudience &&
+                    dataAudience.map((value, key) => {
+                      return (
+                        <div key={key} className="bg-blue-3 p-3 rounded-2 mb-2 position-relative">
+                          <a
+                            href={void 0}
+                            className="position-absolute top-0 end-0 text-blue-0 d-flex fs-14 mt-2 me-2 cursor-pointer"
+                          >
+                            <i className="text-blue-0 me-1">
+                              <FontAwesomeIcon icon={faEdit} />
+                            </i>
+                            <span>Edit</span>
+                          </a>
+                          <p className="mb-0">{value.name}</p>
+                          <ul className="mb-0 ps-0 list-unstyled list_audience">
+                            {value.des.map((item) => {
+                              return <li>{item}</li>;
+                            })}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+            </div>
+            <div className="col-5">
+              <div className="p-3 rounded-2 border-start-5 border-1 wr_review_errors mb-4">
+                <h5 className="text-blue-0 mb-2 border-bottom-1 pb-2">Review 1 Errors</h5>
+                <p className="fs-14">
+                  Campaign Spending Limit Too Low: The campaign spending limit must be at least
+                  đ2,000,000 for this currency (#2446307)
+                </p>
+              </div>
+              <div className="p-3 rounded-2 border-1 mb-4">
+                <h5 className="text-blue-0 mb-3">Audience Definition</h5>
+                <div className="d-flex align-items-center pb-3 mb-2 border-bottom-1">
+                  <div>
+                    <img src="/assets/images/facebook_chart.png" />
+                    <p className="mb-0 d-flex justify-content-between">
+                      <span className="fs-12">Specific</span>
+                      <span className="fs-12">Broad</span>
+                    </p>
+                  </div>
+                  <p className="flex-1 ps-3 fs-14 mb-0">Your audience selection is fairly broad</p>
+                </div>
+                <p className="mb-0">Potential reach: 68,000,000 people</p>
+              </div>
+              <div className="p-3 rounded-2 border-1">
+                <h5 className="text-blue-0 mb-3">Estimated Daily Results</h5>
+                <div className="mb-3">
+                  <p className="fs-12 mb-4">Reach</p>
+                  <div className="position-relative ">
+                    <ProgressBar className={`progress_bar bg-gray-3 position-relative`}>
+                      <ProgressBar
+                        key={1}
+                        now={25}
+                        style={{ height: '8px' }}
+                        className="bg-blue-4 fs-14"
+                      />
+                    </ProgressBar>
+                    <span className="fw-bold text-blue-0 position-absolute start-0 bottom-0 text-center pb-2 mb-0">
+                      8.5K - 25K
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <p className="fs-12 mb-4">Link Clicks</p>
+                  <div className="position-relative ">
+                    <ProgressBar className={`progress_bar bg-gray-3 position-relative`}>
+                      <ProgressBar
+                        key={1}
+                        now={25}
+                        style={{ height: '8px' }}
+                        className="bg-blue-4 fs-14"
+                      />
+                    </ProgressBar>
+                    <span className="fw-bold text-blue-0 position-absolute start-0 bottom-0 text-center pb-2 mb-0">
+                      294 - 850
+                    </span>
+                  </div>
+                </div>
+                <p className="fs-12 text-black-50 pt-2 mt-3 border-top-1">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                  euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                  minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                  aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendre
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col-4">
               <div className="mb-3">
                 <h5>Ad Name</h5>
                 <Form.Control
@@ -195,6 +407,7 @@ class ComponentSetupFBIAds extends Component {
                   Select the media, text and destination for your ad. You can also customize your
                   media and text each placement.
                 </p>
+                <ComponentCarouselCard />
                 <div>
                   <div className="mb-3">
                     <p className="mb-2">Media</p>
@@ -305,19 +518,20 @@ class ComponentSetupFBIAds extends Component {
                   </div>
                 </div>
               </div>
-            </Form>
-          </div>
-          <div className="col-8">
-            <div className="p-3 rounded-2 border-start-5 border-1 wr_review_errors">
-              <h5 className="text-blue-0 mb-2 border-bottom-1 pb-2">Review 1 Errors</h5>
-              <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                minim veniam, quis nostrud exerci tation
-              </p>
+            </div>
+            <div className="col-8">
+              <div className="p-3 rounded-2 border-start-5 border-1 wr_review_errors mb-4">
+                <h5 className="text-blue-0 mb-2 border-bottom-1 pb-2">Review 1 Errors</h5>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                  euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                  minim veniam, quis nostrud exerci tation
+                </p>
+              </div>
+              <ComponentPreview />
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

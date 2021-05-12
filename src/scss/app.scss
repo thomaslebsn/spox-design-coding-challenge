@@ -154,6 +154,16 @@ textarea {
   padding-right: 80px;
 }
 
+.radius-start-0 {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.radius-end-0 {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 //Change style tab
 .wrapper_tabs {
   .nav-tabs {
