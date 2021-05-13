@@ -407,7 +407,11 @@ class ComponentSetupFBIAds extends Component {
                   Select the media, text and destination for your ad. You can also customize your
                   media and text each placement.
                 </p>
-                <ComponentCarouselCard />
+                {
+                  formatCheck === "format_carousel" && (
+                    <ComponentCarouselCard/>
+                  )
+                }
                 <div>
                   <div className="mb-3">
                     <p className="mb-2">Media</p>
