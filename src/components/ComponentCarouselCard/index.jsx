@@ -20,7 +20,7 @@ class ComponentCarouselCard extends Component {
           name: "carousel 1",
           des: "Demo Carousel 1",
           toggle: true,
-          headline: "32432",
+          headline: "",
           description: "",
           website_url: ""
         },
@@ -56,9 +56,9 @@ class ComponentCarouselCard extends Component {
 
     data.map((item) => ({
       ...item,
-      headline: item.id === name && "",
-      description: item.id === name && "",
-      website_url: item.id === name && ""
+      headline: item.id === name ? item.headline = "" : item.headline,
+      description: item.id === name ? item.description = "" : item.description,
+      website_url: item.id === name ? item.website_url = "" : item.website_url
     }))
 
     this.setState({
@@ -69,6 +69,23 @@ class ComponentCarouselCard extends Component {
   handleDelete = (name) => {
     this.setState({
       delete_card: name
+    })
+  }
+
+  handleChangeInput = (e, id) => {
+    let getId = id;
+
+    let { data } = this.state;
+
+    data.map((item) => ({
+      ...item,
+      headline: item.id === getId ? item.headline = e.target.value : item.headline,
+      description: item.id === getId ? item.description = e.target.value : item.description,
+      website_url: item.id === getId ? item.website_url = e.target.value : item.website_url
+    }))
+
+    this.setState({
+      data: data
     })
   }
 
@@ -145,8 +162,9 @@ class ComponentCarouselCard extends Component {
                                 as="input"
                                 type={'text'}
                                 id={value.headline}
-                                value={value.headline}
-                                // onChange={field.changed ?? undefined}
+                                value={value.headline || ""}
+                                name="headline"
+                                onChange={(e) => this.handleChangeInput(e, value.id)}
                                 className={`form-control`}
                               />
                             </div>
@@ -156,7 +174,9 @@ class ComponentCarouselCard extends Component {
                                 as="input"
                                 type={'text'}
                                 id={value.description}
-                                // onChange={field.changed ?? undefined}
+                                value={value.description || ""}
+                                name="description"
+                                onChange={(e) => this.handleChangeInput(e, value.id)}
                                 className={`form-control`}
                               />
                             </div>
@@ -166,7 +186,9 @@ class ComponentCarouselCard extends Component {
                                 as="input"
                                 type={'text'}
                                 id={value.website_url}
-                                // onChange={field.changed ?? undefined}
+                                value={value.website_url || ""}
+                                name="website_url"
+                                onChange={(e) => this.handleChangeInput(e, value.id)}
                                 className={`form-control`}
                               />
                             </div>
