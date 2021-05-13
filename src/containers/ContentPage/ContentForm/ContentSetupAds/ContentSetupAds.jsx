@@ -54,7 +54,12 @@ class ContentSetupAds extends Component {
           )}
           {labelsConnectedChannels && labelsConnectedChannels.indexOf('youtube') > -1 && (
             <Tab eventKey={2} title={'Google Ads'}>
-              <ComponentSetupGGAds />
+              <ComponentSetupGGAds 
+                FORM_FIELD_TYPE={FORM_FIELD_TYPE}
+                CONTENT_FIELD_KEY={CONTENT_FIELD_KEY}
+                formPropsData={formPropsData}
+                nextStep2Ads={nextStep2Ads}
+              />
             </Tab>
           )}
         </Tabs>

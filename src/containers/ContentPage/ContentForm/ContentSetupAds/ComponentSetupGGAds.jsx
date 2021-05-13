@@ -6,7 +6,20 @@ class ComponentSetupGGAds extends Component {
   }
 
   render() {
-    return <div className="pt-3">Google Ads 23423432432</div>;
+    let { FORM_FIELD_TYPE, CONTENT_FIELD_KEY, formPropsData, nextStep2Ads } = this.props;
+    return (
+      <div>
+        <div className="pt-3">
+          {
+            !nextStep2Ads ? (
+              <div>aaaa</div>
+            ) : (
+              <div>bbbb</div>
+            )
+          }
+        </div>
+      </div>
+    );
   }
 }
 
