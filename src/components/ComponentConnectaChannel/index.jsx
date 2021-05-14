@@ -403,20 +403,6 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/googleadword.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Google Adwords</span>
                   </div>
-                  {/* {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
-                      }}
-                      disabled={googleadsConnected}
-                    >
-                      <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )} */}
-
                   {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
                     <ButtonConnectGoogle
                       scope="https://www.googleapis.com/auth/adwords"
@@ -429,15 +415,6 @@ class ComponentConnectaChannel extends Component {
                       className="cursor-pointer btn btn-success"
                     />
                   ) : (
-                    // <button
-                    //   className="cursor-pointer btn btn-success"
-                    //   onClick={(e) => {
-                    //     this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
-                    //   }}
-                    //   disabled={googleadsConnected}
-                    // >
-                    //   <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
-                    // </button>
                     <ButtonUpgrade />
                   )}
                 </div>
