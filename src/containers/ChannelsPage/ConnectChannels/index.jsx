@@ -120,6 +120,25 @@ const ConnectChannels = observer(
       this.loginCMSChannelFormModalViewModel.openModal();
     };
 
+    onSuccessGoogleConnect = (res) => {
+      console.log('google success');
+      console.log(res);
+      console.log(res.isSignedIn());
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessGoogleConnect(JSON.stringify(dataAccessToken));
+    };
+
+    onFailureGoogleConnect = (err) => {
+      console.log('hung test');
+    };
+
+    onRequestGoogleConnect = (req, res) => {};
+
     render() {
       let { showModal } = this.state;
 
@@ -189,6 +208,9 @@ const ConnectChannels = observer(
               countAdvertisingConnected={countAdvertisingConnected}
               countEmailMarketingConnected={countEmailMarketingConnected}
               countSocialMediaConnected={countSocialMediaConnected}
+              onSuccessGoogleConnect={this.onSuccessGoogleConnect}
+              onFailureGoogleConnect={this.onFailureGoogleConnect}
+              onRequestGoogleConnect={this.onRequestGoogleConnect}
             />
           </div>
           {listFaceBookFanpage && (

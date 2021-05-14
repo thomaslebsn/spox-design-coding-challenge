@@ -105,6 +105,19 @@ class ChannelsListViewModel {
     this.countSocialMediaConnected = 0;
   }
 
+  onSuccessGoogleConnect = (dataToken) => {
+    this.channelsStore.saveAccessTokenChannel(
+      this.callbackOnSuccessGoogleConnected,
+      this.callbackOnErrorHander,
+      'google_ads',
+      dataToken
+    );
+  };
+
+  callbackOnSuccessGoogleConnected = (result) => {
+    this.googleadsConnected = true;
+  };
+
   connectLoginUrl = (channelUniqueName) => {
     this.channelsStore.getChannelLoginUrl(
       this.callbackOnSuccessChannel,
