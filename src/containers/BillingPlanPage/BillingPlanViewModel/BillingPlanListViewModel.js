@@ -173,12 +173,12 @@ class BillingPlanListViewModel {
     this.billingPlanStore.cancelSubscription(
       (response) => {
         this.Paddle.Spinner.hide();
-        if (response.result.data === true) {
+        if (response == true) {
           notify('Cancel subscription success');
           this.hideChangePlanTable = false;
           this.subscriptionDetail = null;
         } else {
-          notify(response.result.data.error, 'error');
+          notify(response, 'error');
         }
       },
       (response) => {
