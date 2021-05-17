@@ -5,6 +5,7 @@ import LoginChannelCMSFormModal from '../../containers/ChannelsPage/LoginChannel
 import styles from './index.module.scss';
 import Upgrade from '../Upgrade';
 import ButtonConnect from '../ButtonConnect';
+import ButtonUpgrade from '../ButtonUpgrade';
 import {
   CHANNEL_ADS_GOOGLE,
   CHANNEL_CMS_DRUPAL,
@@ -12,6 +13,8 @@ import {
   CHANNEL_CMS_MEDIUM,
   CHANNEL_CMS_WORDPRESS,
 } from '../../constants/ChannelModule';
+import { EASII_CONFIGS } from 'easii-io-web-service-library';
+
 const ModalComponent = lazy(() => import('../../components/Modal'));
 class ComponentConnectaChannel extends Component {
   formData = [];
@@ -40,6 +43,91 @@ class ComponentConnectaChannel extends Component {
     });
   };
 
+  isAllowedConnectAdvertising = (channelType) => {
+    console.log('isAllowedConnectAdvertising');
+    const advertisingMasterData = this.props.advertisingFeaturesMasterData;
+
+    if (!advertisingMasterData) {
+      return false;
+    }
+
+    const featureChannel = this.getFeatureByChannelType(advertisingMasterData, channelType);
+
+    return featureChannel.enable === 1;
+  };
+
+  isAllowedConnectChannel = (channelType, groupType) => {
+    if (!EASII_CONFIGS.ENABLE_PRICING_PLAN) {
+      return true;
+    }
+
+    switch (groupType) {
+      case 'social_media':
+        const { socialMediaFeaturesMasterData, countSocialMediaConnected } = this.props;
+        return this.isAllowedConnectByChannelType(
+          channelType,
+          socialMediaFeaturesMasterData,
+          countSocialMediaConnected
+        );
+      case 'cms':
+        const { cmsFeaturesMasterData, countCMSConnected } = this.props;
+        return this.isAllowedConnectByChannelType(
+          channelType,
+          cmsFeaturesMasterData,
+          countCMSConnected
+        );
+      case 'advertising':
+        const { advertisingFeaturesMasterData, countAdvertisingConnected } = this.props;
+        console.log('advertisingFeaturesMasterData');
+        console.log(advertisingFeaturesMasterData);
+        return this.isAllowedConnectByChannelType(
+          channelType,
+          advertisingFeaturesMasterData,
+          countAdvertisingConnected
+        );
+      case 'email_marketing':
+        const { emailMarketingFeaturesMasterData, countEmailMarketingConnected } = this.props;
+        console.log('emailMarketingFeaturesMasterData', emailMarketingFeaturesMasterData);
+        return this.isAllowedConnectByChannelType(
+          channelType,
+          emailMarketingFeaturesMasterData,
+          countEmailMarketingConnected
+        );
+      default:
+        return true;
+    }
+  };
+
+  getFeatureByChannelType = (featureMasterData, channelType) => {
+    let result = featureMasterData.filter((obj) => {
+      return obj.feature_slug === channelType;
+    });
+
+    if (result) {
+      return result[0];
+    }
+
+    return false;
+  };
+
+  isAllowedConnectByChannelType = (
+    channelType,
+    featuresChannelMasterData,
+    countConnectedChannel
+  ) => {
+    if (!featuresChannelMasterData) {
+      return false;
+    }
+
+    console.log(featuresChannelMasterData);
+    const featureChannel = this.getFeatureByChannelType(featuresChannelMasterData, channelType);
+
+    return (
+      featureChannel.enable === 1 &&
+      (!featureChannel.option || featureChannel.option > countConnectedChannel)
+    );
+  };
+
   handleConnectChannel = (name) => {
     let { channelsListViewModel } = this.props;
     channelsListViewModel.connectLoginUrl(name);
@@ -60,7 +148,9 @@ class ComponentConnectaChannel extends Component {
   };
 
   render() {
-    let {
+    console.log('============ Before Render ================');
+    console.log(this.props);
+    const {
       channelsListViewModel,
       listFaceBookFanpageView,
       facebookConnected,
@@ -99,15 +189,19 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/facebook.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('facebook');
-                    }}
-                    disabled={facebookConnected ? true : false}
-                  >
-                    <span className="ms-2">{facebookConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {facebookConnected || this.isAllowedConnectChannel('facebook', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('facebook');
+                      }}
+                      disabled={facebookConnected ? true : false}
+                    >
+                      <span className="ms-2">{facebookConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
                 {listFaceBookFanpageView && (
                   <div className="p-3">
@@ -161,15 +255,20 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/instagram.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Instagram</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('instagram');
-                    }}
-                    disabled={instagramConnected ? true : false}
-                  >
-                    <span className="ms-2">{instagramConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {instagramConnected ||
+                  this.isAllowedConnectChannel('instagram', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('instagram');
+                      }}
+                      disabled={instagramConnected ? true : false}
+                    >
+                      <span className="ms-2">{instagramConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -178,15 +277,19 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/youtube.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Youtube</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('youtube');
-                    }}
-                    disabled={youtubeConnected ? true : false}
-                  >
-                    <span className="ms-2">{youtubeConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {youtubeConnected || this.isAllowedConnectChannel('YouTube', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('youtube');
+                      }}
+                      disabled={youtubeConnected ? true : false}
+                    >
+                      <span className="ms-2">{youtubeConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -195,15 +298,19 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/twitter.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Twitter</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('twitter');
-                    }}
-                    disabled={twitterConnected ? true : false}
-                  >
-                    <span className="ms-2">{twitterConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {twitterConnected || this.isAllowedConnectChannel('twitter', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('twitter');
+                      }}
+                      disabled={twitterConnected ? true : false}
+                    >
+                      <span className="ms-2">{twitterConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -212,15 +319,19 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/linkedin.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Linkedin</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('linkedin');
-                    }}
-                    disabled={linkedinConnected ? true : false}
-                  >
-                    <span className="ms-2">{linkedinConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {linkedinConnected || this.isAllowedConnectChannel('linkedIn', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('linkedin');
+                      }}
+                      disabled={linkedinConnected ? true : false}
+                    >
+                      <span className="ms-2">{linkedinConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -229,15 +340,19 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/tumblr.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Tumblr</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('tumblr');
-                    }}
-                    disabled={tumblrConnected ? true : false}
-                  >
-                    <span className="ms-2">{tumblrConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {tumblrConnected || this.isAllowedConnectChannel('tumblr', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('tumblr');
+                      }}
+                      disabled={tumblrConnected ? true : false}
+                    >
+                      <span className="ms-2">{tumblrConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -246,15 +361,21 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/medium.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Medium</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.props.handleModalCms(CHANNEL_CMS_MEDIUM);
-                    }}
-                    disabled={mediumConnected ? true : false}
-                  >
-                    <span className="ms-2">{mediumConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+
+                  {mediumConnected ||
+                  this.isAllowedConnectChannel(CHANNEL_CMS_MEDIUM, 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel(CHANNEL_CMS_MEDIUM);
+                      }}
+                      disabled={mediumConnected ? true : false}
+                    >
+                      <span className="ms-2">{mediumConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
             </div>
@@ -267,15 +388,20 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/fbad.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook Ads</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('fbad');
-                    }}
-                    disabled={facebookAdsConnected ? true : false}
-                  >
-                    <span className="ms-2">{facebookAdsConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {facebookAdsConnected ||
+                  this.isAllowedConnectChannel('fb_instagram_ads', 'advertising') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('fbad');
+                      }}
+                      disabled={facebookAdsConnected ? true : false}
+                    >
+                      <span className="ms-2">{facebookAdsConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
                 {listFacebookAdsAccountView && (
                   <div className="p-3">
@@ -312,15 +438,19 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/googleadword.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Google Adwords</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
-                    }}
-                    disabled={googleadsConnected}
-                  >
-                    <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
+                      }}
+                      disabled={googleadsConnected}
+                    >
+                      <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
             </div>
@@ -333,13 +463,19 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/wordpress.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Wordpress</span>
                   </div>
-                  <ButtonConnect
-                    onClick={(e) => {
-                      this.props.handleModalCms(CHANNEL_CMS_WORDPRESS);
-                    }}
-                    isDisabled={wordpressConnected}
-                    isConnected={wordpressConnected}
-                  />
+                  {/* {wordpressConnected || this.isAllowedConnectChannel(CHANNEL_CMS_WORDPRESS, 'cms') ? () : (<ButtonUpgrade/>)} */}
+                  {wordpressConnected ||
+                  this.isAllowedConnectChannel(CHANNEL_CMS_WORDPRESS, 'cms') ? (
+                    <ButtonConnect
+                      onClick={(e) => {
+                        this.props.handleModalCms(CHANNEL_CMS_WORDPRESS);
+                      }}
+                      isDisabled={wordpressConnected}
+                      isConnected={wordpressConnected}
+                    />
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
             </div>
@@ -350,13 +486,17 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/drupal.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Drupal</span>
                   </div>
-                  <ButtonConnect
-                    onClick={(e) => {
-                      this.props.handleModalCms(CHANNEL_CMS_DRUPAL);
-                    }}
-                    isDisabled={drupalConnected}
-                    isConnected={drupalConnected}
-                  />
+                  {drupalConnected || this.isAllowedConnectChannel(CHANNEL_CMS_DRUPAL, 'cms') ? (
+                    <ButtonConnect
+                      onClick={(e) => {
+                        this.props.handleModalCms(CHANNEL_CMS_DRUPAL);
+                      }}
+                      isDisabled={drupalConnected}
+                      isConnected={drupalConnected}
+                    />
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -365,13 +505,17 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/joomla.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Joomla</span>
                   </div>
-                  <ButtonConnect
-                    onClick={(e) => {
-                      this.props.handleModalCms(CHANNEL_CMS_JOOMLA);
-                    }}
-                    isDisabled={joomlaConnected}
-                    isConnected={joomlaConnected}
-                  />
+                  {joomlaConnected || this.isAllowedConnectChannel(CHANNEL_CMS_JOOMLA, 'cms') ? (
+                    <ButtonConnect
+                      onClick={(e) => {
+                        this.props.handleModalCms(CHANNEL_CMS_JOOMLA);
+                      }}
+                      isDisabled={joomlaConnected}
+                      isConnected={joomlaConnected}
+                    />
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
               {/* <LoginChannelCMSFormModal
@@ -391,15 +535,20 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/mailchimp.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Mailchimp</span>
                   </div>
-                  <button
-                    className="cursor-pointer btn btn-success"
-                    onClick={(e) => {
-                      this.handleConnectChannel('mailchimp');
-                    }}
-                    disabled={mailchimpConnected ? true : false}
-                  >
-                    <span className="ms-2">{mailchimpConnected ? 'Connected' : 'Connect'}</span>
-                  </button>
+                  {mailchimpConnected ||
+                  this.isAllowedConnectChannel('mailchimp', 'email_marketing') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('mailchimp');
+                      }}
+                      disabled={mailchimpConnected ? true : false}
+                    >
+                      <span className="ms-2">{mailchimpConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
                 </div>
               </div>
             </div>

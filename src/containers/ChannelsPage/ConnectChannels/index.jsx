@@ -65,6 +65,12 @@ const ConnectChannels = observer(
       ]);
     }
 
+    componentDidMount() {
+      console.log('componentDidMount');
+      this.channelsListViewModel.resetObservableProperties();
+      this.channelsListViewModel.initMemberFeaturesMasterData();
+    }
+
     handleCheckbox = (id) => {
       let getIDSFanpage = this.state.getIDSFanpage;
       getIDSFanpage.push(id);
@@ -113,6 +119,8 @@ const ConnectChannels = observer(
 
     handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
+      console.log('handleModalCms');
+      console.log(this.loginCMSChannelFormModalViewModel);
       this.loginCMSChannelFormModalViewModel.openModal();
     };
 
@@ -168,9 +176,15 @@ const ConnectChannels = observer(
         mediumConnected,
         joomlaConnected,
         googleadsConnected,
+        advertisingFeaturesMasterData,
+        cmsFeaturesMasterData,
+        socialMediaFeaturesMasterData,
+        emailMarketingFeaturesMasterData,
+        countCMSConnected,
+        countAdvertisingConnected,
+        countEmailMarketingConnected,
+        countSocialMediaConnected,
       } = this.channelsListViewModel;
-
-      console.log('this.channelsListViewModel', this.channelsListViewModel);
 
       return (
         <div className="py-4 px-3">
@@ -204,6 +218,14 @@ const ConnectChannels = observer(
               googleadsConnected={googleadsConnected}
               handleConnectedFanpage={this.handleConnectedFanpage}
               fanpagesConnected={fanpagesConnected}
+              advertisingFeaturesMasterData={advertisingFeaturesMasterData}
+              cmsFeaturesMasterData={cmsFeaturesMasterData}
+              socialMediaFeaturesMasterData={socialMediaFeaturesMasterData}
+              emailMarketingFeaturesMasterData={emailMarketingFeaturesMasterData}
+              countCMSConnected={countCMSConnected}
+              countAdvertisingConnected={countAdvertisingConnected}
+              countEmailMarketingConnected={countEmailMarketingConnected}
+              countSocialMediaConnected={countSocialMediaConnected}
             />
           </div>
           {listFaceBookFanpage && (

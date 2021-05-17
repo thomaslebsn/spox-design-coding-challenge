@@ -17,6 +17,6 @@ const FORM_FIELD_TYPE = {
   SELECTIONPERSONA: 16,
 };
 
-const FORMAT_DATE = "dd/MM/yyyy";
+const FORMAT_DATE = 'dd/MM/yyyy';
 
 export { FORM_FIELD_TYPE, FORMAT_DATE };

@@ -1,5 +1,5 @@
-import React from "react";
-import "./index.scss";
+import React from 'react';
+import './index.scss';
 
 class ComponentBillingPlan extends React.Component {
   Paddle = null;
@@ -7,7 +7,7 @@ class ComponentBillingPlan extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      intervalMode: "month",
+      intervalMode: 'month',
     };
   }
 
@@ -46,9 +46,8 @@ class ComponentBillingPlan extends React.Component {
           <div className="main_description_top">
             <h2>Flexible Plans, Flexible Solutions</h2>
             <p>
-              Thanks for praesent viverra pulvinar tortor, eget ultrices arcu
-              viverra et. Nunc ut aliquam nisl. Nullam porttitor eget sem at
-              vestibulum. Maecenas pharetra
+              Thanks for praesent viverra pulvinar tortor, eget ultrices arcu viverra et. Nunc ut
+              aliquam nisl. Nullam porttitor eget sem at vestibulum. Maecenas pharetra
             </p>
           </div>
           <div className="wrapper_btn_group plan" role="group">
@@ -62,7 +61,7 @@ class ComponentBillingPlan extends React.Component {
                   autoComplete="off"
                   onClick={() => this.onChangeIntervalMode()}
                   onChange={() => this.onChangeIntervalMode()}
-                  checked={this.state.intervalMode === "month"}
+                  checked={this.state.intervalMode === 'month'}
                 />
                 <label className="btn btn-outline-primary">Monthly</label>
               </div>
@@ -102,13 +101,13 @@ class ComponentBillingPlan extends React.Component {
                     className="btn btn-success getstarts"
                     data-itemname="Free"
                     onClick={(e) => {
-                      this.props.handleSelectSubscriptionPlan("free");
+                      this.props.handleSelectSubscriptionPlan('free');
                     }}
                     data-toggle="modal"
                     data-target=".talktosales"
                     disabled={isDisable}
                   >
-                    {" "}
+                    {' '}
                     Get Started
                     <svg
                       aria-hidden="true"
@@ -143,13 +142,13 @@ class ComponentBillingPlan extends React.Component {
                   <button
                     className="btn btn-success getstarts"
                     onClick={(e) => {
-                      this.props.handleSelectSubscriptionPlan("small");
+                      this.props.handleSelectSubscriptionPlan('small');
                     }}
                     data-toggle="modal"
                     data-target=".talktosales"
                     disabled={isDisable}
                   >
-                    {" "}
+                    {' '}
                     Get Started
                     <svg
                       aria-hidden="true"
@@ -185,13 +184,13 @@ class ComponentBillingPlan extends React.Component {
                   <button
                     className="btn btn-success getstarts"
                     onClick={(e) => {
-                      this.props.handleSelectSubscriptionPlan("medium");
+                      this.props.handleSelectSubscriptionPlan('medium');
                     }}
                     data-toggle="modal"
                     data-target=".talktosales"
                     disabled={isDisable}
                   >
-                    {" "}
+                    {' '}
                     Get Started
                     <svg
                       aria-hidden="true"
@@ -226,13 +225,13 @@ class ComponentBillingPlan extends React.Component {
                   <button
                     className="btn btn-success getstarts"
                     onClick={(e) => {
-                      this.props.handleSelectSubscriptionPlan("pro");
+                      this.props.handleSelectSubscriptionPlan('pro');
                     }}
                     data-toggle="modal"
                     data-target=".talktosales"
                     disabled={isDisable}
                   >
-                    {" "}
+                    {' '}
                     Get Started
                     <svg
                       aria-hidden="true"
@@ -267,13 +266,13 @@ class ComponentBillingPlan extends React.Component {
                   <button
                     className="btn btn-success getstarts"
                     onClick={(e) => {
-                      this.props.handleSelectSubscriptionPlan("enterprise");
+                      this.props.handleSelectSubscriptionPlan('enterprise');
                     }}
                     data-toggle="modal"
                     data-target=".talktosales"
                     disabled={isDisable}
                   >
-                    {" "}
+                    {' '}
                     Get Started
                     <svg
                       aria-hidden="true"
@@ -296,9 +295,7 @@ class ComponentBillingPlan extends React.Component {
             </div>
 
             <div className="d-table-row category_header">
-              <div className="d-table-cell pt-3 pb-3 item category">
-                Management
-              </div>
+              <div className="d-table-cell pt-3 pb-3 item category">Management</div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
@@ -653,9 +650,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
             </div>
             <div className="d-table-row">
-              <div className="d-table-cell item">
-                Workflow &amp; Collaboration
-              </div>
+              <div className="d-table-cell item">Workflow &amp; Collaboration</div>
               <div className="d-table-cell value">
                 <span className=""></span>
               </div>
@@ -705,9 +700,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
             </div>
             <div className="d-table-row category_header">
-              <div className="d-table-cell pt-3 pb-3 item category">
-                Content Marketing
-              </div>
+              <div className="d-table-cell pt-3 pb-3 item category">Content Marketing</div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
@@ -1063,9 +1056,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
             </div>
             <div className="d-table-row">
-              <div className="d-table-cell item">
-                Social Media/ Blog Post Composer
-              </div>
+              <div className="d-table-cell item">Social Media/ Blog Post Composer</div>
               <div className="d-table-cell value">
                 <span className=""></span>
               </div>
@@ -1181,9 +1172,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
             </div>
             <div className="d-table-row category_header">
-              <div className="d-table-cell pt-3 pb-3 item category">
-                Ads Solution
-              </div>
+              <div className="d-table-cell pt-3 pb-3 item category">Ads Solution</div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
               <div className="d-table-cell pt-3 pb-3 value"></div>
@@ -1437,9 +1426,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
             </div>
             <div className="d-table-row category_header">
-              <div className="d-table-cell pt-3 pb-3 item category">
-                Supported channels
-              </div>
+              <div className="d-table-cell pt-3 pb-3 item category">Supported channels</div>
               <div className="d-table-cell pt-3 pb-3 value">1*</div>
               <div className="d-table-cell pt-3 pb-3 value">5*</div>
               <div className="d-table-cell pt-3 pb-3 value">10*</div>

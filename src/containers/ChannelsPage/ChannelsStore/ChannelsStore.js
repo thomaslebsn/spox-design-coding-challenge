@@ -3,35 +3,14 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { EasiiOrganisationChannelApiService } from 'easii-io-web-service-library';
 import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
+import { MemberFeaturesMasterDataModel } from '../../../store/Models/MasterDataModels/MemberFeaturesMasterDataModel';
 
 export default class ChannelsStore {
-  async disconnectAFacebookPage(
-    callbackOnDisconnectAFacebookPageSuccess,
-    callbackOnError,
-    channelUniqueName,
-    pageId
-  ) {
-    const channelService = new EasiiOrganisationChannelApiService();
-    console.log('channelUniqueName channelUniqueName', channelUniqueName);
-    console.log('channelPageId:', pageId);
-    let response = null;
+  globalStore = null;
 
-    switch (channelUniqueName) {
-      case 'facebook':
-        response = await channelService.disconnectFanpage(pageId);
-        break;
-      default:
-        break;
-    }
-
-    if (response) {
-      runInAction(() => {
-        callbackOnDisconnectAFacebookPageSuccess(response, channelUniqueName, pageId);
-      });
-    } else {
-      callbackOnError({
-        message: 'Something went wrong from Server response',
-      });
+  constructor(args = {}) {
+    if (args) {
+      this.globalStore = args.globalStore ? args.globalStore : null;
     }
   }
 
@@ -57,6 +36,36 @@ export default class ChannelsStore {
     if (response) {
       runInAction(() => {
         callbackOnConnectAFacebookPageSuccess(response, channelUniqueName, pageId);
+      });
+    } else {
+      callbackOnError({
+        message: 'Something went wrong from Server response',
+      });
+    }
+  }
+
+  async disconnectAFacebookPage(
+    callbackOnDisconnectAFacebookPageSuccess,
+    callbackOnError,
+    channelUniqueName,
+    pageId
+  ) {
+    const channelService = new EasiiOrganisationChannelApiService();
+    console.log('channelUniqueName channelUniqueName', channelUniqueName);
+    console.log('channelPageId:', pageId);
+    let response = null;
+
+    switch (channelUniqueName) {
+      case 'facebook':
+        response = await channelService.disconnectFanpage(pageId);
+        break;
+      default:
+        break;
+    }
+
+    if (response) {
+      runInAction(() => {
+        callbackOnDisconnectAFacebookPageSuccess(response, channelUniqueName, pageId);
       });
     } else {
       callbackOnError({
@@ -271,6 +280,62 @@ export default class ChannelsStore {
     } else {
       callbackOnError({
         message: 'Something went wrong from Server response',
+      });
+    }
+  }
+
+  async getFeaturesMemberMasterData(callbackOnSuccess, callbackOnError) {
+    try {
+      if (!this.globalStore) {
+        runInAction(() => {
+          callbackOnError({
+            message: 'Global Store is NULL',
+          });
+        });
+      } else {
+        console.log('Content Store - Get Global Store');
+        console.log(this.globalStore);
+        await this.globalStore.getMasterData(
+          {
+            isForMemberFeaturesMasterData: true,
+          },
+          (result) => {
+            try {
+              console.log('Content - getMasterData');
+              console.log(result);
+
+              const resultInModel = new MemberFeaturesMasterDataModel(
+                result && result.memberFeaturesMasterData ? result.memberFeaturesMasterData : null
+              );
+
+              console.log('after - MemberFeaturesMasterDataModel');
+              runInAction(() => {
+                callbackOnSuccess(resultInModel);
+              });
+            } catch (error) {
+              runInAction(() => {
+                callbackOnError({
+                  message:
+                    'resultInModel - ChannelsStore - getMasterData - Something went wrong from Server response',
+                });
+              });
+            }
+          },
+          (error) => {
+            runInAction(() => {
+              callbackOnError({
+                message:
+                  'ChannelsStore - getMasterData - Something went wrong from Server response : ' +
+                  error,
+              });
+            });
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
       });
     }
   }

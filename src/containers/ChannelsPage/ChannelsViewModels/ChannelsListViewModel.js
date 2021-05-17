@@ -56,9 +56,57 @@ class ChannelsListViewModel {
 
   cmsChannelType = CHANNEL_CMS_WORDPRESS;
 
+  socialMediaFeaturesMasterData = null;
+
+  cmsFeaturesMasterData = null;
+
+  advertisingFeaturesMasterData = null;
+
+  emailMarketingFeaturesMasterData = null;
+
+  countCMSConnected = 0;
+
+  countAdvertisingConnected = 0;
+
+  countEmailMarketingConnected = 0;
+
+  countSocialMediaConnected = 0;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
+  }
+
+  resetObservableProperties() {
+    this.facebookConnected = false;
+    this.facebookAdsConnected = false;
+    this.youtubeConnected = false;
+    this.twitterConnected = false;
+    this.linkedinConnected = false;
+    this.mailchimpConnected = false;
+    this.instagramConnected = false;
+    this.wordpressConnected = false;
+    this.mediumConnected = false;
+    this.joomlaConnected = false;
+    this.listFaceBookFanpage = null;
+    this.listFaceBookFanpageView = null;
+    this.listFacebookAdsAccount = null;
+    this.listFacebookAdsAccountView = null;
+    this.showModalCMS = true;
+    this.tumblrConnected = false;
+    this.mustUpgrade = false;
+    this.showUpgrade = false;
+    this.drupalConnected = false;
+    this.googleadsConnected = false;
+    this.cmsChannelType = CHANNEL_CMS_WORDPRESS;
+    this.socialMediaFeaturesMasterData = null;
+    this.cmsFeaturesMasterData = null;
+    this.advertisingFeaturesMasterData = null;
+    this.emailMarketingFeaturesMasterData = null;
+    this.countCMSConnected = 0;
+    this.countAdvertisingConnected = 0;
+    this.countEmailMarketingConnected = 0;
+    this.countSocialMediaConnected = 0;
   }
 
   connectLoginUrl = (channelUniqueName) => {
@@ -67,6 +115,22 @@ class ChannelsListViewModel {
       this.callbackOnErrorHander,
       channelUniqueName
     );
+  };
+
+  initMemberFeaturesMasterData = () => {
+    this.channelsStore.getFeaturesMemberMasterData(
+      this.callbackOnSuccessMasterData,
+      this.callbackOnErrorHander
+    );
+  };
+
+  callbackOnSuccessMasterData = (responseInModel) => {
+    console.log('callbackOnSuccessMasterData');
+    // this.socialMediaFeaturesMasterData = responseInModel.getFeaturesSocialMedia();
+    this.advertisingFeaturesMasterData = responseInModel.getFeaturesAdvertising();
+    this.socialMediaFeaturesMasterData = responseInModel.getFeaturesSocialMedia();
+    this.emailMarketingFeaturesMasterData = responseInModel.getFeaturesEmailMarketing();
+    this.cmsFeaturesMasterData = responseInModel.getFeaturesCms();
   };
 
   callbackOnErrorHander = (error) => {
@@ -149,19 +213,22 @@ class ChannelsListViewModel {
                       this.listFacebookAdsAccount = responseResult.pages.adAccounts;
                     }
                     break;
-
+                  // =============== Social Media Start ===============
                   case 'facebook':
                     if (responseResult.pages.status === 'connected') {
                       this.facebookConnected = true;
+                      this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                       this.listFaceBookFanpage = responseResult.pages.pages;
                       this.listFacebookFanpageConnected = responseResult.pages.connected;
+                      console.log(this.listFaceBookFanpage);
                     }
                     break;
 
                   case 'youtube':
                     if (responseResult.connected == 1) {
                       this.youtubeConnected = true;
+                      this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
@@ -169,6 +236,7 @@ class ChannelsListViewModel {
                   case 'twitter':
                     if (responseResult.connected == 1) {
                       this.twitterConnected = true;
+                      this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
@@ -176,52 +244,87 @@ class ChannelsListViewModel {
                   case 'linkedin':
                     if (responseResult.connected == 1) {
                       this.linkedinConnected = true;
+                      this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-
                   case 'mailchimp':
-                    if (responseResult.connected == 1) {
-                      this.mailchimpConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
-
                   case 'instagram':
                     if (responseResult.connected == 1) {
                       this.instagramConnected = true;
+                      this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
                   case 'tumblr':
                     if (responseResult.connected == 1) {
+                      this.countSocialMediaConnected++;
                       this.tumblrConnected = true;
-                    }
-                    break;
-                  case 'drupal':
-                    if (responseResult.connected == 1) {
-                      this.drupalConnected = true;
-                      clearInterval(checkConnectionStatusInterval);
                     }
                     break;
                   case 'medium':
                     if (responseResult.connected == 1) {
                       this.mediumConnected = true;
+                      this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-                  case 'joomla':
-                    if (responseResult.connected == 1) {
-                      this.joomlaConnected = true;
+                  // =============== Social Media End ===============
+
+                  // =============== Advertising Start ===============
+                  case 'fbad': //facebookAdConnected
+                    if (responseResult.pages.status === 'connected') {
+                      this.facebookAdsConnected = true;
+                      this.countAdvertisingConnected++;
                       clearInterval(checkConnectionStatusInterval);
+                      this.listFacebookAdsAccount = responseResult.pages.adAccounts;
                     }
                     break;
                   case CHANNEL_ADS_GOOGLE:
                     if (responseResult.connected == 1) {
                       this.googleadsConnected = true;
+                      this.countAdvertisingConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
+                  // =============== Advertising End ===============
+
+                  // =============== Email Marketing Start ===============
+                  case 'mailchimp':
+                    if (responseResult.connected == 1) {
+                      this.mailchimpConnected = true;
+                      this.countEmailMarketingConnected++;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case 'medium':
+                  // =============== Email Marketing End ===============
+
+                  // =============== CMS End ===============
+                  case 'drupal':
+                    if (responseResult.connected == 1) {
+                      this.drupalConnected = true;
+                      this.countCMSConnected++;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+
+                  case 'joomla':
+                    if (responseResult.connected == 1) {
+                      this.joomlaConnected = true;
+                      this.countCMSConnected++;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+
+                  case 'wordpress':
+                    if (responseResult.connected == 1) {
+                      this.wordpressConnected = true;
+                      this.countCMSConnected++;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  // =============== CMS End ===============
 
                   default:
                     break;
@@ -251,11 +354,18 @@ class ChannelsListViewModel {
         (response) => {
           if (response) {
             let responseResult = response.result;
-
+            /*
+                this.countCMSConnected = 0;
+                this.countAdvertisingConnected = 0;
+                this.countEmailMarketingConnected = 0;
+                this.countSocialMediaConnected = 0;
+                */
             switch (channelType) {
+              // =============== Social Media Start ===============
               case 'facebook':
                 if (responseResult.pages.status === 'connected') {
                   this.facebookConnected = true;
+                  this.countSocialMediaConnected++;
                   let listFpConnected = responseResult.pages.connected;
                   let listFanpage = responseResult.pages.pages;
                   this.listFacebookFanpageConnected = responseResult.pages.connected;
@@ -270,7 +380,6 @@ class ChannelsListViewModel {
                   });
                 }
                 break;
-
               case 'fbad':
                 if (responseResult.pages.status === 'connected') {
                   this.facebookAdsConnected = true;
@@ -293,63 +402,107 @@ class ChannelsListViewModel {
               case 'youtube':
                 if (responseResult.connected == 1) {
                   this.youtubeConnected = true;
+                  this.countSocialMediaConnected++;
                 }
                 break;
 
               case 'twitter':
                 if (responseResult.connected == 1) {
                   this.twitterConnected = true;
+                  this.countSocialMediaConnected++;
                 }
                 break;
 
               case 'linkedin':
                 if (responseResult.connected == 1) {
                   this.linkedinConnected = true;
-                }
-                break;
-
-              case 'mailchimp':
-                if (responseResult.connected == 1) {
-                  this.mailchimpConnected = true;
+                  this.countSocialMediaConnected++;
                 }
                 break;
 
               case 'instagram':
                 if (responseResult.connected == 1) {
                   this.instagramConnected = true;
+                  this.countSocialMediaConnected++;
                 }
                 break;
 
-              case 'wordpress':
-                if (responseResult.connected == 1) {
-                  this.wordpressConnected = true;
-                }
-                break;
               case 'tumblr':
                 if (responseResult.connected == 1) {
                   this.tumblrConnected = true;
+                  this.countSocialMediaConnected++;
                 }
                 break;
-              case 'drupal':
-                if (responseResult.connected == 1) {
-                  this.drupalConnected = true;
-                }
-                break;
+
               case 'medium':
                 if (responseResult.connected == 1) {
                   this.mediumConnected = true;
+                  this.countSocialMediaConnected++;
                 }
                 break;
-              case 'joomla':
-                if (responseResult.connected == 1) {
-                  this.joomlaConnected = true;
-                }
-                break;
+
+              // =============== Social Media End ===============
+
+              // =============== Advertising Start ===============
               case CHANNEL_ADS_GOOGLE:
                 if (responseResult.connected == 1) {
                   this.googleadsConnected = true;
+                  this.countAdvertisingConnected++;
                 }
                 break;
+
+              case 'fbad':
+                if (responseResult.pages && responseResult.pages.status === 'connected') {
+                  this.facebookAdsConnected = true;
+                  this.countAdvertisingConnected++;
+                  let listAdAccountsConnected = responseResult.pages.connected;
+                  let listAdAccounts = responseResult.pages.adAccounts;
+
+                  if (listAdAccountsConnected.length > 0) {
+                    this.listFacebookAdsAccountView = [];
+                    listAdAccounts.map((adAccount) => {
+                      if (listAdAccountsConnected.indexOf(adAccount.id) > -1) {
+                        this.listFacebookAdsAccountView.push(adAccount);
+                      }
+                    });
+                  } else {
+                    this.listFacebookAdsAccount = listAdAccounts;
+                  }
+                }
+                break;
+              // =============== Advertising End ===============
+
+              // =============== CMS Start ===============
+              case 'wordpress':
+                if (responseResult.connected == 1) {
+                  this.wordpressConnected = true;
+                  this.countCMSConnected++;
+                }
+                break;
+
+              case 'drupal':
+                if (responseResult.connected == 1) {
+                  this.drupalConnected = true;
+                  this.countCMSConnected++;
+                }
+                break;
+
+              case 'joomla':
+                if (responseResult.connected == 1) {
+                  this.joomlaConnected = true;
+                  this.countCMSConnected++;
+                }
+                break;
+              // =============== CMS End ===============
+
+              // =============== Email Marketing End ===============
+              case 'mailchimp':
+                if (responseResult.connected == 1) {
+                  this.mailchimpConnected = true;
+                  this.countEmailMarketingConnected++;
+                }
+                break;
+              // =============== Email Marketing End ===============
               default:
                 break;
             }

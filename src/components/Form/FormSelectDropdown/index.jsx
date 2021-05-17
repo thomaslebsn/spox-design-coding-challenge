@@ -1,9 +1,9 @@
-import React, { Component, lazy } from "react";
+import React, { Component, lazy } from 'react';
 
-import { observer } from "mobx-react";
-import { OverlayTrigger, Popover } from "react-bootstrap";
-import { components } from "react-select";
-import SelectComponent from "../../../components/Select";
+import { observer } from 'mobx-react';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { components } from 'react-select';
+import SelectComponent from '../../../components/Select';
 
 // import "./index.scss";
 
@@ -54,8 +54,8 @@ class FormSelectDropdown extends Component {
   }
 
   render() {
-    console.log("[FormSelectDropdown] render", this.field);
-    console.log("[FormSelectDropdown] Options ", this.field.option);
+    console.log('[FormSelectDropdown] render', this.field);
+    console.log('[FormSelectDropdown] Options ', this.field.option);
     let selectedObject = null;
     if (this.field.option && Array.isArray(this.field.option)) {
       selectedObject = this.field.option.filter(
