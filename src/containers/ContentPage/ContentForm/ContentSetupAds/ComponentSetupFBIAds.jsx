@@ -21,6 +21,64 @@ const facebookFanpage = [
   { value: '03', label: 'redWEB Fanpage 3' },
 ];
 
+const campaignObjective = [
+  {
+    title: 'Awareness',
+    list: [
+      {
+        id: 0,
+        name: 'Brand awareness',
+      },
+      {
+        id: 1,
+        name: 'Reach',
+      },
+    ],
+  },
+  {
+    title: 'Comsideration',
+    list: [
+      {
+        id: 0,
+        name: 'Traffic',
+      },
+      {
+        id: 1,
+        name: 'Engagement',
+      },
+      {
+        id: 2,
+        name: 'App installs',
+      },
+      {
+        id: 3,
+        name: 'Video views',
+      },
+      {
+        id: 4,
+        name: 'Lead generation',
+      },
+      {
+        id: 5,
+        name: 'Messages',
+      },
+    ],
+  },
+  {
+    title: 'Conversion',
+    list: [
+      {
+        id: 0,
+        name: 'Conversions',
+      },
+      {
+        id: 1,
+        name: 'Store traffic',
+      },
+    ],
+  },
+];
+
 class ComponentSetupFBIAds extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +90,7 @@ class ComponentSetupFBIAds extends Component {
       startDateTime: new Date(),
       timeDate: new Date(),
       isEndDate: false,
+      campaignObjectiveCheck: '',
     };
   }
 
@@ -59,6 +118,12 @@ class ComponentSetupFBIAds extends Component {
     });
   };
 
+  handleCampaignObjective = (name) => {
+    this.setState({
+      campaignObjectiveCheck: name,
+    });
+  };
+
   render() {
     let {
       trafficCheck,
@@ -67,6 +132,7 @@ class ComponentSetupFBIAds extends Component {
       startDateTime,
       timeDate,
       isEndDate,
+      campaignObjectiveCheck,
     } = this.state;
     let { FORM_FIELD_TYPE, CONTENT_FIELD_KEY, formPropsData, nextStep2Ads } = this.props;
 
@@ -75,6 +141,55 @@ class ComponentSetupFBIAds extends Component {
         {!nextStep2Ads ? (
           <div className="row">
             <div className="col-7">
+              <div>
+                <div className="mb-3">
+                  <h5>Campaign Name</h5>
+                  <div className="d-flex align-items-center">
+                    <Form.Control
+                      as="input"
+                      type={'text'}
+                      id={'name'}
+                      // onChange={field.changed ?? undefined}
+                      className={`form-control`}
+                    />
+                    <button className="ms-3 btn btn-success">Create</button>
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <h5>Campaign Details</h5>
+                  <div>
+                    <h6>Campaign Objective</h6>
+                    <div className="row">
+                      {campaignObjective.map((value) => {
+                        return (
+                          <div className="col-4">
+                            <p>{value.title}</p>
+                            <div>
+                              {value.list.map((item) => {
+                                return (
+                                  <div className="form-check mb-3">
+                                    <input
+                                      className="form-check-input"
+                                      type="radio"
+                                      id={item.name}
+                                      checked={campaignObjectiveCheck === item.name ? true : false}
+                                      name={item.name}
+                                      onClick={() => this.handleCampaignObjective(item.name)}
+                                    />
+                                    <label className="form-check-label" htmlFor={item.name}>
+                                      {item.name}
+                                    </label>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-3">
                 <h5>Ad Set Name</h5>
                 <Form.Control
@@ -356,11 +471,7 @@ class ComponentSetupFBIAds extends Component {
                   Select the media, text and destination for your ad. You can also customize your
                   media and text each placement.
                 </p>
-                {
-                  formatCheck === "format_carousel" && (
-                    <ComponentCarouselCard/>
-                  )
-                }
+                {formatCheck === 'format_carousel' && <ComponentCarouselCard />}
                 <div>
                   <div className="mb-3">
                     <p className="mb-2">Media</p>
