@@ -1,14 +1,14 @@
-import React from "react";
-import { withTranslation } from "react-i18next";
-import { Tab, Nav } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCog } from "@fortawesome/free-solid-svg-icons/faUserCog";
-import { faUserCheck } from "@fortawesome/free-solid-svg-icons/faUserCheck";
-import { faHistory } from "@fortawesome/free-solid-svg-icons/faHistory";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import "./index.scss";
+import React from 'react';
+import { withTranslation } from 'react-i18next';
+import { Tab, Nav } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCog } from '@fortawesome/free-solid-svg-icons/faUserCog';
+import { faUserCheck } from '@fortawesome/free-solid-svg-icons/faUserCheck';
+import { faHistory } from '@fortawesome/free-solid-svg-icons/faHistory';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
+import './index.scss';
 
-import ComponentPreviewPersona from "../ComponentPreviewPersona";
+import ComponentPreviewPersona from '../ComponentPreviewPersona';
 
 class ContentSbarRight extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class ContentSbarRight extends React.Component {
         {
           id: 0,
           icon: faUserCog,
-          name: "Persona",
+          name: 'Persona',
         },
         // {
         //   id: 1,
@@ -48,7 +48,7 @@ class ContentSbarRight extends React.Component {
                       <Nav.Link
                         eventKey={value.id}
                         className={`d-block text-center text px-0 text-black ${
-                          this.props.disabled ? "opacity-50" : ""
+                          this.props.disabled ? 'opacity-50' : ''
                         }`}
                         disabled={this.props.disabled}
                         onClick={this.props.handlShowPreviewPersona}
@@ -56,9 +56,7 @@ class ContentSbarRight extends React.Component {
                         <i className="">
                           <FontAwesomeIcon icon={value.icon} />
                         </i>
-                        <span className="fs-14 opacity-75 d-block">
-                          {value.name}
-                        </span>
+                        <span className="fs-14 opacity-75 d-block">{value.name}</span>
                       </Nav.Link>
                     </Nav.Item>
                   );
@@ -66,10 +64,10 @@ class ContentSbarRight extends React.Component {
               </Nav>
             </div>
 
-            <Tab.Content className="wr_tab_content position-absolute top-0 end-100 w-400 mh-100 border-end-1 overflow-hidden overflow-y-auto h-100">
+            <Tab.Content className="wr_tab_content position-absolute top-0 end-100 mh-100 border-end-1 overflow-hidden overflow-y-auto h-100">
               <Tab.Pane
                 eventKey="0"
-                className="wr_tabcontent_right bg-white p-3 h-100"
+                className="wr_tabcontent_right bg-white p-3 h-100 w-400 border-start-1"
                 hidden={this.props.isHidden}
               >
                 <div className="wr_collapse_preview position-absolute top-0 bottom-0 start-0 my-auto d-flex align-items-center">
@@ -97,4 +95,4 @@ class ContentSbarRight extends React.Component {
   }
 }
 
-export default withTranslation("common")(ContentSbarRight);
+export default withTranslation('common')(ContentSbarRight);
