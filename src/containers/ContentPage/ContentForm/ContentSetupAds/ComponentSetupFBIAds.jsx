@@ -13,38 +13,12 @@ import ComponentCarouselCard from '../../../../components/ComponentCarouselCard'
 import DatePickerDay from '../../../../components/ComponentSchedule/DatePickerDay';
 import DatePickerTime from '../../../../components/ComponentSchedule/DatePickerTime';
 import Checkbox from '../../../../components/Checkbox';
+import ComponentAudience from '../../../../components/ComponentAudience';
 
 const facebookFanpage = [
   { value: '01', label: 'redWEB Fanpage' },
   { value: '02', label: 'redWEB Fanpage 2' },
   { value: '03', label: 'redWEB Fanpage 3' },
-];
-
-const dataAudience = [
-  {
-    name: 'Location',
-    des: ['Vietnam', 'Hochiminh City'],
-  },
-  {
-    name: 'Age',
-    des: ['18 - 65+'],
-  },
-  {
-    name: 'Gender',
-    des: ['All genders'],
-  },
-  {
-    name: 'Audiences',
-    des: ['Lorem ipsum dolor sit amet'],
-  },
-  {
-    name: 'Language',
-    des: ['English'],
-  },
-  {
-    name: 'Detailed Targeting',
-    des: ['All demographics, Interests and behaviors'],
-  },
 ];
 
 class ComponentSetupFBIAds extends Component {
@@ -169,32 +143,7 @@ class ComponentSetupFBIAds extends Component {
                 </div>
               </div>
               <div className="mb-3">
-                <h5>Audience</h5>
-                <p>Define who you want to see your ads.</p>
-                <div>
-                  {dataAudience &&
-                    dataAudience.map((value, key) => {
-                      return (
-                        <div key={key} className="bg-blue-3 p-3 rounded-2 mb-2 position-relative">
-                          <a
-                            href={void 0}
-                            className="position-absolute top-0 end-0 text-blue-0 d-flex fs-14 mt-2 me-2 cursor-pointer"
-                          >
-                            <i className="text-blue-0 me-1">
-                              <FontAwesomeIcon icon={faEdit} />
-                            </i>
-                            <span>Edit</span>
-                          </a>
-                          <p className="mb-0">{value.name}</p>
-                          <ul className="mb-0 ps-0 list-unstyled list_audience">
-                            {value.des.map((item) => {
-                              return <li>{item}</li>;
-                            })}
-                          </ul>
-                        </div>
-                      );
-                    })}
-                </div>
+                <ComponentAudience />
               </div>
             </div>
             <div className="col-5">
@@ -407,7 +356,11 @@ class ComponentSetupFBIAds extends Component {
                   Select the media, text and destination for your ad. You can also customize your
                   media and text each placement.
                 </p>
-                <ComponentCarouselCard />
+                {
+                  formatCheck === "format_carousel" && (
+                    <ComponentCarouselCard/>
+                  )
+                }
                 <div>
                   <div className="mb-3">
                     <p className="mb-2">Media</p>
