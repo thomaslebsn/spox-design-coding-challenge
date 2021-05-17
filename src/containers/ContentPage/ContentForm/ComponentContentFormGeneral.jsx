@@ -1,33 +1,33 @@
-import React, { Component } from "react";
-import { Button } from "react-bootstrap";
+import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 
-import { FORM_FIELD_TYPE } from "../../../constants/FormFieldType";
+import { FORM_FIELD_TYPE } from '../../../constants/FormFieldType';
 import {
   CONTENT_FIELD_KEY,
   ESI_CONTENT_API_RESPONSE_FIELD_KEY,
-} from "../../../constants/ContentModule";
-import { ESI_CONTENT_THEME_FIELD_KEY } from "../../../constants/ContentThemeModule";
+} from '../../../constants/ContentModule';
+import { ESI_CONTENT_THEME_FIELD_KEY } from '../../../constants/ContentThemeModule';
 
-import ButtonNormal from "../../../components/ButtonNormal";
+import ButtonNormal from '../../../components/ButtonNormal';
 
-import SimpleReactValidator from "simple-react-validator";
+import SimpleReactValidator from 'simple-react-validator';
 
-import { renderingGroupFieldHandler } from "../../../utils/form";
-import PAGE_STATUS from "../../../constants/PageStatus";
+import { renderingGroupFieldHandler } from '../../../utils/form';
+import PAGE_STATUS from '../../../constants/PageStatus';
 
-import { Form } from "react-bootstrap";
-import ListConnectedChannelModal from "../../../components/ListConnectedChannelModal";
+import { Form } from 'react-bootstrap';
+import ListConnectedChannelModal from '../../../components/ListConnectedChannelModal';
 
 class ComponentContentFormGeneral extends Component {
   formPropsData = {
-    [CONTENT_FIELD_KEY.NAME]: "",
-    [CONTENT_FIELD_KEY.PROJECT]: "",
-    [CONTENT_FIELD_KEY.CAMPAIGN]: "",
-    [CONTENT_FIELD_KEY.PERSONA]: "",
-    [CONTENT_FIELD_KEY.DESCRIPTION]: "",
-    [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: "",
-    [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: "",
-    [CONTENT_FIELD_KEY.DAM]: "",
+    [CONTENT_FIELD_KEY.NAME]: '',
+    [CONTENT_FIELD_KEY.PROJECT]: '',
+    [CONTENT_FIELD_KEY.CAMPAIGN]: '',
+    [CONTENT_FIELD_KEY.PERSONA]: '',
+    [CONTENT_FIELD_KEY.DESCRIPTION]: null,
+    [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: '',
+    [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: '',
+    [CONTENT_FIELD_KEY.DAM]: '',
   };
   validator = null;
   isEditMode = false;
@@ -40,38 +40,48 @@ class ComponentContentFormGeneral extends Component {
   constructor(props) {
     super(props);
 
-    this.validator = new SimpleReactValidator();
+    this.validator = new SimpleReactValidator({
+      validators: {
+        desc: {
+          message: 'The :attribute must be a valid.',
+          rule: (val) => {
+            let isEmpty = (o) =>
+              o.constructor.name === 'Object'
+                ? Object.keys(o).reduce((y, z) => y && isEmpty(o[z]), true)
+                : o.length === 0;
+
+            return !isEmpty(val);
+          },
+        },
+      },
+    });
     this.viewModel = this.props.viewModel;
 
-    console.log("ComponentContentFormGeneral - Debug viewModel");
+    console.log('ComponentContentFormGeneral - Debug viewModel');
     console.log(this.viewModel);
 
-    this.projectTableSelectionModalViewModel = this.props
-      .projectTableSelectionModalViewModel
+    this.projectTableSelectionModalViewModel = this.props.projectTableSelectionModalViewModel
       ? this.props.projectTableSelectionModalViewModel
       : null;
 
-    this.personaTableSelectionModalViewModel = this.props
-      .personaTableSelectionModalViewModel
+    this.personaTableSelectionModalViewModel = this.props.personaTableSelectionModalViewModel
       ? this.props.personaTableSelectionModalViewModel
       : null;
 
-    this.campaignTableSelectionModalViewModel = this.props
-      .campaignTableSelectionModalViewModel
+    this.campaignTableSelectionModalViewModel = this.props.campaignTableSelectionModalViewModel
       ? this.props.campaignTableSelectionModalViewModel
       : null;
 
-    console.log(
-      "ComponentContentFormGeneral - this.campaignTableSelectionModalViewModel"
-    );
+    console.log('ComponentContentFormGeneral - this.campaignTableSelectionModalViewModel');
     console.log(this.campaignTableSelectionModalViewModel);
 
-    this.contentConnectedChannelsByOrganisationViewModel = this.viewModel.getContentConnectedChannelsViewModel();
-    this.contentDisplayProjectNameInWizardStep3ViewModel = this.viewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
-    this.viewModel.setForm(this);
+    this.contentConnectedChannelsByOrganisationViewModel = this.props
+      .contentConnectedChannelsByOrganisationViewModel
+      ? this.props.contentConnectedChannelsByOrganisationViewModel
+      : null;
+    this.contentDisplayProjectNameInWizardStep3ViewModel = this.props.contentDisplayProjectNameInWizardStep3ViewModel;
 
-    console.log("this.contentConnectedChannelsByOrganisationViewModel 1111");
-    console.log(this.contentConnectedChannelsByOrganisationViewModel);
+    this.viewModel.setForm(this);
   }
 
   componentWillUnmount() {
@@ -86,57 +96,13 @@ class ComponentContentFormGeneral extends Component {
   };
 
   generateFormSetting = () => {
-    console.log("re generate Form Setting", this.formPropsData);
-
-    const connectChannelsField = {
-      label: "Add Channels",
-      key: CONTENT_FIELD_KEY.CHANNELS,
-      type: FORM_FIELD_TYPE.LABELBTN,
-      viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-      value: "",
-      addConnectChannlesBtn: this.props.addConnectChannlesBtn,
-      clicked: () => {
-        this.contentConnectedChannelsByOrganisationViewModel.openModal();
-      },
-    };
-
-    // const connectChannelsField = this.props.connectChannelsField
-    //   ? {
-    //       label: "Connected Channels",
-    //       key: CONTENT_FIELD_KEY.CHANNELS,
-    //       type: FORM_FIELD_TYPE.LABELCARD,
-    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-    //       value: "",
-    //     }
-    //   : {
-    //       label: "Add Channels",
-    //       key: CONTENT_FIELD_KEY.CHANNELS,
-    //       type: FORM_FIELD_TYPE.LABELBTN,
-    //       viewModel: this.contentConnectedChannelsByOrganisationViewModel,
-    //       value: "",
-    //       clicked: () => {
-    //         this.contentConnectedChannelsByOrganisationViewModel.openModal();
-    //       },
-    //     };
-
-    console.log("===============");
-    let valueCanva = "";
-
-    if (
-      this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] !== "" &&
-      this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] !== ""
-    ) {
-      valueCanva = {
-        exportedUrl: this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
-        designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
-      };
-    }
+    console.log('re generate Form Setting', this.formPropsData);
 
     return [
       {
         fields: [
           {
-            label: "Choose the Project",
+            label: 'Choose the Project',
             key: CONTENT_FIELD_KEY.PROJECT,
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.PROJECT],
@@ -157,7 +123,7 @@ class ComponentContentFormGeneral extends Component {
             },
           },
           {
-            label: "Choose the Campaign",
+            label: 'Choose the Campaign',
             key: CONTENT_FIELD_KEY.CAMPAIGN,
             type: FORM_FIELD_TYPE.SELECTION,
             value: this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN],
@@ -178,7 +144,7 @@ class ComponentContentFormGeneral extends Component {
             },
           },
           {
-            label: "Choose the Persona",
+            label: 'Choose the Persona',
             key: CONTENT_FIELD_KEY.PERSONA,
             type: FORM_FIELD_TYPE.SELECTIONPERSONA,
             value: this.formPropsData[CONTENT_FIELD_KEY.PERSONA],
@@ -206,7 +172,7 @@ class ComponentContentFormGeneral extends Component {
                 this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = personaIds;
               }
 
-              let newPersonaIds = personaIds ? personaIds.join(",") : null;
+              let newPersonaIds = personaIds ? personaIds.join(',') : null;
 
               this.contentConnectedChannelsByOrganisationViewModel.renderConnectedChannelByPersonaIds(
                 newPersonaIds
@@ -214,47 +180,53 @@ class ComponentContentFormGeneral extends Component {
             },
           },
           {
-            label: "Headline",
+            label: 'Headline',
             key: CONTENT_FIELD_KEY.NAME,
             type: FORM_FIELD_TYPE.INPUT,
             value: this.formPropsData[CONTENT_FIELD_KEY.NAME],
             required: true,
-            validation: "required",
+            validation: 'required',
             changed: (event) => {
               this.formPropsData[CONTENT_FIELD_KEY.NAME] = event.target.value;
             },
             blurred: this.blurringFieldHandler,
           },
-          connectChannelsField,
+        ],
+      },
+    ];
+  };
+
+  generateFormSettingDescription = () => {
+    let valueCanva = '';
+
+    if (
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL] !== '' &&
+      this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] !== ''
+    ) {
+      valueCanva = {
+        exportedUrl: this.formPropsData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
+        designId: this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+      };
+    }
+
+    return [
+      {
+        fields: [
           {
-            label: "Content",
-            key: CONTENT_FIELD_KEY.THEME,
-            type: FORM_FIELD_TYPE.CANVA,
+            label: 'Content Description',
+            key: 'Description',
+            type: FORM_FIELD_TYPE.DESCRIPTION,
+            value: this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION],
             required: true,
-            validation: "required",
-            value: valueCanva,
-            changed: ({ exportUrl, designId }) => {
-              console.log("[Canva Field] changed", { exportUrl, designId });
-              this.formPropsData[
-                CONTENT_FIELD_KEY.CANVA_EXPORTED_URL
-              ] = exportUrl;
-              this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
-            },
-            blurred: this.blurringFieldHandler,
-          },
-          {
-            label: "Dam button",
-            key: CONTENT_FIELD_KEY.THEME,
-            type: FORM_FIELD_TYPE.DAM,
-            required: true,
-            validation: "required",
-            value: valueCanva,
-            changed: ({ exportUrl, designId }) => {
-              console.log("[Canva Field] changed", { exportUrl, designId });
-              this.formPropsData[
-                CONTENT_FIELD_KEY.CANVA_EXPORTED_URL
-              ] = exportUrl;
-              this.formPropsData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID] = designId;
+            validation: 'required|desc',
+            viewModel: this.contentConnectedChannelsByOrganisationViewModel,
+            dataContentDescriptionSingle: this.props.dataContentDescriptionSingle,
+            dataContentDescriptionSocial: this.props.dataContentDescriptionSocial,
+            isAdvanceMode: this.props.isAdvanceMode,
+            handleChange: (data) => {
+              this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] = this.props.isAdvanceMode
+                ? this.props.dataContentDescriptionSocial
+                : this.props.dataContentDescriptionSingle;
             },
             blurred: this.blurringFieldHandler,
           },
@@ -264,21 +236,17 @@ class ComponentContentFormGeneral extends Component {
   };
 
   populatingFormDataHandler = (data) => {
-    console.log("populatingFormDataHandler", data);
+    console.log('populatingFormDataHandler', data);
     if (!data) return false;
     this.formPropsData[CONTENT_FIELD_KEY.ID] = data.id ?? 0;
     this.formPropsData[CONTENT_FIELD_KEY.NAME] = data.getName().value;
     this.formPropsData[CONTENT_FIELD_KEY.CAMPAIGN] = [
-      { value: 366, label: "Et et aut incidunt labore." },
+      { value: 366, label: 'Et et aut incidunt labore.' },
     ];
 
-    this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = [
-      { value: 7, label: "Persona 10" },
-    ];
+    this.formPropsData[CONTENT_FIELD_KEY.PERSONA] = [{ value: 7, label: 'Persona 10' }];
 
-    this.formPropsData[
-      CONTENT_FIELD_KEY.DESCRIPTION
-    ] = data.getDescription().value.props.children;
+    this.formPropsData[CONTENT_FIELD_KEY.DESCRIPTION] = data.getDescription().value.props.children;
 
     this.blurringFieldHandler();
   };
@@ -291,15 +259,15 @@ class ComponentContentFormGeneral extends Component {
   };
 
   blurringFieldHandler = () => {
-    console.log("blurringFieldHandler");
+    console.log('blurringFieldHandler');
     this.isFormValid();
   };
 
   isFormValid = () => {
-    console.log("isFormValid");
+    console.log('isFormValid');
     console.log(this.formPropsData);
     if (this.validator.allValid()) {
-      console.log("[is Form Valid]");
+      console.log('[is Form Valid]');
 
       return true;
     } else {
@@ -311,60 +279,75 @@ class ComponentContentFormGeneral extends Component {
   };
 
   render() {
-    console.log("[Content - FormGeneral] - re-render .........");
+    console.log(this.contentConnectedChannelsByOrganisationViewModel);
+    console.log('this.contentConnectedChannelsByOrganisationViewModel 123');
+    console.log('[Content - FormGeneral] - re-render .........');
 
     const formSetting = this.generateFormSetting();
 
-    // const { formStatus } = this.personaFormViewModel;
-
-    console.log("this.projectTableSelectionModalViewModel 111");
-    console.log(
-      this.projectTableSelectionModalViewModel
-        ? this.projectTableSelectionModalViewModel.getDataSelectOptions
-        : null
-    );
+    const formSettingDescription = this.generateFormSettingDescription();
 
     return (
-      <>
-        <div className="col-6">
-          <h3 className="mb-4">General</h3>
-          <div className="bg-white p-4">
-            <Form key={Math.random(40, 200)}>
-              {Object.keys(formSetting)
-                .map((groupIndex) => {
-                  return [...Array(formSetting[groupIndex])].map((group) => {
-                    return renderingGroupFieldHandler(group, this.validator);
-                  });
-                })
-                .reduce((arr, el) => {
-                  return arr.concat(el);
-                }, [])}
-            </Form>
-            <div
-              className={`d-flex ${
-                this.props.isBackWizardStep
-                  ? "justify-content-between"
-                  : "justify-content-end"
-              }`}
-            >
-              {this.props.isBackWizardStep && (
-                <Button
-                  className="btn btn-light border-success"
-                  onClick={this.props.previousWizardStep}
-                >
-                  Back
-                </Button>
-              )}
+      <div className="pe-80">
+        <h3 className="mb-4">General</h3>
+        <div className="bg-white p-4">
+          <Form key={Math.random(40, 200)}>
+            <div className="d-flex">
+              <div className="w-450">
+                <div>
+                  {Object.keys(formSetting)
+                    .map((groupIndex) => {
+                      return [...Array(formSetting[groupIndex])].map((group) => {
+                        return renderingGroupFieldHandler(group, this.validator);
+                      });
+                    })
+                    .reduce((arr, el) => {
+                      return arr.concat(el);
+                    }, [])}
 
-              <ButtonNormal
-                className="btn btn-success"
-                text="Next"
-                onClick={this.next}
-              ></ButtonNormal>
+                  <div>
+                    <ListConnectedChannelModal
+                      viewModel={this.contentConnectedChannelsByOrganisationViewModel}
+                      showModalChannels={this.props.showModalChannels}
+                      arrayConnectedChannelsFinal={this.props.arrayConnectedChannelsFinal}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex-1 ps-4">
+                {Object.keys(formSettingDescription)
+                  .map((groupIndex) => {
+                    return [...Array(formSettingDescription[groupIndex])].map((group) => {
+                      return renderingGroupFieldHandler(group, this.validator);
+                    });
+                  })
+                  .reduce((arr, el) => {
+                    return arr.concat(el);
+                  }, [])}
+              </div>
             </div>
+          </Form>
+          <div
+            className={`d-flex border-top-1 pt-3 ${
+              this.props.isBackWizardStep ? 'justify-content-between' : 'justify-content-end'
+            }`}
+          >
+            {this.props.isBackWizardStep && (
+              <Button
+                className="btn btn-light border-success"
+                onClick={this.props.previousWizardStep}
+              >
+                Back
+              </Button>
+            )}
+            <ButtonNormal
+              className="btn btn-success px-4"
+              text="Next"
+              onClick={this.next}
+            ></ButtonNormal>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

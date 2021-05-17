@@ -28,6 +28,8 @@ const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalView
 const ContentFormPublishWizard = observer(
   class ContentFormPublishWizard extends Component {
     contentFormViewModel = null;
+    contentConnectedChannelsByOrganisationViewModel = null;
+
     constructor(props) {
       super(props);
 
@@ -40,6 +42,13 @@ const ContentFormPublishWizard = observer(
 
       console.log("After binding class");
       console.log(this.contentFormViewModel);
+
+      this.contentConnectedChannelsByOrganisationViewModel = viewModel
+        ? viewModel.getContentConnectedChannelsViewModel()
+        : null;
+
+      console.log('contentConnectedChannelsByOrganisationViewModel - After binding class');
+      console.log(this.contentConnectedChannelsByOrganisationViewModel);
     }
 
     render() {
@@ -56,6 +65,9 @@ const ContentFormPublishWizard = observer(
           }
           campaignTableSelectionModalViewModel={
             campaignTableSelectionModalViewModel
+          }
+          arrayConnectedChannelsFinal={
+            this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal
           }
         />
       );
