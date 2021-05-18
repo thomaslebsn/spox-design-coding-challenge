@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import loadScript from './loadScript';
-import removeScript from './removeScript';
+import loadScript from '../../utils/loadScript';
+import removeScript from '../../utils/removeScript';
 
 const useGoogleLogin = ({
   onSuccess = () => {},
