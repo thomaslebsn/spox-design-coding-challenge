@@ -15,6 +15,9 @@ import DatePickerTime from '../../../../components/ComponentSchedule/DatePickerT
 import Checkbox from '../../../../components/Checkbox';
 import ComponentAudience from '../../../../components/ComponentAudience';
 
+import ModalComponent from '../../../../components/Modal';
+import ComponentMessengerAdsModal from './ComponentMessengerAdsModal';
+
 const facebookFanpage = [
   { value: '01', label: 'redWEB Fanpage' },
   { value: '02', label: 'redWEB Fanpage 2' },
@@ -91,6 +94,7 @@ class ComponentSetupFBIAds extends Component {
       timeDate: new Date(),
       isEndDate: false,
       campaignObjectiveCheck: '',
+      isClickedMessenger: false,
     };
   }
 
@@ -596,6 +600,14 @@ class ComponentSetupFBIAds extends Component {
             </div>
           </div>
         )}
+        {/* this.state.trafficCheck === 'traffic_messenger' ? true : false */}
+        <ModalComponent
+          dialogClassName={'modal_messenger_ads'}
+          header={'Create Template'}
+          body={<ComponentMessengerAdsModal />}
+          show={this.state.isClickedMessenger}
+          onHide={this.toggleMessengerButton}
+        />
       </div>
     );
   }
