@@ -239,6 +239,7 @@ class ChannelsListViewModel {
                       this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                       this.listFaceBookFanpage = responseResult.pages.pages;
+                      this.listFaceBookFanpageView = responseResult.pages.pages;
                       this.listFacebookFanpageConnected = responseResult.pages.connected;
                       console.log(this.listFaceBookFanpage);
                     }
