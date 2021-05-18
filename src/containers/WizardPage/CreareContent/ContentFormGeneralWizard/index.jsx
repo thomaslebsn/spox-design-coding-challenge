@@ -56,6 +56,9 @@ const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalView
 const ContentFormGeneralWizard = observer(
   class ContentFormGeneralWizard extends Component {
     contentFormViewModel = null;
+    contentConnectedChannelsByOrganisationViewModel = null;
+    contentDisplayProjectNameInWizardStep3ViewModel = null;
+
     constructor(props) {
       super(props);
 
@@ -68,6 +71,10 @@ const ContentFormGeneralWizard = observer(
 
       console.log("After binding class");
       console.log(this.contentFormViewModel);
+
+      this.contentConnectedChannelsByOrganisationViewModel = this.contentFormViewModel.getContentConnectedChannelsViewModel();
+      this.contentDisplayProjectNameInWizardStep3ViewModel = this.contentFormViewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
+
     }
 
     previousWizardStep = () => {
@@ -126,6 +133,23 @@ const ContentFormGeneralWizard = observer(
                 ? personaTableSelectionModalViewModel.getValueSelected
                 : []
             }
+            contentConnectedChannelsByOrganisationViewModel={
+              this.contentConnectedChannelsByOrganisationViewModel
+            }
+            contentDisplayProjectNameInWizardStep3ViewModel={
+              this.contentDisplayProjectNameInWizardStep3ViewModel
+            }
+            showModalChannels={this.contentConnectedChannelsByOrganisationViewModel.show}
+            arrayConnectedChannelsFinal={
+              this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal
+            }
+            dataContentDescriptionSingle={
+              this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle
+            }
+            dataContentDescriptionSocial={
+              this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial
+            }
+            isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
           />
           <ContentPreviewPersona
             personaTableSelectionModalViewModel={

@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx";
-import { notify } from "../../../components/Toast";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import { PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from "../../../constants/PersonaModule";
+import { makeAutoObservable } from 'mobx';
+import { notify } from '../../../components/Toast';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from '../../../constants/PersonaModule';
 
 class ContentConnectedChannelsByOrganisationViewModel {
   contentsStore = null;
@@ -14,6 +14,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   multi = false;
 
+  isAdvanceMode = false;
+
   newArrayConnectChannels = [];
 
   getDataValueSelected = [];
@@ -21,6 +23,44 @@ class ContentConnectedChannelsByOrganisationViewModel {
   getValueSelectedChannels = [];
 
   arrayConnectedChannelsFinal = [];
+
+  dataContentDescriptionSingle = {
+    data: '',
+    media: [],
+  };
+
+  dataContentDescriptionSocial = {
+    social: {
+      facebook: {
+        data: '',
+        media: [],
+      },
+      instagram: {
+        data: '',
+        media: [],
+      },
+      linkedIn: {
+        data: '',
+        media: [],
+      },
+    },
+    cms: {
+      joomla: {
+        data: '',
+        media: [],
+      },
+      wordpress: {
+        data: '',
+        media: [],
+      },
+    },
+    mail: {
+      mailchimp: {
+        data: '',
+        media: [],
+      },
+    },
+  };
 
   constructor(contentsStore) {
     makeAutoObservable(this);
@@ -45,7 +85,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   renderChannelByOrganizationID = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    console.log("renderChannelByOrganizationID");
+    console.log('renderChannelByOrganizationID');
     this.contentsStore.getConnectedChannelsByOrganizationID(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander
@@ -53,7 +93,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
   };
 
   renderConnectedChannelByPersonaIds = (personaIds) => {
-    console.log("personaIds idsidsids viewModel", personaIds);
+    console.log('personaIds idsidsids viewModel', personaIds);
     this.contentsStore.getConnectedChannelByPersonaIds(
       this.callbackOnSuccessHandlerPersonaIds,
       this.callbackOnErrorHander,
@@ -90,53 +130,55 @@ class ContentConnectedChannelsByOrganisationViewModel {
     );
   };
 
+  handleDeleteConnectChannel = (index) => {
+    let arrayConnectedChannelsFinal = this.arrayConnectedChannelsFinal;
+
+    arrayConnectedChannelsFinal.splice(index, 1);
+
+    this.arrayConnectedChannelsFinal = [...arrayConnectedChannelsFinal];
+  };
+
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander - content");
+    console.log('callbackOnErrorHander - content');
     console.log(error);
     this.formStatus = PAGE_STATUS.READY;
     notify(error.message);
   };
 
   callbackOnSuccessHandler = (contentConnectedChannelsModel) => {
-    console.log(
-      "callbackOnSuccessHandler - contentConnectedChannelsModel ------"
-    );
-    const resultInModel = contentConnectedChannelsModel
-      ? contentConnectedChannelsModel
-      : null;
-    console.log("resultInModel - resultInModel ------");
+    console.log('callbackOnSuccessHandler - contentConnectedChannelsModel ------');
+    const resultInModel = contentConnectedChannelsModel ? contentConnectedChannelsModel : null;
+    console.log('resultInModel - resultInModel ------');
     console.log(resultInModel);
     this.connectedChannels = resultInModel
       ? resultInModel.toListConnectedChannelsOnContentForm()
       : null;
 
     this.formStatus = PAGE_STATUS.READY;
-    console.log("this.connectedChannels - this.connectedChannels ------");
+    console.log('this.connectedChannels - this.connectedChannels ------');
     console.log(this.connectedChannels);
 
     this.getArrayConnectedChannelsFinal();
   };
 
   callbackOnSuccessHandlerPersonaIds = (contentConnectedChannelsModel) => {
-    console.log(
-      "callbackOnSuccessHandler - contentConnectedChannelsModel ------"
-    );
-    const resultInModel = contentConnectedChannelsModel
-      ? contentConnectedChannelsModel
-      : null;
-    console.log("resultInModel - resultInModel ------");
+    console.log('callbackOnSuccessHandler - contentConnectedChannelsModel ------');
+    const resultInModel = contentConnectedChannelsModel ? contentConnectedChannelsModel : null;
+    console.log('resultInModel - resultInModel ------');
     console.log(resultInModel);
 
     this.getValueSelectedChannels = resultInModel
       ? resultInModel.toListConnectedChannelsOnContentForm()
       : null;
     this.formStatus = PAGE_STATUS.READY;
-    console.log(
-      "this.getValueSelectedChannels - this.getValueSelectedChannels ------"
-    );
+    console.log('this.getValueSelectedChannels - this.getValueSelectedChannels ------');
     console.log(this.getValueSelectedChannels);
 
     this.getArrayConnectedChannelsFinal();
+  };
+
+  handleAdvanceMode = () => {
+    this.isAdvanceMode = !this.isAdvanceMode;
   };
 }
 

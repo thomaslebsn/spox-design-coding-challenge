@@ -52,6 +52,7 @@ const PersonaFormPage = observer(
   class PersonaFormPage extends Component {
     formPropsData = {
       [PERSONA_FIELD_KEY.NAME]: '',
+      [PERSONA_FIELD_KEY.AVATAR]: '',
     };
 
     validator = null;

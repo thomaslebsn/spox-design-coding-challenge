@@ -1,5 +1,6 @@
 //FONT
-$font-family-sans-serif: "SVN-Sofia Pro", sans-serif !default;
+$font-family-sans-serif: "SVN-Sofia Pro",
+sans-serif !default;
 
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
@@ -14,8 +15,7 @@ $gray-900: #212529 !default;
 $black: #000 !default;
 
 // fusv-disable
-$grays: (
-  "100": $gray-100,
+$grays: ("100": $gray-100,
   "200": $gray-200,
   "300": $gray-300,
   "400": $gray-400,
@@ -39,8 +39,7 @@ $teal: #20c997 !default;
 $cyan: #0dcaf0 !default;
 
 // scss-docs-start colors-map
-$colors: (
-  "blue": $blue,
+$colors: ("blue": $blue,
   "indigo": $indigo,
   "purple": $purple,
   "pink": $pink,
@@ -66,8 +65,7 @@ $light: $gray-100 !default;
 $dark: $gray-900 !default;
 
 // scss-docs-start theme-colors-map
-$theme-colors: (
-  "primary": $primary,
+$theme-colors: ("primary": $primary,
   "secondary": $secondary,
   "success": $success,
   "info": $info,
@@ -116,8 +114,7 @@ $h7-font-size: $font-size-base * 0.75 !default;
 $h8-font-size: $font-size-base * 0.875 !default;
 
 // scss-docs-start font-sizes
-$font-sizes: (
-  1: $h1-font-size,
+$font-sizes: (1: $h1-font-size,
   2: $h2-font-size,
   3: $h3-font-size,
   4: $h4-font-size,
@@ -134,8 +131,7 @@ $font-sizes: (
 // Define common padding and border radius sizes and more.
 
 $border-width: 1px !default;
-$border-widths: (
-  0: 0,
+$border-widths: (0: 0,
   1: 1px,
   2: 2px,
   3: 3px,
@@ -176,6 +172,7 @@ $color-orange: #f24f29 !default;
 
 $color-gray: #616161 !default;
 $color-gray-2: #f2f2f2 !default;
+$color-gray-3: #E9EBEE !default;
 
 $color-purple: #4052b3 !default;
 
@@ -188,6 +185,7 @@ $color-blue-4: #f5f8fa;
 $color-blue-5: #e8f1f6;
 $color-blue-6: #dce6eb;
 $color-blue-7: #199ce3;
+$color-blue-8: #54C7EC;
 
 //BORDER COLOR
 $border-color: #d5d5d5;
