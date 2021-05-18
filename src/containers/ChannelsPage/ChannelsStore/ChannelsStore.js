@@ -14,6 +14,66 @@ export default class ChannelsStore {
     }
   }
 
+  async connectAFacebookPage(
+    callbackOnConnectAFacebookPageSuccess,
+    callbackOnError,
+    channelUniqueName,
+    pageId
+  ) {
+    const channelService = new EasiiOrganisationChannelApiService();
+    console.log('channelUniqueName channelUniqueName', channelUniqueName);
+    console.log('channelPageId:', pageId);
+    let response = null;
+
+    switch (channelUniqueName) {
+      case 'facebook':
+        response = await channelService.connectFanpage(pageId);
+        break;
+      default:
+        break;
+    }
+
+    if (response) {
+      runInAction(() => {
+        callbackOnConnectAFacebookPageSuccess(response, channelUniqueName, pageId);
+      });
+    } else {
+      callbackOnError({
+        message: 'Something went wrong from Server response',
+      });
+    }
+  }
+
+  async disconnectAFacebookPage(
+    callbackOnDisconnectAFacebookPageSuccess,
+    callbackOnError,
+    channelUniqueName,
+    pageId
+  ) {
+    const channelService = new EasiiOrganisationChannelApiService();
+    console.log('channelUniqueName channelUniqueName', channelUniqueName);
+    console.log('channelPageId:', pageId);
+    let response = null;
+
+    switch (channelUniqueName) {
+      case 'facebook':
+        response = await channelService.disconnectFanpage(pageId);
+        break;
+      default:
+        break;
+    }
+
+    if (response) {
+      runInAction(() => {
+        callbackOnDisconnectAFacebookPageSuccess(response, channelUniqueName, pageId);
+      });
+    } else {
+      callbackOnError({
+        message: 'Something went wrong from Server response',
+      });
+    }
+  }
+
   async getChannelLoginUrl(callbackOnSuccess, callbackOnError, channelUniqueName) {
     try {
       const channelService = new EasiiOrganisationChannelApiService();

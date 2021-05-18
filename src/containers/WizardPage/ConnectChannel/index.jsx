@@ -1,25 +1,26 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { Image, Tab, Tabs } from "react-bootstrap";
-import { observer } from "mobx-react";
+import { Image, Tab, Tabs } from 'react-bootstrap';
+import { observer } from 'mobx-react';
 
-import Button from "../../../components/Button";
-import ModalComponent from "../../../components/Modal";
-import history from "../../../routes/history";
+import Button from '../../../components/Button';
+import ModalComponent from '../../../components/Modal';
+import history from '../../../routes/history';
 
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import ButtonNormal from "../../../components/ButtonNormal";
-import ComponentConnectaChannel from "../../../components/ComponentConnectaChannel";
-import { withWizardViewModel } from "../WizardViewModels/WizardViewModelContextProvider";
-import Checkbox from "../../../components/Checkbox";
-import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import ButtonNormal from '../../../components/ButtonNormal';
+import ComponentConnectaChannel from '../../../components/ComponentConnectaChannel';
+import { withWizardViewModel } from '../WizardViewModels/WizardViewModelContextProvider';
+import Checkbox from '../../../components/Checkbox';
+import ComponentItemFanpage from '../../../components/ComponentItemFanpage';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 
-import WizardSteps from "../../../components/WizardSteps";
-import styles from "./index.module.scss";
-import { notify } from "../../../components/Toast";
+import WizardSteps from '../../../components/WizardSteps';
+import styles from './index.module.scss';
+import { notify } from '../../../components/Toast';
+import PAGE_STATUS from '../../../constants/PageStatus';
 
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
@@ -28,16 +29,14 @@ const ConnectChannel = observer(
       super(props);
 
       const { viewModel } = props;
-      console.log("viewModel - Debug View Model");
+      console.log('viewModel - Debug View Model');
       console.log(viewModel);
 
       this.viewModel = viewModel ? viewModel : null;
 
-      this.channelsListViewModel = viewModel
-        ? viewModel.getChannelsListViewModel()
-        : null;
+      this.channelsListViewModel = viewModel ? viewModel.getChannelsListViewModel() : null;
 
-      console.log("this.channelsListViewModel - Debug View Model");
+      console.log('this.channelsListViewModel - Debug View Model');
 
       this.loginCMSChannelFormModalViewModel = viewModel
         ? viewModel.getLoginCMSChannelFormModalViewModel()
@@ -53,17 +52,17 @@ const ConnectChannel = observer(
       };
 
       this.channelsListViewModel.checkConnectedChannels([
-        "linkedin",
-        "youtube",
-        "twitter",
-        "instagram",
-        "facebook",
-        "mailchimp",
-        "wordpress",
-        "tumblr",
-        "drupal",
-        "joomla",
-          "fbad"
+        'linkedin',
+        'youtube',
+        'twitter',
+        'instagram',
+        'facebook',
+        'mailchimp',
+        'wordpress',
+        'tumblr',
+        'drupal',
+        'joomla',
+        'fbad',
       ]);
     }
 
@@ -92,9 +91,7 @@ const ConnectChannel = observer(
     };
 
     handleSaveFanpage = () => {
-      this.channelsListViewModel.saveChosseFacebookFanpages(
-        this.state.getIDSFanpage
-      );
+      this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
 
       this.setState({
         showModal: false,
@@ -102,18 +99,23 @@ const ConnectChannel = observer(
     };
 
     handleSaveAdsAccount = () => {
-      this.channelsListViewModel.saveChosseFacebookAdAccount(
-          this.state.getIDSAdAccount
-      );
+      this.channelsListViewModel.saveChosseFacebookAdAccount(this.state.getIDSAdAccount);
 
       this.setState({
         showModal: false,
       });
     };
 
-
     handleModalCms = () => {
       this.loginCMSChannelFormModalViewModel.openModal();
+    };
+
+    handleConnectedFanpage = (channelType, id) => {
+      if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+      } else {
+        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+      }
     };
 
     next = () => {
@@ -144,7 +146,7 @@ const ConnectChannel = observer(
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
-        notify("Please choose an connect channel");
+        notify('Please choose an connect channel');
       }
     };
 
@@ -154,6 +156,7 @@ const ConnectChannel = observer(
       const {
         listFaceBookFanpage,
         listFaceBookFanpageView,
+        listFacebookFanpageConnected,
         facebookConnected,
         listFacebookAdsAccount,
         listFacebookAdsAccountView,
@@ -168,6 +171,7 @@ const ConnectChannel = observer(
         mustUpgrade,
         drupalConnected,
         joomlaConnected,
+        ConnectStatusFanpage,
       } = this.channelsListViewModel;
 
       return (
@@ -175,8 +179,9 @@ const ConnectChannel = observer(
           <div>
             <ComponentConnectaChannel
               channelsListViewModel={this.channelsListViewModel}
-              listFaceBookFanpageView={
-                listFaceBookFanpageView ? listFaceBookFanpageView : null
+              listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
+              listFacebookFanpageConnected={
+                listFacebookFanpageConnected ? listFacebookFanpageConnected : null
               }
               facebookConnected={facebookConnected}
               listFacebookAdsAccountView={
@@ -196,11 +201,14 @@ const ConnectChannel = observer(
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
+              ConnectStatusFanpage={ConnectStatusFanpage}
+              handleConnectedFanpage={this.handleConnectedFanpage}
+              PAGE_STATUS={PAGE_STATUS}
             />
           </div>
           {listFaceBookFanpage && (
             <ModalComponent
-              header={"Facebook Fanpage"}
+              header={'Facebook Fanpage'}
               body={
                 <div>
                   <ul className="list-unstyled align-items-center">
@@ -222,10 +230,7 @@ const ConnectChannel = observer(
               show={showModal}
               onHide={this.handleCloseModal}
               footer={
-                <button
-                  onClick={this.handleSaveFanpage}
-                  className="btn btn-success w-100"
-                >
+                <button onClick={this.handleSaveFanpage} className="btn btn-success w-100">
                   <span>Save</span>
                   <i className="ms-1">
                     <FontAwesomeIcon icon={faChevronRight} />
@@ -235,40 +240,37 @@ const ConnectChannel = observer(
             />
           )}
           {listFacebookAdsAccount && (
-              <ModalComponent
-                  header={"Facebook Ads"}
-                  body={
-                    <div>
-                      <ul className="list-unstyled align-items-center">
-                        {listFacebookAdsAccount &&
-                        listFacebookAdsAccount.map((value, key) => {
-                          return (
-                              <ComponentItemFanpage
-                                  key={key}
-                                  name={value.name}
-                                  handleCheckbox={(e) => {
-                                    this.handleCheckboxAdAccounts(value.id);
-                                  }}
-                              />
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  }
-                  show={showModal}
-                  onHide={this.handleCloseModal}
-                  footer={
-                    <button
-                        onClick={this.handleSaveAdsAccount}
-                        className="btn btn-success w-100"
-                    >
-                      <span>Save</span>
-                      <i className="ms-1">
-                        <FontAwesomeIcon icon={faChevronRight} />
-                      </i>
-                    </button>
-                  }
-              />
+            <ModalComponent
+              header={'Facebook Ads'}
+              body={
+                <div>
+                  <ul className="list-unstyled align-items-center">
+                    {listFacebookAdsAccount &&
+                      listFacebookAdsAccount.map((value, key) => {
+                        return (
+                          <ComponentItemFanpage
+                            key={key}
+                            name={value.name}
+                            handleCheckbox={(e) => {
+                              this.handleCheckboxAdAccounts(value.id);
+                            }}
+                          />
+                        );
+                      })}
+                  </ul>
+                </div>
+              }
+              show={showModal}
+              onHide={this.handleCloseModal}
+              footer={
+                <button onClick={this.handleSaveAdsAccount} className="btn btn-success w-100">
+                  <span>Save</span>
+                  <i className="ms-1">
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </i>
+                </button>
+              }
+            />
           )}
           <div className="d-flex justify-content-end">
             {/* <Button

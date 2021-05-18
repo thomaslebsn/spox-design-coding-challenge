@@ -14,6 +14,8 @@ import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
 const ConnectChannels = observer(
   class ConnectChannels extends Component {
     channelsListViewModel = null;
+    listFacebookFanpageConnected = null;
+    test = null;
     constructor(props) {
       super(props);
       const { viewModel } = props;
@@ -115,13 +117,20 @@ const ConnectChannels = observer(
 
     handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
-      console.log('handleModalCms');
-      console.log(this.loginCMSChannelFormModalViewModel);
       this.loginCMSChannelFormModalViewModel.openModal();
+    };
+
+    handleConnectedFanpage = (channelType, id) => {
+      if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+      } else {
+        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+      }
     };
 
     render() {
       let { showModal } = this.state;
+      this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
 
       const {
         listFaceBookFanpage,
@@ -150,10 +159,11 @@ const ConnectChannels = observer(
         countAdvertisingConnected,
         countEmailMarketingConnected,
         countSocialMediaConnected,
+        drupalConnected,
+        getIdActionFacebookFange,
+        ConnectStatusFanpage,
       } = this.channelsListViewModel;
 
-      console.log('this.channelsListViewModel', this.channelsListViewModel);
-      console.log(listFaceBookFanpageView);
       return (
         <div className="py-4 px-3">
           <h2 className="text-blue-0 mb-4">Connect a Channel</h2>
@@ -161,6 +171,9 @@ const ConnectChannels = observer(
             <ComponentConnectaChannel
               channelsListViewModel={this.channelsListViewModel}
               listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
+              listFacebookFanpageConnected={
+                this.listFacebookFanpageConnected ? this.listFacebookFanpageConnected : null
+              }
               listFacebookAdsAccountView={
                 listFacebookAdsAccountView ? listFacebookAdsAccountView : null
               }
@@ -181,6 +194,7 @@ const ConnectChannels = observer(
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
               googleadsConnected={googleadsConnected}
+              handleConnectedFanpage={this.handleConnectedFanpage}
               advertisingFeaturesMasterData={advertisingFeaturesMasterData}
               cmsFeaturesMasterData={cmsFeaturesMasterData}
               socialMediaFeaturesMasterData={socialMediaFeaturesMasterData}
@@ -189,6 +203,10 @@ const ConnectChannels = observer(
               countAdvertisingConnected={countAdvertisingConnected}
               countEmailMarketingConnected={countEmailMarketingConnected}
               countSocialMediaConnected={countSocialMediaConnected}
+              drupalConnected={drupalConnected}
+              getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
+              ConnectStatusFanpage={ConnectStatusFanpage}
+              PAGE_STATUS={PAGE_STATUS}
             />
           </div>
           {listFaceBookFanpage && (
