@@ -20,6 +20,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 import WizardSteps from '../../../components/WizardSteps';
 import styles from './index.module.scss';
 import { notify } from '../../../components/Toast';
+import PAGE_STATUS from '../../../constants/PageStatus';
 
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
@@ -109,6 +110,14 @@ const ConnectChannel = observer(
       this.loginCMSChannelFormModalViewModel.openModal();
     };
 
+    handleConnectedFanpage = (channelType, id) => {
+      if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+      } else {
+        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+      }
+    };
+
     next = () => {
       const {
         facebookConnected,
@@ -162,6 +171,7 @@ const ConnectChannel = observer(
         mustUpgrade,
         drupalConnected,
         joomlaConnected,
+        ConnectStatusFanpage,
       } = this.channelsListViewModel;
 
       return (
@@ -191,6 +201,9 @@ const ConnectChannel = observer(
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
+              ConnectStatusFanpage={ConnectStatusFanpage}
+              handleConnectedFanpage={this.handleConnectedFanpage}
+              PAGE_STATUS={PAGE_STATUS}
             />
           </div>
           {listFaceBookFanpage && (
