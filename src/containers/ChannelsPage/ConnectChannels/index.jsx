@@ -138,7 +138,7 @@ const ConnectChannels = observer(
         status: 'connected',
       };
 
-      this.channelsListViewModel.onSuccessGoogleConnect(JSON.stringify(dataAccessToken));
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'google_ads');
     };
 
     onFailureGoogleConnect = (err) => {
@@ -146,6 +146,27 @@ const ConnectChannels = observer(
     };
 
     onRequestGoogleConnect = (req, res) => {};
+
+    onSuccessFacebookConnect = (response) => {
+      console.log('onSuccessFacebookConnect');
+
+      window.FB.api('me/accounts', (response) => {
+        if (response) {
+          const connected = response.data.map((item) => item.id);
+          const data = {
+            pages: response.data,
+            connected: connected,
+            status: 'connected',
+          };
+
+          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'facebook');
+        }
+      });
+    };
+
+    onFailureFacebookConnect = (err) => {
+      console.log('hung test');
+    };
 
     render() {
       let { showModal } = this.state;
@@ -225,6 +246,8 @@ const ConnectChannels = observer(
               onSuccessGoogleConnect={this.onSuccessGoogleConnect}
               onFailureGoogleConnect={this.onFailureGoogleConnect}
               onRequestGoogleConnect={this.onRequestGoogleConnect}
+              onSuccessFacebookConnect={this.onSuccessFacebookConnect}
+              onFailureFacebookConnect={this.onFailureFacebookConnect}
               drupalConnected={drupalConnected}
               getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
               ConnectStatusFanpage={ConnectStatusFanpage}
