@@ -231,7 +231,7 @@ const ConnectChannels = observer(
               PAGE_STATUS={PAGE_STATUS}
             />
           </div>
-          {listFaceBookFanpage && (
+          {/* {listFaceBookFanpage && (
             <ModalComponent
               header={'Facebook Fanpage'}
               body={
@@ -263,7 +263,7 @@ const ConnectChannels = observer(
                 </button>
               }
             />
-          )}
+          )} */}
           {listFacebookAdsAccount && (
             <ModalComponent
               header={'Facebook Ad Accounts'}
