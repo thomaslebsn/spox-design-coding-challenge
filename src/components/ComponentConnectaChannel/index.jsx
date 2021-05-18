@@ -8,6 +8,7 @@ import Upgrade from '../Upgrade';
 import ButtonConnect from '../ButtonConnect';
 import ButtonUpgrade from '../ButtonUpgrade';
 import ButtonConnectGoogle from '../ButtonConnectGoogle';
+import ButtonConnectFacebook from '../ButtonConnectFacebook';
 import {
   CHANNEL_ADS_GOOGLE,
   CHANNEL_CMS_DRUPAL,
@@ -191,7 +192,7 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/facebook.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook</span>
                   </div>
-                  {facebookConnected || this.isAllowedConnectChannel('facebook', 'social_media') ? (
+                  {/* {facebookConnected || this.isAllowedConnectChannel('facebook', 'social_media') ? (
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
@@ -203,7 +204,8 @@ class ComponentConnectaChannel extends Component {
                     </button>
                   ) : (
                     <ButtonUpgrade />
-                  )}
+                  )} */}
+                  <ButtonConnectFacebook />
                 </div>
                 {listFaceBookFanpageView && (
                   <div className="p-3">
