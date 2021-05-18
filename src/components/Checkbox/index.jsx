@@ -1,13 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import "./index.scss";
+import './index.scss';
 
 class Checkbox extends React.Component {
   render() {
     let { name, text, checked, onCheckBoxChange } = this.props;
-    console.log("[Checkbox] render...");
-
-    console.log(checked);
     return (
       <div className="form-check">
         <input

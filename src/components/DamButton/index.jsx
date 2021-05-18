@@ -1,16 +1,19 @@
-import React, { Component, lazy } from "react";
+import React, { Component, lazy } from 'react';
 
-import Iframe from "react-iframe";
-import { AUTHORIZATION_KEY, AXIOS_CONFIGS } from "easii-io-web-service-library";
-import { io } from "socket.io-client";
-import "./index.scss";
+import Iframe from 'react-iframe';
+import { AUTHORIZATION_KEY, AXIOS_CONFIGS } from 'easii-io-web-service-library';
+import { io } from 'socket.io-client';
+import './index.scss';
 
-const ModalComponent = lazy(() => import("../../components/Modal"));
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons/faImage';
 
-const socket = io(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ":9999");
+const ModalComponent = lazy(() => import('../../components/Modal'));
+
+const socket = io(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ':9999');
 
 class DamButton extends React.Component {
-    _isMounted = false;
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.socket = socket;
@@ -20,12 +23,9 @@ class DamButton extends React.Component {
   }
 
   handleClick = () => {
-      console.log(AUTHORIZATION_KEY.TOKEN_USER);
-      console.log(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ":9999");
-    this.socket.emit(
-      "join room",
-      localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER)
-    );
+    console.log(AUTHORIZATION_KEY.TOKEN_USER);
+    console.log(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ':9999');
+    this.socket.emit('join room', localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER));
 
     this.setState({
       showModal: true,
@@ -38,33 +38,39 @@ class DamButton extends React.Component {
     });
   };
 
-    componentDidMount = () => {
-        this._isMounted = true;
+  componentDidMount = () => {
+    this._isMounted = true;
 
-        this.socket.on("response assets", (roomId, data) => {
-            if (this._isMounted) {
-                this.closeModal();
-            }
-        });
-    }
+    this.socket.on('response assets', (roomId, data) => {
+      if (this._isMounted) {
+        this.closeModal();
+      }
+    });
+  };
 
-    componentWillUnmount = () => {
-        this._isMounted = false;
-    }
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  };
 
-    render() {
-
+  render() {
     const urlDam =
       AXIOS_CONFIGS.BASE_ENDPOINT_URL +
-      "/administrator/index.php?option=com_aesir_dam&view=easii_dam&token=" +
+      '/administrator/index.php?option=com_aesir_dam&view=easii_dam&token=' +
       localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER);
     return (
       <>
-        <button className="" onClick={this.handleClick} type="button">
-          Dam button
+        <button
+          className="wr_btn_dam border-0 ms-2 bg-blue-2 rounded-2 px-3"
+          onClick={this.handleClick}
+          type="button"
+        >
+          <i className="text-white">
+            <FontAwesomeIcon icon={faImage} />
+          </i>
+          <span className="text-white ms-2">Digital Asset Management</span>
         </button>
         <ModalComponent
-          header={"Digital Assets"}
+          header={'Digital Assets'}
           body={
             <Iframe
               url={urlDam}

@@ -1,9 +1,9 @@
-import React, { Component, lazy } from "react";
+import React, { Component, lazy } from 'react';
 
-import { observer } from "mobx-react";
+import { observer } from 'mobx-react';
 
-import { withContentViewModel } from "../../ContentViewModels/ContentViewModelContextProvider";
-import ComponentContentFormGeneral from "../ComponentContentFormGeneral";
+import { withContentViewModel } from '../../ContentViewModels/ContentViewModelContextProvider';
+import ComponentContentFormGeneral from '../ComponentContentFormGeneral';
 
 const ContentFormGeneral = observer(
   class ContentFormGeneral extends Component {
@@ -11,6 +11,8 @@ const ContentFormGeneral = observer(
     projectTableSelectionModalViewModel = null;
     personaTableSelectionModalViewModel = null;
     campaignTableSelectionModalViewModel = null;
+    contentConnectedChannelsByOrganisationViewModel = null;
+    contentDisplayProjectNameInWizardStep3ViewModel = null;
     constructor(props) {
       super(props);
 
@@ -20,42 +22,37 @@ const ContentFormGeneral = observer(
         personaTableSelectionModalViewModel,
         campaignTableSelectionModalViewModel,
       } = this.props;
-      console.log("ContentFormGeneral - Debug View Model");
+      console.log('ContentFormGeneral - Debug View Model');
       console.log(viewModel);
 
       this.projectTableSelectionModalViewModel = projectTableSelectionModalViewModel
         ? projectTableSelectionModalViewModel
         : null;
 
-      console.log(
-        "ContentFormGeneral - Debug projectTableSelectionModalViewModel"
-      );
+      console.log('ContentFormGeneral - Debug projectTableSelectionModalViewModel');
       console.log(this.projectTableSelectionModalViewModel);
 
       this.personaTableSelectionModalViewModel = personaTableSelectionModalViewModel
         ? personaTableSelectionModalViewModel
         : null;
 
-      console.log(
-        "ContentFormGeneral - Debug personaTableSelectionModalViewModel"
-      );
+      console.log('ContentFormGeneral - Debug personaTableSelectionModalViewModel');
       console.log(this.personaTableSelectionModalViewModel);
 
       this.campaignTableSelectionModalViewModel = campaignTableSelectionModalViewModel
         ? campaignTableSelectionModalViewModel
         : null;
 
-      console.log(
-        "ContentFormGeneral - Debug campaignTableSelectionModalViewModel"
-      );
+      console.log('ContentFormGeneral - Debug campaignTableSelectionModalViewModel');
       console.log(this.campaignTableSelectionModalViewModel);
 
-      this.contentFormViewModel = viewModel
-        ? viewModel.getContentFormViewModel()
-        : null;
+      this.contentFormViewModel = viewModel ? viewModel.getContentFormViewModel() : null;
 
-      console.log("After binding class");
+      console.log('After binding class');
       console.log(this.contentFormViewModel);
+
+      this.contentConnectedChannelsByOrganisationViewModel = this.contentFormViewModel.getContentConnectedChannelsViewModel();
+      this.contentDisplayProjectNameInWizardStep3ViewModel = this.contentFormViewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
     }
 
     render() {
@@ -63,15 +60,9 @@ const ContentFormGeneral = observer(
         <ComponentContentFormGeneral
           {...this.props}
           viewModel={this.contentFormViewModel}
-          projectTableSelectionModalViewModel={
-            this.projectTableSelectionModalViewModel
-          }
-          personaTableSelectionModalViewModel={
-            this.personaTableSelectionModalViewModel
-          }
-          campaignTableSelectionModalViewModel={
-            this.campaignTableSelectionModalViewModel
-          }
+          projectTableSelectionModalViewModel={this.projectTableSelectionModalViewModel}
+          personaTableSelectionModalViewModel={this.personaTableSelectionModalViewModel}
+          campaignTableSelectionModalViewModel={this.campaignTableSelectionModalViewModel}
           addConnectChannlesBtn={true}
           getDataSelectOptionsProject={
             this.projectTableSelectionModalViewModel
@@ -103,6 +94,23 @@ const ContentFormGeneral = observer(
               ? this.personaTableSelectionModalViewModel.getValueSelected
               : []
           }
+          contentConnectedChannelsByOrganisationViewModel={
+            this.contentConnectedChannelsByOrganisationViewModel
+          }
+          contentDisplayProjectNameInWizardStep3ViewModel={
+            this.contentDisplayProjectNameInWizardStep3ViewModel
+          }
+          showModalChannels={this.contentConnectedChannelsByOrganisationViewModel.show}
+          arrayConnectedChannelsFinal={
+            this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal
+          }
+          dataContentDescriptionSingle={
+            this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle
+          }
+          dataContentDescriptionSocial={
+            this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial
+          }
+          isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
         />
       );
     }
