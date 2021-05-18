@@ -113,17 +113,22 @@ class ChannelsListViewModel {
     this.countSocialMediaConnected = 0;
   }
 
-  onSuccessGoogleConnect = (dataToken) => {
+  onSuccessConnect = (dataToken, channelType) => {
     this.channelsStore.saveAccessTokenChannel(
-      this.callbackOnSuccessGoogleConnected,
+      this.callbackOnSuccessConnected,
       this.callbackOnErrorHander,
-      'google_ads',
+      channelType,
       dataToken
     );
   };
 
-  callbackOnSuccessGoogleConnected = (result) => {
-    this.googleadsConnected = true;
+  callbackOnSuccessConnected = (channelType) => {
+    switch (channelType) {
+      case 'google_ads':
+        this.googleadsConnected = true;
+      case 'facebook':
+        this.facebookConnected = true;
+    }
   };
 
   connectLoginUrl = (channelUniqueName) => {
