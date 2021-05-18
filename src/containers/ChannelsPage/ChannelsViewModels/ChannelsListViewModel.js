@@ -177,13 +177,10 @@ class ChannelsListViewModel {
   };
 
   callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
-    console.log('callbackOnDisconnectAFacebookPageSuccess');
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.ConnectStatusFanpage = PAGE_STATUS.READY;
       const index = this.listFacebookFanpageConnected.indexOf(pageId);
-
-      // this.listFacebookFanpageConnected.indexOf(value.id) > -1 ? 'Disconnect' : 'Connect'
       if (index > -1) {
         this.listFacebookFanpageConnected.splice(index, 1);
       }
@@ -193,7 +190,6 @@ class ChannelsListViewModel {
   };
 
   callbackOnConnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
-    console.log('callbackOnConnectAFacebookPageSuccess');
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.ConnectStatusFanpage = PAGE_STATUS.READY;
@@ -266,12 +262,13 @@ class ChannelsListViewModel {
 
                   case 'linkedin':
                     if (responseResult.connected == 1) {
+                      console.log('responseResultlinkedin123');
+                      console.log(responseResult);
                       this.linkedinConnected = true;
                       this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-                  case 'mailchimp':
                   case 'instagram':
                     if (responseResult.connected == 1) {
                       this.instagramConnected = true;
@@ -303,6 +300,7 @@ class ChannelsListViewModel {
                       this.listFacebookAdsAccount = responseResult.pages.adAccounts;
                     }
                     break;
+
                   case CHANNEL_ADS_GOOGLE:
                     if (responseResult.connected == 1) {
                       this.googleadsConnected = true;
@@ -320,7 +318,7 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-                  case 'medium':
+
                   // =============== Email Marketing End ===============
 
                   // =============== CMS End ===============
