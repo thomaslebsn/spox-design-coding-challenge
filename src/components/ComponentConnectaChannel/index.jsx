@@ -1,8 +1,9 @@
 import React, { Component, lazy } from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
+import { Tab, Tabs, Spinner } from 'react-bootstrap';
 
 import LoginChannelCMSFormModal from '../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal';
 import styles from './index.module.scss';
+import './index.scss';
 import Upgrade from '../Upgrade';
 import ButtonConnect from '../ButtonConnect';
 import ButtonUpgrade from '../ButtonUpgrade';
@@ -137,15 +138,15 @@ class ComponentConnectaChannel extends Component {
     this.props.channelsListViewModel.mustUpgrade = false;
   };
 
-  handleDisconnectAFacebookPage = (name, id) => {
-    let { channelsListViewModel } = this.props;
+  // handleDisconnectAFacebookPage = (name, id) => {
+  //   let { channelsListViewModel } = this.props;
 
-    if (channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
-      channelsListViewModel.disconnectAFacebookPage(name, id);
-    } else {
-      channelsListViewModel.connectAFacebookPage(name, id);
-    }
-  };
+  //   if (channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+  //     channelsListViewModel.disconnectAFacebookPage(name, id);
+  //   } else {
+  //     channelsListViewModel.connectAFacebookPage(name, id);
+  //   }
+  // };
 
   render() {
     console.log('============ Before Render ================');
@@ -167,16 +168,16 @@ class ComponentConnectaChannel extends Component {
       handleModalCms,
       isModalCms,
       googleadsConnected,
-      fanpagesConnected,
-    } = this.props;
-    console.log('fanpagesConnected');
-    console.log(fanpagesConnected);
-    const {
       drupalConnected,
       wordpressConnected,
       listFacebookFanpageConnected,
-    } = channelsListViewModel;
-    // listFacebookFanpageConnected = channelsListViewModel.checkConnectedFacebookFanpage();
+      getIdActionFacebookFange,
+      ConnectStatusFanpage,
+      PAGE_STATUS,
+    } = this.props;
+
+    console.log('getIdActionFacebookFange12345');
+    console.log(getIdActionFacebookFange);
 
     return (
       <div className="wrapper_tabs">
@@ -225,20 +226,21 @@ class ComponentConnectaChannel extends Component {
                               <div className="col-6 text-end">
                                 <button
                                   type="button"
-                                  className="cursor-pointer btn"
-                                  // onClick={onBtnDisconnectClick}
-                                  // disabled={isDisabled}
+                                  className="cursor-pointer btn btn-success ct_btn_connect"
                                   onClick={(e) => {
-                                    // this.handleDisconnectAFacebookPage('facebook', value.id);
-                                    // this.checkConnectedFacebookFanpage(value.id);
                                     this.props.handleConnectedFanpage('facebook', value.id);
                                   }}
                                 >
-                                  <span className="ms-2">
-                                    {listFacebookFanpageConnected.indexOf(value.id) > -1
-                                      ? 'Disconnect'
-                                      : 'Connect'}
-                                  </span>
+                                  {ConnectStatusFanpage === PAGE_STATUS.READY ? (
+                                    <span className="ms-2">
+                                      {listFacebookFanpageConnected &&
+                                      listFacebookFanpageConnected.indexOf(value.id) > -1
+                                        ? 'Disconnect'
+                                        : 'Connect'}
+                                    </span>
+                                  ) : (
+                                    <Spinner />
+                                  )}
                                 </button>
                               </div>
                             </div>

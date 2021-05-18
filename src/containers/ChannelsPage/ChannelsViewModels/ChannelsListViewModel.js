@@ -72,6 +72,10 @@ class ChannelsListViewModel {
 
   countSocialMediaConnected = 0;
 
+  getIdActionFacebookFange = true;
+
+  ConnectStatusFanpage = PAGE_STATUS.READY;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -140,6 +144,7 @@ class ChannelsListViewModel {
   };
 
   disconnectAFacebookPage = (channelUniqueName, pageId) => {
+    this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
     this.channelsStore.disconnectAFacebookPage(
       this.callbackOnDisconnectAFacebookPageSuccess,
       this.callbackOnErrorHander,
@@ -149,6 +154,7 @@ class ChannelsListViewModel {
   };
 
   connectAFacebookPage = (channelUniqueName, pageId) => {
+    this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
     this.channelsStore.connectAFacebookPage(
       this.callbackOnConnectAFacebookPageSuccess,
       this.callbackOnErrorHander,
@@ -158,11 +164,13 @@ class ChannelsListViewModel {
   };
 
   callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+    console.log('callbackOnDisconnectAFacebookPageSuccess');
     if (response) {
-      console.log('HERERERERERE', pageId);
       this.tableStatus = PAGE_STATUS.READY;
-      console.log('Hello facebookPagesStatus', this.listFacebookFanpageConnected);
+      this.ConnectStatusFanpage = PAGE_STATUS.READY;
       const index = this.listFacebookFanpageConnected.indexOf(pageId);
+
+      // this.listFacebookFanpageConnected.indexOf(value.id) > -1 ? 'Disconnect' : 'Connect'
       if (index > -1) {
         this.listFacebookFanpageConnected.splice(index, 1);
       }
@@ -172,8 +180,10 @@ class ChannelsListViewModel {
   };
 
   callbackOnConnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+    console.log('callbackOnConnectAFacebookPageSuccess');
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
+      this.ConnectStatusFanpage = PAGE_STATUS.READY;
       this.listFacebookFanpageConnected.push(pageId);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
