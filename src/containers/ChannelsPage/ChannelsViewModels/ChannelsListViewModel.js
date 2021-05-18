@@ -289,9 +289,11 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
+
                   // =============== Social Media End ===============
 
                   // =============== Advertising Start ===============
+
                   case 'fbad': //facebookAdConnected
                     if (responseResult.pages.status === 'connected') {
                       this.facebookAdsConnected = true;
