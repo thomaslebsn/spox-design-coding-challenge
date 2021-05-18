@@ -1,43 +1,33 @@
-import React, { Component, lazy } from "react";
+import React, { Component, lazy } from 'react';
 
-import StepWizard from "react-step-wizard";
+import StepWizard from 'react-step-wizard';
 
-import { ContentPreviewPersona } from "./ContentPreviewPersona";
-import GlobalStore from "../../../store/Store";
-import FragmentStore from "../../../fragments/Store/FragmentStore";
+import { ContentPreviewPersona } from './ContentPreviewPersona';
+import GlobalStore from '../../../store/Store';
+import FragmentStore from '../../../fragments/Store/FragmentStore';
 //PROJECT
-import ProjectTableSelectionModalViewModel from "../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModel";
-import { ProjectTableSelectionModalViewModelContextProvider } from "../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModelContextProvider";
+import ProjectTableSelectionModalViewModel from '../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModel';
+import { ProjectTableSelectionModalViewModelContextProvider } from '../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModalViewModelContextProvider';
 //PERSONA
-import PersonaTableSelectionModalViewModel from "../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
-import { PersonaTableSelectionModalViewModelContextProvider } from "../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModelContextProvider";
+import PersonaTableSelectionModalViewModel from '../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel';
+import { PersonaTableSelectionModalViewModelContextProvider } from '../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModelContextProvider';
 //CAMPAIGN
-import CampaignTableSelectionModalViewModel from "../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModel";
-import { CampaignTableSelectionModalViewModelContextProvider } from "../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModelContextProvider";
+import CampaignTableSelectionModalViewModel from '../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModel';
+import { CampaignTableSelectionModalViewModelContextProvider } from '../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModelContextProvider';
 
-const ContentFormGeneral = lazy(() =>
-  import("./ContentFormGeneral/ContentFormGeneral")
-);
-const ContentFormPublish = lazy(() =>
-  import("./ContentFormPublish/ContentFormPublish")
-);
+const ContentFormGeneral = lazy(() => import('./ContentFormGeneral/ContentFormGeneral'));
+const ContentFormPublish = lazy(() => import('./ContentFormPublish/ContentFormPublish'));
 
 const ProjectTableSelectionModal = lazy(() =>
-  import(
-    "../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModal"
-  )
+  import('../../../fragments/ProjectTableSelectionModal/ProjectTableSelectionModal')
 );
 
 const PersonaTableSelectionModal = lazy(() =>
-  import(
-    "../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModal"
-  )
+  import('../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModal')
 );
 
 const CampaignTableSelectionModal = lazy(() =>
-  import(
-    "../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModal"
-  )
+  import('../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModal')
 );
 
 if (!window.globalStore) {
@@ -49,13 +39,9 @@ const fragmentStore = new FragmentStore({
   globalStore: globalStore,
 });
 
-const projectTableSelectionModalViewModel = new ProjectTableSelectionModalViewModel(
-  fragmentStore
-);
+const projectTableSelectionModalViewModel = new ProjectTableSelectionModalViewModel(fragmentStore);
 
-const personaTableSelectionModalViewModel = new PersonaTableSelectionModalViewModel(
-  fragmentStore
-);
+const personaTableSelectionModalViewModel = new PersonaTableSelectionModalViewModel(fragmentStore);
 
 const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalViewModel(
   fragmentStore
@@ -63,46 +49,34 @@ const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalView
 
 class ContentFormPage extends Component {
   render() {
-    console.log("[ContentFormPage] - re-render .........");
+    console.log('[ContentFormPage] - re-render .........');
 
     let custom = {
-      enterRight: "",
-      enterLeft: "",
-      exitRight: "",
-      exitLeft: "",
+      enterRight: '',
+      enterLeft: '',
+      exitRight: '',
+      exitLeft: '',
     };
 
     return (
       <>
         <StepWizard isLazyMount={true} transitions={custom}>
           <ContentFormGeneral
-            hashKey={"general"}
+            hashKey={'general'}
             match={this.props.match}
-            projectTableSelectionModalViewModel={
-              projectTableSelectionModalViewModel
-            }
-            personaTableSelectionModalViewModel={
-              personaTableSelectionModalViewModel
-            }
-            campaignTableSelectionModalViewModel={
-              campaignTableSelectionModalViewModel
-            }
+            projectTableSelectionModalViewModel={projectTableSelectionModalViewModel}
+            personaTableSelectionModalViewModel={personaTableSelectionModalViewModel}
+            campaignTableSelectionModalViewModel={campaignTableSelectionModalViewModel}
           />
           <ContentFormPublish
-            hashKey={"publish"}
-            personaTableSelectionModalViewModel={
-              personaTableSelectionModalViewModel
-            }
-            campaignTableSelectionModalViewModel={
-              campaignTableSelectionModalViewModel
-            }
+            hashKey={'publish'}
+            personaTableSelectionModalViewModel={personaTableSelectionModalViewModel}
+            campaignTableSelectionModalViewModel={campaignTableSelectionModalViewModel}
           />
         </StepWizard>
 
         <ContentPreviewPersona
-          personaTableSelectionModalViewModel={
-            personaTableSelectionModalViewModel
-          }
+          personaTableSelectionModalViewModel={personaTableSelectionModalViewModel}
         />
 
         <ProjectTableSelectionModalViewModelContextProvider

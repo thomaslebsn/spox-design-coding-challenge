@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import './index.scss';
 
 class ComponentSwitch extends Component {
   constructor() {
@@ -6,9 +7,15 @@ class ComponentSwitch extends Component {
   }
 
   render() {
-    let { handleChange, checked, text, id } = this.props;
+    let { handleChange, checked, text, id, textLeft } = this.props;
     return (
       <div className="form-check form-switch">
+        {textLeft && (
+          <label className="form-check-label me-2" htmlFor={id}>
+            {textLeft}
+          </label>
+        )}
+
         <input
           className="form-check-input w-98"
           type="checkbox"
@@ -16,9 +23,11 @@ class ComponentSwitch extends Component {
           checked={checked}
           onChange={handleChange}
         />
-        <label className="form-check-label" htmlFor={id}>
-          {text}
-        </label>
+        {text && (
+          <label className="form-check-label" htmlFor={id}>
+            {text}
+          </label>
+        )}
       </div>
     );
   }

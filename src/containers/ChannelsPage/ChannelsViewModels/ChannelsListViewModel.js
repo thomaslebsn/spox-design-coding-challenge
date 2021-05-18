@@ -12,6 +12,10 @@ class ChannelsListViewModel {
 
   facebookConnected = false;
 
+  listFacebookFanpageConnected = null;
+
+  isPageConnected = false;
+
   facebookAdsConnected = false;
 
   youtubeConnected = false;
@@ -68,6 +72,10 @@ class ChannelsListViewModel {
 
   countSocialMediaConnected = 0;
 
+  getIdActionFacebookFange = true;
+
+  ConnectStatusFanpage = PAGE_STATUS.READY;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -105,6 +113,19 @@ class ChannelsListViewModel {
     this.countSocialMediaConnected = 0;
   }
 
+  onSuccessGoogleConnect = (dataToken) => {
+    this.channelsStore.saveAccessTokenChannel(
+      this.callbackOnSuccessGoogleConnected,
+      this.callbackOnErrorHander,
+      'google_ads',
+      dataToken
+    );
+  };
+
+  callbackOnSuccessGoogleConnected = (result) => {
+    this.googleadsConnected = true;
+  };
+
   connectLoginUrl = (channelUniqueName) => {
     this.channelsStore.getChannelLoginUrl(
       this.callbackOnSuccessChannel,
@@ -135,7 +156,54 @@ class ChannelsListViewModel {
     notify(error.message);
   };
 
-  callbackOnSuccessChannel = (response, channelUniqueName) => {
+  disconnectAFacebookPage = (channelUniqueName, pageId) => {
+    this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
+    this.channelsStore.disconnectAFacebookPage(
+      this.callbackOnDisconnectAFacebookPageSuccess,
+      this.callbackOnErrorHander,
+      channelUniqueName,
+      pageId
+    );
+  };
+
+  connectAFacebookPage = (channelUniqueName, pageId) => {
+    this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
+    this.channelsStore.connectAFacebookPage(
+      this.callbackOnConnectAFacebookPageSuccess,
+      this.callbackOnErrorHander,
+      channelUniqueName,
+      pageId
+    );
+  };
+
+  callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+    console.log('callbackOnDisconnectAFacebookPageSuccess');
+    if (response) {
+      this.tableStatus = PAGE_STATUS.READY;
+      this.ConnectStatusFanpage = PAGE_STATUS.READY;
+      const index = this.listFacebookFanpageConnected.indexOf(pageId);
+
+      // this.listFacebookFanpageConnected.indexOf(value.id) > -1 ? 'Disconnect' : 'Connect'
+      if (index > -1) {
+        this.listFacebookFanpageConnected.splice(index, 1);
+      }
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
+
+  callbackOnConnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+    console.log('callbackOnConnectAFacebookPageSuccess');
+    if (response) {
+      this.tableStatus = PAGE_STATUS.READY;
+      this.ConnectStatusFanpage = PAGE_STATUS.READY;
+      this.listFacebookFanpageConnected.push(pageId);
+    } else {
+      this.tableStatus = PAGE_STATUS.ERROR;
+    }
+  };
+
+  callbackOnSuccessChannel = (response, channelUniqueName, pageId) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       console.log('callbackOnSuccessChannel');
@@ -161,6 +229,13 @@ class ChannelsListViewModel {
                 let responseResult = response.result;
 
                 switch (channelUniqueName) {
+                  case 'fbad': //facebookAdConnected
+                    if (responseResult.pages.status === 'connected') {
+                      this.facebookAdsConnected = true;
+                      clearInterval(checkConnectionStatusInterval);
+                      this.listFacebookAdsAccount = responseResult.pages.adAccounts;
+                    }
+                    break;
                   // =============== Social Media Start ===============
                   case 'facebook':
                     if (responseResult.pages.status === 'connected') {
@@ -168,6 +243,7 @@ class ChannelsListViewModel {
                       this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                       this.listFaceBookFanpage = responseResult.pages.pages;
+                      this.listFacebookFanpageConnected = responseResult.pages.connected;
                       console.log(this.listFaceBookFanpage);
                     }
                     break;
@@ -195,7 +271,7 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-
+                  case 'mailchimp':
                   case 'instagram':
                     if (responseResult.connected == 1) {
                       this.instagramConnected = true;
@@ -209,7 +285,6 @@ class ChannelsListViewModel {
                       this.tumblrConnected = true;
                     }
                     break;
-
                   case 'medium':
                     if (responseResult.connected == 1) {
                       this.mediumConnected = true;
@@ -245,6 +320,7 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
+                  case 'medium':
                   // =============== Email Marketing End ===============
 
                   // =============== CMS End ===============
@@ -290,6 +366,10 @@ class ChannelsListViewModel {
     }
   };
 
+  checkConnectedFacebookFanpage() {
+    return this.listFacebookFanpageConnected;
+  }
+
   checkConnectedChannels(channels) {
     channels.map((channelType) => {
       console.log('----------------', channelType);
@@ -297,7 +377,6 @@ class ChannelsListViewModel {
         (response) => {
           if (response) {
             let responseResult = response.result;
-
             /*
                 this.countCMSConnected = 0;
                 this.countAdvertisingConnected = 0;
@@ -312,19 +391,37 @@ class ChannelsListViewModel {
                   this.countSocialMediaConnected++;
                   let listFpConnected = responseResult.pages.connected;
                   let listFanpage = responseResult.pages.pages;
+                  this.listFacebookFanpageConnected = responseResult.pages.connected;
+                  console.log(
+                    'Mamia listFacebookFanpageConnected',
+                    this.listFacebookFanpageConnected
+                  );
 
-                  if (listFpConnected.length > 0) {
-                    this.listFaceBookFanpageView = [];
-                    listFanpage.map((fanpage) => {
-                      if (listFpConnected.indexOf(fanpage.id) > -1) {
-                        this.listFaceBookFanpageView.push(fanpage);
+                  this.listFaceBookFanpageView = [];
+                  listFanpage.map((fanpage) => {
+                    this.listFaceBookFanpageView.push(fanpage);
+                  });
+                }
+                break;
+              case 'fbad':
+                if (responseResult.pages.status === 'connected') {
+                  this.facebookAdsConnected = true;
+                  let listAdAccountsConnected = responseResult.pages.connected;
+                  let listAdAccounts = responseResult.pages.adAccounts;
+
+                  if (listAdAccountsConnected.length > 0) {
+                    this.listFacebookAdsAccountView = [];
+                    listAdAccounts.map((adAccount) => {
+                      if (listAdAccountsConnected.indexOf(adAccount.id) > -1) {
+                        this.listFacebookAdsAccountView.push(adAccount);
                       }
                     });
                   } else {
-                    this.listFaceBookFanpage = listFanpage;
+                    this.listFacebookAdsAccount = listAdAccounts;
                   }
                 }
                 break;
+
               case 'youtube':
                 if (responseResult.connected == 1) {
                   this.youtubeConnected = true;
@@ -352,18 +449,21 @@ class ChannelsListViewModel {
                   this.countSocialMediaConnected++;
                 }
                 break;
+
               case 'tumblr':
                 if (responseResult.connected == 1) {
                   this.tumblrConnected = true;
                   this.countSocialMediaConnected++;
                 }
                 break;
+
               case 'medium':
                 if (responseResult.connected == 1) {
                   this.mediumConnected = true;
                   this.countSocialMediaConnected++;
                 }
                 break;
+
               // =============== Social Media End ===============
 
               // =============== Advertising Start ===============
@@ -373,6 +473,7 @@ class ChannelsListViewModel {
                   this.countAdvertisingConnected++;
                 }
                 break;
+
               case 'fbad':
                 if (responseResult.pages && responseResult.pages.status === 'connected') {
                   this.facebookAdsConnected = true;
@@ -472,12 +573,10 @@ class ChannelsListViewModel {
   };
 
   callbackOnSuccessListFacebookAdAccount = (response, accountIds) => {
-    console.log('HA03 AAAAAAAAAAAA', response);
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.channelsStore.getFacebookAdAccounts(
         (res) => {
-          console.log('HA03', res);
           this.listFacebookAdsAccountView = res.result.pages.adAccounts;
         },
         (error) => {},

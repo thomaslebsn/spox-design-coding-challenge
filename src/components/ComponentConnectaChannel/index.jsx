@@ -1,11 +1,14 @@
 import React, { Component, lazy } from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
+import { Tab, Tabs, Spinner } from 'react-bootstrap';
 
 import LoginChannelCMSFormModal from '../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal';
 import styles from './index.module.scss';
+import './index.scss';
 import Upgrade from '../Upgrade';
 import ButtonConnect from '../ButtonConnect';
 import ButtonUpgrade from '../ButtonUpgrade';
+import ButtonConnectGoogle from '../ButtonConnectGoogle';
+import ButtonConnectFacebook from '../ButtonConnectFacebook';
 import {
   CHANNEL_ADS_GOOGLE,
   CHANNEL_CMS_DRUPAL,
@@ -13,6 +16,7 @@ import {
   CHANNEL_CMS_MEDIUM,
   CHANNEL_CMS_WORDPRESS,
 } from '../../constants/ChannelModule';
+import { EASII_CONFIGS } from 'easii-io-web-service-library';
 
 const ModalComponent = lazy(() => import('../../components/Modal'));
 class ComponentConnectaChannel extends Component {
@@ -56,6 +60,10 @@ class ComponentConnectaChannel extends Component {
   };
 
   isAllowedConnectChannel = (channelType, groupType) => {
+    if (!EASII_CONFIGS.ENABLE_PRICING_PLAN) {
+      return true;
+    }
+
     switch (groupType) {
       case 'social_media':
         const { socialMediaFeaturesMasterData, countSocialMediaConnected } = this.props;
@@ -132,6 +140,16 @@ class ComponentConnectaChannel extends Component {
     this.props.channelsListViewModel.mustUpgrade = false;
   };
 
+  // handleDisconnectAFacebookPage = (name, id) => {
+  //   let { channelsListViewModel } = this.props;
+
+  //   if (channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+  //     channelsListViewModel.disconnectAFacebookPage(name, id);
+  //   } else {
+  //     channelsListViewModel.connectAFacebookPage(name, id);
+  //   }
+  // };
+
   render() {
     console.log('============ Before Render ================');
     console.log(this.props);
@@ -152,9 +170,16 @@ class ComponentConnectaChannel extends Component {
       handleModalCms,
       isModalCms,
       googleadsConnected,
+      drupalConnected,
+      wordpressConnected,
+      listFacebookFanpageConnected,
+      getIdActionFacebookFange,
+      ConnectStatusFanpage,
+      PAGE_STATUS,
     } = this.props;
 
-    const { drupalConnected, wordpressConnected } = channelsListViewModel;
+    console.log('getIdActionFacebookFange12345');
+    console.log(getIdActionFacebookFange);
 
     return (
       <div className="wrapper_tabs">
@@ -167,7 +192,7 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/facebook.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook</span>
                   </div>
-                  {facebookConnected || this.isAllowedConnectChannel('facebook', 'social_media') ? (
+                  {/* {facebookConnected || this.isAllowedConnectChannel('facebook', 'social_media') ? (
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
@@ -179,7 +204,8 @@ class ComponentConnectaChannel extends Component {
                     </button>
                   ) : (
                     <ButtonUpgrade />
-                  )}
+                  )} */}
+                  <ButtonConnectFacebook />
                 </div>
                 {listFaceBookFanpageView && (
                   <div className="p-3">
@@ -199,6 +225,26 @@ class ComponentConnectaChannel extends Component {
                                 <div className="d-flex align-items-center">
                                   <span className="ms-2">{value.name}</span>
                                 </div>
+                              </div>
+                              <div className="col-6 text-end">
+                                <button
+                                  type="button"
+                                  className="cursor-pointer btn btn-success ct_btn_connect"
+                                  onClick={(e) => {
+                                    this.props.handleConnectedFanpage('facebook', value.id);
+                                  }}
+                                >
+                                  {ConnectStatusFanpage === PAGE_STATUS.READY ? (
+                                    <span className="ms-2">
+                                      {listFacebookFanpageConnected &&
+                                      listFacebookFanpageConnected.indexOf(value.id) > -1
+                                        ? 'Disconnect'
+                                        : 'Connect'}
+                                    </span>
+                                  ) : (
+                                    <Spinner />
+                                  )}
+                                </button>
                               </div>
                             </div>
                           );
@@ -398,15 +444,16 @@ class ComponentConnectaChannel extends Component {
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Google Adwords</span>
                   </div>
                   {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
-                    <button
+                    <ButtonConnectGoogle
+                      scope="https://www.googleapis.com/auth/adwords"
+                      clientId="591849916879-8gc5gct9fsgbh76hqd5lonig8c1n1666.apps.googleusercontent.com"
+                      onSuccess={this.props.onSuccessGoogleConnect}
+                      onFailure={this.props.onFailureGoogleConnect}
+                      onRequest={this.props.onRequestGoogleConnect}
+                      isDisabled={googleadsConnected}
+                      buttonText={googleadsConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
-                      }}
-                      disabled={googleadsConnected}
-                    >
-                      <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
-                    </button>
+                    />
                   ) : (
                     <ButtonUpgrade />
                   )}
@@ -477,13 +524,6 @@ class ComponentConnectaChannel extends Component {
                   )}
                 </div>
               </div>
-              {/* <LoginChannelCMSFormModal
-                handleModalCms={handleModalCms}
-                loginCMSChannelFormModalViewModel={
-                  this.loginCMSChannelFormModalViewModel
-                }
-                isModalCms={isModalCms}
-              /> */}
             </div>
           </Tab>
           <Tab eventKey={4} title={'Email Marketing'}>
@@ -494,7 +534,6 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/mailchimp.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Mailchimp</span>
                   </div>
-                  {/* {wordpressConnected || this.isAllowedConnectChannel(CHANNEL_CMS_WORDPRESS, 'cms') ? () : (<ButtonUpgrade/>)} */}
                   {mailchimpConnected ||
                   this.isAllowedConnectChannel('mailchimp', 'email_marketing') ? (
                     <button
