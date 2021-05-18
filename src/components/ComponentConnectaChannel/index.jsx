@@ -7,6 +7,7 @@ import './index.scss';
 import Upgrade from '../Upgrade';
 import ButtonConnect from '../ButtonConnect';
 import ButtonUpgrade from '../ButtonUpgrade';
+import ButtonConnectGoogle from '../ButtonConnectGoogle';
 import {
   CHANNEL_ADS_GOOGLE,
   CHANNEL_CMS_DRUPAL,
@@ -441,15 +442,16 @@ class ComponentConnectaChannel extends Component {
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Google Adwords</span>
                   </div>
                   {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
-                    <button
+                    <ButtonConnectGoogle
+                      scope="https://www.googleapis.com/auth/adwords"
+                      clientId="591849916879-8gc5gct9fsgbh76hqd5lonig8c1n1666.apps.googleusercontent.com"
+                      onSuccess={this.props.onSuccessGoogleConnect}
+                      onFailure={this.props.onFailureGoogleConnect}
+                      onRequest={this.props.onRequestGoogleConnect}
+                      isDisabled={googleadsConnected}
+                      buttonText={googleadsConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
-                      }}
-                      disabled={googleadsConnected}
-                    >
-                      <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
-                    </button>
+                    />
                   ) : (
                     <ButtonUpgrade />
                   )}
@@ -520,13 +522,6 @@ class ComponentConnectaChannel extends Component {
                   )}
                 </div>
               </div>
-              {/* <LoginChannelCMSFormModal
-                handleModalCms={handleModalCms}
-                loginCMSChannelFormModalViewModel={
-                  this.loginCMSChannelFormModalViewModel
-                }
-                isModalCms={isModalCms}
-              /> */}
             </div>
           </Tab>
           <Tab eventKey={4} title={'Email Marketing'}>

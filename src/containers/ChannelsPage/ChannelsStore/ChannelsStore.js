@@ -339,4 +339,19 @@ export default class ChannelsStore {
       });
     }
   }
+
+  async saveAccessTokenChannel(callbackOnSuccess, callbackOnError, channelType, dataAccessToken) {
+    const channelService = new EasiiOrganisationChannelApiService();
+    const response = await channelService.onConnectChannelSuccess(channelType, dataAccessToken);
+
+    if (response == true) {
+      runInAction(() => {
+        callbackOnSuccess(response);
+      });
+    } else {
+      callbackOnError({
+        message: 'Something went wrong from Server response',
+      });
+    }
+  }
 }
