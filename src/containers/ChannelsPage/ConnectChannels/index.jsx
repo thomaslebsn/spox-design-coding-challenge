@@ -153,7 +153,7 @@ const ConnectChannels = observer(
       window.FB.api('me/accounts', (response) => {
         if (response) {
           const connected = response.data.map((item) => item.id);
-          const data = {
+          const dataAccessToken = {
             pages: response.data,
             connected: connected,
             status: 'connected',

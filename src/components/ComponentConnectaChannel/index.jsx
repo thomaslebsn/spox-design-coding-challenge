@@ -209,6 +209,8 @@ class ComponentConnectaChannel extends Component {
                     scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
                     onFacebookSuccess={this.props.onSuccessFacebookConnect}
                     onFacebookFailure={this.props.onFailureFacebookConnect}
+                    buttonText={facebookConnected ? 'Connected' : 'Connect'}
+                    isDisable={facebookConnected ? true : false}
                   />
                 </div>
                 {listFaceBookFanpageView && (

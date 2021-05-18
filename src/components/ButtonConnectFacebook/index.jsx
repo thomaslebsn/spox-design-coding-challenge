@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import initFacebookSdk from './initFacebookSdk';
 
 const ButtonConnectFacebook = (props) => {
-  const { scope, onFacebookSuccess, onFacebookFailure } = props;
+  const { scope, onFacebookSuccess, onFacebookFailure, buttonText, isDisable } = props;
 
   useEffect(() => {
     initFacebookSdk().then();
@@ -27,7 +27,9 @@ const ButtonConnectFacebook = (props) => {
 
   return (
     <>
-      <button onClick={handleClick}>test</button>
+      <button className="cursor-pointer btn btn-success" onClick={handleClick} disabled={isDisable}>
+        <span className="ms-2">{buttonText}</span>
+      </button>
     </>
   );
 };
