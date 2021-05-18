@@ -15,7 +15,7 @@ export default class SignUpStore {
       console.log(convertedSignUpData);
 
       const signupAPIService = new EasiiMemberApiService();
-
+      const resultOfRequestingToken = signupAPIService.requestANewToken();
       let resultOnSave = await signupAPIService.createMember(
         convertedSignUpData
       );
