@@ -14,9 +14,9 @@ class SignUpFormViewModel {
 
   saveMemberOnPage = () => {
     const fakeData = {
-      username: 'datkira',
-      email: 'abc.nguyentiendat@gmail.com',
-      password: '123456'
+      username: 'Thien Test 0004',
+      email: 'test0000321321@gmail.com',
+      password: 'test@2021'
     }
     /*this.signupStore.saveMember(
       this.signupFormComponent.formPropsData,

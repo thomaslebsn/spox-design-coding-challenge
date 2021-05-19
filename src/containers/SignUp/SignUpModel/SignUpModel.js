@@ -35,8 +35,7 @@ class SignUpModel {
   };
 
   toTableRowData = () => {
-    const
-      username = this.getUsername(),
+    const username = this.getUsername(),
       email = this.getEmail(),
       password = this.getPassword();
 
