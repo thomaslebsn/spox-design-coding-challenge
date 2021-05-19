@@ -13,13 +13,19 @@ export default class SignUpStore {
       );
       console.log('SignUp Converted Data');
       console.log(convertedSignUpData);
-
+      let resultOnSave = false;
       const signupAPIService = new EasiiMemberApiService();
-
-      let resultOnSave = await signupAPIService.createMember(
-        convertedSignUpData
-      );
-
+      const accessToken = localStorage.getItem('access_token');
+      let resultOnRefreshANewTockenOnBrowser = accessToken ? true : false;
+      if(!resultOnRefreshANewTockenOnBrowser){
+        resultOnRefreshANewTockenOnBrowser = await signupAPIService.refreshANewTokenOnWebBrowser();
+      }
+      if(resultOnRefreshANewTockenOnBrowser){
+         resultOnSave = await signupAPIService.createMember(
+          convertedSignUpData
+        );
+      }     
+      
       console.log('resultOnSave ', resultOnSave);
 
       if (resultOnSave) {

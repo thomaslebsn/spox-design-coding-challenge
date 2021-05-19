@@ -35,8 +35,7 @@ class SignUpModel {
   };
 
   toTableRowData = () => {
-    const
-      username = this.getUsername(),
+    const username = this.getUsername(),
       email = this.getEmail(),
       password = this.getPassword();
 
@@ -50,10 +49,10 @@ class SignUpModel {
   static convertSubmittedDataToAPIService(signUpData) {
     return signUpData
       ? {
-        [SIGNUP_FIELD_KEY.USERNAME]: signUpData[SIGNUP_FIELD_KEY.USERNAME],
-        [SIGNUP_FIELD_KEY.EMAIL]: signUpData[SIGNUP_FIELD_KEY.EMAIL],
-        [SIGNUP_FIELD_KEY.PASSWORD]: signUpData[SIGNUP_FIELD_KEY.PASSWORD],
-      }
+          [SIGNUP_FIELD_KEY.USERNAME]: signUpData[SIGNUP_FIELD_KEY.USERNAME],
+          [SIGNUP_FIELD_KEY.EMAIL]: signUpData[SIGNUP_FIELD_KEY.EMAIL],
+          [SIGNUP_FIELD_KEY.PASSWORD]: signUpData[SIGNUP_FIELD_KEY.PASSWORD],
+        }
       : null;
   }
 }
