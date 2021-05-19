@@ -94,11 +94,13 @@ class ComponentSetupFBIAds extends Component {
       timeDate: new Date(),
       isEndDate: false,
       campaignObjectiveCheck: '',
-      isClickedMessenger: false,
+      isShowMessengerModal: false,
     };
   }
 
   handleRadioTraffic = (name) => {
+    let { trafficCheck } = this.state;
+
     this.setState({
       trafficCheck: name,
     });
@@ -125,6 +127,18 @@ class ComponentSetupFBIAds extends Component {
   handleCampaignObjective = (name) => {
     this.setState({
       campaignObjectiveCheck: name,
+    });
+  };
+
+  handleEditMessengerModal = () => {
+    this.setState({
+      isShowMessengerModal: true,
+    });
+  };
+
+  handleHideMessengerModal = () => {
+    this.setState({
+      isShowMessengerModal: false,
     });
   };
 
@@ -409,7 +423,10 @@ class ComponentSetupFBIAds extends Component {
                     </p>
                   </div>
                   {trafficCheck === 'traffic_messenger' && (
-                    <button className="btn btn btn-success py-2 mt-3">
+                    <button
+                      className="btn btn btn-success py-2 mt-3"
+                      onClick={this.handleEditMessengerModal}
+                    >
                       <i className="text-white me-1">
                         <FontAwesomeIcon icon={faEdit} />
                       </i>
@@ -600,13 +617,12 @@ class ComponentSetupFBIAds extends Component {
             </div>
           </div>
         )}
-        {/* this.state.trafficCheck === 'traffic_messenger' ? true : false */}
         <ModalComponent
           dialogClassName={'modal_messenger_ads'}
           header={'Create Template'}
           body={<ComponentMessengerAdsModal />}
-          show={this.state.isClickedMessenger}
-          onHide={this.toggleMessengerButton}
+          show={this.state.isShowMessengerModal}
+          onHide={this.handleHideMessengerModal}
         />
       </div>
     );
