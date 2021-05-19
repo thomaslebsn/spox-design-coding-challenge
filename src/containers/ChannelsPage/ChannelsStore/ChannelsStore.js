@@ -346,7 +346,7 @@ export default class ChannelsStore {
 
     if (response == true) {
       runInAction(() => {
-        callbackOnSuccess(response);
+        callbackOnSuccess(channelType);
       });
     } else {
       callbackOnError({
