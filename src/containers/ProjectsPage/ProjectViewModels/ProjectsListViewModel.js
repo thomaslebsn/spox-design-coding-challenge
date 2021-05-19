@@ -1,8 +1,8 @@
-import { makeAutoObservable } from "mobx";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import ProjectUtils from "../ProjectUtils/ProjectUtils";
-import { PROJECT_COLUMN_INDICATOR } from "../../../constants/ProjectModule";
-import { notify } from "../../../components/Toast";
+import { makeAutoObservable } from 'mobx';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import ProjectUtils from '../ProjectUtils/ProjectUtils';
+import { PROJECT_COLUMN_INDICATOR } from '../../../constants/ProjectModule';
+import { notify } from '../../../components/Toast';
 class ProjectsListViewModel {
   projectStore = null;
 
@@ -37,6 +37,8 @@ class ProjectsListViewModel {
   listFaceBookFanpage = null;
 
   listFaceBookFanpageView = null;
+
+  listFacebookFanpageConnected = null;
 
   listFacebookAdsAccount = null;
 
@@ -77,7 +79,7 @@ class ProjectsListViewModel {
     let getArrayId = this.projectIdsSelected;
 
     if (getArrayId === null) {
-      notify("Please true add list an item for delete");
+      notify('Please true add list an item for delete');
     } else {
       this.tableStatus = PAGE_STATUS.LOADING;
 
@@ -90,7 +92,7 @@ class ProjectsListViewModel {
   };
 
   getPagination = (paginationStep, isList) => {
-    console.log("paginationStep", paginationStep);
+    console.log('paginationStep', paginationStep);
     this.tableStatus = PAGE_STATUS.LOADING;
     this.isList = isList;
     this.projectStore.fetchProjects(
@@ -112,13 +114,13 @@ class ProjectsListViewModel {
   };
 
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
+    console.log('callbackOnErrorHander');
     console.log(error);
     notify(error.message);
   };
 
   callbackOnSuccessHandler = (projectModelData) => {
-    console.log("callbackOnSuccessHandler");
+    console.log('callbackOnSuccessHandler');
     console.log(projectModelData);
     if (projectModelData) {
       this.tableStatus = PAGE_STATUS.READY;
@@ -127,7 +129,7 @@ class ProjectsListViewModel {
         projectModelData.list
       );
 
-      console.log("Row Data is Formatted");
+      console.log('Row Data is Formatted');
       console.log(rowDataTransformed);
 
       this.projects = rowDataTransformed;

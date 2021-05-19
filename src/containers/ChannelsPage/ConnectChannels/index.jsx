@@ -14,6 +14,8 @@ import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
 const ConnectChannels = observer(
   class ConnectChannels extends Component {
     channelsListViewModel = null;
+    listFacebookFanpageConnected = null;
+    test = null;
     constructor(props) {
       super(props);
       const { viewModel } = props;
@@ -115,13 +117,60 @@ const ConnectChannels = observer(
 
     handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
-      console.log('handleModalCms');
-      console.log(this.loginCMSChannelFormModalViewModel);
       this.loginCMSChannelFormModalViewModel.openModal();
+    };
+
+    handleConnectedFanpage = (channelType, id) => {
+      if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+      } else {
+        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+      }
+    };
+
+    onSuccessGoogleConnect = (res) => {
+      console.log('google success');
+      console.log(res);
+      console.log(res.isSignedIn());
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'google_ads');
+    };
+
+    onFailureGoogleConnect = (err) => {
+      console.log('hung test');
+    };
+
+    onRequestGoogleConnect = (req, res) => {};
+
+    onSuccessFacebookConnect = (response) => {
+      console.log('onSuccessFacebookConnect');
+
+      window.FB.api('me/accounts', (response) => {
+        if (response) {
+          const connected = response.data.map((item) => item.id);
+          const dataAccessToken = {
+            pages: response.data,
+            connected: connected,
+            status: 'connected',
+          };
+
+          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'facebook');
+        }
+      });
+    };
+
+    onFailureFacebookConnect = (err) => {
+      console.log('hung test');
     };
 
     render() {
       let { showModal } = this.state;
+      this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
 
       const {
         listFaceBookFanpage,
@@ -150,9 +199,10 @@ const ConnectChannels = observer(
         countAdvertisingConnected,
         countEmailMarketingConnected,
         countSocialMediaConnected,
+        drupalConnected,
+        getIdActionFacebookFange,
+        ConnectStatusFanpage,
       } = this.channelsListViewModel;
-
-      console.log('this.channelsListViewModel', this.channelsListViewModel);
 
       return (
         <div className="py-4 px-3">
@@ -161,6 +211,9 @@ const ConnectChannels = observer(
             <ComponentConnectaChannel
               channelsListViewModel={this.channelsListViewModel}
               listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
+              listFacebookFanpageConnected={
+                this.listFacebookFanpageConnected ? this.listFacebookFanpageConnected : null
+              }
               listFacebookAdsAccountView={
                 listFacebookAdsAccountView ? listFacebookAdsAccountView : null
               }
@@ -181,6 +234,7 @@ const ConnectChannels = observer(
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
               googleadsConnected={googleadsConnected}
+              handleConnectedFanpage={this.handleConnectedFanpage}
               advertisingFeaturesMasterData={advertisingFeaturesMasterData}
               cmsFeaturesMasterData={cmsFeaturesMasterData}
               socialMediaFeaturesMasterData={socialMediaFeaturesMasterData}
@@ -189,9 +243,18 @@ const ConnectChannels = observer(
               countAdvertisingConnected={countAdvertisingConnected}
               countEmailMarketingConnected={countEmailMarketingConnected}
               countSocialMediaConnected={countSocialMediaConnected}
+              onSuccessGoogleConnect={this.onSuccessGoogleConnect}
+              onFailureGoogleConnect={this.onFailureGoogleConnect}
+              onRequestGoogleConnect={this.onRequestGoogleConnect}
+              onSuccessFacebookConnect={this.onSuccessFacebookConnect}
+              onFailureFacebookConnect={this.onFailureFacebookConnect}
+              drupalConnected={drupalConnected}
+              getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
+              ConnectStatusFanpage={ConnectStatusFanpage}
+              PAGE_STATUS={PAGE_STATUS}
             />
           </div>
-          {listFaceBookFanpage && (
+          {/* {listFaceBookFanpage && (
             <ModalComponent
               header={'Facebook Fanpage'}
               body={
@@ -223,7 +286,7 @@ const ConnectChannels = observer(
                 </button>
               }
             />
-          )}
+          )} */}
           {listFacebookAdsAccount && (
             <ModalComponent
               header={'Facebook Ad Accounts'}
