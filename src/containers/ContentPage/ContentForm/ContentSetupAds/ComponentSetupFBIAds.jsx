@@ -15,6 +15,9 @@ import DatePickerTime from '../../../../components/ComponentSchedule/DatePickerT
 import Checkbox from '../../../../components/Checkbox';
 import ComponentAudience from '../../../../components/ComponentAudience';
 
+import ModalComponent from '../../../../components/Modal';
+import ComponentMessengerAdsModal from './ComponentMessengerAdsModal';
+
 const facebookFanpage = [
   { value: '01', label: 'redWEB Fanpage' },
   { value: '02', label: 'redWEB Fanpage 2' },
@@ -91,10 +94,13 @@ class ComponentSetupFBIAds extends Component {
       timeDate: new Date(),
       isEndDate: false,
       campaignObjectiveCheck: '',
+      isShowMessengerModal: false,
     };
   }
 
   handleRadioTraffic = (name) => {
+    let { trafficCheck } = this.state;
+
     this.setState({
       trafficCheck: name,
     });
@@ -121,6 +127,18 @@ class ComponentSetupFBIAds extends Component {
   handleCampaignObjective = (name) => {
     this.setState({
       campaignObjectiveCheck: name,
+    });
+  };
+
+  handleEditMessengerModal = () => {
+    this.setState({
+      isShowMessengerModal: true,
+    });
+  };
+
+  handleHideMessengerModal = () => {
+    this.setState({
+      isShowMessengerModal: false,
     });
   };
 
@@ -405,7 +423,10 @@ class ComponentSetupFBIAds extends Component {
                     </p>
                   </div>
                   {trafficCheck === 'traffic_messenger' && (
-                    <button className="btn btn btn-success py-2 mt-3">
+                    <button
+                      className="btn btn btn-success py-2 mt-3"
+                      onClick={this.handleEditMessengerModal}
+                    >
                       <i className="text-white me-1">
                         <FontAwesomeIcon icon={faEdit} />
                       </i>
@@ -596,6 +617,13 @@ class ComponentSetupFBIAds extends Component {
             </div>
           </div>
         )}
+        <ModalComponent
+          dialogClassName={'modal_messenger_ads'}
+          header={'Create Template'}
+          body={<ComponentMessengerAdsModal />}
+          show={this.state.isShowMessengerModal}
+          onHide={this.handleHideMessengerModal}
+        />
       </div>
     );
   }
