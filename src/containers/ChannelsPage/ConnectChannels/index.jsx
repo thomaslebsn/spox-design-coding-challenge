@@ -129,9 +129,6 @@ const ConnectChannels = observer(
     };
 
     onSuccessGoogleConnect = (res) => {
-      console.log('google success');
-      console.log(res);
-      console.log(res.isSignedIn());
       let dataAccessToken = {
         profileObject: res.profileObj,
         tokenObject: res.tokenObj,
@@ -139,10 +136,6 @@ const ConnectChannels = observer(
       };
 
       this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'google_ads');
-    };
-
-    onFailureGoogleConnect = (err) => {
-      console.log('hung test');
     };
 
     onRequestGoogleConnect = (req, res) => {};
@@ -164,15 +157,7 @@ const ConnectChannels = observer(
       });
     };
 
-    onFailureFacebookConnect = (err) => {
-      console.log('hung test');
-    };
-
     onSuccessYoutubeConnect = (res) => {
-      console.log('youtube success');
-      console.log(res);
-      console.log(res.isSignedIn());
-
       let dataAccessToken = {
         profileObject: res.profileObj,
         tokenObject: res.tokenObj,
@@ -182,7 +167,22 @@ const ConnectChannels = observer(
       this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'youtube');
     };
 
-    onFailureYoutubeConnect = (err) => {
+    onSuccessInstagramConnect = () => {
+      window.FB.api('me/accounts', (response) => {
+        if (response) {
+          const connected = response.data.map((item) => item.id);
+          const dataAccessToken = {
+            pages: response.data,
+            connected: connected,
+            status: 'connected',
+          };
+
+          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
+        }
+      });
+    };
+
+    onFailureConnectChannels = (err) => {
       console.log('hung test');
     };
 
@@ -270,8 +270,9 @@ const ConnectChannels = observer(
               getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
               ConnectStatusFanpage={ConnectStatusFanpage}
               PAGE_STATUS={PAGE_STATUS}
+              onFailureConnectChannels={this.onFailureConnectChannels}
               onSuccessYoutubeConnect={this.onSuccessYoutubeConnect}
-              onFailureYoutubeConnect={this.onFailureYoutubeConnect}
+              onSuccessInstagramConnect={this.onSuccessInstagramConnect}
             />
           </div>
           {/* {listFaceBookFanpage && (

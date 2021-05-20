@@ -114,6 +114,13 @@ class ChannelsListViewModel {
   }
 
   onSuccessConnect = (dataToken, channelType) => {
+    let dataTokenFormat = JSON.parse(dataToken);
+
+    if (channelType === 'facebook') {
+      this.listFaceBookFanpageView = dataTokenFormat.pages;
+      this.listFacebookFanpageConnected = dataTokenFormat.connected;
+    }
+
     this.channelsStore.saveAccessTokenChannel(
       this.callbackOnSuccessConnected,
       this.callbackOnErrorHander,
@@ -130,6 +137,8 @@ class ChannelsListViewModel {
         this.facebookConnected = true;
       case 'youtube':
         this.youtubeConnected = true;
+      case 'instagram':
+        this.instagramConnected = true;
     }
   };
 
@@ -240,25 +249,6 @@ class ChannelsListViewModel {
                     }
                     break;
                   // =============== Social Media Start ===============
-                  case 'facebook':
-                    if (responseResult.pages.status === 'connected') {
-                      this.facebookConnected = true;
-                      this.countSocialMediaConnected++;
-                      clearInterval(checkConnectionStatusInterval);
-                      this.listFaceBookFanpage = responseResult.pages.pages;
-                      this.listFaceBookFanpageView = responseResult.pages.pages;
-                      this.listFacebookFanpageConnected = responseResult.pages.connected;
-                      console.log(this.listFaceBookFanpage);
-                    }
-                    break;
-
-                  // case 'youtube':
-                  //   if (responseResult.connected == 1) {
-                  //     this.youtubeConnected = true;
-                  //     this.countSocialMediaConnected++;
-                  //     clearInterval(checkConnectionStatusInterval);
-                  //   }
-                  //   break;
 
                   case 'twitter':
                     if (responseResult.connected == 1) {
@@ -277,13 +267,7 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
                     }
                     break;
-                  case 'instagram':
-                    if (responseResult.connected == 1) {
-                      this.instagramConnected = true;
-                      this.countSocialMediaConnected++;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
+
                   case 'tumblr':
                     if (responseResult.connected == 1) {
                       this.countSocialMediaConnected++;
@@ -397,18 +381,11 @@ class ChannelsListViewModel {
                 if (responseResult.pages.status === 'connected') {
                   this.facebookConnected = true;
                   this.countSocialMediaConnected++;
-                  let listFpConnected = responseResult.pages.connected;
+                  // let listFpConnected = responseResult.pages.connected;
                   let listFanpage = responseResult.pages.pages;
                   this.listFacebookFanpageConnected = responseResult.pages.connected;
-                  console.log(
-                    'Mamia listFacebookFanpageConnected',
-                    this.listFacebookFanpageConnected
-                  );
 
-                  this.listFaceBookFanpageView = [];
-                  listFanpage.map((fanpage) => {
-                    this.listFaceBookFanpageView.push(fanpage);
-                  });
+                  this.listFaceBookFanpageView = listFanpage;
                 }
                 break;
               case 'fbad':
