@@ -140,16 +140,6 @@ class ComponentConnectaChannel extends Component {
     this.props.channelsListViewModel.mustUpgrade = false;
   };
 
-  // handleDisconnectAFacebookPage = (name, id) => {
-  //   let { channelsListViewModel } = this.props;
-
-  //   if (channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
-  //     channelsListViewModel.disconnectAFacebookPage(name, id);
-  //   } else {
-  //     channelsListViewModel.connectAFacebookPage(name, id);
-  //   }
-  // };
-
   render() {
     console.log('============ Before Render ================');
     console.log(this.props);
@@ -176,6 +166,8 @@ class ComponentConnectaChannel extends Component {
       getIdActionFacebookFange,
       ConnectStatusFanpage,
       PAGE_STATUS,
+      onSuccessYoutubeConnect,
+      onFailureYoutubeConnect,
     } = this.props;
 
     console.log('getIdActionFacebookFange12345');
@@ -288,7 +280,7 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/youtube.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Youtube</span>
                   </div>
-                  {youtubeConnected || this.isAllowedConnectChannel('YouTube', 'social_media') ? (
+                  {/* {youtubeConnected || this.isAllowedConnectChannel('YouTube', 'social_media') ? (
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
@@ -298,6 +290,20 @@ class ComponentConnectaChannel extends Component {
                     >
                       <span className="ms-2">{youtubeConnected ? 'Connected' : 'Connect'}</span>
                     </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )} */}
+
+                  {youtubeConnected || this.isAllowedConnectChannel('youTube', 'social_media') ? (
+                    <ButtonConnectGoogle
+                      scope="https://www.googleapis.com/auth/youtube.upload"
+                      clientId="854265047007-t7a1g164i7qga65751b0c2fronquf77u.apps.googleusercontent.com"
+                      onSuccess={onSuccessYoutubeConnect}
+                      onFailure={onFailureYoutubeConnect}
+                      isDisabled={youtubeConnected}
+                      buttonText={youtubeConnected ? 'Connected' : 'Connect'}
+                      className="cursor-pointer btn btn-success"
+                    />
                   ) : (
                     <ButtonUpgrade />
                   )}
