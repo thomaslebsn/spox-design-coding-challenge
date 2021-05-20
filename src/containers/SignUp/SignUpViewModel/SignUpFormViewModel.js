@@ -5,26 +5,21 @@ import { makeAutoObservable } from 'mobx';
 class SignUpFormViewModel {
   signupStore = null;
   formStatus = PAGE_STATUS.READY;
-  signupFormComponent = null;
+  signupFormViewModel = null;
 
   constructor(signupStore) {
     makeAutoObservable(this);
     this.signupStore = signupStore;
   }
 
+  setAllValue = (signupFormComponent) => {
+    this.signupFormComponent = signupFormComponent;
+  };
+
   saveMemberOnPage = () => {
-    const fakeData = {
-      username: 'Thien Test 0004',
-      email: 'test0000321321@gmail.com',
-      password: 'test@2021'
-    }
-    /*this.signupStore.saveMember(
-      this.signupFormComponent.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-    );*/
+
     this.signupStore.saveMember(
-      fakeData,
+      this.signupFormComponent.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
     );

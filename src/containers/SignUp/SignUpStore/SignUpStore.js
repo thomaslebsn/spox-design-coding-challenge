@@ -16,11 +16,11 @@ export default class SignUpStore {
       let resultOnSave = false;
       const signupAPIService = new EasiiMemberApiService();
       const accessToken = localStorage.getItem('access_token');
-      let resultOnRefreshANewTockenOnBrowser = accessToken ? true : false;
-      if(!resultOnRefreshANewTockenOnBrowser){
-        resultOnRefreshANewTockenOnBrowser = await signupAPIService.refreshANewTokenOnWebBrowser();
+      let resultOnRefreshANewTokenOnBrowser = accessToken ? true : false;
+      if(!resultOnRefreshANewTokenOnBrowser){
+        resultOnRefreshANewTokenOnBrowser = await signupAPIService.refreshANewTokenOnWebBrowser();
       }
-      if(resultOnRefreshANewTockenOnBrowser){
+      if(resultOnRefreshANewTokenOnBrowser){
         resultOnSave = await signupAPIService.createMember(
           convertedSignUpData
         );
