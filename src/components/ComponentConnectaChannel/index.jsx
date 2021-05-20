@@ -167,7 +167,8 @@ class ComponentConnectaChannel extends Component {
       ConnectStatusFanpage,
       PAGE_STATUS,
       onSuccessYoutubeConnect,
-      onFailureYoutubeConnect,
+      onSuccessInstagramConnect,
+      onFailureConnectChannels,
     } = this.props;
 
     console.log('getIdActionFacebookFange12345');
@@ -200,7 +201,7 @@ class ComponentConnectaChannel extends Component {
                   <ButtonConnectFacebook
                     scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
                     onFacebookSuccess={this.props.onSuccessFacebookConnect}
-                    onFacebookFailure={this.props.onFailureFacebookConnect}
+                    onFacebookFailure={onFailureConnectChannels}
                     buttonText={facebookConnected ? 'Connected' : 'Connect'}
                     isDisable={facebookConnected ? true : false}
                   />
@@ -260,15 +261,22 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   {instagramConnected ||
                   this.isAllowedConnectChannel('instagram', 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('instagram');
-                      }}
-                      disabled={instagramConnected ? true : false}
-                    >
-                      <span className="ms-2">{instagramConnected ? 'Connected' : 'Connect'}</span>
-                    </button>
+                    // <button
+                    //   className="cursor-pointer btn btn-success"
+                    //   onClick={(e) => {
+                    //     this.handleConnectChannel('instagram');
+                    //   }}
+                    //   disabled={instagramConnected ? true : false}
+                    // >
+                    //   <span className="ms-2">{instagramConnected ? 'Connected' : 'Connect'}</span>
+                    // </button>
+                    <ButtonConnectFacebook
+                      scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
+                      onFacebookSuccess={onSuccessInstagramConnect}
+                      onFacebookFailure={onFailureConnectChannels}
+                      buttonText={instagramConnected ? 'Connected' : 'Connect'}
+                      isDisable={instagramConnected ? true : false}
+                    />
                   ) : (
                     <ButtonUpgrade />
                   )}
@@ -299,7 +307,7 @@ class ComponentConnectaChannel extends Component {
                       scope="https://www.googleapis.com/auth/youtube.upload"
                       clientId="854265047007-t7a1g164i7qga65751b0c2fronquf77u.apps.googleusercontent.com"
                       onSuccess={onSuccessYoutubeConnect}
-                      onFailure={onFailureYoutubeConnect}
+                      onFailure={onFailureConnectChannels}
                       isDisabled={youtubeConnected}
                       buttonText={youtubeConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
@@ -460,7 +468,7 @@ class ComponentConnectaChannel extends Component {
                       scope="https://www.googleapis.com/auth/adwords"
                       clientId="591849916879-8gc5gct9fsgbh76hqd5lonig8c1n1666.apps.googleusercontent.com"
                       onSuccess={this.props.onSuccessGoogleConnect}
-                      onFailure={this.props.onFailureGoogleConnect}
+                      onFailure={onFailureConnectChannels}
                       onRequest={this.props.onRequestGoogleConnect}
                       isDisabled={googleadsConnected}
                       buttonText={googleadsConnected ? 'Connected' : 'Connect'}
