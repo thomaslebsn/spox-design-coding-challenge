@@ -168,6 +168,24 @@ const ConnectChannels = observer(
       console.log('hung test');
     };
 
+    onSuccessYoutubeConnect = (res) => {
+      console.log('youtube success');
+      console.log(res);
+      console.log(res.isSignedIn());
+
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'youtube');
+    };
+
+    onFailureYoutubeConnect = (err) => {
+      console.log('hung test');
+    };
+
     render() {
       let { showModal } = this.state;
       this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
@@ -252,6 +270,8 @@ const ConnectChannels = observer(
               getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
               ConnectStatusFanpage={ConnectStatusFanpage}
               PAGE_STATUS={PAGE_STATUS}
+              onSuccessYoutubeConnect={this.onSuccessYoutubeConnect}
+              onFailureYoutubeConnect={this.onFailureYoutubeConnect}
             />
           </div>
           {/* {listFaceBookFanpage && (

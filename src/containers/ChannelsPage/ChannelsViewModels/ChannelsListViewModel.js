@@ -128,6 +128,8 @@ class ChannelsListViewModel {
         this.googleadsConnected = true;
       case 'facebook':
         this.facebookConnected = true;
+      case 'youtube':
+        this.youtubeConnected = true;
     }
   };
 
@@ -250,13 +252,13 @@ class ChannelsListViewModel {
                     }
                     break;
 
-                  case 'youtube':
-                    if (responseResult.connected == 1) {
-                      this.youtubeConnected = true;
-                      this.countSocialMediaConnected++;
-                      clearInterval(checkConnectionStatusInterval);
-                    }
-                    break;
+                  // case 'youtube':
+                  //   if (responseResult.connected == 1) {
+                  //     this.youtubeConnected = true;
+                  //     this.countSocialMediaConnected++;
+                  //     clearInterval(checkConnectionStatusInterval);
+                  //   }
+                  //   break;
 
                   case 'twitter':
                     if (responseResult.connected == 1) {
