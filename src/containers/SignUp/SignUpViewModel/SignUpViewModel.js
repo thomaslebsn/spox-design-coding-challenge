@@ -5,13 +5,7 @@ class SignUpViewModel {
 
   constructor(signupStore) {
     if (signupStore) {
-      console.log('SignUpViewModel - Abstract');
       this.signupFormViewModel = new SignUpFormViewModel(signupStore);
-
-      /*
-      * Inject dependencies together among ViewModels
-      * Empty
-      * */
     }
   }
 

@@ -3,7 +3,6 @@ import FIELD_TYPE from '../../../constants/FieldType';
 
 class SignUpModel {
   constructor(data) {
-    console.log('-- data input for construct SignupModel --', data);
     this.username = data[SIGNUP_FIELD_KEY.USERNAME] ?? '';
     this.email = data[SIGNUP_FIELD_KEY.EMAIL] ?? '';
     this.password = data[SIGNUP_FIELD_KEY.PASSWORD] ?? '';

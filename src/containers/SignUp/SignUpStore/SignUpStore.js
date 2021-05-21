@@ -1,22 +1,19 @@
 import { EasiiMemberApiService } from 'easii-io-web-service-library';
 import { runInAction } from 'mobx';
 import SignUpModel from '../SignUpModel/SignUpModel';
+import { notify } from '../../../components/Toast';
+import { SIGNUP_FIELD_KEY } from '../../../constants/SignUpModule';
 
 export default class SignUpStore {
   async saveMember(signUpData, callbackOnSuccess, callbackOnError) {
     try {
-      console.log('Saving Project via call web service lib function');
-      console.log(signUpData);
-
       const convertedSignUpData = SignUpModel.convertSubmittedDataToAPIService(
         signUpData,
       );
-      console.log('SignUp Converted Data');
-      console.log(convertedSignUpData);
-      let resultOnSave = false;
+      let resultOnSave;
       const signupAPIService = new EasiiMemberApiService();
       const accessToken = localStorage.getItem('access_token');
-      let resultOnRefreshANewTokenOnBrowser = accessToken ? true : false;
+      let resultOnRefreshANewTokenOnBrowser = !!accessToken;
       if(!resultOnRefreshANewTokenOnBrowser){
         resultOnRefreshANewTokenOnBrowser = await signupAPIService.refreshANewTokenOnWebBrowser();
       }
@@ -24,23 +21,19 @@ export default class SignUpStore {
         resultOnSave = await signupAPIService.createMember(
           convertedSignUpData
         );
+        resultOnSave = JSON.parse(resultOnSave);
       }
 
-      console.log('resultOnSave ', resultOnSave);
-
-      if (resultOnSave) {
+      if (resultOnSave.result.success) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
         });
       } else {
         runInAction(() => {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        });
+          callbackOnError(resultOnSave)
+        })
       }
     } catch (error) {
-      console.log(error);
       runInAction(() => {
         callbackOnError(error);
       });

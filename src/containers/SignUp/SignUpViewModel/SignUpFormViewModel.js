@@ -1,11 +1,14 @@
 import history from '../../../routes/history';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
+import { notify } from '../../../components/Toast';
+import { SIGNUP_FIELD_KEY } from '../../../constants/SignUpModule';
 
 class SignUpFormViewModel {
   signupStore = null;
   formStatus = PAGE_STATUS.READY;
   signupFormViewModel = null;
+  successResponse = true;
 
   constructor(signupStore) {
     makeAutoObservable(this);
@@ -17,7 +20,7 @@ class SignUpFormViewModel {
   };
 
   saveMemberOnPage = () => {
-
+    console.log(this.signupFormComponent.formPropsData)
     this.signupStore.saveMember(
       this.signupFormComponent.formPropsData,
       this.callbackOnSuccessHandler,
@@ -26,12 +29,12 @@ class SignUpFormViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    console.log('callbackOnErrorHandler');
-    console.log(error);
+    console.log(error)
+    notify('Wrong Data')
+    this.successResponse = false;
   };
 
-  callbackOnSuccessHandler = (projectId) => {
-    console.log('callbackOnSuccessHandler');
+  callbackOnSuccessHandler = () => {
     //if (history.location.pathname === '/signup') {
     history.push('/verify');
     //}
