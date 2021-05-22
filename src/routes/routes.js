@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 
 // const HomePage = lazy(() => import("../pages/Homepage"));
-
+const ActivateMember = lazy(() => import("../containers/ActivateMember"));
 const Signuppage = lazy(() => import("../containers/SignUp"));
 const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("../pages/VerifyEmailPage"));
@@ -42,6 +42,11 @@ const authRoutes = [
     path: "/verify",
     exact: true,
     main: () => <VerifyEmailPage />,
+  },
+  {
+    path: "/activate-member",
+    exact: false,
+    main: () => <ActivateMember />,
   },
 ];
 

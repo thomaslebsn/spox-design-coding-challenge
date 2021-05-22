@@ -8,7 +8,10 @@ class SignUpFormViewModel {
   signupStore = null;
   formStatus = PAGE_STATUS.READY;
   signupFormViewModel = null;
-  successResponse = true;
+  successResponse = {
+    state: true,
+    content_id: ''
+  };
 
   constructor(signupStore) {
     makeAutoObservable(this);
@@ -29,16 +32,14 @@ class SignUpFormViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
+    console.log('error')
     console.log(error)
-    notify('Wrong Data')
-    this.successResponse = false;
+    this.successResponse.state = false;
+    this.successResponse.content_id = error.result.content_id;
   };
 
   callbackOnSuccessHandler = () => {
-    //if (history.location.pathname === '/signup') {
     history.push('/verify');
-    //}
-
   };
 }
 

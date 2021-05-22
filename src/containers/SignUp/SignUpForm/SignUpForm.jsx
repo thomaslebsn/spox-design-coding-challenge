@@ -1,10 +1,10 @@
 import React from 'react';
-import './index.scss';
 import { observer } from 'mobx-react';
 import { SIGNUP_FIELD_KEY } from '../../../constants/SignUpModule';
 import { withSignUpViewModel } from '../SignUpViewModel/SignUpViewModelContextProvider';
 import ButtonNormal from '../../../components/ButtonNormal';
 import SimpleReactValidator from 'simple-react-validator';
+import { notify } from '../../../components/Toast';
 
 const SignUpForm = observer(
   class SignUpForm extends React.Component {
@@ -27,8 +27,23 @@ const SignUpForm = observer(
         : null;
       this.signupFormViewModel.setAllValue(this);
       this.usernameInput = React.createRef();
+      this.emailInput = React.createRef();
       this.handleInputChange = this.handleInputChange.bind(this);
       this.validateInfoBeforeSending = this.validateInfoBeforeSending.bind(this);
+    }
+
+    resetValue(content_id) {
+      if(content_id === 'existed_email'){
+        notify('Email existed. Choose another email', 'error')
+        this.emailInput.current.value = ''
+        this.setState({loading: false})
+      }
+      else if(content_id === 'duplicated_username'){
+        notify('Username existed. Choose another username', 'error')
+        this.usernameInput.current.value = ''
+        this.setState({loading: false})
+      }
+      this.signupFormViewModel.successResponse.state = true;
     }
 
     handleInputChange(type, value) {
@@ -68,6 +83,7 @@ const SignUpForm = observer(
     render() {
       const t = this.props.t;
       let successResponse = this.signupFormViewModel ? this.signupFormViewModel.successResponse : null;
+      if(!successResponse.state) this.resetValue(successResponse.content_id);
       this.validator.purgeFields();
       return (
         <>
@@ -78,6 +94,7 @@ const SignUpForm = observer(
             <input type='text'
                    className='form-control'
                    id='username'
+                   disabled={this.state.loading}
                    name='username'
                    onBlur={this.blurringFieldHandler}
                    onChange={event => this.handleInputChange('username', event.target.value)}
@@ -94,7 +111,9 @@ const SignUpForm = observer(
             <input type='email'
                    className='form-control'
                    onBlur={this.blurringFieldHandler}
+                   disabled={this.state.loading}
                    name='email'
+                   ref={this.emailInput}
                    onChange={event => this.handleInputChange('email', event.target.value)}
                    id='email' />
             {this.validator.message(
@@ -109,6 +128,7 @@ const SignUpForm = observer(
             <input type='password'
                    className='form-control'
                    onBlur={this.blurringFieldHandler}
+                   disabled={this.state.loading}
                    onChange={event => this.handleInputChange('password', event.target.value)}
                    id='password'
                    name='password'
@@ -120,7 +140,7 @@ const SignUpForm = observer(
               'required|min:6|max:30',
               { className: 'text-danger' },
             )}
-            {this.state.loading && successResponse ?
+            {this.state.loading && successResponse.state ?
               <button className='btn btn-success mt-3' disabled={this.state.loading}>
                 <div className='spinner-border text-secondary' role='status'>
                   <span className='sr-only'>Loading...</span>
@@ -133,7 +153,7 @@ const SignUpForm = observer(
               <a href='#'>{t('txt_terms_of_service')} </a> {t('txt_and')}{' '}
               <a href='#'>{t('txt_privacy_policy')}</a>.
             </div>
-            <a href='/login' className='d-flex justify-content-center mt-4'>
+            <a href='/login' className='d-flex justify-content-center mt-1 mb-4'>
               {t('txt_already_have_an_account')}
             </a>
           </form>

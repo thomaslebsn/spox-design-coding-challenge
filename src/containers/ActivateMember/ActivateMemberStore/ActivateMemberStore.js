@@ -1,23 +1,19 @@
 import { EasiiMemberApiService } from 'easii-io-web-service-library';
 import { runInAction } from 'mobx';
-import SignUpModel from '../SignUpModel/SignUpModel';
 
-export default class SignUpStore {
-  async saveMember(signUpData, callbackOnSuccess, callbackOnError) {
+export default class ActivateMemberStore {
+  async activateMember(activationData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedSignUpData = SignUpModel.convertSubmittedDataToAPIService(
-        signUpData,
-      );
       let resultOnSave;
-      const signupAPIService = new EasiiMemberApiService();
+      const activateMemberAPIService = new EasiiMemberApiService();
       const accessToken = localStorage.getItem('access_token');
       let resultOnRefreshANewTokenOnBrowser = !!accessToken;
       if(!resultOnRefreshANewTokenOnBrowser){
-        resultOnRefreshANewTokenOnBrowser = await signupAPIService.refreshANewTokenOnWebBrowser();
+        resultOnRefreshANewTokenOnBrowser = await activateMemberAPIService.refreshANewTokenOnWebBrowser();
       }
       if(resultOnRefreshANewTokenOnBrowser){
-        resultOnSave = await signupAPIService.createMember(
-          convertedSignUpData
+        resultOnSave = await activateMemberAPIService.activateMember(
+          activationData
         );
         resultOnSave = JSON.parse(resultOnSave);
       }
