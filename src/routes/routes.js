@@ -46,7 +46,9 @@ const authRoutes = [
   {
     path: "/activate-member",
     exact: false,
-    main: () => <ActivateMember />,
+    main: ({ match, location }) => (
+      <ActivateMember match={match} location={location} />
+    ),
   },
 ];
 

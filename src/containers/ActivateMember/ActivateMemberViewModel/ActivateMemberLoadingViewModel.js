@@ -1,5 +1,6 @@
 import history from '../../../routes/history';
 import { makeAutoObservable } from 'mobx';
+import { notify } from '../../../components/Toast';
 
 class ActivateMemberLoadingViewModel {
   activateMemberStore = null;
@@ -16,9 +17,7 @@ class ActivateMemberLoadingViewModel {
 
   activateMemberOnPage = () => {
     this.activateMemberStore.activateMember(
-      {
-        'activation_code': 'd2fe29ee331953408d13ba3add3384fa',
-      },
+      this.activateMemberComponent.activationData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
     );
@@ -27,9 +26,12 @@ class ActivateMemberLoadingViewModel {
   callbackOnErrorHandler = (error) => {
     console.log('error')
     console.log(error)
+    notify('Activate member unsuccessfully', 'error');
+    history.push('/login');
   };
 
   callbackOnSuccessHandler = () => {
+    notify('Activate member successfully', 'success');
     history.push('/login');
   };
 }

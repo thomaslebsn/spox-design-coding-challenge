@@ -10,7 +10,7 @@ class ActivateMember extends React.Component {
   render() {
     return (
       <ActivateMemberViewModelContextProvider viewModel={activateMemberViewModel}>
-        <ActivateMemberLoading/>
+        <ActivateMemberLoading location={this.props.location}/>
       </ActivateMemberViewModelContextProvider>
     );
   }
