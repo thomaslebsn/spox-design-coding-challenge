@@ -1,88 +1,83 @@
-import FIELD_TYPE from "../../../constants/FieldType";
+import FIELD_TYPE from '../../../constants/FieldType';
 
 import {
   CONTENT_FIELD_KEY,
   ESI_CONTENT_API_RESPONSE_FIELD_KEY,
-} from "../../../constants/ContentModule";
+} from '../../../constants/ContentModule';
 
-import {
-  PERSONA_FIELD_KEY,
-  ESI_PERSONA_FIELD_KEY,
-} from "../../../constants/PersonaModule";
+import { PERSONA_FIELD_KEY, ESI_PERSONA_FIELD_KEY } from '../../../constants/PersonaModule';
 
-import {
-  CAMPAIGNS_FIELD_KEY,
-  CAMPAIGN_API_FIELD_KEY,
-} from "../../../constants/CampaignsModule";
+import { CAMPAIGNS_FIELD_KEY, CAMPAIGN_API_FIELD_KEY } from '../../../constants/CampaignsModule';
 
-import getStatus from "../../../utils/status";
-import { DescriptionsModel } from "./DescriptionsModel";
+import getStatus from '../../../utils/status';
+import { DescriptionsModel } from './DescriptionsModel';
 
-import ChannelUtils from "../../ChannelsPage/ChannelUtils/ChannelUtils";
-import CampaignsStore from "../../CampaignsPage/CampaignsStore/CampaignsStore";
-import PersonaStore from "../../PersonasPage/PersonaStore/PersonaStore";
+import ChannelUtils from '../../ChannelsPage/ChannelUtils/ChannelUtils';
+import CampaignsStore from '../../CampaignsPage/CampaignsStore/CampaignsStore';
+import PersonaStore from '../../PersonasPage/PersonaStore/PersonaStore';
 
-import ContentThemeStore from "../ContentStore/ContentThemeStore";
+import ContentThemeStore from '../ContentStore/ContentThemeStore';
 
 class ContentModel {
   constructor(data) {
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
-    this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? "";
-    this.channelsData = this.status = data.status ?? "";
+    this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? '';
+    this.channelsData = this.status = data.status ?? '';
 
-    this.descriptions =
-      data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
+    this.descriptions = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
 
     this.descriptionsModel =
       this.descriptions.length > 0
-        ? new DescriptionsModel(
-            data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items
-          )
+        ? new DescriptionsModel(data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items)
         : null;
 
-    this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? "";
-    this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? "";
-    this.themeId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? "";
-    this.channelAttachments =
-      data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? "";
+    this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? '';
+    this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? '';
+    this.themeId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? '';
+    this.channelAttachments = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? '';
     this.channels = [];
 
     if (this.channelAttachments) {
       this.channelAttachments.getItems().map((element) => {
         let icoImage = null;
+        console.log('element.channelName.toLowerCase()');
+        console.log(element.channelName.toLowerCase());
         switch (element.channelName.toLowerCase()) {
-          case "facebook":
-            icoImage = "/assets/images/facebook.png";
+          case 'facebook':
+            icoImage = '/assets/images/facebook.png';
             break;
-          case "fbad":
-            icoImage = "/assets/images/fbad.png";
+          case 'fbad':
+            icoImage = '/assets/images/fbad.png';
             break;
-          case "youtube":
-            icoImage = "/assets/images/youtube.png";
+          case 'youtube':
+            icoImage = '/assets/images/youtube.png';
             break;
-          case "twitter":
-            icoImage = "/assets/images/twitter.png";
+          case 'twitter':
+            icoImage = '/assets/images/twitter.png';
             break;
-          case "linkedin":
-            icoImage = "/assets/images/linkedin.png";
+          case 'linkedin':
+            icoImage = '/assets/images/linkedin.png';
             break;
-          case "mailchimp":
-            icoImage = "/assets/images/mailchimp.png";
+          case 'mailchimp':
+            icoImage = '/assets/images/mailchimp.png';
             break;
-          case "wordpress":
-            icoImage = "/assets/images/wordpress.png";
+          case 'wordpress':
+            icoImage = '/assets/images/wordpress.png';
             break;
-          case "instagram":
-            icoImage = "/assets/images/instagram.png";
+          case 'instagram':
+            icoImage = '/assets/images/instagram.png';
             break;
-          case "joomla":
-            icoImage = "/assets/images/joomla.png";
+          case 'joomla':
+            icoImage = '/assets/images/joomla.png';
             break;
-          case "medium":
-            icoImage = "/assets/images/medium.png";
+          case 'medium':
+            icoImage = '/assets/images/medium.png';
             break;
-          case "tumblr":
-            icoImage = "/assets/images/tumblr.png";
+          case 'tumblr':
+            icoImage = '/assets/images/tumblr.png';
+            break;
+          case 'google_ads':
+            icoImage = '/assets/images/google_ads.png';
             break;
           default:
             icoImage = null;
@@ -98,9 +93,7 @@ class ContentModel {
       });
     }
 
-    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(
-      this.channels
-    );
+    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(this.channels);
   }
 
   getId = () => {
@@ -108,7 +101,7 @@ class ContentModel {
       value: this.id,
       type: FIELD_TYPE.READONLY,
       columnName: CONTENT_FIELD_KEY.ID,
-      columnText: "ID",
+      columnText: 'ID',
     };
   };
 
@@ -117,19 +110,17 @@ class ContentModel {
       value: this.name,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.NAME,
-      columnText: "Name",
+      columnText: 'Name',
     };
   };
 
   getDescription = () => {
     return {
       value:
-        this.descriptionsModel !== null
-          ? this.descriptionsModel.getChannelDescriptions()
-          : null,
+        this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.DESCRIPTION,
-      columnText: "Description",
+      columnText: 'Description',
     };
   };
 
@@ -138,7 +129,7 @@ class ContentModel {
       value: this.channelsModel,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.CHANNELS,
-      columnText: "Channels",
+      columnText: 'Channels',
     };
   };
 
@@ -148,7 +139,7 @@ class ContentModel {
       campaignsStore.getCampaigns(
         this.campainId,
         (data) => {
-          console.log("this.campaignModel campaignModel", data);
+          console.log('this.campaignModel campaignModel', data);
         },
         () => {}
       );
@@ -162,7 +153,7 @@ class ContentModel {
       personaStore.getPersona(
         this.personaId,
         (data) => {
-          console.log("this.personaModel", data);
+          console.log('this.personaModel', data);
         },
         () => {}
       );
@@ -175,7 +166,7 @@ class ContentModel {
       contentThemeStore.getContentTheme(
         this.themeId,
         (data) => {
-          console.log("this.contentThemeStore", data);
+          console.log('this.contentThemeStore', data);
         },
         () => {}
       );
@@ -187,14 +178,14 @@ class ContentModel {
       value: getStatus(this.status),
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.STATUS,
-      columnText: "Status",
+      columnText: 'Status',
     };
   };
 
   toTableRowData = () => {
     const id = this.getId();
     const name = this.getName();
-    console.log("===============34");
+    console.log('===============34');
     const description = this.getDescription();
     const status = this.getStatus();
     const channels = this.getChannels();
@@ -209,24 +200,20 @@ class ContentModel {
   };
 
   static convertSubmittedDataToAPIService(contentData) {
-    console.log("convertSubmittedDataToAPIService");
+    console.log('convertSubmittedDataToAPIService');
 
-    const contentId = contentData[CONTENT_FIELD_KEY.ID]
-      ? contentData[CONTENT_FIELD_KEY.ID]
-      : 0;
+    const contentId = contentData[CONTENT_FIELD_KEY.ID] ? contentData[CONTENT_FIELD_KEY.ID] : 0;
     // hard code "1" as project-id for demo purpose
     const result = contentData
       ? {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]:
-            contentData[CONTENT_FIELD_KEY.CAMPAIGN],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: contentData[CONTENT_FIELD_KEY.CAMPAIGN],
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
             contentData[CONTENT_FIELD_KEY.PERSONA]
           ),
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]:
-              contentData[CONTENT_FIELD_KEY.NAME],
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: contentData[CONTENT_FIELD_KEY.NAME],
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
               contentData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_DESIGN_ID]:

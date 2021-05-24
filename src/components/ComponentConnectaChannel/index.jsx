@@ -460,7 +460,7 @@ class ComponentConnectaChannel extends Component {
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
-                    <img className="img-avatar" src={'/assets/images/googleadword.png'} alt="" />
+                    <img className="img-avatar" src={'/assets/images/google_ads.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Google Adwords</span>
                   </div>
                   {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (

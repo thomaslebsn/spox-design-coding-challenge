@@ -45,7 +45,7 @@ class ComponentFBITads extends React.Component {
               />
             </Tab>
           )}
-          {getDataValueSelectedPersona && getDataValueSelectedPersona.indexOf('youtube') > -1 && (
+          {getDataValueSelectedPersona && getDataValueSelectedPersona.indexOf('google_ads') > -1 && (
             <Tab eventKey={2} title={'Google Ads'}>
               <SelectComponentAds
                 title={'Demographics'}
