@@ -1,40 +1,37 @@
-import { runInAction } from "mobx";
+import { runInAction } from 'mobx';
 
-import ContentUtils from "../../ContentPage/ContentUtils/ContentUtils";
+import CalendarUtils from '../CalendarUtils/CalendarUtils';
 
-import { EasiiContentApiService } from "easii-io-web-service-library";
+import { EasiiPlanningApiService } from 'easii-io-web-service-library';
 
 export default class CalendarStore {
-  async fetchContents(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchPlanning(callbackOnSuccess, callbackOnError, dataFilter) {
     try {
-      console.log("Content Store - Fetch Content");
-      const contentAPIService = new EasiiContentApiService();
+      console.log('Calendar Store - Fetch Content');
+      const planningAPIService = new EasiiPlanningApiService();
 
-      const repondedDataFromLibrary = await contentAPIService.getContents(
-        paginationStep,
-        25
-      );
-      console.log(
-        "repondedDataFromLibrary repondedDataFromLibrary",
-        repondedDataFromLibrary
-      );
+      const repondedDataFromLibrary = await planningAPIService.searchPlanning(dataFilter);
+      console.log('repondedDataFromLibrary', repondedDataFromLibrary);
 
-      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
+      if (!repondedDataFromLibrary) {
+        return [];
+      }
+
+      const planningDataModels = CalendarUtils.transformCalendarResponseIntoModel(
         repondedDataFromLibrary.list
       );
-      console.log("contentDataModels");
-      console.log(contentDataModels);
+      console.log('planningDataModels', planningDataModels);
 
-      if (contentDataModels) {
+      if (planningDataModels) {
         runInAction(() => {
           callbackOnSuccess({
-            list: contentDataModels,
+            list: planningDataModels,
             pagination: repondedDataFromLibrary.pagination,
           });
         });
       } else {
         callbackOnError({
-          message: "Something went wrong from Server response",
+          message: 'Something went wrong from Server response',
         });
       }
     } catch (error) {
