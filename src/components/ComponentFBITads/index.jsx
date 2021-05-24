@@ -24,7 +24,7 @@ class ComponentFBITads extends React.Component {
           className={`${
             getDataValueSelectedPersona &&
             (getDataValueSelectedPersona.indexOf('fbad') > -1 ||
-              getDataValueSelectedPersona.indexOf('youtube') > -1)
+              getDataValueSelectedPersona.indexOf('google_ads') > -1)
               ? 'border-bottom-1 border-color'
               : ''
           }`}

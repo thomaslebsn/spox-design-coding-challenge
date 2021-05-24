@@ -38,7 +38,7 @@ class ContentSetupAds extends Component {
           className={`${
             labelsConnectedChannels &&
             (labelsConnectedChannels.indexOf('fbad') > -1 ||
-              labelsConnectedChannels.indexOf('youtube') > -1)
+              labelsConnectedChannels.indexOf('google_ads') > -1)
               ? 'border-bottom-1 border-color'
               : ''
           }`}
