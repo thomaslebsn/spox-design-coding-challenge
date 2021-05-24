@@ -2,7 +2,7 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import { ProgressBar } from "react-bootstrap";
 
-import "../index.scss";
+import "../index.module.scss";
 
 const data = [
   {
