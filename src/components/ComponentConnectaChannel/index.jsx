@@ -166,13 +166,11 @@ class ComponentConnectaChannel extends Component {
       getIdActionFacebookFange,
       ConnectStatusFanpage,
       PAGE_STATUS,
+      onSuccessFacebookConnect,
       onSuccessYoutubeConnect,
       onSuccessInstagramConnect,
       onFailureConnectChannels,
     } = this.props;
-
-    console.log('getIdActionFacebookFange12345');
-    console.log(getIdActionFacebookFange);
 
     return (
       <div className="wrapper_tabs">
@@ -200,7 +198,7 @@ class ComponentConnectaChannel extends Component {
                   )} */}
                   <ButtonConnectFacebook
                     scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
-                    onFacebookSuccess={this.props.onSuccessFacebookConnect}
+                    onFacebookSuccess={onSuccessFacebookConnect}
                     onFacebookFailure={onFailureConnectChannels}
                     buttonText={facebookConnected ? 'Connected' : 'Connect'}
                     isDisable={facebookConnected ? true : false}
