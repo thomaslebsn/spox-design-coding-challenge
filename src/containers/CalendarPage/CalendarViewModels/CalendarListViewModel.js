@@ -6,6 +6,7 @@ import { notify } from '../../../components/Toast';
 class CalendarListViewModel {
   calendarStore = null;
   showView = 'month';
+  showDate = new Date();
 
   tableStatus = PAGE_STATUS.LOADING;
 
@@ -15,17 +16,20 @@ class CalendarListViewModel {
   }
 
   initializeData = () => {
-    this.tableStatus = PAGE_STATUS.LOADING;
-
     this.calendarStore.fetchPlanning(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      this.getFilterByView(new Date(), this.showView)
+      this.getFilterByView(this.showDate, this.showView)
     );
   };
 
   onFilter = (date, view) => {
     console.log('onFilter', date, view);
+
+    this.showDate = date;
+    this.showView = view;
+
+    this.tableStatus = PAGE_STATUS.LOADING;
 
     this.calendarStore.fetchPlanning(
       this.callbackOnSuccessHandler,
@@ -57,12 +61,13 @@ class CalendarListViewModel {
   callbackOnErrorHander = (error) => {
     console.log('callbackOnErrorHander');
     console.log(error);
-    notify(error.message);
+
+    this.tableStatus = PAGE_STATUS.READY;
   };
 
   callbackOnSuccessHandler = (calendarModelData) => {
-    console.log('callbackOnSuccessHandler');
-    console.log(calendarModelData);
+    console.log('callbackOnSuccessHandler', calendarModelData);
+
     if (calendarModelData) {
       this.tableStatus = PAGE_STATUS.READY;
       console.log('============1');

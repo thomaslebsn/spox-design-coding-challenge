@@ -13,10 +13,6 @@ export default class CalendarStore {
       const repondedDataFromLibrary = await planningAPIService.searchPlanning(dataFilter);
       console.log('repondedDataFromLibrary', repondedDataFromLibrary);
 
-      if (!repondedDataFromLibrary) {
-        return [];
-      }
-
       const planningDataModels = CalendarUtils.transformCalendarResponseIntoModel(
         repondedDataFromLibrary.list
       );

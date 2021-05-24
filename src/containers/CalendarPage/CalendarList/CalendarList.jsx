@@ -21,14 +21,21 @@ const CalendarList = observer(
     }
 
     render() {
-      const { tableStatus, list, onFilter } = this.calendarListViewModel;
+      const { tableStatus, list, onFilter, showView, showDate } = this.calendarListViewModel;
+
+      console.log('[CalendarList] render', list);
 
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
         <div className="py-4 px-3 h-100">
           <div className="wrapper_calendar wrapper_calendar_full h-100">
-            <BigCalendarFull onFilter={onFilter} events={list} />
+            <BigCalendarFull
+              showView={showView}
+              showDate={showDate}
+              onFilter={onFilter}
+              events={list}
+            />
           </div>
         </div>
       );

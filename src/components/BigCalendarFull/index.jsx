@@ -280,12 +280,14 @@ class BigCalendarFull extends React.PureComponent {
   };
 
   render() {
+    console.log('[BigCalendarFull] render', this.props);
     return (
       <>
         <Calendar
           popup
           localizer={localizer}
           events={this.events}
+          defaultDate={this.props.showDate}
           style={{ height: '90%' }}
           showMultiDayTimes
           components={{
