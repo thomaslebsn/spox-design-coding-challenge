@@ -13,8 +13,11 @@ const FORM_FIELD_TYPE = {
   CANVA: 12,
   LABELCARD: 13,
   INFORMATION: 14,
+  LABELBTN: 15,
+  SELECTIONPERSONA: 16,
+  DESCRIPTION: 17,
 };
 
-const FORMAT_DATE = "dd/MM/yyyy";
+const FORMAT_DATE = 'dd/MM/yyyy';
 
 export { FORM_FIELD_TYPE, FORMAT_DATE };

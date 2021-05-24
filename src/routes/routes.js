@@ -1,12 +1,11 @@
 import React, { lazy } from "react";
 
 // const HomePage = lazy(() => import("../pages/Homepage"));
-
-const Signuppage = lazy(() => import("../pages/Signuppage"));
+const ActivateMember = lazy(() => import("../containers/ActivateMember"));
+const Signuppage = lazy(() => import("../containers/SignUp"));
 const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("../pages/VerifyEmailPage"));
 
-const ChannelsPage = lazy(() => import("../pages/ChannelsPage"));
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
 
 const CalendarPage = lazy(() => import("../containers/CalendarPage"));
@@ -19,6 +18,10 @@ const CampaignsPage = lazy(() => import("../containers/CampaignsPage"));
 const ContentPage = lazy(() => import("../containers/ContentPage"));
 const WizardPage = lazy(() => import("../containers/WizardPage"));
 const AnalyticsPage = lazy(() => import("../containers/AnalyticsPage"));
+const BillingPlanPage = lazy(() => import("../containers/BillingPlanPage"));
+const ChannelsPage = lazy(() => import("../containers/ChannelsPage"));
+const ProfilePage = lazy(() => import("../containers/ProfilePage"));
+const DigitalAssetsPage = lazy(() => import("../containers/DigitalAssetsPage"));
 
 const authRoutes = [
   {
@@ -41,6 +44,13 @@ const authRoutes = [
     exact: true,
     main: () => <VerifyEmailPage />,
   },
+  {
+    path: "/activate-member",
+    exact: false,
+    main: ({ match, location }) => (
+      <ActivateMember match={match} location={location} />
+    ),
+  },
 ];
 
 const mainRoutes = [
@@ -55,6 +65,8 @@ const mainRoutes = [
       "/wizard/createproject",
       "/wizard/project/:id",
       "/wizard/project/:id/content",
+      "/wizard/:id/content",
+      "/wizard/content",
     ],
     exact: true,
     main: ({ match, location }) => (
@@ -123,6 +135,30 @@ const mainRoutes = [
       <AnalyticsPage match={match} location={location} />
     ),
   },
+  {
+    path: "/digital-assets",
+    exact: false,
+    main: ({ match, location }) => (
+      <DigitalAssetsPage match={match} location={location} />
+    ),
+  },
 ];
 
-export { authRoutes, mainRoutes };
+const settingRoutes = [
+  {
+    path: "/billing-plan",
+    exact: false,
+    main: ({ match, location }) => (
+      <BillingPlanPage match={match} location={location} />
+    ),
+  },
+  {
+    path: "/profile",
+    exact: false,
+    main: ({ match, location }) => (
+      <ProfilePage match={match} location={location} />
+    ),
+  },
+];
+
+export { authRoutes, mainRoutes, settingRoutes };

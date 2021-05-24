@@ -24,6 +24,8 @@ class CampaignsListViewModel {
 
   subRowDataTable = null;
 
+  pageSize = 5;
+
   constructor(campaignsStore) {
     makeAutoObservable(this);
     this.campaignsStore = campaignsStore;
@@ -34,7 +36,9 @@ class CampaignsListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.campaignsStore.fetchCampaigns(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -42,7 +46,9 @@ class CampaignsListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.campaignsStore.fetchCampaigns(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -62,7 +68,8 @@ class CampaignsListViewModel {
     this.campaignsStore.fetchCampaigns(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      paginationStep
+      paginationStep,
+      this.pageSize
     );
   };
 

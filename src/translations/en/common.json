@@ -47,6 +47,8 @@
   "txt_assigned_to_me": "Assigned to Me",
   "txt_campaigns": "Campaigns",
   "txt_marketing_automation_made_easy": "Marketing Automation, made easy!",
-  "txt_we_have_created_a_step_by_step_process": "We have created a step-by-step process that will guide you on how to get started."
-
+  "txt_we_have_created_a_step_by_step_process": "We have created a step-by-step process that will guide you on how to get started.",
+  "txt_social": "Social Media",
+  "txt_cms": "CMS",
+  "txt_mail": "Mail"
 }

@@ -1,105 +1,70 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { Image, Tab, Tabs } from "react-bootstrap";
-import { withTranslation } from "react-i18next";
-import { observer } from "mobx-react";
+import { Image, Tab, Tabs } from 'react-bootstrap';
+import { observer } from 'mobx-react';
 
-import Button from "../../../components/Button";
-import ModalComponent from "../../../components/Modal";
-import history from "../../../routes/history";
+import Button from '../../../components/Button';
+import ModalComponent from '../../../components/Modal';
+import history from '../../../routes/history';
 
-import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
-import ButtonNormal from "../../../components/ButtonNormal";
-import ComponentConnectaChannel from "../../../components/ComponentConnectaChannel";
-import { withWizardViewModel } from "../WizardViewModels/WizardViewModelContextProvider";
-import Checkbox from "../../../components/Checkbox";
-import ComponentItemFanpage from "../../../components/ComponentItemFanpage";
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import ButtonNormal from '../../../components/ButtonNormal';
+import ComponentConnectaChannel from '../../../components/ComponentConnectaChannel';
+import { withWizardViewModel } from '../WizardViewModels/WizardViewModelContextProvider';
+import Checkbox from '../../../components/Checkbox';
+import ComponentItemFanpage from '../../../components/ComponentItemFanpage';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 
-import WizardSteps from "../../../components/WizardSteps";
-import styles from "./index.module.scss";
-import { notify } from "../../../components/Toast";
+import WizardSteps from '../../../components/WizardSteps';
+import styles from './index.module.scss';
+import { notify } from '../../../components/Toast';
+import PAGE_STATUS from '../../../constants/PageStatus';
 
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
-    projectListViewModel = null;
-    viewModel = null;
+    channelsListViewModel = null;
     constructor(props) {
       super(props);
 
       const { viewModel } = props;
-      console.log("ProjectList - Debug View Model 2222");
+      console.log('viewModel - Debug View Model');
       console.log(viewModel);
-      this.projectListViewModel = viewModel
-        ? viewModel.getProjectListViewModel()
+
+      this.viewModel = viewModel ? viewModel : null;
+
+      this.channelsListViewModel = viewModel ? viewModel.getChannelsListViewModel() : null;
+
+      console.log('this.channelsListViewModel - Debug View Model');
+
+      this.loginCMSChannelFormModalViewModel = viewModel
+        ? viewModel.getLoginCMSChannelFormModalViewModel()
         : null;
-
-      this.viewModel = viewModel;
-
-      //get project id from url
-      let getIdProject = history.location.pathname.match(/\d/g);
-      getIdProject = getIdProject.join("");
 
       this.state = {
         channels: [],
         showModal: true,
+        showModalFbad: true,
         getIDSFanpage: [],
+        getIDSAdAccount: [],
         isWordpressConnected: false,
-        projectId: getIdProject
       };
 
-      //call check connected channels
-      this.projectListViewModel.checkConnectedChannels(this.state.projectId, [
+      this.channelsListViewModel.checkConnectedChannels([
         'linkedin',
+        'youtube',
         'twitter',
         'instagram',
         'facebook',
         'mailchimp',
         'wordpress',
+        'tumblr',
+        'drupal',
+        'joomla',
+        'fbad',
       ]);
     }
-
-    checkConnectedCMS = (cmsName, isConnected) => {
-      if (cmsName == "wordpress") {
-        this.setState({
-          isWordpressConnected: isConnected,
-        });
-
-        this.projectListViewModel.wordpressConnected = isConnected
-      }
-    };
-
-    next = () => {
-      const {
-        facebookConnected,
-        twitterConnected,
-        linkedinConnected,
-        mailchimpConnected,
-        instagramConnected,
-        wordpressConnected,
-      } = this.projectListViewModel;
-
-      if (
-        facebookConnected == true ||
-        twitterConnected == true ||
-        linkedinConnected == true ||
-        mailchimpConnected == true ||
-        instagramConnected == true ||
-        wordpressConnected == true
-      ) {
-        history.push(`${history.location.pathname}/content`);
-      } else {
-        notify("Please choose an connect channel");
-      }
-    };
-
-    handleCloseModal = () => {
-      this.setState({
-        showModal: false,
-      });
-    };
 
     handleCheckbox = (id) => {
       let getIDSFanpage = this.state.getIDSFanpage;
@@ -110,15 +75,79 @@ const ConnectChannel = observer(
       });
     };
 
+    handleCheckboxAdAccounts = (id) => {
+      let getIDSAdAccount = this.state.getIDSAdAccount;
+      getIDSAdAccount.push(id);
+
+      this.setState({
+        getIDSAdAccount: getIDSAdAccount,
+      });
+    };
+
+    handleCloseModal = () => {
+      this.setState({
+        showModal: false,
+      });
+    };
+
     handleSaveFanpage = () => {
-      this.projectListViewModel.saveChosseFacebookFanpages(
-        this.state.projectId,
-        this.state.getIDSFanpage
-      );
+      this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
 
       this.setState({
         showModal: false,
       });
+    };
+
+    handleSaveAdsAccount = () => {
+      this.channelsListViewModel.saveChosseFacebookAdAccount(this.state.getIDSAdAccount);
+
+      this.setState({
+        showModal: false,
+      });
+    };
+
+    handleModalCms = () => {
+      this.loginCMSChannelFormModalViewModel.openModal();
+    };
+
+    handleConnectedFanpage = (channelType, id) => {
+      if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+      } else {
+        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+      }
+    };
+
+    next = () => {
+      const {
+        facebookConnected,
+        youtubeConnected,
+        twitterConnected,
+        linkedinConnected,
+        mailchimpConnected,
+        instagramConnected,
+        wordpressConnected,
+        tumblrConnected,
+        drupalConnected,
+        joomlaConnected,
+      } = this.channelsListViewModel;
+
+      if (
+        facebookConnected == true ||
+        youtubeConnected == true ||
+        twitterConnected == true ||
+        linkedinConnected == true ||
+        mailchimpConnected == true ||
+        instagramConnected == true ||
+        wordpressConnected == true ||
+        tumblrConnected == true ||
+        drupalConnected == true ||
+        joomlaConnected == true
+      ) {
+        history.push(`${history.location.pathname}/content`);
+      } else {
+        notify('Please choose an connect channel');
+      }
     };
 
     render() {
@@ -127,47 +156,59 @@ const ConnectChannel = observer(
       const {
         listFaceBookFanpage,
         listFaceBookFanpageView,
+        listFacebookFanpageConnected,
         facebookConnected,
+        listFacebookAdsAccount,
+        listFacebookAdsAccountView,
+        facebookAdsConnected,
+        youtubeConnected,
         twitterConnected,
         linkedinConnected,
         mailchimpConnected,
         instagramConnected,
         wordpressConnected,
-      } = this.projectListViewModel;
+        tumblrConnected,
+        mustUpgrade,
+        drupalConnected,
+        joomlaConnected,
+        ConnectStatusFanpage,
+      } = this.channelsListViewModel;
 
       return (
         <div className="d-flex flex-column m-4 p-4">
-          <ComponentConnectaChannel
-            projectListViewModel={this.projectListViewModel}
-            listFaceBookFanpageView={
-              listFaceBookFanpageView ? listFaceBookFanpageView : null
-            }
-            facebookConnected={facebookConnected}
-            twitterConnected={twitterConnected}
-            linkedinConnected={linkedinConnected}
-            mailchimpConnected={mailchimpConnected}
-            instagramConnected={instagramConnected}
-            wordpressConnected={wordpressConnected}
-            viewModel={this.viewModel}
-            projectId={this.state.projectId}
-            checkConnectedCMS={this.checkConnectedCMS}
-          />
-          <div className="d-flex justify-content-between">
-            <Button
-              className="btn btn-light border-success"
-              onClick={() => this.props.goToStep(1)}
-              text="Back"
+          <div>
+            <ComponentConnectaChannel
+              channelsListViewModel={this.channelsListViewModel}
+              listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
+              listFacebookFanpageConnected={
+                listFacebookFanpageConnected ? listFacebookFanpageConnected : null
+              }
+              facebookConnected={facebookConnected}
+              listFacebookAdsAccountView={
+                listFacebookAdsAccountView ? listFacebookAdsAccountView : null
+              }
+              facebookAdsConnected={facebookAdsConnected}
+              youtubeConnected={youtubeConnected}
+              twitterConnected={twitterConnected}
+              linkedinConnected={linkedinConnected}
+              mailchimpConnected={mailchimpConnected}
+              instagramConnected={instagramConnected}
+              wordpressConnected={wordpressConnected}
+              tumblrConnected={tumblrConnected}
+              mustUpgrade={mustUpgrade}
+              drupalConnected={drupalConnected}
+              joomlaConnected={joomlaConnected}
+              viewModel={this.viewModel}
+              handleModalCms={this.handleModalCms}
+              isModalCms={this.loginCMSChannelFormModalViewModel.show}
+              ConnectStatusFanpage={ConnectStatusFanpage}
+              handleConnectedFanpage={this.handleConnectedFanpage}
+              PAGE_STATUS={PAGE_STATUS}
             />
-
-            <ButtonNormal
-              className="btn btn-success"
-              text="Next"
-              onClick={(e) => this.next()}
-            ></ButtonNormal>
           </div>
           {listFaceBookFanpage && (
             <ModalComponent
-              header={"Facebook Fanpage"}
+              header={'Facebook Fanpage'}
               body={
                 <div>
                   <ul className="list-unstyled align-items-center">
@@ -189,10 +230,7 @@ const ConnectChannel = observer(
               show={showModal}
               onHide={this.handleCloseModal}
               footer={
-                <button
-                  onClick={this.handleSaveFanpage}
-                  className="btn btn-success w-100"
-                >
+                <button onClick={this.handleSaveFanpage} className="btn btn-success w-100">
                   <span>Save</span>
                   <i className="ms-1">
                     <FontAwesomeIcon icon={faChevronRight} />
@@ -201,6 +239,52 @@ const ConnectChannel = observer(
               }
             />
           )}
+          {listFacebookAdsAccount && (
+            <ModalComponent
+              header={'Facebook Ads'}
+              body={
+                <div>
+                  <ul className="list-unstyled align-items-center">
+                    {listFacebookAdsAccount &&
+                      listFacebookAdsAccount.map((value, key) => {
+                        return (
+                          <ComponentItemFanpage
+                            key={key}
+                            name={value.name}
+                            handleCheckbox={(e) => {
+                              this.handleCheckboxAdAccounts(value.id);
+                            }}
+                          />
+                        );
+                      })}
+                  </ul>
+                </div>
+              }
+              show={showModal}
+              onHide={this.handleCloseModal}
+              footer={
+                <button onClick={this.handleSaveAdsAccount} className="btn btn-success w-100">
+                  <span>Save</span>
+                  <i className="ms-1">
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </i>
+                </button>
+              }
+            />
+          )}
+          <div className="d-flex justify-content-end">
+            {/* <Button
+              className="btn btn-light border-success"
+              onClick={() => this.props.goToStep(1)}
+              text="Back"
+            /> */}
+
+            <ButtonNormal
+              className="btn btn-success"
+              text="Next"
+              onClick={(e) => this.next()}
+            ></ButtonNormal>
+          </div>
         </div>
       );
     }

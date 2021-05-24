@@ -4,6 +4,7 @@ import Chart from "react-google-charts";
 const data = [
   ["", "Comments", "Followers", "Posts", "Engagement"],
   ["Facebook", 1000, 400, 200, 100],
+  ["Facebook Ads", 1000, 400, 200, 100],
   ["Youtube", 1170, 460, 250, 800],
   ["Joomla", 660, 1120, 300, 700],
   ["Twitter", 1030, 540, 350, 50],
@@ -21,11 +22,15 @@ class ComponentChart extends React.Component {
   }
 
   render() {
+    let { titleChart } = this.props;
     return (
       <div className="bg-white shadow-sm rounded-2 h-100">
-        <h6 className="text-blue-0 opacity-75 border-bottom-1 p-3 mb-0">
-          Engagement / Posts Published
-        </h6>
+        {titleChart && (
+          <h6 className="text-blue-0 opacity-75 border-bottom-1 p-3 mb-0">
+            Engagement / Posts Published
+          </h6>
+        )}
+
         <div className="p-3">
           <Chart
             width={"100%"}

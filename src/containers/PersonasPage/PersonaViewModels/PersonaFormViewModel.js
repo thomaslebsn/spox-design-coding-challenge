@@ -1,18 +1,28 @@
-import { makeAutoObservable } from "mobx";
-import { notify } from "../../../components/Toast";
-import history from "../../../routes/history";
+import { makeAutoObservable } from 'mobx';
+import { notify } from '../../../components/Toast';
+import history from '../../../routes/history';
 
-import PAGE_STATUS from "../../../constants/PageStatus";
+import PAGE_STATUS from '../../../constants/PageStatus';
+import { PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR } from '../../../constants/PersonaModule';
 
 class PersonaFormViewModel {
   personaListViewModel = null;
 
   personaStore = null;
+
   personaFormComponent = null;
 
   formStatus = PAGE_STATUS.LOADING;
 
   previewPersonaData = null;
+
+  connectedChannelMasterData = null;
+
+  getDataValueSelectedPersona = [];
+
+  getDataValueSelectedIds = [];
+
+  getAge = null;
 
   constructor(personaStore) {
     makeAutoObservable(this);
@@ -34,11 +44,7 @@ class PersonaFormViewModel {
 
   getPersona = (id) => {
     this.formStatus = PAGE_STATUS.LOADING;
-    this.personaStore.getPersona(
-      id,
-      this.setEditPersona,
-      this.callbackOnErrorHander
-    );
+    this.personaStore.getPersona(id, this.setEditPersona, this.callbackOnErrorHander);
   };
 
   getPersonaTemplate = (id) => {
@@ -48,7 +54,7 @@ class PersonaFormViewModel {
       this.setCreatePersonaByTemplate,
       this.callbackOnErrorHander
     );
-  }
+  };
 
   setCreatePersonaByTemplate = (data) => {
     this.formStatus = PAGE_STATUS.READY;
@@ -74,7 +80,7 @@ class PersonaFormViewModel {
 
     const isFormValid = true;
 
-    console.log("Persona Creation - isFormValid:");
+    console.log('Persona Creation - isFormValid:');
     console.log(isFormValid);
 
     if (this.editMode) {
@@ -92,16 +98,54 @@ class PersonaFormViewModel {
     }
   };
 
+  getConnectedChannelMasterData = () => {
+    console.log('getConnectedChannelMasterData');
+    this.personaStore.getConnectedChannelsMasterData(
+      (dataInModel) => {
+        console.log('getConnectedChannelMasterData - callbackOnSuccessHandler');
+        this.connectedChannelMasterData = dataInModel ? dataInModel.toDropdownListValues() : null;
+
+        console.log(this.connectedChannelMasterData);
+      },
+      (error) => {
+        console.log('callbackOnErrorHander');
+        console.log(error);
+        notify(error.message);
+      }
+    );
+  };
+
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
+    console.log('callbackOnErrorHander');
     console.log(error);
     notify(error.message);
   };
 
   callbackOnSuccessHandler = () => {
-    console.log("callbackOnSuccessHandler");
+    console.log('callbackOnSuccessHandler');
     this.formStatus = PAGE_STATUS.READY;
-    history.push("/personas");
+    history.push('/personas');
+  };
+
+  getSelectedLabels = (value) => {
+    let labels = value && value.map((e) => e.label);
+
+    this.getDataValueSelectedPersona = labels;
+  };
+
+  getSelectedIDs = () => {
+    if (!this.getDataValueSelectedIds) return null;
+    const convertedInArray = this.getDataValueSelectedIds
+      .map((item) => {
+        return item[PERSONA_TABLE_SELECTION_MODAL_COLUMN_INDICATOR.VALUE];
+      })
+      .reduce((arr, el) => {
+        return arr.concat(el);
+      }, []);
+
+    let result = convertedInArray;
+
+    return result;
   };
 }
 

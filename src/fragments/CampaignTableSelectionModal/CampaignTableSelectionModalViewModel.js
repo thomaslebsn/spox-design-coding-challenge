@@ -16,6 +16,10 @@ class CampaignTableSelectionModalViewModel {
 
   CampaignsSelectionData = [];
 
+  getDataSelectOptions = [];
+
+  getValueSelected = [];
+
   inputRef = null;
   constructor(fragmentStore) {
     makeAutoObservable(this);
@@ -116,6 +120,8 @@ class CampaignTableSelectionModalViewModel {
       this.tableStatus = PAGE_STATUS.READY;
 
       this.CampaignsMasterData = campaignModelData.toDropdownFullListValues();
+      // NEW
+      this.getDataSelectOptions = campaignModelData.toDropdownListValues();
       console.log(this.CampaignsMasterData);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;

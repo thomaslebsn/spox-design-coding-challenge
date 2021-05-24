@@ -45,12 +45,15 @@ class ComponentDatepicker extends React.Component {
   handleApply = (e) => {
     e.stopPropagation();
     let { startDate, endDate } = this.state;
-    console.log('handleApply - debug');
+    console.log("handleApply - debug");
 
-    this.props.setGlobalFilter({
-      startDate: format(new Date(startDate), 'yyyy-MM-dd'),
-      endDate: format(new Date(endDate), 'yyyy-MM-dd')
-    })
+    let { setGlobalFilter } = this.props;
+
+    setGlobalFilter &&
+      setGlobalFilter({
+        startDate: format(new Date(startDate), "yyyy-MM-dd"),
+        endDate: format(new Date(endDate), "yyyy-MM-dd"),
+      });
 
     const ONE_DAY = 1000 * 60 * 60 * 24;
     const differenceMs = Math.abs(startDate - endDate);

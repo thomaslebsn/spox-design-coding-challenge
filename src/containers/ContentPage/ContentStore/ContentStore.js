@@ -6,12 +6,12 @@ import ContentModel from "../ContentModel/ContentModel";
 import {
   EasiiContentApiService,
   EasiiProjectChannelApiService,
+  EasiiOrganisationChannelApiService,
+  EasiiPersonaApiService,
   EasiiProjectApiService,
 } from "easii-io-web-service-library";
 
-import {
-  CONTENT_FIELD_KEY,
-} from "../../../constants/ContentModule";
+import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 
 import { CampaignMasterDataModel } from "../../../store/Models/MasterDataModels/CampaignMasterDataModel";
 import { PersonaMasterDataModel } from "../../../store/Models/MasterDataModels/PersonaMasterDataModel";
@@ -27,14 +27,19 @@ export default class ContentStore {
     }
   }
 
-  async fetchContents(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchContents(
+    callbackOnSuccess,
+    callbackOnError,
+    paginationStep = 0,
+    paginationSize = 25
+  ) {
     try {
       console.log("Content Store - Fetch Content");
       const contentAPIService = new EasiiContentApiService();
 
       const repondedDataFromLibrary = await contentAPIService.getContents(
         paginationStep,
-        25
+        paginationSize
       );
       console.log(
         "repondedDataFromLibrary repondedDataFromLibrary",
@@ -89,7 +94,7 @@ export default class ContentStore {
         resultContent = await contentService.updateContent(
           convertedContentData
         );
-      }      
+      }
 
       if (resultContent) {
         runInAction(() => {
@@ -175,7 +180,8 @@ export default class ContentStore {
     callbackOnSuccess,
     callbackOnError,
     dataFilter = {},
-    paginationStep = 1
+    paginationStep = 1,
+    paginationSize = 25
   ) {
     try {
       console.log("Content Store - filter Content");
@@ -183,7 +189,7 @@ export default class ContentStore {
       const respondedDataFromLibrary = await contentAPIService.searchContents(
         dataFilter,
         paginationStep,
-        25
+        paginationSize
       );
 
       console.log("Debugging ---- filter campaign");
@@ -333,32 +339,21 @@ export default class ContentStore {
     }
   }
 
-  async getConnectedChannelsByProjectId(
-    projectId,
+  async getConnectedChannelsByOrganizationID(
     callbackOnSuccess,
     callbackOnError
   ) {
     try {
-      if (!projectId) {
-        runInAction(() => {
-          callbackOnError("ProjectID is required !!!");
-        });
-      }
-      console.log("Content Store - getConnectedChannelsByProjectId");
-      const service = new EasiiProjectChannelApiService();
+      const service = new EasiiPersonaApiService();
 
-      const repondedDataFromLibrary = await service.getProjectChannelsByProjectId(
-        projectId
-      );
+      const repondedDataFromLibrary = await service.getConnectedChannelByOrganisationId();
 
-      console.log(
-        "repondedDataFromLibrary - getConnectedChannelsByProjectId"
-      );
+      console.log("repondedDataFromLibrary - getConnectedChannelsByProjectId");
 
       console.log(repondedDataFromLibrary);
 
       const contentDataModels = new ContentConnectedChannelsModel(
-        repondedDataFromLibrary
+        repondedDataFromLibrary.result
       );
 
       console.log("contentDataModels contentDataModels");
@@ -381,7 +376,56 @@ export default class ContentStore {
     }
   }
 
-  async getProjectItemByProjectId(projectId, callbackOnSuccess, callbackOnError) {
+  async getConnectedChannelByPersonaIds(
+    callbackOnSuccess,
+    callbackOnError,
+    personaIds
+  ) {
+    try {
+      const service = new EasiiPersonaApiService();
+
+      console.log("personaIds 3333");
+      console.log(personaIds);
+
+      const repondedDataFromLibrary = await service.getConnectedChannelByPersonaIds(
+        personaIds
+      );
+
+      console.log(
+        "repondedDataFromLibrary - getConnectedChannelByPersonaIds idsids"
+      );
+
+      console.log(repondedDataFromLibrary);
+
+      const contentDataModels = new ContentConnectedChannelsModel(
+        repondedDataFromLibrary.result
+      );
+
+      console.log("contentDataModels contentDataModels 3333");
+      console.log(contentDataModels);
+
+      if (contentDataModels) {
+        runInAction(() => {
+          callbackOnSuccess(contentDataModels);
+        });
+      } else {
+        callbackOnError({
+          message: "Something went wrong from Server response",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getProjectItemByProjectId(
+    projectId,
+    callbackOnSuccess,
+    callbackOnError
+  ) {
     if (!projectId) return false;
 
     try {

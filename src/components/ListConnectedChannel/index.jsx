@@ -9,6 +9,10 @@ const defaultData = [
   },
   {
     images: "/assets/images/ic-facebook.svg",
+    des: "Youtube",
+  },
+  {
+    images: "/assets/images/ic-facebook.svg",
     des: "Twitter",
   },
   {
@@ -30,17 +34,13 @@ const ListConnectedChannel = observer(
     constructor(props) {
       super(props);
       this.state = {};
-      this.viewModel = props.field.viewModel
-        ? props.field.viewModel
-        : null;
+      this.viewModel = props.field.viewModel ? props.field.viewModel : null;
       console.log("Debuggin -------- ListConnectedChannel ----- View Model");
       console.log(this.viewModel);
     }
 
     render() {
-      const value = this.viewModel
-        ? this.viewModel.connectedChannels
-        : "";
+      const value = this.viewModel ? this.viewModel.connectedChannels : "";
       console.log("Debuggin -------- ListConnectedChannel");
       console.log(value);
       return (
@@ -59,7 +59,11 @@ const ListConnectedChannel = observer(
                         <p
                           className={`mb-0 wrapper_images ${styles.wrapper_images} d-flex align-items-center justify-content-center`}
                         >
-                          <img alt={value.des} src={value.images} className="img-avatar"/>
+                          <img
+                            alt={value.des}
+                            src={value.images}
+                            className="img-avatar"
+                          />
                         </p>
                         <p className="text-blue-0 opacity-50 mb-0">
                           {value.des}

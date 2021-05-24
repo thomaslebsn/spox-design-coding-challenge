@@ -30,19 +30,27 @@ const CampaignsFormModal = observer(
     };
 
     render() {
-      const { show } = this.CampaignsFormModalViewModal;
+      const { show, editMode } = this.CampaignsFormModalViewModal;
       return (
         <ModalComponent
           show={show}
           onHide={this.CampaignsFormModalViewModal.closeModal}
-          header={"Create Campaign"}
+          header={
+            editMode == false || editMode == null
+              ? "Create Campaign"
+              : "Edit Campaign"
+          }
           body={<CampaignsForm viewModel={this.CampaignsFormModalViewModal} />}
           footer={
             <Button
               onClick={this.saveCampaignsHandler}
               className="btn btn-success w-100"
             >
-              <span>Create campaign</span>
+              <span>
+                {editMode == false || editMode == null
+                  ? "Create Campaign"
+                  : "Save Campaign"}
+              </span>
               <i className="ms-1">
                 <FontAwesomeIcon icon={faChevronRight} />
               </i>

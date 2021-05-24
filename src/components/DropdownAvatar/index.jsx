@@ -12,23 +12,25 @@ const data = [
   {
     key: 1,
     text: "Profile",
+    link: "/profile",
   },
   {
     key: 2,
     text: "Billing & Plan",
+    link: "/billing-plan",
   },
-  {
-    key: 3,
-    text: "Members",
-  },
-  {
-    key: 4,
-    text: "My collections",
-  },
-  {
-    key: 5,
-    text: "Upgrade",
-  },
+  // {
+  //   key: 3,
+  //   text: "Members",
+  // },
+  // {
+  //   key: 4,
+  //   text: "My collections",
+  // },
+  // {
+  //   key: 5,
+  //   text: "Upgrade",
+  // },
 ];
 
 class DropdownAvatar extends React.Component {
@@ -47,10 +49,10 @@ class DropdownAvatar extends React.Component {
       }}
       className="d-flex align-items-center text-decoration-none"
     >
-      <img src="/assets/images/avatar.png" alt="" className="img-avatar" />
+      <img src="/assets/images/avatar-7.jpeg" alt="" className="img-avatar" />
       <div className="text ps-3 pe-3">
-        <p className="mb-0 text-blue-0 fs-14 fw-bold">David William White</p>
-        <p className="mb-0 text-blue-0 fs-14 opacity-75">Project Manager</p>
+        <p className="mb-0 text-blue-0 fs-14 fw-bold">Abby Flemming</p>
+        <p className="mb-0 text-blue-0 fs-14 opacity-75">Small business owner</p>
       </div>
       <i className="icons green">
         <FontAwesomeIcon icon={faChevronDown} />
@@ -74,7 +76,7 @@ class DropdownAvatar extends React.Component {
                   return (
                     <li key={index}>
                       <Dropdown.Item
-                        href="#"
+                        href={value.link}
                         className="text-blue-0 d-block rounded-1 text-decoration-none p-2"
                       >
                         {value.text}

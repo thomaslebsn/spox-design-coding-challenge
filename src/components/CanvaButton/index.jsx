@@ -1,109 +1,62 @@
-import React from "react";
-import "./index.scss";
+import React from 'react';
+import { canvaApi } from '../../utils/canva';
+import './index.scss';
 
 class CanvaButton extends React.Component {
-  field = null;
-  canvaApi = null;
-  _isMounted = false;
-
   constructor(props) {
     super(props);
 
     this.state = {
-      apiLoaded: false,
-      exportUrl: "",
-      designId: "",
+      exportUrl: this.props.data.exportUrl,
+      designId: this.props.data.designId,
     };
-
-    this.field = this.props.field;
-  }
-
-  componentDidMount() {
-    const _this = this;
-    this._isMounted = true;
-
-    if (this.canvaApi === null) {
-      console.log("[CanvaButton] Initialize canvaApi");
-
-      const script = document.createElement("script");
-      script.src = "https://sdk.canva.com/designbutton/v2/api.js";
-      script.onload = function () {
-        if (window.Canva && window.Canva.DesignButton) {
-          window.Canva.DesignButton.initialize({
-            apiKey: "1cXlRfKSEDQWMd7w_2LOVrBb",
-          }).then(function (api) {
-            _this.canvaApi = api;
-            if (_this._isMounted) {
-              _this.setState({ apiLoaded: true });
-            }
-          });
-        }
-      };
-
-      document.body.appendChild(script);
-    }
-    const canvaData = this.field.value;
-    if (canvaData.exportedUrl && canvaData.designId) {
-      this.setState({
-        exportUrl: canvaData.exportedUrl,
-        designId: canvaData.designId,
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   handleClick = () => {
     const _this = this;
-    document.body.classList.remove("wr_export_url_canva");
+    document.body.classList.remove('wr_export_url_canva');
 
-    this.canvaApi.createDesign({
+    canvaApi.createDesign({
       design: {
-        type: "Poster",
+        type: 'Poster',
       },
       onDesignPublish: function ({ exportUrl, designId }) {
-        _this.field.changed({ exportUrl, designId });
-        _this.setState({ exportUrl: exportUrl, designId: designId });
+        _this.setState(
+          { exportUrl: exportUrl, designId: designId },
+          _this.props.changed(exportUrl, designId)
+        );
       },
     });
   };
 
   render() {
-    console.log("[CanvaButton] render", this.field);
-    console.log("[CanvaButton canvaApi] ", this.canvaApi);
+    console.log('[CanvaButton] render');
+    console.log('[CanvaButton canvaApi] ', canvaApi);
 
-    let { exportUrl, designId, apiLoaded } = this.state;
+    let { exportUrl, designId } = this.state;
 
     if (exportUrl) {
-      document.body.classList.add("wr_export_url_canva");
+      document.body.classList.add('wr_export_url_canva');
     }
 
     return (
-      apiLoaded && (
-        <>
-          <button
-            className="canva-btn canva-btn-theme-default canva-btn-size-m"
-            onClick={this.handleClick}
-            type="button"
-          >
-            <span className="canva-btn-i"></span>
-            Design on Canva
-          </button>
-          {exportUrl && (
-            <div className={`d-flex justify-content-start border-top mt-4`}>
-              <div key={designId} className="position-relative w-25 m-2">
-                <img
-                  className={`img-thumbnail rounded imgTab`}
-                  alt={exportUrl}
-                  src={exportUrl}
-                />
-              </div>
+      <div className={`${exportUrl ? 'w-50' : ''}`}>
+        <button
+          className="canva-btn canva-btn-theme-default canva-btn-size-m"
+          onClick={this.handleClick}
+          type="button"
+        >
+          <span className="canva-btn-i"></span>
+          Design on Canva
+        </button>
+        {exportUrl && (
+          <div className={`d-flex justify-content-start border-top mt-4`}>
+            <div key={designId} className="position-relative w-50 m-2">
+              <img className={`img-thumbnail rounded imgTab`} alt={exportUrl} src={exportUrl} />
             </div>
-          )}
-        </>
-      )
+          </div>
+        )}
+      </div>
     );
   }
 }

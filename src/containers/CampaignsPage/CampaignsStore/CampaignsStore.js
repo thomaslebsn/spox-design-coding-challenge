@@ -31,7 +31,11 @@ class CampaignsStore {
             isForProjectMaster: true,
           },
           (result) => {
-            const resultInModel = new ProjectMasterDataModel(result && result.projectMasterData ? result.projectMasterData : null);
+            const resultInModel = new ProjectMasterDataModel(
+              result && result.projectMasterData
+                ? result.projectMasterData
+                : null
+            );
             console.log("CampaignsStore - getProjectMasterData");
             console.log(result);
             console.log("CampaignsStore - resultToDropdownlistValues");
@@ -43,7 +47,8 @@ class CampaignsStore {
             } else {
               runInAction(() => {
                 callbackOnError({
-                  message: "resultInModel - CampaignsStore - getProjectMasterData - Something went wrong from Server response",
+                  message:
+                    "resultInModel - CampaignsStore - getProjectMasterData - Something went wrong from Server response",
                 });
               });
             }
@@ -51,7 +56,9 @@ class CampaignsStore {
           (error) => {
             runInAction(() => {
               callbackOnError({
-                message: "CampaignsStore - getProjectMasterData - Something went wrong from Server response : " + error,
+                message:
+                  "CampaignsStore - getProjectMasterData - Something went wrong from Server response : " +
+                  error,
               });
             });
           }
@@ -65,13 +72,13 @@ class CampaignsStore {
     }
   }
 
-  async fetchCampaigns(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchCampaigns(callbackOnSuccess, callbackOnError, paginationStep= 0, paginationSize = 25) {
     try {
       console.log("Persona Store - Fetch Personas");
       const campaignService = new EasiiCampaignApiService();
       const respondedDataFromLibrary = await campaignService.getCampaigns(
         paginationStep,
-        25
+        paginationSize
       );
 
       console.log(
@@ -83,7 +90,7 @@ class CampaignsStore {
         respondedDataFromLibrary.list
       );
 
-      console.log('respondedDataFromLibrary respondedDataFromLibrary - after');
+      console.log("respondedDataFromLibrary respondedDataFromLibrary - after");
       console.log(CampaignsModels);
 
       if (CampaignsModels) {
@@ -219,22 +226,27 @@ class CampaignsStore {
     // }
   }
 
-  async searchCampaigns(callbackOnSuccess, callbackOnError, dataFilter = {}, paginationStep = 1) {
+  async searchCampaigns(
+    callbackOnSuccess,
+    callbackOnError,
+    dataFilter = {},
+    paginationStep = 1,
+    paginationSize = 25
+  ) {
     try {
       console.log("Campaign Store - filter Campaign");
       const CampaignAPIService = new EasiiCampaignApiService();
       const respondedDataFromLibrary = await CampaignAPIService.searchCampaigns(
         dataFilter,
         paginationStep,
-        25
+        paginationSize
       );
-      
+
       console.log("Debugging ---- filter campaign");
       console.log(respondedDataFromLibrary);
       let campaignDataModels = null;
 
-      if (respondedDataFromLibrary !== null)
-      {
+      if (respondedDataFromLibrary !== null) {
         campaignDataModels = CampaignsUtils.transformCampaignResponseIntoModel(
           respondedDataFromLibrary.list
         );
@@ -244,7 +256,7 @@ class CampaignsStore {
         runInAction(() => {
           callbackOnSuccess({
             list: campaignDataModels,
-            pagination: respondedDataFromLibrary.pagination
+            pagination: respondedDataFromLibrary.pagination,
           });
         });
       } else {
@@ -273,26 +285,31 @@ class CampaignsStore {
         console.log(this.globalStore);
         await this.globalStore.getMasterData(
           {
-            isForCampaignMasterData: true
+            isForCampaignMasterData: true,
           },
           (result) => {
             try {
-              console.log('Campaign - getMasterData');
+              console.log("Campaign - getMasterData");
               console.log(result);
-              const resultCampaignInModel = new CampaignMasterDataModel(result && result.campaignMasterData ? result.campaignMasterData : null);
-              console.log('resultInModel');
+              const resultCampaignInModel = new CampaignMasterDataModel(
+                result && result.campaignMasterData
+                  ? result.campaignMasterData
+                  : null
+              );
+              console.log("resultInModel");
               console.log(resultCampaignInModel);
               console.log("CampaignsStore - resultCampaignInModel");
               console.log(result);
               console.log("CampaignsStore - resultToDropdownlistValues");
-  
+
               runInAction(() => {
                 callbackOnSuccess(resultCampaignInModel);
               });
-            } catch(error) {
+            } catch (error) {
               runInAction(() => {
                 callbackOnError({
-                  message: "resultInModel - ContentsStore - getMasterData - Something went wrong from Server response",
+                  message:
+                    "resultInModel - ContentsStore - getMasterData - Something went wrong from Server response",
                 });
               });
             }
@@ -300,7 +317,9 @@ class CampaignsStore {
           (error) => {
             runInAction(() => {
               callbackOnError({
-                message: "ContentsStore - getMasterData - Something went wrong from Server response : " + error,
+                message:
+                  "ContentsStore - getMasterData - Something went wrong from Server response : " +
+                  error,
               });
             });
           }

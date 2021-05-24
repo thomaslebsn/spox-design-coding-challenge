@@ -2,14 +2,14 @@ import ContentFormViewModel from "./ContentFormViewModel";
 import ContentListViewModel from "./ContentsListViewModel";
 import ContentsFilterFormViewModel from "./ContentsFilterFormViewModel";
 import { ContentConnectedChannelsModel } from "../ContentModel/ContentConnectedChannelsModel";
-import ContentConnectedChannelsByProjectViewModel from "./ContentConnectedChannelsByProjectViewModel";
+import ContentConnectedChannelsByOrganisationViewModel from "./ContentConnectedChannelsByOrganisationViewModel";
 import ContentDisplayProjectNameInWizardStep3ViewModel from "./ContentDisplayProjectNameInWizardStep3ViewModel";
 
 class ContentViewModel {
   contentListViewModel = null;
   contentFormViewModel = null;
   contentsFilterFormViewModel = null;
-  contentConnectedChannelsByProjectViewModel = null;
+  contentConnectedChannelsByOrganisationViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
 
   constructor(contentStore) {
@@ -21,7 +21,7 @@ class ContentViewModel {
         contentStore
       );
 
-      this.contentConnectedChannelsByProjectViewModel = new ContentConnectedChannelsByProjectViewModel(
+      this.contentConnectedChannelsByOrganisationViewModel = new ContentConnectedChannelsByOrganisationViewModel(
         contentStore
       );
 
@@ -34,7 +34,7 @@ class ContentViewModel {
       );
 
       this.contentFormViewModel.setContentConnectedChannelsViewModel(
-        this.contentConnectedChannelsByProjectViewModel
+        this.contentConnectedChannelsByOrganisationViewModel
       );
 
       this.contentFormViewModel.setContentDisplayProjectNameInWizardStep3ViewModel(
@@ -50,7 +50,7 @@ class ContentViewModel {
   getContentsFilterFormViewModel = () => this.contentsFilterFormViewModel;
 
   getContentConnectedChannelsViewModel = () =>
-    this.contentConnectedChannelsByProjectViewModel;
+    this.contentConnectedChannelsByOrganisationViewModel;
 
   getContentDisplayProjectNameInWizardStep3ViewModel = () =>
     this.contentDisplayProjectNameInWizardStep3ViewModel;

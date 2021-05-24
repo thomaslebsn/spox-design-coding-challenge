@@ -1,6 +1,7 @@
 import React, { Component, lazy } from "react";
 
 import { observer } from "mobx-react";
+import history from "../../../../routes/history";
 import { withWizardViewModel } from "../../WizardViewModels/WizardViewModelContextProvider";
 import ComponentContentFormGeneral from "../../../ContentPage/ContentForm/ComponentContentFormGeneral";
 import GlobalStore from "../../../../store/Store";
@@ -55,6 +56,9 @@ const campaignTableSelectionModalViewModel = new CampaignTableSelectionModalView
 const ContentFormGeneralWizard = observer(
   class ContentFormGeneralWizard extends Component {
     contentFormViewModel = null;
+    contentConnectedChannelsByOrganisationViewModel = null;
+    contentDisplayProjectNameInWizardStep3ViewModel = null;
+
     constructor(props) {
       super(props);
 
@@ -67,7 +71,15 @@ const ContentFormGeneralWizard = observer(
 
       console.log("After binding class");
       console.log(this.contentFormViewModel);
+
+      this.contentConnectedChannelsByOrganisationViewModel = this.contentFormViewModel.getContentConnectedChannelsViewModel();
+      this.contentDisplayProjectNameInWizardStep3ViewModel = this.contentFormViewModel.getContentDisplayProjectNameInWizardStep3ViewModel();
+
     }
+
+    previousWizardStep = () => {
+      history.push("/wizard");
+    };
 
     render() {
       console.log("[ContentFormGeneralWizard] - re-render .........");
@@ -87,6 +99,57 @@ const ContentFormGeneralWizard = observer(
             campaignTableSelectionModalViewModel={
               campaignTableSelectionModalViewModel
             }
+            connectChannelsField={true}
+            addConnectChannlesBtn={false}
+            isBackWizardStep={true}
+            previousWizardStep={this.previousWizardStep}
+            getDataSelectOptionsProject={
+              projectTableSelectionModalViewModel
+                ? projectTableSelectionModalViewModel.getDataSelectOptions
+                : []
+            }
+            getValueSelectedProject={
+              projectTableSelectionModalViewModel
+                ? projectTableSelectionModalViewModel.getValueSelected
+                : []
+            }
+            getDataSelectOptionsCampaign={
+              campaignTableSelectionModalViewModel
+                ? campaignTableSelectionModalViewModel.getDataSelectOptions
+                : []
+            }
+            getValueSelectedCampaign={
+              campaignTableSelectionModalViewModel
+                ? campaignTableSelectionModalViewModel.getValueSelected
+                : []
+            }
+            getDataSelectOptionsPersona={
+              personaTableSelectionModalViewModel
+                ? personaTableSelectionModalViewModel.getDataSelectOptions
+                : []
+            }
+            getValueSelectedPersona={
+              personaTableSelectionModalViewModel
+                ? personaTableSelectionModalViewModel.getValueSelected
+                : []
+            }
+            contentConnectedChannelsByOrganisationViewModel={
+              this.contentConnectedChannelsByOrganisationViewModel
+            }
+            contentDisplayProjectNameInWizardStep3ViewModel={
+              this.contentDisplayProjectNameInWizardStep3ViewModel
+            }
+            showModalChannels={this.contentConnectedChannelsByOrganisationViewModel.show}
+            arrayConnectedChannelsFinal={
+              this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal
+            }
+            dataContentDescriptionSingle={
+              this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle
+            }
+            dataContentDescriptionSocial={
+              this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial
+            }
+            isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
           />
           <ContentPreviewPersona
             personaTableSelectionModalViewModel={

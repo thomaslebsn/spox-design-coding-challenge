@@ -2,7 +2,8 @@ import React, { Component, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 import StepWizard from "react-step-wizard";
 
-import ProjectStore from "../ProjectsPage/ProjectStore/ProjectStore";
+// import ProjectStore from "../ProjectsPage/ProjectStore/ProjectStore";
+import ChannelsStore from "../ChannelsPage/ChannelsStore/ChannelsStore";
 import ContentStore from "../ContentPage/ContentStore/ContentStore";
 import WizardViewModel from "./WizardViewModels/WizardViewModel";
 import { WizardViewModelContextProvider } from "./WizardViewModels/WizardViewModelContextProvider";
@@ -10,21 +11,13 @@ import { WizardViewModelContextProvider } from "./WizardViewModels/WizardViewMod
 import WizardSteps from "../../components/WizardSteps";
 import Spinner from "../../components/Spinner";
 
-const ProjectsListWizard = lazy(() =>
-  import("./CreateProject/ProjectsListWizard")
-);
-
-const ProjectFormWizard = lazy(() =>
-  import("./CreateProject/ProjectFormWizard")
-);
-
 const ConnectChannel = lazy(() => import("./ConnectChannel"));
 
 const CreareContent = lazy(() => import("./CreareContent"));
 
-const projectStore = new ProjectStore();
+const channelsStore = new ChannelsStore();
 const contentStore = new ContentStore();
-const wizardViewModel = new WizardViewModel(projectStore, contentStore);
+const wizardViewModel = new WizardViewModel(channelsStore, contentStore);
 
 class WizardPage extends Component {
   constructor(props) {
@@ -40,19 +33,27 @@ class WizardPage extends Component {
 
         <WizardViewModelContextProvider viewModel={wizardViewModel}>
           <Suspense fallback={<Spinner />}>
-            <Route exact path="/wizard">
+            {/* <Route exact path="/wizard">
               <ProjectsListWizard />
-            </Route>
+            </Route> */}
 
-            <Route exact path="/wizard/createproject">
+            {/* <Route exact path="/wizard/createproject">
               <ProjectFormWizard />
-            </Route>
+            </Route> */}
 
-            <Route exact path="/wizard/project/:id">
+            {/* <Route exact path="/wizard/project/:id">
+              <ConnectChannel />
+            </Route> */}
+
+            {/* <Route exact path="/wizard/project/:id/content">
+              <CreareContent match={this.props.match} />
+            </Route> */}
+
+            <Route exact path="/wizard">
               <ConnectChannel />
             </Route>
 
-            <Route exact path="/wizard/project/:id/content">
+            <Route exact path="/wizard/content">
               <CreareContent match={this.props.match} />
             </Route>
           </Suspense>

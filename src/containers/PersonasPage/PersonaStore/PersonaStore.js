@@ -5,8 +5,12 @@ import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
 
 import PersonaUtils from "../PersonaUtils/PersonaUtils";
 import PersonaModel from "../PersonaModel/PersonaModel";
-import { EasiiPersonaApiService, EasiiPersonaTemplateApiService } from "easii-io-web-service-library";
+import {
+  EasiiPersonaApiService,
+  EasiiPersonaTemplateApiService,
+} from "easii-io-web-service-library";
 import { PersonaMasterDataModel } from "../../../store/Models/MasterDataModels/PersonaMasterDataModel";
+import { ConnectedChannelMasterDataModel } from "../../../store/Models/MasterDataModels/ConnectedChannelMasterDataModel";
 import PersonaTemplateUtils from "../PersonaUtils/PersonaTemplateUtils";
 
 export default class PersonaStore {
@@ -17,14 +21,19 @@ export default class PersonaStore {
     }
   }
 
-  async fetchPersonas(callbackOnSuccess, callbackOnError, paginationStep) {
+  async fetchPersonas(
+    callbackOnSuccess,
+    callbackOnError,
+    paginationStep = 0,
+    paginationSize = 25
+  ) {
     try {
       console.log("Persona Store - Fetch Personas");
       const PersonaService = new EasiiPersonaApiService();
 
       const repondedDataFromLibrary = await PersonaService.getPersonas(
         paginationStep,
-        25
+        paginationSize
       );
       console.log("repondedDataFromLibrary repondedDataFromLibrary");
       console.log(repondedDataFromLibrary);
@@ -70,10 +79,6 @@ export default class PersonaStore {
 
       const personaService = new EasiiPersonaApiService();
 
-      // const resultOnSave = await personaService.createPersona(
-      //   convertedPersonaData
-      // );
-
       let resultOnSave = null;
 
       console.log("personaData personaData", personaData);
@@ -82,7 +87,7 @@ export default class PersonaStore {
         convertedPersonaData
       );
 
-      const personaId = convertedPersonaData.id
+      const personaId = convertedPersonaData.id;
 
       if (personaId === undefined || personaId === null || personaId === 0) {
         console.log("CREATE PERSONA");
@@ -154,6 +159,8 @@ export default class PersonaStore {
           [repondedDataFromLibrary]
         );
 
+        console.log("after - transformPersonaResponseIntoModel");
+        console.log(personaDataModels);
         if (personaDataModels) {
           runInAction(() => {
             callbackOnSuccess(personaDataModels);
@@ -185,26 +192,31 @@ export default class PersonaStore {
         console.log(this.globalStore);
         await this.globalStore.getMasterData(
           {
-            isForPersonaMasterData: true
+            isForPersonaMasterData: true,
           },
           (result) => {
             try {
-              console.log('Persona - getMasterData');
+              console.log("Persona - getMasterData");
               console.log(result);
-              const resultPersonaInModel = new PersonaMasterDataModel(result && result.personaMasterData ? result.personaMasterData : null);
-              console.log('resultInModel');
+              const resultPersonaInModel = new PersonaMasterDataModel(
+                result && result.personaMasterData
+                  ? result.personaMasterData
+                  : null
+              );
+              console.log("resultInModel");
               console.log(resultPersonaInModel);
               console.log("persona - resultPersonaInModel");
               console.log(result);
               console.log("persona - resultToDropdownlistValues");
-  
+
               runInAction(() => {
                 callbackOnSuccess(resultPersonaInModel);
               });
-            } catch(error) {
+            } catch (error) {
               runInAction(() => {
                 callbackOnError({
-                  message: "resultInModel - personaStore - getMasterData - Something went wrong from Server response",
+                  message:
+                    "resultInModel - personaStore - getMasterData - Something went wrong from Server response",
                 });
               });
             }
@@ -212,7 +224,9 @@ export default class PersonaStore {
           (error) => {
             runInAction(() => {
               callbackOnError({
-                message: "personaStore - getMasterData - Something went wrong from Server response : " + error,
+                message:
+                  "personaStore - getMasterData - Something went wrong from Server response : " +
+                  error,
               });
             });
           }
@@ -226,7 +240,76 @@ export default class PersonaStore {
     }
   }
 
-  async getPersonaRecommendations(callbackOnSuccess, callbackOnError, paginationStep) {
+  async getConnectedChannelsMasterData(callbackOnSuccess, callbackOnError) {
+    try {
+      if (!this.globalStore) {
+        runInAction(() => {
+          callbackOnError({
+            message: "Global Store is NULL",
+          });
+        });
+      } else {
+        console.log("getConnectedChannelsMasterData - Get Global Store");
+        console.log(this.globalStore);
+        await this.globalStore.getMasterData(
+          {
+            isForConnectedChannelsMasterData: true,
+          },
+          (result) => {
+            try {
+              console.log("getConnectedChannelsMasterData - getMasterData");
+              console.log(result);
+              const resultPersonaInModel = new ConnectedChannelMasterDataModel(
+                result && result.connectedChannelsMasterData
+                  ? result.connectedChannelsMasterData
+                  : null
+              );
+              console.log("resultInModel");
+              console.log(resultPersonaInModel);
+              console.log(
+                "getConnectedChannelsMasterData - resultPersonaInModel"
+              );
+              console.log(result);
+              console.log(
+                "getConnectedChannelsMasterData - resultToDropdownlistValues"
+              );
+
+              runInAction(() => {
+                callbackOnSuccess(resultPersonaInModel);
+              });
+            } catch (error) {
+              runInAction(() => {
+                callbackOnError({
+                  message:
+                    "resultInModel - personaStore - getMasterData - Something went wrong from Server response",
+                });
+              });
+            }
+          },
+          (error) => {
+            runInAction(() => {
+              callbackOnError({
+                message:
+                  "personaStore - getMasterData - Something went wrong from Server response : " +
+                  error,
+              });
+            });
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getPersonaRecommendations(
+    callbackOnSuccess,
+    callbackOnError,
+    paginationStep
+  ) {
     try {
       console.log("Content Store - getPersonaRecommendations");
       const personaTemplateAPIService = new EasiiPersonaTemplateApiService();
@@ -266,13 +349,19 @@ export default class PersonaStore {
     }
   }
 
-  getPersonaRecommendationItem = async (id, callbackOnSuccess, callbackOnError) => {
+  getPersonaRecommendationItem = async (
+    id,
+    callbackOnSuccess,
+    callbackOnError
+  ) => {
     if (!id) return false;
 
     try {
       const personaTemplateService = new EasiiPersonaTemplateApiService();
 
-      const repondedDataFromLibrary = await personaTemplateService.getPersonaTemplate(id);
+      const repondedDataFromLibrary = await personaTemplateService.getPersonaTemplate(
+        id
+      );
 
       console.log("Persona Store - getPersonaRecommendationItem");
       console.log(repondedDataFromLibrary);
@@ -297,13 +386,14 @@ export default class PersonaStore {
         callbackOnError(error);
       });
     }
-  }
+  };
 
   async searchPersonas(
     callbackOnSuccess,
     callbackOnError,
     dataFilter = {},
-    paginationStep = 1
+    paginationStep = 1,
+    paginationSize = 25
   ) {
     try {
       console.log("Persona Store - searchPersonas");
@@ -311,7 +401,7 @@ export default class PersonaStore {
       const respondedDataFromLibrary = await personaAPIService.searchPersonas(
         dataFilter,
         paginationStep,
-        25
+        paginationSize
       );
 
       console.log("Debugging ---- searchPersonas");

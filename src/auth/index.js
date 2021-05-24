@@ -1,9 +1,9 @@
 import history from "../routes/history";
-import { notify } from "../components/Toast";
-import { EasiiAuthenticationApiService } from "easii-io-web-service-library";
+import {notify} from "../components/Toast";
+import {EasiiAuthenticationApiService} from "easii-io-web-service-library";
 
 // LOGIN
-const login = async ({ username, password, remember }) => {
+const login = async ({username, password, remember}) => {
   const authService = new EasiiAuthenticationApiService();
   const result = await authService.login(username, password);
   console.log("==== Debugging Login Function ====");
@@ -30,4 +30,4 @@ const isLogin = () => {
   return false;
 };
 
-export { login, logout, isLogin };
+export {login, logout, isLogin};

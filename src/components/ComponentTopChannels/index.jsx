@@ -11,6 +11,10 @@ const dataTabs = [
     text: "Facebook",
   },
   {
+    name: "youtube",
+    text: "Youtube",
+  },
+  {
     name: "twitter",
     text: "Twitter",
   },

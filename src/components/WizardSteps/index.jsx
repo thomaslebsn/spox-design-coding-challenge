@@ -7,16 +7,16 @@ import styles from "./index.module.scss";
 
 const WizardSteps = (props) => {
   const steps = [
+    // {
+    //   key: 1,
+    //   text: "Create project",
+    // },
     {
       key: 1,
-      text: "Create project",
-    },
-    {
-      key: 2,
       text: "Connect channel",
     },
     {
-      key: 3,
+      key: 2,
       text: "Create content",
     },
   ];
@@ -25,14 +25,16 @@ const WizardSteps = (props) => {
   let currentStep = 1;
 
   if (
-    history.location.pathname === `/wizard/project/${props.match.params.id}`
+    // history.location.pathname === `/wizard/project/${props.match.params.id}`
+    history.location.pathname === `/wizard/content`
   ) {
     currentStep = currentStep + 1;
   } else if (
-    history.location.pathname ===
-    `/wizard/project/${props.match.params.id}/content`
+    // history.location.pathname ===
+    // `/wizard/project/${props.match.params.id}/content`
+    history.location.pathname === `/wizard/1/content`
   ) {
-    currentStep = currentStep + 2;
+    // currentStep = currentStep + 2;
   } else {
     currentStep = currentStep;
   }
@@ -43,7 +45,7 @@ const WizardSteps = (props) => {
         let isActive = currentStep >= key;
 
         if (isActive) {
-          processW = (key - 1) * 50;
+          processW = (key - 1) * 100;
         }
 
         console.log("processW processW", processW);
@@ -52,7 +54,7 @@ const WizardSteps = (props) => {
           <div
             key={key}
             className={`position-absolute top-0 start-${
-              (key - 1) * 50
+              (key - 1) * 100
             } translate-middle`}
           >
             <div

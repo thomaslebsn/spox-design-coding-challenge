@@ -44,12 +44,12 @@ const ContentsList = observer(
       this.contentsFilterFormViewModel.initData();
     }
 
-    handerEditContent = (e, row) => {
-      history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
-        form: true,
-        id: row[CONTENT_FIELD_KEY.ID],
-      });
-    };
+    // handerEditContent = (e, row) => {
+    //   history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
+    //     form: true,
+    //     id: row[CONTENT_FIELD_KEY.ID],
+    //   });
+    // };
 
     handerSelectContent = (data) => {
       this.contentListViewModel.contentIdsSelected = data
@@ -98,10 +98,10 @@ const ContentsList = observer(
           Cell: ({ row }) => (
             console.log("row.original", row),
             (
-              <div {...row.getToggleRowExpandedProps()} className="d-flex">
+              <div className="d-flex">
                 <span
                   className="text-black opacity-75"
-                  onClick={(e) => this.handerEditContent(e, row.original)}
+                  //onClick={(e) => this.handerEditContent(e, row.original)}
                 >
                   {row.original[CONTENT_FIELD_KEY.NAME]}
                 </span>
@@ -126,7 +126,7 @@ const ContentsList = observer(
                     width="20"
                     className="position-absolute bottom-0 end-0"
                   />
-                  <Image src={item.image} rounded width="50" />
+                  <Image src={item.image} rounded width="40" />
                 </div>
               ))}
             </div>
@@ -158,10 +158,12 @@ const ContentsList = observer(
           onSelect={this.handerSelectContent}
           isFilter={true}
           pagination={pagination}
+          pageSize={this.contentListViewModel.pageSize}
           listViewModel={this.contentListViewModel}
           searchFunction={this.contentListViewModel.searchContents}
           dataFormFilter={dataFormFilter}
           searchText="Search your posts"
+          classNameTable={"wr_content_list"}
         ></Table>
       );
     }

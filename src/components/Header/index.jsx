@@ -79,9 +79,9 @@ class Header extends React.Component {
             <FontAwesomeIcon icon={faChevronLeft} />
           </a>
           <div className="d-flex justify-content-between flex-1 align-items-center">
-            <AllProjects />
+            <div>{/* <AllProjects /> */}</div>
             <div className="d-flex align-items-center">
-              <div className="input-group mb-0 pe-2 wr_input_search">
+              {/* <div className="input-group mb-0 pe-2 wr_input_search">
                 <input
                   type="text"
                   placeholder={t("txt_search_for_something")}
@@ -95,7 +95,7 @@ class Header extends React.Component {
                 >
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
-              </div>
+              </div> */}
               <div className="wr_help_center ps-3 pe-3">
                 <a
                   href="#"
@@ -107,9 +107,9 @@ class Header extends React.Component {
                   </span>
                 </a>
               </div>
-              <div className="ps-3 pe-3">
+              {/* <div className="ps-3 pe-3">
                 <Notifications />
-              </div>
+              </div> */}
               <div className="ps-3 pe-3">
                 <DropdownAvatar />
               </div>

@@ -85,7 +85,7 @@ const CampaignsList = observer(
           name: "projects",
           option: this.campaignsFilterFormViewModel.dropdownlistProjectValues,
           isMulti: true,
-        }
+        },
       ];
     };
 
@@ -189,7 +189,7 @@ const CampaignsList = observer(
           <div className="mb-4">
             <div className="row">
               <div className="col-lg-12 col-xl-6 mb-3 mb-xl-0">
-                <ComponentChart />
+                <ComponentChart titleChart={true} />
               </div>
               <div className="col-md-6 col-xl-3 ">
                 <ListSocial />
@@ -210,6 +210,7 @@ const CampaignsList = observer(
             onSelect={this.handerSelectCampaigns}
             isFilter={true}
             pagination={pagination}
+            pageSize={this.campaignsListViewModel.pageSize}
             listViewModel={this.campaignsListViewModel}
             searchFunction={this.campaignsListViewModel.searchCampaign}
             dataFormFilter={dataFormFilter}

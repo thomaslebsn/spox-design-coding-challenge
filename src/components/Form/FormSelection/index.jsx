@@ -1,51 +1,36 @@
 import React, { Component, lazy } from "react";
 
-import { observer } from "mobx-react";
-
-import ModalComponent from "../../../components/Modal";
 import SelectComponent from "../../../components/Select";
-
 import "./index.scss";
 
-const FormSelection = observer(
-  class FormSelection extends Component {
-    constructor(props) {
-      super(props);
+class FormSelection extends Component {
+  constructor(props) {
+    super(props);
 
-      this.field = this.props.field;
+    this.field = this.props.field;
 
-      this.viewModel = this.field.viewModel;
+    this.viewModel = this.field ? this.field.viewModel : null;
 
-      console.log("FormSelection - viewModel");
-      console.log(this.viewModel);
-
-      this.viewModel.setMulti(this.field.multi);
-    }
-
-    handleOnMenuOpen = () => {
-      this.viewModel.openModal();
-    };
-
-    render() {
-      const { multi } = this.viewModel;
-
-      const value = this.viewModel.getSectionsValue();
-
-      return (
-        <SelectComponent
-          value={value}
-          className="mb-3 text-green"
-          isBorder={true}
-          plColor="rgba(8, 18, 64, 0.8)"
-          menuIsOpen={false}
-          onMenuOpen={this.handleOnMenuOpen}
-          onFocus={this.field.changed}
-          onBlur={this.field.blurred}
-          isMulti={multi}
-        />
-      );
-    }
+    this.viewModel.setMulti(this.field.multi);
   }
-);
+
+  render() {
+    const { multi } = this.viewModel;
+
+    return (
+      <SelectComponent
+        value={this.field.getValueSelected}
+        options={this.field.getDataSelectOptions}
+        className="mb-3 text-green"
+        isBorder={true}
+        plColor="rgba(8, 18, 64, 0.8)"
+        //onFocus={this.field.changed}
+        onBlur={this.field.blurred}
+        isMulti={multi}
+        onChange={this.field.handleChange}
+      />
+    );
+  }
+}
 
 export default FormSelection;

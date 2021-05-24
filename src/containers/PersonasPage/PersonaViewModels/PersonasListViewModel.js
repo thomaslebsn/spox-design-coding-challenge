@@ -1,9 +1,9 @@
-import { makeAutoObservable } from "mobx";
-import PAGE_STATUS from "../../../constants/PageStatus";
-import PersonaUtils from "../PersonaUtils/PersonaUtils";
-import { PERSONA_FIELD_KEY } from "../../../constants/PersonaModule";
+import { makeAutoObservable } from 'mobx';
+import PAGE_STATUS from '../../../constants/PageStatus';
+import PersonaUtils from '../PersonaUtils/PersonaUtils';
+import { PERSONA_FIELD_KEY } from '../../../constants/PersonaModule';
 
-import { notify } from "../../../components/Toast";
+import { notify } from '../../../components/Toast';
 
 class PersonasListViewModel {
   personaStore = null;
@@ -18,6 +18,8 @@ class PersonasListViewModel {
 
   personaIdsSelected = null;
 
+  pageSize = 5;
+
   constructor(personaStore) {
     makeAutoObservable(this);
     this.personaStore = personaStore;
@@ -27,7 +29,9 @@ class PersonasListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.personaStore.fetchPersonas(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -35,7 +39,9 @@ class PersonasListViewModel {
     this.tableStatus = PAGE_STATUS.LOADING;
     this.personaStore.fetchPersonas(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHander
+      this.callbackOnErrorHander,
+      0,
+      this.pageSize
     );
   };
 
@@ -43,7 +49,7 @@ class PersonasListViewModel {
     let getArrayId = this.personaIdsSelected;
 
     if (getArrayId === null) {
-      notify("Please true add list an item for delete");
+      notify('Please true add list an item for delete');
     } else {
       this.tableStatus = PAGE_STATUS.LOADING;
 
@@ -56,23 +62,24 @@ class PersonasListViewModel {
   };
 
   getPagination = (paginationStep) => {
-    console.log("paginationStep", paginationStep);
+    console.log('paginationStep', paginationStep);
     this.tableStatus = PAGE_STATUS.LOADING;
     this.personaStore.fetchPersonas(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      paginationStep
+      paginationStep,
+      this.pageSize
     );
   };
 
   callbackOnErrorHander = (error) => {
-    console.log("callbackOnErrorHander");
+    console.log('callbackOnErrorHander');
     console.log(error);
     notify(error.message);
   };
 
   callbackOnSuccessHandler = (personaModelData) => {
-    console.log("callbackOnSuccessHandler");
+    console.log('callbackOnSuccessHandler');
     console.log(personaModelData);
     if (personaModelData) {
       this.tableStatus = PAGE_STATUS.READY;
@@ -81,13 +88,13 @@ class PersonasListViewModel {
         personaModelData.list
       );
 
-      console.log("Row Data is Formatted");
+      console.log('Row Data is Formatted');
       console.log(rowDataTransformed);
 
       this.personas = rowDataTransformed;
       this.pagination = personaModelData.pagination;
 
-      console.log("this.pagination this.pagination", this.pagination);
+      console.log('this.pagination this.pagination', this.pagination);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
@@ -101,7 +108,7 @@ class PersonasListViewModel {
       this.callbackOnErrorHander,
       dataFilter
     );
-  }
+  };
 }
 
 export default PersonasListViewModel;

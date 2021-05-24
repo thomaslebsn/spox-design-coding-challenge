@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Dropdown, Pagination } from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import { Dropdown, Pagination } from 'react-bootstrap';
 import {
   useTable,
   useRowSelect,
@@ -7,26 +7,24 @@ import {
   useGlobalFilter,
   useExpanded,
   usePagination,
-} from "react-table";
-import { useMemo } from "react";
+} from 'react-table';
+import { useMemo } from 'react';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
-import { faColumns } from "@fortawesome/free-solid-svg-icons/faColumns";
-import { faList } from "@fortawesome/free-solid-svg-icons/faList";
-import { faTh } from "@fortawesome/free-solid-svg-icons/faTh";
-import { faFilter } from "@fortawesome/free-solid-svg-icons/faFilter";
-import { faChevronUp } from "@fortawesome/free-solid-svg-icons/faChevronUp";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
+import { faColumns } from '@fortawesome/free-solid-svg-icons/faColumns';
+import { faList } from '@fortawesome/free-solid-svg-icons/faList';
+import { faTh } from '@fortawesome/free-solid-svg-icons/faTh';
+import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
+import styles from './index.module.scss';
+import './index.scss';
 
-import styles from "./index.module.scss";
-import "./index.scss";
-
-import GlobalFilter from "./GlobalFilter";
-import SubRowAsync from "./RowSubComponent";
-import ComponentDatepicker from "../ComponentDatepicker";
-import ComponentFilter from "../ComponentFilter";
+import GlobalFilter from './GlobalFilter';
+import SubRowAsync from './RowSubComponent';
+import ComponentDatepicker from '../ComponentDatepicker';
+import ComponentFilter from '../ComponentFilter';
+import PaginationComponent from './PaginationComponent';
 
 const Table = ({
   rowData,
@@ -37,10 +35,11 @@ const Table = ({
   dataList,
   dataThumb,
   thumbColumnsNumber,
-  searchText = "Search...",
+  searchText = 'Search...',
   isFilter,
   noSelection = false,
   isList = true,
+  pageSize = 5,
   noDropDownColumns = false,
   pagination,
   listViewModel,
@@ -48,10 +47,11 @@ const Table = ({
   dataFormFilter,
   hasSubRow,
   isSearch = true,
+  _handleList,
+  classNameTable,
 }) => {
   const [getState, setState] = useState({
-    isList: isList,
-    isName: "list",
+    isName: 'list',
     isFilter: false,
     indexPagination: 0,
     dataFilter: null,
@@ -63,9 +63,7 @@ const Table = ({
         return rows.filter((row) => {
           const rowValue = row.values[id];
           return rowValue !== undefined
-            ? String(rowValue)
-                .toLowerCase()
-                .startsWith(String(filterValue).toLowerCase())
+            ? String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase())
             : true;
         });
       },
@@ -74,32 +72,25 @@ const Table = ({
   );
 
   const handerEdit = (e, row) => {
-    if (e.target.type !== "checkbox") {
+    if (e.target.type !== 'checkbox') {
       onEdit(row);
     }
   };
 
-  const IndeterminateCheckbox = React.forwardRef(
-    ({ indeterminate, ...rest }, ref) => {
-      const defaultRef = React.useRef();
-      const resolvedRef = ref || defaultRef;
+  const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef();
+    const resolvedRef = ref || defaultRef;
 
-      useEffect(() => {
-        resolvedRef.current.indeterminate = indeterminate;
-      }, [resolvedRef, indeterminate]);
+    useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate;
+    }, [resolvedRef, indeterminate]);
 
-      return (
-        <>
-          <input
-            className="form-check-input p-0"
-            type="checkbox"
-            ref={resolvedRef}
-            {...rest}
-          />
-        </>
-      );
-    }
-  );
+    return (
+      <>
+        <input className="form-check-input p-0" type="checkbox" ref={resolvedRef} {...rest} />
+      </>
+    );
+  });
 
   const columns = useMemo(() => tableRowHeader, [tableRowHeader]);
 
@@ -123,17 +114,16 @@ const Table = ({
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
     selectedFlatRows,
     state,
-    state: { pageIndex, pageSize, selectedRowIds },
+    state: { pageIndex, selectedRowIds },
   } = useTable(
     {
       columns,
       data,
       filterTypes,
       onSelect,
-      initialState: { pageIndex: getState.indexPagination, pageSize: 25 },
+      initialState: { pageIndex: getState.indexPagination, pageSize: pageSize },
     },
     useFilters,
     useGlobalFilter,
@@ -141,12 +131,10 @@ const Table = ({
       !noSelection &&
         hooks.visibleColumns.push((columns) => [
           {
-            id: "selection",
+            id: 'selection',
             Header: ({ getToggleAllPageRowsSelectedProps }) => (
               <div>
-                <IndeterminateCheckbox
-                  {...getToggleAllPageRowsSelectedProps()}
-                />
+                <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
               </div>
             ),
             Cell: ({ row }) => (
@@ -176,15 +164,8 @@ const Table = ({
     }
   }, [selectedRowIds, onSelect, data]);
 
-  const _handleList = (name) => {
-    setState({
-      ...getState,
-      isList: getState.isName === name ? true : false,
-    });
-  };
-
   const setGlobalFilter = (dataFilter) => {
-    console.log("setGlobalFilter");
+    console.log('setGlobalFilter');
     console.log(dataFilter);
     if (searchFunction !== undefined) {
       console.log(dataFilter);
@@ -222,51 +203,20 @@ const Table = ({
     });
   };
 
-  const handlePreviousPage = (i) => {
-    listViewModel.getPagination(pagination.page - 1, getState.isList);
-  };
-
-  const handleGoToPage = (i) => {
-    listViewModel.getPagination(i, getState.isList);
-  };
-
-  const handleNextPage = () => {
-    listViewModel.getPagination(pagination.page + 1, getState.isList);
-  };
-
-  const paginationHTML = () => {
-    let paginationHTML = [];
-    for (let i = 1; i <= pagination.totalPages; i++) {
-      paginationHTML.push(
-        <button
-          key={i}
-          onClick={() => handleGoToPage(i)}
-          className={`btn ${styles.btn} border-1 border-gray p-0 fs-5 ${
-            i === pagination.page
-              ? "bg-green text-white border-green"
-              : "text-black-50"
-          }`}
-        >
-          {i}
-        </button>
-      );
-    }
-
-    return paginationHTML;
-  };
-
   return (
     <>
-      <div className="mb-4">
+      <div className={`mb-4 ${classNameTable}`}>
         <div className="bg-white rounded-3 d-flex align-items-center justify-content-between">
           <div className="wrapper_search_global d-flex align-items-center">
-            {isSearch ? (<GlobalFilter
-              preGlobalFilteredRows={preGlobalFilteredRows}
-              globalFilter={state.globalFilter}
-              setGlobalFilter={setGlobalFilter}
-              searchText={searchText}
-              listViewModel={listViewModel}
-            />) : null}
+            {isSearch ? (
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+                searchText={searchText}
+                listViewModel={listViewModel}
+              />
+            ) : null}
             {!noDropDownColumns && (
               <div className="px-2 border-end-1">
                 <Dropdown>
@@ -278,9 +228,7 @@ const Table = ({
                     <i>
                       <FontAwesomeIcon icon={faColumns} />
                     </i>
-                    <span className="ps-2 pe-5 text-blue-0 opacity-75">
-                      Columns
-                    </span>
+                    <span className="ps-2 pe-5 text-blue-0 opacity-75">Columns</span>
                     <i className="text-green">
                       <FontAwesomeIcon icon={faChevronDown} />
                     </i>
@@ -288,7 +236,8 @@ const Table = ({
                   <Dropdown.Menu className="pt-3 px-2 border-0 shadow">
                     {allColumns.map(
                       (column) =>
-                        (column.id !== "selection" && column.Header !== "") && (
+                        column.id !== 'selection' &&
+                        column.Header !== '' && (
                           <div key={column.id} className="mb-2">
                             <label>
                               <input
@@ -316,19 +265,15 @@ const Table = ({
                 </div>
                 <div className="rounded-0">
                   <button
-                    className={`btn ${getState.isFilter ? "bg-blue-3" : ""}`}
+                    className={`btn ${getState.isFilter ? 'bg-blue-3' : ''}`}
                     onClick={handleFilter}
                   >
                     <i>
                       <FontAwesomeIcon icon={faFilter} />
                     </i>
-                    <span className="ps-2 pe-5 text-blue-0 opacity-75">
-                      Filter
-                    </span>
+                    <span className="ps-2 pe-5 text-blue-0 opacity-75">Filter</span>
                     <i className="text-green">
-                      <FontAwesomeIcon
-                        icon={getState.isFilter ? faChevronUp : faChevronDown}
-                      />
+                      <FontAwesomeIcon icon={getState.isFilter ? faChevronUp : faChevronDown} />
                     </i>
                   </button>
                 </div>
@@ -339,10 +284,8 @@ const Table = ({
             <div className="d-flex align-items-center">
               <button
                 type="button"
-                className={`btn text-blue-0 rounded-0 px-4 ${
-                  getState.isList ? "bg-blue-3" : ""
-                }`}
-                onClick={() => _handleList("list")}
+                className={`btn text-blue-0 rounded-0 px-4 ${isList ? 'bg-blue-3' : ''}`}
+                onClick={() => _handleList('list')}
               >
                 <i>
                   <FontAwesomeIcon icon={faList} />
@@ -351,10 +294,8 @@ const Table = ({
               </button>
               <button
                 type="button"
-                className={`btn text-blue-0 rounded-0 px-4 ${
-                  !getState.isList ? "bg-blue-3" : ""
-                }`}
-                onClick={() => _handleList("thumb")}
+                className={`btn text-blue-0 rounded-0 px-4 ${!isList ? 'bg-blue-3' : ''}`}
+                onClick={() => _handleList('thumb')}
               >
                 <i>
                   <FontAwesomeIcon icon={faTh} />
@@ -368,7 +309,7 @@ const Table = ({
           <>
             <div
               className={`py-2 px-1 bg-blue-3 wrapper_filter_select ${
-                getState.isFilter ? "show_filter_select" : ""
+                getState.isFilter ? 'show_filter_select' : ''
               }`}
             >
               {dataFormFilter && (
@@ -381,12 +322,12 @@ const Table = ({
           </>
         )}
       </div>
-      {getState.isList ? (
+      {isList ? (
         <div className="bg-white p-3 rounded-3">
-          <table {...getTableProps()} className="w-100 mb-4">
+          <table {...getTableProps()} className={`w-100 mb-4 ${classNameTable}`}>
             <thead>
               {headerGroups.map((headerGroup) => {
-                let newHeaderGroup = "";
+                let newHeaderGroup = '';
 
                 dataList
                   ? (newHeaderGroup = headerGroup.headers.filter(
@@ -395,17 +336,11 @@ const Table = ({
                   : (newHeaderGroup = headerGroup.headers);
 
                 return (
-                  <tr
-                    {...headerGroup.getHeaderGroupProps()}
-                    className="bg-blue"
-                  >
+                  <tr {...headerGroup.getHeaderGroupProps()} className="bg-blue">
                     {newHeaderGroup.map((column) => {
                       return (
-                        <th
-                          {...column.getHeaderProps()}
-                          className="fw-normal px-2 py-3 flex-1"
-                        >
-                          {column.render("Header")}
+                        <th {...column.getHeaderProps()} className="fw-normal px-2 py-3 flex-1">
+                          {column.render('Header')}
                         </th>
                       );
                     })}
@@ -417,12 +352,11 @@ const Table = ({
               {page.map((row, i) => {
                 prepareRow(row);
                 const rowProps = row.getRowProps();
-                let newRowCells = "";
+                let newRowCells = '';
 
                 dataList
                   ? (newRowCells = row.cells.filter(
-                      (item) =>
-                        !dataList.some((other) => item.column.id === other)
+                      (item) => !dataList.some((other) => item.column.id === other)
                     ))
                   : (newRowCells = row.cells);
 
@@ -435,11 +369,8 @@ const Table = ({
                     >
                       {newRowCells.map((cell) => {
                         return (
-                          <td
-                            {...cell.getCellProps()}
-                            className="fw-normal px-2 py-3"
-                          >
-                            {cell.render("Cell")}
+                          <td {...cell.getCellProps()} className="fw-normal px-2 py-3">
+                            {cell.render('Cell')}
                           </td>
                         );
                       })}
@@ -457,30 +388,15 @@ const Table = ({
               })}
             </tbody>
           </table>
-          <div className="pagination d-flex align-items-center justify-content-center">
+          <div className="pagination d-flex align-items-center justify-content-between">
             {pagination && (
               <>
-                <button
-                  //onClick={() => previousPage()}
-                  onClick={() => handlePreviousPage()}
-                  disabled={pagination && pagination.page <= 1 ? true : false}
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                {paginationHTML()}
-                <button
-                  //onClick={() => nextPage()}
-                  onClick={() => handleNextPage()}
-                  disabled={
-                    pagination && pagination.page === pagination.totalPages
-                      ? true
-                      : false
-                  }
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
+                <PaginationComponent
+                  pagination={pagination}
+                  pageSize={pageSize}
+                  listViewModel={listViewModel}
+                  isList={isList}
+                />
               </>
             )}
           </div>
@@ -500,9 +416,9 @@ const Table = ({
               newRowCells.length > 0 && (
                 <div
                   {...row.getRowProps()}
-                  className={`col_thumb cursor-pointer ${
-                    styles.col_thumb
-                  } col-${!thumbColumnsNumber ? "3" : thumbColumnsNumber} mb-4`}
+                  className={`col_thumb cursor-pointer ${styles.col_thumb} col-${
+                    !thumbColumnsNumber ? '3' : thumbColumnsNumber
+                  } mb-4`}
                   onClick={(e) => handerEdit(e, row.original)}
                   key={Math.random(40, 200)}
                 >
@@ -517,7 +433,7 @@ const Table = ({
                           className={`ct_cell ${styles.ct_cell} d-block`}
                           key={Math.random(40, 200)}
                         >
-                          {cell.render("Cell")}
+                          {cell.render('Cell')}
                         </div>
                       );
                     })}
@@ -526,30 +442,16 @@ const Table = ({
               )
             );
           })}
-          <div className="pagination d-flex align-items-center justify-content-center">
+
+          <div className="pagination d-flex align-items-center justify-content-between">
             {pagination && (
               <>
-                <button
-                  //onClick={() => previousPage()}
-                  onClick={() => handlePreviousPage()}
-                  disabled={pagination && pagination.page <= 1 ? true : false}
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                </button>
-                {paginationHTML()}
-                <button
-                  //onClick={() => nextPage()}
-                  onClick={() => handleNextPage()}
-                  disabled={
-                    pagination && pagination.page === pagination.totalPages
-                      ? true
-                      : false
-                  }
-                  className={`btn ${styles.btn} border-1 border-gray p-0 text-green`}
-                >
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </button>
+                <PaginationComponent
+                  pagination={pagination}
+                  pageSize={pageSize}
+                  listViewModel={listViewModel}
+                  isList={isList}
+                />
               </>
             )}
           </div>
@@ -567,6 +469,6 @@ function filterGreaterThan(rows, id, filterValue) {
   });
 }
 
-filterGreaterThan.autoRemove = (val) => typeof val !== "number";
+filterGreaterThan.autoRemove = (val) => typeof val !== 'number';
 
 export default Table;

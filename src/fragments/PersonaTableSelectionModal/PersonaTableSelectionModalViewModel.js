@@ -18,6 +18,12 @@ class PersonaTableSelectionModalViewModel {
 
   channelSelectionData = [];
 
+  getDataSelectOptions = [];
+
+  getValueSelected = [];
+
+  isHiddenPersonaPeview = false;
+
   inputRef = null;
   constructor(fragmentStore) {
     makeAutoObservable(this);
@@ -110,6 +116,7 @@ class PersonaTableSelectionModalViewModel {
     this.channelSelectionData = [];
     this.personasMasterData = null;
     this.tableStatus = PAGE_STATUS.LOADING;
+    this.getPersonaFilter = null;
   }
 
   callbackOnErrorHander = (error) => {
@@ -124,9 +131,11 @@ class PersonaTableSelectionModalViewModel {
     if (personaModelData) {
       this.tableStatus = PAGE_STATUS.READY;
 
-      this.personasMasterData = personaModelData.toTableRowsData();
+      this.personasMasterData = personaModelData.toDropdownFullListValues();
+      // NEW
+      this.getDataSelectOptions = personaModelData.toDropdownListValues();
       console.log("toTableRowsData");
-      console.log(this.personasMasterData);
+      console.log(this.personaDataOptions);
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
