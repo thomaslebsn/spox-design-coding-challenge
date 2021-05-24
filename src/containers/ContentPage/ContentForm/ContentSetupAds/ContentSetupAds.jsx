@@ -27,6 +27,7 @@ class ContentSetupAds extends Component {
       formPropsData,
       nextStep2Ads,
     } = this.props;
+
     return (
       <div className="wrapper_tabs wrapper_tabs_2">
         <Tabs
@@ -52,9 +53,9 @@ class ContentSetupAds extends Component {
               />
             </Tab>
           )}
-          {labelsConnectedChannels && labelsConnectedChannels.indexOf('youtube') > -1 && (
+          {labelsConnectedChannels && labelsConnectedChannels.indexOf('google_ads') > -1 && (
             <Tab eventKey={2} title={'Google Ads'}>
-              <ComponentSetupGGAds 
+              <ComponentSetupGGAds
                 FORM_FIELD_TYPE={FORM_FIELD_TYPE}
                 CONTENT_FIELD_KEY={CONTENT_FIELD_KEY}
                 formPropsData={formPropsData}

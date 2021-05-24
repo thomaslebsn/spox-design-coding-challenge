@@ -1,16 +1,16 @@
-import { default as BaseModel } from "../../../store/Models/Abstract/BaseModel";
-import BaseItemModel from "../../../store/Models/Abstract/BaseItemModel";
+import { default as BaseModel } from '../../../store/Models/Abstract/BaseModel';
+import BaseItemModel from '../../../store/Models/Abstract/BaseItemModel';
 import {
   ESI_ORGANIZATION_CHANNEL_API_FIELD_KEY,
   ESI_ORGANIZATION_CHANNEL_FIELD_KEY,
-} from "../../../constants/OrganizationChannelsModule";
+} from '../../../constants/OrganizationChannelsModule';
 
 class ContentConnectedChannelsModel extends BaseModel {
   items = [];
   unTransformedItems = [];
   constructor(entities) {
     if (entities) {
-      console.log("constructor - ContentConnectedChannelsModel");
+      console.log('constructor - ContentConnectedChannelsModel');
       super(entities);
       const organizationChannels = entities;
       console.log(organizationChannels);
@@ -31,14 +31,13 @@ class ContentConnectedChannelsModel extends BaseModel {
 
 class ContentConnectedChannelItemModel extends BaseItemModel {
   channelId = null;
-  channelName = "";
+  channelName = '';
 
   constructor(entity) {
     if (entity) {
       super(entity);
       this.channelId = entity[ESI_ORGANIZATION_CHANNEL_API_FIELD_KEY.ID] ?? [0];
-      this.channelName =
-        entity[ESI_ORGANIZATION_CHANNEL_API_FIELD_KEY.CHANNEL_NAME] ?? "";
+      this.channelName = entity[ESI_ORGANIZATION_CHANNEL_API_FIELD_KEY.CHANNEL_NAME] ?? '';
     }
   }
 
@@ -54,39 +53,44 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
 
   toConnectedChannelItemOnContentForm = () => {
     let icoImage = null;
+    console.log('this.channelName.toLowerCase()');
+    console.log(this.channelName.toLowerCase());
     switch (this.channelName.toLowerCase()) {
-      case "facebook":
-        icoImage = "/assets/images/facebook.png";
+      case 'facebook':
+        icoImage = '/assets/images/facebook.png';
         break;
-      case "fbad":
-        icoImage = "/assets/images/fbad.png";
+      case 'fbad':
+        icoImage = '/assets/images/fbad.png';
         break;
-      case "youtube":
-        icoImage = "/assets/images/youtube.png";
+      case 'youtube':
+        icoImage = '/assets/images/youtube.png';
         break;
-      case "twitter":
-        icoImage = "/assets/images/twitter.png";
+      case 'twitter':
+        icoImage = '/assets/images/twitter.png';
         break;
-      case "linkedin":
-        icoImage = "/assets/images/linkedin.png";
+      case 'linkedin':
+        icoImage = '/assets/images/linkedin.png';
         break;
-      case "mailchimp":
-        icoImage = "/assets/images/mailchimp.png";
+      case 'mailchimp':
+        icoImage = '/assets/images/mailchimp.png';
         break;
-      case "wordpress":
-        icoImage = "/assets/images/wordpress.png";
+      case 'wordpress':
+        icoImage = '/assets/images/wordpress.png';
         break;
-      case "instagram":
-        icoImage = "/assets/images/instagram.png";
+      case 'instagram':
+        icoImage = '/assets/images/instagram.png';
         break;
-      case "joomla":
-        icoImage = "/assets/images/joomla.png";
+      case 'joomla':
+        icoImage = '/assets/images/joomla.png';
         break;
-      case "medium":
-        icoImage = "/assets/images/medium.png";
+      case 'medium':
+        icoImage = '/assets/images/medium.png';
         break;
-      case "tumblr":
-        icoImage = "/assets/images/tumblr.png";
+      case 'tumblr':
+        icoImage = '/assets/images/tumblr.png';
+        break;
+      case 'google_ads':
+        icoImage = '/assets/images/google_ads.png';
         break;
       default:
         icoImage = null;
