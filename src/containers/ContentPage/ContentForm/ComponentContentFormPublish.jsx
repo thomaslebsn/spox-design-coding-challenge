@@ -105,7 +105,7 @@ class ComponentContentFormPublish extends Component {
     let checkSetupAds =
       labelsConnectedChannels &&
       (labelsConnectedChannels.indexOf('fbad') > -1 ||
-        labelsConnectedChannels.indexOf('youtube') > -1) &&
+        labelsConnectedChannels.indexOf('google_ads') > -1) &&
       !schedule;
 
     return formStatus === PAGE_STATUS.LOADING ? (

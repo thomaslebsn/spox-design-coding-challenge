@@ -172,6 +172,8 @@ class ComponentConnectaChannel extends Component {
       onFailureConnectChannels,
     } = this.props;
 
+    console.log('googleadsConnected123', googleadsConnected);
+
     return (
       <div className="wrapper_tabs">
         <Tabs defaultActiveKey="1" id="connectContent-tab" className="bg-white border-0">
