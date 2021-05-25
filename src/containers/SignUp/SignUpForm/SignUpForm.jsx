@@ -57,7 +57,7 @@ const SignUpForm = observer(
 
     onKeyPress = (e) => {
       if (e.which === 13) {
-        this.handleSubmit();
+        this.validateInfoBeforeSending();
       }
     };
 
