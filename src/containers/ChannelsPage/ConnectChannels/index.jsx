@@ -167,19 +167,14 @@ const ConnectChannels = observer(
       this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'youtube');
     };
 
-    onSuccessInstagramConnect = () => {
-      window.FB.api('me/accounts', (response) => {
-        if (response) {
-          const connected = response.data.map((item) => item.id);
-          const dataAccessToken = {
-            pages: response.data,
-            connected: connected,
-            status: 'connected',
-          };
+    onSuccessInstagramConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.authResponse.accessToken,
+        tokenObject: res.authResponse.accessToken,
+        status: "connected",
+      };
 
-          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
-        }
-      });
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
     };
 
     onFailureConnectChannels = (err) => {

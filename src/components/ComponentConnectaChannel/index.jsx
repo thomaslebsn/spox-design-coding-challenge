@@ -17,6 +17,7 @@ import {
   CHANNEL_CMS_WORDPRESS,
 } from '../../constants/ChannelModule';
 import { EASII_CONFIGS } from 'easii-io-web-service-library';
+import ButtonConnectInstagram from '../ButtonConnectInstagram';
 
 const ModalComponent = lazy(() => import('../../components/Modal'));
 class ComponentConnectaChannel extends Component {
@@ -268,10 +269,17 @@ class ComponentConnectaChannel extends Component {
                     // >
                     //   <span className="ms-2">{instagramConnected ? 'Connected' : 'Connect'}</span>
                     // </button>
-                    <ButtonConnectFacebook
-                      scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
-                      onFacebookSuccess={onSuccessInstagramConnect}
-                      onFacebookFailure={onFailureConnectChannels}
+                    // <ButtonConnectFacebook
+                    //   scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
+                    //   onFacebookSuccess={onSuccessInstagramConnect}
+                    //   onFacebookFailure={onFailureConnectChannels}
+                    //   buttonText={instagramConnected ? 'Connected' : 'Connect'}
+                    //   isDisable={instagramConnected ? true : false}
+                    // />
+                    <ButtonConnectInstagram 
+                      scope="public_profile,email"
+                      onInstagramSuccess={onSuccessInstagramConnect}
+                      onInstagramFailure={onFailureConnectChannels}
                       buttonText={instagramConnected ? 'Connected' : 'Connect'}
                       isDisable={instagramConnected ? true : false}
                     />
