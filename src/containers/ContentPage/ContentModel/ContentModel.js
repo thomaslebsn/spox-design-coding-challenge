@@ -79,6 +79,9 @@ class ContentModel {
           case 'google_ads':
             icoImage = '/assets/images/google_ads.png';
             break;
+          case 'google_my_business':
+            icoImage = '/assets/images/google_my_business.png';
+            break;
           default:
             icoImage = null;
         }

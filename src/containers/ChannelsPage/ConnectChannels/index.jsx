@@ -60,6 +60,7 @@ const ConnectChannels = observer(
         'joomla',
         'fbad',
         CHANNEL_ADS_GOOGLE,
+        'google_my_business',
       ]);
     }
 
@@ -141,8 +142,6 @@ const ConnectChannels = observer(
     onRequestGoogleConnect = (req, res) => {};
 
     onSuccessFacebookConnect = (response) => {
-      console.log('onSuccessFacebookConnect');
-
       window.FB.api('me/accounts', (response) => {
         if (response) {
           const connected = response.data.map((item) => item.id);
@@ -171,7 +170,7 @@ const ConnectChannels = observer(
       let dataAccessToken = {
         profileObject: res.authResponse.accessToken,
         tokenObject: res.authResponse.accessToken,
-        status: "connected",
+        status: 'connected',
       };
 
       this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
@@ -179,6 +178,19 @@ const ConnectChannels = observer(
 
     onFailureConnectChannels = (err) => {
       console.log('hung test');
+    };
+
+    onSuccessGoogleMyBusinessConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessConnect(
+        JSON.stringify(dataAccessToken),
+        'google_my_business'
+      );
     };
 
     render() {
@@ -215,6 +227,7 @@ const ConnectChannels = observer(
         drupalConnected,
         getIdActionFacebookFange,
         ConnectStatusFanpage,
+        googleMyBusinessConnected,
       } = this.channelsListViewModel;
 
       return (
@@ -268,6 +281,8 @@ const ConnectChannels = observer(
               onFailureConnectChannels={this.onFailureConnectChannels}
               onSuccessYoutubeConnect={this.onSuccessYoutubeConnect}
               onSuccessInstagramConnect={this.onSuccessInstagramConnect}
+              googleMyBusinessConnected={googleMyBusinessConnected}
+              onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
             />
           </div>
           {/* {listFaceBookFanpage && (

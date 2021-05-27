@@ -76,6 +76,10 @@ class ChannelsListViewModel {
 
   ConnectStatusFanpage = PAGE_STATUS.READY;
 
+  ConnectStatusFanpage = false;
+
+  googleMyBusinessConnected = false;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -111,6 +115,7 @@ class ChannelsListViewModel {
     this.countAdvertisingConnected = 0;
     this.countEmailMarketingConnected = 0;
     this.countSocialMediaConnected = 0;
+    this.googleMyBusinessConnected = false;
   }
 
   onSuccessConnect = (dataToken, channelType) => {
@@ -133,12 +138,19 @@ class ChannelsListViewModel {
     switch (channelType) {
       case 'google_ads':
         this.googleadsConnected = true;
+        break;
       case 'facebook':
         this.facebookConnected = true;
+        break;
       case 'youtube':
         this.youtubeConnected = true;
+        break;
       case 'instagram':
         this.instagramConnected = true;
+        break;
+      case 'google_my_business':
+        this.googleMyBusinessConnected = true;
+        break;
     }
   };
 
@@ -260,8 +272,6 @@ class ChannelsListViewModel {
 
                   case 'linkedin':
                     if (responseResult.connected == 1) {
-                      console.log('responseResultlinkedin123');
-                      console.log(responseResult);
                       this.linkedinConnected = true;
                       this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
@@ -274,6 +284,7 @@ class ChannelsListViewModel {
                       this.tumblrConnected = true;
                     }
                     break;
+
                   case 'medium':
                     if (responseResult.connected == 1) {
                       this.mediumConnected = true;
@@ -417,6 +428,13 @@ class ChannelsListViewModel {
               case 'twitter':
                 if (responseResult.connected == 1) {
                   this.twitterConnected = true;
+                  this.countSocialMediaConnected++;
+                }
+                break;
+
+              case 'google_my_business':
+                if (responseResult.connected == 1) {
+                  this.googleMyBusinessConnected = true;
                   this.countSocialMediaConnected++;
                 }
                 break;

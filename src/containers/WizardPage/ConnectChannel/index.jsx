@@ -66,6 +66,7 @@ const ConnectChannel = observer(
         'joomla',
         'fbad',
         CHANNEL_ADS_GOOGLE,
+        'google_my_business',
       ]);
     }
 
@@ -160,23 +161,31 @@ const ConnectChannel = observer(
       this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'youtube');
     };
 
-    onSuccessInstagramConnect = () => {
-      window.FB.api('me/accounts', (response) => {
-        if (response) {
-          const connected = response.data.map((item) => item.id);
-          const dataAccessToken = {
-            pages: response.data,
-            connected: connected,
-            status: 'connected',
-          };
+    onSuccessInstagramConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.authResponse.accessToken,
+        tokenObject: res.authResponse.accessToken,
+        status: 'connected',
+      };
 
-          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
-        }
-      });
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
     };
 
     onFailureConnectChannels = (err) => {
       console.log('hung test');
+    };
+
+    onSuccessGoogleMyBusinessConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessConnect(
+        JSON.stringify(dataAccessToken),
+        'google_my_business'
+      );
     };
 
     next = () => {
@@ -194,6 +203,7 @@ const ConnectChannel = observer(
         joomlaConnected,
         mediumConnected,
         googleadsConnected,
+        googleMyBusinessConnected,
       } = this.channelsListViewModel;
 
       if (
@@ -209,7 +219,8 @@ const ConnectChannel = observer(
         drupalConnected == true ||
         joomlaConnected == true ||
         mediumConnected == true ||
-        googleadsConnected == true
+        googleadsConnected == true ||
+        googleMyBusinessConnected == true
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
@@ -249,8 +260,8 @@ const ConnectChannel = observer(
         countEmailMarketingConnected,
         countSocialMediaConnected,
         getIdActionFacebookFange,
-
         ConnectStatusFanpage,
+        googleMyBusinessConnected,
       } = this.channelsListViewModel;
 
       return (
@@ -300,6 +311,8 @@ const ConnectChannel = observer(
               onSuccessYoutubeConnect={this.onSuccessYoutubeConnect}
               onSuccessInstagramConnect={this.onSuccessInstagramConnect}
               onFailureConnectChannels={this.onFailureConnectChannels}
+              googleMyBusinessConnected={googleMyBusinessConnected}
+              onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
             />
           </div>
           {/* {listFaceBookFanpage && (
