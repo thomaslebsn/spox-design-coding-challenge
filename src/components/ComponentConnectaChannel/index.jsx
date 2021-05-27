@@ -260,23 +260,7 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   {instagramConnected ||
                   this.isAllowedConnectChannel('instagram', 'social_media') ? (
-                    // <button
-                    //   className="cursor-pointer btn btn-success"
-                    //   onClick={(e) => {
-                    //     this.handleConnectChannel('instagram');
-                    //   }}
-                    //   disabled={instagramConnected ? true : false}
-                    // >
-                    //   <span className="ms-2">{instagramConnected ? 'Connected' : 'Connect'}</span>
-                    // </button>
-                    // <ButtonConnectFacebook
-                    //   scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
-                    //   onFacebookSuccess={onSuccessInstagramConnect}
-                    //   onFacebookFailure={onFailureConnectChannels}
-                    //   buttonText={instagramConnected ? 'Connected' : 'Connect'}
-                    //   isDisable={instagramConnected ? true : false}
-                    // />
-                    <ButtonConnectInstagram 
+                    <ButtonConnectInstagram
                       scope="public_profile,email"
                       onInstagramSuccess={onSuccessInstagramConnect}
                       onInstagramFailure={onFailureConnectChannels}
