@@ -94,6 +94,7 @@ export default class ChannelsStore {
         case 'instagram':
         case 'tumblr':
         case CHANNEL_ADS_GOOGLE:
+        case 'google_my_business':
           response = await channelService.getLoginUrl(channelUniqueName);
           break;
         default:
@@ -142,6 +143,7 @@ export default class ChannelsStore {
         case 'medium':
         case 'joomla':
         case CHANNEL_ADS_GOOGLE:
+        case 'google_my_business':
           result = await channelService.getCheckConnectStatusChannel(channelType);
           break;
 

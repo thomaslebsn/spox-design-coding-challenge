@@ -17,6 +17,7 @@ import {
   CHANNEL_CMS_WORDPRESS,
 } from '../../constants/ChannelModule';
 import { EASII_CONFIGS } from 'easii-io-web-service-library';
+import ButtonConnectInstagram from '../ButtonConnectInstagram';
 
 const ModalComponent = lazy(() => import('../../components/Modal'));
 class ComponentConnectaChannel extends Component {
@@ -170,9 +171,12 @@ class ComponentConnectaChannel extends Component {
       onSuccessYoutubeConnect,
       onSuccessInstagramConnect,
       onFailureConnectChannels,
+      onSuccessGoogleMyBusinessConnect,
+      googleMyBusinessConnected,
     } = this.props;
 
-    console.log('googleadsConnected123', googleadsConnected);
+    console.log('listFacebookFanpageConnected123');
+    console.log(listFacebookFanpageConnected);
 
     return (
       <div className="wrapper_tabs">
@@ -185,19 +189,6 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/facebook.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook</span>
                   </div>
-                  {/* {facebookConnected || this.isAllowedConnectChannel('facebook', 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('facebook');
-                      }}
-                      disabled={facebookConnected ? true : false}
-                    >
-                      <span className="ms-2">{facebookConnected ? 'Connected' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )} */}
                   <ButtonConnectFacebook
                     scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
                     onFacebookSuccess={onSuccessFacebookConnect}
@@ -233,16 +224,12 @@ class ComponentConnectaChannel extends Component {
                                     this.props.handleConnectedFanpage('facebook', value.id);
                                   }}
                                 >
-                                  {ConnectStatusFanpage === PAGE_STATUS.READY ? (
-                                    <span className="ms-2">
-                                      {listFacebookFanpageConnected &&
-                                      listFacebookFanpageConnected.indexOf(value.id) > -1
-                                        ? 'Disconnect'
-                                        : 'Connect'}
-                                    </span>
-                                  ) : (
-                                    <Spinner />
-                                  )}
+                                  <span className="ms-2">
+                                    {listFacebookFanpageConnected &&
+                                    listFacebookFanpageConnected.indexOf(value.id) > -1
+                                      ? 'Disconnect'
+                                      : 'Connect'}
+                                  </span>
                                 </button>
                               </div>
                             </div>
@@ -261,19 +248,10 @@ class ComponentConnectaChannel extends Component {
                   </div>
                   {instagramConnected ||
                   this.isAllowedConnectChannel('instagram', 'social_media') ? (
-                    // <button
-                    //   className="cursor-pointer btn btn-success"
-                    //   onClick={(e) => {
-                    //     this.handleConnectChannel('instagram');
-                    //   }}
-                    //   disabled={instagramConnected ? true : false}
-                    // >
-                    //   <span className="ms-2">{instagramConnected ? 'Connected' : 'Connect'}</span>
-                    // </button>
-                    <ButtonConnectFacebook
-                      scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
-                      onFacebookSuccess={onSuccessInstagramConnect}
-                      onFacebookFailure={onFailureConnectChannels}
+                    <ButtonConnectInstagram
+                      scope="public_profile,email"
+                      onInstagramSuccess={onSuccessInstagramConnect}
+                      onInstagramFailure={onFailureConnectChannels}
                       buttonText={instagramConnected ? 'Connected' : 'Connect'}
                       isDisable={instagramConnected ? true : false}
                     />
@@ -288,27 +266,14 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/youtube.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Youtube</span>
                   </div>
-                  {/* {youtubeConnected || this.isAllowedConnectChannel('YouTube', 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('youtube');
-                      }}
-                      disabled={youtubeConnected ? true : false}
-                    >
-                      <span className="ms-2">{youtubeConnected ? 'Connected' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )} */}
 
-                  {youtubeConnected || this.isAllowedConnectChannel('youTube', 'social_media') ? (
+                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
                     <ButtonConnectGoogle
                       scope="https://www.googleapis.com/auth/youtube.upload"
                       clientId="854265047007-t7a1g164i7qga65751b0c2fronquf77u.apps.googleusercontent.com"
                       onSuccess={onSuccessYoutubeConnect}
                       onFailure={onFailureConnectChannels}
-                      isDisabled={youtubeConnected}
+                      isDisabled={youtubeConnected ? true : false}
                       buttonText={youtubeConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
                     />
@@ -333,6 +298,34 @@ class ComponentConnectaChannel extends Component {
                     >
                       <span className="ms-2">{twitterConnected ? 'Connected' : 'Connect'}</span>
                     </button>
+                  ) : (
+                    <ButtonUpgrade />
+                  )}
+                </div>
+              </div>
+              <div className="bg-white rounded-3 mb-4">
+                <div className="d-flex align-items-center justify-content-between p-3">
+                  <div className="d-flex align-items-center">
+                    <img
+                      className="img-avatar"
+                      src={'/assets/images/google_my_business.png'}
+                      alt=""
+                    />
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">
+                      Google My Business
+                    </span>
+                  </div>
+                  {googleMyBusinessConnected ||
+                  this.isAllowedConnectChannel('google_my_business', 'social_media') ? (
+                    <ButtonConnectGoogle
+                      scope="https://www.googleapis.com/auth/business"
+                      clientId="151929621109-q2l0ik8hm63mrov7l1ccrkhht2ae2i96.apps.googleusercontent.com"
+                      onSuccess={onSuccessGoogleMyBusinessConnect}
+                      onFailure={onFailureConnectChannels}
+                      isDisabled={googleMyBusinessConnected}
+                      buttonText={googleMyBusinessConnected ? 'Connected' : 'Connect'}
+                      className="cursor-pointer btn btn-success"
+                    />
                   ) : (
                     <ButtonUpgrade />
                   )}

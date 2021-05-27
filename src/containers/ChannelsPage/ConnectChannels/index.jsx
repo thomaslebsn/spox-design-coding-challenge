@@ -60,6 +60,7 @@ const ConnectChannels = observer(
         'joomla',
         'fbad',
         CHANNEL_ADS_GOOGLE,
+        'google_my_business',
       ]);
     }
 
@@ -141,8 +142,6 @@ const ConnectChannels = observer(
     onRequestGoogleConnect = (req, res) => {};
 
     onSuccessFacebookConnect = (response) => {
-      console.log('onSuccessFacebookConnect');
-
       window.FB.api('me/accounts', (response) => {
         if (response) {
           const connected = response.data.map((item) => item.id);
@@ -167,32 +166,40 @@ const ConnectChannels = observer(
       this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'youtube');
     };
 
-    onSuccessInstagramConnect = () => {
-      window.FB.api('me/accounts', (response) => {
-        if (response) {
-          const connected = response.data.map((item) => item.id);
-          const dataAccessToken = {
-            pages: response.data,
-            connected: connected,
-            status: 'connected',
-          };
+    onSuccessInstagramConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.authResponse.accessToken,
+        tokenObject: res.authResponse.accessToken,
+        status: 'connected',
+      };
 
-          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
-        }
-      });
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
     };
 
     onFailureConnectChannels = (err) => {
       console.log('hung test');
     };
 
+    onSuccessGoogleMyBusinessConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessConnect(
+        JSON.stringify(dataAccessToken),
+        'google_my_business'
+      );
+    };
+
     render() {
       let { showModal } = this.state;
-      this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
 
       const {
         listFaceBookFanpage,
         listFaceBookFanpageView,
+        listFacebookFanpageConnected,
         facebookConnected,
         listFacebookAdsAccount,
         listFacebookAdsAccountView,
@@ -220,6 +227,7 @@ const ConnectChannels = observer(
         drupalConnected,
         getIdActionFacebookFange,
         ConnectStatusFanpage,
+        googleMyBusinessConnected,
       } = this.channelsListViewModel;
 
       return (
@@ -230,7 +238,7 @@ const ConnectChannels = observer(
               channelsListViewModel={this.channelsListViewModel}
               listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
               listFacebookFanpageConnected={
-                this.listFacebookFanpageConnected ? this.listFacebookFanpageConnected : null
+                listFacebookFanpageConnected ? listFacebookFanpageConnected : null
               }
               listFacebookAdsAccountView={
                 listFacebookAdsAccountView ? listFacebookAdsAccountView : null
@@ -273,6 +281,8 @@ const ConnectChannels = observer(
               onFailureConnectChannels={this.onFailureConnectChannels}
               onSuccessYoutubeConnect={this.onSuccessYoutubeConnect}
               onSuccessInstagramConnect={this.onSuccessInstagramConnect}
+              googleMyBusinessConnected={googleMyBusinessConnected}
+              onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
             />
           </div>
           {/* {listFaceBookFanpage && (
