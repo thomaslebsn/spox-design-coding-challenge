@@ -188,11 +188,11 @@ const ConnectChannels = observer(
 
     render() {
       let { showModal } = this.state;
-      this.listFacebookFanpageConnected = this.channelsListViewModel.listFacebookFanpageConnected;
 
       const {
         listFaceBookFanpage,
         listFaceBookFanpageView,
+        listFacebookFanpageConnected,
         facebookConnected,
         listFacebookAdsAccount,
         listFacebookAdsAccountView,
@@ -230,7 +230,7 @@ const ConnectChannels = observer(
               channelsListViewModel={this.channelsListViewModel}
               listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
               listFacebookFanpageConnected={
-                this.listFacebookFanpageConnected ? this.listFacebookFanpageConnected : null
+                listFacebookFanpageConnected ? listFacebookFanpageConnected : null
               }
               listFacebookAdsAccountView={
                 listFacebookAdsAccountView ? listFacebookAdsAccountView : null

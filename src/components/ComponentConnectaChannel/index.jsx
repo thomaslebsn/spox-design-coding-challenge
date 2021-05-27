@@ -172,8 +172,6 @@ class ComponentConnectaChannel extends Component {
       onFailureConnectChannels,
     } = this.props;
 
-    console.log('googleadsConnected123', googleadsConnected);
-
     return (
       <div className="wrapper_tabs">
         <Tabs defaultActiveKey="1" id="connectContent-tab" className="bg-white border-0">
@@ -302,13 +300,13 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )} */}
 
-                  {youtubeConnected || this.isAllowedConnectChannel('youTube', 'social_media') ? (
+                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
                     <ButtonConnectGoogle
                       scope="https://www.googleapis.com/auth/youtube.upload"
                       clientId="854265047007-t7a1g164i7qga65751b0c2fronquf77u.apps.googleusercontent.com"
                       onSuccess={onSuccessYoutubeConnect}
                       onFailure={onFailureConnectChannels}
-                      isDisabled={youtubeConnected}
+                      isDisabled={youtubeConnected ? true : false}
                       buttonText={youtubeConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
                     />

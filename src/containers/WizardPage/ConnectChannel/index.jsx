@@ -21,6 +21,7 @@ import WizardSteps from '../../../components/WizardSteps';
 import styles from './index.module.scss';
 import { notify } from '../../../components/Toast';
 import PAGE_STATUS from '../../../constants/PageStatus';
+import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
 
 const ConnectChannel = observer(
   class ConnectChannel extends Component {
@@ -61,8 +62,10 @@ const ConnectChannel = observer(
         'wordpress',
         'tumblr',
         'drupal',
+        'medium',
         'joomla',
         'fbad',
+        CHANNEL_ADS_GOOGLE,
       ]);
     }
 
@@ -118,9 +121,68 @@ const ConnectChannel = observer(
       }
     };
 
+    onSuccessGoogleConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'google_ads');
+    };
+
+    onRequestGoogleConnect = (req, res) => {};
+
+    onSuccessFacebookConnect = (response) => {
+      console.log('onSuccessFacebookConnect');
+
+      window.FB.api('me/accounts', (response) => {
+        if (response) {
+          const connected = response.data.map((item) => item.id);
+          const dataAccessToken = {
+            pages: response.data,
+            connected: connected,
+            status: 'connected',
+          };
+
+          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'facebook');
+        }
+      });
+    };
+
+    onSuccessYoutubeConnect = (res) => {
+      let dataAccessToken = {
+        profileObject: res.profileObj,
+        tokenObject: res.tokenObj,
+        status: 'connected',
+      };
+
+      this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'youtube');
+    };
+
+    onSuccessInstagramConnect = () => {
+      window.FB.api('me/accounts', (response) => {
+        if (response) {
+          const connected = response.data.map((item) => item.id);
+          const dataAccessToken = {
+            pages: response.data,
+            connected: connected,
+            status: 'connected',
+          };
+
+          this.channelsListViewModel.onSuccessConnect(JSON.stringify(dataAccessToken), 'instagram');
+        }
+      });
+    };
+
+    onFailureConnectChannels = (err) => {
+      console.log('hung test');
+    };
+
     next = () => {
       const {
         facebookConnected,
+        facebookAdsConnected,
         youtubeConnected,
         twitterConnected,
         linkedinConnected,
@@ -130,10 +192,13 @@ const ConnectChannel = observer(
         tumblrConnected,
         drupalConnected,
         joomlaConnected,
+        mediumConnected,
+        googleadsConnected,
       } = this.channelsListViewModel;
 
       if (
         facebookConnected == true ||
+        facebookAdsConnected == true ||
         youtubeConnected == true ||
         twitterConnected == true ||
         linkedinConnected == true ||
@@ -142,7 +207,9 @@ const ConnectChannel = observer(
         wordpressConnected == true ||
         tumblrConnected == true ||
         drupalConnected == true ||
-        joomlaConnected == true
+        joomlaConnected == true ||
+        mediumConnected == true ||
+        googleadsConnected == true
       ) {
         history.push(`${history.location.pathname}/content`);
       } else {
@@ -166,11 +233,23 @@ const ConnectChannel = observer(
         linkedinConnected,
         mailchimpConnected,
         instagramConnected,
-        wordpressConnected,
         tumblrConnected,
+        wordpressConnected,
         mustUpgrade,
         drupalConnected,
+        mediumConnected,
         joomlaConnected,
+        googleadsConnected,
+        advertisingFeaturesMasterData,
+        cmsFeaturesMasterData,
+        socialMediaFeaturesMasterData,
+        emailMarketingFeaturesMasterData,
+        countCMSConnected,
+        countAdvertisingConnected,
+        countEmailMarketingConnected,
+        countSocialMediaConnected,
+        getIdActionFacebookFange,
+
         ConnectStatusFanpage,
       } = this.channelsListViewModel;
 
@@ -197,16 +276,33 @@ const ConnectChannel = observer(
               tumblrConnected={tumblrConnected}
               mustUpgrade={mustUpgrade}
               drupalConnected={drupalConnected}
+              mediumConnected={mediumConnected}
               joomlaConnected={joomlaConnected}
+              advertisingFeaturesMasterData={advertisingFeaturesMasterData}
+              googleadsConnected={googleadsConnected}
+              cmsFeaturesMasterData={cmsFeaturesMasterData}
+              socialMediaFeaturesMasterData={socialMediaFeaturesMasterData}
+              emailMarketingFeaturesMasterData={emailMarketingFeaturesMasterData}
+              countCMSConnected={countCMSConnected}
+              countAdvertisingConnected={countAdvertisingConnected}
+              countEmailMarketingConnected={countEmailMarketingConnected}
+              countSocialMediaConnected={countSocialMediaConnected}
+              getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
               viewModel={this.viewModel}
               handleModalCms={this.handleModalCms}
               isModalCms={this.loginCMSChannelFormModalViewModel.show}
               ConnectStatusFanpage={ConnectStatusFanpage}
               handleConnectedFanpage={this.handleConnectedFanpage}
               PAGE_STATUS={PAGE_STATUS}
+              onSuccessGoogleConnect={this.onSuccessGoogleConnect}
+              onRequestGoogleConnect={this.onRequestGoogleConnect}
+              onSuccessFacebookConnect={this.onSuccessFacebookConnect}
+              onSuccessYoutubeConnect={this.onSuccessYoutubeConnect}
+              onSuccessInstagramConnect={this.onSuccessInstagramConnect}
+              onFailureConnectChannels={this.onFailureConnectChannels}
             />
           </div>
-          {listFaceBookFanpage && (
+          {/* {listFaceBookFanpage && (
             <ModalComponent
               header={'Facebook Fanpage'}
               body={
@@ -238,7 +334,7 @@ const ConnectChannel = observer(
                 </button>
               }
             />
-          )}
+          )} */}
           {listFacebookAdsAccount && (
             <ModalComponent
               header={'Facebook Ads'}
