@@ -190,27 +190,27 @@ class ChannelsListViewModel {
     notify(error.message);
   };
 
-  disconnectAFacebookPage = (channelUniqueName, pageId) => {
+  disconnectAFanpagePage = (channelUniqueName, pageId) => {
     this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
-    this.channelsStore.disconnectAFacebookPage(
-      this.callbackOnDisconnectAFacebookPageSuccess,
+    this.channelsStore.disconnectAFanpage(
+      this.callbackOnDisconnectAFanpageSuccess,
       this.callbackOnErrorHander,
       channelUniqueName,
       pageId
     );
   };
 
-  connectAFacebookPage = (channelUniqueName, pageId) => {
+  connectAFanpagePage = (channelUniqueName, pageId) => {
     this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
-    this.channelsStore.connectAFacebookPage(
-      this.callbackOnConnectAFacebookPageSuccess,
+    this.channelsStore.connectAFanpage(
+      this.callbackOnConnectAFanpageSuccess,
       this.callbackOnErrorHander,
       channelUniqueName,
       pageId
     );
   };
 
-  callbackOnDisconnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+  callbackOnDisconnectAFanpageSuccess = (response, channelUniqueName, pageId) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.ConnectStatusFanpage = PAGE_STATUS.READY;
@@ -223,7 +223,7 @@ class ChannelsListViewModel {
     }
   };
 
-  callbackOnConnectAFacebookPageSuccess = (response, channelUniqueName, pageId) => {
+  callbackOnConnectAFanpageSuccess = (response, channelUniqueName, pageId) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.ConnectStatusFanpage = PAGE_STATUS.READY;
@@ -279,9 +279,6 @@ class ChannelsListViewModel {
                     break;
 
                   case 'linkedin':
-                    console.log('responseResultlinkedin123');
-                    console.log(response);
-                    console.log(responseResult);
                     if (responseResult.pages.status === 'connected') {
                       
                       this.linkedinConnected = true;

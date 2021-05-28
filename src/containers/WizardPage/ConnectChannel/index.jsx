@@ -116,9 +116,9 @@ const ConnectChannel = observer(
 
     handleConnectedFanpage = (channelType, id) => {
       if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
-        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+        this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
       } else {
-        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+        this.channelsListViewModel.connectAFanpagePage(channelType, id);
       }
     };
 
