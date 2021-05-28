@@ -175,9 +175,6 @@ class ComponentConnectaChannel extends Component {
       googleMyBusinessConnected,
     } = this.props;
 
-    console.log('listFacebookFanpageConnected123');
-    console.log(listFacebookFanpageConnected);
-
     return (
       <div className="wrapper_tabs">
         <Tabs defaultActiveKey="1" id="connectContent-tab" className="bg-white border-0">
@@ -336,7 +333,7 @@ class ComponentConnectaChannel extends Component {
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
                     <img className="img-avatar" src={'/assets/images/linkedin.png'} alt="" />
-                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">Linkedin ee</span>
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">Linkedin</span>
                   </div>
                   {linkedinConnected || this.isAllowedConnectChannel('linkedIn', 'social_media') ? (
                     <button
