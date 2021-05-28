@@ -195,6 +195,7 @@ class ComponentConnectaChannel extends Component {
                     onFacebookFailure={onFailureConnectChannels}
                     buttonText={facebookConnected ? 'Connected' : 'Connect'}
                     isDisable={facebookConnected ? true : false}
+                    appId='831779357771114'
                   />
                 </div>
                 {listFaceBookFanpageView && (
