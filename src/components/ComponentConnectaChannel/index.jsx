@@ -335,7 +335,7 @@ class ComponentConnectaChannel extends Component {
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
                     <img className="img-avatar" src={'/assets/images/linkedin.png'} alt="" />
-                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">Linkedin</span>
+                    <span className="ms-2 fs-4 text-blue-0 text-capitalize">Linkedin ee</span>
                   </div>
                   {linkedinConnected || this.isAllowedConnectChannel('linkedIn', 'social_media') ? (
                     <button
