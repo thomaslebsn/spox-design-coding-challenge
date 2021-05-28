@@ -131,10 +131,13 @@ export default class ChannelsStore {
         case 'facebook':
           result = await channelService.checkConnectionStatusFacebook(channelType);
           break;
+        case 'linkedin':
+          result = await channelService.checkConnectionStatusLinkedin(channelType);
+          break;
 
+        // case 'linkedin':  
         case 'youtube':
         case 'twitter':
-        case 'linkedin':
         case 'mailchimp':
         case 'instagram':
         case 'tumblr':

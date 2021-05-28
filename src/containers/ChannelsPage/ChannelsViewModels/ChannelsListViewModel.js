@@ -80,6 +80,10 @@ class ChannelsListViewModel {
 
   googleMyBusinessConnected = false;
 
+  listLinkedinFanpageView = null;
+
+  listLinkedinFanpageConnected = null;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -116,6 +120,8 @@ class ChannelsListViewModel {
     this.countEmailMarketingConnected = 0;
     this.countSocialMediaConnected = 0;
     this.googleMyBusinessConnected = false;
+    this.listLinkedinFanpageView = null;
+    this.listLinkedinFanpageConnected = null;
   }
 
   onSuccessConnect = (dataToken, channelType) => {
@@ -230,7 +236,8 @@ class ChannelsListViewModel {
   callbackOnSuccessChannel = (response, channelUniqueName, pageId) => {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
-      console.log('callbackOnSuccessChannel');
+      console.log('callbackOnSuccessChannelresponse');
+      console.log(response);
       if (response.result.must_upgrade) {
         this.mustUpgrade = true;
         return;
@@ -248,6 +255,7 @@ class ChannelsListViewModel {
           this.channelsStore.checkConnectedChannels(
             (response) => {
               if (response) {
+
                 this.tableStatus = PAGE_STATUS.READY;
 
                 let responseResult = response.result;
@@ -271,10 +279,18 @@ class ChannelsListViewModel {
                     break;
 
                   case 'linkedin':
-                    if (responseResult.connected == 1) {
+                    console.log('responseResultlinkedin123');
+                    console.log(response);
+                    console.log(responseResult);
+                    if (responseResult.pages.status === 'connected') {
+                      
                       this.linkedinConnected = true;
                       this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
+
+                      let listFanpage = responseResult.pages.pages;
+                      this.listLinkedinFanpageConnected = responseResult.pages.connected;
+                      this.listLinkedinFanpageView = listFanpage;
                     }
                     break;
 
@@ -440,9 +456,13 @@ class ChannelsListViewModel {
                 break;
 
               case 'linkedin':
-                if (responseResult.connected == 1) {
+                if (responseResult.pages.status === 'connected') {
                   this.linkedinConnected = true;
                   this.countSocialMediaConnected++;
+
+                  let listFanpage = responseResult.pages.pages;
+                  this.listLinkedinFanpageConnected = responseResult.pages.connected;
+                  this.listLinkedinFanpageView = listFanpage;
                 }
                 break;
 
@@ -540,15 +560,15 @@ class ChannelsListViewModel {
     });
   }
 
-  saveChosseFacebookFanpages = (pageIds) => {
-    if (pageIds.length > 0) {
-      this.channelsStore.saveChosseFacebookFanpages(
-        this.callbackOnSuccessListFacebookFanpage,
-        this.callbackOnErrorHander,
-        pageIds
-      );
-    }
-  };
+  // saveChosseFacebookFanpages = (pageIds) => {
+  //   if (pageIds.length > 0) {
+  //     this.channelsStore.saveChosseFacebookFanpages(
+  //       this.callbackOnSuccessListFacebookFanpage,
+  //       this.callbackOnErrorHander,
+  //       pageIds
+  //     );
+  //   }
+  // };
 
   saveChosseFacebookAdAccount = (accountIds) => {
     if (accountIds.length > 0) {
@@ -560,20 +580,20 @@ class ChannelsListViewModel {
     }
   };
 
-  callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
-    if (response) {
-      this.tableStatus = PAGE_STATUS.READY;
-      this.channelsStore.getFacebookFanpages(
-        (respons) => {
-          this.listFaceBookFanpageView = respons.result.pages.pages;
-        },
-        (error) => {},
-        pageIds
-      );
-    } else {
-      this.tableStatus = PAGE_STATUS.ERROR;
-    }
-  };
+  // callbackOnSuccessListFacebookFanpage = (response, pageIds) => {
+  //   if (response) {
+  //     this.tableStatus = PAGE_STATUS.READY;
+  //     this.channelsStore.getFacebookFanpages(
+  //       (respons) => {
+  //         this.listFaceBookFanpageView = respons.result.pages.pages;
+  //       },
+  //       (error) => {},
+  //       pageIds
+  //     );
+  //   } else {
+  //     this.tableStatus = PAGE_STATUS.ERROR;
+  //   }
+  // };
 
   callbackOnSuccessListFacebookAdAccount = (response, accountIds) => {
     if (response) {

@@ -108,13 +108,13 @@ const ConnectChannels = observer(
       });
     };
 
-    handleSaveFanpage = () => {
-      this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
+    // handleSaveFanpage = () => {
+    //   this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
 
-      this.setState({
-        showModal: false,
-      });
-    };
+    //   this.setState({
+    //     showModal: false,
+    //   });
+    // };
 
     handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
@@ -228,6 +228,8 @@ const ConnectChannels = observer(
         getIdActionFacebookFange,
         ConnectStatusFanpage,
         googleMyBusinessConnected,
+        listLinkedinFanpageView,
+        listLinkedinFanpageConnected
       } = this.channelsListViewModel;
 
       return (
@@ -283,6 +285,8 @@ const ConnectChannels = observer(
               onSuccessInstagramConnect={this.onSuccessInstagramConnect}
               googleMyBusinessConnected={googleMyBusinessConnected}
               onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
+              listLinkedinFanpageView={listLinkedinFanpageView}
+              listLinkedinFanpageConnected={listLinkedinFanpageConnected}
             />
           </div>
           {/* {listFaceBookFanpage && (
