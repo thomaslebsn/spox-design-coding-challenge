@@ -10,7 +10,7 @@ export default class CalendarStore {
       console.log('Calendar Store - Fetch Content');
       const planningAPIService = new EasiiPlanningApiService();
 
-      const repondedDataFromLibrary = await planningAPIService.searchPlanning(dataFilter);
+      const repondedDataFromLibrary = await planningAPIService.searchPlanning(dataFilter, 0, 0);
       console.log('repondedDataFromLibrary', repondedDataFromLibrary);
 
       const planningDataModels = CalendarUtils.transformCalendarResponseIntoModel(

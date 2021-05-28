@@ -1,8 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import CalendarUtils from '../CalendarUtils/CalendarUtils';
-import { notify } from '../../../components/Toast';
+import * as datesUtility from 'react-big-calendar/lib/utils/dates';
+import moment from 'moment';
+import { momentLocalizer } from 'react-big-calendar';
 
+const localizer = momentLocalizer(moment);
 class CalendarListViewModel {
   calendarStore = null;
   showView = 'month';
@@ -19,7 +22,7 @@ class CalendarListViewModel {
     this.calendarStore.fetchPlanning(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      this.getFilterByView(this.showDate, this.showView)
+      this.buildFilter()
     );
   };
 
@@ -34,29 +37,14 @@ class CalendarListViewModel {
     this.calendarStore.fetchPlanning(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
-      this.getFilterByView(date, view)
+      this.buildFilter()
     );
   };
 
-  getFilterByView = (date, view) => {
-    let filter = {};
-    switch (view) {
-      case 'month':
-        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-        filter = {
-          startDate: firstDay.toISOString(),
-          endDate: lastDay.toISOString(),
-        };
-
-        break;
-
-      default:
-        break;
-    }
-    return filter;
-  };
+  buildFilter = () => ({
+    startDate: datesUtility.firstVisibleDay(this.showDate, localizer).toISOString(),
+    endDate: datesUtility.lastVisibleDay(this.showDate, localizer).toISOString(),
+  });
 
   callbackOnErrorHander = (error) => {
     console.log('callbackOnErrorHander');

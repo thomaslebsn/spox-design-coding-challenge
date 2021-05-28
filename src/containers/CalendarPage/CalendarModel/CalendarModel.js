@@ -12,8 +12,8 @@ class CalendarModel {
     if (data) {
       this.id = data[CALENDAR_FIELD_KEY.ID] ?? this.id;
       this.name = data[CALENDAR_FIELD_KEY.NAME] ?? this.name;
-      this.startDate = data[CALENDAR_FIELD_KEY.STARTDATE] ?? this.startDate;
-      this.endDate = data[CALENDAR_FIELD_KEY.ENDDATE] ?? this.endDate;
+      this.startDate = new Date(data[CALENDAR_FIELD_KEY.STARTDATE]) ?? this.startDate;
+      this.endDate = new Date(data[CALENDAR_FIELD_KEY.ENDDATE]) ?? this.endDate;
       this.background = data[CALENDAR_FIELD_KEY.BACKGROUND] ?? this.background;
       this.desc = data[CALENDAR_FIELD_KEY.DESC] ?? this.desc;
     }
