@@ -24,9 +24,42 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   arrayConnectedChannelsFinal = [];
 
+  // dataContentDescriptionSingle = {
+  //   data: '',
+  //   media: [],
+  // };
+
   dataContentDescriptionSingle = {
-    data: '',
-    media: [],
+    facebook: {
+      data: '',
+      media: [],
+      video: ''
+    },
+    instagram: {
+      data: '',
+      media: [],
+      video: ''
+    },
+    twitter: {
+      data: '',
+      media: [],
+      video: ''
+    },
+    youtube: {
+      data: '',
+      media: [],
+      video: ''
+    },
+    joomla: {
+      data: '',
+      media: [],
+      video: ''
+    },
+    mailchimp: {
+      data: '',
+      media: [],
+      video: ''
+    }
   };
 
   dataContentDescriptionSocial = {
@@ -34,30 +67,36 @@ class ContentConnectedChannelsByOrganisationViewModel {
       facebook: {
         data: '',
         media: [],
+        video: ''
       },
       instagram: {
         data: '',
         media: [],
+        video: ''
       },
       linkedIn: {
         data: '',
         media: [],
+        video: ''
       },
     },
     cms: {
       joomla: {
         data: '',
         media: [],
+        video: ''
       },
       wordpress: {
         data: '',
         media: [],
+        video: ''
       },
     },
     mail: {
       mailchimp: {
         data: '',
         media: [],
+        video: ''
       },
     },
   };

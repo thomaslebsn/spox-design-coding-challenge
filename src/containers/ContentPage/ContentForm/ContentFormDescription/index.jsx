@@ -55,9 +55,14 @@ class ContentFormDescription extends Component {
   };
 
   render() {
-    const newArrayConnectChannels = this.viewModel ? this.viewModel.newArrayConnectChannels : null;
-
     const { t } = this.props;
+    const arrayConnectedChannelsFinal = this.viewModel ? this.viewModel.arrayConnectedChannelsFinal : null;
+
+    let labelsConnectedChannels =
+    arrayConnectedChannelsFinal && arrayConnectedChannelsFinal.map((e) => e.des);
+
+    let checkConnectYoutube =
+      labelsConnectedChannels && (labelsConnectedChannels.indexOf('youtube') > -1)
 
     let { socical, cms, email } = this.state;
     return (
@@ -72,7 +77,7 @@ class ContentFormDescription extends Component {
         </div>
         {!this.field.isAdvanceMode ? (
           <div>
-            <ContentFormDescriptionSingle field={this.field} changed={this.handleChangedSignle} />
+            <ContentFormDescriptionSingle field={this.field} changed={this.handleChangedSignle} checkConnectYoutube={checkConnectYoutube}/>
           </div>
         ) : (
           <div>
