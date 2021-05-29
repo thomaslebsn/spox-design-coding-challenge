@@ -173,10 +173,12 @@ class ComponentConnectaChannel extends Component {
       onFailureConnectChannels,
       onSuccessGoogleMyBusinessConnect,
       googleMyBusinessConnected,
+      listLinkedinFanpageView,
+      listLinkedinFanpageConnected
     } = this.props;
 
-    console.log('listFacebookFanpageConnected123');
-    console.log(listFacebookFanpageConnected);
+    console.log('listLinkedinFanpageView1234');
+    console.log(listLinkedinFanpageView);
 
     return (
       <div className="wrapper_tabs">
@@ -195,6 +197,7 @@ class ComponentConnectaChannel extends Component {
                     onFacebookFailure={onFailureConnectChannels}
                     buttonText={facebookConnected ? 'Connected' : 'Connect'}
                     isDisable={facebookConnected ? true : false}
+                    appId='831779357771114'
                   />
                 </div>
                 {listFaceBookFanpageView && (
@@ -351,6 +354,50 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
+                {listLinkedinFanpageView && (
+                  <div className="p-3">
+                    <div className={`list_content`}>
+                      <div className="py-2 px-3 bg-blue d-flex rounded-2">
+                        <div className="col-4">Name</div>
+                        <div className="col-6 text-end">Action</div>
+                      </div>
+                      <div className={`list_main `}>
+                        {
+                          Object.values(listLinkedinFanpageView).map((value, key) => {
+                            return (
+                              <div
+                                key={key}
+                                className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
+                              >
+                                <div className="col-4">
+                                  <div className="d-flex align-items-center">
+                                    <span className="ms-2">{value.localizedName}</span>
+                                  </div>
+                                </div>
+                                <div className="col-6 text-end">
+                                  <button
+                                    type="button"
+                                    className="cursor-pointer btn btn-success ct_btn_connect"
+                                    onClick={(e) => {
+                                      //this.props.handleConnectedFanpage('linkedin', value.id);
+                                    }}
+                                  >
+                                    <span className="ms-2">
+                                      {listLinkedinFanpageConnected &&
+                                      listLinkedinFanpageConnected.indexOf(value.id) > -1
+                                        ? 'Disconnect'
+                                        : 'Connect'}
+                                    </span>
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })
+                        }
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">

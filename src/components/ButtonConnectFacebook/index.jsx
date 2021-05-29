@@ -7,7 +7,7 @@ const ButtonConnectFacebook = (props) => {
   const { scope, onFacebookSuccess, onFacebookFailure, buttonText, isDisable } = props;
 
   useEffect(() => {
-    initFacebookSdk().then();
+    initFacebookSdk(props.appId).then();
   }, []);
 
   const handleClick = () => {

@@ -14,8 +14,8 @@ export default class ChannelsStore {
     }
   }
 
-  async connectAFacebookPage(
-    callbackOnConnectAFacebookPageSuccess,
+  async connectAFanpage(
+    callbackOnConnectAFanpageSuccess,
     callbackOnError,
     channelUniqueName,
     pageId
@@ -35,7 +35,7 @@ export default class ChannelsStore {
 
     if (response) {
       runInAction(() => {
-        callbackOnConnectAFacebookPageSuccess(response, channelUniqueName, pageId);
+        callbackOnConnectAFanpageSuccess(response, channelUniqueName, pageId);
       });
     } else {
       callbackOnError({
@@ -44,8 +44,8 @@ export default class ChannelsStore {
     }
   }
 
-  async disconnectAFacebookPage(
-    callbackOnDisconnectAFacebookPageSuccess,
+  async disconnectAFanpage(
+    callbackOnDisconnectAFanpageSuccess,
     callbackOnError,
     channelUniqueName,
     pageId
@@ -65,7 +65,7 @@ export default class ChannelsStore {
 
     if (response) {
       runInAction(() => {
-        callbackOnDisconnectAFacebookPageSuccess(response, channelUniqueName, pageId);
+        callbackOnDisconnectAFanpageSuccess(response, channelUniqueName, pageId);
       });
     } else {
       callbackOnError({
@@ -131,10 +131,13 @@ export default class ChannelsStore {
         case 'facebook':
           result = await channelService.checkConnectionStatusFacebook(channelType);
           break;
+        case 'linkedin':
+          result = await channelService.checkConnectionStatusLinkedin(channelType);
+          break;
 
+        // case 'linkedin':  
         case 'youtube':
         case 'twitter':
-        case 'linkedin':
         case 'mailchimp':
         case 'instagram':
         case 'tumblr':

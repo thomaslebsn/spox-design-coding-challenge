@@ -108,13 +108,13 @@ const ConnectChannels = observer(
       });
     };
 
-    handleSaveFanpage = () => {
-      this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
+    // handleSaveFanpage = () => {
+    //   this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
 
-      this.setState({
-        showModal: false,
-      });
-    };
+    //   this.setState({
+    //     showModal: false,
+    //   });
+    // };
 
     handleModalCms = (type) => {
       this.loginCMSChannelFormModalViewModel.setChannelType(type);
@@ -123,9 +123,9 @@ const ConnectChannels = observer(
 
     handleConnectedFanpage = (channelType, id) => {
       if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
-        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+        this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
       } else {
-        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+        this.channelsListViewModel.connectAFanpagePage(channelType, id);
       }
     };
 
@@ -228,6 +228,8 @@ const ConnectChannels = observer(
         getIdActionFacebookFange,
         ConnectStatusFanpage,
         googleMyBusinessConnected,
+        listLinkedinFanpageView,
+        listLinkedinFanpageConnected
       } = this.channelsListViewModel;
 
       return (
@@ -283,6 +285,8 @@ const ConnectChannels = observer(
               onSuccessInstagramConnect={this.onSuccessInstagramConnect}
               googleMyBusinessConnected={googleMyBusinessConnected}
               onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
+              listLinkedinFanpageView={listLinkedinFanpageView}
+              listLinkedinFanpageConnected={listLinkedinFanpageConnected}
             />
           </div>
           {/* {listFaceBookFanpage && (

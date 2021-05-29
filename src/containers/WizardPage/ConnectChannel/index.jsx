@@ -94,13 +94,13 @@ const ConnectChannel = observer(
       });
     };
 
-    handleSaveFanpage = () => {
-      this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
+    // handleSaveFanpage = () => {
+    //   this.channelsListViewModel.saveChosseFacebookFanpages(this.state.getIDSFanpage);
 
-      this.setState({
-        showModal: false,
-      });
-    };
+    //   this.setState({
+    //     showModal: false,
+    //   });
+    // };
 
     handleSaveAdsAccount = () => {
       this.channelsListViewModel.saveChosseFacebookAdAccount(this.state.getIDSAdAccount);
@@ -116,9 +116,9 @@ const ConnectChannel = observer(
 
     handleConnectedFanpage = (channelType, id) => {
       if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
-        this.channelsListViewModel.disconnectAFacebookPage(channelType, id);
+        this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
       } else {
-        this.channelsListViewModel.connectAFacebookPage(channelType, id);
+        this.channelsListViewModel.connectAFanpagePage(channelType, id);
       }
     };
 
@@ -262,6 +262,8 @@ const ConnectChannel = observer(
         getIdActionFacebookFange,
         ConnectStatusFanpage,
         googleMyBusinessConnected,
+        listLinkedinFanpageView,
+        listLinkedinFanpageConnected
       } = this.channelsListViewModel;
 
       return (
@@ -313,6 +315,8 @@ const ConnectChannel = observer(
               onFailureConnectChannels={this.onFailureConnectChannels}
               googleMyBusinessConnected={googleMyBusinessConnected}
               onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
+              listLinkedinFanpageView={listLinkedinFanpageView}
+              listLinkedinFanpageConnected={listLinkedinFanpageConnected}
             />
           </div>
           {/* {listFaceBookFanpage && (
