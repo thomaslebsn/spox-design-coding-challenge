@@ -191,14 +191,23 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/facebook.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook</span>
                   </div>
-                  <ButtonConnectFacebook
+                  {/* <ButtonConnectFacebook
                     scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
                     onFacebookSuccess={onSuccessFacebookConnect}
                     onFacebookFailure={onFailureConnectChannels}
                     buttonText={facebookConnected ? 'Connected' : 'Connect'}
                     isDisable={facebookConnected ? true : false}
                     appId="831779357771114"
-                  />
+                  /> */}
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel('facebook');
+                    }}
+                    disabled={facebookConnected}
+                  >
+                    <span className="ms-2">{facebookConnected ? 'Connected' : 'Connect'}</span>
+                  </button>
                 </div>
                 {listFaceBookFanpageView && (
                   <div className="p-3">
