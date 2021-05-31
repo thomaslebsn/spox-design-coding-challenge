@@ -127,10 +127,10 @@ class ChannelsListViewModel {
   onSuccessConnect = (dataToken, channelType) => {
     let dataTokenFormat = JSON.parse(dataToken);
 
-    if (channelType === 'facebook') {
-      this.listFaceBookFanpageView = dataTokenFormat.pages;
-      this.listFacebookFanpageConnected = dataTokenFormat.connected;
-    }
+    // if (channelType === 'facebook') {
+    //   this.listFaceBookFanpageView = dataTokenFormat.pages;
+    //   this.listFacebookFanpageConnected = dataTokenFormat.connected;
+    // }
 
     this.channelsStore.saveAccessTokenChannel(
       this.callbackOnSuccessConnected,
@@ -145,9 +145,9 @@ class ChannelsListViewModel {
       case 'google_ads':
         this.googleadsConnected = true;
         break;
-      case 'facebook':
-        this.facebookConnected = true;
-        break;
+      // case 'facebook':
+      //   this.facebookConnected = true;
+      //   break;
       case 'youtube':
         this.youtubeConnected = true;
         break;
@@ -261,6 +261,23 @@ class ChannelsListViewModel {
                 let responseResult = response.result;
 
                 switch (channelUniqueName) {
+                  case 'facebook':
+                    if (responseResult.pages.status === 'connected') {
+                      clearInterval(checkConnectionStatusInterval);
+
+                      this.facebookConnected = true;
+                      this.countSocialMediaConnected++;
+
+                      let listFanpage = responseResult.pages.pages;
+                      this.listFaceBookFanpageView = listFanpage;
+
+                      this.listFacebookFanpageConnected = responseResult.pages.connected;
+
+                      console.log('sdfsdf this.listFacebookFanpageConnected');
+                      console.log(this.listFacebookFanpageConnected);
+                    }
+                    break;
+
                   case 'fbad': //facebookAdConnected
                     if (responseResult.pages.status === 'connected') {
                       this.facebookAdsConnected = true;
@@ -407,9 +424,9 @@ class ChannelsListViewModel {
                   this.countSocialMediaConnected++;
                   // let listFpConnected = responseResult.pages.connected;
                   let listFanpage = responseResult.pages.pages;
-                  this.listFacebookFanpageConnected = responseResult.pages.connected;
-
                   this.listFaceBookFanpageView = listFanpage;
+
+                  this.listFacebookFanpageConnected = responseResult.pages.connected;
                 }
                 break;
               case 'fbad':

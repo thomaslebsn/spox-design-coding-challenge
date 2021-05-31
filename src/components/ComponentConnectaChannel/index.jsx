@@ -177,8 +177,8 @@ class ComponentConnectaChannel extends Component {
       listLinkedinFanpageConnected,
     } = this.props;
 
-    console.log('listLinkedinFanpageView1234');
-    console.log(listLinkedinFanpageView);
+    console.log('listFacebookFanpageConnected1234');
+    console.log(listFacebookFanpageConnected);
 
     return (
       <div className="wrapper_tabs">
@@ -204,7 +204,7 @@ class ComponentConnectaChannel extends Component {
                     onClick={(e) => {
                       this.handleConnectChannel('facebook');
                     }}
-                    disabled={facebookConnected}
+                    disabled={facebookConnected ? true : false}
                   >
                     <span className="ms-2">{facebookConnected ? 'Connected' : 'Connect'}</span>
                   </button>
