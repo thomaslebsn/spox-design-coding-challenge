@@ -174,11 +174,11 @@ class ComponentConnectaChannel extends Component {
       onSuccessGoogleMyBusinessConnect,
       googleMyBusinessConnected,
       listLinkedinFanpageView,
-      listLinkedinFanpageConnected
+      listLinkedinFanpageConnected,
     } = this.props;
 
-    console.log('listLinkedinFanpageView1234');
-    console.log(listLinkedinFanpageView);
+    console.log('listFacebookFanpageConnected1234');
+    console.log(listFacebookFanpageConnected);
 
     return (
       <div className="wrapper_tabs">
@@ -191,14 +191,23 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/facebook.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook</span>
                   </div>
-                  <ButtonConnectFacebook
+                  {/* <ButtonConnectFacebook
                     scope="public_profile,pages_show_list,pages_manage_posts,pages_read_engagement,read_insights"
                     onFacebookSuccess={onSuccessFacebookConnect}
                     onFacebookFailure={onFailureConnectChannels}
                     buttonText={facebookConnected ? 'Connected' : 'Connect'}
                     isDisable={facebookConnected ? true : false}
-                    appId='831779357771114'
-                  />
+                    appId="831779357771114"
+                  /> */}
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleConnectChannel('facebook');
+                    }}
+                    disabled={facebookConnected ? true : false}
+                  >
+                    <span className="ms-2">{facebookConnected ? 'Connected' : 'Connect'}</span>
+                  </button>
                 </div>
                 {listFaceBookFanpageView && (
                   <div className="p-3">
@@ -362,38 +371,36 @@ class ComponentConnectaChannel extends Component {
                         <div className="col-6 text-end">Action</div>
                       </div>
                       <div className={`list_main `}>
-                        {
-                          Object.values(listLinkedinFanpageView).map((value, key) => {
-                            return (
-                              <div
-                                key={key}
-                                className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
-                              >
-                                <div className="col-4">
-                                  <div className="d-flex align-items-center">
-                                    <span className="ms-2">{value.localizedName}</span>
-                                  </div>
-                                </div>
-                                <div className="col-6 text-end">
-                                  <button
-                                    type="button"
-                                    className="cursor-pointer btn btn-success ct_btn_connect"
-                                    onClick={(e) => {
-                                      //this.props.handleConnectedFanpage('linkedin', value.id);
-                                    }}
-                                  >
-                                    <span className="ms-2">
-                                      {listLinkedinFanpageConnected &&
-                                      listLinkedinFanpageConnected.indexOf(value.id) > -1
-                                        ? 'Disconnect'
-                                        : 'Connect'}
-                                    </span>
-                                  </button>
+                        {Object.values(listLinkedinFanpageView).map((value, key) => {
+                          return (
+                            <div
+                              key={key}
+                              className={`item_accordion ${styles.item_accordion} p-3 border-bottom-1 d-flex align-items-center`}
+                            >
+                              <div className="col-4">
+                                <div className="d-flex align-items-center">
+                                  <span className="ms-2">{value.localizedName}</span>
                                 </div>
                               </div>
-                            );
-                          })
-                        }
+                              <div className="col-6 text-end">
+                                <button
+                                  type="button"
+                                  className="cursor-pointer btn btn-success ct_btn_connect"
+                                  onClick={(e) => {
+                                    //this.props.handleConnectedFanpage('linkedin', value.id);
+                                  }}
+                                >
+                                  <span className="ms-2">
+                                    {listLinkedinFanpageConnected &&
+                                    listLinkedinFanpageConnected.indexOf(value.id) > -1
+                                      ? 'Disconnect'
+                                      : 'Connect'}
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -503,7 +510,7 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/google_ads.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Google Adwords</span>
                   </div>
-                  {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
+                  {/* {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
                     <ButtonConnectGoogle
                       scope="https://www.googleapis.com/auth/adwords"
                       clientId="591849916879-8gc5gct9fsgbh76hqd5lonig8c1n1666.apps.googleusercontent.com"
@@ -514,6 +521,19 @@ class ComponentConnectaChannel extends Component {
                       buttonText={googleadsConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
                     />
+                  ) : (
+                    <ButtonUpgrade />
+                  )} */}
+                  {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
+                      }}
+                      disabled={googleadsConnected}
+                    >
+                      <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
+                    </button>
                   ) : (
                     <ButtonUpgrade />
                   )}
