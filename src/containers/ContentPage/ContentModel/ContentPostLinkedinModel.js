@@ -1,15 +1,18 @@
+import {
+  CONTENT_FIELD_KEY
+} from '../../../constants/ContentModule';
+
 class ContentPostLinkedinModel {
   description = null;
   images = null;
   selectedPage = null;
   publishedPlan = null;
-  rawData = null;
 
   constructor(rawData) {
-    this.description = rawData.linkedin.description ?? rawData.description;
-    this.images = rawData.linkedin.images ?? rawData.images;
-    this.selectedPage = rawData.linkedin.selectedPage ?? rawData.selectedPage;
-    this.publishedPlan = rawData.linkedin.publishedPlan ?? rawData.publishedPlan;
+    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.data;
+    this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.media;
+    this.selectedPage = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.selectedPage : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.selectedPage;
+    this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.publishedPlan;
   }
 
   transformDataToContentCreation = () => {
@@ -18,8 +21,8 @@ class ContentPostLinkedinModel {
       images: this.images,
       selectedPage: this.selectedPage,
       publishedPlan: this.publishedPlan,
-    };
-  };
+    }
+  }
 }
 
 export default ContentPostLinkedinModel;

@@ -24,82 +24,168 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   arrayConnectedChannelsFinal = [];
 
-  // dataContentDescriptionSingle = {
-  //   data: '',
-  //   media: [],
-  // };
 
   dataContentDescriptionSingle = {
-    facebook: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    instagram: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    twitter: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    youtube: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    joomla: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    mailchimp: {
-      data: '',
-      media: [],
-      video: ''
-    }
-  };
-
-  dataContentDescriptionSocial = {
-    social: {
+    advance_mode: false,
+    list_channels: {
       facebook: {
         data: '',
         media: [],
-        video: ''
+        video: '',
+        publishedPlan: []
+      },
+      linkendin: {
+        data: '',
+        media: [],
+        video: '',
+        publishedPlan: []
       },
       instagram: {
         data: '',
         media: [],
-        video: ''
+        video: '',
+        publishedPlan: []
       },
-      linkedIn: {
+      twitter: {
         data: '',
         media: [],
-        video: ''
+        video: '',
+        publishedPlan: []
       },
-    },
-    cms: {
+      youtube: {
+        data: '',
+        media: [],
+        video: '',
+        publishedPlan: []
+      },
       joomla: {
         data: '',
         media: [],
-        video: ''
+        video: '',
+        publishedPlan: []
+      },
+      mailchimp: {
+        data: '',
+        media: [],
+        video: '',
+        publishedPlan: []
+      },
+      google_my_business: {
+        data: '',
+        media: [],
+        video: '',
+        publishedPlan: []
+      },
+      tumblr: {
+        data: '',
+        media: [],
+        video: '',
+        publishedPlan: []
+      },
+      medium: {
+        data: '',
+        media: [],
+        video: '',
+        publishedPlan: []
       },
       wordpress: {
         data: '',
         media: [],
-        video: ''
+        video: '',
+        publishedPlan: []
       },
-    },
-    mail: {
-      mailchimp: {
+      drupal: {
         data: '',
         media: [],
-        video: ''
+        video: '',
+        publishedPlan: []
+      }
+    }
+  }
+
+  dataContentDescriptionSocial = {
+    advance_mode: true,
+    list_channels: {
+      social: {
+        facebook: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        instagram: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        linkedIn: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        youtube: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        google_my_business: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        tumblr: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        medium: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        twitter: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        }
       },
-    },
-  };
+      cms: {
+        joomla: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        wordpress: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+        drupal: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        }
+      },
+      mail: {
+        mailchimp: {
+          data: '',
+          media: [],
+          video: '',
+          publishedPlan: []
+        },
+      },
+    }
+  }
 
   constructor(contentsStore) {
     makeAutoObservable(this);

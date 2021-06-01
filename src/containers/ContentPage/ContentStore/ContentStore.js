@@ -73,11 +73,11 @@ export default class ContentStore {
       //   contentData
       // );
 
-      const ContentPostTemplate = new ContentPostTemplateModel(contentData);
+      let contentPostTemplate = new ContentPostTemplateModel(contentData);
 
-      const convertedContentData = ContentPostTemplate.transformDataToContentCreation();
+      let convertedContentData = contentPostTemplate.transformDataToContentCreation();
 
-      const convertedContentData = console.log('convertedContentData');
+      console.log('convertedContentData1234');
       console.log(convertedContentData);
       // Save Content
       const contentService = new EasiiContentApiService();

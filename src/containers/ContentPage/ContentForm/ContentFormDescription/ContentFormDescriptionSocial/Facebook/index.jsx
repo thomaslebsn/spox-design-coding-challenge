@@ -15,12 +15,12 @@ class FacebookSocial extends Component {
   }
 
   handleChange(event) {
-    this.field.dataContentDescriptionSocial.social.facebook.data = event.target.value;
+    this.field.dataContentDescriptionSocial.list_channels.social.facebook.data = event.target.value;
     this.props.changed(event.target.value);
   }
 
   handleCanva(exportUrl, designId) {
-    this.field.dataContentDescriptionSocial.social.facebook.media = {
+    this.field.dataContentDescriptionSocial.list_channels.social.facebook.media = {
       exportUrl: exportUrl,
       designId: designId,
     };
@@ -34,7 +34,7 @@ class FacebookSocial extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.social.facebook.data}
+          defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.facebook.data}
           // value={this.field.dataContentDescriptionSocial.social.facebook.data}
           required={this.field.required ?? false}
           id={this.field.key}
@@ -46,7 +46,7 @@ class FacebookSocial extends Component {
 
         <div className="px-3 py-2 bg-blue-3 d-flex">
           <CanvaButton
-            data={this.field.dataContentDescriptionSocial.social.facebook.media}
+            data={this.field.dataContentDescriptionSocial.list_channels.social.facebook.media}
             changed={this.handleCanva}
           />
           <DamButton />
