@@ -74,6 +74,25 @@ export default class ChannelsStore {
     }
   }
 
+  async disconnectChannel(callbackOnSuccess, callbackOnError, channelName) {
+    const channelService = new EasiiOrganisationChannelApiService();
+
+    let response = await channelService.disconnectChannel(channelName);
+
+    console.log('disconnectChannel');
+    console.log(response);
+
+    if (response) {
+      runInAction(() => {
+        callbackOnSuccess(response, channelName);
+      });
+    } else {
+      callbackOnError({
+        message: 'Something went wrong from Server response',
+      });
+    }
+  }
+
   async getChannelLoginUrl(callbackOnSuccess, callbackOnError, channelUniqueName) {
     try {
       const channelService = new EasiiOrganisationChannelApiService();
@@ -135,7 +154,7 @@ export default class ChannelsStore {
           result = await channelService.checkConnectionStatusLinkedin(channelType);
           break;
 
-        // case 'linkedin':  
+        // case 'linkedin':
         case 'youtube':
         case 'twitter':
         case 'mailchimp':
