@@ -59,7 +59,7 @@ class BillingPlanListViewModel {
     //init Paddle
     this.Paddle = window.Paddle;
     this.Paddle.Setup({
-      vendor: parseInt(this.paddleData.vendorId), // paddle vendor id
+      vendor: 1507, // paddle vendor id
       eventCallback: function (data) {
         // The data.event will specify the event type
         if (data.event === 'Checkout.Complete') {
@@ -117,6 +117,7 @@ class BillingPlanListViewModel {
       this.subscriptionDetail.paddle_status === 'deleted'
     ) {
       this.Paddle.Spinner.show();
+      
       this.billingPlanStore.getPayLink(
         planName,
         (response) => {
