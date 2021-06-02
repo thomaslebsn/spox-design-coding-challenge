@@ -29,6 +29,7 @@ const ContentFormPublishWizard = observer(
   class ContentFormPublishWizard extends Component {
     contentFormViewModel = null;
     contentConnectedChannelsByOrganisationViewModel = null;
+    channelsListViewModel = null;
 
     constructor(props) {
       super(props);
@@ -49,6 +50,28 @@ const ContentFormPublishWizard = observer(
 
       console.log('contentConnectedChannelsByOrganisationViewModel - After binding class');
       console.log(this.contentConnectedChannelsByOrganisationViewModel);
+
+      this.channelsListViewModel = viewModel ? viewModel.getChannelsListViewModel() : null;
+
+      this.channelsListViewModel.checkConnectedChannels([
+        'linkedin',
+        'youtube',
+        'twitter',
+        'instagram',
+        'facebook',
+        'mailchimp',
+        'wordpress',
+        'tumblr',
+        'drupal',
+        'medium',
+        'joomla',
+        'fbad',
+        'google_my_business',
+      ]);
+
+      console.log('this.channelsListViewModel - After binding class123');
+      console.log(this.channelsListViewModel);
+
     }
 
     render() {

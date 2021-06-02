@@ -8,7 +8,10 @@ class ComponentPublishListChannels extends Component {
   componentDidMount = () => {};
 
   render() {
-    let { value, handleDeselectAll } = this.props;
+    let { value, handleDeselectAll, listFaceBookFanpageView } = this.props;
+
+    console.log('listFaceBookFanpageView132423component');
+    console.log(listFaceBookFanpageView);
     return (
       <>
         <div className="d-flex align-items-center justify-content-between mb-3">

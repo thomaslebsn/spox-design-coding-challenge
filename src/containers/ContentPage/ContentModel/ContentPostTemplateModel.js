@@ -1,18 +1,7 @@
-import FIELD_TYPE from '../../../constants/FieldType';
 import {
   CONTENT_FIELD_KEY,
   ESI_CONTENT_API_RESPONSE_FIELD_KEY,
 } from '../../../constants/ContentModule';
-
-import getStatus from '../../../utils/status';
-import { DescriptionsModel } from './DescriptionsModel';
-
-import ChannelUtils from '../../ChannelsPage/ChannelUtils/ChannelUtils';
-import CampaignsStore from '../../CampaignsPage/CampaignsStore/CampaignsStore';
-import PersonaStore from '../../PersonasPage/PersonaStore/PersonaStore';
-
-import ContentThemeStore from '../ContentStore/ContentThemeStore';
-
 
 import ContentPostFacebookModel from './ContentPostFacebookModel';
 import ContentPostLinkedinModel from './ContentPostLinkedinModel';
@@ -50,6 +39,9 @@ class ContentPostTemplateModel {
   }
 
   transformDataToContentCreation = () => {
+    console.log('rawDatarawDatarawDatarawData123');
+    console.log(this.rawData);
+
     const facebookModel = new ContentPostFacebookModel(this.rawData)
     const linkedinModel = new ContentPostLinkedinModel(this.rawData)
     const instagramModel = new ContentPostInstagramModel(this.rawData)
@@ -76,7 +68,28 @@ class ContentPostTemplateModel {
     this.data.joomla = joomlaModel.transformDataToContentCreation()
     this.data.mailchimp = mailchimpModel.transformDataToContentCreation()
 
-    return JSON.stringify(this.data);
+    const contentId = this.rawData[CONTENT_FIELD_KEY.ID] ? this.rawData[CONTENT_FIELD_KEY.ID] : 0;
+    const result = this.rawData
+      ? {
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
+            this.rawData[CONTENT_FIELD_KEY.PERSONA]
+          ),
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS]: JSON.stringify(this.data),
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
+          //   this.rawData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_DESIGN_ID]:
+          //   this.rawData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+          // },
+        }
+      : null;
+
+    return result;
   }
 }
 export default ContentPostTemplateModel; 

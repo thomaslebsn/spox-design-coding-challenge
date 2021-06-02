@@ -141,6 +141,7 @@ class ComponentContentFormPublish extends Component {
                             <ComponentPublishListChannels
                               value={value}
                               handleDeselectAll={(e) => this.handleDeselectAll(value, key)}
+                              listFaceBookFanpageView={this.props.listFaceBookFanpageView}
                             />
                           </div>
                         );

@@ -79,6 +79,8 @@ class ContentFormViewModel {
     },
   ];
 
+  channelsListViewModel = null;
+
   formStatus = PAGE_STATUS.READY;
 
   constructor(contentStore) {

@@ -24,7 +24,6 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   arrayConnectedChannelsFinal = [];
 
-
   dataContentDescriptionSingle = {
     advance_mode: false,
     list_channels: {
@@ -32,72 +31,84 @@ class ContentConnectedChannelsByOrganisationViewModel {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       linkedin: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       instagram: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       twitter: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       youtube: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       joomla: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       mailchimp: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       google_my_business: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       tumblr: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       medium: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       wordpress: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       },
       drupal: {
         data: null,
         media: [],
         video: null,
+        selectedPage: [],
         publishedPlan: []
       }
     }
@@ -111,48 +122,56 @@ class ContentConnectedChannelsByOrganisationViewModel {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         instagram: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         linkedin: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         youtube: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         google_my_business: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         tumblr: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         medium: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         twitter: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         }
       },
@@ -161,18 +180,21 @@ class ContentConnectedChannelsByOrganisationViewModel {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         wordpress: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
         drupal: {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         }
       },
@@ -181,6 +203,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           data: null,
           media: [],
           video: null,
+          selectedPage: [],
           publishedPlan: []
         },
       },
