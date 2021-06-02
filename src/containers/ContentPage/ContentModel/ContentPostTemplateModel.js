@@ -1,6 +1,18 @@
+import FIELD_TYPE from '../../../constants/FieldType';
 import {
-  CONTENT_FIELD_KEY
+  CONTENT_FIELD_KEY,
+  ESI_CONTENT_API_RESPONSE_FIELD_KEY,
 } from '../../../constants/ContentModule';
+
+import getStatus from '../../../utils/status';
+import { DescriptionsModel } from './DescriptionsModel';
+
+import ChannelUtils from '../../ChannelsPage/ChannelUtils/ChannelUtils';
+import CampaignsStore from '../../CampaignsPage/CampaignsStore/CampaignsStore';
+import PersonaStore from '../../PersonasPage/PersonaStore/PersonaStore';
+
+import ContentThemeStore from '../ContentStore/ContentThemeStore';
+
 
 import ContentPostFacebookModel from './ContentPostFacebookModel';
 import ContentPostLinkedinModel from './ContentPostLinkedinModel';
@@ -64,7 +76,7 @@ class ContentPostTemplateModel {
     this.data.joomla = joomlaModel.transformDataToContentCreation()
     this.data.mailchimp = mailchimpModel.transformDataToContentCreation()
 
-    return this.data;
+    return JSON.stringify(this.data);
   }
 }
 export default ContentPostTemplateModel; 

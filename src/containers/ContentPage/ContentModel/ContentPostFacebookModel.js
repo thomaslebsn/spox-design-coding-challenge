@@ -9,8 +9,6 @@ class ContentPostFacebookModel {
   publishedPlan = null;
 
   constructor(rawData) {
-    console.log('rawDatarawData12332132');
-    console.log(rawData);
     this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.facebook.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.facebook.data;
     this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.facebook.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.facebook.media;
     this.selectedPage = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.facebook.selectedPage : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.facebook.selectedPage;

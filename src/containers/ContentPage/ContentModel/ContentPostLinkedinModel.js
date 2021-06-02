@@ -9,10 +9,10 @@ class ContentPostLinkedinModel {
   publishedPlan = null;
 
   constructor(rawData) {
-    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.data;
-    this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.media;
-    this.selectedPage = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.selectedPage : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.selectedPage;
-    this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkendin.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkendin.publishedPlan;
+    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkedin.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkedin.data;
+    this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkedin.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkedin.media;
+    this.selectedPage = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkedin.selectedPage : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkedin.selectedPage;
+    this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.linkedin.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.linkedin.publishedPlan;
   }
 
   transformDataToContentCreation = () => {

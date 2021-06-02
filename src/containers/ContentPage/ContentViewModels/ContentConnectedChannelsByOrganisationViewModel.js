@@ -29,75 +29,75 @@ class ContentConnectedChannelsByOrganisationViewModel {
     advance_mode: false,
     list_channels: {
       facebook: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
-      linkendin: {
-        data: '',
+      linkedin: {
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       instagram: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       twitter: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       youtube: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       joomla: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       mailchimp: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       google_my_business: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       tumblr: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       medium: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       wordpress: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       },
       drupal: {
-        data: '',
+        data: null,
         media: [],
-        video: '',
+        video: null,
         publishedPlan: []
       }
     }
@@ -108,79 +108,79 @@ class ContentConnectedChannelsByOrganisationViewModel {
     list_channels: {
       social: {
         facebook: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         instagram: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
-        linkedIn: {
-          data: '',
+        linkedin: {
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         youtube: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         google_my_business: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         tumblr: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         medium: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         twitter: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         }
       },
       cms: {
         joomla: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         wordpress: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
         drupal: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         }
       },
       mail: {
         mailchimp: {
-          data: '',
+          data: null,
           media: [],
-          video: '',
+          video: null,
           publishedPlan: []
         },
       },

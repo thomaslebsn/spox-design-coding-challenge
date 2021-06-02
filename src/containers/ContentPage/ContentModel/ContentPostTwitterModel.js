@@ -8,8 +8,6 @@ class ContentPostTwitterModel {
   publishedPlan = null;
 
   constructor(rawData) {
-    console.log('rawDatarawDatatwitter');
-    console.log(rawData);
     this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.twitter.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.twitter.data;
     this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.twitter.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.twitter.media;
     this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.twitter.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.twitter.publishedPlan;
