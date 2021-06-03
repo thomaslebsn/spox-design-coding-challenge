@@ -74,12 +74,6 @@ class ComponentContentFormPublish extends Component {
     }
   };
 
-  handleDeselectAll = (value, key) => {
-    console.log('valuevaluevaluevalueselectall');
-    console.log(value);
-    console.log(key);
-  };
-
   handleDeselect = (name) => {
     this.handleCheck(name);
   };
@@ -95,8 +89,6 @@ class ComponentContentFormPublish extends Component {
   };
 
   render() {
-    let publishContentConnectChannels = this.viewModel.publishContentConnectChannels;
-    console.log('[Content - FormPublish] - re-render .........');
 
     let { formStatus, arrayConnectedChannelsFinal } = this.props;
     let { schedule, nextStep2Ads } = this.state;
@@ -109,6 +101,9 @@ class ComponentContentFormPublish extends Component {
       (labelsConnectedChannels.indexOf('fbad') > -1 ||
         labelsConnectedChannels.indexOf('google_ads') > -1) &&
       !schedule;
+
+      console.log('listFacebookFanpageConnected12345');
+      console.log(this.props.listFacebookFanpageConnected);
 
     return formStatus === PAGE_STATUS.LOADING ? (
       <Spinner />
@@ -134,18 +129,14 @@ class ComponentContentFormPublish extends Component {
               <div className="row">
                 <div className="col-5">
                   <div>
-                    {publishContentConnectChannels &&
-                      publishContentConnectChannels.map((value, key) => {
-                        return (
-                          <div key={key} className="mb-4">
-                            <ComponentPublishListChannels
-                              value={value}
-                              handleDeselectAll={(e) => this.handleDeselectAll(value, key)}
-                              listFaceBookFanpageView={this.props.listFaceBookFanpageView}
-                            />
-                          </div>
-                        );
-                      })}
+                    <div className="mb-4">
+                      <ComponentPublishListChannels
+                        handleDeselectAll={this.props.handleDeselectAll}
+                        isAdvanceMode={this.props.isAdvanceMode}
+                        listFacebookFanpageConnected={this.props.listFacebookFanpageConnected}
+                        contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="col-5">

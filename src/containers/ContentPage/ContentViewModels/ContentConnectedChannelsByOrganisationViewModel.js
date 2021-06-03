@@ -31,85 +31,97 @@ class ContentConnectedChannelsByOrganisationViewModel {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       linkedin: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       instagram: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       twitter: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       youtube: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       joomla: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       mailchimp: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       google_my_business: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       tumblr: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       medium: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       wordpress: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       drupal: {
         data: null,
         media: [],
         video: null,
-        selectedPage: [],
-        publishedPlan: []
+        publishedPlan: {
+          selectedPage: [],
+        }
       }
     }
   }
@@ -122,57 +134,89 @@ class ContentConnectedChannelsByOrganisationViewModel {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         instagram: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         linkedin: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         youtube: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         google_my_business: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         tumblr: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         medium: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         twitter: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         }
       },
       cms: {
@@ -180,22 +224,34 @@ class ContentConnectedChannelsByOrganisationViewModel {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         wordpress: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
         drupal: {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         }
       },
       mail: {
@@ -203,8 +259,12 @@ class ContentConnectedChannelsByOrganisationViewModel {
           data: null,
           media: [],
           video: null,
-          selectedPage: [],
-          publishedPlan: []
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
         },
       },
     }

@@ -32,9 +32,7 @@ class Contents extends Component {
 
   render() {
     let { match } = this.props;
-
-    console.log('contentViewModelcontentViewModel123');
-    console.log(contentViewModel)
+    
     return (
       <ContentViewModelContextProvider viewModel={contentViewModel}>
         <div className="py-4 px-3">

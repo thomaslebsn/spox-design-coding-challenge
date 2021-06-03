@@ -8,6 +8,8 @@ import FragmentStore from "../../../../fragments/Store/FragmentStore";
 import PersonaTableSelectionModalViewModel from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
 import CampaignTableSelectionModalViewModel from "../../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModel";
 
+import { CHANNEL_ADS_GOOGLE } from '../../../../constants/ChannelModule';
+
 if (!window.globalStore) {
   window.globalStore = new GlobalStore();
 }
@@ -66,6 +68,7 @@ const ContentFormPublishWizard = observer(
         'medium',
         'joomla',
         'fbad',
+        CHANNEL_ADS_GOOGLE,
         'google_my_business',
       ]);
 
