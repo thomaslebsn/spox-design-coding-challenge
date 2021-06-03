@@ -117,7 +117,7 @@ class BillingPlanListViewModel {
       this.subscriptionDetail.paddle_status === 'deleted'
     ) {
       this.Paddle.Spinner.show();
-      
+
       this.billingPlanStore.getPayLink(
         planName,
         (response) => {
