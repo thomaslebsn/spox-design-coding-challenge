@@ -91,7 +91,7 @@ class ComponentBillingPlan extends React.Component {
           <div className="d-table-row table_row_header">
               <div className="d-table-cell">Pick your plan</div>
               <div className="d-table-cell p-3 ">
-                <div className="title">Free</div>
+                <div className="title">FREE</div>
                 <div className="price">
                   <div className="monthly">
                     <span className="number">$0</span> <span>per month</span>
@@ -103,7 +103,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
 
               <div className="d-table-cell p-3 ">
-                <div className="title">Small</div>
+                <div className="title">SMALL</div>
                 <div className="price">
                   <div className="monthly">
                     <span className="number">$29</span> <span>per month</span>
@@ -145,7 +145,7 @@ class ComponentBillingPlan extends React.Component {
               </div>
 
               <div className="d-table-cell p-3 ">
-                <div className="title">Pro</div>
+                <div className="title">PRO</div>
                 <div className="price">
                   <div className="monthly">
                     <span className="number">$99</span> <span>per month</span>
@@ -187,14 +187,14 @@ class ComponentBillingPlan extends React.Component {
               </div>
 
               <div className="d-table-cell p-3 ">
-                <div className="title">Enterprise</div>
+                <div className="title">ENTERPRISE</div>
                 <div className="price">
-                  <div className="monthly">
-                    <span className="number">$199</span> <span>per month</span>
-                  </div>
-                  <div className="yearly">
-                    <span className="number">$2,360</span> <span>per year</span>
-                  </div>
+                    <div className="monthly">
+                      <span className="number">$199</span> <span>per month</span>
+                    </div>
+                    <div className="yearly">
+                      <span className="number">$2,360</span> <span>per year</span>
+                    </div>
                 </div>
                 <div>
                   <button
