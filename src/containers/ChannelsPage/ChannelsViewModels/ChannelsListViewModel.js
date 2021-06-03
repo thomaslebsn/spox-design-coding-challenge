@@ -140,6 +140,25 @@ class ChannelsListViewModel {
     );
   };
 
+  disConnectChannel = (channelName) => {
+    this.channelsStore.disconnectChannel(
+      (res, channelName) => {
+        this[channelName + 'Connected'] = false;
+
+        switch (channelName) {
+          case 'facebook':
+            this.listFaceBookFanpageView = null;
+            break;
+          case 'linkedin':
+            this.listLinkedinFanpageView = null;
+            break;
+        }
+      },
+      this.callbackOnErrorHander,
+      channelName
+    );
+  };
+
   callbackOnSuccessConnected = (channelType) => {
     switch (channelType) {
       case 'google_ads':
@@ -255,7 +274,6 @@ class ChannelsListViewModel {
           this.channelsStore.checkConnectedChannels(
             (response) => {
               if (response) {
-
                 this.tableStatus = PAGE_STATUS.READY;
 
                 let responseResult = response.result;
@@ -297,7 +315,6 @@ class ChannelsListViewModel {
 
                   case 'linkedin':
                     if (responseResult.pages.status === 'connected') {
-                      
                       this.linkedinConnected = true;
                       this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
