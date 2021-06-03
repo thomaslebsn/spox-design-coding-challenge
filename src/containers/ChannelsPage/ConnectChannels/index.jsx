@@ -122,10 +122,21 @@ const ConnectChannels = observer(
     };
 
     handleConnectedFanpage = (channelType, id) => {
-      if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
-        this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
-      } else {
-        this.channelsListViewModel.connectAFanpagePage(channelType, id);
+      switch (channelType) {
+        case 'facebook':
+          if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+            this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
+          } else {
+            this.channelsListViewModel.connectAFanpagePage(channelType, id);
+          }
+          break;
+        case 'linkedin':
+          if (this.channelsListViewModel.listLinkedinFanpageConnected.indexOf(id) > -1) {
+            this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
+          } else {
+            this.channelsListViewModel.connectAFanpagePage(channelType, id);
+          }
+          break;
       }
     };
 
@@ -286,7 +297,7 @@ const ConnectChannels = observer(
               googleMyBusinessConnected={googleMyBusinessConnected}
               onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
               listLinkedinFanpageView={listLinkedinFanpageView}
-              listLinkedinFanpageConnected={listLinkedinFanpageConnected}
+              listLinkedinFanpageConnected={listLinkedinFanpageConnected ? listLinkedinFanpageConnected : null}
             />
           </div>
           {/* {listFaceBookFanpage && (

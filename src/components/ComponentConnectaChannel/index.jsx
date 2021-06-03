@@ -182,7 +182,14 @@ class ComponentConnectaChannel extends Component {
       listLinkedinFanpageConnected,
     } = this.props;
 
+    console.log('listLinkedinFanpageView1234');
+    console.log(listLinkedinFanpageView);
+    console.log('listLinkedinFanpageConnected234');
+    console.log(listLinkedinFanpageConnected);
+
     console.log('listFacebookFanpageConnected1234');
+    console.log(listFaceBookFanpageView);
+    console.log('listLinkedinFanpageConnected234');
     console.log(listFacebookFanpageConnected);
 
     return (
@@ -222,6 +229,8 @@ class ComponentConnectaChannel extends Component {
                       </div>
                       <div className={`list_main `}>
                         {listFaceBookFanpageView.map((value, key) => {
+                          console.log('valuevaluevaluefacebook');
+                          console.log(value.id);
                           return (
                             <div
                               key={key}
@@ -240,7 +249,7 @@ class ComponentConnectaChannel extends Component {
                                     this.props.handleConnectedFanpage('facebook', value.id);
                                   }}
                                 >
-                                  <span className="ms-2">
+                                  <span>
                                     {listFacebookFanpageConnected &&
                                     listFacebookFanpageConnected.indexOf(value.id) > -1
                                       ? 'Disconnect'
@@ -374,6 +383,8 @@ class ComponentConnectaChannel extends Component {
                       </div>
                       <div className={`list_main `}>
                         {Object.values(listLinkedinFanpageView).map((value, key) => {
+                          console.log('valuevaluevaluelinkedin');
+                          console.log(value.id);
                           return (
                             <div
                               key={key}
@@ -389,10 +400,10 @@ class ComponentConnectaChannel extends Component {
                                   type="button"
                                   className="cursor-pointer btn btn-success ct_btn_connect"
                                   onClick={(e) => {
-                                    //this.props.handleConnectedFanpage('linkedin', value.id);
+                                    this.props.handleConnectedFanpage('linkedin', value.id);
                                   }}
                                 >
-                                  <span className="ms-2">
+                                  <span>
                                     {listLinkedinFanpageConnected &&
                                     listLinkedinFanpageConnected.indexOf(value.id) > -1
                                       ? 'Disconnect'
