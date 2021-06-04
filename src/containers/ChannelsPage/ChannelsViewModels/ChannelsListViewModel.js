@@ -355,8 +355,8 @@ class ChannelsListViewModel {
 
                       this.listLinkedinFanpageConnected = responseResult.pages.connected;
 
-                      console.log('responseResultlinkedin');
-                      console.log(responseResult);
+                      console.log('responseResultlinkedin8888');
+                      console.log(responseResult.pages.connected);
                     }
                     break;
 
@@ -535,8 +535,8 @@ class ChannelsListViewModel {
 
                   this.listLinkedinFanpageConnected = responseResult.pages.connected;
 
-                  console.log('234234responseResult');
-                  console.log(responseResult)
+                  console.log('234234responseResult77777');
+                  console.log(responseResult.pages.connected)
                 }
                 break;
 

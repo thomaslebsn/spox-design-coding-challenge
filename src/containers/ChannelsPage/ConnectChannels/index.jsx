@@ -243,6 +243,9 @@ const ConnectChannels = observer(
         listLinkedinFanpageConnected
       } = this.channelsListViewModel;
 
+      console.log('listLinkedinFanpageConnectedobsevable');
+      console.log(listLinkedinFanpageConnected);
+
       return (
         <div className="py-4 px-3">
           <h2 className="text-blue-0 mb-4">Connect a Channel</h2>
@@ -297,7 +300,7 @@ const ConnectChannels = observer(
               googleMyBusinessConnected={googleMyBusinessConnected}
               onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
               listLinkedinFanpageView={listLinkedinFanpageView}
-              listLinkedinFanpageConnected={listLinkedinFanpageConnected ? listLinkedinFanpageConnected : null}
+              listLinkedinFanpageConnected={listLinkedinFanpageConnected}
             />
           </div>
           {/* {listFaceBookFanpage && (

@@ -249,12 +249,12 @@ class ComponentConnectaChannel extends Component {
                                     this.props.handleConnectedFanpage('facebook', value.id);
                                   }}
                                 >
-                                  <span>
+                                  {/* <span>
                                     {listFacebookFanpageConnected &&
                                     listFacebookFanpageConnected.indexOf(value.id) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
-                                  </span>
+                                  </span> */}
                                 </button>
                               </div>
                             </div>
@@ -403,12 +403,12 @@ class ComponentConnectaChannel extends Component {
                                     this.props.handleConnectedFanpage('linkedin', value.id);
                                   }}
                                 >
-                                  <span>
+                                  {/* <span>
                                     {listLinkedinFanpageConnected &&
-                                    listLinkedinFanpageConnected.indexOf(value.id) > -1
+                                    Object.values(listLinkedinFanpageConnected).indexOf(value.id) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
-                                  </span>
+                                  </span> */}
                                 </button>
                               </div>
                             </div>
