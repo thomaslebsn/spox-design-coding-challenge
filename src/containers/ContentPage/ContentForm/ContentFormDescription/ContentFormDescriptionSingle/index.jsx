@@ -18,7 +18,7 @@ class ContentFormDescriptionSingle extends Component {
 
   handleChange(event) {
     //this.field.dataContentDescriptionSingle.data = event.target.value;
-    let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle);
+    let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
 
     dataContentDescriptionSingleArray.map((value) => value.data = event.target.value)
     this.props.changed(event.target.value);
@@ -26,14 +26,14 @@ class ContentFormDescriptionSingle extends Component {
 
   handleCanva(exportUrl, designId) {
     // this.field.dataContentDescriptionSingle.media = { exportUrl: exportUrl, designId: designId };
-    let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle);
+    let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
 
     dataContentDescriptionSingleArray.map((value) => value.media = { exportUrl: exportUrl, designId: designId })
     this.props.changed(exportUrl, designId);
   }
 
   handleVideo(event) {
-    this.field.dataContentDescriptionSingle.youtube.video = event.target.value;
+    this.field.dataContentDescriptionSingle.list_channels.youtube.video = event.target.value;
     this.props.changed(event.target.value);
   }
 
@@ -48,7 +48,7 @@ class ContentFormDescriptionSingle extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={Object.values(dataContentDescriptionSingle)[0].data}
+          defaultValue={Object.values(dataContentDescriptionSingle.list_channels)[0].data}
           // value={this.field.dataContentDescriptionSingle.data}
           required={this.field.required ?? false}
           id={this.field.key}
@@ -60,7 +60,7 @@ class ContentFormDescriptionSingle extends Component {
         <div className="px-3 py-2 bg-blue-3">
           <div className="d-flex">
             <CanvaButton
-              data={Object.values(dataContentDescriptionSingle)[0].media}
+              data={Object.values(dataContentDescriptionSingle.list_channels)[0].media}
               changed={this.handleCanva}
             />
             <DamButton />
@@ -68,7 +68,7 @@ class ContentFormDescriptionSingle extends Component {
           {
             checkConnectYoutube && (
               <div className="mt-2">
-                <VideoButton data={dataContentDescriptionSingle.youtube.video} changed={this.handleVideo}/>
+                <VideoButton data={dataContentDescriptionSingle.list_channels.youtube.video} changed={this.handleVideo}/>
               </div>
             )
           }

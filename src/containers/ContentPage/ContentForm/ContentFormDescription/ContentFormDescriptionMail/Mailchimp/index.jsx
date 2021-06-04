@@ -15,12 +15,12 @@ class MailchimpSocial extends Component {
   }
 
   handleChange(event) {
-    this.field.dataContentDescriptionSocial.mail.mailchimp.data = event.target.value;
+    this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.data = event.target.value;
     this.props.changed(event.target.value);
   }
 
   handleCanva(exportUrl, designId) {
-    this.field.dataContentDescriptionSocial.mail.mailchimp.media = {
+    this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.media = {
       exportUrl: exportUrl,
       designId: designId,
     };
@@ -34,7 +34,7 @@ class MailchimpSocial extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.mail.mailchimp.data}
+          defaultValue={this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.data}
           // value={this.field.dataContentDescriptionSocial.mail.mail.data}
           required={this.field.required ?? false}
           id={this.field.key}
@@ -46,7 +46,7 @@ class MailchimpSocial extends Component {
 
         <div className="px-3 py-2 bg-blue-3 d-flex">
           <CanvaButton
-            data={this.field.dataContentDescriptionSocial.mail.mailchimp.media}
+            data={this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.media}
             changed={this.handleCanva}
           />
           <DamButton />

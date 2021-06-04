@@ -24,82 +24,251 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   arrayConnectedChannelsFinal = [];
 
-  // dataContentDescriptionSingle = {
-  //   data: '',
-  //   media: [],
-  // };
-
   dataContentDescriptionSingle = {
-    facebook: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    instagram: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    twitter: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    youtube: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    joomla: {
-      data: '',
-      media: [],
-      video: ''
-    },
-    mailchimp: {
-      data: '',
-      media: [],
-      video: ''
-    }
-  };
-
-  dataContentDescriptionSocial = {
-    social: {
+    advance_mode: false,
+    list_channels: {
       facebook: {
-        data: '',
+        data: null,
         media: [],
-        video: ''
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
+      },
+      linkedin: {
+        data: null,
+        media: [],
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       instagram: {
-        data: '',
+        data: null,
         media: [],
-        video: ''
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
-      linkedIn: {
-        data: '',
+      twitter: {
+        data: null,
         media: [],
-        video: ''
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
-    },
-    cms: {
+      youtube: {
+        data: null,
+        media: [],
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
+      },
       joomla: {
-        data: '',
+        data: null,
         media: [],
-        video: ''
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
+      },
+      mailchimp: {
+        data: null,
+        media: [],
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
+      },
+      google_my_business: {
+        data: null,
+        media: [],
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
+      },
+      tumblr: {
+        data: null,
+        media: [],
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
+      },
+      medium: {
+        data: null,
+        media: [],
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
       wordpress: {
-        data: '',
+        data: null,
         media: [],
-        video: ''
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
       },
-    },
-    mail: {
-      mailchimp: {
-        data: '',
+      drupal: {
+        data: null,
         media: [],
-        video: ''
+        video: null,
+        publishedPlan: {
+          selectedPage: [],
+        }
+      }
+    }
+  }
+
+  dataContentDescriptionSocial = {
+    advance_mode: true,
+    list_channels: {
+      social: {
+        facebook: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        instagram: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        linkedin: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        youtube: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        google_my_business: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        tumblr: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        medium: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        twitter: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        }
       },
-    },
-  };
+      cms: {
+        joomla: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        wordpress: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+        drupal: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        }
+      },
+      mail: {
+        mailchimp: {
+          data: null,
+          media: [],
+          video: null,
+          publishedPlan: {
+            selectedPage: [],
+            post_now: true,
+            schedule: false,
+            save_as_draft: false
+          }
+        },
+      },
+    }
+  }
 
   constructor(contentsStore) {
     makeAutoObservable(this);

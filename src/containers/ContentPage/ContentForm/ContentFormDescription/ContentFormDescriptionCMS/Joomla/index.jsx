@@ -15,12 +15,12 @@ class JoomlaSocial extends Component {
   }
 
   handleChange(event) {
-    this.field.dataContentDescriptionSocial.cms.joomla.data = event.target.value;
+    this.field.dataContentDescriptionSocial.list_channels.cms.joomla.data = event.target.value;
     this.props.changed(event.target.value);
   }
 
   handleCanva(exportUrl, designId) {
-    this.field.dataContentDescriptionSocial.cms.joomla.media = {
+    this.field.dataContentDescriptionSocial.list_channels.cms.joomla.media = {
       exportUrl: exportUrl,
       designId: designId,
     };
@@ -34,7 +34,7 @@ class JoomlaSocial extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.cms.joomla.data}
+          defaultValue={this.field.dataContentDescriptionSocial.list_channels.cms.joomla.data}
           // value={this.field.dataContentDescriptionSocial.cms.joomla.data}
           required={this.field.required ?? false}
           id={this.field.key}
@@ -46,7 +46,7 @@ class JoomlaSocial extends Component {
 
         <div className="px-3 py-2 bg-blue-3 d-flex">
           <CanvaButton
-            data={this.field.dataContentDescriptionSocial.cms.joomla.media}
+            data={this.field.dataContentDescriptionSocial.list_channels.cms.joomla.media}
             changed={this.handleCanva}
           />
           <DamButton />

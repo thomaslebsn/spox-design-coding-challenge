@@ -1,13 +1,16 @@
+import {
+  CONTENT_FIELD_KEY
+} from '../../../constants/ContentModule';
+
 class ContentPostTwitterModel {
   description = null;
   images = null;
   publishedPlan = null;
-  rawData = null;
 
   constructor(rawData) {
-    this.description = rawData.twitter.description ?? rawData.description;
-    this.images = rawData.twitter.images ?? rawData.images;
-    this.publishedPlan = rawData.twitter.publishedPlan ?? rawData.publishedPlan;
+    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.twitter.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.twitter.data;
+    this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.twitter.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.twitter.media;
+    this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.twitter.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.twitter.publishedPlan;
   }
 
   transformDataToContentCreation = () => {
@@ -15,8 +18,8 @@ class ContentPostTwitterModel {
       description: this.description,
       images: this.images,
       publishedPlan: this.publishedPlan,
-    };
-  };
+    }
+  }
 }
 
 export default ContentPostTwitterModel;

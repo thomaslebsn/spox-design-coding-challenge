@@ -1,11 +1,16 @@
+import {
+  CONTENT_FIELD_KEY
+} from '../../../constants/ContentModule';
+
 class ContentPostJoomlaModel {
   description = null;
   images = null;
+  publishedPlan = null;
 
   constructor(rawData) {
-    this.description = rawData.joomla.description ?? rawData.description;
-    this.images = rawData.joomla.images ?? rawData.images;
-    this.publishedPlan = rawData.joomla.publishedPlan ?? rawData.publishedPlan;
+    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.data;
+    this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.media;
+    this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.publishedPlan;
   }
 
   transformDataToContentCreation = () => {
@@ -13,8 +18,8 @@ class ContentPostJoomlaModel {
       description: this.description,
       images: this.images,
       publishedPlan: this.publishedPlan,
-    };
-  };
+    }
+  }
 }
 
 export default ContentPostJoomlaModel;
