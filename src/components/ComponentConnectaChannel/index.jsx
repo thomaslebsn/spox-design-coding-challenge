@@ -132,9 +132,14 @@ class ComponentConnectaChannel extends Component {
     );
   };
 
-  handleConnectChannel = (name) => {
+  handleConnectChannel = (name, isConnected = true) => {
     let { channelsListViewModel } = this.props;
-    channelsListViewModel.connectLoginUrl(name);
+
+    if (isConnected) {
+      channelsListViewModel.connectLoginUrl(name);
+    } else {
+      channelsListViewModel.disConnectChannel(name);
+    }
   };
 
   closeModalUpgrade = () => {
@@ -202,11 +207,10 @@ class ComponentConnectaChannel extends Component {
                   <button
                     className="cursor-pointer btn btn-success"
                     onClick={(e) => {
-                      this.handleConnectChannel('facebook');
+                      this.handleConnectChannel('facebook', !facebookConnected);
                     }}
-                    disabled={facebookConnected ? true : false}
                   >
-                    <span className="ms-2">{facebookConnected ? 'Connected' : 'Connect'}</span>
+                    <span className="ms-2">{facebookConnected ? 'Disconnect' : 'Connect'}</span>
                   </button>
                 </div>
                 {listFaceBookFanpageView && (
@@ -252,7 +256,7 @@ class ComponentConnectaChannel extends Component {
                   </div>
                 )}
               </div>
-              <div className="bg-white rounded-3 mb-4">
+              {/* <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
                     <img className="img-avatar" src={'/assets/images/instagram.png'} alt="" />
@@ -271,15 +275,14 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
                     <img className="img-avatar" src={'/assets/images/youtube.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Youtube</span>
                   </div>
-
-                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
+                  {/* {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
                     <ButtonConnectGoogle
                       scope="https://www.googleapis.com/auth/youtube.upload"
                       clientId="854265047007-t7a1g164i7qga65751b0c2fronquf77u.apps.googleusercontent.com"
@@ -289,6 +292,19 @@ class ComponentConnectaChannel extends Component {
                       buttonText={youtubeConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
                     />
+                  ) : (
+                    <ButtonUpgrade />
+                  )} */}
+
+                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('youtube', !youtubeConnected);
+                      }}
+                    >
+                      <span className="ms-2">{youtubeConnected ? 'Disconnect' : 'Connect'}</span>
+                    </button>
                   ) : (
                     <ButtonUpgrade />
                   )}
@@ -304,18 +320,17 @@ class ComponentConnectaChannel extends Component {
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel('twitter');
+                        this.handleConnectChannel('twitter', !twitterConnected);
                       }}
-                      disabled={twitterConnected ? true : false}
                     >
-                      <span className="ms-2">{twitterConnected ? 'Connected' : 'Connect'}</span>
+                      <span className="ms-2">{twitterConnected ? 'Disconnect' : 'Connect'}</span>
                     </button>
                   ) : (
                     <ButtonUpgrade />
                   )}
                 </div>
               </div>
-              <div className="bg-white rounded-3 mb-4">
+              {/* <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
                     <img
@@ -342,7 +357,7 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
                   <div className="d-flex align-items-center">
@@ -353,11 +368,10 @@ class ComponentConnectaChannel extends Component {
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel('linkedin');
+                        this.handleConnectChannel('linkedin', !linkedinConnected);
                       }}
-                      disabled={linkedinConnected ? true : false}
                     >
-                      <span className="ms-2">{linkedinConnected ? 'Connected' : 'Connect'}</span>
+                      <span className="ms-2">{linkedinConnected ? 'Disconnect' : 'Connect'}</span>
                     </button>
                   ) : (
                     <ButtonUpgrade />
@@ -416,11 +430,10 @@ class ComponentConnectaChannel extends Component {
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel('tumblr');
+                        this.handleConnectChannel('tumblr', !tumblrConnected);
                       }}
-                      disabled={tumblrConnected ? true : false}
                     >
-                      <span className="ms-2">{tumblrConnected ? 'Connected' : 'Connect'}</span>
+                      <span className="ms-2">{tumblrConnected ? 'Disconnect' : 'Connect'}</span>
                     </button>
                   ) : (
                     <ButtonUpgrade />
@@ -439,11 +452,10 @@ class ComponentConnectaChannel extends Component {
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel(CHANNEL_CMS_MEDIUM);
+                        this.handleConnectChannel(CHANNEL_CMS_MEDIUM, !mediumConnected);
                       }}
-                      disabled={mediumConnected ? true : false}
                     >
-                      <span className="ms-2">{mediumConnected ? 'Connected' : 'Connect'}</span>
+                      <span className="ms-2">{mediumConnected ? 'Disconnect' : 'Connect'}</span>
                     </button>
                   ) : (
                     <ButtonUpgrade />
@@ -465,11 +477,12 @@ class ComponentConnectaChannel extends Component {
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel('fbad');
+                        this.handleConnectChannel('fbad', !facebookAdsConnected);
                       }}
-                      disabled={facebookAdsConnected ? true : false}
                     >
-                      <span className="ms-2">{facebookAdsConnected ? 'Connected' : 'Connect'}</span>
+                      <span className="ms-2">
+                        {facebookAdsConnected ? 'Disconnect' : 'Connect'}
+                      </span>
                     </button>
                   ) : (
                     <ButtonUpgrade />
@@ -528,11 +541,10 @@ class ComponentConnectaChannel extends Component {
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE);
+                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE, !googleadsConnected);
                       }}
-                      disabled={googleadsConnected}
                     >
-                      <span className="ms-2">{googleadsConnected ? 'Connected' : 'Connect'}</span>
+                      <span className="ms-2">{googleadsConnected ? 'Disconnect' : 'Connect'}</span>
                     </button>
                   ) : (
                     <ButtonUpgrade />
@@ -619,11 +631,10 @@ class ComponentConnectaChannel extends Component {
                     <button
                       className="cursor-pointer btn btn-success"
                       onClick={(e) => {
-                        this.handleConnectChannel('mailchimp');
+                        this.handleConnectChannel('mailchimp', !mailchimpConnected);
                       }}
-                      disabled={mailchimpConnected ? true : false}
                     >
-                      <span className="ms-2">{mailchimpConnected ? 'Connected' : 'Connect'}</span>
+                      <span className="ms-2">{mailchimpConnected ? 'Disconnect' : 'Connect'}</span>
                     </button>
                   ) : (
                     <ButtonUpgrade />
