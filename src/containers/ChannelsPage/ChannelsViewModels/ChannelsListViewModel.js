@@ -483,6 +483,10 @@ class ChannelsListViewModel {
                   this.listFaceBookFanpageView = listFanpage;
 
                   this.listFacebookFanpageConnected = responseResult.pages.connected;
+
+                  console.log('234234responseResult55555');
+                  console.log(responseResult.pages.connected);
+                  console.log(listFanpage);
                 }
                 break;
               case 'fbad':
