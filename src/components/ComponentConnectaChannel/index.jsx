@@ -282,8 +282,7 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/youtube.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Youtube</span>
                   </div>
-
-                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
+                  {/* {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
                     <ButtonConnectGoogle
                       scope="https://www.googleapis.com/auth/youtube.upload"
                       clientId="854265047007-t7a1g164i7qga65751b0c2fronquf77u.apps.googleusercontent.com"
@@ -293,6 +292,19 @@ class ComponentConnectaChannel extends Component {
                       buttonText={youtubeConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
                     />
+                  ) : (
+                    <ButtonUpgrade />
+                  )} */}
+
+                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('youtube', !youtubeConnected);
+                      }}
+                    >
+                      <span className="ms-2">{youtubeConnected ? 'Disconnect' : 'Connect'}</span>
+                    </button>
                   ) : (
                     <ButtonUpgrade />
                   )}
