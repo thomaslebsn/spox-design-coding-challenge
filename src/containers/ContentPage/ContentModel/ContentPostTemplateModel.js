@@ -75,10 +75,8 @@ class ContentPostTemplateModel {
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
-              this.rawData[CONTENT_FIELD_KEY.PERSONA]
-            ),
-          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: this.rawData[CONTENT_FIELD_KEY.PERSONA],
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
           //   projects: [],
           //   campaigns: [
           //   ],

@@ -33,10 +33,17 @@ export default class ContentStore {
       console.log('Content Store - Fetch Content');
       const contentAPIService = new EasiiContentApiService();
 
-      const repondedDataFromLibrary = await contentAPIService.getContents(
+      // const repondedDataFromLibrary = await contentAPIService.getContents(
+      //   paginationStep,
+      //   paginationSize
+      // );
+
+      const repondedDataFromLibrary = await contentAPIService.getPosts(
         paginationStep,
         paginationSize
       );
+
+      
       console.log('repondedDataFromLibrary repondedDataFromLibrary', repondedDataFromLibrary);
 
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
@@ -81,13 +88,17 @@ export default class ContentStore {
       console.log(convertedContentData);
       // Save Content
       const contentService = new EasiiContentApiService();
-      let resultContent;
 
-      if (convertedContentData.id == 0) {
-        resultContent = await contentService.createContent(convertedContentData);
-      } else {
-        resultContent = await contentService.updateContent(convertedContentData);
-      }
+      let resultContent = await contentService.createPost(convertedContentData);
+
+      console.log('resultContentresultContent123');
+      console.log(resultContent);
+
+      // if (convertedContentData.id == 0) {
+      //   resultContent = await contentService.createContent(convertedContentData);
+      // } else {
+      //   resultContent = await contentService.updateContent(convertedContentData);
+      // }
 
       if (resultContent) {
         runInAction(() => {
