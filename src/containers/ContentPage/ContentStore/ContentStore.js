@@ -81,13 +81,14 @@ export default class ContentStore {
       console.log(convertedContentData);
       // Save Content
       const contentService = new EasiiContentApiService();
-      let resultContent;
 
-      if (convertedContentData.id == 0) {
-        resultContent = await contentService.createContent(convertedContentData);
-      } else {
-        resultContent = await contentService.updateContent(convertedContentData);
-      }
+      let resultContent = await contentService.createPost(convertedContentData);
+
+      // if (convertedContentData.id == 0) {
+      //   resultContent = await contentService.createContent(convertedContentData);
+      // } else {
+      //   resultContent = await contentService.updateContent(convertedContentData);
+      // }
 
       if (resultContent) {
         runInAction(() => {
