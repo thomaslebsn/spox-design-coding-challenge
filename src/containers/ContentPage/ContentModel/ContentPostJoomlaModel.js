@@ -4,20 +4,23 @@ import {
 
 class ContentPostJoomlaModel {
   description = null;
-  images = null;
+  assets = null;
+  selectedPage = null;
   publishedPlan = null;
 
   constructor(rawData) {
-    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.data;
-    this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.media;
+    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.description : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.description;
+    this.assets = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.assets : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.assets;
+    this.selectedPage = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.selectedPage : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.selectedPage;
     this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.cms.joomla.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.joomla.publishedPlan;
   }
 
   transformDataToContentCreation = () => {
     return {
       description: this.description,
-      images: this.images,
-      publishedPlan: this.publishedPlan,
+      assets: this.assets,
+      selectedPage: this.selectedPage,
+      publishedPlan: this.publishedPlan
     }
   }
 }

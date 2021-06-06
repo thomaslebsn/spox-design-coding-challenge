@@ -59,19 +59,15 @@ const ContentFormPublish = observer(
       console.log(this.channelsListViewModel);
     }
 
-    // handleDeselectAll = (value, key) => {
-    //   console.log('dsfsdfsdfdsfsdfdsfsdf');
-    //   if(this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode === true) {
-    //     this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.facebook.publishedPlan.selectedPage = [];
-    //   } else {
-    //     this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.publishedPlan.selectedPage = [];
-    //   }
-    // };
+    handleDeselectAllSocial = () => {
+      this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial = true;
+    };
+
+    handleSelectAllSocial = () => {
+      this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial = false;
+    }
 
     render() {
-      console.log('listFacebookFanpageConnected - After binding class123');
-      console.log(this.channelsListViewModel ? this.channelsListViewModel.listFacebookFanpageConnected : null);
-
       return (
         <ComponentContentFormPublish
           {...this.props}
@@ -82,9 +78,12 @@ const ContentFormPublish = observer(
           }
           listFaceBookFanpageView={this.channelsListViewModel ? this.channelsListViewModel.listFaceBookFanpageView : null}
           listFacebookFanpageConnected={this.channelsListViewModel ? this.channelsListViewModel.listFacebookFanpageConnected : null}
-          // handleDeselectAll={this.handleDeselectAll}
+          listLinkedinFanpageConnected={this.channelsListViewModel ? this.channelsListViewModel.listLinkedinFanpageConnected : null}
+          handleDeselectAllSocial={this.handleDeselectAllSocial}
+          handleSelectAllSocial={this.handleSelectAllSocial}
           isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
           contentConnectedChannelsByOrganisationViewModel={this.contentConnectedChannelsByOrganisationViewModel}
+          isDeselectAllSocial={this.contentConnectedChannelsByOrganisationViewModel ? this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial : null}
         />
       );
     }

@@ -71,14 +71,30 @@ class ContentPostTemplateModel {
     const contentId = this.rawData[CONTENT_FIELD_KEY.ID] ? this.rawData[CONTENT_FIELD_KEY.ID] : 0;
     const result = this.rawData
       ? {
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
-            this.rawData[CONTENT_FIELD_KEY.PERSONA]
-          ),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS]: JSON.stringify(this.data),
+          general: {
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
+            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
+              this.rawData[CONTENT_FIELD_KEY.PERSONA]
+            ),
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
+          //   projects: [],
+          //   campaigns: [
+          //   ],
+          //   personas: [
+          //   ],
+          //   headline: "test headline"
+          },
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNELS]: this.data
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
+          //   this.rawData[CONTENT_FIELD_KEY.PERSONA]
+          // ),
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS]: JSON.stringify(this.data),
           // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
           //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
           //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
@@ -89,7 +105,8 @@ class ContentPostTemplateModel {
         }
       : null;
 
-    return result;
+    // return result;
+    return JSON.stringify(result);
   }
 }
 export default ContentPostTemplateModel; 
