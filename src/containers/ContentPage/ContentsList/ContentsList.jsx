@@ -110,28 +110,28 @@ const ContentsList = observer(
           ),
         },
 
-        {
-          Header: "Description",
-          accessor: CONTENT_FIELD_KEY.DESCRIPTION,
-        },
-        {
-          Header: "Channels",
-          accessor: CONTENT_FIELD_KEY.CHANNELS,
-          Cell: ({ value }) => (
-            <div className="d-flex">
-              {value.map((item) => (
-                <div className="position-relative me-2">
-                  <Image
-                    src={item.icon}
-                    width="20"
-                    className="position-absolute bottom-0 end-0"
-                  />
-                  <Image src={item.image} rounded width="40" />
-                </div>
-              ))}
-            </div>
-          ),
-        },
+        // {
+        //   Header: "Description",
+        //   accessor: CONTENT_FIELD_KEY.DESCRIPTION,
+        // },
+        // {
+        //   Header: "Channels",
+        //   accessor: CONTENT_FIELD_KEY.CHANNELS,
+        //   Cell: ({ value }) => (
+        //     <div className="d-flex">
+        //       {value.map((item) => (
+        //         <div className="position-relative me-2">
+        //           <Image
+        //             src={item.icon}
+        //             width="20"
+        //             className="position-absolute bottom-0 end-0"
+        //           />
+        //           <Image src={item.image} rounded width="40" />
+        //         </div>
+        //       ))}
+        //     </div>
+        //   ),
+        // },
         {
           Header: "Status",
           accessor: CONTENT_FIELD_KEY.STATUS,

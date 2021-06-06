@@ -20,83 +20,86 @@ import ContentThemeStore from '../ContentStore/ContentThemeStore';
 
 class ContentModel {
   constructor(data) {
+    console.log('data data content post ');
+    console.log(data);
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
-    this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? '';
-    this.channelsData = this.status = data.status ?? '';
+    this.name = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? '';
+    this.channelsData = this.status = 'published' ?? '';
+    // this.channelsData = this.status = data.status ?? '';
 
-    this.descriptions = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
+    // this.descriptions = data.data.channels[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS] ?? [];
 
-    this.descriptionsModel =
-      this.descriptions.length > 0
-        ? new DescriptionsModel(data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items)
-        : null;
+    // this.descriptionsModel =
+    //   this.descriptions.length > 0
+    //     ? new DescriptionsModel(data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items)
+    //     : null;
 
-    this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? '';
-    this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? '';
-    this.themeId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? '';
-    this.channelAttachments = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? '';
+    this.campaignId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? '';
+    this.personaId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? '';
+    this.themeId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? '';
+    // this.channelAttachments = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? '';
     this.channels = [];
 
-    if (this.channelAttachments) {
-      this.channelAttachments.getItems().map((element) => {
-        let icoImage = null;
-        console.log('element.channelName.toLowerCase()');
-        console.log(element.channelName.toLowerCase());
-        switch (element.channelName.toLowerCase()) {
-          case 'facebook':
-            icoImage = '/assets/images/facebook.png';
-            break;
-          case 'fbad':
-            icoImage = '/assets/images/fbad.png';
-            break;
-          case 'youtube':
-            icoImage = '/assets/images/youtube.png';
-            break;
-          case 'twitter':
-            icoImage = '/assets/images/twitter.png';
-            break;
-          case 'linkedin':
-            icoImage = '/assets/images/linkedin.png';
-            break;
-          case 'mailchimp':
-            icoImage = '/assets/images/mailchimp.png';
-            break;
-          case 'wordpress':
-            icoImage = '/assets/images/wordpress.png';
-            break;
-          case 'instagram':
-            icoImage = '/assets/images/instagram.png';
-            break;
-          case 'joomla':
-            icoImage = '/assets/images/joomla.png';
-            break;
-          case 'medium':
-            icoImage = '/assets/images/medium.png';
-            break;
-          case 'tumblr':
-            icoImage = '/assets/images/tumblr.png';
-            break;
-          case 'google_ads':
-            icoImage = '/assets/images/google_ads.png';
-            break;
-          case 'google_my_business':
-            icoImage = '/assets/images/google_my_business.png';
-            break;
-          default:
-            icoImage = null;
-        }
+    // if (this.channelAttachments) {
+    //   this.channelAttachments.getItems().map((element) => {
+    //     let icoImage = null;
+    //     console.log('element.channelName.toLowerCase()');
+    //     console.log(element.channelName.toLowerCase());
+    //     switch (element.channelName.toLowerCase()) {
+    //       case 'facebook':
+    //         icoImage = '/assets/images/facebook.png';
+    //         break;
+    //       case 'fbad':
+    //         icoImage = '/assets/images/fbad.png';
+    //         break;
+    //       case 'youtube':
+    //         icoImage = '/assets/images/youtube.png';
+    //         break;
+    //       case 'twitter':
+    //         icoImage = '/assets/images/twitter.png';
+    //         break;
+    //       case 'linkedin':
+    //         icoImage = '/assets/images/linkedin.png';
+    //         break;
+    //       case 'mailchimp':
+    //         icoImage = '/assets/images/mailchimp.png';
+    //         break;
+    //       case 'wordpress':
+    //         icoImage = '/assets/images/wordpress.png';
+    //         break;
+    //       case 'instagram':
+    //         icoImage = '/assets/images/instagram.png';
+    //         break;
+    //       case 'joomla':
+    //         icoImage = '/assets/images/joomla.png';
+    //         break;
+    //       case 'medium':
+    //         icoImage = '/assets/images/medium.png';
+    //         break;
+    //       case 'tumblr':
+    //         icoImage = '/assets/images/tumblr.png';
+    //         break;
+    //       case 'google_ads':
+    //         icoImage = '/assets/images/google_ads.png';
+    //         break;
+    //       case 'google_my_business':
+    //         icoImage = '/assets/images/google_my_business.png';
+    //         break;
+    //       default:
+    //         icoImage = null;
+    //     }
 
-        this.channels.push({
-          id: element.channelId,
-          name: element.channelName,
-          image: icoImage,
-          icon: icoImage,
-          checked: true,
-        });
-      });
-    }
+    //     this.channels.push({
+    //       id: element.channelId,
+    //       name: element.channelName,
+    //       image: icoImage,
+    //       icon: icoImage,
+    //       checked: true,
+    //     });
+    //   });
+    // }
 
-    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(this.channels);
+    // this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(this.channels);
   }
 
   getId = () => {
@@ -117,24 +120,24 @@ class ContentModel {
     };
   };
 
-  getDescription = () => {
-    return {
-      value:
-        this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
-      type: FIELD_TYPE.TEXT,
-      columnName: CONTENT_FIELD_KEY.DESCRIPTION,
-      columnText: 'Description',
-    };
-  };
+  // getDescription = () => {
+  //   return {
+  //     value:
+  //       this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
+  //     type: FIELD_TYPE.TEXT,
+  //     columnName: CONTENT_FIELD_KEY.DESCRIPTION,
+  //     columnText: 'Description',
+  //   };
+  // };
 
-  getChannels = () => {
-    return {
-      value: this.channelsModel,
-      type: FIELD_TYPE.TEXT,
-      columnName: CONTENT_FIELD_KEY.CHANNELS,
-      columnText: 'Channels',
-    };
-  };
+  // getChannels = () => {
+  //   return {
+  //     value: this.channelsModel,
+  //     type: FIELD_TYPE.TEXT,
+  //     columnName: CONTENT_FIELD_KEY.CHANNELS,
+  //     columnText: 'Channels',
+  //   };
+  // };
 
   getCampaign = () => {
     if (this.campaignId) {
@@ -163,18 +166,18 @@ class ContentModel {
     }
   };
 
-  getTheme = () => {
-    if (this.themeId) {
-      const contentThemeStore = new ContentThemeStore();
-      contentThemeStore.getContentTheme(
-        this.themeId,
-        (data) => {
-          console.log('this.contentThemeStore', data);
-        },
-        () => {}
-      );
-    }
-  };
+  // getTheme = () => {
+  //   if (this.themeId) {
+  //     const contentThemeStore = new ContentThemeStore();
+  //     contentThemeStore.getContentTheme(
+  //       this.themeId,
+  //       (data) => {
+  //         console.log('this.contentThemeStore', data);
+  //       },
+  //       () => {}
+  //     );
+  //   }
+  // };
 
   getStatus = () => {
     return {
@@ -189,16 +192,16 @@ class ContentModel {
     const id = this.getId();
     const name = this.getName();
     console.log('===============34');
-    const description = this.getDescription();
+    // const description = this.getDescription();
     const status = this.getStatus();
-    const channels = this.getChannels();
+    // const channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
-      [description.columnName]: description.value,
+      // [description.columnName]: description.value,
       [status.columnName]: status.value,
-      [channels.columnName]: channels.value,
+      // [channels.columnName]: channels.value,
     };
   };
 
@@ -215,13 +218,13 @@ class ContentModel {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
             contentData[CONTENT_FIELD_KEY.PERSONA]
           ),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: contentData[CONTENT_FIELD_KEY.NAME],
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
-              contentData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_DESIGN_ID]:
-              contentData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
-          },
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: contentData[CONTENT_FIELD_KEY.NAME],
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
+          //     contentData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_DESIGN_ID]:
+          //     contentData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+          // },
         }
       : null;
     return result;

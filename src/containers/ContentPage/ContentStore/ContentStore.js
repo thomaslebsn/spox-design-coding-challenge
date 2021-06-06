@@ -33,6 +33,9 @@ export default class ContentStore {
       console.log('Content Store - Fetch Content');
       const contentAPIService = new EasiiContentApiService();
 
+      console.log('Content Store - Fetch ContentcontentAPIService');
+      console.log(contentAPIService);
+
       // const repondedDataFromLibrary = await contentAPIService.getContents(
       //   paginationStep,
       //   paginationSize
@@ -47,9 +50,9 @@ export default class ContentStore {
       console.log('repondedDataFromLibrary repondedDataFromLibrary', repondedDataFromLibrary);
 
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-        repondedDataFromLibrary.list
+        repondedDataFromLibrary
       );
-      console.log('contentDataModels');
+      console.log('contentDataModels content post');
       console.log(contentDataModels);
 
       if (contentDataModels) {
