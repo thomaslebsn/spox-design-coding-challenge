@@ -131,10 +131,13 @@ class ComponentContentFormPublish extends Component {
                   <div>
                     <div className="mb-4">
                       <ComponentPublishListChannels
-                        handleDeselectAll={this.props.handleDeselectAll}
+                        handleDeselectAllSocial={this.props.handleDeselectAllSocial}
                         isAdvanceMode={this.props.isAdvanceMode}
                         listFacebookFanpageConnected={this.props.listFacebookFanpageConnected}
+                        listLinkedinFanpageConnected={this.props.listLinkedinFanpageConnected}
                         contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
+                        isDeselectAllSocial={this.props.isDeselectAllSocial}
+                        handleSelectAllSocial={this.props.handleSelectAllSocial}
                       />
                     </div>
                   </div>

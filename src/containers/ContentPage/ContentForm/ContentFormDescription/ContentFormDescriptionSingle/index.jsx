@@ -20,7 +20,7 @@ class ContentFormDescriptionSingle extends Component {
     //this.field.dataContentDescriptionSingle.data = event.target.value;
     let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
 
-    dataContentDescriptionSingleArray.map((value) => value.data = event.target.value)
+    dataContentDescriptionSingleArray.map((value) => value.description = event.target.value)
     this.props.changed(event.target.value);
   }
 
@@ -28,7 +28,7 @@ class ContentFormDescriptionSingle extends Component {
     // this.field.dataContentDescriptionSingle.media = { exportUrl: exportUrl, designId: designId };
     let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
 
-    dataContentDescriptionSingleArray.map((value) => value.media = { exportUrl: exportUrl, designId: designId })
+    dataContentDescriptionSingleArray.map((value) => value.assets.canvaAssets = { exportUrl: exportUrl, designId: designId })
     this.props.changed(exportUrl, designId);
   }
 
@@ -48,7 +48,7 @@ class ContentFormDescriptionSingle extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={Object.values(dataContentDescriptionSingle.list_channels)[0].data}
+          defaultValue={Object.values(dataContentDescriptionSingle.list_channels)[0].description}
           // value={this.field.dataContentDescriptionSingle.data}
           required={this.field.required ?? false}
           id={this.field.key}
@@ -60,7 +60,7 @@ class ContentFormDescriptionSingle extends Component {
         <div className="px-3 py-2 bg-blue-3">
           <div className="d-flex">
             <CanvaButton
-              data={Object.values(dataContentDescriptionSingle.list_channels)[0].media}
+              data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.canvaAssets}
               changed={this.handleCanva}
             />
             <DamButton />

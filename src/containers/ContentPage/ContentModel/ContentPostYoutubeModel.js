@@ -4,25 +4,23 @@ import {
 
 class ContentPostYoutubeModel {
   description = null;
-  images = null;
+  assets = null;
   selectedPage = null;
   publishedPlan = null;
-  video = null;
 
   constructor(rawData) {
-    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.data : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.data;
-    this.images = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.media : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.media;
+    this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.description : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.description;
+    this.assets = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.assets : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.assets;
+    this.selectedPage = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.selectedPage : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.selectedPage;
     this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.publishedPlan;
-    this.video = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.video : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.video;
   }
 
   transformDataToContentCreation = () => {
     return {
       description: this.description,
-      images: this.images,
+      assets: this.assets,
       selectedPage: this.selectedPage,
-      publishedPlan: this.publishedPlan,
-      video: this.video
+      publishedPlan: this.publishedPlan
     }
   }
 }
