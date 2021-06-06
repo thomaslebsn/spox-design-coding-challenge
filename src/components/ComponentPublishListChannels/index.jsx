@@ -44,15 +44,15 @@ class ComponentPublishListChannels extends Component {
       }
     }
 
-    let converListLinkedinFanpageConnected = '';
+    // let converListLinkedinFanpageConnected = '';
 
-    if(listLinkedinFanpageConnected) {
-      if(typeof listLinkedinFanpageConnected  == 'object') {
-        converListLinkedinFanpageConnected = Object.values(listLinkedinFanpageConnected)
-      } else {
-        converListLinkedinFanpageConnected = listLinkedinFanpageConnected
-      }
-    }
+    // if(listLinkedinFanpageConnected) {
+    //   if(typeof listLinkedinFanpageConnected  == 'object') {
+    //     converListLinkedinFanpageConnected = Object.values(listLinkedinFanpageConnected)
+    //   } else {
+    //     converListLinkedinFanpageConnected = listLinkedinFanpageConnected
+    //   }
+    // }
 
     return (
       <>
@@ -100,7 +100,7 @@ class ComponentPublishListChannels extends Component {
                 </li>
               );
             })}
-            {converListLinkedinFanpageConnected && converListLinkedinFanpageConnected.map((i) => {
+            {listLinkedinFanpageConnected && listLinkedinFanpageConnected.map((i) => {
               return (
                 <li key={i} className="me-2 mb-2 cursor-pointer">
                   <a href={void 0} className="d-block">
