@@ -13,71 +13,7 @@ class ContentFormViewModel {
   contentStore = null;
   contentFormComponent = null;
 
-  publishContentConnectChannels = [
-    {
-      name: 'Social Media',
-      media: [
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-        {
-          avatar: '/assets/images/avatar-2.png',
-          images: '/assets/images/twitter.png',
-        },
-        {
-          avatar: '/assets/images/avatar-2.png',
-          images: '/assets/images/linkedin.png',
-        },
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-      ],
-    },
-    {
-      name: 'Content Management System',
-      media: [
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-      ],
-    },
-    {
-      name: 'Email Marketing',
-      media: [
-        {
-          avatar: '/assets/images/avatar-1.png',
-          images: '/assets/images/facebook.png',
-        },
-      ],
-    },
-  ];
+  channelsListViewModel = null;
 
   formStatus = PAGE_STATUS.READY;
 
@@ -123,9 +59,12 @@ class ContentFormViewModel {
     this.contentStore.getContent(id, this.setEditContent, this.callbackOnErrorHander);
   };
 
-  post = (data) => {
+  post = (data, arrayConnectedChannelsFinal) => {
+    console.log('arrayConnectedChannelsFinal post post');
+    console.log(data);
+    console.log(arrayConnectedChannelsFinal);
     this.formStatus = PAGE_STATUS.LOADING;
-    this.contentStore.saveContent(data, this.callbackOnSuccessHandler, this.callbackOnErrorHander);
+    this.contentStore.saveContent(data, arrayConnectedChannelsFinal, this.callbackOnSuccessHandler, this.callbackOnErrorHander);
   };
 
   callbackOnErrorHander = (error) => {

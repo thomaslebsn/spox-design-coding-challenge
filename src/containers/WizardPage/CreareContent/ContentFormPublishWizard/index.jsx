@@ -8,6 +8,8 @@ import FragmentStore from "../../../../fragments/Store/FragmentStore";
 import PersonaTableSelectionModalViewModel from "../../../../fragments/PersonaTableSelectionModal/PersonaTableSelectionModalViewModel";
 import CampaignTableSelectionModalViewModel from "../../../../fragments/CampaignTableSelectionModal/CampaignTableSelectionModalViewModel";
 
+import { CHANNEL_ADS_GOOGLE } from '../../../../constants/ChannelModule';
+
 if (!window.globalStore) {
   window.globalStore = new GlobalStore();
 }
@@ -29,6 +31,7 @@ const ContentFormPublishWizard = observer(
   class ContentFormPublishWizard extends Component {
     contentFormViewModel = null;
     contentConnectedChannelsByOrganisationViewModel = null;
+    channelsListViewModel = null;
 
     constructor(props) {
       super(props);
@@ -49,6 +52,29 @@ const ContentFormPublishWizard = observer(
 
       console.log('contentConnectedChannelsByOrganisationViewModel - After binding class');
       console.log(this.contentConnectedChannelsByOrganisationViewModel);
+
+      this.channelsListViewModel = viewModel ? viewModel.getChannelsListViewModel() : null;
+
+      this.channelsListViewModel.checkConnectedChannels([
+        'linkedin',
+        'youtube',
+        'twitter',
+        'instagram',
+        'facebook',
+        'mailchimp',
+        'wordpress',
+        'tumblr',
+        'drupal',
+        'medium',
+        'joomla',
+        'fbad',
+        CHANNEL_ADS_GOOGLE,
+        'google_my_business',
+      ]);
+
+      console.log('this.channelsListViewModel - After binding class123');
+      console.log(this.channelsListViewModel);
+
     }
 
     render() {

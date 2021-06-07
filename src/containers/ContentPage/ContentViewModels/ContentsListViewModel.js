@@ -91,7 +91,7 @@ class ContentsListViewModel {
   };
 
   callbackOnSuccessHandler = (contentModelData) => {
-    console.log("callbackOnSuccessHandler");
+    console.log("callbackOnSuccessHandler1234");
     console.log(contentModelData);
     if (contentModelData) {
       this.tableStatus = PAGE_STATUS.READY;

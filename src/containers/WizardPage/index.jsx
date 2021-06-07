@@ -16,6 +16,7 @@ const ConnectChannel = lazy(() => import("./ConnectChannel"));
 const CreareContent = lazy(() => import("./CreareContent"));
 
 const channelsStore = new ChannelsStore();
+
 const contentStore = new ContentStore();
 const wizardViewModel = new WizardViewModel(channelsStore, contentStore);
 
@@ -26,6 +27,7 @@ class WizardPage extends Component {
 
   render() {
     console.log("[WizardPage] render...");
+    console.log(wizardViewModel);
 
     return (
       <>

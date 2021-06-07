@@ -4,6 +4,7 @@ import ContentsFilterFormViewModel from "./ContentsFilterFormViewModel";
 import { ContentConnectedChannelsModel } from "../ContentModel/ContentConnectedChannelsModel";
 import ContentConnectedChannelsByOrganisationViewModel from "./ContentConnectedChannelsByOrganisationViewModel";
 import ContentDisplayProjectNameInWizardStep3ViewModel from "./ContentDisplayProjectNameInWizardStep3ViewModel";
+import ChannelsListViewModel from "../../ChannelsPage/ChannelsViewModels/ChannelsListViewModel";
 
 class ContentViewModel {
   contentListViewModel = null;
@@ -11,10 +12,14 @@ class ContentViewModel {
   contentsFilterFormViewModel = null;
   contentConnectedChannelsByOrganisationViewModel = null;
   contentDisplayProjectNameInWizardStep3ViewModel = null;
+  channelsListViewModel = null;
 
-  constructor(contentStore) {
+  constructor(contentStore, channelsStore) {
     if (contentStore) {
       console.log("ContentViewModel - Abstract");
+      console.log(contentStore);
+      console.log(channelsStore);
+
       this.contentFormViewModel = new ContentFormViewModel(contentStore);
       this.contentListViewModel = new ContentListViewModel(contentStore);
       this.contentsFilterFormViewModel = new ContentsFilterFormViewModel(
@@ -28,6 +33,12 @@ class ContentViewModel {
       this.contentDisplayProjectNameInWizardStep3ViewModel = new ContentDisplayProjectNameInWizardStep3ViewModel(
         contentStore
       );
+
+      this.channelsListViewModel = new ChannelsListViewModel(channelsStore);
+
+      console.log("this.channelsListViewModel - Abstract1234");
+      console.log(this.channelsListViewModel);
+
       // Inject dependencies together among ViewModels
       this.contentFormViewModel.setContentListViewModel(
         this.contentListViewModel
@@ -54,6 +65,8 @@ class ContentViewModel {
 
   getContentDisplayProjectNameInWizardStep3ViewModel = () =>
     this.contentDisplayProjectNameInWizardStep3ViewModel;
+
+  getChannelsListViewModel = () => this.channelsListViewModel;
 }
 
 export default ContentViewModel;

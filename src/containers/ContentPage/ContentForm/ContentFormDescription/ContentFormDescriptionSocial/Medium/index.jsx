@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 const CanvaButton = lazy(() => import('../../../../../../components/CanvaButton'));
 const DamButton = lazy(() => import('../../../../../../components/DamButton'));
 
-class JoomlaSocial extends Component {
+class MediumSocial extends Component {
   constructor(props) {
     super(props);
 
@@ -15,12 +15,12 @@ class JoomlaSocial extends Component {
   }
 
   handleChange(event) {
-    this.field.dataContentDescriptionSocial.list_channels.cms.joomla.description = event.target.value;
+    this.field.dataContentDescriptionSocial.list_channels.social.medium.description = event.target.value;
     this.props.changed(event.target.value);
   }
 
   handleCanva(exportUrl, designId) {
-    this.field.dataContentDescriptionSocial.list_channels.cms.joomla.assets.canvaAssets = {
+    this.field.dataContentDescriptionSocial.list_channels.social.medium.assets.canvaAssets = {
       exportUrl: exportUrl,
       designId: designId,
     };
@@ -34,8 +34,8 @@ class JoomlaSocial extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.list_channels.cms.joomla.description}
-          // value={this.field.dataContentDescriptionSocial.cms.joomla.data}
+          defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.medium.description}
+          // value={this.field.dataContentDescriptionSocial.social.instagram.data}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}
@@ -46,7 +46,7 @@ class JoomlaSocial extends Component {
 
         <div className="px-3 py-2 bg-blue-3 d-flex">
           <CanvaButton
-            data={this.field.dataContentDescriptionSocial.list_channels.cms.joomla.assets.canvaAssets}
+            data={this.field.dataContentDescriptionSocial.list_channels.social.medium.assets.canvaAssets}
             changed={this.handleCanva}
           />
           <DamButton />
@@ -56,4 +56,4 @@ class JoomlaSocial extends Component {
   }
 }
 
-export default JoomlaSocial;
+export default MediumSocial;

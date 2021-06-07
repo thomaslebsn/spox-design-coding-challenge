@@ -184,13 +184,13 @@ class ComponentConnectaChannel extends Component {
 
     let converListLinkedinFanpageConnected = '';
 
-    if(listLinkedinFanpageConnected) {
-      if(typeof listLinkedinFanpageConnected  == 'object') {
-        converListLinkedinFanpageConnected = Object.values(listLinkedinFanpageConnected)
-      } else {
-        converListLinkedinFanpageConnected = listLinkedinFanpageConnected
-      }
-    }
+    // if(listLinkedinFanpageConnected) {
+    //   if(typeof listLinkedinFanpageConnected  == 'object') {
+    //     converListLinkedinFanpageConnected = Object.values(listLinkedinFanpageConnected)
+    //   } else {
+    //     converListLinkedinFanpageConnected = listLinkedinFanpageConnected
+    //   }
+    // }
 
     return (
       <div className="wrapper_tabs">
@@ -415,8 +415,8 @@ class ComponentConnectaChannel extends Component {
                                   }}
                                 >
                                   <span>
-                                    {converListLinkedinFanpageConnected &&
-                                    converListLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
+                                    {listLinkedinFanpageConnected &&
+                                    listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
                                   </span>

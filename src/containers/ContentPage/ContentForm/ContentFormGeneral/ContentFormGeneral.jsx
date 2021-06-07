@@ -13,6 +13,8 @@ const ContentFormGeneral = observer(
     campaignTableSelectionModalViewModel = null;
     contentConnectedChannelsByOrganisationViewModel = null;
     contentDisplayProjectNameInWizardStep3ViewModel = null;
+    channelsListViewModel = null;
+
     constructor(props) {
       super(props);
 

@@ -15,12 +15,12 @@ class WordpressSocial extends Component {
   }
 
   handleChange(event) {
-    this.field.dataContentDescriptionSocial.cms.wordpress.data = event.target.value;
+    this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.description = event.target.value;
     this.props.changed(event.target.value);
   }
 
   handleCanva(exportUrl, designId) {
-    this.field.dataContentDescriptionSocial.cms.wordpress.media = {
+    this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.assets.canvaAssets = {
       exportUrl: exportUrl,
       designId: designId,
     };
@@ -34,7 +34,7 @@ class WordpressSocial extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.cms.wordpress.data}
+          defaultValue={this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.description}
           // value={this.field.dataContentDescriptionSocial.cms.wordpress.data}
           required={this.field.required ?? false}
           id={this.field.key}
@@ -46,7 +46,7 @@ class WordpressSocial extends Component {
 
         <div className="px-3 py-2 bg-blue-3 d-flex">
           <CanvaButton
-            data={this.field.dataContentDescriptionSocial.cms.wordpress.media}
+            data={this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.assets.canvaAssets}
             changed={this.handleCanva}
           />
           <DamButton />

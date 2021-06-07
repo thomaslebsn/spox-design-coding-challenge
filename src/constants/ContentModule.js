@@ -47,6 +47,7 @@ const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {
   CANVA_EXPORTED_URL: "canva_exported_url",
   CANVA_DESIGN_ID: "canva_design_id",
   DAM: "dam",
+  CHANNELS: "channels",
 };
 
 export { CONTENT_FIELD_KEY, ESI_CONTENT_API_RESPONSE_FIELD_KEY };

@@ -314,7 +314,7 @@ class ComponentContentFormGeneral extends Component {
                   </div>
                 </div>
               </div>
-              <div className="flex-1 ps-4">
+              <div className="flex-1 ps-4 mb-3">
                 {Object.keys(formSettingDescription)
                   .map((groupIndex) => {
                     return [...Array(formSettingDescription[groupIndex])].map((group) => {

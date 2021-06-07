@@ -131,13 +131,13 @@ const ConnectChannels = observer(
           }
           break;
         case 'linkedin':
-          if(this.channelsListViewModel.listLinkedinFanpageConnected) {
-            if(typeof this.channelsListViewModel.listLinkedinFanpageConnected  == 'object') {
-              this.channelsListViewModel.listLinkedinFanpageConnected = Object.values(this.channelsListViewModel.listLinkedinFanpageConnected)
-            } else {
-              this.channelsListViewModel.listLinkedinFanpageConnected = this.channelsListViewModel.listLinkedinFanpageConnected
-            }
-          }
+          // if(this.channelsListViewModel.listLinkedinFanpageConnected) {
+          //   if(typeof this.channelsListViewModel.listLinkedinFanpageConnected  == 'object') {
+          //     this.channelsListViewModel.listLinkedinFanpageConnected = Object.values(this.channelsListViewModel.listLinkedinFanpageConnected)
+          //   } else {
+          //     this.channelsListViewModel.listLinkedinFanpageConnected = this.channelsListViewModel.listLinkedinFanpageConnected
+          //   }
+          // }
 
           if (this.channelsListViewModel.listLinkedinFanpageConnected.indexOf(id) > -1) {
             this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
