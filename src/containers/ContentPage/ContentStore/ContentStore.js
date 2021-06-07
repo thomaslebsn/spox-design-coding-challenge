@@ -1,7 +1,8 @@
-import { runInAction } from "mobx";
+import { runInAction } from 'mobx';
 
-import ContentUtils from "../ContentUtils/ContentUtils";
-import ContentModel from "../ContentModel/ContentModel";
+import ContentUtils from '../ContentUtils/ContentUtils';
+import ContentModel from '../ContentModel/ContentModel';
+import ContentPostTemplateModel from '../ContentModel/ContentPostTemplateModel';
 
 import {
   EasiiContentApiService,
@@ -9,15 +10,15 @@ import {
   EasiiOrganisationChannelApiService,
   EasiiPersonaApiService,
   EasiiProjectApiService,
-} from "easii-io-web-service-library";
+} from 'easii-io-web-service-library';
 
-import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
+import { CONTENT_FIELD_KEY } from '../../../constants/ContentModule';
 
-import { CampaignMasterDataModel } from "../../../store/Models/MasterDataModels/CampaignMasterDataModel";
-import { PersonaMasterDataModel } from "../../../store/Models/MasterDataModels/PersonaMasterDataModel";
-import { ContentConnectedChannelsModel } from "../ContentModel/ContentConnectedChannelsModel";
+import { CampaignMasterDataModel } from '../../../store/Models/MasterDataModels/CampaignMasterDataModel';
+import { PersonaMasterDataModel } from '../../../store/Models/MasterDataModels/PersonaMasterDataModel';
+import { ContentConnectedChannelsModel } from '../ContentModel/ContentConnectedChannelsModel';
 
-import ProjectUtils from "../../ProjectsPage/ProjectUtils/ProjectUtils";
+import ProjectUtils from '../../ProjectsPage/ProjectUtils/ProjectUtils';
 
 export default class ContentStore {
   globalStore = null;
@@ -27,29 +28,31 @@ export default class ContentStore {
     }
   }
 
-  async fetchContents(
-    callbackOnSuccess,
-    callbackOnError,
-    paginationStep = 0,
-    paginationSize = 25
-  ) {
+  async fetchContents(callbackOnSuccess, callbackOnError, paginationStep = 0, paginationSize = 25) {
     try {
-      console.log("Content Store - Fetch Content");
+      console.log('Content Store - Fetch Content');
       const contentAPIService = new EasiiContentApiService();
 
-      const repondedDataFromLibrary = await contentAPIService.getContents(
+      console.log('Content Store - Fetch ContentcontentAPIService');
+      console.log(contentAPIService);
+
+      // const repondedDataFromLibrary = await contentAPIService.getContents(
+      //   paginationStep,
+      //   paginationSize
+      // );
+
+      const repondedDataFromLibrary = await contentAPIService.getPosts(
         paginationStep,
         paginationSize
       );
-      console.log(
-        "repondedDataFromLibrary repondedDataFromLibrary",
-        repondedDataFromLibrary
-      );
+
+      
+      console.log('repondedDataFromLibrary repondedDataFromLibrary', repondedDataFromLibrary);
 
       const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-        repondedDataFromLibrary.list
+        repondedDataFromLibrary
       );
-      console.log("contentDataModels");
+      console.log('contentDataModels content post');
       console.log(contentDataModels);
 
       if (contentDataModels) {
@@ -61,7 +64,7 @@ export default class ContentStore {
         });
       } else {
         callbackOnError({
-          message: "Something went wrong from Server response",
+          message: 'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -72,29 +75,33 @@ export default class ContentStore {
     }
   }
 
-  async saveContent(contentData, callbackOnSuccess, callbackOnError) {
+  async saveContent(contentData, arrayConnectedChannelsFinal, callbackOnSuccess, callbackOnError) {
     try {
-      console.log("Saving Content via call web service lib function");
+      console.log('Saving Content via call web service lib function');
       console.log(contentData);
-      const convertedContentData = ContentModel.convertSubmittedDataToAPIService(
-        contentData
-      );
+      // const convertedContentData = ContentModel.convertSubmittedDataToAPIService(
+      //   contentData
+      // );
 
-      console.log("convertedContentData");
+      let contentPostTemplate = new ContentPostTemplateModel(contentData, arrayConnectedChannelsFinal);
+
+      let convertedContentData = contentPostTemplate.transformDataToContentCreation();
+
+      console.log('convertedContentData1234');
       console.log(convertedContentData);
       // Save Content
       const contentService = new EasiiContentApiService();
-      let resultContent;
 
-      if (convertedContentData.id == 0) {
-        resultContent = await contentService.createContent(
-          convertedContentData
-        );
-      } else {
-        resultContent = await contentService.updateContent(
-          convertedContentData
-        );
-      }
+      let resultContent = await contentService.createPost(convertedContentData);
+
+      console.log('resultContentresultContent123');
+      console.log(resultContent);
+
+      // if (convertedContentData.id == 0) {
+      //   resultContent = await contentService.createContent(convertedContentData);
+      // } else {
+      //   resultContent = await contentService.updateContent(convertedContentData);
+      // }
 
       if (resultContent) {
         runInAction(() => {
@@ -103,7 +110,7 @@ export default class ContentStore {
       } else {
         runInAction(() => {
           callbackOnError({
-            message: "Something went wrong from Server response",
+            message: 'Something went wrong from Server response',
           });
         });
       }
@@ -118,17 +125,15 @@ export default class ContentStore {
   async deleteContents(ids, callbackOnSuccess, callbackOnError) {
     if (!ids) return false;
 
-    console.log("DELETE CONTENT IDS");
+    console.log('DELETE CONTENT IDS');
     console.log(ids);
 
     try {
       const contentAPIService = new EasiiContentApiService();
       const deleteIds = ids.join();
-      console.log("Prepare ids for delete: ", deleteIds);
+      console.log('Prepare ids for delete: ', deleteIds);
 
-      const repondedDataFromLibrary = await contentAPIService.deleteContent(
-        deleteIds
-      );
+      const repondedDataFromLibrary = await contentAPIService.deleteContent(deleteIds);
 
       if (repondedDataFromLibrary.result === true) {
         runInAction(() => {
@@ -150,13 +155,13 @@ export default class ContentStore {
       const contentService = new EasiiContentApiService();
       const repondedDataFromLibrary = await contentService.getContentItem(id);
 
-      console.log("Content Store - getContent");
+      console.log('Content Store - getContent');
       console.log(repondedDataFromLibrary);
 
       if (repondedDataFromLibrary) {
-        const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-          [repondedDataFromLibrary]
-        );
+        const contentDataModels = ContentUtils.transformContentResponseIntoModel([
+          repondedDataFromLibrary,
+        ]);
 
         if (contentDataModels) {
           runInAction(() => {
@@ -164,7 +169,7 @@ export default class ContentStore {
           });
         } else {
           callbackOnError({
-            message: "Something went wrong from Server response",
+            message: 'Something went wrong from Server response',
           });
         }
       }
@@ -184,7 +189,7 @@ export default class ContentStore {
     paginationSize = 25
   ) {
     try {
-      console.log("Content Store - filter Content");
+      console.log('Content Store - filter Content');
       const contentAPIService = new EasiiContentApiService();
       const respondedDataFromLibrary = await contentAPIService.searchContents(
         dataFilter,
@@ -192,7 +197,7 @@ export default class ContentStore {
         paginationSize
       );
 
-      console.log("Debugging ---- filter campaign");
+      console.log('Debugging ---- filter campaign');
       console.log(respondedDataFromLibrary);
       let contentDataModels = null;
 
@@ -211,7 +216,7 @@ export default class ContentStore {
         });
       } else {
         callbackOnError({
-          message: "No result",
+          message: 'No result',
         });
       }
     } catch (error) {
@@ -227,11 +232,11 @@ export default class ContentStore {
       if (!this.globalStore) {
         runInAction(() => {
           callbackOnError({
-            message: "Global Store is NULL",
+            message: 'Global Store is NULL',
           });
         });
       } else {
-        console.log("Content Store - Get Global Store");
+        console.log('Content Store - Get Global Store');
         console.log(this.globalStore);
         await this.globalStore.getMasterData(
           {
@@ -240,25 +245,21 @@ export default class ContentStore {
           },
           (result) => {
             try {
-              console.log("Content - getMasterData");
+              console.log('Content - getMasterData');
               console.log(result);
 
               const resultCampaignInModel = new CampaignMasterDataModel(
-                result && result.campaignMasterData
-                  ? result.campaignMasterData
-                  : null
+                result && result.campaignMasterData ? result.campaignMasterData : null
               );
               const resultPersonaInModel = new PersonaMasterDataModel(
-                result && result.personaMasterData
-                  ? result.personaMasterData
-                  : null
+                result && result.personaMasterData ? result.personaMasterData : null
               );
-              console.log("resultInModel");
+              console.log('resultInModel');
               console.log(resultCampaignInModel);
               console.log(resultPersonaInModel);
-              console.log("CampaignsStore - getProjectMasterData");
+              console.log('CampaignsStore - getProjectMasterData');
               console.log(result);
-              console.log("CampaignsStore - resultToDropdownlistValues");
+              console.log('CampaignsStore - resultToDropdownlistValues');
 
               runInAction(() => {
                 callbackOnSuccess({
@@ -270,7 +271,7 @@ export default class ContentStore {
               runInAction(() => {
                 callbackOnError({
                   message:
-                    "resultInModel - ContentsStore - getMasterData - Something went wrong from Server response",
+                    'resultInModel - ContentsStore - getMasterData - Something went wrong from Server response',
                 });
               });
             }
@@ -279,7 +280,7 @@ export default class ContentStore {
             runInAction(() => {
               callbackOnError({
                 message:
-                  "ContentsStore - getMasterData - Something went wrong from Server response : " +
+                  'ContentsStore - getMasterData - Something went wrong from Server response : ' +
                   error,
               });
             });
@@ -294,14 +295,9 @@ export default class ContentStore {
     }
   }
 
-  async getContentsByCampaignIDs(
-    CampaignIDs,
-    limit,
-    callbackOnSuccess,
-    callbackOnError
-  ) {
+  async getContentsByCampaignIDs(CampaignIDs, limit, callbackOnSuccess, callbackOnError) {
     try {
-      console.log("Content Store - Fetch Content CampaignIDs");
+      console.log('Content Store - Fetch Content CampaignIDs');
       const contentAPIService = new EasiiContentApiService();
 
       const repondedDataFromLibrary = await contentAPIService.getContentsByCampaignIDs(
@@ -309,17 +305,14 @@ export default class ContentStore {
         limit
       );
 
-      console.log(
-        "repondedDataFromLibrary - repondedDataFromLibrary CampaignIDs"
-      );
+      console.log('repondedDataFromLibrary - repondedDataFromLibrary CampaignIDs');
 
       console.log(repondedDataFromLibrary);
 
-      const contentDataModels = ContentUtils.transformContentResponseIntoModel(
-        repondedDataFromLibrary
-      );
+      const contentDataModels =
+        ContentUtils.transformContentResponseIntoModel(repondedDataFromLibrary);
 
-      console.log("contentDataModels contentDataModels");
+      console.log('contentDataModels contentDataModels');
       console.log(contentDataModels);
 
       if (contentDataModels) {
@@ -328,7 +321,7 @@ export default class ContentStore {
         });
       } else {
         callbackOnError({
-          message: "Something went wrong from Server response",
+          message: 'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -339,24 +332,19 @@ export default class ContentStore {
     }
   }
 
-  async getConnectedChannelsByOrganizationID(
-    callbackOnSuccess,
-    callbackOnError
-  ) {
+  async getConnectedChannelsByOrganizationID(callbackOnSuccess, callbackOnError) {
     try {
       const service = new EasiiPersonaApiService();
 
       const repondedDataFromLibrary = await service.getConnectedChannelByOrganisationId();
 
-      console.log("repondedDataFromLibrary - getConnectedChannelsByProjectId");
+      console.log('repondedDataFromLibrary - getConnectedChannelsByProjectId');
 
       console.log(repondedDataFromLibrary);
 
-      const contentDataModels = new ContentConnectedChannelsModel(
-        repondedDataFromLibrary.result
-      );
+      const contentDataModels = new ContentConnectedChannelsModel(repondedDataFromLibrary.result);
 
-      console.log("contentDataModels contentDataModels");
+      console.log('contentDataModels contentDataModels');
       console.log(contentDataModels);
 
       if (contentDataModels) {
@@ -365,7 +353,7 @@ export default class ContentStore {
         });
       } else {
         callbackOnError({
-          message: "Something went wrong from Server response",
+          message: 'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -376,32 +364,22 @@ export default class ContentStore {
     }
   }
 
-  async getConnectedChannelByPersonaIds(
-    callbackOnSuccess,
-    callbackOnError,
-    personaIds
-  ) {
+  async getConnectedChannelByPersonaIds(callbackOnSuccess, callbackOnError, personaIds) {
     try {
       const service = new EasiiPersonaApiService();
 
-      console.log("personaIds 3333");
+      console.log('personaIds 3333');
       console.log(personaIds);
 
-      const repondedDataFromLibrary = await service.getConnectedChannelByPersonaIds(
-        personaIds
-      );
+      const repondedDataFromLibrary = await service.getConnectedChannelByPersonaIds(personaIds);
 
-      console.log(
-        "repondedDataFromLibrary - getConnectedChannelByPersonaIds idsids"
-      );
+      console.log('repondedDataFromLibrary - getConnectedChannelByPersonaIds idsids');
 
       console.log(repondedDataFromLibrary);
 
-      const contentDataModels = new ContentConnectedChannelsModel(
-        repondedDataFromLibrary.result
-      );
+      const contentDataModels = new ContentConnectedChannelsModel(repondedDataFromLibrary.result);
 
-      console.log("contentDataModels contentDataModels 3333");
+      console.log('contentDataModels contentDataModels 3333');
       console.log(contentDataModels);
 
       if (contentDataModels) {
@@ -410,7 +388,7 @@ export default class ContentStore {
         });
       } else {
         callbackOnError({
-          message: "Something went wrong from Server response",
+          message: 'Something went wrong from Server response',
         });
       }
     } catch (error) {
@@ -421,11 +399,7 @@ export default class ContentStore {
     }
   }
 
-  async getProjectItemByProjectId(
-    projectId,
-    callbackOnSuccess,
-    callbackOnError
-  ) {
+  async getProjectItemByProjectId(projectId, callbackOnSuccess, callbackOnError) {
     if (!projectId) return false;
 
     try {
@@ -433,14 +407,11 @@ export default class ContentStore {
 
       if (results) {
         const projectAPIService = new EasiiProjectApiService();
-        const respondedDataFromLibrary = await projectAPIService.getProjectItem(
-          projectId,
-          false
-        );
+        const respondedDataFromLibrary = await projectAPIService.getProjectItem(projectId, false);
 
-        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel(
-          [respondedDataFromLibrary]
-        );
+        const projectDataModels = ProjectUtils.transformProjectResponseIntoModel([
+          respondedDataFromLibrary,
+        ]);
 
         console.log(projectDataModels);
 
@@ -450,7 +421,7 @@ export default class ContentStore {
           });
         } else {
           callbackOnError({
-            message: "Something went wrong from Server response",
+            message: 'Something went wrong from Server response',
           });
         }
       }

@@ -24,43 +24,313 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   arrayConnectedChannelsFinal = [];
 
-  dataContentDescriptionSingle = {
-    data: '',
-    media: [],
-  };
+  isDeselectAllSocial = false;
 
-  dataContentDescriptionSocial = {
-    social: {
+  dataContentDescriptionSingle = {
+    advance_mode: false,
+    list_channels: {
       facebook: {
-        data: '',
-        media: [],
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
+      },
+      linkedin: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
       },
       instagram: {
-        data: '',
-        media: [],
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
       },
-      linkedIn: {
-        data: '',
-        media: [],
+      twitter: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
       },
-    },
-    cms: {
+      youtube: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
+      },
       joomla: {
-        data: '',
-        media: [],
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
+      },
+      mailchimp: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
+      },
+      google_my_business: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
+      },
+      tumblr: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
+      },
+      medium: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
       },
       wordpress: {
-        data: '',
-        media: [],
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
       },
-    },
-    mail: {
-      mailchimp: {
-        data: '',
-        media: [],
+      drupal: {
+        description: "",
+        assets: {
+          canvaAssets: [],
+          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+        },
+        selectedPage: [],
+        publishedPlan: {
+          postType: "post_now",
+          schedule: {}
+        }
+      }
+    }
+  }
+
+  dataContentDescriptionSocial = {
+    advance_mode: true,
+    list_channels: {
+      social: {
+        facebook: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        instagram: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        linkedin: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        youtube: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        google_my_business: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        tumblr: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        medium: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        twitter: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        }
       },
-    },
-  };
+      cms: {
+        joomla: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        wordpress: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+        drupal: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        }
+      },
+      mail: {
+        mailchimp: {
+          description: "",
+          assets: {
+            canvaAssets: [],
+            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          },
+          selectedPage: [],
+          publishedPlan: {
+            postType: "post_now",
+            schedule: {}
+          }
+        },
+      },
+    }
+  }
 
   constructor(contentsStore) {
     makeAutoObservable(this);

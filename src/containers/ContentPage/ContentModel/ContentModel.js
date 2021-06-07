@@ -20,29 +20,33 @@ import ContentThemeStore from '../ContentStore/ContentThemeStore';
 
 class ContentModel {
   constructor(data) {
+    console.log('data data content post ');
+    console.log(data);
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
-    this.name = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? '';
-    this.channelsData = this.status = data.status ?? '';
+    this.name = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? '';
+    this.channelsData = this.status = 'published' ?? '';
+    // this.channelsData = this.status = data.status ?? '';
 
-    this.descriptions = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items ?? [];
+    // this.descriptions = data.data.channels[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS] ?? [];
 
-    this.descriptionsModel =
-      this.descriptions.length > 0
-        ? new DescriptionsModel(data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items)
-        : null;
+    // this.descriptionsModel =
+    //   this.descriptions.length > 0
+    //     ? new DescriptionsModel(data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS].items)
+    //     : null;
 
-    this.campaignId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? '';
-    this.personaId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? '';
-    this.themeId = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? '';
-    this.channelAttachments = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? '';
+    this.campaignId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? '';
+    this.personaId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? '';
+    this.themeId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? '';
+    this.channelAttachments = data.data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNELS] ?? '';
     this.channels = [];
 
     if (this.channelAttachments) {
-      this.channelAttachments.getItems().map((element) => {
+      let getNameChannel = Object.keys(this.channelAttachments);
+
+      getNameChannel.map((element) => {
         let icoImage = null;
-        console.log('element.channelName.toLowerCase()');
-        console.log(element.channelName.toLowerCase());
-        switch (element.channelName.toLowerCase()) {
+
+        switch (element) {
           case 'facebook':
             icoImage = '/assets/images/facebook.png';
             break;
@@ -88,12 +92,12 @@ class ContentModel {
 
         this.channels.push({
           id: element.channelId,
-          name: element.channelName,
+          name: element,
           image: icoImage,
           icon: icoImage,
           checked: true,
         });
-      });
+      })
     }
 
     this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(this.channels);
@@ -117,15 +121,15 @@ class ContentModel {
     };
   };
 
-  getDescription = () => {
-    return {
-      value:
-        this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
-      type: FIELD_TYPE.TEXT,
-      columnName: CONTENT_FIELD_KEY.DESCRIPTION,
-      columnText: 'Description',
-    };
-  };
+  // getDescription = () => {
+  //   return {
+  //     value:
+  //       this.descriptionsModel !== null ? this.descriptionsModel.getChannelDescriptions() : null,
+  //     type: FIELD_TYPE.TEXT,
+  //     columnName: CONTENT_FIELD_KEY.DESCRIPTION,
+  //     columnText: 'Description',
+  //   };
+  // };
 
   getChannels = () => {
     return {
@@ -163,18 +167,18 @@ class ContentModel {
     }
   };
 
-  getTheme = () => {
-    if (this.themeId) {
-      const contentThemeStore = new ContentThemeStore();
-      contentThemeStore.getContentTheme(
-        this.themeId,
-        (data) => {
-          console.log('this.contentThemeStore', data);
-        },
-        () => {}
-      );
-    }
-  };
+  // getTheme = () => {
+  //   if (this.themeId) {
+  //     const contentThemeStore = new ContentThemeStore();
+  //     contentThemeStore.getContentTheme(
+  //       this.themeId,
+  //       (data) => {
+  //         console.log('this.contentThemeStore', data);
+  //       },
+  //       () => {}
+  //     );
+  //   }
+  // };
 
   getStatus = () => {
     return {
@@ -189,14 +193,14 @@ class ContentModel {
     const id = this.getId();
     const name = this.getName();
     console.log('===============34');
-    const description = this.getDescription();
+    // const description = this.getDescription();
     const status = this.getStatus();
     const channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
-      [description.columnName]: description.value,
+      // [description.columnName]: description.value,
       [status.columnName]: status.value,
       [channels.columnName]: channels.value,
     };
@@ -215,13 +219,13 @@ class ContentModel {
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: JSON.stringify(
             contentData[CONTENT_FIELD_KEY.PERSONA]
           ),
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: contentData[CONTENT_FIELD_KEY.NAME],
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
-              contentData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
-            [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_DESIGN_ID]:
-              contentData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
-          },
+          // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CONTENT_TO_POST]: {
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: contentData[CONTENT_FIELD_KEY.NAME],
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_EXPORTED_URL]:
+          //     contentData[CONTENT_FIELD_KEY.CANVA_EXPORTED_URL],
+          //   [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CANVA_DESIGN_ID]:
+          //     contentData[CONTENT_FIELD_KEY.CANVA_DESIGN_ID],
+          // },
         }
       : null;
     return result;
