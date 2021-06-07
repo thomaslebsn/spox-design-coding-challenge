@@ -62,7 +62,7 @@ class CustomToolbar extends Toolbar {
                 </div>
               </Dropdown.Menu>
             </Dropdown>
-            <div className="ms-2">
+            {/* <div className="ms-2">
               <a
                 href={void 0}
                 className="bg-white cursor-pointer border-1 py-2 w-98 text-blue-0 opacity-75 d-flex rounded-1 align-items-center justify-content-center text-decoration-none"
@@ -72,7 +72,7 @@ class CustomToolbar extends Toolbar {
                 </i>
                 <span className="ms-2">Filter</span>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
