@@ -10,7 +10,7 @@ import { faImage } from '@fortawesome/free-solid-svg-icons/faImage';
 
 const ModalComponent = lazy(() => import('../../components/Modal'));
 
-const socket = io(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ':9999');
+const socket = io('https://ws.dev.easii.io:9999');
 
 class DamButton extends React.Component {
   _isMounted = false;
