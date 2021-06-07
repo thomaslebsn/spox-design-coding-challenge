@@ -55,7 +55,7 @@ class ComponentContentFormPublish extends Component {
     if (this.isFormValid()) {
       console.log('this.viewModel.contentEditdata123');
       console.log(this.viewModel.contentEditdata);
-      this.viewModel.post(this.viewModel.contentEditdata);
+      this.viewModel.post(this.viewModel.contentEditdata, this.props.arrayConnectedChannelsFinal);
     }
   };
 

@@ -71,18 +71,47 @@ class ContentFormDescription extends Component {
     console.log('labelsConnectedChannelslabelsConnectedChannels123');
     console.log(labelsConnectedChannels);
 
-    let checkConnectFacebook = labelsConnectedChannels && (labelsConnectedChannels.indexOf("facebook") > -1)
-    let checkConnectInstagram = labelsConnectedChannels && (labelsConnectedChannels.indexOf("instagram") > -1)
-    let checkConnectTwitter = labelsConnectedChannels && (labelsConnectedChannels.indexOf("twitter") > -1)
-    let checkConnectLinkedin = labelsConnectedChannels && (labelsConnectedChannels.indexOf("linkedin") > -1)
-    let checkConnectTumblr = labelsConnectedChannels && (labelsConnectedChannels.indexOf("tumblr") > -1)
-    let checkConnectMedium = labelsConnectedChannels && (labelsConnectedChannels.indexOf("medium") > -1)
-    let checkConnectYoutube = labelsConnectedChannels && (labelsConnectedChannels.indexOf("youtube") > -1)
-    let checkConnectGoogleMyBusiness = labelsConnectedChannels && (labelsConnectedChannels.indexOf("google_my_business") > -1)
-    let checkConnectWordpress = labelsConnectedChannels && (labelsConnectedChannels.indexOf("wordpress") > -1)
-    let checkConnectDrupal = labelsConnectedChannels && (labelsConnectedChannels.indexOf("drupal") > -1)
-    let checkConnectJoomla = labelsConnectedChannels && (labelsConnectedChannels.indexOf("joomla") > -1)
-    let checkConnectMailchimp = labelsConnectedChannels && (labelsConnectedChannels.indexOf("mailchimp") > -1)
+    let checkConnectFacebook = labelsConnectedChannels && labelsConnectedChannels.includes("facebook")
+    let checkConnectInstagram = labelsConnectedChannels && labelsConnectedChannels.includes("instagram")
+    let checkConnectTwitter = labelsConnectedChannels && labelsConnectedChannels.includes("twitter")
+    let checkConnectLinkedin = labelsConnectedChannels && labelsConnectedChannels.includes("linkedin")
+    let checkConnectTumblr = labelsConnectedChannels && labelsConnectedChannels.includes("tumblr")
+    let checkConnectMedium = labelsConnectedChannels && labelsConnectedChannels.includes("medium")
+    let checkConnectYoutube = labelsConnectedChannels && labelsConnectedChannels.includes("youtube")
+    let checkConnectGoogleMyBusiness = labelsConnectedChannels && labelsConnectedChannels.includes("google_my_business")
+    let checkConnectWordpress = labelsConnectedChannels && labelsConnectedChannels.includes("wordpress")
+    let checkConnectDrupal = labelsConnectedChannels && labelsConnectedChannels.includes("drupal")
+    let checkConnectJoomla = labelsConnectedChannels && labelsConnectedChannels.includes("joomla")
+    let checkConnectMailchimp = labelsConnectedChannels && labelsConnectedChannels.includes("mailchimp")
+
+    let isActiveSocial = 1;
+    let isActiveCms = 1;
+
+    if(checkConnectInstagram) {
+      isActiveSocial = 2
+    } else if(checkConnectLinkedin) {
+      isActiveSocial = 3
+    } else if(checkConnectTwitter) {
+      isActiveSocial = 4
+    } else if(checkConnectYoutube) {
+      isActiveSocial = 5
+    } else if(checkConnectGoogleMyBusiness) {
+      isActiveSocial = 6
+    } else if(checkConnectTumblr) {
+      isActiveSocial = 7
+    } else if(checkConnectMedium) {
+      isActiveSocial = 8
+    } else {
+      isActiveSocial = 1
+    }
+
+    if(checkConnectWordpress) {
+      isActiveCms = 2
+    } else if(checkConnectDrupal) {
+      isActiveCms = 3
+    } else {
+      isActiveSocial = 1
+    }
 
     let { socical, cms, email } = this.state;
     return (
@@ -112,11 +141,11 @@ class ContentFormDescription extends Component {
                 checkConnectTumblr ||
                 checkConnectMedium
               ) && (
-                <Accordion defaultActiveKey="0" className="mb-3">
+                <Accordion defaultActiveKey={`${isActiveSocial}`} className="mb-3">
                   <Accordion.Toggle
                     as={Button}
                     className="w-100 text-start d-flex justify-content-between align-items-center bg-blue-3 border-0 text-blue-0 wr_header_toogle_social"
-                    eventKey="0"
+                    eventKey={`${isActiveSocial}`}
                     onClick={() => this.setState({ socical: !socical })}
                   >
                     <span>Social Media</span>
@@ -133,12 +162,12 @@ class ContentFormDescription extends Component {
                     </span>
                   </Accordion.Toggle>
                   <Accordion.Collapse
-                    eventKey="0"
+                    eventKey={`${isActiveSocial}`}
                     className="border-1 border-top-0 position-relative wr_accordion_collapse"
                   >
                     <div className="p-3">
                       <Tabs
-                        defaultActiveKey="1"
+                        defaultActiveKey={`${isActiveSocial}`}
                         id="social-tab"
                         className="bg-white border-0 wrapper_tabs wrapper_tabs_3"
                       >
@@ -213,7 +242,7 @@ class ContentFormDescription extends Component {
                   <Accordion.Toggle
                     as={Button}
                     className="w-100 text-start d-flex justify-content-between align-items-center bg-blue-3 border-0 text-blue-0 wr_header_toogle_social"
-                    eventKey="0"
+                    eventKey={`${isActiveCms}`}
                     onClick={() => this.setState({ cms: !cms })}
                   >
                     <span>Content Management System (CMS)</span>
@@ -230,12 +259,12 @@ class ContentFormDescription extends Component {
                     </span>
                   </Accordion.Toggle>
                   <Accordion.Collapse
-                    eventKey="0"
+                    eventKey={`${isActiveCms}`}
                     className="border-1 border-top-0 position-relative wr_accordion_collapse"
                   >
                     <div className="p-3">
                       <Tabs
-                        defaultActiveKey="1"
+                        defaultActiveKey={`${isActiveCms}`}
                         id="social-tab"
                         className="bg-white border-0 wrapper_tabs wrapper_tabs_3"
                       >
@@ -292,7 +321,7 @@ class ContentFormDescription extends Component {
                     </span>
                   </Accordion.Toggle>
                   <Accordion.Collapse
-                    eventKey="0"
+                    eventKey="1"
                     className="border-1 border-top-0 position-relative wr_accordion_collapse"
                   >
                     <div className="p-3">

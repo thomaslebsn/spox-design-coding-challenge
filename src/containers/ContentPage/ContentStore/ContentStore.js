@@ -75,7 +75,7 @@ export default class ContentStore {
     }
   }
 
-  async saveContent(contentData, callbackOnSuccess, callbackOnError) {
+  async saveContent(contentData, arrayConnectedChannelsFinal, callbackOnSuccess, callbackOnError) {
     try {
       console.log('Saving Content via call web service lib function');
       console.log(contentData);
@@ -83,7 +83,7 @@ export default class ContentStore {
       //   contentData
       // );
 
-      let contentPostTemplate = new ContentPostTemplateModel(contentData);
+      let contentPostTemplate = new ContentPostTemplateModel(contentData, arrayConnectedChannelsFinal);
 
       let convertedContentData = contentPostTemplate.transformDataToContentCreation();
 

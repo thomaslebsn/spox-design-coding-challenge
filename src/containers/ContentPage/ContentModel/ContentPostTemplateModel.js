@@ -19,28 +19,23 @@ import ContentPostMailchimpModel from './ContentPostMailchimpModel';
 class ContentPostTemplateModel {
   rawData = null;
   data = null;
+  arrayConnectedChannelsFinal = null;
 
-  constructor(rawData) {
+  constructor(rawData, arrayConnectedChannelsFinal) {
     this.rawData = rawData;
-    this.data = {
-      facebook: null,
-      linkendin: null,
-      instagram: null,
-      twitter: null,
-      youtube: null,
-      google_my_business: null,
-      tumblr: null,
-      medium: null,
-      wordpress: null,
-      drupal: null,
-      joomla: null,
-      mailchimp: null
-    }
+    this.arrayConnectedChannelsFinal = arrayConnectedChannelsFinal;
+    this.data = {}
   }
 
   transformDataToContentCreation = () => {
     console.log('rawDatarawDatarawDatarawData123');
     console.log(this.rawData);
+    console.log(this.arrayConnectedChannelsFinal);
+
+    let labelsConnectedChannels = this.arrayConnectedChannelsFinal && this.arrayConnectedChannelsFinal.map((value) => value.des)
+
+    console.log('labelsConnectedChannels123tranfer');
+    console.log(labelsConnectedChannels);
 
     const facebookModel = new ContentPostFacebookModel(this.rawData)
     const linkedinModel = new ContentPostLinkedinModel(this.rawData)
@@ -55,19 +50,67 @@ class ContentPostTemplateModel {
     const joomlaModel = new ContentPostJoomlaModel(this.rawData)
     const mailchimpModel = new ContentPostMailchimpModel(this.rawData)
 
-    this.data.facebook = facebookModel.transformDataToContentCreation()
-    this.data.linkendin = linkedinModel.transformDataToContentCreation()
-    this.data.instagram = instagramModel.transformDataToContentCreation()
-    this.data.twitter = twitterModel.transformDataToContentCreation()
-    this.data.youtube = youtubeModel.transformDataToContentCreation()
-    this.data.google_my_business = googleMyBusinessModel.transformDataToContentCreation()
-    this.data.tumblr = tumblrModel.transformDataToContentCreation()
-    this.data.medium = mediumModel.transformDataToContentCreation()
-    this.data.wordpress = wordpressModel.transformDataToContentCreation()
-    this.data.drupal = drupalModel.transformDataToContentCreation()
-    this.data.joomla = joomlaModel.transformDataToContentCreation()
-    this.data.mailchimp = mailchimpModel.transformDataToContentCreation()
-
+    {
+      labelsConnectedChannels.includes("facebook") && (
+        this.data.facebook = facebookModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("linkedin") && (
+        this.data.linkedin = linkedinModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("instagram") && (
+        this.data.instagram = instagramModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("twitter") && (
+        this.data.twitter = twitterModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("youtube") && (
+        this.data.youtube = youtubeModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("google_my_business") && (
+        this.data.google_my_business = googleMyBusinessModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("tumblr") && (
+        this.data.tumblr = tumblrModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("medium") && (
+        this.data.medium = mediumModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("wordpress") && (
+        this.data.wordpress = wordpressModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("drupal") && (
+        this.data.drupal = drupalModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("joomla") && (
+        this.data.joomla = joomlaModel.transformDataToContentCreation()
+      )
+    }
+    {
+      labelsConnectedChannels.includes("mailchimp") && (
+        this.data.mailchimp = mailchimpModel.transformDataToContentCreation()
+      )
+    }
+    
     const contentId = this.rawData[CONTENT_FIELD_KEY.ID] ? this.rawData[CONTENT_FIELD_KEY.ID] : 0;
     const result = this.rawData
       ? {
