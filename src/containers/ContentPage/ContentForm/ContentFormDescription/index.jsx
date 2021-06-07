@@ -87,31 +87,72 @@ class ContentFormDescription extends Component {
     let isActiveSocial = 1;
     let isActiveCms = 1;
 
-    if(checkConnectInstagram) {
-      isActiveSocial = 2
-    } else if(checkConnectLinkedin) {
-      isActiveSocial = 3
-    } else if(checkConnectTwitter) {
-      isActiveSocial = 4
-    } else if(checkConnectYoutube) {
-      isActiveSocial = 5
-    } else if(checkConnectGoogleMyBusiness) {
-      isActiveSocial = 6
-    } else if(checkConnectTumblr) {
-      isActiveSocial = 7
-    } else if(checkConnectMedium) {
-      isActiveSocial = 8
-    } else {
-      isActiveSocial = 1
-    }
+    labelsConnectedChannels && labelsConnectedChannels.map((name) => {
+      switch(name) {
+        case "facebook":
+          isActiveSocial = 1
+        break;
+        case "instagram":
+          isActiveSocial = 2
+        break;
+        case "linkedin":
+          isActiveSocial = 3
+        break;
+        case "twitter":
+          isActiveSocial = 4
+        break;
+        case "youtube":
+          isActiveSocial = 5
+        break;
+        case "google_my_business":
+          isActiveSocial = 6
+        break;
+        case "tumblr":
+          isActiveSocial = 7
+        break;
+        case "medium":
+          isActiveSocial = 8
+        break;
+      }
 
-    if(checkConnectWordpress) {
-      isActiveCms = 2
-    } else if(checkConnectDrupal) {
-      isActiveCms = 3
-    } else {
-      isActiveSocial = 1
-    }
+      switch(name) {
+        case "joomla":
+          isActiveCms = 1
+        break;
+        case "wordpress":
+          isActiveCms = 2
+        break;
+        case "drupal":
+          isActiveCms = 2
+        break;
+      }
+    })
+
+    // if(checkConnectInstagram) {
+    //   isActiveSocial = 2
+    // } else if(checkConnectLinkedin) {
+    //   isActiveSocial = 3
+    // } else if(checkConnectTwitter) {
+    //   isActiveSocial = 4
+    // } else if(checkConnectYoutube) {
+    //   isActiveSocial = 5
+    // } else if(checkConnectGoogleMyBusiness) {
+    //   isActiveSocial = 6
+    // } else if(checkConnectTumblr) {
+    //   isActiveSocial = 7
+    // } else if(checkConnectMedium) {
+    //   isActiveSocial = 8
+    // } else {
+    //   isActiveSocial = 1
+    // }
+
+    // if(checkConnectWordpress) {
+    //   isActiveCms = 2
+    // } else if(checkConnectDrupal) {
+    //   isActiveCms = 3
+    // } else {
+    //   isActiveSocial = 1
+    // }
 
     let { socical, cms, email } = this.state;
     return (

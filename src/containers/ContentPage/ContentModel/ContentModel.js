@@ -37,69 +37,70 @@ class ContentModel {
     this.campaignId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN] ?? '';
     this.personaId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA] ?? '';
     this.themeId = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.THEME] ?? '';
-    // this.channelAttachments = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_ATTACHMENTS] ?? '';
+    this.channelAttachments = data.data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNELS] ?? '';
     this.channels = [];
 
-    // if (this.channelAttachments) {
-    //   this.channelAttachments.getItems().map((element) => {
-    //     let icoImage = null;
-    //     console.log('element.channelName.toLowerCase()');
-    //     console.log(element.channelName.toLowerCase());
-    //     switch (element.channelName.toLowerCase()) {
-    //       case 'facebook':
-    //         icoImage = '/assets/images/facebook.png';
-    //         break;
-    //       case 'fbad':
-    //         icoImage = '/assets/images/fbad.png';
-    //         break;
-    //       case 'youtube':
-    //         icoImage = '/assets/images/youtube.png';
-    //         break;
-    //       case 'twitter':
-    //         icoImage = '/assets/images/twitter.png';
-    //         break;
-    //       case 'linkedin':
-    //         icoImage = '/assets/images/linkedin.png';
-    //         break;
-    //       case 'mailchimp':
-    //         icoImage = '/assets/images/mailchimp.png';
-    //         break;
-    //       case 'wordpress':
-    //         icoImage = '/assets/images/wordpress.png';
-    //         break;
-    //       case 'instagram':
-    //         icoImage = '/assets/images/instagram.png';
-    //         break;
-    //       case 'joomla':
-    //         icoImage = '/assets/images/joomla.png';
-    //         break;
-    //       case 'medium':
-    //         icoImage = '/assets/images/medium.png';
-    //         break;
-    //       case 'tumblr':
-    //         icoImage = '/assets/images/tumblr.png';
-    //         break;
-    //       case 'google_ads':
-    //         icoImage = '/assets/images/google_ads.png';
-    //         break;
-    //       case 'google_my_business':
-    //         icoImage = '/assets/images/google_my_business.png';
-    //         break;
-    //       default:
-    //         icoImage = null;
-    //     }
+    if (this.channelAttachments) {
+      let getNameChannel = Object.keys(this.channelAttachments);
 
-    //     this.channels.push({
-    //       id: element.channelId,
-    //       name: element.channelName,
-    //       image: icoImage,
-    //       icon: icoImage,
-    //       checked: true,
-    //     });
-    //   });
-    // }
+      getNameChannel.map((element) => {
+        let icoImage = null;
 
-    // this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(this.channels);
+        switch (element) {
+          case 'facebook':
+            icoImage = '/assets/images/facebook.png';
+            break;
+          case 'fbad':
+            icoImage = '/assets/images/fbad.png';
+            break;
+          case 'youtube':
+            icoImage = '/assets/images/youtube.png';
+            break;
+          case 'twitter':
+            icoImage = '/assets/images/twitter.png';
+            break;
+          case 'linkedin':
+            icoImage = '/assets/images/linkedin.png';
+            break;
+          case 'mailchimp':
+            icoImage = '/assets/images/mailchimp.png';
+            break;
+          case 'wordpress':
+            icoImage = '/assets/images/wordpress.png';
+            break;
+          case 'instagram':
+            icoImage = '/assets/images/instagram.png';
+            break;
+          case 'joomla':
+            icoImage = '/assets/images/joomla.png';
+            break;
+          case 'medium':
+            icoImage = '/assets/images/medium.png';
+            break;
+          case 'tumblr':
+            icoImage = '/assets/images/tumblr.png';
+            break;
+          case 'google_ads':
+            icoImage = '/assets/images/google_ads.png';
+            break;
+          case 'google_my_business':
+            icoImage = '/assets/images/google_my_business.png';
+            break;
+          default:
+            icoImage = null;
+        }
+
+        this.channels.push({
+          id: element.channelId,
+          name: element,
+          image: icoImage,
+          icon: icoImage,
+          checked: true,
+        });
+      })
+    }
+
+    this.channelsModel = ChannelUtils.transformChannelResponseIntoModel(this.channels);
   }
 
   getId = () => {
@@ -130,14 +131,14 @@ class ContentModel {
   //   };
   // };
 
-  // getChannels = () => {
-  //   return {
-  //     value: this.channelsModel,
-  //     type: FIELD_TYPE.TEXT,
-  //     columnName: CONTENT_FIELD_KEY.CHANNELS,
-  //     columnText: 'Channels',
-  //   };
-  // };
+  getChannels = () => {
+    return {
+      value: this.channelsModel,
+      type: FIELD_TYPE.TEXT,
+      columnName: CONTENT_FIELD_KEY.CHANNELS,
+      columnText: 'Channels',
+    };
+  };
 
   getCampaign = () => {
     if (this.campaignId) {
@@ -194,14 +195,14 @@ class ContentModel {
     console.log('===============34');
     // const description = this.getDescription();
     const status = this.getStatus();
-    // const channels = this.getChannels();
+    const channels = this.getChannels();
 
     return {
       [id.columnName]: id.value,
       [name.columnName]: name.value,
       // [description.columnName]: description.value,
       [status.columnName]: status.value,
-      // [channels.columnName]: channels.value,
+      [channels.columnName]: channels.value,
     };
   };
 
