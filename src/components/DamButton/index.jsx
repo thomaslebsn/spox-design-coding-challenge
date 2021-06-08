@@ -1,7 +1,7 @@
 import React, { Component, lazy } from 'react';
 
 import Iframe from 'react-iframe';
-import { AUTHORIZATION_KEY, AXIOS_CONFIGS } from 'easii-io-web-service-library';
+import { AUTHORIZATION_KEY, AXIOS_CONFIGS, GENERAL_CONFIG } from 'easii-io-web-service-library';
 import { io } from 'socket.io-client';
 import './index.scss';
 
@@ -10,7 +10,7 @@ import { faImage } from '@fortawesome/free-solid-svg-icons/faImage';
 
 const ModalComponent = lazy(() => import('../../components/Modal'));
 
-const socket = io('https://ws.dev.easii.io');
+const socket = io(GENERAL_CONFIG.WEBSOCKET_ENDPOINT);
 
 class DamButton extends React.Component {
   _isMounted = false;
