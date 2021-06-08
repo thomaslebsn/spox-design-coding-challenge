@@ -280,7 +280,8 @@
   color: #000;
   line-height: 1.1;
   text-align: left;
-  padding-left: 5px
+  padding-left: 5px;
+  width:100%;
 }
 
 .price .yearly {
@@ -484,7 +485,17 @@
 }
 
 .wrapper_table .d-table-cell.value {
-  font-size: 0;
-  color: #16b979;
+  // font-size: 0;
+  font-family: var(--bs-font-sans-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  text-align: center;
+}
+.getstarts {
+  width: 95%;
+  margin: auto;
+}
+.title {
   text-align: center;
 }
