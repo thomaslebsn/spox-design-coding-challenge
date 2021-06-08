@@ -182,8 +182,15 @@ class ComponentConnectaChannel extends Component {
       listLinkedinFanpageConnected,
     } = this.props;
 
-    console.log('listFacebookFanpageConnected1234');
-    console.log(listFacebookFanpageConnected);
+    let converListLinkedinFanpageConnected = '';
+
+    // if(listLinkedinFanpageConnected) {
+    //   if(typeof listLinkedinFanpageConnected  == 'object') {
+    //     converListLinkedinFanpageConnected = Object.values(listLinkedinFanpageConnected)
+    //   } else {
+    //     converListLinkedinFanpageConnected = listLinkedinFanpageConnected
+    //   }
+    // }
 
     return (
       <div className="wrapper_tabs">
@@ -222,6 +229,7 @@ class ComponentConnectaChannel extends Component {
                       </div>
                       <div className={`list_main `}>
                         {listFaceBookFanpageView.map((value, key) => {
+                          console.log('valuevaluevaluefacebook');
                           return (
                             <div
                               key={key}
@@ -240,7 +248,7 @@ class ComponentConnectaChannel extends Component {
                                     this.props.handleConnectedFanpage('facebook', value.id);
                                   }}
                                 >
-                                  <span className="ms-2">
+                                  <span>
                                     {listFacebookFanpageConnected &&
                                     listFacebookFanpageConnected.indexOf(value.id) > -1
                                       ? 'Disconnect'
@@ -282,8 +290,7 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/youtube.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Youtube</span>
                   </div>
-
-                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
+                  {/* {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
                     <ButtonConnectGoogle
                       scope="https://www.googleapis.com/auth/youtube.upload"
                       clientId="854265047007-t7a1g164i7qga65751b0c2fronquf77u.apps.googleusercontent.com"
@@ -293,6 +300,19 @@ class ComponentConnectaChannel extends Component {
                       buttonText={youtubeConnected ? 'Connected' : 'Connect'}
                       className="cursor-pointer btn btn-success"
                     />
+                  ) : (
+                    <ButtonUpgrade />
+                  )} */}
+
+                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
+                    <button
+                      className="cursor-pointer btn btn-success"
+                      onClick={(e) => {
+                        this.handleConnectChannel('youtube', !youtubeConnected);
+                      }}
+                    >
+                      <span className="ms-2">{youtubeConnected ? 'Disconnect' : 'Connect'}</span>
+                    </button>
                   ) : (
                     <ButtonUpgrade />
                   )}
@@ -374,6 +394,8 @@ class ComponentConnectaChannel extends Component {
                       </div>
                       <div className={`list_main `}>
                         {Object.values(listLinkedinFanpageView).map((value, key) => {
+                          console.log('valuevaluevaluelinkedin');
+                          console.log(value.id);
                           return (
                             <div
                               key={key}
@@ -389,12 +411,12 @@ class ComponentConnectaChannel extends Component {
                                   type="button"
                                   className="cursor-pointer btn btn-success ct_btn_connect"
                                   onClick={(e) => {
-                                    //this.props.handleConnectedFanpage('linkedin', value.id);
+                                    this.props.handleConnectedFanpage('linkedin', value.id.toString());
                                   }}
                                 >
-                                  <span className="ms-2">
+                                  <span>
                                     {listLinkedinFanpageConnected &&
-                                    listLinkedinFanpageConnected.indexOf(value.id) > -1
+                                    listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
                                   </span>

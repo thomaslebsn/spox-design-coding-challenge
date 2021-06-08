@@ -210,6 +210,10 @@ class ChannelsListViewModel {
   };
 
   disconnectAFanpagePage = (channelUniqueName, pageId) => {
+    console.log('channelUniqueName, pageId disconnect');
+    console.log(channelUniqueName);
+    console.log(pageId);
+
     this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
     this.channelsStore.disconnectAFanpage(
       this.callbackOnDisconnectAFanpageSuccess,
@@ -220,6 +224,10 @@ class ChannelsListViewModel {
   };
 
   connectAFanpagePage = (channelUniqueName, pageId) => {
+    console.log('channelUniqueName, pageId connect');
+    console.log(channelUniqueName);
+    console.log(pageId);
+
     this.ConnectStatusFanpage = PAGE_STATUS.LOADING;
     this.channelsStore.connectAFanpage(
       this.callbackOnConnectAFanpageSuccess,
@@ -233,10 +241,22 @@ class ChannelsListViewModel {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.ConnectStatusFanpage = PAGE_STATUS.READY;
-      const index = this.listFacebookFanpageConnected.indexOf(pageId);
-      if (index > -1) {
-        this.listFacebookFanpageConnected.splice(index, 1);
+    
+      switch (channelUniqueName) {
+        case 'facebook':
+          const index = this.listFacebookFanpageConnected.indexOf(pageId);
+          if (index > -1) {
+            this.listFacebookFanpageConnected.splice(index, 1);
+          }
+          break;
+        case 'linkedin':
+          const indexLinkedin = this.listLinkedinFanpageConnected.indexOf(pageId);
+          if (indexLinkedin > -1) {
+            this.listLinkedinFanpageConnected.splice(indexLinkedin, 1);
+          }
+          break;
       }
+      
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
@@ -246,10 +266,21 @@ class ChannelsListViewModel {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.ConnectStatusFanpage = PAGE_STATUS.READY;
-      this.listFacebookFanpageConnected.push(pageId);
+
+      switch (channelUniqueName) {
+        case 'facebook':
+          this.listFacebookFanpageConnected.push(pageId);
+          break;
+        case 'linkedin':
+          this.listLinkedinFanpageConnected.push(pageId);
+          break;
+      }
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
+
+    console.log('this.listLinkedinFanpageConnectedcallback');
+    console.log(this.listLinkedinFanpageConnected);
   };
 
   callbackOnSuccessChannel = (response, channelUniqueName, pageId) => {
@@ -320,8 +351,12 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
 
                       let listFanpage = responseResult.pages.pages;
-                      this.listLinkedinFanpageConnected = responseResult.pages.connected;
                       this.listLinkedinFanpageView = listFanpage;
+
+                      this.listLinkedinFanpageConnected = responseResult.pages.connected;
+
+                      console.log('responseResultlinkedin8888');
+                      console.log(responseResult.pages.connected);
                     }
                     break;
 
@@ -420,6 +455,10 @@ class ChannelsListViewModel {
     return this.listFacebookFanpageConnected;
   }
 
+  checkConnectedLinkedFanpage() {
+    return this.listLinkedinFanpageConnected;
+  }
+
   checkConnectedChannels(channels) {
     channels.map((channelType) => {
       console.log('----------------', channelType);
@@ -444,6 +483,10 @@ class ChannelsListViewModel {
                   this.listFaceBookFanpageView = listFanpage;
 
                   this.listFacebookFanpageConnected = responseResult.pages.connected;
+
+                  console.log('234234responseResult55555');
+                  console.log(responseResult.pages.connected);
+                  console.log(listFanpage);
                 }
                 break;
               case 'fbad':
@@ -492,8 +535,12 @@ class ChannelsListViewModel {
                   this.countSocialMediaConnected++;
 
                   let listFanpage = responseResult.pages.pages;
-                  this.listLinkedinFanpageConnected = responseResult.pages.connected;
                   this.listLinkedinFanpageView = listFanpage;
+
+                  this.listLinkedinFanpageConnected = responseResult.pages.connected;
+
+                  console.log('234234responseResult77777');
+                  console.log(responseResult.pages.connected)
                 }
                 break;
 

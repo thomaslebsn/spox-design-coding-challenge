@@ -27,7 +27,10 @@ export default class ChannelsStore {
 
     switch (channelUniqueName) {
       case 'facebook':
-        response = await channelService.connectFanpage(pageId);
+        response = await channelService.connectFanpage(channelUniqueName, pageId);
+        break;
+      case 'linkedin':
+        response = await channelService.connectFanpage(channelUniqueName, pageId);
         break;
       default:
         break;
@@ -57,7 +60,10 @@ export default class ChannelsStore {
 
     switch (channelUniqueName) {
       case 'facebook':
-        response = await channelService.disconnectFanpage(pageId);
+        response = await channelService.disconnectFanpage(channelUniqueName, pageId);
+        break;
+      case 'linkedin':
+        response = await channelService.disconnectFanpage(channelUniqueName, pageId);
         break;
       default:
         break;

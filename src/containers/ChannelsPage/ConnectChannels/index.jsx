@@ -122,10 +122,29 @@ const ConnectChannels = observer(
     };
 
     handleConnectedFanpage = (channelType, id) => {
-      if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
-        this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
-      } else {
-        this.channelsListViewModel.connectAFanpagePage(channelType, id);
+      switch (channelType) {
+        case 'facebook':
+          if (this.channelsListViewModel.listFacebookFanpageConnected.indexOf(id) > -1) {
+            this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
+          } else {
+            this.channelsListViewModel.connectAFanpagePage(channelType, id);
+          }
+          break;
+        case 'linkedin':
+          // if(this.channelsListViewModel.listLinkedinFanpageConnected) {
+          //   if(typeof this.channelsListViewModel.listLinkedinFanpageConnected  == 'object') {
+          //     this.channelsListViewModel.listLinkedinFanpageConnected = Object.values(this.channelsListViewModel.listLinkedinFanpageConnected)
+          //   } else {
+          //     this.channelsListViewModel.listLinkedinFanpageConnected = this.channelsListViewModel.listLinkedinFanpageConnected
+          //   }
+          // }
+
+          if (this.channelsListViewModel.listLinkedinFanpageConnected.indexOf(id) > -1) {
+            this.channelsListViewModel.disconnectAFanpagePage(channelType, id);
+          } else {
+            this.channelsListViewModel.connectAFanpagePage(channelType, id);
+          }
+          break;
       }
     };
 
@@ -231,6 +250,9 @@ const ConnectChannels = observer(
         listLinkedinFanpageView,
         listLinkedinFanpageConnected
       } = this.channelsListViewModel;
+
+      console.log('listLinkedinFanpageConnectedobsevable');
+      console.log(listLinkedinFanpageConnected);
 
       return (
         <div className="py-4 px-3">

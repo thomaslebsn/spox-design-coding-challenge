@@ -7,7 +7,8 @@ const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
 const VerifyEmailPage = lazy(() => import("../pages/VerifyEmailPage"));
 
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
-const CalendarPage = lazy(() => import("../pages/CalendarPage"));
+
+const CalendarPage = lazy(() => import("../containers/CalendarPage"));
 
 const HomePage = lazy(() => import("../containers/Homepage"));
 const Projects = lazy(() => import("../containers/ProjectsPage"));

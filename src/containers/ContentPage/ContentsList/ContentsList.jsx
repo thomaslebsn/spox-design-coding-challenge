@@ -110,15 +110,20 @@ const ContentsList = observer(
           ),
         },
 
-        {
-          Header: "Description",
-          accessor: CONTENT_FIELD_KEY.DESCRIPTION,
-        },
+        // {
+        //   Header: "Description",
+        //   accessor: CONTENT_FIELD_KEY.DESCRIPTION,
+        // },
         {
           Header: "Channels",
           accessor: CONTENT_FIELD_KEY.CHANNELS,
-          Cell: ({ value }) => (
+          Cell: ({ row, value }) => (
             <div className="d-flex">
+              {
+                console.log('console.logconsole.logListcontent'),
+                console.log(value),
+                console.log(row)
+              }
               {value.map((item) => (
                 <div className="position-relative me-2">
                   <Image

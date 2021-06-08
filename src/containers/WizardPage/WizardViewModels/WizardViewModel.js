@@ -18,10 +18,15 @@ class WizardViewModel {
   constructor(channelsStore, contentStore) {
     if (channelsStore) {
       console.log("WizardViewModel - Abstract");
+      console.log(channelsStore);
+      console.log(contentStore);
       // this.projectListViewModel = new ProjectsListViewModel(projectStore);
       // this.projectFormViewModel = new ProjectFormModalViewModel(projectStore);
 
       this.channelsListViewModel = new ChannelsListViewModel(channelsStore);
+
+      console.log("this.channelsListViewModel - Abstract");
+      console.log(this.channelsListViewModel);
 
       this.contentFormViewModel = new ContentFormViewModel(contentStore);
 
