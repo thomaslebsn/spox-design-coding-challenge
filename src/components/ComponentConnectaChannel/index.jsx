@@ -411,7 +411,10 @@ class ComponentConnectaChannel extends Component {
                                   type="button"
                                   className="cursor-pointer btn btn-success ct_btn_connect"
                                   onClick={(e) => {
-                                    this.props.handleConnectedFanpage('linkedin', value.id.toString());
+                                    this.props.handleConnectedFanpage(
+                                      'linkedin',
+                                      value.id.toString()
+                                    );
                                   }}
                                 >
                                   <span>
@@ -576,7 +579,7 @@ class ComponentConnectaChannel extends Component {
                   this.isAllowedConnectChannel(CHANNEL_CMS_WORDPRESS, 'cms') ? (
                     <ButtonConnect
                       onClick={(e) => {
-                        this.props.handleModalCms(CHANNEL_CMS_WORDPRESS);
+                        this.props.handleModalCms(CHANNEL_CMS_WORDPRESS, !wordpressConnected);
                       }}
                       isDisabled={wordpressConnected}
                       isConnected={wordpressConnected}
@@ -597,9 +600,8 @@ class ComponentConnectaChannel extends Component {
                   {drupalConnected || this.isAllowedConnectChannel(CHANNEL_CMS_DRUPAL, 'cms') ? (
                     <ButtonConnect
                       onClick={(e) => {
-                        this.props.handleModalCms(CHANNEL_CMS_DRUPAL);
+                        this.props.handleModalCms(CHANNEL_CMS_DRUPAL, !drupalConnected);
                       }}
-                      isDisabled={drupalConnected}
                       isConnected={drupalConnected}
                     />
                   ) : (
@@ -616,9 +618,8 @@ class ComponentConnectaChannel extends Component {
                   {joomlaConnected || this.isAllowedConnectChannel(CHANNEL_CMS_JOOMLA, 'cms') ? (
                     <ButtonConnect
                       onClick={(e) => {
-                        this.props.handleModalCms(CHANNEL_CMS_JOOMLA);
+                        this.props.handleModalCms(CHANNEL_CMS_JOOMLA, !joomlaConnected);
                       }}
-                      isDisabled={joomlaConnected}
                       isConnected={joomlaConnected}
                     />
                   ) : (

@@ -241,7 +241,7 @@ class ChannelsListViewModel {
     if (response) {
       this.tableStatus = PAGE_STATUS.READY;
       this.ConnectStatusFanpage = PAGE_STATUS.READY;
-    
+
       switch (channelUniqueName) {
         case 'facebook':
           const index = this.listFacebookFanpageConnected.indexOf(pageId);
@@ -256,7 +256,6 @@ class ChannelsListViewModel {
           }
           break;
       }
-      
     } else {
       this.tableStatus = PAGE_STATUS.ERROR;
     }
@@ -339,6 +338,13 @@ class ChannelsListViewModel {
                   case 'twitter':
                     if (responseResult.connected == 1) {
                       this.twitterConnected = true;
+                      this.countSocialMediaConnected++;
+                      clearInterval(checkConnectionStatusInterval);
+                    }
+                    break;
+                  case 'youtube':
+                    if (responseResult.connected == 1) {
+                      this.youtubeConnected = true;
                       this.countSocialMediaConnected++;
                       clearInterval(checkConnectionStatusInterval);
                     }
@@ -540,7 +546,7 @@ class ChannelsListViewModel {
                   this.listLinkedinFanpageConnected = responseResult.pages.connected;
 
                   console.log('234234responseResult77777');
-                  console.log(responseResult.pages.connected)
+                  console.log(responseResult.pages.connected);
                 }
                 break;
 
