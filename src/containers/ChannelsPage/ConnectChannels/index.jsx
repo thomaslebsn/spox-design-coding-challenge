@@ -116,9 +116,13 @@ const ConnectChannels = observer(
     //   });
     // };
 
-    handleModalCms = (type) => {
-      this.loginCMSChannelFormModalViewModel.setChannelType(type);
-      this.loginCMSChannelFormModalViewModel.openModal();
+    handleModalCms = (type, isConnected = true) => {
+      if (isConnected) {
+        this.loginCMSChannelFormModalViewModel.setChannelType(type);
+        this.loginCMSChannelFormModalViewModel.openModal();
+      } else {
+        this.channelsListViewModel.disConnectChannel(type);
+      }
     };
 
     handleConnectedFanpage = (channelType, id) => {
@@ -248,7 +252,7 @@ const ConnectChannels = observer(
         ConnectStatusFanpage,
         googleMyBusinessConnected,
         listLinkedinFanpageView,
-        listLinkedinFanpageConnected
+        listLinkedinFanpageConnected,
       } = this.channelsListViewModel;
 
       console.log('listLinkedinFanpageConnectedobsevable');
