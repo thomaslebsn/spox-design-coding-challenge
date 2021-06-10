@@ -95,6 +95,9 @@ class ContentConnectedChannelItemModel extends BaseItemModel {
       case 'google_my_business':
         icoImage = '/assets/images/google_my_business.png';
         break;
+      case 'drupal':
+        icoImage = '/assets/images/drupal.png';
+          break;
       default:
         icoImage = null;
     }
