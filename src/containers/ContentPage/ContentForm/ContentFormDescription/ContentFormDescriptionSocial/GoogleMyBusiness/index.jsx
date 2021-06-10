@@ -12,6 +12,7 @@ class GoogleMyBusinessSocial extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
+    this.handleDamAssets = this.handleDamAssets.bind(this);
   }
 
   handleChange(event) {
@@ -25,6 +26,11 @@ class GoogleMyBusinessSocial extends Component {
       designId: designId,
     };
     this.props.changed(exportUrl, designId);
+  }
+
+  handleDamAssets(data) {
+    this.field.dataContentDescriptionSocial.list_channels.social.google_my_business.assets.damAssets = data;
+    this.props.changed(data);
   }
 
   render() {
@@ -49,7 +55,10 @@ class GoogleMyBusinessSocial extends Component {
             data={this.field.dataContentDescriptionSocial.list_channels.social.google_my_business.assets.canvaAssets}
             changed={this.handleCanva}
           />
-          <DamButton />
+          <DamButton 
+            data={this.field.dataContentDescriptionSocial.list_channels.social.google_my_business.assets.damAssets}
+            changed={this.handleDamAssets}
+          />
         </div>
       </>
     );

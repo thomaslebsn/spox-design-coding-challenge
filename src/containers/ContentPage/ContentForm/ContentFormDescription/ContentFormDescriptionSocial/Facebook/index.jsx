@@ -12,6 +12,7 @@ class FacebookSocial extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
+    this.handleDamAssets = this.handleDamAssets.bind(this);
   }
 
   handleChange(event) {
@@ -25,6 +26,11 @@ class FacebookSocial extends Component {
       designId: designId,
     };
     this.props.changed(exportUrl, designId);
+  }
+
+  handleDamAssets(data) {
+    this.field.dataContentDescriptionSocial.list_channels.social.facebook.assets.damAssets = data;
+    this.props.changed(data);
   }
 
   render() {
@@ -49,7 +55,10 @@ class FacebookSocial extends Component {
             data={this.field.dataContentDescriptionSocial.list_channels.social.facebook.assets.canvaAssets}
             changed={this.handleCanva}
           />
-          <DamButton />
+          <DamButton 
+            data={this.field.dataContentDescriptionSocial.list_channels.social.facebook.assets.damAssets}
+            changed={this.handleDamAssets}
+          />
         </div>
       </>
     );

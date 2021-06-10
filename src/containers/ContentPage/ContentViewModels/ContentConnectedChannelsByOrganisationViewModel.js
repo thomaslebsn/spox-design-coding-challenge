@@ -33,7 +33,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -45,7 +45,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -57,7 +57,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -69,7 +69,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -81,7 +81,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -93,7 +93,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -105,7 +105,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -117,7 +117,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -129,7 +129,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -141,7 +141,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -153,7 +153,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -165,7 +165,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+          damAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -184,7 +184,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -196,7 +196,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -208,7 +208,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -220,7 +220,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -232,7 +232,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -244,7 +244,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -256,7 +256,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -268,7 +268,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -282,7 +282,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -294,7 +294,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -306,7 +306,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
@@ -320,7 +320,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: ["https://api.dev.easii.io/dam/139ebfdc3a2a490b689a0607d593a967.jpg"]
+            damAssets: []
           },
           selectedPage: [],
           publishedPlan: {
