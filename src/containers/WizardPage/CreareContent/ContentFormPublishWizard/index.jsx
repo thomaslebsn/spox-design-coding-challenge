@@ -77,6 +77,14 @@ const ContentFormPublishWizard = observer(
 
     }
 
+    handleDeselectAllSocial = () => {
+      this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial = true;
+    };
+
+    handleSelectAllSocial = () => {
+      this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial = false;
+    }
+
     render() {
       console.log("[ContentFormPublishWizard] - re-render .........");
       console.log(this.contentFormViewModel);
@@ -95,6 +103,15 @@ const ContentFormPublishWizard = observer(
           arrayConnectedChannelsFinal={
             this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal
           }
+
+          listFaceBookFanpageView={this.channelsListViewModel ? this.channelsListViewModel.listFaceBookFanpageView : null}
+          listFacebookFanpageConnected={this.channelsListViewModel ? this.channelsListViewModel.listFacebookFanpageConnected : null}
+          listLinkedinFanpageConnected={this.channelsListViewModel ? this.channelsListViewModel.listLinkedinFanpageConnected : null}
+          handleDeselectAllSocial={this.handleDeselectAllSocial}
+          handleSelectAllSocial={this.handleSelectAllSocial}
+          isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
+          contentConnectedChannelsByOrganisationViewModel={this.contentConnectedChannelsByOrganisationViewModel}
+          isDeselectAllSocial={this.contentConnectedChannelsByOrganisationViewModel ? this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial : null}
         />
       );
     }

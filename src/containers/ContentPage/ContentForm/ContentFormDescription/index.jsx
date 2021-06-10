@@ -345,7 +345,7 @@ class ContentFormDescription extends Component {
                   <Accordion.Toggle
                     as={Button}
                     className="w-100 text-start d-flex justify-content-between align-items-center bg-blue-3 border-0 text-blue-0 wr_header_toogle_social"
-                    eventKey="0"
+                    eventKey="1"
                     onClick={() => this.setState({ email: !this.state.email })}
                   >
                     <span>Email Marketing</span>
