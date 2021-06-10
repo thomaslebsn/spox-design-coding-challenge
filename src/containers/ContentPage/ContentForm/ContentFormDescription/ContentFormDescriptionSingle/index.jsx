@@ -14,6 +14,7 @@ class ContentFormDescriptionSingle extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
     this.handleVideo = this.handleVideo.bind(this);
+    this.handleDamAssets = this.handleDamAssets.bind(this);
   }
 
   handleChange(event) {
@@ -30,6 +31,13 @@ class ContentFormDescriptionSingle extends Component {
 
     dataContentDescriptionSingleArray.map((value) => value.assets.canvaAssets = { exportUrl: exportUrl, designId: designId })
     this.props.changed(exportUrl, designId);
+  }
+
+  handleDamAssets(data) {
+    let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
+
+    dataContentDescriptionSingleArray.map((value) => value.assets.damAssets = data)
+    this.props.changed(data);
   }
 
   handleVideo(event) {
@@ -63,7 +71,10 @@ class ContentFormDescriptionSingle extends Component {
               data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.canvaAssets}
               changed={this.handleCanva}
             />
-            <DamButton />
+            <DamButton 
+              data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.damAssets}
+              changed={this.handleDamAssets}
+            />
           </div>
           {
             checkConnectYoutube && (

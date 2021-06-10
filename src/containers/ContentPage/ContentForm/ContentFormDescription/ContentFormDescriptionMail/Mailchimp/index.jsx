@@ -12,6 +12,7 @@ class MailchimpSocial extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
+    this.handleDamAssets = this.handleDamAssets.bind(this);
   }
 
   handleChange(event) {
@@ -25,6 +26,11 @@ class MailchimpSocial extends Component {
       designId: designId,
     };
     this.props.changed(exportUrl, designId);
+  }
+
+  handleDamAssets(data) {
+    this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.assets.damAssets = data;
+    this.props.changed(data);
   }
 
   render() {
@@ -49,7 +55,10 @@ class MailchimpSocial extends Component {
             data={this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.assets.canvaAssets}
             changed={this.handleCanva}
           />
-          <DamButton />
+          <DamButton 
+            data={this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.assets.damAssets}
+            changed={this.handleDamAssets}
+          />
         </div>
       </>
     );

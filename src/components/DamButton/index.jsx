@@ -19,6 +19,7 @@ class DamButton extends React.Component {
     this.socket = socket;
     this.state = {
       showModal: false,
+      exportUrlDam: this.props.data,
     };
   }
 
@@ -30,6 +31,22 @@ class DamButton extends React.Component {
     this.setState({
       showModal: true,
     });
+
+    const _this = this;
+    // this._isMounted = true;
+
+    this.socket.on('response assets', (roomId, data) => {
+      console.log('datadatadatadataDamAssets')
+      console.log(data)
+      this.setState(
+        { exportUrlDam: data }, 
+        _this.props.changed(data)
+      )
+
+      if (data) {
+        this.closeModal();
+      }
+    });
   };
 
   closeModal = (s) => {
@@ -39,17 +56,9 @@ class DamButton extends React.Component {
   };
 
   componentDidMount = () => {
-    this._isMounted = true;
-
-    this.socket.on('response assets', (roomId, data) => {
-      if (this._isMounted) {
-        this.closeModal();
-      }
-    });
   };
 
   componentWillUnmount = () => {
-    this._isMounted = false;
   };
 
   render() {
@@ -57,18 +66,40 @@ class DamButton extends React.Component {
       AXIOS_CONFIGS.BASE_ENDPOINT_URL +
       '/administrator/index.php?option=com_aesir_dam&view=easii_dam&token=' +
       localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER);
+
+    let { exportUrlDam } = this.state;
+
+    console.log('exportUrlDamexportUrlDam');
+    console.log(exportUrlDam);
     return (
       <>
-        <button
-          className="wr_btn_dam border-0 ms-2 bg-blue-2 rounded-2 px-3"
-          onClick={this.handleClick}
-          type="button"
-        >
-          <i className="text-white">
-            <FontAwesomeIcon icon={faImage} />
-          </i>
-          <span className="text-white ms-2">Digital Asset Management</span>
-        </button>
+        <div className={`${exportUrlDam ? 'w-50' : ''}`}>
+          <button
+            className="wr_btn_dam border-0 ms-2 bg-blue-2 rounded-2 px-3"
+            onClick={this.handleClick}
+            type="button"
+          >
+            <i className="text-white">
+              <FontAwesomeIcon icon={faImage} />
+            </i>
+            <span className="text-white ms-2">Digital Asset Management</span>
+          </button>
+          {exportUrlDam && (
+            <>
+              {
+                exportUrlDam.map((value) => {
+                  return (
+                    <div className={`d-flex justify-content-start border-top mt-4`}>
+                      <div key={value.id} className="position-relative w-50 m-2">
+                        <img className={`img-thumbnail rounded imgTab`} alt={value.url} src={value.url} />
+                      </div>
+                    </div>
+                  )
+                })
+              }
+            </>
+          )}
+        </div>
         <ModalComponent
           header={'Digital Assets'}
           body={

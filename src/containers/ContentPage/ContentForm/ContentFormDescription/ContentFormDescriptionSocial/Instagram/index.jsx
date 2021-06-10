@@ -12,6 +12,7 @@ class InstagramSocial extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
+    this.handleDamAssets = this.handleDamAssets.bind(this);
   }
 
   handleChange(event) {
@@ -25,6 +26,11 @@ class InstagramSocial extends Component {
       designId: designId,
     };
     this.props.changed(exportUrl, designId);
+  }
+
+  handleDamAssets(data) {
+    this.field.dataContentDescriptionSocial.list_channels.social.instagram.assets.damAssets = data;
+    this.props.changed(data);
   }
 
   render() {
@@ -49,7 +55,10 @@ class InstagramSocial extends Component {
             data={this.field.dataContentDescriptionSocial.list_channels.social.instagram.assets.canvaAssets}
             changed={this.handleCanva}
           />
-          <DamButton />
+          <DamButton 
+            data={this.field.dataContentDescriptionSocial.list_channels.social.instagram.assets.damAssets}
+            changed={this.handleDamAssets}
+          />
         </div>
       </>
     );

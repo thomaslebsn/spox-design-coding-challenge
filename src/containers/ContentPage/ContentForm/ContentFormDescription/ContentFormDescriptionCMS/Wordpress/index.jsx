@@ -12,6 +12,7 @@ class WordpressSocial extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
+    this.handleDamAssets = this.handleDamAssets.bind(this);
   }
 
   handleChange(event) {
@@ -25,6 +26,11 @@ class WordpressSocial extends Component {
       designId: designId,
     };
     this.props.changed(exportUrl, designId);
+  }
+
+  handleDamAssets(data) {
+    this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.assets.damAssets = data;
+    this.props.changed(data);
   }
 
   render() {
@@ -49,7 +55,10 @@ class WordpressSocial extends Component {
             data={this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.assets.canvaAssets}
             changed={this.handleCanva}
           />
-          <DamButton />
+          <DamButton 
+            data={this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.assets.damAssets}
+            changed={this.handleDamAssets}
+          />
         </div>
       </>
     );
