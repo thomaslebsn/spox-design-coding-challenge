@@ -257,6 +257,42 @@ textarea {
   }
 }
 
+.main_upload_images {
+  .wr_btn_dam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    z-index: 5;
+    width: 100% !important;
+    height: 100%;
+  }
+
+  .lg_btn_dam_assets {
+    width: 100% !important;
+    .w-50 {
+      width: 100% !important;
+    }
+  }
+
+  .item_dam_assets {
+    border-top: 0 !important;
+    margin-top: 0 !important;
+  }
+}
+
+.wr_upload_images {
+  &.active_img {
+    .wr_icon_upload {
+      opacity: 0 !important;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+}
+
 @include media-breakpoint-down(lg) {
   .w-400 {
     width: 250px;

@@ -73,7 +73,7 @@ class DamButton extends React.Component {
     console.log(exportUrlDam);
     return (
       <>
-        <div className={`${exportUrlDam ? 'w-50' : ''}`}>
+        <div className={`lg_btn_dam_assets ${exportUrlDam ? 'w-50' : ''}`}>
           <button
             className="wr_btn_dam border-0 ms-2 bg-blue-2 rounded-2 px-3"
             onClick={this.handleClick}
@@ -89,7 +89,7 @@ class DamButton extends React.Component {
               {
                 exportUrlDam.map((value) => {
                   return (
-                    <div className={`d-flex justify-content-start border-top mt-4`}>
+                    <div className={`item_dam_assets d-flex justify-content-start border-top mt-4`}>
                       <div key={value.id} className="position-relative w-50 m-2">
                         <img className={`img-thumbnail rounded imgTab`} alt={value.url} src={value.url} />
                       </div>

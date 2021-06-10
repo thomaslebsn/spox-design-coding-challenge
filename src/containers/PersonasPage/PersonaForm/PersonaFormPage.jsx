@@ -52,7 +52,7 @@ const PersonaFormPage = observer(
   class PersonaFormPage extends Component {
     formPropsData = {
       [PERSONA_FIELD_KEY.NAME]: '',
-      [PERSONA_FIELD_KEY.AVATAR]: '',
+      [PERSONA_FIELD_KEY.AVATAR]: [],
     };
 
     validator = null;
@@ -132,6 +132,9 @@ const PersonaFormPage = observer(
 
     handleSave = () => {
       this.personaFormViewModel.savePersona();
+      // if(this.isFormValid()) {
+      //   this.personaFormViewModel.savePersona();
+      // }
     };
 
     getFormPropsData = () => this.formPropsData;

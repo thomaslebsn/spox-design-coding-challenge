@@ -6,6 +6,7 @@ import DamButton from '../components/DamButton';
 import ListConnectedChannel from '../components/ListConnectedChannel';
 import ListConnectedChannelModal from '../components/ListConnectedChannelModal';
 import ButtonNormal from '../components/ButtonNormal';
+import ComponentDamAssets from '../components/ComponentDamAssets';
 
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
 const FormImage = lazy(() => import('../components/Form/FormImage'));
@@ -140,7 +141,8 @@ const renderingGroupFieldHandler = (group, validator) => {
                 <Form.Group key={Math.random(40, 200)} className={`${className}`}>
                   {field.label && <Label text={field.label} required={field.required ?? false} />}
 
-                  <DamButton key={Math.random(40, 200)} field={field} />
+                  <ComponentDamAssets key={Math.random(40, 200)} field={field} formPropsData={field.formPropsData}/>
+
                   {field.validation &&
                     validator.message(field.label, field.value, field.validation, {
                       className: 'text-danger',
