@@ -13,6 +13,9 @@ import { format } from "date-fns";
 
 class PersonaModel {
   constructor(data) {
+    console.log('data input for perosnal model');
+    console.log(data);
+
     this.id = data[ESI_PERSONA_FIELD_KEY.ID] ?? 0;
     this.name = data[ESI_PERSONA_FIELD_KEY.NAME] ?? "";
     this.channels = data[ESI_PERSONA_FIELD_KEY.CHANNEL] ?? "";
@@ -32,7 +35,9 @@ class PersonaModel {
     this.goals = data[ESI_PERSONA_FIELD_KEY.GOALS] ?? "";
     this.marital_status = data[ESI_PERSONA_FIELD_KEY.MARITAL_STATUS] ?? "";
     this.paint_point = data[ESI_PERSONA_FIELD_KEY.PAINT_POINT] ?? "";
-    this.avatar = JSON.parse(data[ESI_PERSONA_FIELD_KEY.AVATAR])[0] ?? "";
+    // this.avatar = JSON.parse(data[ESI_PERSONA_FIELD_KEY.AVATAR])[0] ?? "";
+    this.avatar = data[ESI_PERSONA_FIELD_KEY.AVATAR] ?? "/assets/images/icon-pepsi.png";
+    this.avatar_2 = data[ESI_PERSONA_FIELD_KEY.AVATAR_2] ?? "/assets/images/icon-pepsi.png";
     this.challenges = data[ESI_PERSONA_FIELD_KEY.CHANNELS] ?? "";
     this.bio = data[ESI_PERSONA_FIELD_KEY.BIO] ?? "";
     this.image =
@@ -86,6 +91,15 @@ class PersonaModel {
     return {
       value: this.avatar ?? "",
       type: FIELD_TYPE.AVATAR,
+      columnName: PERSONA_FIELD_KEY.AVATAR,
+      columnText: "Name",
+    };
+  };
+
+  getAvatar2 = () => {
+    return {
+      value: this.avatar_2 ?? "",
+      type: FIELD_TYPE.IMAGE,
       columnName: PERSONA_FIELD_KEY.AVATAR,
       columnText: "Name",
     };
@@ -256,7 +270,8 @@ class PersonaModel {
       name = this.getName(),
       createdDate = this.getCreatedDate(),
       updatedDate = this.getUpdatedDate(),
-      image = this.getImage();
+      image = this.getImage(),
+      avatar_2 = this.getAvatar2();
     //channels = this.getChannels();
 
     return {
@@ -306,6 +321,8 @@ class PersonaModel {
           [ESI_PERSONA_FIELD_KEY.BIO]: personaData[PERSONA_FIELD_KEY.BIO] ?? "",
           [ESI_PERSONA_FIELD_KEY.AVATAR]:
             personaData[PERSONA_FIELD_KEY.AVATAR] ?? "",
+          [ESI_PERSONA_FIELD_KEY.AVATAR_2]:
+            personaData[PERSONA_FIELD_KEY.AVATAR_2] ?? "",
         }
       : null;
     return result;

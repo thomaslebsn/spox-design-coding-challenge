@@ -111,7 +111,10 @@ export default class ProjectStore {
         resultOnSave = await projectAPIService.createProject(
           convertedProjectData
         );
+
         projectId = resultOnSave;
+        console.log("CREATE PROJECT projectId");
+        console.log(projectId);
       } else {
         console.log("UPDATE PROJECT", convertedProjectData);
         convertedProjectData.logo =

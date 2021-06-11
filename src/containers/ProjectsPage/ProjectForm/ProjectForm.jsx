@@ -81,11 +81,12 @@ const ProjectForm = observer(
             {
               label: "Project Logo",
               key: PROJECT_COLUMN_INDICATOR.LOGO,
-              type: FORM_FIELD_TYPE.IMAGE,
+              type: FORM_FIELD_TYPE.DAM,
               value: this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO],
+              formPropsData: this.formPropsData,
               changed: (event) => {
-                this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] =
-                  event.target.value;
+                // this.formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] =
+                //   event.target.value;
               },
             },
             {
