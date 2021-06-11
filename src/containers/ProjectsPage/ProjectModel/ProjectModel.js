@@ -1,43 +1,38 @@
-import { ProjectLeadModel } from "./ProjectLeadModel";
-import { ProjectNameModel } from "./ProjectNameModel";
-import { ProgressModel } from "./ProgressModel";
-import FIELD_TYPE from "../../../constants/FieldType";
-import { FORMAT_DATE } from "../../../constants/FormFieldType";
+import { ProjectLeadModel } from './ProjectLeadModel';
+import { ProjectNameModel } from './ProjectNameModel';
+import { ProgressModel } from './ProgressModel';
+import FIELD_TYPE from '../../../constants/FieldType';
+import { FORMAT_DATE } from '../../../constants/FormFieldType';
 import {
   PROJECT_COLUMN_INDICATOR,
   ESI_PROJECT_COLUMN_INDICATOR,
-} from "../../../constants/ProjectModule";
+} from '../../../constants/ProjectModule';
 
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 class ProjectModel {
   constructor(data) {
-    console.log("-- data input for construct Project Model --", data);
+    console.log('-- data input for construct Project Model --', data);
     console.log('data input for project model');
     console.log(data);
     this.id = data[ESI_PROJECT_COLUMN_INDICATOR.ID] ?? 0;
-    this.name = data[ESI_PROJECT_COLUMN_INDICATOR.NAME] ?? "";
-    this.logoUrl =
-      JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO]).length > 0
-        ? JSON.parse(data[ESI_PROJECT_COLUMN_INDICATOR.LOGO])[0]
-        : "/assets/images/icon-pepsi.png";
-    this.startdate = data[ESI_PROJECT_COLUMN_INDICATOR.START_DATE] ?? "";
-    this.enddate = data[ESI_PROJECT_COLUMN_INDICATOR.END_DATE] ?? "";
-    this.shortDescription =
-      data[ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? "";
+    this.name = data[ESI_PROJECT_COLUMN_INDICATOR.NAME] ?? '';
+    this.logoUrl = data[ESI_PROJECT_COLUMN_INDICATOR.LOGO] ?? '/assets/images/icon-pepsi.png';
+
+    this.startdate = data[ESI_PROJECT_COLUMN_INDICATOR.START_DATE] ?? '';
+    this.enddate = data[ESI_PROJECT_COLUMN_INDICATOR.END_DATE] ?? '';
+    this.shortDescription = data[ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? '';
 
     this.projectName = new ProjectNameModel(this.name, this.logoUrl);
 
-    this.projectLead = data.project_lead
-      ? new ProjectLeadModel(data.project_lead)
-      : null;
+    this.projectLead = data.project_lead ? new ProjectLeadModel(data.project_lead) : null;
 
     this.progress = new ProgressModel(data);
 
-    this.createdate = data.created_date ?? "";
-    this.lastModifiedDate = data.last_modified_date ?? "";
-    this.createdBy = data.create_by ?? "";
-    this.lastModifiedBy = data.last_modified_by ?? "";
+    this.createdate = data.created_date ?? '';
+    this.lastModifiedDate = data.last_modified_date ?? '';
+    this.createdBy = data.create_by ?? '';
+    this.lastModifiedBy = data.last_modified_by ?? '';
   }
 
   getId = () => {
@@ -45,25 +40,25 @@ class ProjectModel {
       value: this.id ?? 0,
       type: FIELD_TYPE.READONLY,
       columnName: PROJECT_COLUMN_INDICATOR.ID,
-      columnText: "ID",
+      columnText: 'ID',
     };
   };
 
   getName = () => {
     return {
-      value: this.name ?? "",
+      value: this.name ?? '',
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.NAME,
-      columnText: "Name",
+      columnText: 'Name',
     };
   };
 
   getLogoUrl = () => {
     return {
-      value: this.logoUrl ?? "",
+      value: this.logoUrl ?? '',
       type: FIELD_TYPE.IMAGE,
       columnName: PROJECT_COLUMN_INDICATOR.LOGO,
-      columnText: "Logo Url",
+      columnText: 'Logo Url',
     };
   };
 
@@ -71,13 +66,11 @@ class ProjectModel {
 
   getStartDate = () => {
     return {
-      value: this.startdate
-        ? format(new Date(this.startdate), FORMAT_DATE)
-        : "",
-      original: this.startdate ?? "",
+      value: this.startdate ? format(new Date(this.startdate), FORMAT_DATE) : '',
+      original: this.startdate ?? '',
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.START_DATE,
-      columnText: "Start Date",
+      columnText: 'Start Date',
     };
   };
 
@@ -85,11 +78,11 @@ class ProjectModel {
 
   getEndDate = () => {
     return {
-      value: this.enddate ? format(new Date(this.enddate), FORMAT_DATE) : "",
-      original: this.enddate ?? "",
+      value: this.enddate ? format(new Date(this.enddate), FORMAT_DATE) : '',
+      original: this.enddate ?? '',
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.END_DATE,
-      columnText: "End Date",
+      columnText: 'End Date',
     };
   };
 
@@ -100,7 +93,7 @@ class ProjectModel {
       value: this.progress ? this.progress.getProgress() : 0,
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.PROGRESS,
-      columnText: "Progress",
+      columnText: 'Progress',
     };
   };
 
@@ -108,10 +101,10 @@ class ProjectModel {
 
   getShortDescription = () => {
     return {
-      value: this.shortDescription ?? "",
+      value: this.shortDescription ?? '',
       type: FIELD_TYPE.RICHTEXT,
       columnName: PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
-      columnText: "Short Description",
+      columnText: 'Short Description',
     };
   };
 
@@ -122,19 +115,17 @@ class ProjectModel {
       value: this.projectLead ? this.projectLead.getName() : null,
       type: FIELD_TYPE.TEXT,
       columnName: PROJECT_COLUMN_INDICATOR.LEAD,
-      columnText: "Lead",
+      columnText: 'Lead',
     };
   };
 
   getCreateDate = () => {
     return {
-      value: this.createdate
-        ? format(new Date(this.createdate), FORMAT_DATE)
-        : "",
-      original: this.createdate ?? "",
+      value: this.createdate ? format(new Date(this.createdate), FORMAT_DATE) : '',
+      original: this.createdate ?? '',
       type: FIELD_TYPE.DATE,
       columnName: PROJECT_COLUMN_INDICATOR.CREATED_DATE,
-      columnText: "Create Date",
+      columnText: 'Create Date',
     };
   };
 
@@ -165,16 +156,12 @@ class ProjectModel {
   static convertSubmittedDataToAPIService(projectData) {
     const result = projectData
       ? {
-          [ESI_PROJECT_COLUMN_INDICATOR.ID]:
-            projectData[PROJECT_COLUMN_INDICATOR.ID],
-          [ESI_PROJECT_COLUMN_INDICATOR.NAME]:
-            projectData[PROJECT_COLUMN_INDICATOR.NAME],
+          [ESI_PROJECT_COLUMN_INDICATOR.ID]: projectData[PROJECT_COLUMN_INDICATOR.ID],
+          [ESI_PROJECT_COLUMN_INDICATOR.NAME]: projectData[PROJECT_COLUMN_INDICATOR.NAME],
           [ESI_PROJECT_COLUMN_INDICATOR.START_DATE]:
             projectData[PROJECT_COLUMN_INDICATOR.START_DATE],
-          [ESI_PROJECT_COLUMN_INDICATOR.END_DATE]:
-            projectData[PROJECT_COLUMN_INDICATOR.END_DATE],
-          [ESI_PROJECT_COLUMN_INDICATOR.LOGO]:
-            projectData[PROJECT_COLUMN_INDICATOR.LOGO],
+          [ESI_PROJECT_COLUMN_INDICATOR.END_DATE]: projectData[PROJECT_COLUMN_INDICATOR.END_DATE],
+          [ESI_PROJECT_COLUMN_INDICATOR.LOGO]: projectData[PROJECT_COLUMN_INDICATOR.LOGO],
           [ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION]:
             projectData[PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION],
           [ESI_PROJECT_COLUMN_INDICATOR.LEAD]: 4,
