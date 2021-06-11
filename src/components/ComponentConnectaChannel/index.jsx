@@ -1,6 +1,9 @@
 import React, { Component, lazy } from 'react';
 import { Tab, Tabs, Spinner } from 'react-bootstrap';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons/faDownload";
+
 import LoginChannelCMSFormModal from '../../containers/ChannelsPage/LoginChannelCMSForm/LoginChannelCMSFormModal';
 import styles from './index.module.scss';
 import './index.scss';
@@ -588,6 +591,18 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
+                <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
+                  <a 
+                    href="https://wordpress.org/latest.zip" 
+                    download
+                    className="py-1 px-3 bg-green d-flex"
+                  >
+                    <i className="text-white">
+                      <FontAwesomeIcon icon={faDownload} />
+                    </i>
+                    <span className="text-white ps-2">Download Wordpress</span>
+                  </a>
+                </div>
               </div>
             </div>
             <div className="mt-4">
@@ -608,6 +623,18 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
+                <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
+                  <a 
+                    href="https://www.drupal.org/download-latest/zip" 
+                    download
+                    className="py-1 px-3 bg-green d-flex"
+                  >
+                    <i className="text-white">
+                      <FontAwesomeIcon icon={faDownload} />
+                    </i>
+                    <span className="text-white ps-2">Download Drupal</span>
+                  </a>
+                </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -625,6 +652,18 @@ class ComponentConnectaChannel extends Component {
                   ) : (
                     <ButtonUpgrade />
                   )}
+                </div>
+                <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
+                  <a 
+                    href="https://downloads.joomla.org/cms/joomla3/3-9-27/Joomla_3-9-27-Stable-Full_Package.zip?format=zip" 
+                    download
+                    className="py-1 px-3 bg-green d-flex"
+                  >
+                    <i className="text-white">
+                      <FontAwesomeIcon icon={faDownload} />
+                    </i>
+                    <span className="text-white ps-2">Download Joomla</span>
+                  </a>
                 </div>
               </div>
             </div>
