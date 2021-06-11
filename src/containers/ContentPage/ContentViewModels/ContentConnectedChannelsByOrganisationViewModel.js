@@ -81,7 +81,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
         description: "",
         assets: {
           canvaAssets: [],
-          damAssets: []
+          damAssets: [],
+          videoAssets: []
         },
         selectedPage: [],
         publishedPlan: {
@@ -220,7 +221,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
           description: "",
           assets: {
             canvaAssets: [],
-            damAssets: []
+            damAssets: [],
+            videoAssets: []
           },
           selectedPage: [],
           publishedPlan: {

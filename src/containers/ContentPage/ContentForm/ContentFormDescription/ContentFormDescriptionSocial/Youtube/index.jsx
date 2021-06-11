@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap';
 
 const CanvaButton = lazy(() => import('../../../../../../components/CanvaButton'));
 const DamButton = lazy(() => import('../../../../../../components/DamButton'));
+const VideoButton = lazy(() => import('../../../../../../components/VideoButton'));
 
 class YoutubeSocial extends Component {
   constructor(props) {
@@ -10,9 +11,14 @@ class YoutubeSocial extends Component {
 
     this.field = this.props.field;
 
+    this.state = {
+      getUrlVideo: ""
+    }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
     this.handleDamAssets = this.handleDamAssets.bind(this);
+    this.handleVideo = this.handleVideo.bind(this);
   }
 
   handleChange(event) {
@@ -33,8 +39,18 @@ class YoutubeSocial extends Component {
     this.props.changed(data);
   }
 
+  handleVideo(event) {
+    this.setState({
+      getUrlVideo: event.target.files[0].name
+    })
+
+    this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.videoAssets.push(event.target.files[0].name);
+    this.props.changed(event.target.files[0].name);
+  }
+
   render() {
     console.log('[Social] render...');
+    let { getUrlVideo } = this.state;
 
     return (
       <>
@@ -59,6 +75,9 @@ class YoutubeSocial extends Component {
             data={this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.damAssets}
             changed={this.handleDamAssets}
           />
+        </div>
+        <div className="mt-2">
+          <VideoButton exportUrlVideo={getUrlVideo} handleVideo={this.handleVideo}/>
         </div>
       </>
     );
