@@ -91,6 +91,7 @@ const PersonaFormPage = observer(
       this.formPropsData[PERSONA_FIELD_KEY.ID] = data.id ?? 0;
       this.formPropsData[PERSONA_FIELD_KEY.NAME] = data.getName().value;
       this.formPropsData[PERSONA_FIELD_KEY.AVATAR] = data.getAvatar().value;
+      this.formPropsData[PERSONA_FIELD_KEY.AVATAR_2] = data.getAvatar2().value;
       this.formPropsData[PERSONA_FIELD_KEY.DG_NAME] = data.getDgName().value;
       this.formPropsData[PERSONA_FIELD_KEY.TOOLS] = data.getTools().value;
       this.formPropsData[PERSONA_FIELD_KEY.BIO] = data.getBio().value;
