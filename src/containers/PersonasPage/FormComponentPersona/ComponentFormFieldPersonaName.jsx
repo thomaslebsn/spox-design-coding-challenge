@@ -39,7 +39,7 @@ const ComponentFormFieldPersonaName = ({ validator, formPropsData }) => {
   // };
 
   const handleDamAssets = (data) => {
-    formPropsData[PERSONA_FIELD_KEY.AVATAR] = data;
+    formPropsData[PERSONA_FIELD_KEY.AVATAR] = data[0].url;
     setAvatar(data);
   }
 
@@ -90,7 +90,7 @@ const ComponentFormFieldPersonaName = ({ validator, formPropsData }) => {
             })} */}
           <div className="main_upload_images">
             <DamButton 
-              data={formPropsData[PERSONA_FIELD_KEY.AVATAR]}
+              data={getAvatar}
               changed={handleDamAssets}
             />
           </div>
