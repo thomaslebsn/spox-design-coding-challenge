@@ -11,6 +11,10 @@ class ContentFormDescriptionSingle extends Component {
 
     this.field = this.props.field;
 
+    this.state = {
+      getUrlVideo: ""
+    }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
     this.handleVideo = this.handleVideo.bind(this);
@@ -41,16 +45,22 @@ class ContentFormDescriptionSingle extends Component {
   }
 
   handleVideo(event) {
-    this.field.dataContentDescriptionSingle.list_channels.youtube.video = event.target.value;
-    this.props.changed(event.target.value);
+    this.setState({
+      getUrlVideo: event.target.files[0].name
+    })
+
+    this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets.push(event.target.files[0].name);
+    this.props.changed(event.target.files[0].name);
   }
 
   render() {
+    let { getUrlVideo } = this.state;
     let { checkConnectYoutube } = this.props;
     let { dataContentDescriptionSingle } = this.field;
 
-    console.log('dataContentDescriptionSingle123');
-    console.log(dataContentDescriptionSingle);
+    console.log('this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets');
+    console.log(this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets);
+    console.log(this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets.length);
     
     return (
       <>
@@ -79,7 +89,7 @@ class ContentFormDescriptionSingle extends Component {
           {
             checkConnectYoutube && (
               <div className="mt-2">
-                <VideoButton data={dataContentDescriptionSingle.list_channels.youtube.video} changed={this.handleVideo}/>
+                <VideoButton exportUrlVideo={getUrlVideo} handleVideo={this.handleVideo}/>
               </div>
             )
           }
