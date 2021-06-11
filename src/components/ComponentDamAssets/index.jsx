@@ -11,7 +11,9 @@ const ComponentDamAssets = ({ validator, formPropsData }) => {
   const [getAvatar, setAvatar] = useState([]);
 
   const handleDamAssets = (data) => {
-    formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] = data;
+    console.log('data data data logo project');
+    console.log(data[0].url);
+    formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] = data[0].url;
     setAvatar(data);
   }
 
