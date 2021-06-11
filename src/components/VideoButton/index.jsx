@@ -9,13 +9,11 @@ class VideoButton extends React.Component {
     super(props);
 
     this.state = {
-      exportUrlVideo: this.props.data,
     }
   }
 
   render() {
-    let { exportUrlVideo } = this.state;
-    let { handleVideo } = this.props;
+    let { handleVideo, exportUrlVideo } = this.props;
     
     return (
       <>
@@ -31,8 +29,8 @@ class VideoButton extends React.Component {
         </button>
         {
           exportUrlVideo && (
-            <video width="400" controls>
-              <source src={URL.createObjectURL(exportUrlVideo)}/>
+            <video width="400" controls className="mt-3">
+              <source src={exportUrlVideo} type="video/mp4"/>
             </video>
           )
         }
