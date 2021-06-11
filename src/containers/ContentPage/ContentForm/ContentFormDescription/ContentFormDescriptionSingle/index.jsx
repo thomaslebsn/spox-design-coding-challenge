@@ -41,6 +41,8 @@ class ContentFormDescriptionSingle extends Component {
   }
 
   handleVideo(event) {
+    console.log('event.target.value1234');
+    console.log(event);
     this.field.dataContentDescriptionSingle.list_channels.youtube.video = event.target.value;
     this.props.changed(event.target.value);
   }
