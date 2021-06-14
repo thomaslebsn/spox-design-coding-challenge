@@ -465,14 +465,13 @@ class ComponentConnectaChannel extends Component {
 
                   {mediumConnected ||
                   this.isAllowedConnectChannel(CHANNEL_CMS_MEDIUM, 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
+                    <ButtonConnect
                       onClick={(e) => {
-                        this.handleConnectChannel(CHANNEL_CMS_MEDIUM, !mediumConnected);
+                        this.props.handleModalCms(CHANNEL_CMS_MEDIUM, !mediumConnected);
                       }}
-                    >
-                      <span className="ms-2">{mediumConnected ? 'Disconnect' : 'Connect'}</span>
-                    </button>
+                      isDisabled={mediumConnected}
+                      isConnected={mediumConnected}
+                    />
                   ) : (
                     <ButtonUpgrade />
                   )}
