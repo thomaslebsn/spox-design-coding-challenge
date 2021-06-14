@@ -1,6 +1,6 @@
 import history from "../routes/history";
 import {notify} from "../components/Toast";
-import {EasiiAuthenticationApiService} from "easii-io-web-service-library";
+import {EasiiAuthenticationApiService, AUTHORIZATION_KEY} from "easii-io-web-service-library";
 
 // LOGIN
 const login = async ({username, password, remember}) => {
@@ -21,6 +21,12 @@ const login = async ({username, password, remember}) => {
 // LOGOUT
 const logout = () => {
   localStorage.removeItem("auth");
+  localStorage.setItem(AUTHORIZATION_KEY.ACCESS_TOKEN, '');
+  localStorage.setItem(AUTHORIZATION_KEY.TOKEN_TYPE, '');
+  localStorage.setItem(AUTHORIZATION_KEY.AUTHORIZED_TOKEN_HEADER, '');
+  localStorage.setItem(AUTHORIZATION_KEY.TOKEN_USER, '');
+  localStorage.setItem(AUTHORIZATION_KEY.TOKEN_USER_EXPIRE, '');
+  localStorage.setItem(AUTHORIZATION_KEY.MEMBER_ID, '');
   history.push("/login");
 };
 
