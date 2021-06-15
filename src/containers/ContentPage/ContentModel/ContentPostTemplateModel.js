@@ -23,11 +23,8 @@ class ContentPostTemplateModel {
 
   constructor(rawData, arrayConnectedChannelsFinal) {
     this.rawData = rawData;
-<<<<<<< Updated upstream
     this.arrayConnectedChannelsFinal = arrayConnectedChannelsFinal;
     this.data = {}
-=======
->>>>>>> Stashed changes
   }
 
   transformDataToContentCreation = () => {
