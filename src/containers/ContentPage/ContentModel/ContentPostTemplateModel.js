@@ -23,8 +23,11 @@ class ContentPostTemplateModel {
 
   constructor(rawData, arrayConnectedChannelsFinal) {
     this.rawData = rawData;
+<<<<<<< Updated upstream
     this.arrayConnectedChannelsFinal = arrayConnectedChannelsFinal;
     this.data = {}
+=======
+>>>>>>> Stashed changes
   }
 
   transformDataToContentCreation = () => {
@@ -37,19 +40,20 @@ class ContentPostTemplateModel {
     console.log('labelsConnectedChannels123tranfer');
     console.log(labelsConnectedChannels);
 
-    const facebookModel = new ContentPostFacebookModel(this.rawData)
-    const linkedinModel = new ContentPostLinkedinModel(this.rawData)
-    const instagramModel = new ContentPostInstagramModel(this.rawData)
-    const twitterModel = new ContentPostTwitterModel(this.rawData)
-    const youtubeModel = new ContentPostYoutubeModel(this.rawData)
-    const googleMyBusinessModel = new ContentPostGoogleMyBusinessModel(this.rawData)
-    const tumblrModel = new ContentPostTumblrModel(this.rawData)
-    const mediumModel = new ContentPostMediumModel(this.rawData)
-    const wordpressModel = new ContentPostWordpressModel(this.rawData)
-    const drupalModel = new ContentPostDrupalModel(this.rawData)
-    const joomlaModel = new ContentPostJoomlaModel(this.rawData)
-    const mailchimpModel = new ContentPostMailchimpModel(this.rawData)
+    const facebookModel = new ContentPostFacebookModel(this.rawData);
+    const linkedinModel = new ContentPostLinkedinModel(this.rawData);
+    const instagramModel = new ContentPostInstagramModel(this.rawData);
+    const twitterModel = new ContentPostTwitterModel(this.rawData);
+    const youtubeModel = new ContentPostYoutubeModel(this.rawData);
+    const googleMyBusinessModel = new ContentPostGoogleMyBusinessModel(this.rawData);
+    const tumblrModel = new ContentPostTumblrModel(this.rawData);
+    const mediumModel = new ContentPostMediumModel(this.rawData);
+    const wordpressModel = new ContentPostWordpressModel(this.rawData);
+    const drupalModel = new ContentPostDrupalModel(this.rawData);
+    const joomlaModel = new ContentPostJoomlaModel(this.rawData);
+    const mailchimpModel = new ContentPostMailchimpModel(this.rawData);
 
+<<<<<<< Updated upstream
     {
       labelsConnectedChannels.includes("facebook") && (
         this.data.facebook = facebookModel.transformDataToContentCreation()
@@ -111,6 +115,21 @@ class ContentPostTemplateModel {
       )
     }
     
+=======
+    this.data.facebook = facebookModel.transformDataToContentCreation();
+    this.data.linkendin = linkedinModel.transformDataToContentCreation();
+    this.data.instagram = instagramModel.transformDataToContentCreation();
+    this.data.twitter = twitterModel.transformDataToContentCreation();
+    this.data.youtube = youtubeModel.transformDataToContentCreation();
+    this.data.google_my_business = googleMyBusinessModel.transformDataToContentCreation();
+    this.data.tumblr = tumblrModel.transformDataToContentCreation();
+    this.data.medium = mediumModel.transformDataToContentCreation();
+    this.data.wordpress = wordpressModel.transformDataToContentCreation();
+    this.data.drupal = drupalModel.transformDataToContentCreation();
+    this.data.joomla = joomlaModel.transformDataToContentCreation();
+    this.data.mailchimp = mailchimpModel.transformDataToContentCreation();
+
+>>>>>>> Stashed changes
     const contentId = this.rawData[CONTENT_FIELD_KEY.ID] ? this.rawData[CONTENT_FIELD_KEY.ID] : 0;
     const result = this.rawData
       ? {
@@ -120,14 +139,14 @@ class ContentPostTemplateModel {
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: this.rawData[CONTENT_FIELD_KEY.PERSONA],
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
-          //   projects: [],
-          //   campaigns: [
-          //   ],
-          //   personas: [
-          //   ],
-          //   headline: "test headline"
+            //   projects: [],
+            //   campaigns: [
+            //   ],
+            //   personas: [
+            //   ],
+            //   headline: "test headline"
           },
-          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNELS]: this.data
+          [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNELS]: this.data,
           // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
           // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PROJECT]: 1,
           // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
@@ -148,6 +167,6 @@ class ContentPostTemplateModel {
 
     // return result;
     return JSON.stringify(result);
-  }
+  };
 }
-export default ContentPostTemplateModel; 
+export default ContentPostTemplateModel;
