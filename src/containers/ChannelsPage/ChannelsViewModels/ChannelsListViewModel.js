@@ -481,7 +481,7 @@ class ChannelsListViewModel {
             switch (channelType) {
               // =============== Social Media Start ===============
               case 'facebook':
-                if (responseResult.pages.status === 'connected') {
+                if (responseResult.pages != null && responseResult.pages.status === 'connected') {
                   this.facebookConnected = true;
                   this.countSocialMediaConnected++;
                   // let listFpConnected = responseResult.pages.connected;
@@ -496,7 +496,7 @@ class ChannelsListViewModel {
                 }
                 break;
               case 'fbad':
-                if (responseResult.pages.status === 'connected') {
+                if (responseResult.pages != null && responseResult.pages.status === 'connected') {
                   this.facebookAdsConnected = true;
                   let listAdAccountsConnected = responseResult.pages.connected;
                   let listAdAccounts = responseResult.pages.adAccounts;
@@ -536,7 +536,7 @@ class ChannelsListViewModel {
                 break;
 
               case 'linkedin':
-                if (responseResult.pages.status === 'connected') {
+                if (responseResult.pages != null && responseResult.pages.status === 'connected') {
                   this.linkedinConnected = true;
                   this.countSocialMediaConnected++;
 
