@@ -469,7 +469,6 @@ class ComponentConnectaChannel extends Component {
                       onClick={(e) => {
                         this.props.handleModalCms(CHANNEL_CMS_MEDIUM, !mediumConnected);
                       }}
-                      isDisabled={mediumConnected}
                       isConnected={mediumConnected}
                     />
                   ) : (
