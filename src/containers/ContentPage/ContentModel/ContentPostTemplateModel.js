@@ -104,19 +104,6 @@ class ContentPostTemplateModel {
         this.data.mailchimp = mailchimpModel.transformDataToContentCreation()
       )
     }
-    
-    this.data.facebook = facebookModel.transformDataToContentCreation();
-    this.data.linkendin = linkedinModel.transformDataToContentCreation();
-    this.data.instagram = instagramModel.transformDataToContentCreation();
-    this.data.twitter = twitterModel.transformDataToContentCreation();
-    this.data.youtube = youtubeModel.transformDataToContentCreation();
-    this.data.google_my_business = googleMyBusinessModel.transformDataToContentCreation();
-    this.data.tumblr = tumblrModel.transformDataToContentCreation();
-    this.data.medium = mediumModel.transformDataToContentCreation();
-    this.data.wordpress = wordpressModel.transformDataToContentCreation();
-    this.data.drupal = drupalModel.transformDataToContentCreation();
-    this.data.joomla = joomlaModel.transformDataToContentCreation();
-    this.data.mailchimp = mailchimpModel.transformDataToContentCreation();
 
     const contentId = this.rawData[CONTENT_FIELD_KEY.ID] ? this.rawData[CONTENT_FIELD_KEY.ID] : 0;
     const result = this.rawData
@@ -127,12 +114,6 @@ class ContentPostTemplateModel {
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CAMPAIGN]: this.rawData[CONTENT_FIELD_KEY.CAMPAIGN],
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.PERSONA]: this.rawData[CONTENT_FIELD_KEY.PERSONA],
             [ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE]: this.rawData[CONTENT_FIELD_KEY.NAME],
-            //   projects: [],
-            //   campaigns: [
-            //   ],
-            //   personas: [
-            //   ],
-            //   headline: "test headline"
           },
           [ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNELS]: this.data,
           // [ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID]: contentId,
