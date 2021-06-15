@@ -28,14 +28,8 @@ class ContentPostTemplateModel {
   }
 
   transformDataToContentCreation = () => {
-    console.log('rawDatarawDatarawDatarawData123');
-    console.log(this.rawData);
-    console.log(this.arrayConnectedChannelsFinal);
 
     let labelsConnectedChannels = this.arrayConnectedChannelsFinal && this.arrayConnectedChannelsFinal.map((value) => value.des)
-
-    console.log('labelsConnectedChannels123tranfer');
-    console.log(labelsConnectedChannels);
 
     const facebookModel = new ContentPostFacebookModel(this.rawData);
     const linkedinModel = new ContentPostLinkedinModel(this.rawData);
@@ -50,7 +44,6 @@ class ContentPostTemplateModel {
     const joomlaModel = new ContentPostJoomlaModel(this.rawData);
     const mailchimpModel = new ContentPostMailchimpModel(this.rawData);
 
-<<<<<<< Updated upstream
     {
       labelsConnectedChannels.includes("facebook") && (
         this.data.facebook = facebookModel.transformDataToContentCreation()
@@ -112,7 +105,6 @@ class ContentPostTemplateModel {
       )
     }
     
-=======
     this.data.facebook = facebookModel.transformDataToContentCreation();
     this.data.linkendin = linkedinModel.transformDataToContentCreation();
     this.data.instagram = instagramModel.transformDataToContentCreation();
@@ -126,7 +118,6 @@ class ContentPostTemplateModel {
     this.data.joomla = joomlaModel.transformDataToContentCreation();
     this.data.mailchimp = mailchimpModel.transformDataToContentCreation();
 
->>>>>>> Stashed changes
     const contentId = this.rawData[CONTENT_FIELD_KEY.ID] ? this.rawData[CONTENT_FIELD_KEY.ID] : 0;
     const result = this.rawData
       ? {
