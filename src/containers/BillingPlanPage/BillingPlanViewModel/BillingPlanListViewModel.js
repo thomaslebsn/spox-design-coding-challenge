@@ -38,10 +38,7 @@ class BillingPlanListViewModel {
         if (this.subscriptionDetail === null || this.subscriptionDetail === undefined) {
           this.hideChangePlanTable = false;
         }
-
-        setTimeout(() => {
-          this.setupPaddle();
-        }, 200);
+        this.setupPaddle();
       },
       (error) => {}
     );
@@ -57,9 +54,12 @@ class BillingPlanListViewModel {
 
   setupPaddle() {
     //init Paddle
+    console.log('setupPaddle');
+    console.log(this.paddleData.vendorId);
     this.Paddle = window.Paddle;
     this.Paddle.Setup({
-      vendor: 1507, // paddle vendor id
+      vendor: parseInt(this.paddleData.vendorId), // paddle vendor id
+      // vendor: 1507, // paddle vendor id
       eventCallback: function (data) {
         // The data.event will specify the event type
         if (data.event === 'Checkout.Complete') {
