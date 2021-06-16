@@ -58,7 +58,7 @@ class ComponentPublishListChannels extends Component {
       <>
         <div className="d-flex align-items-center justify-content-between mb-3">
           <h6 className="text-blue mb-0">Social Media</h6>
-          {
+          {/* {
             isDeselectAllSocial ? (
               <a
                 href={void 0}
@@ -76,7 +76,7 @@ class ComponentPublishListChannels extends Component {
                 Deselect all
               </a>
             )
-          }
+          } */}
           
 
           
