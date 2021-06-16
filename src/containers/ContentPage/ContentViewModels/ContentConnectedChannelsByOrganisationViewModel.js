@@ -353,6 +353,313 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   resetObservableProperties() {
     this.connectedChannels = null;
+    // this.dataContentDescriptionSingle = {
+    //   advance_mode: false,
+    //   list_channels: {
+    //     facebook: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     linkedin: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     instagram: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     twitter: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     youtube: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: [],
+    //         videoAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     joomla: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     mailchimp: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     google_my_business: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     tumblr: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     medium: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     wordpress: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     },
+    //     drupal: {
+    //       description: "",
+    //       assets: {
+    //         canvaAssets: [],
+    //         damAssets: []
+    //       },
+    //       selectedPage: [],
+    //       publishedPlan: {
+    //         postType: "",
+    //         schedule: {}
+    //       }
+    //     }
+    //   }
+    // }
+  
+    // this.dataContentDescriptionSocial = {
+    //   advance_mode: true,
+    //   list_channels: {
+    //     social: {
+    //       facebook: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       instagram: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       linkedin: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       youtube: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: [],
+    //           videoAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       google_my_business: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       tumblr: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       medium: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       twitter: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       }
+    //     },
+    //     cms: {
+    //       joomla: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       wordpress: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //       drupal: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       }
+    //     },
+    //     mail: {
+    //       mailchimp: {
+    //         description: "",
+    //         assets: {
+    //           canvaAssets: [],
+    //           damAssets: []
+    //         },
+    //         selectedPage: [],
+    //         publishedPlan: {
+    //           postType: "",
+    //           schedule: {}
+    //         }
+    //       },
+    //     },
+    //   }
+    // }
   }
 
   renderChannelByOrganizationID = () => {
