@@ -252,6 +252,23 @@ class ComponentContentFormGeneral extends Component {
   };
 
   next = () => {
+    // let { dataContentDescriptionSingle } = this.props;
+    // const checkValueDam = 
+    //   dataContentDescriptionSingle.list_channels.facebook.assets.damAssets.length > 0 ||
+    //   dataContentDescriptionSingle.list_channels.linkedin.assets.damAssets.length > 0 ||
+    //   dataContentDescriptionSingle.list_channels.instagram.assets.damAssets.length > 0 ||
+    //   dataContentDescriptionSingle.list_channels.twitter.assets.damAssets.length > 0
+
+    // const arrayConnectedChannelsFinal = 
+    //   this.contentConnectedChannelsByOrganisationViewModel ? 
+    //   this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal : 
+    //   null;
+
+    // let labelsConnectedChannels =
+    // arrayConnectedChannelsFinal && arrayConnectedChannelsFinal.map((e) => e.des);
+
+    // let checkConnectYoutube = labelsConnectedChannels && labelsConnectedChannels.includes("youtube")
+
     if (this.isFormValid()) {
       this.props.nextStep();
       this.viewModel.contentEditdata = this.formPropsData;

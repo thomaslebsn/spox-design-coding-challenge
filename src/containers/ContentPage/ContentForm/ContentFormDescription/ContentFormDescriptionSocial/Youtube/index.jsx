@@ -12,7 +12,9 @@ class YoutubeSocial extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlVideo: ""
+      getUrlVideo: "",
+      getUrlImage: "",
+      checkTypeVideo: false
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,23 +36,40 @@ class YoutubeSocial extends Component {
     this.props.changed(exportUrl, designId);
   }
 
-  handleDamAssets(data) {
-    this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.damAssets = data;
-    this.props.changed(data);
+  handleDamAssets(data, name) {
+    if(name === "youtube") {
+      if(data[0].extension != "mp4") {
+        this.setState({
+          getUrlImage: data
+        })
+  
+        this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.damAssets = data;
+        this.props.changed(data);
+      }
+    }
+    
   }
 
-  handleVideo(event) {
-    this.setState({
-      getUrlVideo: event.target.files[0].name
-    })
+  handleVideo(data) {
+    if(data[0].extension === "mp4") {
+      this.setState({
+        getUrlVideo: data,
+        checkTypeVideo: false
+      })
 
-    this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.videoAssets.push(event.target.files[0].name);
-    this.props.changed(event.target.files[0].name);
+      this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.videoAssets = data;
+      this.props.changed(data);
+    } else {
+      this.setState({
+        checkTypeVideo: true
+      })
+    }
   }
+
 
   render() {
     console.log('[Social] render...');
-    let { getUrlVideo } = this.state;
+    let { getUrlVideo, getUrlImage, checkTypeVideo } = this.state;
 
     return (
       <>
@@ -72,12 +91,18 @@ class YoutubeSocial extends Component {
             changed={this.handleCanva}
           />
           <DamButton 
-            data={this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.damAssets}
-            changed={this.handleDamAssets}
+            data={getUrlImage}
+            changed={(data, name) => this.handleDamAssets(data, name)}
+            name="youtube"
+            dataYoutube={getUrlImage}
           />
         </div>
         <div className="mt-2">
-          <VideoButton exportUrlVideo={getUrlVideo} handleVideo={this.handleVideo}/>
+          <VideoButton 
+            dataVideo={getUrlVideo}
+            changed={(data) => this.handleVideo(data)}
+            checkTypeVideo={checkTypeVideo}
+          />
         </div>
       </>
     );

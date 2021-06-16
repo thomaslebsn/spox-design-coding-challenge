@@ -18,12 +18,11 @@ class DamButton extends React.Component {
     super(props);
     this.socket = socket;
     this.state = {
-      showModal: false,
-      exportUrlDam: this.props.data,
+      showModal: false
     };
   }
 
-  handleClick = () => {
+  handleClick = (name) => {
     console.log(AUTHORIZATION_KEY.TOKEN_USER);
     console.log(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ':9999');
     this.socket.emit('join room', localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER));
@@ -38,11 +37,13 @@ class DamButton extends React.Component {
     this.socket.on('response assets', (roomId, data) => {
       console.log('datadatadatadataDamAssets')
       console.log(data)
-      this.setState(
-        { exportUrlDam: data }, 
-        _this.props.changed(data)
+      
+      _this.setState(
+        _this.props.changed(data, name)
       )
 
+      // this.props.OnSuccessDamButton(data)
+      
       if (data) {
         this.closeModal();
       }
@@ -67,16 +68,14 @@ class DamButton extends React.Component {
       '/administrator/index.php?option=com_aesir_dam&view=easii_dam&token=' +
       localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER);
 
-    let { exportUrlDam } = this.state;
+    let { data, checkTypeImage, name, dataYoutube } = this.props;
 
-    console.log('exportUrlDamexportUrlDam');
-    console.log(exportUrlDam);
     return (
       <>
-        <div className={`lg_btn_dam_assets ${exportUrlDam ? 'w-50' : ''}`}>
+        <div className={`lg_btn_dam_assets ${data ? 'w-50' : ''}`}>
           <button
             className="wr_btn_dam border-0 ms-2 bg-blue-2 rounded-2 px-3"
-            onClick={this.handleClick}
+            onClick={() => this.handleClick(name)}
             type="button"
           >
             <i className="text-white">
@@ -84,13 +83,13 @@ class DamButton extends React.Component {
             </i>
             <span className="text-white ms-2">Digital Asset Management</span>
           </button>
-          {exportUrlDam && (
+          {data && (
             <>
               {
-                exportUrlDam.map((value) => {
+                data.map((value, key) => {
                   return (
-                    <div className={`item_dam_assets d-flex justify-content-start border-top mt-4`}>
-                      <div key={value.id} className="position-relative w-50 m-2">
+                    <div key={key} className={`item_dam_assets d-flex justify-content-start border-top mt-4`}>
+                      <div className="position-relative m-2">
                         <img className={`img-thumbnail rounded imgTab`} alt={value.url} src={value.url} />
                       </div>
                     </div>
@@ -99,6 +98,11 @@ class DamButton extends React.Component {
               }
             </>
           )}
+          {
+            checkTypeImage && (
+              <p className="mt-2 text-danger">Supported .jpg/png/jpeg only</p>
+            )
+          }
         </div>
         <ModalComponent
           header={'Digital Assets'}
