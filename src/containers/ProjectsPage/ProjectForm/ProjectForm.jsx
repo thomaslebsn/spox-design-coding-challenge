@@ -76,7 +76,7 @@ const ProjectForm = observer(
                 },
                 required: true,
                 validation: "required",
-              }
+              },
             },
             {
               label: "Project Logo",
