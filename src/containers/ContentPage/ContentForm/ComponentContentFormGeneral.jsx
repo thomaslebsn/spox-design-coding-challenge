@@ -93,6 +93,7 @@ class ComponentContentFormGeneral extends Component {
 
   componentDidMount = () => {
     this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
+    Object.values(this.props.dataContentDescriptionSingle.list_channels)[0].description = "";
   };
 
   generateFormSetting = () => {
