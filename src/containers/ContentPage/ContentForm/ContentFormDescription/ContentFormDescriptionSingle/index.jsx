@@ -12,13 +12,16 @@ class ContentFormDescriptionSingle extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlVideo: ""
+      getUrlVideo: "",
+      getUrlImage: "",
+      checkTypeVideo: false,
+      checkTypeImage: false
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
-    this.handleVideo = this.handleVideo.bind(this);
     this.handleDamAssets = this.handleDamAssets.bind(this);
+    this.handleVideo = this.handleVideo.bind(this);
   }
 
   handleChange(event) {
@@ -38,29 +41,43 @@ class ContentFormDescriptionSingle extends Component {
   }
 
   handleDamAssets(data) {
-    let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
+    if(data[0].extension != "mp4") {
+      this.setState({
+        getUrlImage: data,
+        checkTypeImage: false
+      })
 
-    dataContentDescriptionSingleArray.map((value) => value.assets.damAssets = data)
-    this.props.changed(data);
+      let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
+
+      dataContentDescriptionSingleArray.map((value) => value.assets.damAssets = data)
+      this.props.changed(data);
+    } else {
+      this.setState({
+        checkTypeImage: true
+      })
+    }
   }
 
-  handleVideo(event) {
-    this.setState({
-      getUrlVideo: event.target.files[0].name
-    })
+  handleVideo(data) {
+    if(data[0].extension === "mp4") {
+      this.setState({
+        getUrlVideo: data,
+        checkTypeVideo: false
+      })
 
-    this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets.push(event.target.files[0].name);
-    this.props.changed(event.target.files[0].name);
+      this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets = data;
+      this.props.changed(data);
+    } else {
+      this.setState({
+        checkTypeVideo: true
+      })
+    }
   }
 
   render() {
-    let { getUrlVideo } = this.state;
+    let { getUrlVideo, getUrlImage, checkTypeVideo, checkTypeImage } = this.state;
     let { checkConnectYoutube } = this.props;
     let { dataContentDescriptionSingle } = this.field;
-
-    console.log('this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets');
-    console.log(this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets);
-    console.log(this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets.length);
     
     return (
       <>
@@ -82,14 +99,19 @@ class ContentFormDescriptionSingle extends Component {
               changed={this.handleCanva}
             />
             <DamButton 
-              data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.damAssets}
-              changed={this.handleDamAssets}
+              data={getUrlImage}
+              changed={(data) => this.handleDamAssets(data)}
+              checkTypeImage={checkTypeImage}
             />
           </div>
           {
             checkConnectYoutube && (
-              <div className="mt-2">
-                <VideoButton exportUrlVideo={getUrlVideo} handleVideo={this.handleVideo}/>
+              <div className="mt-2 wr_video_assets wr_dam_full_width">
+                <VideoButton 
+                  dataVideo={getUrlVideo}
+                  changed={(data) => this.handleVideo(data)}
+                  checkTypeVideo={checkTypeVideo}
+                />
               </div>
             )
           }

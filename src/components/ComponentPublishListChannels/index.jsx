@@ -77,9 +77,6 @@ class ComponentPublishListChannels extends Component {
               </a>
             )
           } */}
-          
-
-          
         </div>
         <div>
           <ul className={`list-unstyled d-flex align-items-center mb-0 flex-wrap ${isDeselectAllSocial ? 'opacity-50' : ''}`}>
