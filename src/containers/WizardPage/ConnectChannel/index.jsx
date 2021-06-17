@@ -70,6 +70,11 @@ const ConnectChannel = observer(
       ]);
     }
 
+    componentDidMount() {
+      this.channelsListViewModel.resetObservableProperties();
+      this.channelsListViewModel.initMemberFeaturesMasterData();
+    }
+    
     handleCheckbox = (id) => {
       let getIDSFanpage = this.state.getIDSFanpage;
       getIDSFanpage.push(id);
@@ -110,8 +115,13 @@ const ConnectChannel = observer(
       });
     };
 
-    handleModalCms = () => {
-      this.loginCMSChannelFormModalViewModel.openModal();
+    handleModalCms = (type, isConnected = true) => {
+      if (isConnected) {
+        this.loginCMSChannelFormModalViewModel.setChannelType(type);
+        this.loginCMSChannelFormModalViewModel.openModal();
+      } else {
+        this.channelsListViewModel.disConnectChannel(type);
+      }
     };
 
     handleConnectedFanpage = (channelType, id) => {
@@ -266,7 +276,7 @@ const ConnectChannel = observer(
         tumblrConnected,
         wordpressConnected,
         mustUpgrade,
-        drupalConnected,
+        drupalConneted,
         mediumConnected,
         joomlaConnected,
         googleadsConnected,
@@ -278,40 +288,44 @@ const ConnectChannel = observer(
         countAdvertisingConnected,
         countEmailMarketingConnected,
         countSocialMediaConnected,
+        drupalConnected,
         getIdActionFacebookFange,
         ConnectStatusFanpage,
         googleMyBusinessConnected,
         listLinkedinFanpageView,
-        listLinkedinFanpageConnected
+        listLinkedinFanpageConnected,
       } = this.channelsListViewModel;
-
       return (
         <div className="d-flex flex-column m-4 p-4">
           <div>
-            <ComponentConnectaChannel
+          <ComponentConnectaChannel
               channelsListViewModel={this.channelsListViewModel}
               listFaceBookFanpageView={listFaceBookFanpageView ? listFaceBookFanpageView : null}
               listFacebookFanpageConnected={
                 listFacebookFanpageConnected ? listFacebookFanpageConnected : null
               }
-              facebookConnected={facebookConnected}
               listFacebookAdsAccountView={
                 listFacebookAdsAccountView ? listFacebookAdsAccountView : null
               }
+              facebookConnected={facebookConnected}
               facebookAdsConnected={facebookAdsConnected}
               youtubeConnected={youtubeConnected}
               twitterConnected={twitterConnected}
               linkedinConnected={linkedinConnected}
               mailchimpConnected={mailchimpConnected}
               instagramConnected={instagramConnected}
-              wordpressConnected={wordpressConnected}
               tumblrConnected={tumblrConnected}
+              wordpressConnected={wordpressConnected}
               mustUpgrade={mustUpgrade}
-              drupalConnected={drupalConnected}
+              drupalConneted={drupalConneted}
               mediumConnected={mediumConnected}
               joomlaConnected={joomlaConnected}
-              advertisingFeaturesMasterData={advertisingFeaturesMasterData}
+              viewModel={this.viewModel}
+              handleModalCms={this.handleModalCms}
+              isModalCms={this.loginCMSChannelFormModalViewModel.show}
               googleadsConnected={googleadsConnected}
+              handleConnectedFanpage={this.handleConnectedFanpage}
+              advertisingFeaturesMasterData={advertisingFeaturesMasterData}
               cmsFeaturesMasterData={cmsFeaturesMasterData}
               socialMediaFeaturesMasterData={socialMediaFeaturesMasterData}
               emailMarketingFeaturesMasterData={emailMarketingFeaturesMasterData}
@@ -319,19 +333,18 @@ const ConnectChannel = observer(
               countAdvertisingConnected={countAdvertisingConnected}
               countEmailMarketingConnected={countEmailMarketingConnected}
               countSocialMediaConnected={countSocialMediaConnected}
-              getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
-              viewModel={this.viewModel}
-              handleModalCms={this.handleModalCms}
-              isModalCms={this.loginCMSChannelFormModalViewModel.show}
-              ConnectStatusFanpage={ConnectStatusFanpage}
-              handleConnectedFanpage={this.handleConnectedFanpage}
-              PAGE_STATUS={PAGE_STATUS}
               onSuccessGoogleConnect={this.onSuccessGoogleConnect}
               onRequestGoogleConnect={this.onRequestGoogleConnect}
               onSuccessFacebookConnect={this.onSuccessFacebookConnect}
+
+
+              drupalConnected={drupalConnected}
+              getIdActionFacebookFange={getIdActionFacebookFange ? getIdActionFacebookFange : null}
+              ConnectStatusFanpage={ConnectStatusFanpage}
+              PAGE_STATUS={PAGE_STATUS}
+              onFailureConnectChannels={this.onFailureConnectChannels}
               onSuccessYoutubeConnect={this.onSuccessYoutubeConnect}
               onSuccessInstagramConnect={this.onSuccessInstagramConnect}
-              onFailureConnectChannels={this.onFailureConnectChannels}
               googleMyBusinessConnected={googleMyBusinessConnected}
               onSuccessGoogleMyBusinessConnect={this.onSuccessGoogleMyBusinessConnect}
               listLinkedinFanpageView={listLinkedinFanpageView}
