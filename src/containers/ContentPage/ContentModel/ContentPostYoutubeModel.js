@@ -4,9 +4,9 @@ import {
 
 class ContentPostYoutubeModel {
   description = null;
-  assets = null;
   selectedPage = null;
   publishedPlan = null;
+  assets = null;
   videoAssets = null;
 
   constructor(rawData) {
@@ -21,7 +21,9 @@ class ContentPostYoutubeModel {
       description: this.description,
       selectedPage: this.selectedPage,
       publishedPlan: this.publishedPlan,
-      videoAssets: this.videoAssets
+      assets: {
+        videoAssets: this.videoAssets
+      }
     }
   }
 }
