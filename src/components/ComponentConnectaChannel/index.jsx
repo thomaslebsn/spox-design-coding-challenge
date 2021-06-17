@@ -564,7 +564,7 @@ class ComponentConnectaChannel extends Component {
               </div>
             </div>
           </Tab>
-          {this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.NAME) ?
+          {this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.OTHERNAME) ?
           (<Tab eventKey={2} title={'Advertising'}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">

@@ -42,8 +42,9 @@ export const CHANNEL_TYPE = {
         TYPE: "advertising"
     },
     GOOGLE_ADS: {
-        NAME: "gg_ads",
-        TYPE: "advertising"
+        NAME: "google_ads",
+        TYPE: "advertising",
+        OTHERNAME: "gg_ads"
     },
     WORDPRESS: {
         NAME: "wordpress",
