@@ -12,6 +12,7 @@ import { withContentViewModel } from "../ContentViewModels/ContentViewModelConte
 
 import Spinner from "../../../components/Spinner";
 import { Image } from "react-bootstrap";
+import ComponentNoData from "../../../components/ComponentNoData";
 
 const ContentsList = observer(
   class ContentsList extends Component {
@@ -153,24 +154,36 @@ const ContentsList = observer(
         },
       ];
 
-      return tableStatus === PAGE_STATUS.LOADING ? (
-        <Spinner />
-      ) : (
-        <Table
-          rowData={contents}
-          tableRowHeader={tableRowHeader}
-          //onEdit={this.handerEditContent}
-          onSelect={this.handerSelectContent}
-          isFilter={true}
-          pagination={pagination}
-          pageSize={this.contentListViewModel.pageSize}
-          listViewModel={this.contentListViewModel}
-          searchFunction={this.contentListViewModel.searchContents}
-          dataFormFilter={dataFormFilter}
-          searchText="Search your posts"
-          classNameTable={"wr_content_list"}
-        ></Table>
-      );
+      return (
+        <>
+          {
+            contents ? (
+              tableStatus === PAGE_STATUS.LOADING ? (
+                <Spinner />
+              ) : (
+                <>
+                  <Table
+                    rowData={contents}
+                    tableRowHeader={tableRowHeader}
+                    //onEdit={this.handerEditContent}
+                    onSelect={this.handerSelectContent}
+                    isFilter={true}
+                    pagination={pagination}
+                    pageSize={this.contentListViewModel.pageSize}
+                    listViewModel={this.contentListViewModel}
+                    searchFunction={this.contentListViewModel.searchContents}
+                    dataFormFilter={dataFormFilter}
+                    searchText="Search your posts"
+                    classNameTable={"wr_content_list"}
+                  ></Table>
+                </>
+              )
+            ) : (
+              <ComponentNoData />
+            )
+          }
+        </>
+      )
     }
   }
 );

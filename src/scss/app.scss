@@ -305,6 +305,10 @@ textarea {
   }
 }
 
+.icon_not_found {
+  font-size: 3.5rem !important;
+}
+
 @include media-breakpoint-down(lg) {
   .w-400 {
     width: 250px;
