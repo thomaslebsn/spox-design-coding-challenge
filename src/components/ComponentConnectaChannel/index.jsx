@@ -588,7 +588,7 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
-                <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
+                {/* <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
                     href="https://wordpress.org/latest.zip"
                     download
@@ -599,7 +599,7 @@ class ComponentConnectaChannel extends Component {
                     </i>
                     <span className="text-white ps-2">Download Wordpress</span>
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="mt-4">
@@ -620,7 +620,7 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
-                <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
+                {/* <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
                     href="https://www.drupal.org/download-latest/zip"
                     download
@@ -631,7 +631,7 @@ class ComponentConnectaChannel extends Component {
                     </i>
                     <span className="text-white ps-2">Download Drupal</span>
                   </a>
-                </div>
+                </div> */}
               </div>
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -650,7 +650,7 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )}
                 </div>
-                <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
+                {/* <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
                     href="https://downloads.joomla.org/cms/joomla3/3-9-27/Joomla_3-9-27-Stable-Full_Package.zip?format=zip"
                     download
@@ -661,7 +661,7 @@ class ComponentConnectaChannel extends Component {
                     </i>
                     <span className="text-white ps-2">Download Joomla</span>
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
           </Tab>

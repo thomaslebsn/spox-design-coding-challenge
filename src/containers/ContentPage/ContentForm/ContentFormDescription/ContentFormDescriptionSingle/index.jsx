@@ -95,7 +95,7 @@ class ContentFormDescriptionSingle extends Component {
         <div className="px-3 py-2 bg-blue-3">
           <div className="d-flex">
             <CanvaButton
-              data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.canvaAssets}
+              //data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.canvaAssets}
               changed={this.handleCanva}
             />
             <DamButton 
