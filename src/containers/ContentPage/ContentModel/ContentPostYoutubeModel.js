@@ -4,23 +4,26 @@ import {
 
 class ContentPostYoutubeModel {
   description = null;
-  assets = null;
   selectedPage = null;
   publishedPlan = null;
+  assets = null;
+  videoAssets = null;
 
   constructor(rawData) {
     this.description = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.description : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.description;
-    this.assets = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.assets : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.assets;
     this.selectedPage = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.selectedPage : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.selectedPage;
     this.publishedPlan = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.publishedPlan : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.publishedPlan;
+    this.videoAssets = rawData[CONTENT_FIELD_KEY.DESCRIPTION].advance_mode ? rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.social.youtube.assets.videoAssets : rawData[CONTENT_FIELD_KEY.DESCRIPTION].list_channels.youtube.assets.videoAssets;
   }
 
   transformDataToContentCreation = () => {
     return {
       description: this.description,
-      assets: this.assets,
       selectedPage: this.selectedPage,
-      publishedPlan: this.publishedPlan
+      publishedPlan: this.publishedPlan,
+      assets: {
+        videoAssets: this.videoAssets
+      }
     }
   }
 }

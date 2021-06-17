@@ -10,6 +10,10 @@ class TwitterSocial extends Component {
 
     this.field = this.props.field;
 
+    this.state = {
+      getUrlImage: ""
+    }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleCanva = this.handleCanva.bind(this);
     this.handleDamAssets = this.handleDamAssets.bind(this);
@@ -28,13 +32,27 @@ class TwitterSocial extends Component {
     this.props.changed(exportUrl, designId);
   }
 
-  handleDamAssets(data) {
-    this.field.dataContentDescriptionSocial.list_channels.social.twitter.assets.damAssets = data;
-    this.props.changed(data);
+  handleDamAssets(data, name) {
+    console.log('data, name twitter')
+    console.log(data);
+    console.log(name);
+    if(name === "twitter") {
+      if(data[0].extension != "mp4") {
+        this.setState({
+          getUrlImage: data
+        })
+  
+        this.field.dataContentDescriptionSocial.list_channels.social.twitter.assets.damAssets = data;
+        this.props.changed(data);
+      }
+    }
+    
   }
+
 
   render() {
     console.log('[Social] render...');
+    let { getUrlImage } = this.state;
 
     return (
       <>
@@ -56,8 +74,9 @@ class TwitterSocial extends Component {
             changed={this.handleCanva}
           />
           <DamButton 
-            data={this.field.dataContentDescriptionSocial.list_channels.social.twitter.assets.damAssets}
-            changed={this.handleDamAssets}
+            data={getUrlImage}
+            changed={(data, name) => this.handleDamAssets(data, name)}
+            name="twitter"
           />
         </div>
       </>

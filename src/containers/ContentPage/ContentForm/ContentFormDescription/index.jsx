@@ -20,13 +20,10 @@ const YoutubeSocial = lazy(() => import('./ContentFormDescriptionSocial/Youtube'
 const GoogleMyBusinessSocial = lazy(() => import('./ContentFormDescriptionSocial/GoogleMyBusiness'));
 const TumblrSocial = lazy(() => import('./ContentFormDescriptionSocial/Tumblr'));
 const MediumSocial = lazy(() => import('./ContentFormDescriptionSocial/Medium'));
-
 const JoomlaSocial = lazy(() => import('./ContentFormDescriptionCMS/Joomla'));
 const WordpressSocial = lazy(() => import('./ContentFormDescriptionCMS/Wordpress'));
 const DrupalSocial = lazy(() => import('./ContentFormDescriptionCMS/Drupal'));
-
 const MailchimpSocial = lazy(() => import('./ContentFormDescriptionMail/Mailchimp'));
-
 const ContentFormDescriptionSingle = lazy(() => import('./ContentFormDescriptionSingle'));
 
 class ContentFormDescription extends Component {
@@ -128,32 +125,6 @@ class ContentFormDescription extends Component {
       }
     })
 
-    // if(checkConnectInstagram) {
-    //   isActiveSocial = 2
-    // } else if(checkConnectLinkedin) {
-    //   isActiveSocial = 3
-    // } else if(checkConnectTwitter) {
-    //   isActiveSocial = 4
-    // } else if(checkConnectYoutube) {
-    //   isActiveSocial = 5
-    // } else if(checkConnectGoogleMyBusiness) {
-    //   isActiveSocial = 6
-    // } else if(checkConnectTumblr) {
-    //   isActiveSocial = 7
-    // } else if(checkConnectMedium) {
-    //   isActiveSocial = 8
-    // } else {
-    //   isActiveSocial = 1
-    // }
-
-    // if(checkConnectWordpress) {
-    //   isActiveCms = 2
-    // } else if(checkConnectDrupal) {
-    //   isActiveCms = 3
-    // } else {
-    //   isActiveSocial = 1
-    // }
-
     let { socical, cms, email } = this.state;
     return (
       <>
@@ -167,7 +138,11 @@ class ContentFormDescription extends Component {
         </div>
         {!this.field.isAdvanceMode ? (
           <div>
-            <ContentFormDescriptionSingle field={this.field} changed={this.handleChangedSignle} checkConnectYoutube={checkConnectYoutube} />
+            <ContentFormDescriptionSingle 
+              field={this.field} 
+              changed={this.handleChangedSignle} 
+              checkConnectYoutube={checkConnectYoutube}
+            />
           </div>
         ) : (
           <div>
