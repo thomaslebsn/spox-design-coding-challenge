@@ -247,12 +247,14 @@ class ChannelsListViewModel {
           const index = this.listFacebookFanpageConnected.indexOf(pageId);
           if (index > -1) {
             this.listFacebookFanpageConnected.splice(index, 1);
+            this.countSocialMediaConnected--;
           }
           break;
         case 'linkedin':
           const indexLinkedin = this.listLinkedinFanpageConnected.indexOf(pageId);
           if (indexLinkedin > -1) {
             this.listLinkedinFanpageConnected.splice(indexLinkedin, 1);
+            this.countSocialMediaConnected--;
           }
           break;
       }
@@ -269,9 +271,11 @@ class ChannelsListViewModel {
       switch (channelUniqueName) {
         case 'facebook':
           this.listFacebookFanpageConnected.push(pageId);
+          this.countSocialMediaConnected++;
           break;
         case 'linkedin':
           this.listLinkedinFanpageConnected.push(pageId);
+          this.countSocialMediaConnected++;
           break;
       }
     } else {
@@ -314,15 +318,12 @@ class ChannelsListViewModel {
                       clearInterval(checkConnectionStatusInterval);
 
                       this.facebookConnected = true;
-                      this.countSocialMediaConnected++;
 
                       let listFanpage = responseResult.pages.pages;
                       this.listFaceBookFanpageView = listFanpage;
 
                       this.listFacebookFanpageConnected = responseResult.pages.connected;
-
-                      console.log('sdfsdf this.listFacebookFanpageConnected');
-                      console.log(this.listFacebookFanpageConnected);
+                      this.countSocialMediaConnected+= responseResult.pages.connected.length;
                     }
                     break;
 
@@ -353,16 +354,14 @@ class ChannelsListViewModel {
                   case 'linkedin':
                     if (responseResult.pages.status === 'connected') {
                       this.linkedinConnected = true;
-                      this.countSocialMediaConnected++;
+                      
                       clearInterval(checkConnectionStatusInterval);
 
                       let listFanpage = responseResult.pages.pages;
                       this.listLinkedinFanpageView = listFanpage;
 
                       this.listLinkedinFanpageConnected = responseResult.pages.connected;
-
-                      console.log('responseResultlinkedin8888');
-                      console.log(responseResult.pages.connected);
+                      this.countSocialMediaConnected+= responseResult.pages.connected;
                     }
                     break;
 
@@ -483,16 +482,13 @@ class ChannelsListViewModel {
               case 'facebook':
                 if (responseResult.pages != null && responseResult.pages.status === 'connected') {
                   this.facebookConnected = true;
-                  this.countSocialMediaConnected++;
                   // let listFpConnected = responseResult.pages.connected;
                   let listFanpage = responseResult.pages.pages;
                   this.listFaceBookFanpageView = listFanpage;
 
                   this.listFacebookFanpageConnected = responseResult.pages.connected;
 
-                  console.log('234234responseResult55555');
-                  console.log(responseResult.pages.connected);
-                  console.log(listFanpage);
+                  this.countSocialMediaConnected+=responseResult.pages.connected.length;
                 }
                 break;
               case 'fbad':
@@ -538,15 +534,14 @@ class ChannelsListViewModel {
               case 'linkedin':
                 if (responseResult.pages != null && responseResult.pages.status === 'connected') {
                   this.linkedinConnected = true;
-                  this.countSocialMediaConnected++;
+                  
 
                   let listFanpage = responseResult.pages.pages;
                   this.listLinkedinFanpageView = listFanpage;
 
                   this.listLinkedinFanpageConnected = responseResult.pages.connected;
 
-                  console.log('234234responseResult77777');
-                  console.log(responseResult.pages.connected);
+                  this.countSocialMediaConnected+=responseResult.pages.connected.length;
                 }
                 break;
 

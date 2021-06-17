@@ -13,15 +13,11 @@ import ButtonUpgrade from '../ButtonUpgrade';
 import ButtonConnectGoogle from '../ButtonConnectGoogle';
 import ButtonConnectFacebook from '../ButtonConnectFacebook';
 import {
-  CHANNEL_ADS_GOOGLE,
-  CHANNEL_CMS_DRUPAL,
-  CHANNEL_CMS_JOOMLA,
-  CHANNEL_CMS_MEDIUM,
-  CHANNEL_CMS_WORDPRESS,
+  CHANNEL_TYPE,
 } from '../../constants/ChannelModule';
 import { EASII_CONFIGS } from 'easii-io-web-service-library';
 import ButtonConnectInstagram from '../ButtonConnectInstagram';
-
+import { notify } from '../Toast';
 const ModalComponent = lazy(() => import('../../components/Modal'));
 class ComponentConnectaChannel extends Component {
   formData = [];
@@ -85,8 +81,6 @@ class ComponentConnectaChannel extends Component {
         );
       case 'advertising':
         const { advertisingFeaturesMasterData, countAdvertisingConnected } = this.props;
-        console.log('advertisingFeaturesMasterData');
-        console.log(advertisingFeaturesMasterData);
         return this.isAllowedConnectByChannelType(
           channelType,
           advertisingFeaturesMasterData,
@@ -94,7 +88,6 @@ class ComponentConnectaChannel extends Component {
         );
       case 'email_marketing':
         const { emailMarketingFeaturesMasterData, countEmailMarketingConnected } = this.props;
-        console.log('emailMarketingFeaturesMasterData', emailMarketingFeaturesMasterData);
         return this.isAllowedConnectByChannelType(
           channelType,
           emailMarketingFeaturesMasterData,
@@ -126,9 +119,7 @@ class ComponentConnectaChannel extends Component {
       return false;
     }
 
-    console.log(featuresChannelMasterData);
     const featureChannel = this.getFeatureByChannelType(featuresChannelMasterData, channelType);
-
     return (
       featureChannel.enable === 1 &&
       (!featureChannel.option || featureChannel.option > countConnectedChannel)
@@ -144,6 +135,118 @@ class ComponentConnectaChannel extends Component {
       channelsListViewModel.disConnectChannel(name);
     }
   };
+
+  handleNotifyChannel = (name, isConnected = true, idFanpage) => {
+    let accepted = true
+    if (idFanpage) {
+      switch (name) {
+        case CHANNEL_TYPE.FACEBOOK_PAGE.NAME:
+          accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.FACEBOOK_PAGE.NAME, CHANNEL_TYPE.FACEBOOK_PAGE.TYPE)
+          if (!accepted && isConnected == false) {
+            notify('Please upgrade to plan to connect more channel', 'error');
+            return
+          }
+          this.props.handleConnectedFanpage(name, idFanpage);
+          break;
+        case CHANNEL_TYPE.LINKEDIN_PAGE.NAME:
+            accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.LINKEDIN_PAGE.NAME, CHANNEL_TYPE.LINKEDIN_PAGE.TYPE);
+            if (!accepted && isConnected == false) {
+              notify('Please upgrade to plan to connect more channel', 'error');
+              return
+            }
+            this.props.handleConnectedFanpage(name, idFanpage);
+            break;
+      }
+    }
+    else switch (name) {
+      case CHANNEL_TYPE.FACEBOOK.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.FACEBOOK.NAME, CHANNEL_TYPE.FACEBOOK.TYPE)
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.handleConnectChannel(name, isConnected);
+        break;
+      case CHANNEL_TYPE.YOUTUBE.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.YOUTUBE.NAME, CHANNEL_TYPE.YOUTUBE.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.handleConnectChannel(name, isConnected);
+        break
+      case CHANNEL_TYPE.TWITTER.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.TWITTER.NAME, CHANNEL_TYPE.TWITTER.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.handleConnectChannel(name, isConnected);
+        break;
+      case CHANNEL_TYPE.LINKEDIN.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.LINKEDIN.NAME, CHANNEL_TYPE.LINKEDIN.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.handleConnectChannel(name, isConnected);
+        break;
+      case CHANNEL_TYPE.TUMBLR.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.TUMBLR.NAME, CHANNEL_TYPE.TUMBLR.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.handleConnectChannel(name, isConnected);
+        break;
+      case CHANNEL_TYPE.MEDIUM.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.MEDIUM.NAME, CHANNEL_TYPE.MEDIUM.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.props.handleModalCms(name, isConnected);
+        break;
+      case CHANNEL_TYPE.FACEBOOK_ADS.NAME:
+        this.handleConnectChannel(name, isConnected);
+        break;
+      case CHANNEL_TYPE.GOOGLE_ADS.NAME:
+        this.handleConnectChannel(name, isConnected);
+        break;
+      case CHANNEL_TYPE.WORDPRESS.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.WORDPRESS.NAME, CHANNEL_TYPE.WORDPRESS.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.props.handleModalCms(name, isConnected);
+        break;
+      case CHANNEL_TYPE.DRUPAL.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.DRUPAL.NAME, CHANNEL_TYPE.DRUPAL.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.props.handleModalCms(name, isConnected);
+        break;
+      case CHANNEL_TYPE.JOOMLA.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.JOOMLA.NAME, CHANNEL_TYPE.JOOMLA.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.props.handleModalCms(name, isConnected);
+        break;
+      case CHANNEL_TYPE.MAILCHIMP.NAME:
+        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.MAILCHIMP.NAME, CHANNEL_TYPE.MAILCHIMP.TYPE);
+        if (!accepted && isConnected == true) {
+          notify('Please upgrade to plan to connect more channel', 'error');
+          return
+        }
+        this.handleConnectChannel(name, isConnected);
+        break;
+    }
+  }
 
   closeModalUpgrade = () => {
     this.props.channelsListViewModel.mustUpgrade = false;
@@ -217,7 +320,7 @@ class ComponentConnectaChannel extends Component {
                   <button
                     className="cursor-pointer btn btn-success"
                     onClick={(e) => {
-                      this.handleConnectChannel('facebook', !facebookConnected);
+                      this.handleNotifyChannel(CHANNEL_TYPE.FACEBOOK.NAME, !facebookConnected);
                     }}
                   >
                     <span className="ms-2">{facebookConnected ? 'Disconnect' : 'Connect'}</span>
@@ -232,7 +335,6 @@ class ComponentConnectaChannel extends Component {
                       </div>
                       <div className={`list_main `}>
                         {listFaceBookFanpageView.map((value, key) => {
-                          console.log('valuevaluevaluefacebook');
                           return (
                             <div
                               key={key}
@@ -248,12 +350,13 @@ class ComponentConnectaChannel extends Component {
                                   type="button"
                                   className="cursor-pointer btn btn-success ct_btn_connect"
                                   onClick={(e) => {
-                                    this.props.handleConnectedFanpage('facebook', value.id);
+                                    this.handleNotifyChannel(CHANNEL_TYPE.FACEBOOK_PAGE.NAME, listFacebookFanpageConnected &&
+                                      listFacebookFanpageConnected.indexOf(value.id) > -1, value.id)
                                   }}
                                 >
                                   <span>
                                     {listFacebookFanpageConnected &&
-                                    listFacebookFanpageConnected.indexOf(value.id) > -1
+                                      listFacebookFanpageConnected.indexOf(value.id) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
                                   </span>
@@ -307,18 +410,16 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )} */}
 
-                  {youtubeConnected || this.isAllowedConnectChannel('youtube', 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('youtube', !youtubeConnected);
-                      }}
-                    >
-                      <span className="ms-2">{youtubeConnected ? 'Disconnect' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.YOUTUBE.NAME, !youtubeConnected);
+                    }}
+                  >
+                    <span className="ms-2">{youtubeConnected ? 'Disconnect' : 'Connect'}</span>
+                  </button>
+
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -327,18 +428,16 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/twitter.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Twitter</span>
                   </div>
-                  {twitterConnected || this.isAllowedConnectChannel('twitter', 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('twitter', !twitterConnected);
-                      }}
-                    >
-                      <span className="ms-2">{twitterConnected ? 'Disconnect' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.TWITTER.NAME, !twitterConnected);
+                    }}
+                  >
+                    <span className="ms-2">{twitterConnected ? 'Disconnect' : 'Connect'}</span>
+                  </button>
+
                 </div>
               </div>
               {/* <div className="bg-white rounded-3 mb-4">
@@ -375,18 +474,16 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/linkedin.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Linkedin</span>
                   </div>
-                  {linkedinConnected || this.isAllowedConnectChannel('linkedIn', 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('linkedin', !linkedinConnected);
-                      }}
-                    >
-                      <span className="ms-2">{linkedinConnected ? 'Disconnect' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.LINKEDIN.NAME, !linkedinConnected);
+                    }}
+                  >
+                    <span className="ms-2">{linkedinConnected ? 'Disconnect' : 'Connect'}</span>
+                  </button>
+
                 </div>
                 {listLinkedinFanpageView && (
                   <div className="p-3">
@@ -397,8 +494,6 @@ class ComponentConnectaChannel extends Component {
                       </div>
                       <div className={`list_main `}>
                         {Object.values(listLinkedinFanpageView).map((value, key) => {
-                          console.log('valuevaluevaluelinkedin');
-                          console.log(value.id);
                           return (
                             <div
                               key={key}
@@ -414,15 +509,13 @@ class ComponentConnectaChannel extends Component {
                                   type="button"
                                   className="cursor-pointer btn btn-success ct_btn_connect"
                                   onClick={(e) => {
-                                    this.props.handleConnectedFanpage(
-                                      'linkedin',
-                                      value.id.toString()
-                                    );
+                                    this.handleNotifyChannel(CHANNEL_TYPE.LINKEDIN_PAGE.NAME, listLinkedinFanpageConnected &&
+                                      listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1, value.id.toString())
                                   }}
                                 >
                                   <span>
                                     {listLinkedinFanpageConnected &&
-                                    listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
+                                      listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
                                   </span>
@@ -442,18 +535,16 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/tumblr.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Tumblr</span>
                   </div>
-                  {tumblrConnected || this.isAllowedConnectChannel('tumblr', 'social_media') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('tumblr', !tumblrConnected);
-                      }}
-                    >
-                      <span className="ms-2">{tumblrConnected ? 'Disconnect' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.TUMBLR.NAME, !tumblrConnected);
+                    }}
+                  >
+                    <span className="ms-2">{tumblrConnected ? 'Disconnect' : 'Connect'}</span>
+                  </button>
+
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -463,22 +554,18 @@ class ComponentConnectaChannel extends Component {
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Medium</span>
                   </div>
 
-                  {mediumConnected ||
-                  this.isAllowedConnectChannel(CHANNEL_CMS_MEDIUM, 'social_media') ? (
-                    <ButtonConnect
-                      onClick={(e) => {
-                        this.props.handleModalCms(CHANNEL_CMS_MEDIUM, !mediumConnected);
-                      }}
-                      isConnected={mediumConnected}
-                    />
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.MEDIUM.NAME, !mediumConnected);
+                    }}
+                    isConnected={mediumConnected}
+                  />
                 </div>
               </div>
             </div>
           </Tab>
-          <Tab eventKey={2} title={'Advertising'}>
+          {this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.NAME) ?
+          (<Tab eventKey={2} title={'Advertising'}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -486,21 +573,18 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/fbad.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Facebook Ads</span>
                   </div>
-                  {facebookAdsConnected ||
-                  this.isAllowedConnectChannel('fb_instagram_ads', 'advertising') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('fbad', !facebookAdsConnected);
-                      }}
-                    >
-                      <span className="ms-2">
-                        {facebookAdsConnected ? 'Disconnect' : 'Connect'}
-                      </span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.FACEBOOK_ADS.NAME, !facebookAdsConnected);
+                    }}
+                  >
+                    <span className="ms-2">
+                      {facebookAdsConnected ? 'Disconnect' : 'Connect'}
+                    </span>
+                  </button>
+
                 </div>
                 {listFacebookAdsAccountView && (
                   <div className="p-3">
@@ -551,22 +635,20 @@ class ComponentConnectaChannel extends Component {
                   ) : (
                     <ButtonUpgrade />
                   )} */}
-                  {googleadsConnected || this.isAllowedConnectChannel('gg_ads', 'advertising') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel(CHANNEL_ADS_GOOGLE, !googleadsConnected);
-                      }}
-                    >
-                      <span className="ms-2">{googleadsConnected ? 'Disconnect' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.GOOGLE_ADS.NAME, !googleadsConnected);
+                    }}
+                  >
+                    <span className="ms-2">{googleadsConnected ? 'Disconnect' : 'Connect'}</span>
+                  </button>
+
                 </div>
               </div>
             </div>
-          </Tab>
+          </Tab>) : null}
           <Tab eventKey={3} title={'CMS'}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
@@ -576,17 +658,14 @@ class ComponentConnectaChannel extends Component {
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Wordpress</span>
                   </div>
                   {/* {wordpressConnected || this.isAllowedConnectChannel(CHANNEL_CMS_WORDPRESS, 'cms') ? () : (<ButtonUpgrade/>)} */}
-                  {wordpressConnected ||
-                  this.isAllowedConnectChannel(CHANNEL_CMS_WORDPRESS, 'cms') ? (
-                    <ButtonConnect
-                      onClick={(e) => {
-                        this.props.handleModalCms(CHANNEL_CMS_WORDPRESS, !wordpressConnected);
-                      }}
-                      isConnected={wordpressConnected}
-                    />
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.WORDPRESS.NAME, !wordpressConnected);
+                    }}
+                    isConnected={wordpressConnected}
+                  />
+
                 </div>
                 <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
@@ -609,16 +688,14 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/drupal.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Drupal</span>
                   </div>
-                  {drupalConnected || this.isAllowedConnectChannel(CHANNEL_CMS_DRUPAL, 'cms') ? (
-                    <ButtonConnect
-                      onClick={(e) => {
-                        this.props.handleModalCms(CHANNEL_CMS_DRUPAL, !drupalConnected);
-                      }}
-                      isConnected={drupalConnected}
-                    />
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.DRUPAL.NAME, !drupalConnected);
+                    }}
+                    isConnected={drupalConnected}
+                  />
+
                 </div>
                 <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
@@ -639,16 +716,14 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/joomla.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Joomla</span>
                   </div>
-                  {joomlaConnected || this.isAllowedConnectChannel(CHANNEL_CMS_JOOMLA, 'cms') ? (
-                    <ButtonConnect
-                      onClick={(e) => {
-                        this.props.handleModalCms(CHANNEL_CMS_JOOMLA, !joomlaConnected);
-                      }}
-                      isConnected={joomlaConnected}
-                    />
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <ButtonConnect
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.JOOMLA.NAME, !joomlaConnected)
+                    }}
+                    isConnected={joomlaConnected}
+                  />
+
                 </div>
                 <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
@@ -673,19 +748,16 @@ class ComponentConnectaChannel extends Component {
                     <img className="img-avatar" src={'/assets/images/mailchimp.png'} alt="" />
                     <span className="ms-2 fs-4 text-blue-0 text-capitalize">Mailchimp</span>
                   </div>
-                  {mailchimpConnected ||
-                  this.isAllowedConnectChannel('mailchimp', 'email_marketing') ? (
-                    <button
-                      className="cursor-pointer btn btn-success"
-                      onClick={(e) => {
-                        this.handleConnectChannel('mailchimp', !mailchimpConnected);
-                      }}
-                    >
-                      <span className="ms-2">{mailchimpConnected ? 'Disconnect' : 'Connect'}</span>
-                    </button>
-                  ) : (
-                    <ButtonUpgrade />
-                  )}
+
+                  <button
+                    className="cursor-pointer btn btn-success"
+                    onClick={(e) => {
+                      this.handleNotifyChannel(CHANNEL_TYPE.MAILCHIMP.NAME, !mailchimpConnected);
+                    }}
+                  >
+                    <span className="ms-2">{mailchimpConnected ? 'Disconnect' : 'Connect'}</span>
+                  </button>
+
                 </div>
               </div>
             </div>
