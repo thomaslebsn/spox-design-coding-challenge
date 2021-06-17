@@ -19,6 +19,7 @@ import Spinner from "../../../components/Spinner";
 
 import getStatus from "../../../utils/status";
 import CampaignsActionBar from "../CampaignsForm/CampaignsActionBar";
+import ComponentNoData from "../../../components/ComponentNoData";
 
 const CampaignsList = observer(
   class CampaignsList extends Component {
@@ -182,42 +183,53 @@ const CampaignsList = observer(
       console.log(this.tableRowHeader);
       const dataFormFilter = this.getDataFormFilter();
 
-      return tableStatus === PAGE_STATUS.LOADING ? (
-        <Spinner />
-      ) : (
-        <div>
-          <div className="mb-4">
-            <div className="row">
-              <div className="col-lg-12 col-xl-6 mb-3 mb-xl-0">
-                <ComponentChart titleChart={true} />
-              </div>
-              <div className="col-md-6 col-xl-3 ">
-                <ListSocial />
-              </div>
-              <div className="col-md-6 col-xl-3">
-                <CampaignsTotalNumber />
-              </div>
+      return (
+        <>
+        <div className="mb-4">
+          <div className="row">
+            <div className="col-lg-12 col-xl-6 mb-3 mb-xl-0">
+              <ComponentChart titleChart={true} />
+            </div>
+            <div className="col-md-6 col-xl-3 ">
+              <ListSocial />
+            </div>
+            <div className="col-md-6 col-xl-3">
+              <CampaignsTotalNumber />
             </div>
           </div>
-          <div className="d-flex align-items-center justify-content-between mb-4">
-            <h2 className="text-blue-0">List Campaigns</h2>
-            <CampaignsActionBar />
-          </div>
-          <Table
-            rowData={campaigns}
-            tableRowHeader={tableRowHeader}
-            //onEdit={this.handerEditCampaign}
-            onSelect={this.handerSelectCampaigns}
-            isFilter={true}
-            pagination={pagination}
-            pageSize={this.campaignsListViewModel.pageSize}
-            listViewModel={this.campaignsListViewModel}
-            searchFunction={this.campaignsListViewModel.searchCampaign}
-            dataFormFilter={dataFormFilter}
-            searchText="Search your Campaign"
-          ></Table>
         </div>
-      );
+        <div className="d-flex align-items-center justify-content-between mb-4">
+          <h2 className="text-blue-0">List Campaigns</h2>
+          <CampaignsActionBar />
+        </div>
+          {
+            campaigns ? (
+              tableStatus === PAGE_STATUS.LOADING ? (
+                <Spinner />
+              ) : (
+                <div>
+                  <Table
+                    rowData={campaigns}
+                    tableRowHeader={tableRowHeader}
+                    //onEdit={this.handerEditCampaign}
+                    onSelect={this.handerSelectCampaigns}
+                    isFilter={true}
+                    pagination={pagination}
+                    pageSize={this.campaignsListViewModel.pageSize}
+                    listViewModel={this.campaignsListViewModel}
+                    searchFunction={this.campaignsListViewModel.searchCampaign}
+                    dataFormFilter={dataFormFilter}
+                    searchText="Search your Campaign"
+                  ></Table>
+                </div>
+              )
+            ) : (
+              <ComponentNoData />
+            )
+          }
+        </>
+      )
+      
     }
   }
 );

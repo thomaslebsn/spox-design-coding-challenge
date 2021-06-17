@@ -10,6 +10,7 @@ import Spinner from "../../../components/Spinner";
 
 import { observer } from "mobx-react";
 import { withPersonaViewModel } from "../PersonaViewModels/PersonaViewModelContextProvider";
+import ComponentNoData from "../../../components/ComponentNoData";
 
 const PersonasList = observer(
   class PersonasList extends Component {
@@ -86,21 +87,32 @@ const PersonasList = observer(
       ];
 
       console.log(personas);
-      return tableStatus === PAGE_STATUS.LOADING ? (
-        <Spinner />
-      ) : (
-        <Table
-          rowData={personas}
-          tableRowHeader={tableRowHeader}
-          //onEdit={this.handerEditPersona}
-          onSelect={this.handerSelectPersona}
-          pagination={pagination}
-          pageSize={this.personaListViewModel.pageSize}
-          listViewModel={this.personaListViewModel}
-          searchFunction={this.personaListViewModel.searchPersonas}
-          searchText="Search your personas"
-        ></Table>
-      );
+      return (
+        <>
+          {
+            personas ? (
+              tableStatus === PAGE_STATUS.LOADING ? (
+                <Spinner />
+              ) : (
+                <Table
+                  rowData={personas}
+                  tableRowHeader={tableRowHeader}
+                  //onEdit={this.handerEditPersona}
+                  onSelect={this.handerSelectPersona}
+                  pagination={pagination}
+                  pageSize={this.personaListViewModel.pageSize}
+                  listViewModel={this.personaListViewModel}
+                  searchFunction={this.personaListViewModel.searchPersonas}
+                  searchText="Search your personas"
+                ></Table>
+              )
+            ) : (
+              <ComponentNoData />
+            )
+          }
+        </>
+      )
+      
     }
   }
 );

@@ -9,6 +9,7 @@ import { withProjectViewModel } from '../ProjectViewModels/ProjectViewModelConte
 import { PROJECT_COLUMN_INDICATOR } from '../../../constants/ProjectModule';
 
 import Spinner from '../../../components/Spinner';
+import ComponentNoData from '../../../components/ComponentNoData';
 
 const ProjectsList = observer(
   class ProjectsList extends Component {
@@ -108,34 +109,44 @@ const ProjectsList = observer(
         },
       ];
 
-      return tableStatus === PAGE_STATUS.LOADING ? (
-        <Spinner />
-      ) : (
-        <Table
-          rowData={projects}
-          tableRowHeader={tableRowHeader}
-          onEdit={this.handerEditProjectThumb}
-          onSelect={this.handerSelectProject}
-          isThumb={true}
-          isList={this.projectListViewModel.isList}
-          pageSize={this.projectListViewModel.pageSize}
-          dataList={[
-            PROJECT_COLUMN_INDICATOR.CREATED_DATE,
-            PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
-          ]}
-          dataThumb={[
-            'selection',
-            PROJECT_COLUMN_INDICATOR.START_DATE,
-            PROJECT_COLUMN_INDICATOR.END_DATE,
-          ]}
-          pagination={pagination}
-          listViewModel={this.projectListViewModel}
-          searchFunction={this.projectListViewModel.searchProjects}
-          searchText="Search your project"
-          hasSubRow={false}
-          _handleList={this._handleList}
-        ></Table>
-      );
+      return (
+        <>
+          {
+            projects ? (
+              tableStatus === PAGE_STATUS.LOADING ? (
+                <Spinner />
+              ) : (
+                <Table
+                  rowData={projects}
+                  tableRowHeader={tableRowHeader}
+                  onEdit={this.handerEditProjectThumb}
+                  onSelect={this.handerSelectProject}
+                  isThumb={true}
+                  isList={this.projectListViewModel.isList}
+                  pageSize={this.projectListViewModel.pageSize}
+                  dataList={[
+                    PROJECT_COLUMN_INDICATOR.CREATED_DATE,
+                    PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION,
+                  ]}
+                  dataThumb={[
+                    'selection',
+                    PROJECT_COLUMN_INDICATOR.START_DATE,
+                    PROJECT_COLUMN_INDICATOR.END_DATE,
+                  ]}
+                  pagination={pagination}
+                  listViewModel={this.projectListViewModel}
+                  searchFunction={this.projectListViewModel.searchProjects}
+                  searchText="Search your project"
+                  hasSubRow={false}
+                  _handleList={this._handleList}
+                ></Table>
+              )
+            ) : (
+              <ComponentNoData />
+            )
+          }
+        </>
+      )
     }
   }
 );
