@@ -14,6 +14,7 @@ const FormSelectionPersona = lazy(() => import('../components/Form/FormSelection
 const FormInformation = lazy(() => import('../components/FormInformation'));
 const FormTab = lazy(() => import('../components/Form/FormTab'));
 const FormSelectDropdown = lazy(() => import('../components/Form/FormSelectDropdown'));
+const ComponentDamAssets = lazy(() => import('../components/ComponentDamAssets'));
 
 const ContentFormDescription = lazy(() =>
   import('../containers/ContentPage/ContentForm/ContentFormDescription')
@@ -140,7 +141,8 @@ const renderingGroupFieldHandler = (group, validator) => {
                 <Form.Group key={Math.random(40, 200)} className={`${className}`}>
                   {field.label && <Label text={field.label} required={field.required ?? false} />}
 
-                  <DamButton key={Math.random(40, 200)} field={field} />
+                  {/* <DamButton key={Math.random(40, 200)} field={field} /> */}
+                  <ComponentDamAssets key={Math.random(40, 200)} field={field} formPropsData={field.formPropsData}/>
                   {field.validation &&
                     validator.message(field.label, field.value, field.validation, {
                       className: 'text-danger',

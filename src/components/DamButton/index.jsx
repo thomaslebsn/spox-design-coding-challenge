@@ -22,7 +22,7 @@ class DamButton extends React.Component {
     };
   }
 
-  handleClick = (name) => {
+  handleClick = () => {
     console.log(AUTHORIZATION_KEY.TOKEN_USER);
     console.log(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ':9999');
     this.socket.emit('join room', localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER));
@@ -39,7 +39,7 @@ class DamButton extends React.Component {
       console.log(data)
       
       _this.setState(
-        _this.props.changed(data, name)
+        _this.props.changed(data)
       )
 
       // this.props.OnSuccessDamButton(data)
@@ -75,7 +75,7 @@ class DamButton extends React.Component {
         <div className={`lg_btn_dam_assets ${data ? 'w-50' : ''}`}>
           <button
             className="wr_btn_dam border-0 ms-2 bg-blue-2 rounded-2 px-3"
-            onClick={() => this.handleClick(name)}
+            onClick={this.handleClick}
             type="button"
           >
             <i className="text-white">
