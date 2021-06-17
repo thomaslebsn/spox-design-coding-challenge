@@ -13,13 +13,12 @@ class YoutubeSocial extends Component {
 
     this.state = {
       getUrlVideo: "",
-      getUrlImage: "",
       checkTypeVideo: false
     }
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleCanva = this.handleCanva.bind(this);
-    this.handleDamAssets = this.handleDamAssets.bind(this);
+    // this.handleCanva = this.handleCanva.bind(this);
+    // this.handleDamAssets = this.handleDamAssets.bind(this);
     this.handleVideo = this.handleVideo.bind(this);
   }
 
@@ -28,27 +27,27 @@ class YoutubeSocial extends Component {
     this.props.changed(event.target.value);
   }
 
-  handleCanva(exportUrl, designId) {
-    this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.canvaAssets = {
-      exportUrl: exportUrl,
-      designId: designId,
-    };
-    this.props.changed(exportUrl, designId);
-  }
+  // handleCanva(exportUrl, designId) {
+  //   this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.canvaAssets = {
+  //     exportUrl: exportUrl,
+  //     designId: designId,
+  //   };
+  //   this.props.changed(exportUrl, designId);
+  // }
 
-  handleDamAssets(data, name) {
-    if(name === "youtube") {
-      if(data[0].extension != "mp4") {
-        this.setState({
-          getUrlImage: data
-        })
+  // handleDamAssets(data, name) {
+  //   if(name === "youtube") {
+  //     if(data[0].extension != "mp4") {
+  //       this.setState({
+  //         getUrlImage: data
+  //       })
   
-        this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.damAssets = data;
-        this.props.changed(data);
-      }
-    }
+  //       this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.damAssets = data;
+  //       this.props.changed(data);
+  //     }
+  //   }
     
-  }
+  // }
 
   handleVideo(data) {
     if(data[0].extension === "mp4") {
@@ -69,7 +68,7 @@ class YoutubeSocial extends Component {
 
   render() {
     console.log('[Social] render...');
-    let { getUrlVideo, getUrlImage, checkTypeVideo } = this.state;
+    let { getUrlVideo, checkTypeVideo } = this.state;
 
     return (
       <>
@@ -86,18 +85,18 @@ class YoutubeSocial extends Component {
         />
 
         <div className="px-3 py-2 bg-blue-3 d-flex">
-          <CanvaButton
+          {/* <CanvaButton
             data={this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.canvaAssets}
             changed={this.handleCanva}
-          />
-          <DamButton 
+          /> */}
+          {/* <DamButton 
             data={getUrlImage}
             changed={(data, name) => this.handleDamAssets(data, name)}
             name="youtube"
             dataYoutube={getUrlImage}
-          />
+          /> */}
         </div>
-        <div className="mt-2">
+        <div className="mt-2 wr_dam_full_width">
           <VideoButton 
             dataVideo={getUrlVideo}
             changed={(data) => this.handleVideo(data)}
