@@ -56,9 +56,9 @@ class ComponentPublishListChannels extends Component {
 
     return (
       <>
-        <div className="d-flex align-items-center justify-content-between mb-3">
+        {/* <div className="d-flex align-items-center justify-content-between mb-3">
           <h6 className="text-blue mb-0">Social Media</h6>
-          {/* {
+          {
             isDeselectAllSocial ? (
               <a
                 href={void 0}
@@ -76,8 +76,8 @@ class ComponentPublishListChannels extends Component {
                 Deselect all
               </a>
             )
-          } */}
-        </div>
+          }
+        </div> */}
         <div>
           <ul className={`list-unstyled d-flex align-items-center mb-0 flex-wrap ${isDeselectAllSocial ? 'opacity-50' : ''}`}>
             {listFacebookFanpageConnected && listFacebookFanpageConnected.map((i) => {

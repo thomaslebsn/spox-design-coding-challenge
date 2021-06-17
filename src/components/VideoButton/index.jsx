@@ -90,7 +90,7 @@ class VideoButton extends React.Component {
               {
                 dataVideo.map((value, key) => {
                   return (
-                    <video key={key} width="400" controls className="mt-3">
+                    <video key={key} width="100%" controls className="mt-3">
                       <source src={value.url} type="video/mp4"/>
                     </video>
                   )
