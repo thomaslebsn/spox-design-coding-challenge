@@ -33,7 +33,7 @@ class ProfilePage extends React.Component {
 
     return (
       <div className="py-4 px-3">
-        <div className="w-50">
+        <div className="w-75">
           <form>
             <div>
               <div className="d-flex align-items-center justify-content-between mb-3">
@@ -126,6 +126,8 @@ class ProfilePage extends React.Component {
                       className="form-control mb-3"
                       id="email"
                       name="email"
+                      value="example@gmail.com"
+                      disabled
                     />
                   </div>
                 </div>
@@ -258,7 +260,7 @@ class ProfilePage extends React.Component {
                   </div>
                   <div className="col-4">
                     <label className="form-label mb-3" htmlFor="new_password">
-                      <span className="text-black opacity-75">Confirm New Password</span>
+                      <span className="text-black opacity-75 text-nowrap">Confirm New Password</span>
                     </label>
                     <input type="password" className="form-control mb-3" id="new_password"/>
                   </div>
