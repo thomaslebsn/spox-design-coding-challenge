@@ -20,61 +20,61 @@ class Menu extends React.Component {
           name: "home",
           text: "Dashboard",
           link: "/",
-          icons: faHome,
+          icons: "/assets/images/icon_dashboard.svg",
         },
         {
           name: "wizard",
           text: "Wizard",
           link: "/wizard",
-          icons: faMagic,
+          icons: "/assets/images/icon_wizard.svg",
         },
         {
           name: "projects",
           text: "Projects",
           link: "/projects",
-          icons: faFileAlt,
+          icons: "/assets/images/icon_projects.svg"
         },
         {
           name: "campaigns",
           text: "Campaigns",
           link: "/campaigns",
-          icons: faVolumeUp,
+          icons: "/assets/images/icon_campaigns.svg"
         },
         {
           name: "personas",
           text: "Personas",
           link: "/personas",
-          icons: faMagic,
+          icons: "/assets/images/icon_personas.svg"
         },
         {
           name: "content",
           text: "Content",
           link: "/content",
-          icons: faMagic,
+          icons: "/assets/images/icon_content.svg"
         },
         {
           name: "channels",
           text: "Channels",
           link: "/channels",
-          icons: faNetworkWired,
+          icons: "/assets/images/icon_channles.svg"
         },
         {
           name: "calendar",
           text: "Calendar",
           link: "/calendar",
-          icons: faMagic,
+          icons: "/assets/images/icon_calendar.svg"
         },
         {
           name: "analytics",
           text: "Analytics",
           link: "/analytics",
-          icons: faMagic,
+          icons: "/assets/images/icon_analytics.svg"
         },
         {
           name: "digital",
           text: "Digital Assets",
           link: "/digital-assets",
-          icons: faMagic,
+          icons: "/assets/images/icon_digital_assets.svg"
         },
       ],
     };
@@ -125,9 +125,7 @@ class Menu extends React.Component {
                   className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none `}
                   activeClassName={`active`}
                 >
-                  <i>
-                    <FontAwesomeIcon icon={value.icons} />
-                  </i>
+                  <img src={value.icons} alt={value.icons} />
                   <span className="ms-3">{value.text}</span>
                 </NavLink>
               </li>
