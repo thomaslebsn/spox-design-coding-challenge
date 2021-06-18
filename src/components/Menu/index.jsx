@@ -125,7 +125,7 @@ class Menu extends React.Component {
                   className={`d-block rounded-1 p-3 link_menu text-blue-0 text-decoration-none `}
                   activeClassName={`active`}
                 >
-                  <img src={value.icons} alt={value.icons} />
+                  <img src={value.icons} alt={value.icons} className="mb-1"/>
                   <span className="ms-3">{value.text}</span>
                 </NavLink>
               </li>
