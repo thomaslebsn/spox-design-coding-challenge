@@ -11,11 +11,21 @@ import { WizardViewModelContextProvider } from "./WizardViewModels/WizardViewMod
 import WizardSteps from "../../components/WizardSteps";
 import Spinner from "../../components/Spinner";
 
+import GlobalStore from '../../store/Store';
+
 const ConnectChannel = lazy(() => import("./ConnectChannel"));
 
 const CreareContent = lazy(() => import("./CreareContent"));
 
-const channelsStore = new ChannelsStore();
+if (!window.globalStore) {
+  window.globalStore = new GlobalStore();
+}
+
+const globalStore = window.globalStore;
+
+const channelsStore = new ChannelsStore({
+  globalStore: globalStore
+});
 
 const contentStore = new ContentStore();
 const wizardViewModel = new WizardViewModel(channelsStore, contentStore);
