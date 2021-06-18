@@ -102,9 +102,6 @@ class ComponentContentFormPublish extends Component {
         labelsConnectedChannels.indexOf('google_ads') > -1) &&
       !schedule;
 
-      console.log('listFacebookFanpageConnected12345');
-      console.log(this.props.listFacebookFanpageConnected);
-
     return formStatus === PAGE_STATUS.LOADING ? (
       <Spinner />
     ) : (
@@ -138,6 +135,8 @@ class ComponentContentFormPublish extends Component {
                         contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
                         isDeselectAllSocial={this.props.isDeselectAllSocial}
                         handleSelectAllSocial={this.props.handleSelectAllSocial}
+                        handleDeSelectFacebookPage={this.props.handleDeSelectFacebookPage}
+                        getArrayPageFacebook={this.props.getArrayPageFacebook}
                       />
                     </div>
                   </div>

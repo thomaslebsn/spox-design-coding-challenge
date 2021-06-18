@@ -351,6 +351,15 @@ class ContentConnectedChannelsByOrganisationViewModel {
     this.connectedChannels = null;
   }
 
+  disableConnectFacebookPage = (id) => {
+    if(id) {
+      const index = this.dataContentDescriptionSingle.list_channels.facebook.selectedPage.indexOf(id);
+      if(index > -1) {
+        this.dataContentDescriptionSingle.list_channels.facebook.selectedPage.splice(index, 1)
+      }
+    }
+  }
+
   renderChannelByOrganizationID = () => {
     this.formStatus = PAGE_STATUS.LOADING;
     console.log('renderChannelByOrganizationID');

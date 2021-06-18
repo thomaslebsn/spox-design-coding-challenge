@@ -6,7 +6,6 @@ class ComponentPublishListChannels extends Component {
   }
 
   componentDidMount = () => {
-    
   };
 
   render() {
@@ -17,7 +16,9 @@ class ComponentPublishListChannels extends Component {
       isAdvanceMode, 
       contentConnectedChannelsByOrganisationViewModel,
       listLinkedinFanpageConnected,
-      isDeselectAllSocial
+      isDeselectAllSocial,
+      handleDeSelectFacebookPage,
+      getArrayPageFacebook
     } = this.props;
 
     console.log('isDeselectAllSocialrender123');
@@ -44,21 +45,14 @@ class ComponentPublishListChannels extends Component {
       }
     }
 
-    // let converListLinkedinFanpageConnected = '';
-
-    // if(listLinkedinFanpageConnected) {
-    //   if(typeof listLinkedinFanpageConnected  == 'object') {
-    //     converListLinkedinFanpageConnected = Object.values(listLinkedinFanpageConnected)
-    //   } else {
-    //     converListLinkedinFanpageConnected = listLinkedinFanpageConnected
-    //   }
-    // }
+    console.log('getArrayPageFacebook12334234');
+    console.log(getArrayPageFacebook);
 
     return (
       <>
-        {/* <div className="d-flex align-items-center justify-content-between mb-3">
+        <div className="d-flex align-items-center justify-content-between mb-3">
           <h6 className="text-blue mb-0">Social Media</h6>
-          {
+          {/* {
             isDeselectAllSocial ? (
               <a
                 href={void 0}
@@ -76,14 +70,17 @@ class ComponentPublishListChannels extends Component {
                 Deselect all
               </a>
             )
-          }
-        </div> */}
+          } */}
+        </div>
         <div>
           <ul className={`list-unstyled d-flex align-items-center mb-0 flex-wrap ${isDeselectAllSocial ? 'opacity-50' : ''}`}>
             {listFacebookFanpageConnected && listFacebookFanpageConnected.map((i) => {
+              let isDisabled = getArrayPageFacebook.some(
+                (value) => i == value
+              )
               return (
-                <li key={i} className="me-2 mb-2">
-                  <a href={void 0} className="d-block">
+                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectFacebookPage(i)}>
+                  <a href={void 0} className="d-block cursor-pointer" >
                     <span className="position-relative d-block">
                       <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
                       <img

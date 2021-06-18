@@ -16,6 +16,11 @@ const ContentFormPublish = observer(
     constructor(props) {
       super(props);
 
+      this.state = {
+        getArrayPageFacebook: [],
+        isCheckPageFacebook: false
+      }
+
       const channelViewModel = props.viewModel
       console.log('viewModel - Debug View Model123');
       console.log(channelViewModel);
@@ -67,7 +72,31 @@ const ContentFormPublish = observer(
       this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial = false;
     }
 
+    handleDeSelectFacebookPage = (id) => {
+      let { getArrayPageFacebook } = this.state;
+
+      this.setState({
+        getArrayPageFacebook: getArrayPageFacebook
+      })
+
+      this.contentConnectedChannelsByOrganisationViewModel.disableConnectFacebookPage(id);
+
+      // const index = this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage.indexOf(id);
+
+      // console.log('indexindex12345');
+      // console.log(index);
+
+      // if(index > -1) {
+      //   this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage.splice(index, 1)
+      // }
+
+      // console.log('this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage');
+      // console.log(this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage);
+    }
+
     render() {
+      let { getArrayPageFacebook } = this.state;
+
       return (
         <ComponentContentFormPublish
           {...this.props}
@@ -84,6 +113,8 @@ const ContentFormPublish = observer(
           isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
           contentConnectedChannelsByOrganisationViewModel={this.contentConnectedChannelsByOrganisationViewModel}
           isDeselectAllSocial={this.contentConnectedChannelsByOrganisationViewModel ? this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial : null}
+          handleDeSelectFacebookPage={(i) => this.handleDeSelectFacebookPage(i)}
+          getArrayPageFacebook={getArrayPageFacebook}
         />
       );
     }
