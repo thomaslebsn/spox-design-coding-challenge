@@ -15,6 +15,6 @@ export const useProfileViewModel = () =>
   React.useContext(ProfileViewModelContext);
 
 /* HOC to inject store to any functional or class component */
-export const withSignUpViewModel = (Component) => (props) => {
+export const witheProfileViewModel = (Component) => (props) => {
   return <Component {...props} viewModel={useProfileViewModel()} />;
 };

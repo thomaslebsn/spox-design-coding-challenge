@@ -1,54 +1,176 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
+import { UPDATE_PASSWORD_FIELD_KEY } from '../../../constants/ProfileModule';
+import SimpleReactValidator from 'simple-react-validator';
+import { witheProfileViewModel } from '../ProfileViewModel/ProfileViewModelContextProvider';
+import { notify } from '../../../components/Toast';
 
-class UpdatePassword extends Component {
-  constructor(props) {
-    super(props);
+const UpdatePassword = observer(
+  class UpdatePassword extends Component {
+    updatePasswordViewModel = null;
+    formPropsData = {
+      [UPDATE_PASSWORD_FIELD_KEY.ID]: '679',
+      [UPDATE_PASSWORD_FIELD_KEY.CURR_PASSWORD]: '',
+      [UPDATE_PASSWORD_FIELD_KEY.NEW_PASSWORD]: '',
+      [UPDATE_PASSWORD_FIELD_KEY.NEW_PASSWORD]: '',
+    };
 
-  }
+    constructor(props) {
+      super(props);
+      this.state = {
+        loading: false,
+      };
+      this.validator = new SimpleReactValidator();
+      const { viewModel } = props;
+      this.updatePasswordViewModel = viewModel
+        ? viewModel.getUpdatePasswordViewModel()
+        : null;
+      this.updatePasswordViewModel.setAllValue(this);
+      this.handleInputChange = this.handleInputChange.bind(this);
+      this.validateInfoBeforeSending = this.validateInfoBeforeSending.bind(this);
+    }
 
-  componentDidMount() {
+    resetValue(content_id) {
+      if(content_id === 'existed_email'){
+        notify('Email existed. Choose another email', 'error')
+        this.emailInput.current.value = ''
+        this.setState({loading: false})
+      }
+      else if(content_id === 'duplicated_username'){
+        notify('Username existed. Choose another username', 'error')
+        this.usernameInput.current.value = ''
+        this.setState({loading: false})
+      }
+      this.signupFormViewModel.successResponse.state = true;
+    }
 
-  }
+    handleInputChange(type, value) {
+      this.formPropsData[type] = value;
+      this.forceUpdate();
+    }
 
-  render() {
-    return (
-      <div>
-        <div className='bg-white p-3'>
-          <div className="d-flex align-items-center row">
-            <div className="col-4">
-              <label className="form-label mb-3" htmlFor="old_password">
-                <span className="text-black opacity-75">Current password</span>
-              </label>
-              <input type="password" className="form-control mb-3" id="old_password"/>
-            </div>
-            <div className="col-4">
-              <label className="form-label mb-3" htmlFor="new_password">
-                <span className="text-black opacity-75">New Password</span>
-              </label>
-              <input type="password" className="form-control mb-3" id="new_password"/>
-            </div>
-            <div className="col-4">
-              <label className="form-label mb-3" htmlFor="new_password">
-                <span className="text-black opacity-75 text-nowrap">Confirm New Password</span>
-              </label>
-              <input type="password" className="form-control mb-3" id="new_password"/>
-            </div>
-            <div>
-              <button
-                className="btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2">
-                <i className="text-white">
-                  <FontAwesomeIcon icon={faCog}/>
-                </i>
-                <span className="flex-1 ps-2 text-white">Update</span>
-              </button>
-            </div>
+    savePasswordHandler = () => {
+      this.updatePasswordViewModel.savePasswordInformationOnPage();
+    };
+
+    onKeyPress = (e) => {
+      if (e.which === 13) {
+        this.validateInfoBeforeSending();
+      }
+    };
+
+    blurringFieldHandler = () => {
+      this.validator.hideMessageFor('password');
+    };
+
+    validateInfoBeforeSending = () => {
+      console.log('--------------------------------')
+      console.log(this.formPropsData)
+      if (this.validator.allValid()) {
+        this.setState({ loading: true });
+        this.savePasswordHandler();
+      } else {
+        this.validator.showMessages();
+        this.forceUpdate();
+        return false;
+      }
+    };
+
+    render() {
+      let successResponse = this.updatePasswordViewModel ? this.updatePasswordViewModel.successResponse : null;
+      if(!successResponse.state) this.resetValue(successResponse.content_id);
+      this.validator.purgeFields();
+      return (
+        <div>
+          <div className='bg-white p-3'>
+            <form className='d-flex align-items-center row'>
+              <div className='col-4'>
+                <label className='form-label mb-3' htmlFor='curr_password'>
+                  <span className='text-black opacity-75'>Current password</span>
+                </label>
+                <input type='password'
+                       className='form-control mb-3'
+                       id='curr_password'
+                       onBlur={this.blurringFieldHandler}
+                       disabled={this.state.loading}
+                       onChange={event => this.handleInputChange('curr_password', event.target.value)}
+                       name='curr_password'
+                />
+                {this.validator.message(
+                  'password',
+                  this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.CURR_PASSWORD],
+                  'required|min:6|max:30',
+                  { className: 'text-danger' },
+                )}
+              </div>
+              <div className='col-4'>
+                <label className='form-label mb-3' htmlFor='new_password'>
+                  <span className='text-black opacity-75'>New Password</span>
+                </label>
+                <input type='password'
+                       className='form-control mb-3'
+                       id='new_password'
+                       onBlur={this.blurringFieldHandler}
+                       disabled={this.state.loading}
+                       onChange={event => this.handleInputChange('new_password', event.target.value)}
+                       name='new_password'
+                       onKeyPress={this.onKeyPress}
+                />
+                {this.validator.message(
+                  'password',
+                  this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_PASSWORD],
+                  'required|min:6|max:30',
+                  { className: 'text-danger' },
+                )}
+              </div>
+              <div className='col-4'>
+                <label className='form-label mb-3' htmlFor='new_password'>
+                  <span className='text-black opacity-75 text-nowrap'>Confirm New Password</span>
+                </label>
+                <input type='password'
+                       className='form-control mb-3'
+                       id='new_checked_password'
+                       onBlur={this.blurringFieldHandler}
+                       disabled={this.state.loading}
+                       onChange={event => this.handleInputChange('new_checked_password', event.target.value)}
+                       name='new_checked_password'
+                       onKeyPress={this.onKeyPress}
+                />
+                {this.validator.message(
+                  'password',
+                  this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_CHECKED_PASSWORD],
+                  'required|min:6|max:30',
+                  { className: 'text-danger' },
+                )}
+              </div>
+              <div>
+                {this.state.loading && successResponse.state ?
+                  <button className='btn btn-success mt-3' disabled={this.state.loading}>
+                    <div className='spinner-border text-secondary' role='status'>
+                      <span className='sr-only'>Loading...</span>
+                    </div>
+                  </button>
+                  :
+                  <button onClick={(e) => {
+                    e.preventDefault();
+                    this.validateInfoBeforeSending()
+                  }}
+                          className='btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2'>
+                    <i className='text-white'>
+                      <FontAwesomeIcon icon={faCog} />
+                    </i>
+                    <span className='flex-1 ps-2 text-white'>Update</span>
+                  </button>
+                }
+              </div>
+            </form>
           </div>
         </div>
-      </div>
-    );
-  }
-}
+      );
+    }
+  },
+);
 
-export default UpdatePassword;
+export default witheProfileViewModel(UpdatePassword);
