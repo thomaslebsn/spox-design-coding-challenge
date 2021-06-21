@@ -7,7 +7,7 @@ class SocialMedia extends Component {
     super();
 
     this.state = {
-      isChecked: 'social_post_now',
+      isChecked: 'spost_now',
       isSwitch: false,
     };
   }
@@ -15,7 +15,12 @@ class SocialMedia extends Component {
   handleRadio = (name) => {
     this.setState({
       isChecked: name,
-    });
+    })
+
+    let sliceName = name.substring(1);
+
+    this.postPublishingTypeChannels(sliceName);
+
   };
 
   handleChangeSwitch = () => {
@@ -24,8 +29,33 @@ class SocialMedia extends Component {
     });
   };
 
+  componentDidMount = () => {
+    // this.postPublishingTypeChannels(this.state.isChecked)
+  }
+
+  postPublishingTypeChannels = (name) => {
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    if(isAdvanceMode) {
+      let getDataChannelsSome = Object.values(contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social);
+      getDataChannelsSome.map((value) => value.publishedPlan.publishingType = name)
+
+    } else {
+      let getListChannels = contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+      getListChannels.facebook.publishedPlan.publishingType = name;
+      getListChannels.linkedin.publishedPlan.publishingType = name;
+      getListChannels.instagram.publishedPlan.publishingType = name;
+      getListChannels.twitter.publishedPlan.publishingType = name;
+      getListChannels.youtube.publishedPlan.publishingType = name;
+      getListChannels.google_my_business.publishedPlan.publishingType = name;
+      getListChannels.tumblr.publishedPlan.publishingType = name;
+      getListChannels.medium.publishedPlan.publishingType = name;
+    }
+  }
+
   render() {
     let { isChecked, isSwitch } = this.state;
+
     return (
       <div>
         <div className="d-flex mb-3">
@@ -33,12 +63,12 @@ class SocialMedia extends Component {
             <input
               className="form-check-input"
               type="radio"
-              id="social_post_now"
-              checked={isChecked === 'social_post_now' ? true : false}
-              name={'social_post_now'}
-              onClick={() => this.handleRadio('social_post_now')}
+              id="spost_now"
+              checked={isChecked === 'spost_now' ? true : false}
+              name={'spost_now'}
+              onClick={() => this.handleRadio('spost_now')}
             />
-            <label className="form-check-label" htmlFor="social_post_now">
+            <label className="form-check-label" htmlFor="spost_now">
               Post now
             </label>
           </div>
@@ -49,39 +79,39 @@ class SocialMedia extends Component {
               <input
                 className="form-check-input"
                 type="radio"
-                id="social_schedule"
-                checked={isChecked === 'social_schedule' ? true : false}
-                name="social_schedule"
-                onClick={() => this.handleRadio('social_schedule')}
+                id="sschedule_post"
+                checked={isChecked === 'sschedule_post' ? true : false}
+                name="sschedule_post"
+                onClick={() => this.handleRadio('sschedule_post')}
               />
-              <label className="form-check-label" htmlFor="social_schedule">
+              <label className="form-check-label" htmlFor="sschedule_post">
                 Schedule
               </label>
             </div>
-            {isChecked === 'social_schedule' && (
+            {/* {isChecked === 'schedule_post' && (
               <ComponentSwitch
                 checked={isSwitch}
                 handleChange={this.handleChangeSwitch}
                 text={'Customize schedule for each channel'}
                 id="customize_schedule"
               />
-            )}
+            )} */}
           </div>
-          {isChecked === 'social_schedule' && (
+          {/* {isChecked === 'sschedule_post' && (
             <ComponentSchedule isSwitch={isSwitch} regularly={true} />
-          )}
+          )} */}
         </div>
         <div className="d-flex mb-2">
           <div className="form-check">
             <input
               className="form-check-input"
               type="radio"
-              id="social_save"
-              checked={isChecked === 'social_save' ? true : false}
-              name="social_save"
-              onClick={() => this.handleRadio('social_save')}
+              id="ssave_as_draft"
+              checked={isChecked === 'ssave_as_draft' ? true : false}
+              name="ssave_as_draft"
+              onClick={() => this.handleRadio('ssave_as_draft')}
             />
-            <label className="form-check-label" htmlFor="social_save">
+            <label className="form-check-label" htmlFor="ssave_as_draft">
               Save as draft
             </label>
           </div>

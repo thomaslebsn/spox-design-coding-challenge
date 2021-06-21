@@ -7,7 +7,7 @@ class ManagementSystem extends Component {
     super();
 
     this.state = {
-      isChecked: 'cms_post_now',
+      isChecked: 'cpost_now',
       isSwitch: false,
     };
   }
@@ -16,6 +16,10 @@ class ManagementSystem extends Component {
     this.setState({
       isChecked: name,
     });
+
+    let sliceName = name.substring(1);
+
+    this.postPublishingTypeChannels(sliceName);
   };
 
   handleChangeSwitch = () => {
@@ -24,8 +28,28 @@ class ManagementSystem extends Component {
     });
   };
 
+  componentDidMount = () => {
+    // this.postPublishingTypeChannels(this.state.isChecked)
+  }
+
+  postPublishingTypeChannels = (name) => {
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    if(isAdvanceMode) {
+      let getDataChannelsSome = Object.values(contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.cms);
+      getDataChannelsSome.map((value) => value.publishedPlan.publishingType = name)
+
+    } else {
+      let getListChannels = contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+      getListChannels.joomla.publishedPlan.publishingType = name;
+      getListChannels.wordpress.publishedPlan.publishingType = name;
+      getListChannels.drupal.publishedPlan.publishingType = name;
+    }
+  }
+
   render() {
     let { isChecked, isSwitch } = this.state;
+    
     return (
       <div>
         <div className="d-flex mb-3">
@@ -33,12 +57,12 @@ class ManagementSystem extends Component {
             <input
               className="form-check-input"
               type="radio"
-              id="cms_post_now"
-              checked={isChecked === 'cms_post_now' ? true : false}
-              name={'cms_post_now'}
-              onClick={() => this.handleRadio('cms_post_now')}
+              id="cpost_now"
+              checked={isChecked === 'cpost_now' ? true : false}
+              name={'cpost_now'}
+              onClick={() => this.handleRadio('cpost_now')}
             />
-            <label className="form-check-label" htmlFor="cms_post_now">
+            <label className="form-check-label" htmlFor="cpost_now">
               Post now
             </label>
           </div>
@@ -49,25 +73,25 @@ class ManagementSystem extends Component {
               <input
                 className="form-check-input"
                 type="radio"
-                id="cms_schedule"
-                checked={isChecked === 'cms_schedule' ? true : false}
-                name="cms_schedule"
-                onClick={() => this.handleRadio('cms_schedule')}
+                id="cschedule_post"
+                checked={isChecked === 'cschedule_post' ? true : false}
+                name="cschedule_post"
+                onClick={() => this.handleRadio('cschedule_post')}
               />
-              <label className="form-check-label" htmlFor="cms_schedule">
+              <label className="form-check-label" htmlFor="cschedule_post">
                 Schedule
               </label>
             </div>
-            {isChecked === 'cms_schedule' && (
+            {/* {isChecked === 'cschedule_post' && (
               <ComponentSwitch
                 checked={isSwitch}
                 handleChange={this.handleChangeSwitch}
                 text={'Customize schedule for each channel'}
                 id="customize_schedule"
               />
-            )}
+            )} */}
           </div>
-          {isChecked === 'cms_schedule' && (
+          {isChecked === 'cschedule_post' && (
             <ComponentSchedule isSwitch={isSwitch} regularly={false} />
           )}
         </div>
@@ -76,12 +100,12 @@ class ManagementSystem extends Component {
             <input
               className="form-check-input"
               type="radio"
-              id="cms_save"
-              checked={isChecked === 'cms_save' ? true : false}
-              name="cms_save"
-              onClick={() => this.handleRadio('cms_save')}
+              id="csave_as_draft"
+              checked={isChecked === 'csave_as_draft' ? true : false}
+              name="csave_as_draft"
+              onClick={() => this.handleRadio('csave_as_draft')}
             />
-            <label className="form-check-label" htmlFor="cms_save">
+            <label className="form-check-label" htmlFor="csave_as_draft">
               Save as draft
             </label>
           </div>
