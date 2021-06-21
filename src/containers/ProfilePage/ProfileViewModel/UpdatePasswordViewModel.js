@@ -41,7 +41,6 @@ class UpdatePasswordViewModel {
   callbackOnSuccessHandler = () => {
     logout();
     notify('Change password successfully, please re-login with your new password.', 'success');
-    history.push('/profile');
   };
 }
 
