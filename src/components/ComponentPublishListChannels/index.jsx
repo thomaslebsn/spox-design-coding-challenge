@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class ComponentPublishListChannels extends Component {
   constructor(props) {
     super(props);
+
   }
 
   componentDidMount = () => {
-    
   };
 
   render() {
@@ -17,17 +17,22 @@ class ComponentPublishListChannels extends Component {
       isAdvanceMode, 
       contentConnectedChannelsByOrganisationViewModel,
       listLinkedinFanpageConnected,
-      isDeselectAllSocial
+      isDeselectAllSocial,
+      handleDeSelectConnectSomePage,
+      getArrayPageFacebook,
+      getArrayPageLinkedin,
+      getListConnectFacebookPagePublisd,
+      getListConnectLinkedinPagePublisd
     } = this.props;
-
-    console.log('isDeselectAllSocialrender123');
-    console.log(isDeselectAllSocial);
 
     console.log('listFacebookFanpageConnectedrender123');
     console.log(listFacebookFanpageConnected);
 
     console.log('listLinkedinFanpageConnectedrender123');
     console.log(listLinkedinFanpageConnected);
+
+    console.log('getListConnectPagePublisd123');
+    console.log(getListConnectFacebookPagePublisd);
 
     if(isDeselectAllSocial === true) {
       contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.facebook.selectedPage = [];
@@ -44,21 +49,12 @@ class ComponentPublishListChannels extends Component {
       }
     }
 
-    // let converListLinkedinFanpageConnected = '';
-
-    // if(listLinkedinFanpageConnected) {
-    //   if(typeof listLinkedinFanpageConnected  == 'object') {
-    //     converListLinkedinFanpageConnected = Object.values(listLinkedinFanpageConnected)
-    //   } else {
-    //     converListLinkedinFanpageConnected = listLinkedinFanpageConnected
-    //   }
-    // }
 
     return (
       <>
-        {/* <div className="d-flex align-items-center justify-content-between mb-3">
+        <div className="d-flex align-items-center justify-content-between mb-3">
           <h6 className="text-blue mb-0">Social Media</h6>
-          {
+          {/* {
             isDeselectAllSocial ? (
               <a
                 href={void 0}
@@ -76,14 +72,17 @@ class ComponentPublishListChannels extends Component {
                 Deselect all
               </a>
             )
-          }
-        </div> */}
+          } */}
+        </div>
         <div>
           <ul className={`list-unstyled d-flex align-items-center mb-0 flex-wrap ${isDeselectAllSocial ? 'opacity-50' : ''}`}>
-            {listFacebookFanpageConnected && listFacebookFanpageConnected.map((i) => {
+            {getListConnectFacebookPagePublisd && getListConnectFacebookPagePublisd.map((i) => {
+              let isDisabled = getArrayPageFacebook.some(
+                (value) => i == value
+              )
               return (
-                <li key={i} className="me-2 mb-2">
-                  <a href={void 0} className="d-block">
+                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('facebook', i)}>
+                  <a href={void 0} className="d-block cursor-pointer" >
                     <span className="position-relative d-block">
                       <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
                       <img
@@ -97,10 +96,13 @@ class ComponentPublishListChannels extends Component {
                 </li>
               );
             })}
-            {listLinkedinFanpageConnected && listLinkedinFanpageConnected.map((i) => {
+            {getListConnectLinkedinPagePublisd && getListConnectLinkedinPagePublisd.map((i) => {
+              let isDisabled = getArrayPageLinkedin.some(
+                (value) => i == value
+              )
               return (
-                <li key={i} className="me-2 mb-2 cursor-pointer">
-                  <a href={void 0} className="d-block">
+                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('linkedin', i)}>
+                  <a href={void 0} className="d-block cursor-pointer">
                     <span className="position-relative d-block ">
                       <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
                       <img

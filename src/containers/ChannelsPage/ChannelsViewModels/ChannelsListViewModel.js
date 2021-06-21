@@ -84,6 +84,10 @@ class ChannelsListViewModel {
 
   listLinkedinFanpageConnected = null;
 
+  getListConnectFacebookPagePublisd = null;
+
+  getListConnectLinkedinPagePublisd = null;
+
   constructor(channelsStore) {
     makeAutoObservable(this);
     this.channelsStore = channelsStore;
@@ -324,6 +328,7 @@ class ChannelsListViewModel {
 
                       this.listFacebookFanpageConnected = responseResult.pages.connected;
                       this.countSocialMediaConnected+= responseResult.pages.connected.length;
+                      this.getListConnectFacebookPagePublisd = responseResult.pages.connected;
                     }
                     break;
 
@@ -362,6 +367,7 @@ class ChannelsListViewModel {
 
                       this.listLinkedinFanpageConnected = responseResult.pages.connected;
                       this.countSocialMediaConnected+= responseResult.pages.connected;
+                      this.getListConnectLinkedinPagePublisd = responseResult.pages.connected;
                     }
                     break;
 
@@ -489,6 +495,8 @@ class ChannelsListViewModel {
                   this.listFacebookFanpageConnected = responseResult.pages.connected;
 
                   this.countSocialMediaConnected+=responseResult.pages.connected.length;
+
+                  this.getListConnectFacebookPagePublisd = responseResult.pages.connected;
                 }
                 break;
               case 'fbad':
@@ -542,6 +550,8 @@ class ChannelsListViewModel {
                   this.listLinkedinFanpageConnected = responseResult.pages.connected;
 
                   this.countSocialMediaConnected+=responseResult.pages.connected.length;
+                  
+                  this.getListConnectLinkedinPagePublisd = responseResult.pages.connected;
                 }
                 break;
 

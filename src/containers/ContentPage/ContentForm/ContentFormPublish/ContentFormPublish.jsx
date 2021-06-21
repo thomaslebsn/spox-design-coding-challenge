@@ -16,6 +16,11 @@ const ContentFormPublish = observer(
     constructor(props) {
       super(props);
 
+      this.state = {
+        getArrayPageFacebook: [],
+        getArrayPageLinkedin: []
+      }
+
       const channelViewModel = props.viewModel
       console.log('viewModel - Debug View Model123');
       console.log(channelViewModel);
@@ -67,7 +72,46 @@ const ContentFormPublish = observer(
       this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial = false;
     }
 
+    handleDeSelectConnectSomePage = (name, id) => {
+      let { getArrayPageFacebook, getArrayPageLinkedin } = this.state;
+
+      switch (name) {
+        case 'facebook':
+          const indexFB = getArrayPageFacebook.includes(id);
+
+          if(indexFB) {
+            const getIdFB = getArrayPageFacebook.indexOf(id)
+            getArrayPageFacebook.splice(getIdFB, 1)
+          } else {
+            getArrayPageFacebook.push(id)
+          }
+
+          this.setState({
+            getArrayPageFacebook: getArrayPageFacebook
+          })
+        break;
+        case 'linkedin':
+          const indexLI = getArrayPageLinkedin.includes(id);
+
+          if(indexLI) {
+            const getIdLI = getArrayPageLinkedin.indexOf(id)
+            getArrayPageLinkedin.splice(getIdLI, 1)
+          } else {
+            getArrayPageLinkedin.push(id)
+          }
+
+          this.setState({
+            getArrayPageLinkedin: getArrayPageLinkedin
+          })
+        break;
+      } 
+
+      this.contentConnectedChannelsByOrganisationViewModel.disableConnectSoMePage(name, id);
+    }
+
     render() {
+      let { getArrayPageFacebook, getArrayPageLinkedin } = this.state;
+
       return (
         <ComponentContentFormPublish
           {...this.props}
@@ -84,6 +128,11 @@ const ContentFormPublish = observer(
           isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
           contentConnectedChannelsByOrganisationViewModel={this.contentConnectedChannelsByOrganisationViewModel}
           isDeselectAllSocial={this.contentConnectedChannelsByOrganisationViewModel ? this.contentConnectedChannelsByOrganisationViewModel.isDeselectAllSocial : null}
+          handleDeSelectConnectSomePage={(name, i) => this.handleDeSelectConnectSomePage(name, i)}
+          getArrayPageFacebook={getArrayPageFacebook}
+          getArrayPageLinkedin={getArrayPageLinkedin}
+          getListConnectFacebookPagePublisd={this.channelsListViewModel.getListConnectFacebookPagePublisd}
+          getListConnectLinkedinPagePublisd={this.channelsListViewModel.getListConnectLinkedinPagePublisd }
         />
       );
     }
