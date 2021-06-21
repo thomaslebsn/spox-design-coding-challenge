@@ -166,4 +166,27 @@ export default class BillingPlanStore {
       });
     }
   }
+
+  async getMemberUploadHistoryQuotas(callbackOnSuccess, callbackOnError) {
+    try {
+      const billingPlanService = new EasiiBillingPlanApiService();
+      let response = null;
+      response = await billingPlanService.getHistoryUploadQuotas(this.memberId);
+
+      if (response) {
+        runInAction(() => {
+          callbackOnSuccess(response);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
 }

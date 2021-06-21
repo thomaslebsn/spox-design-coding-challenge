@@ -12,10 +12,12 @@ class BillingPlanListViewModel {
   paddleData = null;
   subscriptionDetail = null;
   invoices = [];
+  uploadHistoryQuotas = null;
 
-  constructor(billingPlanStore) {
+  constructor(billingPlanStore, channelsStore) {
     makeAutoObservable(this);
     this.billingPlanStore = billingPlanStore;
+    this.channelsStore = channelsStore;
   }
 
   openModal = () => {
@@ -50,6 +52,16 @@ class BillingPlanListViewModel {
       },
       (error) => {}
     );
+
+    //get upload history response
+    this.billingPlanStore.getMemberUploadHistoryQuotas(
+      (response) => {
+        this.uploadHistoryQuotas = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   };
 
   setupPaddle() {
@@ -108,8 +120,6 @@ class BillingPlanListViewModel {
   //get pay link
   getPayLinkModel = (planName) => {
     this.closeModal();
-    console.log('getPayLinkModel');
-    console.log(this.subscriptionDetail);
     //only get pay link when subscription plan detail is empty
     if (
       this.subscriptionDetail === null ||
@@ -187,6 +197,19 @@ class BillingPlanListViewModel {
       }
     );
   };
+
+  //get upload history quotas
+  getUploadHistoryQuotas = () => {
+    let data = this.billingPlanStore.getMemberUploadHistoryQuotas(
+      (response) => {
+        return response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+    return data;
+  }
 }
 
 export default BillingPlanListViewModel;
