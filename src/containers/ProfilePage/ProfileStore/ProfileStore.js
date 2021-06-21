@@ -21,7 +21,6 @@ export default class ProfileStore {
         resultOnSave = await updatePasswordApiService.updateMemberPassword(
           convertedUpdatePasswordData,
         );
-        resultOnSave = JSON.parse(resultOnSave);
       }
 
       if (resultOnSave.result.success) {

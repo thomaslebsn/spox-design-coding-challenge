@@ -1,6 +1,8 @@
 import history from '../../../routes/history';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
+import {logout} from '../../../auth';
+import { notify } from '../../../components/Toast';
 
 class UpdatePasswordViewModel {
   profileStore = null;
@@ -21,7 +23,6 @@ class UpdatePasswordViewModel {
   };
 
   savePasswordInformationOnPage = () => {
-    console.log(this.updatePasswordViewModel.formPropsData)
     this.profileStore.updatePassword(
       this.updatePasswordViewModel.formPropsData,
       this.callbackOnSuccessHandler,
@@ -31,13 +32,16 @@ class UpdatePasswordViewModel {
 
   callbackOnErrorHandler = (error) => {
     console.log('error')
+    console.log(this.successResponse)
     console.log(error)
     this.successResponse.state = false;
     this.successResponse.content_id = error.result.content_id;
   };
 
   callbackOnSuccessHandler = () => {
-    // history.push('/verify');
+    logout();
+    notify('Change password successfully, please re-login with your new password.', 'success');
+    history.push('/profile');
   };
 }
 
