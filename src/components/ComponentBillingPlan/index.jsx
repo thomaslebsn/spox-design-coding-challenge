@@ -104,7 +104,7 @@ class ComponentBillingPlan extends React.Component {
                     data-itemname="Free"
                     onClick={(e) => {
                       if (this.currentPlan === 'free') { 
-                        notify("Please Choose A Different Plan");
+                        notify("Please Choose A Different Plan", "warning");
                         return
                       }
                       this.props.handleSelectSubscriptionPlan('free');
@@ -149,7 +149,7 @@ class ComponentBillingPlan extends React.Component {
                     className={`btn btn-success getstarts ${this.currentPlan === 'small'? 'selected' : ''}`}
                     onClick={(e) => {
                       if (this.currentPlan === 'small') { 
-                        notify("Please Choose A Different Plan");
+                        notify("Please Choose A Different Plan", "warning");
                         return
                       }
                       this.props.handleSelectSubscriptionPlan('small');
@@ -195,7 +195,7 @@ class ComponentBillingPlan extends React.Component {
                     className={`btn btn-success getstarts ${this.currentPlan === 'medium'? 'selected' : ''}`}
                     onClick={(e) => {
                       if (this.currentPlan === 'medium') { 
-                        notify("Please Choose A Different Plan");
+                        notify("Please Choose A Different Plan", "warning");
                         return
                       }
                       this.props.handleSelectSubscriptionPlan('medium');
@@ -240,7 +240,7 @@ class ComponentBillingPlan extends React.Component {
                     className={`btn btn-success getstarts ${this.currentPlan === 'pro'? 'selected' : ''}`}
                     onClick={(e) => {
                       if (this.currentPlan === 'pro') { 
-                        notify("Please Choose A Different Plan");
+                        notify("Please Choose A Different Plan", "warning");
                         return
                       }
                       this.props.handleSelectSubscriptionPlan('pro');

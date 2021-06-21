@@ -95,7 +95,7 @@ function ComponentBillingInfo(props) {
               </div>
             </React.Fragment>
           ) : null}
-          {dayLefts ? (
+          {(dayLefts || dayLefts === 0) ? (
             <div className="row py-3 border-bottom-1 item_project">
               <div className="col-4">
                 <div className="d-flex align-items-center">

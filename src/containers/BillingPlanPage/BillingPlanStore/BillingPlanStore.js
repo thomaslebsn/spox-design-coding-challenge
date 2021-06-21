@@ -173,7 +173,7 @@ export default class BillingPlanStore {
       let response = null;
       response = await billingPlanService.getHistoryUploadQuotas(this.memberId);
 
-      if (response) {
+      if (response && response.status) {
         runInAction(() => {
           callbackOnSuccess(response);
         });
