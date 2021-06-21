@@ -5,9 +5,18 @@ import BillingPlanStore from "./BillingPlanStore/BillingPlanStore";
 import BillingPlanViewModel from "./BillingPlanViewModel/BillingPlanViewModel";
 import { BillingPlanViewModelContextProvider } from "./BillingPlanViewModel/BillingPlanViewModelContextProvider";
 import BillingPlanList from "./BillingPlanList/BillingPlanList";
+import GlobalStore from '../../store/Store';
+import ChannelsStore from '../ChannelsPage/ChannelsStore/ChannelsStore';
 
+if (!window.globalStore) {
+  window.globalStore = new GlobalStore();
+}
+const globalStore = window.globalStore;
+const channelsStore = new ChannelsStore({
+  globalStore: globalStore
+});
 const billingPlanStore = new BillingPlanStore();
-const billingPlanViewModel = new BillingPlanViewModel(billingPlanStore);
+const billingPlanViewModel = new BillingPlanViewModel(billingPlanStore, channelsStore);
 
 function BillingPlanPage({ match }) {
   return (

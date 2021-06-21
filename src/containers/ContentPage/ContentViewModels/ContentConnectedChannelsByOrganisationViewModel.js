@@ -37,7 +37,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -49,7 +49,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -61,7 +61,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -73,7 +73,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -84,7 +84,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -96,7 +96,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -108,7 +108,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -120,7 +120,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -132,7 +132,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -144,7 +144,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -156,7 +156,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       },
@@ -168,7 +168,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         },
         selectedPage: [],
         publishedPlan: {
-          postType: "post_now",
+          publishingType: "post_now",
           schedule: {}
         }
       }
@@ -187,7 +187,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -199,7 +199,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -211,7 +211,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -222,7 +222,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -234,7 +234,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -246,7 +246,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -258,7 +258,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -270,7 +270,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         }
@@ -284,7 +284,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -296,7 +296,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
@@ -308,7 +308,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         }
@@ -322,13 +322,14 @@ class ContentConnectedChannelsByOrganisationViewModel {
           },
           selectedPage: [],
           publishedPlan: {
-            postType: "post_now",
+            publishingType: "post_now",
             schedule: {}
           }
         },
       },
     }
   }
+
 
   constructor(contentsStore) {
     makeAutoObservable(this);
@@ -349,6 +350,44 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   resetObservableProperties() {
     this.connectedChannels = null;
+  }
+
+  disableConnectSoMePage = (name, id) => {
+    switch (name) {
+      case 'facebook':
+        let getDataContentDescriptionConnectFBPage = this.isAdvanceMode ? 
+        this.dataContentDescriptionSocial.list_channels.social.facebook.selectedPage : 
+        this.dataContentDescriptionSingle.list_channels.facebook.selectedPage;
+  
+        if(id) {
+          const indexFB = getDataContentDescriptionConnectFBPage.includes(id);
+    
+          if(indexFB) {
+            const getIdFB = getDataContentDescriptionConnectFBPage.indexOf(id)
+            getDataContentDescriptionConnectFBPage.splice(getIdFB, 1)
+          } else {
+            getDataContentDescriptionConnectFBPage.push(id)
+          }
+        }
+      break;
+      case 'linkedin':
+        let getDataContentDescriptionConnectLIPage = this.isAdvanceMode ? 
+        this.dataContentDescriptionSocial.list_channels.social.linkedin.selectedPage : 
+        this.dataContentDescriptionSingle.list_channels.linkedin.selectedPage;
+  
+        if(id) {
+          const indexLI = getDataContentDescriptionConnectLIPage.includes(id);
+    
+          if(indexLI) {
+            const getIdLI = getDataContentDescriptionConnectLIPage.indexOf(id)
+            getDataContentDescriptionConnectLIPage.splice(getIdLI, 1)
+          } else {
+            getDataContentDescriptionConnectLIPage.push(id)
+          }
+        }
+      break;
+    }
+    
   }
 
   renderChannelByOrganizationID = () => {

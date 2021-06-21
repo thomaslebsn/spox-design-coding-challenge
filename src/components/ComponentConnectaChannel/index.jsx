@@ -37,6 +37,7 @@ class ComponentConnectaChannel extends Component {
       panelIndex: '',
       isShowModalWordpress: false,
       showModalCms: false,
+      showModalUpgrade: false,
     };
   }
 
@@ -137,119 +138,182 @@ class ComponentConnectaChannel extends Component {
   };
 
   handleNotifyChannel = (name, isConnected = true, idFanpage) => {
-    let accepted = true
+    let accepted = true;
     if (idFanpage) {
       switch (name) {
         case CHANNEL_TYPE.FACEBOOK_PAGE.NAME:
-          accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.FACEBOOK_PAGE.NAME, CHANNEL_TYPE.FACEBOOK_PAGE.TYPE)
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.FACEBOOK_PAGE.NAME,
+            CHANNEL_TYPE.FACEBOOK_PAGE.TYPE
+          );
           if (!accepted && isConnected == false) {
-            notify('Please upgrade to plan to connect more channel', 'error');
-            return
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
           }
           this.props.handleConnectedFanpage(name, idFanpage);
           break;
         case CHANNEL_TYPE.LINKEDIN_PAGE.NAME:
-            accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.LINKEDIN_PAGE.NAME, CHANNEL_TYPE.LINKEDIN_PAGE.TYPE);
-            if (!accepted && isConnected == false) {
-              notify('Please upgrade to plan to connect more channel', 'error');
-              return
-            }
-            this.props.handleConnectedFanpage(name, idFanpage);
-            break;
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.LINKEDIN_PAGE.NAME,
+            CHANNEL_TYPE.LINKEDIN_PAGE.TYPE
+          );
+          if (!accepted && isConnected == false) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.props.handleConnectedFanpage(name, idFanpage);
+          break;
       }
-    }
-    else switch (name) {
-      case CHANNEL_TYPE.FACEBOOK.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.FACEBOOK.NAME, CHANNEL_TYPE.FACEBOOK.TYPE)
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.handleConnectChannel(name, isConnected);
-        break;
-      case CHANNEL_TYPE.YOUTUBE.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.YOUTUBE.NAME, CHANNEL_TYPE.YOUTUBE.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.handleConnectChannel(name, isConnected);
-        break
-      case CHANNEL_TYPE.TWITTER.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.TWITTER.NAME, CHANNEL_TYPE.TWITTER.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.handleConnectChannel(name, isConnected);
-        break;
-      case CHANNEL_TYPE.LINKEDIN.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.LINKEDIN.NAME, CHANNEL_TYPE.LINKEDIN.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.handleConnectChannel(name, isConnected);
-        break;
-      case CHANNEL_TYPE.TUMBLR.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.TUMBLR.NAME, CHANNEL_TYPE.TUMBLR.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.handleConnectChannel(name, isConnected);
-        break;
-      case CHANNEL_TYPE.MEDIUM.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.MEDIUM.NAME, CHANNEL_TYPE.MEDIUM.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.props.handleModalCms(name, isConnected);
-        break;
-      case CHANNEL_TYPE.FACEBOOK_ADS.NAME:
-        this.handleConnectChannel(name, isConnected);
-        break;
-      case CHANNEL_TYPE.GOOGLE_ADS.NAME:
-        this.handleConnectChannel(name, isConnected);
-        break;
-      case CHANNEL_TYPE.WORDPRESS.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.WORDPRESS.NAME, CHANNEL_TYPE.WORDPRESS.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.props.handleModalCms(name, isConnected);
-        break;
-      case CHANNEL_TYPE.DRUPAL.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.DRUPAL.NAME, CHANNEL_TYPE.DRUPAL.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.props.handleModalCms(name, isConnected);
-        break;
-      case CHANNEL_TYPE.JOOMLA.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.JOOMLA.NAME, CHANNEL_TYPE.JOOMLA.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.props.handleModalCms(name, isConnected);
-        break;
-      case CHANNEL_TYPE.MAILCHIMP.NAME:
-        accepted = this.isAllowedConnectChannel(CHANNEL_TYPE.MAILCHIMP.NAME, CHANNEL_TYPE.MAILCHIMP.TYPE);
-        if (!accepted && isConnected == true) {
-          notify('Please upgrade to plan to connect more channel', 'error');
-          return
-        }
-        this.handleConnectChannel(name, isConnected);
-        break;
-    }
+    } else
+      switch (name) {
+        case CHANNEL_TYPE.FACEBOOK.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.FACEBOOK.NAME,
+            CHANNEL_TYPE.FACEBOOK.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.handleConnectChannel(name, isConnected);
+          break;
+        case CHANNEL_TYPE.YOUTUBE.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.YOUTUBE.NAME,
+            CHANNEL_TYPE.YOUTUBE.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.handleConnectChannel(name, isConnected);
+          break;
+        case CHANNEL_TYPE.TWITTER.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.TWITTER.NAME,
+            CHANNEL_TYPE.TWITTER.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.handleConnectChannel(name, isConnected);
+          break;
+        case CHANNEL_TYPE.LINKEDIN.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.LINKEDIN.NAME,
+            CHANNEL_TYPE.LINKEDIN.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.handleConnectChannel(name, isConnected);
+          break;
+        case CHANNEL_TYPE.TUMBLR.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.TUMBLR.NAME,
+            CHANNEL_TYPE.TUMBLR.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.handleConnectChannel(name, isConnected);
+          break;
+        case CHANNEL_TYPE.MEDIUM.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.MEDIUM.NAME,
+            CHANNEL_TYPE.MEDIUM.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.props.handleModalCms(name, isConnected);
+          break;
+        case CHANNEL_TYPE.FACEBOOK_ADS.NAME:
+          this.handleConnectChannel(name, isConnected);
+          break;
+        case CHANNEL_TYPE.GOOGLE_ADS.NAME:
+          this.handleConnectChannel(name, isConnected);
+          break;
+        case CHANNEL_TYPE.WORDPRESS.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.WORDPRESS.NAME,
+            CHANNEL_TYPE.WORDPRESS.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.props.handleModalCms(name, isConnected);
+          break;
+        case CHANNEL_TYPE.DRUPAL.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.DRUPAL.NAME,
+            CHANNEL_TYPE.DRUPAL.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.props.handleModalCms(name, isConnected);
+          break;
+        case CHANNEL_TYPE.JOOMLA.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.JOOMLA.NAME,
+            CHANNEL_TYPE.JOOMLA.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.props.handleModalCms(name, isConnected);
+          break;
+        case CHANNEL_TYPE.MAILCHIMP.NAME:
+          accepted = this.isAllowedConnectChannel(
+            CHANNEL_TYPE.MAILCHIMP.NAME,
+            CHANNEL_TYPE.MAILCHIMP.TYPE
+          );
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
+          this.handleConnectChannel(name, isConnected);
+          break;
+      }
   }
 
   closeModalUpgrade = () => {
-    this.props.channelsListViewModel.mustUpgrade = false;
+    // this.props.channelsListViewModel.mustUpgrade = false;
+    this.setState({
+      showModalUpgrade: false,
+    })
   };
 
   render() {
@@ -769,7 +833,7 @@ class ComponentConnectaChannel extends Component {
           isModalCms={isModalCms}
         />
         <ModalComponent
-          show={this.props.mustUpgrade}
+          show={this.state.showModalUpgrade}
           onHide={this.closeModalUpgrade}
           header={'Please upgrade account'}
           body={<Upgrade></Upgrade>}
