@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class ComponentPublishListChannels extends Component {
   constructor(props) {
     super(props);
+
   }
 
   componentDidMount = () => {
@@ -17,18 +18,21 @@ class ComponentPublishListChannels extends Component {
       contentConnectedChannelsByOrganisationViewModel,
       listLinkedinFanpageConnected,
       isDeselectAllSocial,
-      handleDeSelectFacebookPage,
-      getArrayPageFacebook
+      handleDeSelectConnectSomePage,
+      getArrayPageFacebook,
+      getArrayPageLinkedin,
+      getListConnectFacebookPagePublisd,
+      getListConnectLinkedinPagePublisd
     } = this.props;
-
-    console.log('isDeselectAllSocialrender123');
-    console.log(isDeselectAllSocial);
 
     console.log('listFacebookFanpageConnectedrender123');
     console.log(listFacebookFanpageConnected);
 
     console.log('listLinkedinFanpageConnectedrender123');
     console.log(listLinkedinFanpageConnected);
+
+    console.log('getListConnectPagePublisd123');
+    console.log(getListConnectFacebookPagePublisd);
 
     if(isDeselectAllSocial === true) {
       contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.facebook.selectedPage = [];
@@ -45,8 +49,6 @@ class ComponentPublishListChannels extends Component {
       }
     }
 
-    console.log('getArrayPageFacebook12334234');
-    console.log(getArrayPageFacebook);
 
     return (
       <>
@@ -74,12 +76,12 @@ class ComponentPublishListChannels extends Component {
         </div>
         <div>
           <ul className={`list-unstyled d-flex align-items-center mb-0 flex-wrap ${isDeselectAllSocial ? 'opacity-50' : ''}`}>
-            {listFacebookFanpageConnected && listFacebookFanpageConnected.map((i) => {
+            {getListConnectFacebookPagePublisd && getListConnectFacebookPagePublisd.map((i) => {
               let isDisabled = getArrayPageFacebook.some(
                 (value) => i == value
               )
               return (
-                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectFacebookPage(i)}>
+                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('facebook', i)}>
                   <a href={void 0} className="d-block cursor-pointer" >
                     <span className="position-relative d-block">
                       <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
@@ -94,10 +96,13 @@ class ComponentPublishListChannels extends Component {
                 </li>
               );
             })}
-            {listLinkedinFanpageConnected && listLinkedinFanpageConnected.map((i) => {
+            {getListConnectLinkedinPagePublisd && getListConnectLinkedinPagePublisd.map((i) => {
+              let isDisabled = getArrayPageLinkedin.some(
+                (value) => i == value
+              )
               return (
-                <li key={i} className="me-2 mb-2 cursor-pointer">
-                  <a href={void 0} className="d-block">
+                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('linkedin', i)}>
+                  <a href={void 0} className="d-block cursor-pointer">
                     <span className="position-relative d-block ">
                       <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
                       <img
