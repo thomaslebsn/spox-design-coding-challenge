@@ -1,6 +1,7 @@
-import { EasiiMemberApiService } from 'easii-io-web-service-library';
+import { EasiiMemberApiService, EasiiProjectApiService } from 'easii-io-web-service-library';
 import { runInAction } from 'mobx';
 import ProfileModel from '../ProfileModel/ProfileModel';
+import ProjectUtils from '../../ProjectsPage/ProjectUtils/ProjectUtils';
 
 export default class ProfileStore {
   async updatePassword(updatePasswordData, callbackOnSuccess, callbackOnError) {
@@ -39,25 +40,24 @@ export default class ProfileStore {
     }
   }
 
-  async updateGeneral(updatePasswordData, callbackOnSuccess, callbackOnError) {
+  async updateGeneral(updateGeneralData, callbackOnSuccess, callbackOnError) {
     try {
-      const convertedUpdatePasswordData = ProfileModel.convertSubmittedPasswordDataToAPIService(
-        updatePasswordData,
+      const convertedUpdateGeneralData = ProfileModel.convertSubmittedGeneralDataToAPIService(
+        updateGeneralData,
       );
 
       let resultOnSave;
-      const updatePasswordApiService = new EasiiMemberApiService();
+      const updateGeneralApiService = new EasiiMemberApiService();
       const accessToken = localStorage.getItem('access_token');
       let resultOnRefreshANewTokenOnBrowser = !!accessToken;
 
       if (!resultOnRefreshANewTokenOnBrowser) {
-        resultOnRefreshANewTokenOnBrowser = await updatePasswordApiService.refreshANewTokenOnWebBrowser();
+        resultOnRefreshANewTokenOnBrowser = await updateGeneralApiService.refreshANewTokenOnWebBrowser();
       }
       if (resultOnRefreshANewTokenOnBrowser) {
-        resultOnSave = await updatePasswordApiService.updateMemberPassword(
-          convertedUpdatePasswordData,
+        resultOnSave = await updateGeneralApiService.updateMember(
+          convertedUpdateGeneralData,
         );
-        resultOnSave = JSON.parse(resultOnSave);
       }
 
       if (resultOnSave.result.success) {
@@ -70,6 +70,37 @@ export default class ProfileStore {
         });
       }
     } catch (error) {
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getMember(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const results = true;
+
+      if (results) {
+        const getMemberInfoAPIService = new EasiiMemberApiService();
+        const respondedData = await getMemberInfoAPIService.getMemberInfo(
+          id
+        );
+        console.log('------------response-----------------------------------')
+        console.log(respondedData)
+        if (respondedData) {
+          runInAction(() => {
+            callbackOnSuccess(respondedData);
+          });
+        } else {
+          callbackOnError({
+            message: "Something went wrong from Server response",
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
       runInAction(() => {
         callbackOnError(error);
       });
