@@ -1,4 +1,5 @@
 import React from 'react';
+import {notify} from '../Toast';
 import './index.scss';
 
 class ComponentBillingPlan extends React.Component {
@@ -9,6 +10,7 @@ class ComponentBillingPlan extends React.Component {
     this.state = {
       intervalMode: 'month',
     };
+    this.currentPlan = props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase();
   }
 
   onChangeIntervalMode() {
@@ -65,7 +67,7 @@ class ComponentBillingPlan extends React.Component {
                 />
                 <label className="btn btn-outline-primary">Monthly</label>
               </div>
-              <div id="item_btn_group_annual" className="item_btn_group">
+              {/* <div id="item_btn_group_annual" className="item_btn_group">
                 <input
                   type="radio"
                   className="btn-check"
@@ -76,7 +78,7 @@ class ComponentBillingPlan extends React.Component {
                 <label className="btn btn-outline-primary" htmlFor="btnradio2">
                   Annual
                 </label>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -98,9 +100,13 @@ class ComponentBillingPlan extends React.Component {
 
                 <div>
                   <button
-                    className="btn btn-success getstarts"
+                    className={`btn btn-success getstarts ${this.currentPlan === 'free'? 'selected' : ''}`}
                     data-itemname="Free"
                     onClick={(e) => {
+                      if (this.currentPlan === 'free') { 
+                        notify("Please Choose A Different Plan", "warning");
+                        return
+                      }
                       this.props.handleSelectSubscriptionPlan('free');
                     }}
                     data-toggle="modal"
@@ -108,7 +114,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    Get Started
+                    {this.currentPlan === 'free' ? "Selected Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -140,8 +146,12 @@ class ComponentBillingPlan extends React.Component {
                 </div>
                 <div>
                   <button
-                    className="btn btn-success getstarts"
+                    className={`btn btn-success getstarts ${this.currentPlan === 'small'? 'selected' : ''}`}
                     onClick={(e) => {
+                      if (this.currentPlan === 'small') { 
+                        notify("Please Choose A Different Plan", "warning");
+                        return
+                      }
                       this.props.handleSelectSubscriptionPlan('small');
                     }}
                     data-toggle="modal"
@@ -149,7 +159,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    Get Started
+                    {this.currentPlan === 'small' ? "Selected Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -182,8 +192,12 @@ class ComponentBillingPlan extends React.Component {
                 </div>
                 <div>
                   <button
-                    className="btn btn-success getstarts"
+                    className={`btn btn-success getstarts ${this.currentPlan === 'medium'? 'selected' : ''}`}
                     onClick={(e) => {
+                      if (this.currentPlan === 'medium') { 
+                        notify("Please Choose A Different Plan", "warning");
+                        return
+                      }
                       this.props.handleSelectSubscriptionPlan('medium');
                     }}
                     data-toggle="modal"
@@ -191,7 +205,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    Get Started
+                    {this.currentPlan === 'medium' ? "Selected Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -223,8 +237,12 @@ class ComponentBillingPlan extends React.Component {
                 </div>
                 <div>
                   <button
-                    className="btn btn-success getstarts"
+                    className={`btn btn-success getstarts ${this.currentPlan === 'pro'? 'selected' : ''}`}
                     onClick={(e) => {
+                      if (this.currentPlan === 'pro') { 
+                        notify("Please Choose A Different Plan", "warning");
+                        return
+                      }
                       this.props.handleSelectSubscriptionPlan('pro');
                     }}
                     data-toggle="modal"
@@ -232,7 +250,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    Get Started
+                    {this.currentPlan === 'pro' ? "Selected Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -264,8 +282,12 @@ class ComponentBillingPlan extends React.Component {
                 </div>
                 <div>
                   <button
-                    className="btn btn-success getstarts"
+                    className={`btn btn-success getstarts ${this.currentPlan === 'enterprise'? 'selected' : ''}`}
                     onClick={(e) => {
+                      if (this.currentPlan === 'enterprise') { 
+                        notify("Please Choose A Different Plan", "warning");
+                        return
+                      }
                       this.props.handleSelectSubscriptionPlan('enterprise');
                     }}
                     data-toggle="modal"
@@ -273,7 +295,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    Get Started
+                    {this.currentPlan === 'enterprise' ? "Selected Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
