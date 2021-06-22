@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { format } from "date-fns";
+
 import ComponentSchedule from '../../../../../components/ComponentSchedule';
 import ComponentSwitch from '../../../../../components/ComponentSwitch';
 
@@ -9,6 +11,8 @@ class ManagementSystem extends Component {
     this.state = {
       isChecked: 'cpost_now',
       isSwitch: false,
+      startDateTime: new Date(),
+      timeDate: new Date()
     };
   }
 
@@ -20,6 +24,8 @@ class ManagementSystem extends Component {
     let sliceName = name.substring(1);
 
     this.postPublishingTypeChannels(sliceName);
+
+    this.checkSchedulePost(sliceName);
   };
 
   handleChangeSwitch = () => {
@@ -47,8 +53,113 @@ class ManagementSystem extends Component {
     }
   }
 
+  checkSchedulePost = (name) => {
+    let { startDateTime, timeDate } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+
+    if(name === "schedule_post") {
+      const getObjectItemscheduleChannel = {
+        date: format((startDateTime), "dd-MM-yyyy"), 
+        time: format((timeDate), "hh:mm a")
+      }
+
+      if(isAdvanceMode) {
+        getListChannels.cms.joomla.publishedPlan.schedule = getListChannels.cms.joomla.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.cms.wordpress.publishedPlan.schedule = getListChannels.cms.wordpress.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.cms.drupal.publishedPlan.schedule = getListChannels.cms.drupal.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+      } else {
+        getListChannels.joomla.publishedPlan.schedule = getListChannels.joomla.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.wordpress.publishedPlan.schedule = getListChannels.wordpress.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.drupal.publishedPlan.schedule = getListChannels.drupal.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+      }
+
+    } else {
+      if(isAdvanceMode) {
+        getListChannels.cms.joomla.publishedPlan.schedule = []
+        getListChannels.cms.wordpress.publishedPlan.schedule = []
+        getListChannels.cms.drupal.publishedPlan.schedule = []
+      } else {
+        getListChannels.joomla.publishedPlan.schedule = []
+        getListChannels.wordpress.publishedPlan.schedule = []
+        getListChannels.drupal.publishedPlan.schedule = []
+      }
+    }
+  }
+
+  handlChangeDay = (date) => {
+    let { isChecked } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+    
+    this.setState({
+      startDateTime: date
+    })
+
+    const dateFormat = format((date), "dd-MM-yyyy");
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+    let getSelectedSchedulePageJL = isAdvanceMode ? 
+      getListChannels.cms.joomla.publishedPlan.schedule 
+    : getListChannels.joomla.publishedPlan.schedule
+
+    let getSelectedSchedulePageWP = isAdvanceMode ? 
+      getListChannels.cms.wordpress.publishedPlan.schedule 
+    : getListChannels.wordpress.publishedPlan.schedule
+
+    let getSelectedSchedulePageDP = isAdvanceMode ? 
+      getListChannels.cms.drupal.publishedPlan.schedule 
+    : getListChannels.drupal.publishedPlan.schedule
+
+    if(isChecked === "cschedule_post") {
+      getSelectedSchedulePageJL && getSelectedSchedulePageJL.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageWP && getSelectedSchedulePageWP.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageDP && getSelectedSchedulePageDP.map((value) => value.date = dateFormat)
+    }
+  }
+
+  handlChangeTime = (date) => {
+    let { isChecked } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    this.setState({
+      timeDate: date
+    })
+
+    const timeFormat = format((date), "hh:mm a");
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+    let getSelectedSchedulePageJL = isAdvanceMode ? 
+      getListChannels.cms.joomla.publishedPlan.schedule 
+    : getListChannels.joomla.publishedPlan.schedule
+
+    let getSelectedSchedulePageWP = isAdvanceMode ? 
+      getListChannels.cms.wordpress.publishedPlan.schedule 
+    : getListChannels.wordpress.publishedPlan.schedule
+
+    let getSelectedSchedulePageDP = isAdvanceMode ? 
+      getListChannels.cms.drupal.publishedPlan.schedule 
+    : getListChannels.drupal.publishedPlan.schedule
+
+
+    if(isChecked === "cschedule_post") {
+      getSelectedSchedulePageJL && getSelectedSchedulePageJL.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageWP && getSelectedSchedulePageWP.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageDP && getSelectedSchedulePageDP.map((value) => value.time = timeFormat)
+    }
+  }
+
   render() {
-    let { isChecked, isSwitch } = this.state;
+    let { isChecked, isSwitch, startDateTime, timeDate } = this.state;
     
     return (
       <div>
@@ -92,7 +203,14 @@ class ManagementSystem extends Component {
             )} */}
           </div>
           {isChecked === 'cschedule_post' && (
-            <ComponentSchedule isSwitch={isSwitch} regularly={false} />
+            <ComponentSchedule 
+              isSwitch={isSwitch} 
+              regularly={false}
+              startDateTime={startDateTime}
+              timeDate={timeDate}
+              handlChangeDay={(date) => this.handlChangeDay(date)}
+              handlChangeTime={(date) => this.handlChangeTime(date)}
+            />
           )}
         </div>
         <div className="d-flex mb-2">

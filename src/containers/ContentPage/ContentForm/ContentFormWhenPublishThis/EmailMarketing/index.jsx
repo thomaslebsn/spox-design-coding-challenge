@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { format } from "date-fns";
+
 import ComponentSchedule from '../../../../../components/ComponentSchedule';
 import ComponentSwitch from '../../../../../components/ComponentSwitch';
 
@@ -9,6 +11,8 @@ class EmailMarketing extends Component {
     this.state = {
       isChecked: 'post_now',
       isSwitch: false,
+      startDateTime: new Date(),
+      timeDate: new Date()
     };
   }
 
@@ -18,6 +22,8 @@ class EmailMarketing extends Component {
     })
 
     this.postPublishingTypeChannels(name)
+
+    this.checkSchedulePost(name);
   }
 
   handleChangeSwitch = () => {
@@ -43,8 +49,85 @@ class EmailMarketing extends Component {
     }
   }
 
+  checkSchedulePost = (name) => {
+    let { startDateTime, timeDate } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+
+    if(name === "schedule_post") {
+      const getObjectItemscheduleChannel = {
+        date: format((startDateTime), "dd-MM-yyyy"), 
+        time: format((timeDate), "hh:mm a")
+      }
+
+      if(isAdvanceMode) {
+        getListChannels.mail.mailchimp.publishedPlan.schedule = getListChannels.mail.mailchimp.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+      } else {
+        getListChannels.mailchimp.publishedPlan.schedule = getListChannels.mailchimp.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+      }
+
+    } else {
+      if(isAdvanceMode) {
+        getListChannels.mail.mailchimp.publishedPlan.schedule = []
+      } else {
+        getListChannels.mailchimp.publishedPlan.schedule = []
+      }
+    }
+  }
+
+  handlChangeDay = (date) => {
+    let { isChecked } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+    
+    this.setState({
+      startDateTime: date
+    })
+
+    const dateFormat = format((date), "dd-MM-yyyy");
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+    let getSelectedSchedulePageEM = isAdvanceMode ? 
+      getListChannels.mail.mailchimp.publishedPlan.schedule 
+    : getListChannels.mailchimp.publishedPlan.schedule
+
+    if(isChecked === "schedule_post") {
+      getSelectedSchedulePageEM && getSelectedSchedulePageEM.map((value) => value.date = dateFormat)
+    }
+  }
+
+  handlChangeTime = (date) => {
+    let { isChecked } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    this.setState({
+      timeDate: date
+    })
+
+    const timeFormat = format((date), "hh:mm a");
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+    let getSelectedSchedulePageEM = isAdvanceMode ? 
+      getListChannels.mail.mailchimp.publishedPlan.schedule 
+    : getListChannels.mailchimp.publishedPlan.schedule
+
+
+    if(isChecked === "schedule_post") {
+      getSelectedSchedulePageEM && getSelectedSchedulePageEM.map((value) => value.time = timeFormat)
+    }
+  }
+
   render() {
-    let { isChecked, isSwitch } = this.state;
+    let { isChecked, isSwitch, startDateTime, timeDate } = this.state;
     return (
       <div>
         <div className="d-flex mb-3">
@@ -87,7 +170,14 @@ class EmailMarketing extends Component {
             )} */}
           </div>
           {isChecked === 'schedule_post' && (
-            <ComponentSchedule isSwitch={isSwitch} regularly={false} />
+            <ComponentSchedule 
+              isSwitch={isSwitch} 
+              regularly={false} 
+              startDateTime={startDateTime}
+              timeDate={timeDate}
+              handlChangeDay={(date) => this.handlChangeDay(date)}
+              handlChangeTime={(date) => this.handlChangeTime(date)}
+            />
           )}
         </div>
         <div className="d-flex mb-2">

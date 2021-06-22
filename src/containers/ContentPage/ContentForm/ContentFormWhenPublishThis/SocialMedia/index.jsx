@@ -72,7 +72,7 @@ class SocialMedia extends Component {
       getSelectedPageFB && getSelectedPageFB.map((value) => {
         const getObjectItemschedule = {
           pageId: value,
-          date: format((startDateTime), "MMM d, yyyy"), 
+          date: format((startDateTime), "dd-MM-yyyy"), 
           time: format((timeDate), "hh:mm a")
         }
 
@@ -88,7 +88,7 @@ class SocialMedia extends Component {
       getSelectedPageLI && getSelectedPageLI.map((value) => {
         const getObjectItemscheduleLI = {
           pageId: value,
-          date: format((startDateTime), "MMM d, yyyy"), 
+          date: format((startDateTime), "dd-MM-yyyy"), 
           time: format((timeDate), "hh:mm a")
         }
 
@@ -100,13 +100,44 @@ class SocialMedia extends Component {
           getListChannels.linkedin.publishedPlan.schedule = getListChannels.linkedin.publishedPlan.schedule.concat(getValuePushLI)
         }
       })
+
+      const getObjectItemscheduleChannel = {
+        date: format((startDateTime), "dd-MM-yyyy"), 
+        time: format((timeDate), "hh:mm a")
+      }
+
+      if(isAdvanceMode) {
+        getListChannels.social.instagram.publishedPlan.schedule = getListChannels.social.instagram.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.social.twitter.publishedPlan.schedule = getListChannels.social.twitter.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.social.youtube.publishedPlan.schedule = getListChannels.social.youtube.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.social.google_my_business.publishedPlan.schedule = getListChannels.social.google_my_business.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.social.tumblr.publishedPlan.schedule = getListChannels.social.tumblr.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.social.medium.publishedPlan.schedule = getListChannels.social.medium.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+      } else {
+        getListChannels.instagram.publishedPlan.schedule = getListChannels.instagram.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.twitter.publishedPlan.schedule = getListChannels.twitter.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.youtube.publishedPlan.schedule = getListChannels.youtube.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.tumblr.publishedPlan.schedule = getListChannels.tumblr.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+        getListChannels.medium.publishedPlan.schedule = getListChannels.medium.publishedPlan.schedule.concat(getObjectItemscheduleChannel)
+      }
+
     } else {
       if(isAdvanceMode) {
         getListChannels.social.facebook.publishedPlan.schedule = []
-        getListChannels.linkedin.facebook.publishedPlan.schedule = []
+        getListChannels.social.linkedin.publishedPlan.schedule = []
+        getListChannels.social.instagram.publishedPlan.schedule = []
+        getListChannels.social.twitter.publishedPlan.schedule = []
+        getListChannels.social.youtube.publishedPlan.schedule = []
+        getListChannels.social.tumblr.publishedPlan.schedule = []
+        getListChannels.social.medium.publishedPlan.schedule = []
       } else {
         getListChannels.facebook.publishedPlan.schedule = []
         getListChannels.linkedin.publishedPlan.schedule = []
+        getListChannels.instagram.publishedPlan.schedule = []
+        getListChannels.twitter.publishedPlan.schedule = []
+        getListChannels.youtube.publishedPlan.schedule = []
+        getListChannels.tumblr.publishedPlan.schedule = []
+        getListChannels.medium.publishedPlan.schedule = []
       }
     }
   }
@@ -119,7 +150,7 @@ class SocialMedia extends Component {
       startDateTime: date
     })
 
-    const dateFormat = format((date), "MMM d, yyyy");
+    const dateFormat = format((date), "dd-MM-yyyy");
 
     let getListChannels = isAdvanceMode ? 
     contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
@@ -133,9 +164,40 @@ class SocialMedia extends Component {
       getListChannels.social.linkedin.publishedPlan.schedule 
     : getListChannels.linkedin.publishedPlan.schedule
 
+    let getSelectedSchedulePageIN = isAdvanceMode ? 
+      getListChannels.social.instagram.publishedPlan.schedule
+    : getListChannels.instagram.publishedPlan.schedule
+
+    let getSelectedSchedulePageTT = isAdvanceMode ? 
+      getListChannels.social.twitter.publishedPlan.schedule
+    : getListChannels.twitter.publishedPlan.schedule
+
+    let getSelectedSchedulePageYT = isAdvanceMode ? 
+      getListChannels.social.youtube.publishedPlan.schedule
+    : getListChannels.youtube.publishedPlan.schedule
+
+    let getSelectedSchedulePageTB = isAdvanceMode ? 
+      getListChannels.social.tumblr.publishedPlan.schedule
+    : getListChannels.tumblr.publishedPlan.schedule
+
+    let getSelectedSchedulePageMD = isAdvanceMode ? 
+      getListChannels.social.medium.publishedPlan.schedule
+    : getListChannels.medium.publishedPlan.schedule
+
+    let getSelectedSchedulePageGGB = isAdvanceMode ? 
+      getListChannels.social.google_my_business.publishedPlan.schedule
+    : getListChannels.google_my_business.publishedPlan.schedule
+
     if(isChecked === "sschedule_post") {
       getSelectedSchedulePageFB && getSelectedSchedulePageFB.map((value) => value.date = dateFormat)
       getSelectedSchedulePageLi && getSelectedSchedulePageLi.map((value) => value.date = dateFormat)
+
+      getSelectedSchedulePageIN && getSelectedSchedulePageIN.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageTT && getSelectedSchedulePageTT.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageYT && getSelectedSchedulePageYT.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageTB && getSelectedSchedulePageTB.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageMD && getSelectedSchedulePageMD.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageGGB && getSelectedSchedulePageGGB.map((value) => value.date = dateFormat)
     }
   }
 
@@ -161,9 +223,40 @@ class SocialMedia extends Component {
       getListChannels.social.linkedin.publishedPlan.schedule 
     : getListChannels.linkedin.publishedPlan.schedule
 
+    let getSelectedSchedulePageIN = isAdvanceMode ? 
+      getListChannels.social.instagram.publishedPlan.schedule
+    : getListChannels.instagram.publishedPlan.schedule
+
+    let getSelectedSchedulePageTT = isAdvanceMode ? 
+      getListChannels.social.twitter.publishedPlan.schedule
+    : getListChannels.twitter.publishedPlan.schedule
+
+    let getSelectedSchedulePageYT = isAdvanceMode ? 
+      getListChannels.social.youtube.publishedPlan.schedule
+    : getListChannels.youtube.publishedPlan.schedule
+
+    let getSelectedSchedulePageTB = isAdvanceMode ? 
+      getListChannels.social.tumblr.publishedPlan.schedule
+    : getListChannels.tumblr.publishedPlan.schedule
+
+    let getSelectedSchedulePageMD = isAdvanceMode ? 
+      getListChannels.social.medium.publishedPlan.schedule
+    : getListChannels.medium.publishedPlan.schedule
+
+    let getSelectedSchedulePageGGB = isAdvanceMode ? 
+      getListChannels.social.google_my_business.publishedPlan.schedule
+    : getListChannels.google_my_business.publishedPlan.schedule
+
     if(isChecked === "sschedule_post") {
       getSelectedSchedulePageFB && getSelectedSchedulePageFB.map((value) => value.time = timeFormat)
       getSelectedSchedulePageLi && getSelectedSchedulePageLi.map((value) => value.time = timeFormat)
+
+      getSelectedSchedulePageIN && getSelectedSchedulePageIN.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageTT && getSelectedSchedulePageTT.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageYT && getSelectedSchedulePageYT.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageTB && getSelectedSchedulePageTB.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageMD && getSelectedSchedulePageMD.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageGGB && getSelectedSchedulePageGGB.map((value) => value.time = timeFormat)
     }
   }
 

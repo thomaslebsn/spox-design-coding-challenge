@@ -90,13 +90,12 @@ export default class ContentStore {
       console.log('convertedContentData1234');
       console.log(convertedContentData);
       // Save Content
-      let resultContent;
-      // const contentService = new EasiiContentApiService();
+      const contentService = new EasiiContentApiService();
 
-      // let resultContent = await contentService.createPost(convertedContentData);
+      let resultContent = await contentService.createPost(convertedContentData);
 
-      // console.log('resultContentresultContent123');
-      // console.log(resultContent);
+      console.log('resultContentresultContent123');
+      console.log(resultContent);
 
       // if (convertedContentData.id == 0) {
       //   resultContent = await contentService.createContent(convertedContentData);
