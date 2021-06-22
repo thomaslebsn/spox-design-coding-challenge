@@ -1,4 +1,4 @@
-import React, { Component, lazy } from 'react';
+import React, { Component, lazy, createRef } from 'react';
 
 import Iframe from 'react-iframe';
 import { AUTHORIZATION_KEY, AXIOS_CONFIGS, GENERAL_CONFIG } from 'easii-io-web-service-library';
@@ -10,43 +10,55 @@ import { faImage } from '@fortawesome/free-solid-svg-icons/faImage';
 
 const ModalComponent = lazy(() => import('../../components/Modal'));
 
-const socket = io(GENERAL_CONFIG.WEBSOCKET_ENDPOINT);
+const socket = io(GENERAL_CONFIG.WEBSOCKET_ENDPOINT, {
+  autoConnect: false,
+});
 
 class DamButton extends React.Component {
-  _isMounted = false;
+  modalSelectionDAMSession = null;
+  roomID = null;
   constructor(props) {
     super(props);
     this.socket = socket;
     this.state = {
-      showModal: false
+      showModal: false,
     };
+    this.onWebSocketCallbackSuccess.bind(this);
+  }
+
+  onWebSocketCallbackSuccess = (roomId, data) => {
+    console.log('WS - Event - response assets');
+    console.log('room id', roomId);
+    console.log('Data');
+    console.log(data);
+
+    if (roomId === this.roomID && data) {
+      
+      this.closeModal();
+      this.socket.disconnect();
+      this.socket.close();
+      
+      this.props.changed(data);
+    }
   }
 
   handleClick = () => {
-    console.log(AUTHORIZATION_KEY.TOKEN_USER);
-    console.log(AXIOS_CONFIGS.BASE_ENDPOINT_URL + ':9999');
-    this.socket.emit('join room', localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER));
+    this.modalSelectionDAMSession = Math.floor(Date.now() / 1000);
+    console.log('modalSelectionDAMSession', this.modalSelectionDAMSession);
+
+    this.roomID = 'DAM_BTN_WS_CLIENT_'.concat(this.modalSelectionDAMSession);
+    console.log('RoomID', this.roomID);
+    // WS Client gets started a CONNETION
+    this.socket.connect();
+    
+    // Send server a signal to join room by a predefined {roomID}
+    this.socket.emit('join room', this.roomID);
+
+    // WS Client listens on event of "response assets"
+    this.socket.on('response assets', this.onWebSocketCallbackSuccess);
 
     this.setState({
       showModal: true,
-    });
-
-    const _this = this;
-    // this._isMounted = true;
-
-    this.socket.on('response assets', (roomId, data) => {
-      console.log('datadatadatadataDamAssets')
-      console.log(data)
-      
-      _this.setState(
-        _this.props.changed(data)
-      )
-
-      // this.props.OnSuccessDamButton(data)
-      
-      if (data) {
-        this.closeModal();
-      }
     });
   };
 
@@ -56,17 +68,14 @@ class DamButton extends React.Component {
     });
   };
 
-  componentDidMount = () => {
-  };
-
-  componentWillUnmount = () => {
-  };
-
   render() {
-    const urlDam =
-      AXIOS_CONFIGS.BASE_ENDPOINT_URL +
-      '/administrator/index.php?option=com_aesir_dam&view=easii_dam&token=' +
-      localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER);
+    const urlDam = AXIOS_CONFIGS.BASE_ENDPOINT_URL.concat(
+      '/administrator/index.php?option=com_aesir_dam&view=easii_dam'
+    )
+      .concat('&token=')
+      .concat(localStorage.getItem(AUTHORIZATION_KEY.TOKEN_USER))
+      .concat('&modalSelectionDAMSession=')
+      .concat(this.modalSelectionDAMSession);
 
     let { data, checkTypeImage, name, dataYoutube } = this.props;
 
@@ -85,24 +94,25 @@ class DamButton extends React.Component {
           </button>
           {data && (
             <>
-              {
-                data.map((value, key) => {
-                  return (
-                    <div key={key} className={`item_dam_assets d-flex justify-content-start border-top mt-4`}>
-                      <div className="position-relative m-2">
-                        <img className={`img-thumbnail rounded imgTab`} alt={value.url} src={value.url} />
-                      </div>
+              {data.map((value, key) => {
+                return (
+                  <div
+                    key={key}
+                    className={`item_dam_assets d-flex justify-content-start border-top mt-4`}
+                  >
+                    <div className="position-relative m-2">
+                      <img
+                        className={`img-thumbnail rounded imgTab`}
+                        alt={value.url}
+                        src={value.url}
+                      />
                     </div>
-                  )
-                })
-              }
+                  </div>
+                );
+              })}
             </>
           )}
-          {
-            checkTypeImage && (
-              <p className="mt-2 text-danger">Supported .jpg/png/jpeg only</p>
-            )
-          }
+          {checkTypeImage && <p className="mt-2 text-danger">Supported .jpg/png/jpeg only</p>}
         </div>
         <ModalComponent
           header={'Digital Assets'}
