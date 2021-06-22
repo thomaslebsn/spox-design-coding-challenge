@@ -10,7 +10,7 @@ class ComponentBillingPlan extends React.Component {
     this.state = {
       intervalMode: 'month',
     };
-    this.currentPlan = props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase();
+    this.currentPlan = (props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase()) || "free";
   }
 
   onChangeIntervalMode() {
