@@ -309,6 +309,18 @@ textarea {
   font-size: 3.5rem !important;
 }
 
+.wr_description_image_asset {
+  .item_dam_assets {
+    .wr_img_thumbnail_dam {
+      width: 100px;
+    }
+  }
+
+  .wr_img_thumbnail_canva {
+    width: 100px !important;
+  }
+}
+
 @include media-breakpoint-down(lg) {
   .w-400 {
     width: 250px;

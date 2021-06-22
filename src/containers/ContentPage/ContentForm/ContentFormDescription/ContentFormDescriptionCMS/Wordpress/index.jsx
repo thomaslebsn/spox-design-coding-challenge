@@ -61,7 +61,7 @@ class WordpressSocial extends Component {
           className="form-control rounded-0"
         />
 
-        <div className="px-3 py-2 bg-blue-3 d-flex">
+        <div className="px-3 py-2 bg-blue-3 d-flex wr_description_image_asset">
           <CanvaButton
             data={this.field.dataContentDescriptionSocial.list_channels.cms.wordpress.assets.canvaAssets}
             changed={this.handleCanva}
