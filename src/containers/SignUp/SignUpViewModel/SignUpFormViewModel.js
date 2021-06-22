@@ -35,7 +35,7 @@ class SignUpFormViewModel {
     console.log('error')
     console.log(error)
     this.successResponse.state = false;
-    this.successResponse.content_id = error.result.content_id;
+    if (error.result) this.successResponse.content_id = error.result.content_id;
   };
 
   callbackOnSuccessHandler = () => {
