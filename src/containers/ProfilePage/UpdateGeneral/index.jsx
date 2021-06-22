@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons/faCloudUploadAlt';
 import { faUserCog } from '@fortawesome/free-solid-svg-icons/faUserCog';
 import SimpleReactValidator from 'simple-react-validator';
-import { UPDATE_GENERAL_FIELD_KEY, UPDATE_PASSWORD_FIELD_KEY } from '../../../constants/ProfileModule';
+import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
 import { witheProfileViewModel } from '../ProfileViewModel/ProfileViewModelContextProvider';
 import { notify } from '../../../components/Toast';
 import Spinner from '../../../components/Spinner';
-import DatePickerDay from '../../../components/ComponentSchedule/DatePickerDay';
 import 'react-datepicker/dist/react-datepicker.css';
+import CustomizedDatePicker from '../../../components/DatePicker';
 
 const UpdateGeneral = observer(
   class UpdateGeneral extends Component {
@@ -213,9 +213,9 @@ const UpdateGeneral = observer(
                         <span className='text-black opacity-75'>Birthday</span>
                       </label>
                       <div className='form-control mb-3'>
-                        <DatePickerDay type='select-birthday'
-                                       handleOnChange={(date) => this.handleInputChange(UPDATE_GENERAL_FIELD_KEY.BIRTHDAY, date)}
-                                       defaultDate={memberInfo.birthday.substr(0, 10)} />
+                        <CustomizedDatePicker
+                          handleOnChange={(date) => this.handleInputChange(UPDATE_GENERAL_FIELD_KEY.BIRTHDAY, date)}
+                          defaultDate={memberInfo.birthday.substr(0, 10)} />
                       </div>
                     </div>
                   </div>

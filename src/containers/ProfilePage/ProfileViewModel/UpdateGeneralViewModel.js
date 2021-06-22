@@ -39,6 +39,7 @@ class UpdateGeneralViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
+    notify('Update unsuccessfully', 'error');
     console.log('error');
     console.log(error);
     this.successResponse.state = false;
