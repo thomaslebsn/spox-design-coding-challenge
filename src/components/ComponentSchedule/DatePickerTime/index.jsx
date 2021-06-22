@@ -2,15 +2,16 @@ import React, { useState, lazy } from "react";
 
 const DatePicker = lazy(() => import("react-datepicker"));
 
-const DatePickerTime = ({ field }) => {
-  let { timeField } = field;
+const DatePickerTime = ({ timeDate, handlChangeTime }) => {
+  // let { timeField } = field;
 
-  const [timeDate, setTimeDate] = useState(new Date());
+  // const [timeDate, setTimeDate] = useState(new Date());
 
   return (
     <DatePicker
       selected={timeDate}
-      onChange={(date) => setTimeDate(date)}
+      onChange={(date) => handlChangeTime(date)}
+      // onChange={(date) => setTimeDate(date)}
       showTimeSelect
       showTimeSelectOnly
       timeIntervals={15}

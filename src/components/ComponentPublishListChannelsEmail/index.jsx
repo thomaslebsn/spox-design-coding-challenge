@@ -24,15 +24,9 @@ class ComponentPublishListChannelsEmail extends Component {
             {
               labelsConnectedChannels.includes("mailchimp") && (
                 <li className={`me-2 mb-2`}>
-                  <a href={void 0} className="d-block cursor-pointer" >
+                  <a href={void 0} className="d-block" >
                     <span className="position-relative d-block">
-                      <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
-                      <img
-                        src={'/assets/images/mailchimp.png'}
-                        alt=""
-                        width={20}
-                        className="position-absolute bottom-0 end-0"
-                      />
+                      <img className="img-avatar" src={"/assets/images/mailchimp.png"} alt="" />
                     </span>
                   </a>
                 </li>

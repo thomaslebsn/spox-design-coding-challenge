@@ -168,7 +168,10 @@ class ComponentContentFormPublish extends Component {
                     </div>
                     <Accordion.Collapse eventKey="0">
                       <div className="p-3 border-1">
-                        <SocialMedia />
+                        <SocialMedia 
+                          isAdvanceMode={this.props.isAdvanceMode}
+                          contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
+                        />
                       </div>
                     </Accordion.Collapse>
                   </Accordion>
@@ -197,7 +200,10 @@ class ComponentContentFormPublish extends Component {
                         </div>
                         <Accordion.Collapse eventKey="0">
                           <div className="p-3 border-1">
-                            <ManagementSystem />
+                            <ManagementSystem 
+                              isAdvanceMode={this.props.isAdvanceMode}
+                              contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
+                            />
                           </div>
                         </Accordion.Collapse>
                       </Accordion>
@@ -232,7 +238,10 @@ class ComponentContentFormPublish extends Component {
                         </div>
                         <Accordion.Collapse eventKey="0">
                           <div className="p-3 border-1">
-                            <EmailMarketing />
+                            <EmailMarketing 
+                              isAdvanceMode={this.props.isAdvanceMode}
+                              contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
+                            />
                           </div>
                         </Accordion.Collapse>
                       </Accordion>
