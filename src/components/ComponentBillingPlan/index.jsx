@@ -10,7 +10,7 @@ class ComponentBillingPlan extends React.Component {
     this.state = {
       intervalMode: 'month',
     };
-    this.currentPlan = props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase();
+    this.currentPlan = (props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase()) || "free";
   }
 
   onChangeIntervalMode() {
@@ -114,7 +114,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'free' ? "Selected Plan" : "Get Started"}
+                    {this.currentPlan === 'free' ? "Active Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -159,7 +159,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'small' ? "Selected Plan" : "Get Started"}
+                    {this.currentPlan === 'small' ? "Active Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -205,7 +205,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'medium' ? "Selected Plan" : "Get Started"}
+                    {this.currentPlan === 'medium' ? "Active Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -250,7 +250,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'pro' ? "Selected Plan" : "Get Started"}
+                    {this.currentPlan === 'pro' ? "Active Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -295,7 +295,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'enterprise' ? "Selected Plan" : "Get Started"}
+                    {this.currentPlan === 'enterprise' ? "Active Plan" : "Get Started"}
                     <svg
                       aria-hidden="true"
                       focusable="false"

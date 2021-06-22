@@ -6,14 +6,16 @@ function ComponentBillingInfo(props) {
   let countAdsChannel = props.countAdvertisingConnected;
   let countCMSChannel = props.countCMSConnected;
   let countEmailMarketingChannel = props.countEmailMarketingConnected;
-  let lastPaymentDay = props.subscriptionDetail && props.subscriptionDetail.last_payment.date;
   let uploadHistoryQuotas = props.uploadHistoryQuotas;
+  let lastPaymentDay =
+    (props.subscriptionDetail && props.subscriptionDetail.last_payment.date) ||
+    (uploadHistoryQuotas && uploadHistoryQuotas.user_created_at);
   let dayLefts = null;
   let maxChannel = cmsFeaturesMasterData && cmsFeaturesMasterData[0].option;
   if (
     lastPaymentDay &&
-    props.subscriptionDetail &&
-    props.subscriptionDetail.plan_name.toLowerCase() === 'free'
+    ((props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase() === 'free') ||
+      !props.subscriptionDetail)
   ) {
     let arr = lastPaymentDay.split('/');
     let now = new Date();
@@ -54,19 +56,22 @@ function ComponentBillingInfo(props) {
                   <span>{maxChannel}</span>
                 </div>
               </div>
-              <div className="row py-3 border-bottom-1 item_project">
-                <div className="col-4">
-                  <div className="d-flex align-items-center">
-                    <span>Advertise Channel</span>
+              {props.subscriptionDetail &&
+              props.subscriptionDetail.plan_name.toLowerCase() !== 'free' ? (
+                <div className="row py-3 border-bottom-1 item_project">
+                  <div className="col-4">
+                    <div className="d-flex align-items-center">
+                      <span>Advertise Channel</span>
+                    </div>
+                  </div>
+                  <div className="col-4">
+                    <span>{countAdsChannel}</span>
+                  </div>
+                  <div className="col-4">
+                    <span>{maxChannel}</span>
                   </div>
                 </div>
-                <div className="col-4">
-                  <span>{countAdsChannel}</span>
-                </div>
-                <div className="col-4">
-                  <span>{maxChannel}</span>
-                </div>
-              </div>
+              ) : null}
               <div className="row py-3 border-bottom-1 item_project">
                 <div className="col-4">
                   <div className="d-flex align-items-center">
@@ -95,7 +100,7 @@ function ComponentBillingInfo(props) {
               </div>
             </React.Fragment>
           ) : null}
-          {(dayLefts || dayLefts === 0) ? (
+          {dayLefts || dayLefts === 0 ? (
             <div className="row py-3 border-bottom-1 item_project">
               <div className="col-4">
                 <div className="d-flex align-items-center">
@@ -110,7 +115,7 @@ function ComponentBillingInfo(props) {
               </div>
             </div>
           ) : null}
-          {uploadHistoryQuotas && uploadHistoryQuotas.current ? (
+          {uploadHistoryQuotas && uploadHistoryQuotas.current >= 0 ? (
             <div className="row py-3 border-bottom-1 item_project">
               <div className="col-4">
                 <div className="d-flex align-items-center">
