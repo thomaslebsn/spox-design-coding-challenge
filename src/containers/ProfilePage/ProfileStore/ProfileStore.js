@@ -60,6 +60,9 @@ export default class ProfileStore {
         );
       }
 
+      console.log('-----------resulrt on save -------------------');
+      console.log(resultOnSave);
+
       if (resultOnSave.result.success) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);

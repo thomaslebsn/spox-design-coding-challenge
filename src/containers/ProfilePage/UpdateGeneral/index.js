@@ -8,8 +8,9 @@ import SimpleReactValidator from 'simple-react-validator';
 import { UPDATE_GENERAL_FIELD_KEY, UPDATE_PASSWORD_FIELD_KEY } from '../../../constants/ProfileModule';
 import { witheProfileViewModel } from '../ProfileViewModel/ProfileViewModelContextProvider';
 import { notify } from '../../../components/Toast';
-import PAGE_STATUS from '../../../constants/PageStatus';
 import Spinner from '../../../components/Spinner';
+import DatePickerDay from '../../../components/ComponentSchedule/DatePickerDay';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const UpdateGeneral = observer(
   class UpdateGeneral extends Component {
@@ -60,12 +61,18 @@ const UpdateGeneral = observer(
     }
 
     handleInputChange(type, value) {
-      this.formPropsData[type] = value;
+      if (type === 'birthday') {
+        this.formPropsData[type] = value.getFullYear() + '-' + (parseInt(value.getMonth()) + 1) + '-' + value.getDate() + ' 00:00:00';
+        console.log(this.formPropsData);
+      } else {
+        this.formPropsData[type] = value;
+        console.log(this.formPropsData);
+      }
       this.forceUpdate();
     }
 
-    savePasswordHandler = () => {
-      this.updatePasswordViewModel.savePasswordInformationOnPage();
+    saveGeneralHandler = () => {
+      this.updateGeneralViewModel.saveGeneralInformationOnPage();
     };
 
     onKeyPress = (e) => {
@@ -80,17 +87,8 @@ const UpdateGeneral = observer(
 
     validateInfoBeforeSending = () => {
       if (this.validator.allValid()) {
-        if (this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_PASSWORD] !== this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_CHECKED_PASSWORD]) {
-          notify('Password and confirm password does not match.', 'error');
-
-          this.newPassword.current.value = '';
-          this.newCheckedPassword.current.value = '';
-
-          return false;
-        }
-
         this.setState({ loading: true });
-        this.savePasswordHandler();
+        this.saveGeneralHandler();
       } else {
         this.validator.showMessages();
         this.forceUpdate();
@@ -100,17 +98,6 @@ const UpdateGeneral = observer(
 
     render() {
       const { memberInfo } = this.updateGeneralViewModel;
-      if(memberInfo){
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME] = memberInfo.username
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.EMAIL] = memberInfo.email;
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY] = memberInfo.birthday;
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE] = memberInfo.phone;
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS] = memberInfo.address;
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ZIPCODE] = memberInfo.zipcode;
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY] = memberInfo.city;
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE] = memberInfo.state;
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY] = memberInfo.country;
-      }
       return (
         <>
           {
@@ -132,22 +119,17 @@ const UpdateGeneral = observer(
                                 {...getRootProps()}
                                 className='d-flex align-items-center justify-content-center p-3 pb-4'
                               >
-                                <input
-                                  {...getInputProps()}
-                                  className='position-absolute start-0 top-0 bottom-0 end-0'
-                                />
                                 <div className='d-flex align-items-center p-4'>
                                   <i className='fs-1 text-blue-0 opacity-25'>
                                     <FontAwesomeIcon icon={faCloudUploadAlt} />
                                   </i>
                                   <div className='text-center ms-1'>
                                     <p className='mb-0 fs-6'>
-                                      Drag and drop a file here or <strong>Choose file</strong>
+                                      Currently, disabled to integrate DAM Button
                                     </p>
                                   </div>
                                 </div>
                               </div>
-                              {/*{files}*/}
                             </div>
                           )}
                         </Dropzone>
@@ -163,7 +145,7 @@ const UpdateGeneral = observer(
                           className='form-control'
                           id='username'
                           name='username'
-                          value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME]}
+                          value={memberInfo.username}
                           disabled
                         />
                       </div>
@@ -194,6 +176,8 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='fullname'
                         name='fullname'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.FULLNAME], event.target.value)}
                       />
                     </div>
                     <div className='col-6'>
@@ -205,7 +189,7 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='email'
                         name='email'
-                        value='example@gmail.com'
+                        value={memberInfo.email}
                         disabled
                       />
                     </div>
@@ -220,18 +204,19 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='phone'
                         name='phone'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.PHONE], event.target.value)}
                       />
                     </div>
                     <div className='col-6'>
                       <label className='form-label mb-3' htmlFor='birthday'>
                         <span className='text-black opacity-75'>Birthday</span>
                       </label>
-                      <input
-                        type='date'
-                        className='form-control mb-3'
-                        id='birthday'
-                        name='birthday'
-                      />
+                      <div className='form-control mb-3'>
+                        <DatePickerDay type='select-birthday'
+                                       handleOnChange={(date) => this.handleInputChange(UPDATE_GENERAL_FIELD_KEY.BIRTHDAY, date)}
+                                       defaultDate={memberInfo.birthday.substr(0, 10)} />
+                      </div>
                     </div>
                   </div>
                   <div className='d-flex align-items-center row'>
@@ -244,6 +229,8 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='address'
                         name='address'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.ADDRESS], event.target.value)}
                       />
                     </div>
                     <div className='col-6'>
@@ -255,6 +242,8 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='address_2'
                         name='address_2'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.ADDRESS_2], event.target.value)}
                       />
                     </div>
                   </div>
@@ -268,6 +257,8 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='city'
                         name='city'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.CITY], event.target.value)}
                       />
                     </div>
                     <div className='col-6'>
@@ -279,6 +270,8 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='state'
                         name='state'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.STATE], event.target.value)}
                       />
                     </div>
                   </div>
@@ -292,6 +285,8 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='country'
                         name='country'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.COUNTRY], event.target.value)}
                       />
                     </div>
                     <div className='col-6'>
@@ -303,13 +298,18 @@ const UpdateGeneral = observer(
                         className='form-control mb-3'
                         id='zipcode'
                         name='zipcode'
+                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ZIPCODE]}
+                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.ZIPCODE], event.target.value)}
                       />
                     </div>
                   </div>
                   <div className='d-flex align-items-center row'>
                     <div>
-                      <button
-                        className='btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2'>
+                      <button onClick={(e) => {
+                        e.preventDefault();
+                        this.validateInfoBeforeSending();
+                      }}
+                              className='btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2'>
                         <i className='text-white'>
                           <FontAwesomeIcon icon={faUserCog} />
                         </i>
@@ -321,7 +321,6 @@ const UpdateGeneral = observer(
               </form>
           }
         </>
-
       );
     }
   },

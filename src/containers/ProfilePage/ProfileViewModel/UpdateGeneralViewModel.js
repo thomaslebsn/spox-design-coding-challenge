@@ -23,7 +23,6 @@ class UpdateGeneralViewModel {
   };
 
   initializeData = () => {
-    this.tableStatus = PAGE_STATUS.LOADING;
     this.profileStore.getMember(
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ID],
       this.callbackOnSuccessHandler,
@@ -48,12 +47,19 @@ class UpdateGeneralViewModel {
 
   callbackOnSuccessHandler = (result) => {
     if (result.id) { // get member info
-      console.log('--------------------asdasdasdasdsasd------------------')
-      console.log(result)
       this.memberInfo = result;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME] = result.full_name
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY] = result.birthday.substr(0, 10) + " 00:00:00";
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE] = result.phone;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS] = result.address;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2] = result.address_2;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ZIPCODE] = result.zipcode;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY] = result.city;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE] = result.state;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY] = result.country;
     }
     else {
-      this.successResponse.state = false;
+      notify('Update successfully', 'success');
     }
   };
 }
