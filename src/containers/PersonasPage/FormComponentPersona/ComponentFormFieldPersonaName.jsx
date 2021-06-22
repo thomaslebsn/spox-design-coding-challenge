@@ -13,6 +13,7 @@ const FormImage = lazy(() => import("../../../components/Form/FormImage"));
 
 const ComponentFormFieldPersonaName = ({ validator, formPropsData }) => {
   const [getAvatar, setAvatar] = useState([]);
+  const [checkTypeImage, setCheckTypeImage] = useState(false)
 
   let field = {
     label: "Persona Name",
@@ -39,8 +40,13 @@ const ComponentFormFieldPersonaName = ({ validator, formPropsData }) => {
   // };
 
   const handleDamAssets = (data) => {
-    formPropsData[PERSONA_FIELD_KEY.AVATAR] = data[0].url;
-    setAvatar(data);
+    if(data[0].extension != "mp4") {
+      setCheckTypeImage(false);
+      formPropsData[PERSONA_FIELD_KEY.AVATAR] = data[0].url;
+      setAvatar(data);
+    } else {
+      setCheckTypeImage(true)
+    }
   }
 
   return (
@@ -91,7 +97,8 @@ const ComponentFormFieldPersonaName = ({ validator, formPropsData }) => {
           <div className="main_upload_images">
             <DamButton 
               data={getAvatar}
-              changed={handleDamAssets}
+              changed={(data) => handleDamAssets(data)}
+              checkTypeImage={checkTypeImage}
             />
           </div>
         </div>

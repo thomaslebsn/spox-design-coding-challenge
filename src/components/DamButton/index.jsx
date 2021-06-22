@@ -77,7 +77,7 @@ class DamButton extends React.Component {
       .concat('&modalSelectionDAMSession=')
       .concat(this.modalSelectionDAMSession);
 
-    let { data, checkTypeImage, name, dataYoutube } = this.props;
+    let { data, checkTypeImage} = this.props;
 
     return (
       <>
