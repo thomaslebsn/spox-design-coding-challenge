@@ -97,9 +97,9 @@ class SocialMedia extends Component {
               />
             )} */}
           </div>
-          {/* {isChecked === 'sschedule_post' && (
-            <ComponentSchedule isSwitch={isSwitch} regularly={true} />
-          )} */}
+          {isChecked === 'sschedule_post' && (
+            <ComponentSchedule isSwitch={isSwitch} regularly={false} />
+          )}
         </div>
         <div className="d-flex mb-2">
           <div className="form-check">
