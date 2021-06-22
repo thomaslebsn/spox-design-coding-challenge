@@ -92,7 +92,7 @@ class ContentFormDescriptionSingle extends Component {
           rows="6"
           className="form-control rounded-0"
         />
-        <div className="px-3 py-2 bg-blue-3">
+        <div className="px-3 py-2 bg-blue-3 wr_description_image_asset">
           <div className="d-flex">
             <CanvaButton
               //data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.canvaAssets}
