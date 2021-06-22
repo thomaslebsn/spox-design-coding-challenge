@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { format } from "date-fns";
 import ComponentSchedule from '../../../../../components/ComponentSchedule';
 import ComponentSwitch from '../../../../../components/ComponentSwitch';
 
@@ -9,10 +10,13 @@ class SocialMedia extends Component {
     this.state = {
       isChecked: 'spost_now',
       isSwitch: false,
+      startDateTime: new Date(),
+      timeDate: new Date()
     };
   }
 
   handleRadio = (name) => {
+  
     this.setState({
       isChecked: name,
     })
@@ -21,6 +25,7 @@ class SocialMedia extends Component {
 
     this.postPublishingTypeChannels(sliceName);
 
+    this.checkSchedulePost(sliceName);
   };
 
   handleChangeSwitch = () => {
@@ -28,10 +33,6 @@ class SocialMedia extends Component {
       isSwitch: !this.state.isSwitch,
     });
   };
-
-  componentDidMount = () => {
-    // this.postPublishingTypeChannels(this.state.isChecked)
-  }
 
   postPublishingTypeChannels = (name) => {
     let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
@@ -53,8 +54,121 @@ class SocialMedia extends Component {
     }
   }
 
+  checkSchedulePost = (name) => {
+    let { startDateTime, timeDate } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+    let getSelectedPageFB = isAdvanceMode ? getListChannels.social.facebook.selectedPage
+      : getListChannels.facebook.selectedPage;
+    
+    let getSelectedPageLI = isAdvanceMode ? getListChannels.social.linkedin.selectedPage
+      : getListChannels.linkedin.selectedPage;
+
+    if(name === "schedule_post") {
+      getSelectedPageFB && getSelectedPageFB.map((value) => {
+        const getObjectItemschedule = {
+          pageId: value,
+          date: format((startDateTime), "MMM d, yyyy"), 
+          time: format((timeDate), "hh:mm a")
+        }
+
+        const getValuePush = value = (getObjectItemschedule)
+
+        if(isAdvanceMode) {
+          getListChannels.social.facebook.publishedPlan.schedule = getListChannels.social.facebook.publishedPlan.schedule.concat(getValuePush)
+        } else {
+          getListChannels.facebook.publishedPlan.schedule = getListChannels.facebook.publishedPlan.schedule.concat(getValuePush)
+        }
+      })
+
+      getSelectedPageLI && getSelectedPageLI.map((value) => {
+        const getObjectItemscheduleLI = {
+          pageId: value,
+          date: format((startDateTime), "MMM d, yyyy"), 
+          time: format((timeDate), "hh:mm a")
+        }
+
+        const getValuePushLI = value = (getObjectItemscheduleLI)
+
+        if(isAdvanceMode) {
+          getListChannels.social.linkedin.publishedPlan.schedule = getListChannels.social.linkedin.publishedPlan.schedule.concat(getValuePushLI)
+        } else {
+          getListChannels.linkedin.publishedPlan.schedule = getListChannels.linkedin.publishedPlan.schedule.concat(getValuePushLI)
+        }
+      })
+    } else {
+      if(isAdvanceMode) {
+        getListChannels.social.facebook.publishedPlan.schedule = []
+        getListChannels.linkedin.facebook.publishedPlan.schedule = []
+      } else {
+        getListChannels.facebook.publishedPlan.schedule = []
+        getListChannels.linkedin.publishedPlan.schedule = []
+      }
+    }
+  }
+
+  handlChangeDay = (date) => {
+    let { isChecked } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+    
+    this.setState({
+      startDateTime: date
+    })
+
+    const dateFormat = format((date), "MMM d, yyyy");
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+    let getSelectedSchedulePageFB = isAdvanceMode ? 
+      getListChannels.social.facebook.publishedPlan.schedule 
+    : getListChannels.facebook.publishedPlan.schedule
+
+    let getSelectedSchedulePageLi = isAdvanceMode ? 
+      getListChannels.social.linkedin.publishedPlan.schedule 
+    : getListChannels.linkedin.publishedPlan.schedule
+
+    if(isChecked === "sschedule_post") {
+      getSelectedSchedulePageFB && getSelectedSchedulePageFB.map((value) => value.date = dateFormat)
+      getSelectedSchedulePageLi && getSelectedSchedulePageLi.map((value) => value.date = dateFormat)
+    }
+  }
+
+  handlChangeTime = (date) => {
+    let { isChecked } = this.state;
+    let { isAdvanceMode, contentConnectedChannelsByOrganisationViewModel } = this.props;
+
+    this.setState({
+      timeDate: date
+    })
+
+    const timeFormat = format((date), "hh:mm a");
+
+    let getListChannels = isAdvanceMode ? 
+    contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels
+    : contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels;
+
+    let getSelectedSchedulePageFB = isAdvanceMode ? 
+      getListChannels.social.facebook.publishedPlan.schedule 
+    : getListChannels.facebook.publishedPlan.schedule
+
+    let getSelectedSchedulePageLi = isAdvanceMode ? 
+      getListChannels.social.linkedin.publishedPlan.schedule 
+    : getListChannels.linkedin.publishedPlan.schedule
+
+    if(isChecked === "sschedule_post") {
+      getSelectedSchedulePageFB && getSelectedSchedulePageFB.map((value) => value.time = timeFormat)
+      getSelectedSchedulePageLi && getSelectedSchedulePageLi.map((value) => value.time = timeFormat)
+    }
+  }
+
   render() {
-    let { isChecked, isSwitch } = this.state;
+    let { isChecked, isSwitch, startDateTime, timeDate } = this.state;
 
     return (
       <div>
@@ -98,7 +212,14 @@ class SocialMedia extends Component {
             )} */}
           </div>
           {isChecked === 'sschedule_post' && (
-            <ComponentSchedule isSwitch={isSwitch} regularly={false} />
+            <ComponentSchedule 
+              isSwitch={isSwitch} 
+              regularly={false}
+              startDateTime={startDateTime}
+              timeDate={timeDate}
+              handlChangeDay={(date) => this.handlChangeDay(date)}
+              handlChangeTime={(date) => this.handlChangeTime(date)}
+            />
           )}
         </div>
         <div className="d-flex mb-2">
