@@ -116,7 +116,7 @@ class ProjectsListViewModel {
   callbackOnErrorHander = (error) => {
     console.log('callbackOnErrorHander');
     console.log(error);
-    notify(error.message);
+    // notify(error.message);
   };
 
   callbackOnSuccessHandler = (projectModelData) => {
