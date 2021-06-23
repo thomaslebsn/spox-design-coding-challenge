@@ -1,6 +1,9 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import { Dropdown } from "react-bootstrap";
+import {
+  AUTHORIZATION_KEY,
+} from 'easii-io-web-service-library';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
 
@@ -51,7 +54,7 @@ class DropdownAvatar extends React.Component {
     >
       <img src="/assets/images/avatar-7.jpeg" alt="" className="img-avatar" />
       <div className="text ps-3 pe-3">
-        <p className="mb-0 text-blue-0 fs-14 fw-bold">Abby Flemming</p>
+        <p className="mb-0 text-blue-0 fs-14 fw-bold">{localStorage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}</p>
         <p className="mb-0 text-blue-0 fs-14 opacity-75">Small business owner</p>
       </div>
       <i className="icons green">
