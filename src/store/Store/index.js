@@ -15,6 +15,7 @@ class GlobalStore {
   connectedChannelsMasterData = null;
   memberFeaturesMasterData = null;
   memberId = localStorage.getItem(AUTHORIZATION_KEY.MEMBER_ID) ?? 0;
+  memberFullName = localStorage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME) ?? "";
 
   async getMemberFeaturesMasterData() {
     const service = new EasiiBillingPlanApiService();

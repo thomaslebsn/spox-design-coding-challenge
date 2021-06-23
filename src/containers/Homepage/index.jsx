@@ -15,6 +15,7 @@ const projectStore = new ProjectStore();
 const campaignsStore = new CampaignsStore();
 const contentStore = new ContentStore();
 const homeStore = new HomeStore();
+
 const homeViewModel = new HomeViewModel(
   homeStore,
   projectStore,

@@ -73,7 +73,7 @@ class SocialMedia extends Component {
         const getObjectItemschedule = {
           pageId: value,
           date: format((startDateTime), "dd-MM-yyyy"), 
-          time: format((timeDate), "hh:mm a")
+          time: format((timeDate), "HH:mm")
         }
 
         const getValuePush = value = (getObjectItemschedule)
@@ -89,7 +89,7 @@ class SocialMedia extends Component {
         const getObjectItemscheduleLI = {
           pageId: value,
           date: format((startDateTime), "dd-MM-yyyy"), 
-          time: format((timeDate), "hh:mm a")
+          time: format((timeDate), "HH:mm")
         }
 
         const getValuePushLI = value = (getObjectItemscheduleLI)
@@ -103,7 +103,7 @@ class SocialMedia extends Component {
 
       const getObjectItemscheduleChannel = {
         date: format((startDateTime), "dd-MM-yyyy"), 
-        time: format((timeDate), "hh:mm a")
+        time: format((timeDate), "HH:mm")
       }
 
       if(isAdvanceMode) {
@@ -209,7 +209,7 @@ class SocialMedia extends Component {
       timeDate: date
     })
 
-    const timeFormat = format((date), "hh:mm a");
+    const timeFormat = format((date), "HH:mm");
 
     let getListChannels = isAdvanceMode ? 
     contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels

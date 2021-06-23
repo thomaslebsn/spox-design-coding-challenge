@@ -65,7 +65,7 @@ class ManagementSystem extends Component {
     if(name === "schedule_post") {
       const getObjectItemscheduleChannel = {
         date: format((startDateTime), "dd-MM-yyyy"), 
-        time: format((timeDate), "hh:mm a")
+        time: format((timeDate), "HH:mm")
       }
 
       if(isAdvanceMode) {
@@ -132,7 +132,7 @@ class ManagementSystem extends Component {
       timeDate: date
     })
 
-    const timeFormat = format((date), "hh:mm a");
+    const timeFormat = format((date), "HH:mm");
 
     let getListChannels = isAdvanceMode ? 
     contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels

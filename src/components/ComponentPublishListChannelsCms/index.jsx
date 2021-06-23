@@ -35,7 +35,7 @@ class ComponentPublishListChannelsCms extends Component {
             {
               labelsConnectedChannels.includes("drupal") && (
                 <li className={`me-2 mb-2`}>
-                  <a href={void 0} className="d-block cursor-pointer" >
+                  <a href={void 0} className="d-block" >
                     <span className="position-relative d-block">
                       <img className="img-avatar" src={"/assets/images/drupal.png"} alt="" />
                     </span>
@@ -46,7 +46,7 @@ class ComponentPublishListChannelsCms extends Component {
             {
               labelsConnectedChannels.includes("joomla") && (
                 <li className={`me-2 mb-2`}>
-                  <a href={void 0} className="d-block cursor-pointer" >
+                  <a href={void 0} className="d-block" >
                     <span className="position-relative d-block">
                       <img className="img-avatar" src={"/assets/images/joomla.png"} alt="" />
                     </span>

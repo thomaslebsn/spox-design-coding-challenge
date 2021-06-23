@@ -27,6 +27,7 @@ const logout = () => {
   localStorage.setItem(AUTHORIZATION_KEY.TOKEN_USER, '');
   localStorage.setItem(AUTHORIZATION_KEY.TOKEN_USER_EXPIRE, '');
   localStorage.setItem(AUTHORIZATION_KEY.MEMBER_ID, '');
+  localStorage.setItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME, '');
   history.push("/login");
 };
 

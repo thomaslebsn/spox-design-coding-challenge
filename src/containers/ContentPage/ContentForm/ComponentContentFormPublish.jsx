@@ -104,6 +104,16 @@ class ComponentContentFormPublish extends Component {
         labelsConnectedChannels.indexOf('google_ads') > -1) &&
       !schedule;
 
+    let checkConnectSome = 
+      labelsConnectedChannels.includes("facebook") ||
+      labelsConnectedChannels.includes("linkedin") || 
+      labelsConnectedChannels.includes("instagram") ||
+      labelsConnectedChannels.includes("twitter") ||
+      labelsConnectedChannels.includes("youtube") ||
+      labelsConnectedChannels.includes("google_my_business") ||
+      labelsConnectedChannels.includes("tumblr") || 
+      labelsConnectedChannels.includes("medium")
+
     let checkConnectCms = 
       labelsConnectedChannels.includes("wordpress") ||
       labelsConnectedChannels.includes("drupal") || 
@@ -131,52 +141,63 @@ class ComponentContentFormPublish extends Component {
             <h3 className="mb-4">Publish</h3>
             <div className="bg-white p-4">
               <div className="row">
-                <div className="col-5">
-                  <div>
-                    <ComponentPublishListChannels
-                      handleDeselectAllSocial={this.props.handleDeselectAllSocial}
-                      isAdvanceMode={this.props.isAdvanceMode}
-                      listFacebookFanpageConnected={this.props.listFacebookFanpageConnected}
-                      listLinkedinFanpageConnected={this.props.listLinkedinFanpageConnected}
-                      contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
-                      isDeselectAllSocial={this.props.isDeselectAllSocial}
-                      handleSelectAllSocial={this.props.handleSelectAllSocial}
-                      handleDeSelectConnectSomePage={this.props.handleDeSelectConnectSomePage}
-                      getArrayPageFacebook={this.props.getArrayPageFacebook}
-                      getArrayPageLinkedin={this.props.getArrayPageLinkedin}
-                      getListConnectFacebookPagePublisd={this.props.getListConnectFacebookPagePublisd}
-                      getListConnectLinkedinPagePublisd={this.props.getListConnectLinkedinPagePublisd}
-                    />
-                  </div>
-                </div>
+                <div className="col-5"></div>
                 <div className="col-5">
                   <h6 className="text-blue mb-0 mb-3">When to publish this?</h6>
-                  <Accordion defaultActiveKey="0" className="mb-3">
-                    <div>
-                      <Accordion.Toggle
-                        as={Button}
-                        className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
-                        eventKey="0"
-                        onClick={() => this.setState({ social: !this.state.social })}
-                      >
-                        Social Media
-                        <FontAwesomeIcon
-                          icon={this.state.social ? faMinus : faPlus}
-                          color="#16b979"
-                        />
-                      </Accordion.Toggle>
-                    </div>
-                    <Accordion.Collapse eventKey="0">
-                      <div className="p-3 border-1">
-                        <SocialMedia 
-                          isAdvanceMode={this.props.isAdvanceMode}
-                          contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
-                        />
-                      </div>
-                    </Accordion.Collapse>
-                  </Accordion>
                 </div>
               </div>
+              {
+                checkConnectSome && (
+                  <div className="row">
+                    <div className="col-5">
+                      <div>
+                        <ComponentPublishListChannels
+                          handleDeselectAllSocial={this.props.handleDeselectAllSocial}
+                          isAdvanceMode={this.props.isAdvanceMode}
+                          listFacebookFanpageConnected={this.props.listFacebookFanpageConnected}
+                          listLinkedinFanpageConnected={this.props.listLinkedinFanpageConnected}
+                          contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
+                          isDeselectAllSocial={this.props.isDeselectAllSocial}
+                          handleSelectAllSocial={this.props.handleSelectAllSocial}
+                          handleDeSelectConnectSomePage={this.props.handleDeSelectConnectSomePage}
+                          getArrayPageFacebook={this.props.getArrayPageFacebook}
+                          getArrayPageLinkedin={this.props.getArrayPageLinkedin}
+                          getListConnectFacebookPagePublisd={this.props.getListConnectFacebookPagePublisd}
+                          getListConnectLinkedinPagePublisd={this.props.getListConnectLinkedinPagePublisd}
+                          labelsConnectedChannels={labelsConnectedChannels}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-5">
+                      <Accordion defaultActiveKey="0" className="mb-3">
+                        <div>
+                          <Accordion.Toggle
+                            as={Button}
+                            className="w-100 bg-blue-3 text-body text-start d-flex justify-content-between align-items-center"
+                            eventKey="0"
+                            onClick={() => this.setState({ social: !this.state.social })}
+                          >
+                            Social Media
+                            <FontAwesomeIcon
+                              icon={this.state.social ? faMinus : faPlus}
+                              color="#16b979"
+                            />
+                          </Accordion.Toggle>
+                        </div>
+                        <Accordion.Collapse eventKey="0">
+                          <div className="p-3 border-1">
+                            <SocialMedia 
+                              isAdvanceMode={this.props.isAdvanceMode}
+                              contentConnectedChannelsByOrganisationViewModel={this.props.contentConnectedChannelsByOrganisationViewModel}
+                            />
+                          </div>
+                        </Accordion.Collapse>
+                      </Accordion>
+                    </div>
+                  </div>
+                )
+              }
+              
               {
                 checkConnectCms && (
                   <div className="row">
