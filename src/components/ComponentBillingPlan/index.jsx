@@ -98,7 +98,8 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
 
-                <div>
+                {this.currentPlan === 'free' ? <div className="activated">Activated</div> : null}
+                {/* <div>
                   <button
                     className={`btn btn-success getstarts ${this.currentPlan === 'free'? 'selected' : ''}`}
                     data-itemname="Free"
@@ -114,7 +115,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'free' ? "Active Plan" : "Get Started"}
+                    Get Started
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -131,54 +132,54 @@ class ComponentBillingPlan extends React.Component {
                       ></path>
                     </svg>
                   </button>
-                </div>
+                </div> */}
               </div>
 
-              <div className="d-table-cell p-3 ">
-                <div className="title">Small</div>
-                <div className="price">
-                  <div className="monthly">
-                    <span className="number">$29</span> <span>per month</span>
+                <div className="d-table-cell p-3 ">
+
+              
+                  <div className="title">Small</div>
+                  <div className="price">
+                    <div className="monthly">
+                      <span className="number">$29</span> <span>per month</span>
+                    </div>
+                    <div className="yearly">
+                      <span className="number">$320</span> <span>per year</span>
+                    </div>
                   </div>
-                  <div className="yearly">
-                    <span className="number">$320</span> <span>per year</span>
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className={`btn btn-success getstarts ${this.currentPlan === 'small'? 'selected' : ''}`}
-                    onClick={(e) => {
-                      if (this.currentPlan === 'small') { 
-                        notify("Please Choose A Different Plan", "warning");
-                        return
-                      }
-                      this.props.handleSelectSubscriptionPlan('small');
-                    }}
-                    data-toggle="modal"
-                    data-target=".talktosales"
-                    disabled={isDisable}
-                  >
-                    {' '}
-                    {this.currentPlan === 'small' ? "Active Plan" : "Get Started"}
-                    <svg
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="fas"
-                      data-icon="chevron-right"
-                      className="svg-inline--fa fa-chevron-right fa-w-10"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 320 512"
+                  <div>
+                  {this.currentPlan === 'small' ? <div className="activated">Activated</div> :              
+                    <button
+                      className={`btn btn-success getstarts ${this.currentPlan === 'small'? 'selected' : ''} ${this.currentPlan === 'medium' || this.currentPlan === 'pro' || this.currentPlan === 'enterprise' ? 'hidden' : ''}`}
+                      onClick={(e) => {
+                        this.props.handleSelectSubscriptionPlan('small');
+                      }}
+                      data-toggle="modal"
+                      data-target=".talktosales"
+                      disabled={isDisable}
                     >
-                      <path
-                        fill="currentColor"
-                        d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
+                      {' '}
+                      Get Started
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="fas"
+                        data-icon="chevron-right"
+                        className="svg-inline--fa fa-chevron-right fa-w-10"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 320 512"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+                        ></path>
+                      </svg>
+                    </button>}
+                  </div>
+                  
               </div>
-
+              
               <div className="d-table-cell p-3 ">
                 {/* <div className="more_popular">Most popular</div> */}
                 <div className="title">Medium</div>
@@ -191,13 +192,10 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
                 <div>
+                {this.currentPlan === 'medium' ? <div className="activated">Activated</div> :  
                   <button
-                    className={`btn btn-success getstarts ${this.currentPlan === 'medium'? 'selected' : ''}`}
+                    className={`btn btn-success getstarts ${this.currentPlan === 'medium'? 'selected' : ''} ${this.currentPlan === 'pro' || this.currentPlan === 'enterprise'? 'hidden' : ''}`}
                     onClick={(e) => {
-                      if (this.currentPlan === 'medium') { 
-                        notify("Please Choose A Different Plan", "warning");
-                        return
-                      }
                       this.props.handleSelectSubscriptionPlan('medium');
                     }}
                     data-toggle="modal"
@@ -205,7 +203,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'medium' ? "Active Plan" : "Get Started"}
+                    Get Started
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -221,7 +219,7 @@ class ComponentBillingPlan extends React.Component {
                         d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
                       ></path>
                     </svg>
-                  </button>
+                  </button>}
                 </div>
               </div>
 
@@ -236,13 +234,10 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
                 <div>
+                  {this.currentPlan === 'pro' ? <div className="activated">Activated</div> : 
                   <button
-                    className={`btn btn-success getstarts ${this.currentPlan === 'pro'? 'selected' : ''}`}
+                    className={`btn btn-success getstarts ${this.currentPlan === 'pro'? 'selected' : ''} ${this.currentPlan === 'enterprise'? 'hidden' : ''}`}
                     onClick={(e) => {
-                      if (this.currentPlan === 'pro') { 
-                        notify("Please Choose A Different Plan", "warning");
-                        return
-                      }
                       this.props.handleSelectSubscriptionPlan('pro');
                     }}
                     data-toggle="modal"
@@ -250,7 +245,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'pro' ? "Active Plan" : "Get Started"}
+                    Get Started
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -266,7 +261,7 @@ class ComponentBillingPlan extends React.Component {
                         d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
                       ></path>
                     </svg>
-                  </button>
+                  </button>}
                 </div>
               </div>
 
@@ -281,13 +276,10 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
                 <div>
+                  {this.currentPlan === 'enterprise' ? <div className="activated">Activated</div> :
                   <button
                     className={`btn btn-success getstarts ${this.currentPlan === 'enterprise'? 'selected' : ''}`}
                     onClick={(e) => {
-                      if (this.currentPlan === 'enterprise') { 
-                        notify("Please Choose A Different Plan", "warning");
-                        return
-                      }
                       this.props.handleSelectSubscriptionPlan('enterprise');
                     }}
                     data-toggle="modal"
@@ -295,7 +287,7 @@ class ComponentBillingPlan extends React.Component {
                     disabled={isDisable}
                   >
                     {' '}
-                    {this.currentPlan === 'enterprise' ? "Active Plan" : "Get Started"}
+                    Get Started
                     <svg
                       aria-hidden="true"
                       focusable="false"
@@ -311,7 +303,7 @@ class ComponentBillingPlan extends React.Component {
                         d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
                       ></path>
                     </svg>
-                  </button>
+                  </button>}
                 </div>
               </div>
             </div>

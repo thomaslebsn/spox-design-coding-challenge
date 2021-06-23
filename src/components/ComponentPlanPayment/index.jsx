@@ -61,7 +61,9 @@ class ComponentPlanPayment extends React.Component {
                 style={{ width: '60px', height: '45px' }}
                 className="position-absolute top-0 end-0 mt-4 me-3"
               />
-              <p className="mb-3">Next payment</p>
+              <p className="mb-3">{subscriptionDetail.next_payment !== undefined
+                      ? "Next payment"
+                      : "Last payment"}</p>
               <div className="mb-3">
                 <p className="mb-0">
                   <span className="fw-medium fs-4">
