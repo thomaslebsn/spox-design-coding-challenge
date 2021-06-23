@@ -71,7 +71,6 @@ class DropdownAvatar extends React.Component {
           <Dropdown.Toggle
             as={this.CustomToggleAvatar}
             id="dropdown-custom-components position-relative"
-            name={this.props.memberFullName}
           ></Dropdown.Toggle>
           <Dropdown.Menu className="shadow border-0">
             <div className="p-3">
