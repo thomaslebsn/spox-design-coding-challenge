@@ -502,3 +502,14 @@
 .selected {
   background: palegoldenrod !important;
 }
+.activated {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  color:red;
+}
+.hidden {
+  visibility: hidden;
+}
