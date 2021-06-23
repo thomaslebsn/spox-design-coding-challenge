@@ -151,7 +151,10 @@ const HomeList = observer(
                   <AssignedToMe />
                 </div> */}
                 <div>
-                  <Campaigns campaigns={campaigns} CAMPAIGNS_FIELD_KEY={CAMPAIGNS_FIELD_KEY} />
+                  <Campaigns 
+                    campaigns={campaigns} 
+                    CAMPAIGNS_FIELD_KEY={CAMPAIGNS_FIELD_KEY} 
+                  />
                 </div>
               </div>
               <div
