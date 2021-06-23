@@ -215,7 +215,7 @@ const UpdateGeneral = observer(
                       <div className='form-control mb-3'>
                         <CustomizedDatePicker
                           handleOnChange={(date) => this.handleInputChange(UPDATE_GENERAL_FIELD_KEY.BIRTHDAY, date)}
-                          defaultDate={memberInfo.birthday.substr(0, 10)} />
+                          defaultDate={memberInfo.birthday ? memberInfo.birthday.substr(0, 10) : null} />
                       </div>
                     </div>
                   </div>
