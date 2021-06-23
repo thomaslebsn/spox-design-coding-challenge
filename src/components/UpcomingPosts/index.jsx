@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 
 import "./index.scss";
+import ComponentNoData from "../ComponentNoData";
 
 class UpcomingPosts extends React.Component {
   constructor(props) {
@@ -35,51 +36,59 @@ class UpcomingPosts extends React.Component {
             </a>
           )}
         </div>
-        <div>
-          {contents &&
-            contents.map((value, key) => {
-              return (
-                <div key={key} className="main_post rounded-2 shadow mb-3">
-                  <div className="bg-blue-3 rounded-top-2 text-blue-0 fw-bold py-2 px-3 d-flex justify-content-between align-items-center rounded-top">
-                    <span className="opacity-75">
-                      {value[CONTENT_FIELD_KEY.NAME]}
-                    </span>
-                    <a
-                      href={void 0}
-                      className="cursor-pointer text-blue-3 text-decoration-none"
-                    >
-                      ...
-                    </a>
-                  </div>
-                  <div className="p-3">
-                    <ul className="list-unstyled post_list_text">
-                      <li className="fs-14 mb-2 row">
-                        <span className="text-blue-0 col-4">
-                          <strong>Campaign:</strong>
+        {
+          contents ? (
+            <div>
+              {
+                contents.map((value, key) => {
+                  return (
+                    <div key={key} className="main_post rounded-2 shadow mb-3">
+                      <div className="bg-blue-3 rounded-top-2 text-blue-0 fw-bold py-2 px-3 d-flex justify-content-between align-items-center rounded-top">
+                        <span className="opacity-75">
+                          {value[CONTENT_FIELD_KEY.NAME]}
                         </span>
-                        <span className="col-8">{"Independence day 2/9"}</span>
-                      </li>
-                      <li className="fs-14 row">
-                        <span className="text-blue-0 col-4 ">
-                          <strong>Schedule:</strong>
-                        </span>
-                        <span className="col-8">{"16/09/2020 | 10:00 AM"}</span>
-                      </li>
-                    </ul>
-                    <ul className="list-unstyled d-flex post_list_images">
-                      {images.map((item, index) => {
-                        return (
-                          <li key={index} className="me-1">
-                            <img src={item} className="img-avatar" />
+                        <a
+                          href={void 0}
+                          className="cursor-pointer text-blue-3 text-decoration-none"
+                        >
+                          ...
+                        </a>
+                      </div>
+                      <div className="p-3">
+                        <ul className="list-unstyled post_list_text">
+                          <li className="fs-14 mb-2 row">
+                            <span className="text-blue-0 col-4">
+                              <strong>Campaign:</strong>
+                            </span>
+                            <span className="col-8">{"Independence day 2/9"}</span>
                           </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
+                          <li className="fs-14 row">
+                            <span className="text-blue-0 col-4 ">
+                              <strong>Schedule:</strong>
+                            </span>
+                            <span className="col-8">{"16/09/2020 | 10:00 AM"}</span>
+                          </li>
+                        </ul>
+                        <ul className="list-unstyled d-flex post_list_images">
+                          {images.map((item, index) => {
+                            return (
+                              <li key={index} className="me-1">
+                                <img src={item} className="img-avatar" />
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+            </div>
+          ) : (
+            <ComponentNoData />
+          )
+        }
+        
       </div>
     );
   }
