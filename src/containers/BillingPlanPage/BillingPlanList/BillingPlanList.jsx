@@ -6,9 +6,6 @@ import { withBillingPlanViewModel } from '../BillingPlanViewModel/BillingPlanVie
 import Spinner from '../../../components/Spinner';
 import ComponentBillingPlan from '../../../components/ComponentBillingPlan';
 import ComponentPlanPayment from '../../../components/ComponentPlanPayment';
-import ComponentInvoices from '../../../components/ComponentInvoices';
-import ComponentBillingInfo from '../../../components/ComponentBillingInfo'
-import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
 import './index.scss';
 
 const ModalComponent = lazy(() => import('../../../components/Modal'));
@@ -23,24 +20,6 @@ const BillingPlanList = observer(
       console.log(viewModel);
 
       this.billingPlanListViewModel = viewModel ? viewModel.getBillingPlanListViewModel() : null;
-      this.channelsListViewModel = viewModel ? viewModel.getChannelsListViewModel() : null;
-      this.channelsListViewModel.checkConnectedChannels([
-        'linkedin',
-        'youtube',
-        'twitter',
-        'instagram',
-        'facebook',
-        'mailchimp',
-        'wordpress',
-        'tumblr',
-        'drupal',
-        'medium',
-        'joomla',
-        'fbad',
-        CHANNEL_ADS_GOOGLE,
-        'google_my_business',
-      ]);
-      console.log('lala',this.channelsListViewModel.countCMSConnected)
     }
 
     componentDidMount() {
@@ -52,8 +31,6 @@ const BillingPlanList = observer(
 
       //get subscription detail
       this.billingPlanListViewModel.initializeData();
-      this.channelsListViewModel.resetObservableProperties();
-      this.channelsListViewModel.initMemberFeaturesMasterData();
     }
 
     handleSelectSubscriptionPlan = (planName) => {
@@ -75,19 +52,8 @@ const BillingPlanList = observer(
         show,
         hideChangePlanTable,
         subscriptionDetail,
-        invoices,
-        uploadHistoryQuotas
       } = this.billingPlanListViewModel;
-      const {
-        cmsFeaturesMasterData,
-        countCMSConnected,
-        countAdvertisingConnected,
-        countEmailMarketingConnected,
-        countSocialMediaConnected,
-      } = this.channelsListViewModel;
-      console.log('data', cmsFeaturesMasterData)
-      console.log('================ subscriptionDetail');
-      console.log(invoices);
+      console.log("subscriptionDetaillala", subscriptionDetail)
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
@@ -113,26 +79,6 @@ const BillingPlanList = observer(
               />
             </div>
           )}
-          <div>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <h2 className="text-blue-0 mb-0">Quotas</h2>
-            </div>
-            {uploadHistoryQuotas && <ComponentBillingInfo
-              subscriptionDetail={subscriptionDetail}
-              uploadHistoryQuotas={uploadHistoryQuotas}
-              countSocialMediaConnected={countSocialMediaConnected}
-              countAdvertisingConnected={countAdvertisingConnected}
-              countCMSConnected={countCMSConnected}
-              countEmailMarketingConnected={countEmailMarketingConnected}
-              cmsFeaturesMasterData={cmsFeaturesMasterData}
-            />}
-          </div>
-          <div>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <h2 className="text-blue-0 mb-0">Invoices</h2>
-            </div>
-            {invoices && <ComponentInvoices data={invoices} />}
-          </div>
           <ModalComponent
             show={show}
             onHide={this.billingPlanListViewModel.closeModal}
