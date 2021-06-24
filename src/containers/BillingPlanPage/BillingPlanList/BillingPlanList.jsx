@@ -6,7 +6,6 @@ import { withBillingPlanViewModel } from '../BillingPlanViewModel/BillingPlanVie
 import Spinner from '../../../components/Spinner';
 import ComponentBillingPlan from '../../../components/ComponentBillingPlan';
 import ComponentPlanPayment from '../../../components/ComponentPlanPayment';
-import './index.scss';
 
 const ModalComponent = lazy(() => import('../../../components/Modal'));
 
@@ -28,9 +27,12 @@ const BillingPlanList = observer(
       script.src = 'https://cdn.paddle.com/paddle/paddle.js';
       script.async = true;
       document.body.appendChild(script);
-
+      let that = this;
       //get subscription detail
-      this.billingPlanListViewModel.initializeData();
+      this.billingPlanListViewModel.initializeDataMemberSubscriptionDetail(() => {
+        console.log('setup - forceUpdate');
+        that.forceUpdate();
+      });
     }
 
     handleSelectSubscriptionPlan = (planName) => {
@@ -46,19 +48,18 @@ const BillingPlanList = observer(
     };
 
     render() {
-      const {
-        tableStatus,
-        isDisable,
-        show,
-        hideChangePlanTable,
-        subscriptionDetail,
-      } = this.billingPlanListViewModel;
-      console.log("subscriptionDetaillala", subscriptionDetail)
+      const { tableStatus, isDisable, show, subscriptionDetail } = this.billingPlanListViewModel;
+
+      let planName =
+        (subscriptionDetail &&
+          subscriptionDetail.valid &&
+          subscriptionDetail.plan_name.toLowerCase()) ||
+        'free';
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
         <div>
-          {hideChangePlanTable && subscriptionDetail !== null && (
+          {subscriptionDetail != null && subscriptionDetail.paddle_status == 'active' && (
             <div className="mb-4">
               <div className="py-3 bg-white d-inline-block">
                 <ComponentPlanPayment
@@ -70,12 +71,13 @@ const BillingPlanList = observer(
             </div>
           )}
 
-          {!hideChangePlanTable && (
+          {(subscriptionDetail == null ||
+            (subscriptionDetail != null && subscriptionDetail.paddle_status == 'deleted')) && (
             <div className="mb-4">
               <ComponentBillingPlan
                 handleSelectSubscriptionPlan={this.handleSelectSubscriptionPlan}
                 isDisable={isDisable ? isDisable : null}
-                subscriptionDetail={subscriptionDetail}
+                planName={planName}
               />
             </div>
           )}
@@ -87,7 +89,7 @@ const BillingPlanList = observer(
               <ComponentBillingPlan
                 handleSelectSubscriptionPlan={this.handleSelectSubscriptionPlan}
                 isDisable={isDisable ? isDisable : null}
-                subscriptionDetail={subscriptionDetail}
+                planName={planName}
               />
             }
             key={Math.random(40, 200)}

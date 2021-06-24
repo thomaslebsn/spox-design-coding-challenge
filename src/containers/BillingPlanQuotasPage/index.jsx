@@ -1,10 +1,10 @@
-import React, { lazy } from "react";
+import React, { lazy } from 'react';
 
-import { Route } from "react-router-dom";
-import BillingPlanStore from "./BillingPlanStore/BillingPlanStore";
-import BillingPlanViewModel from "./BillingPlanViewModel/BillingPlanViewModel";
-import { BillingPlanViewModelContextProvider } from "./BillingPlanViewModel/BillingPlanViewModelContextProvider";
-import BillingPlanQuotas from "./BillingPlanList/BillingPlanQuotas";
+import { Route } from 'react-router-dom';
+import BillingPlanStore from '../BillingPlanPage/BillingPlanStore/BillingPlanStore';
+import BillingPlanViewModel from '../BillingPlanPage/BillingPlanViewModel/BillingPlanViewModel';
+import { BillingPlanViewModelContextProvider } from '../BillingPlanPage/BillingPlanViewModel/BillingPlanViewModelContextProvider';
+import BillingPlanQuotas from './BillingPlanList/BillingPlanQuotas';
 import GlobalStore from '../../store/Store';
 import ChannelsStore from '../ChannelsPage/ChannelsStore/ChannelsStore';
 
@@ -13,7 +13,7 @@ if (!window.globalStore) {
 }
 const globalStore = window.globalStore;
 const channelsStore = new ChannelsStore({
-  globalStore: globalStore
+  globalStore: globalStore,
 });
 const billingPlanStore = new BillingPlanStore();
 const billingPlanViewModel = new BillingPlanViewModel(billingPlanStore, channelsStore);

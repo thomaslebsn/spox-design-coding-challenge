@@ -1,11 +1,8 @@
 import React, { Component, lazy } from 'react';
 import { observer } from 'mobx-react';
-import PAGE_STATUS from '../../../constants/PageStatus';
-import { withBillingPlanViewModel } from '../BillingPlanViewModel/BillingPlanViewModelContextProvider';
-
+import { withBillingPlanViewModel } from '../../BillingPlanPage/BillingPlanViewModel/BillingPlanViewModelContextProvider';
 import Spinner from '../../../components/Spinner';
 import ComponentInvoices from '../../../components/ComponentInvoices';
-import './index.scss';
 
 const ModalComponent = lazy(() => import('../../../components/Modal'));
 
@@ -20,22 +17,14 @@ const BillingPlanInvoices = observer(
     }
 
     componentDidMount() {
-      console.log('init data');
-      const script = document.createElement('script');
-      script.src = 'https://cdn.paddle.com/paddle/paddle.js';
-      script.async = true;
-      document.body.appendChild(script);
-
-      //get subscription detail
-      this.billingPlanListViewModel.initializeData();
+      // get subscription detail
+      this.billingPlanListViewModel.initializeDataMemberInvoices();
     }
 
     render() {
-      const {
-        tableStatus,
-        invoices,
-      } = this.billingPlanListViewModel;
-      return tableStatus === PAGE_STATUS.LOADING ? (
+      const { invoices } = this.billingPlanListViewModel;
+
+      return invoices == null ? (
         <Spinner />
       ) : (
         <div>
