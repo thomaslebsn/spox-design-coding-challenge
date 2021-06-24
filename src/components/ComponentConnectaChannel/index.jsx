@@ -249,9 +249,23 @@ class ComponentConnectaChannel extends Component {
           this.props.handleModalCms(name, isConnected);
           break;
         case CHANNEL_TYPE.FACEBOOK_ADS.NAME:
+          accepted = this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.OTHERNAME)
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+             });
+             return
+          }
           this.handleConnectChannel(name, isConnected);
           break;
         case CHANNEL_TYPE.GOOGLE_ADS.NAME:
+          accepted = this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.OTHERNAME)
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            })
+            return
+          };
           this.handleConnectChannel(name, isConnected);
           break;
         case CHANNEL_TYPE.WORDPRESS.NAME:
@@ -635,8 +649,8 @@ class ComponentConnectaChannel extends Component {
               </div>
             </div>
           </Tab>
-          {this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.OTHERNAME) ?
-          (<Tab eventKey={2} title={'Advertising'}>
+          
+          <Tab eventKey={2} title={'Advertising'}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -719,7 +733,7 @@ class ComponentConnectaChannel extends Component {
                 </div>
               </div>
             </div>
-          </Tab>) : null}
+          </Tab>
           <Tab eventKey={3} title={'CMS'}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
