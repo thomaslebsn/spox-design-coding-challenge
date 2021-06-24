@@ -141,29 +141,6 @@ const UpdateGeneral = observer(class UpdateGeneral extends Component {
                     </div>
                   </div>
                 </div>
-                {/* <div className='border-da-1 mb-3'>
-                 <Dropzone onDrop={this.onDrop}>
-                 {({ getRootProps, getInputProps }) => (
-                 <div className='position-relative  cursor-pointer'>
-                 <div
-                 {...getRootProps()}
-                 className='d-flex align-items-center justify-content-center p-3 pb-4'
-                 >
-                 <div className='d-flex align-items-center p-4'>
-                 <i className='fs-1 text-blue-0 opacity-25'>
-                 <FontAwesomeIcon icon={faCloudUploadAlt} />
-                 </i>
-                 <div className='text-center ms-1'>
-                 <p className='mb-0 fs-6'>
-                 Currently, disabled to integrate DAM Button
-                 </p>
-                 </div>
-                 </div>
-                 </div>
-                 </div>
-                 )}
-                 </Dropzone>
-                 </div> */}
               </div>
               <div className='col-6'>
                 <div>
