@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  AUTHORIZATION_KEY,
+} from 'easii-io-web-service-library';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
@@ -136,7 +139,7 @@ const HomeList = observer(
             <div className="d-flex">
               <div className="py-4 px-3 pe-400 w-100">
                 <h2 className="mb-3 fw-normal text-blue-0">
-                  Good morning, <strong className="fw-bold">Abby Flemming</strong>
+                  Good morning, <strong className="fw-bold">{localStorage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}</strong>
                 </h2>
                 {/* <div className="mb-3">
                   <Complete />
@@ -151,7 +154,10 @@ const HomeList = observer(
                   <AssignedToMe />
                 </div> */}
                 <div>
-                  <Campaigns campaigns={campaigns} CAMPAIGNS_FIELD_KEY={CAMPAIGNS_FIELD_KEY} />
+                  <Campaigns 
+                    campaigns={campaigns} 
+                    CAMPAIGNS_FIELD_KEY={CAMPAIGNS_FIELD_KEY} 
+                  />
                 </div>
               </div>
               <div

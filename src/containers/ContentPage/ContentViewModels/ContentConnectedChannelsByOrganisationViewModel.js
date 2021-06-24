@@ -26,6 +26,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   isDeselectAllSocial = false;
 
+  isBackSaveData = false;
+
   dataContentDescriptionSingle = {
     advance_mode: false,
     list_channels: {
@@ -38,7 +40,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       linkedin: {
@@ -50,7 +52,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       instagram: {
@@ -62,7 +64,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       twitter: {
@@ -74,7 +76,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       youtube: {
@@ -85,7 +87,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       joomla: {
@@ -97,7 +99,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       mailchimp: {
@@ -109,7 +111,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       google_my_business: {
@@ -121,7 +123,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       tumblr: {
@@ -133,7 +135,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       medium: {
@@ -145,7 +147,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       wordpress: {
@@ -157,7 +159,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       },
       drupal: {
@@ -169,7 +171,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
         selectedPage: [],
         publishedPlan: {
           publishingType: "post_now",
-          schedule: {}
+          schedule: []
         }
       }
     }
@@ -188,7 +190,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         instagram: {
@@ -200,7 +202,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         linkedin: {
@@ -212,7 +214,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         youtube: {
@@ -223,7 +225,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         google_my_business: {
@@ -235,7 +237,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         tumblr: {
@@ -247,7 +249,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         medium: {
@@ -259,7 +261,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         twitter: {
@@ -271,7 +273,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         }
       },
@@ -285,7 +287,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         wordpress: {
@@ -297,7 +299,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
         drupal: {
@@ -309,7 +311,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         }
       },
@@ -323,7 +325,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
           selectedPage: [],
           publishedPlan: {
             publishingType: "post_now",
-            schedule: {}
+            schedule: []
           }
         },
       },
@@ -350,6 +352,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   resetObservableProperties() {
     this.connectedChannels = null;
+    this.isBackSaveData = false;
   }
 
   disableConnectSoMePage = (name, id) => {

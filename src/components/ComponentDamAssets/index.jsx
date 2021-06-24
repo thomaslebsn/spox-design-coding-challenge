@@ -9,12 +9,19 @@ import { PROJECT_COLUMN_INDICATOR } from "../../constants/ProjectModule";
 
 const ComponentDamAssets = ({ validator, formPropsData }) => {
   const [getAvatar, setAvatar] = useState([]);
+  const [checkTypeImage, setCheckTypeImage] = useState(false)
 
   const handleDamAssets = (data) => {
     console.log('data data data logo project');
     console.log(data[0].url);
-    formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] = data[0].url;
-    setAvatar(data);
+    
+    if(data[0].extension != "mp4") {
+      setCheckTypeImage(false);
+      formPropsData[PROJECT_COLUMN_INDICATOR.LOGO] = data[0].url;
+      setAvatar(data);
+    } else {
+      setCheckTypeImage(true)
+    }
   }
 
   return (
@@ -42,7 +49,8 @@ const ComponentDamAssets = ({ validator, formPropsData }) => {
           <div className="main_upload_images">
             <DamButton 
               data={getAvatar}
-              changed={handleDamAssets}
+              changed={(data) => handleDamAssets(data)}
+              checkTypeImage={checkTypeImage}
             />
           </div>
         </div>

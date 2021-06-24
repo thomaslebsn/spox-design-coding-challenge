@@ -1,31 +1,30 @@
 import history from '../../../routes/history';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
+import {logout} from '../../../auth';
 import { notify } from '../../../components/Toast';
-import { SIGNUP_FIELD_KEY } from '../../../constants/SignUpModule';
 
-class SignUpFormViewModel {
-  signupStore = null;
+class UpdatePasswordViewModel {
+  profileStore = null;
   formStatus = PAGE_STATUS.READY;
-  signupFormViewModel = null;
+  updatePasswordViewModel = null;
   successResponse = {
     state: true,
     content_id: ''
   };
 
-  constructor(signupStore) {
+  constructor(profileStore) {
     makeAutoObservable(this);
-    this.signupStore = signupStore;
+    this.profileStore = profileStore;
   }
 
-  setAllValue = (signupFormComponent) => {
-    this.signupFormComponent = signupFormComponent;
+  setAllValue = (updatePasswordViewModel) => {
+    this.updatePasswordViewModel = updatePasswordViewModel;
   };
 
-  saveMemberOnPage = () => {
-    console.log(this.signupFormComponent.formPropsData)
-    this.signupStore.saveMember(
-      this.signupFormComponent.formPropsData,
+  savePasswordInformationOnPage = () => {
+    this.profileStore.updatePassword(
+      this.updatePasswordViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
     );
@@ -33,14 +32,16 @@ class SignUpFormViewModel {
 
   callbackOnErrorHandler = (error) => {
     console.log('error')
+    console.log(this.successResponse)
     console.log(error)
     this.successResponse.state = false;
     this.successResponse.content_id = error.result.content_id;
   };
 
   callbackOnSuccessHandler = () => {
-    history.push('/verify');
+    logout();
+    notify('Change password successfully, please re-login with your new password.', 'success');
   };
 }
 
-export default SignUpFormViewModel;
+export default UpdatePasswordViewModel;

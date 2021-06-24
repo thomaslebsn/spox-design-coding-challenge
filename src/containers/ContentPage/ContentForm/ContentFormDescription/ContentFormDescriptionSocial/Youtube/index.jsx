@@ -12,7 +12,8 @@ class YoutubeSocial extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlVideo: "",
+      getUrlVideo: this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.videoAssets,
+      description: this.field.dataContentDescriptionSocial.list_channels.social.youtube.description,
       checkTypeVideo: false
     }
 
@@ -23,6 +24,10 @@ class YoutubeSocial extends Component {
   }
 
   handleChange(event) {
+    this.setState({
+      description: event.target.value
+    })
+
     this.field.dataContentDescriptionSocial.list_channels.social.youtube.description = event.target.value;
     this.props.changed(event.target.value);
   }
@@ -68,14 +73,14 @@ class YoutubeSocial extends Component {
 
   render() {
     console.log('[Social] render...');
-    let { getUrlVideo, checkTypeVideo } = this.state;
+    let { getUrlVideo, checkTypeVideo, description } = this.state;
 
     return (
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.youtube.description}
-          // value={this.field.dataContentDescriptionSocial.social.instagram.data}
+          //defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.youtube.description}
+          value={description}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}
@@ -84,19 +89,19 @@ class YoutubeSocial extends Component {
           className="form-control rounded-0"
         />
 
-        <div className="px-3 py-2 bg-blue-3 d-flex">
-          {/* <CanvaButton
+        {/* <div className="px-3 py-2 bg-blue-3 d-flex">
+          <CanvaButton
             data={this.field.dataContentDescriptionSocial.list_channels.social.youtube.assets.canvaAssets}
             changed={this.handleCanva}
-          /> */}
-          {/* <DamButton 
+          />
+          <DamButton 
             data={getUrlImage}
             changed={(data, name) => this.handleDamAssets(data, name)}
             name="youtube"
             dataYoutube={getUrlImage}
-          /> */}
-        </div>
-        <div className="mt-2 wr_dam_full_width">
+          />
+        </div> */}
+        <div className="wr_dam_full_width px-3 py-2 bg-blue-3 d-flex">
           <VideoButton 
             dataVideo={getUrlVideo}
             changed={(data) => this.handleVideo(data)}

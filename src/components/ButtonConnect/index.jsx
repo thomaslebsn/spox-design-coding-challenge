@@ -11,7 +11,7 @@ class ButtonConnect extends React.Component {
           onClick={onClick}
           disabled={isDisabled}
         >
-          <span className="ms-2">{isConnected ? 'Disconnect' : 'Connect'}</span>
+          <span className="ms-2 text-white">{isConnected ? 'Disconnect' : 'Connect'}</span>
         </button>
       </>
     );

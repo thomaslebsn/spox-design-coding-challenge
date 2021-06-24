@@ -31,9 +31,9 @@ class ItemSchedule extends Component {
   };
 
   render() {
-    let { value, handleOnCheckBoxChange, regularly } = this.props;
+    let { value, handleOnCheckBoxChange, regularly, startDateTime, timeDate } = this.props;
 
-    let { startDateTime, timeDate, timeDateRange, numbers, days, publish } = value;
+    let { timeDateRange, numbers, days, publish } = value;
 
     let fieldDateRange = {
       type: FORM_FIELD_TYPE.DATERANGE,
@@ -61,10 +61,16 @@ class ItemSchedule extends Component {
           <p className="mb-2">Publish date/time</p>
           <div className="d-flex mb-3">
             <div className="item w-50">
-              <DatePickerDay field={startDateTime} />
+              <DatePickerDay 
+                startDateTime={startDateTime} 
+                handlChangeDay={this.props.handlChangeDay}
+              />
             </div>
             <div className="item w-50">
-              <DatePickerTime field={timeDate} />
+              <DatePickerTime 
+                timeDate={timeDate}
+                handlChangeTime={this.props.handlChangeTime}
+              />
             </div>
           </div>
           {regularly && (

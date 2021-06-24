@@ -77,7 +77,7 @@ class DamButton extends React.Component {
       .concat('&modalSelectionDAMSession=')
       .concat(this.modalSelectionDAMSession);
 
-    let { data, checkTypeImage, name, dataYoutube } = this.props;
+    let { data, checkTypeImage} = this.props;
 
     return (
       <>
@@ -100,7 +100,7 @@ class DamButton extends React.Component {
                     key={key}
                     className={`item_dam_assets d-flex justify-content-start border-top mt-4`}
                   >
-                    <div className="position-relative m-2">
+                    <div className="wr_img_thumbnail_dam position-relative m-2">
                       <img
                         className={`img-thumbnail rounded imgTab`}
                         alt={value.url}

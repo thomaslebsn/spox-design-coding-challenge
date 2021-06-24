@@ -87,6 +87,9 @@ const PaginationComponent = ({
     isMulti: false,
   };
 
+  console.log('paginationpagination123');
+  console.log(pagination.totalPages);
+
   return (
     <>
       <div className="w-150">
@@ -100,6 +103,7 @@ const PaginationComponent = ({
         >
           <FontAwesomeIcon icon={faAngleDoubleLeft} />
         </button> */}
+        
         <button
           //onClick={() => previousPage()}
           onClick={() => handlePreviousPage()}
@@ -108,16 +112,20 @@ const PaginationComponent = ({
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </button>
-        <button
-          onClick={() => handlePreviousFirstPage()}
-          className={`btn ${styles.btn} border-1 border-gray p-0 fs-6 ${
-            1 === pagination.page
-              ? "active bg-green text-white border-green"
-              : "text-black-50"
-          }`}
-        >
-          1
-        </button>
+        {
+          pagination && (pagination.totalPages > 1) && (
+            <button
+              onClick={() => handlePreviousFirstPage()}
+              className={`btn ${styles.btn} border-1 border-gray p-0 fs-6 ${
+                1 === pagination.page
+                  ? "active bg-green text-white border-green"
+                  : "text-black-50"
+              }`}
+            >
+              1
+            </button>
+          )
+        }
         <p
           className={`mb-0 d-flex align-items-end ms-2 me-2 text-black-50 fs-5 ${
             pagination.page === 1 ||

@@ -11,7 +11,8 @@ class MailchimpSocial extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlImage: ""
+      getUrlImage: this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.assets.damAssets,
+      description: this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.description
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,10 @@ class MailchimpSocial extends Component {
   }
 
   handleChange(event) {
+    this.setState({
+      description: event.target.value
+    })
+
     this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.description = event.target.value;
     this.props.changed(event.target.value);
   }
@@ -45,14 +50,14 @@ class MailchimpSocial extends Component {
 
   render() {
     console.log('[Social] render...');
-    let { getUrlImage } = this.state;
+    let { getUrlImage, description } = this.state;
 
     return (
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.description}
-          // value={this.field.dataContentDescriptionSocial.mail.mail.data}
+          //defaultValue={this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.description}
+          value={description}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}
@@ -61,7 +66,7 @@ class MailchimpSocial extends Component {
           className="form-control rounded-0"
         />
 
-        <div className="px-3 py-2 bg-blue-3 d-flex">
+        <div className="px-3 py-2 bg-blue-3 d-flex wr_description_image_asset">
           <CanvaButton
             data={this.field.dataContentDescriptionSocial.list_channels.mail.mailchimp.assets.canvaAssets}
             changed={this.handleCanva}

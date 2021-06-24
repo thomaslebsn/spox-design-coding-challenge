@@ -11,7 +11,8 @@ class LinkedInSocial extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlImage: ""
+      getUrlImage: this.field.dataContentDescriptionSocial.list_channels.social.linkedin.assets.damAssets,
+      description: this.field.dataContentDescriptionSocial.list_channels.social.linkedin.description
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,10 @@ class LinkedInSocial extends Component {
   }
 
   handleChange(event) {
+    this.setState({
+      description: event.target.value
+    })
+
     this.field.dataContentDescriptionSocial.list_channels.social.linkedin.description = event.target.value;
     this.props.changed(event.target.value);
   }
@@ -45,14 +50,14 @@ class LinkedInSocial extends Component {
 
   render() {
     console.log('[Social] render...');
-    let { getUrlImage } = this.state;
+    let { getUrlImage, description } = this.state;
 
     return (
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.linkedin.description}
-          // value={this.field.dataContentDescriptionSocial.social.linkedIn.data}
+          //defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.linkedin.description}
+          value={description}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}
@@ -61,7 +66,7 @@ class LinkedInSocial extends Component {
           className="form-control rounded-0"
         />
 
-        <div className="px-3 py-2 bg-blue-3 d-flex">
+        <div className="px-3 py-2 bg-blue-3 d-flex wr_description_image_asset">
           <CanvaButton
             data={this.field.dataContentDescriptionSocial.list_channels.social.linkedin.assets.canvaAssets}
             changed={this.handleCanva}

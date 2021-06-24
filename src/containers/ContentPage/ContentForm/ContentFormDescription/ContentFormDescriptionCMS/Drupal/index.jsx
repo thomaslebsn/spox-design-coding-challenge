@@ -11,7 +11,8 @@ class DrupalSocial extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlImage: ""
+      getUrlImage: this.field.dataContentDescriptionSocial.list_channels.cms.drupal.assets.damAssets,
+      description: this.field.dataContentDescriptionSocial.list_channels.cms.drupal.description
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,10 @@ class DrupalSocial extends Component {
   }
 
   handleChange(event) {
+    this.setState({
+      description: event.target.value
+    })
+
     this.field.dataContentDescriptionSocial.list_channels.cms.drupal.description = event.target.value;
     this.props.changed(event.target.value);
   }
@@ -46,14 +51,14 @@ class DrupalSocial extends Component {
   render() {
     console.log('[Social] render...');
 
-    let { getUrlImage } = this.state;
+    let { getUrlImage, description } = this.state;
 
     return (
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.list_channels.cms.drupal.description}
-          // value={this.field.dataContentDescriptionSocial.cms.joomla.data}
+          //defaultValue={this.field.dataContentDescriptionSocial.list_channels.cms.drupal.description}
+          value={description}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}
@@ -62,7 +67,7 @@ class DrupalSocial extends Component {
           className="form-control rounded-0"
         />
 
-        <div className="px-3 py-2 bg-blue-3 d-flex">
+        <div className="px-3 py-2 bg-blue-3 d-flex wr_description_image_asset">
           <CanvaButton
             data={this.field.dataContentDescriptionSocial.list_channels.cms.drupal.assets.canvaAssets}
             changed={this.handleCanva}

@@ -245,6 +245,10 @@ class ComponentSchedule extends Component {
               value={dataSingle}
               handleOnCheckBoxChange={this.handleOnCheckBoxChangeSingle}
               regularly={regularly}
+              startDateTime={this.props.startDateTime}
+              timeDate={this.props.timeDate}
+              handlChangeDay={this.props.handlChangeDay}
+              handlChangeTime={this.props.handlChangeTime}
             />
           </div>
         )}

@@ -22,7 +22,8 @@ class ComponentPublishListChannels extends Component {
       getArrayPageFacebook,
       getArrayPageLinkedin,
       getListConnectFacebookPagePublisd,
-      getListConnectLinkedinPagePublisd
+      getListConnectLinkedinPagePublisd,
+      labelsConnectedChannels
     } = this.props;
 
     console.log('listFacebookFanpageConnectedrender123');
@@ -116,6 +117,72 @@ class ComponentPublishListChannels extends Component {
                 </li>
               );
             })}
+            {
+              labelsConnectedChannels.includes("instagram") && (
+                <li className={`me-2 mb-2`}>
+                  <a href={void 0} className="d-block" >
+                    <span className="position-relative d-block">
+                      <img className="img-avatar" src={"/assets/images/instagram.png"} alt="" />
+                    </span>
+                  </a>
+                </li>
+              )
+            }
+            {
+              labelsConnectedChannels.includes("twitter") && (
+                <li className={`me-2 mb-2`}>
+                  <a href={void 0} className="d-block" >
+                    <span className="position-relative d-block">
+                      <img className="img-avatar" src={"/assets/images/twitter.png"} alt="" />
+                    </span>
+                  </a>
+                </li>
+              )
+            }
+            {
+              labelsConnectedChannels.includes("youtube") && (
+                <li className={`me-2 mb-2`}>
+                  <a href={void 0} className="d-block" >
+                    <span className="position-relative d-block">
+                      <img className="img-avatar" src={"/assets/images/youtube.png"} alt="" />
+                    </span>
+                  </a>
+                </li>
+              )
+            }
+            {
+              labelsConnectedChannels.includes("google_my_business") && (
+                <li className={`me-2 mb-2`}>
+                  <a href={void 0} className="d-block" >
+                    <span className="position-relative d-block">
+                      <img className="img-avatar" src={"/assets/images/google_my_business.png"} alt="" />
+                    </span>
+                  </a>
+                </li>
+              )
+            }
+            {
+              labelsConnectedChannels.includes("tumblr") && (
+                <li className={`me-2 mb-2`}>
+                  <a href={void 0} className="d-block" >
+                    <span className="position-relative d-block">
+                      <img className="img-avatar" src={"/assets/images/tumblr.png"} alt="" />
+                    </span>
+                  </a>
+                </li>
+              )
+            }
+            {
+              labelsConnectedChannels.includes("medium") && (
+                <li className={`me-2 mb-2`}>
+                  <a href={void 0} className="d-block" >
+                    <span className="position-relative d-block">
+                      <img className="img-avatar" src={"/assets/images/medium.png"} alt="" />
+                    </span>
+                  </a>
+                </li>
+              )
+            }
           </ul>
         </div>
       </>

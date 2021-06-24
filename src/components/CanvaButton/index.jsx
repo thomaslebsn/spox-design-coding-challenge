@@ -7,8 +7,8 @@ class CanvaButton extends React.Component {
     super(props);
 
     this.state = {
-      exportUrl: "",
-      designId: "",
+      exportUrl: this.props.data.exportUrl,
+      designId: this.props.data.designId
     };
   }
 
@@ -51,7 +51,7 @@ class CanvaButton extends React.Component {
         </button>
         {exportUrl && (
           <div className={`d-flex justify-content-start border-top mt-4`}>
-            <div key={designId} className="position-relative w-50 m-2">
+            <div key={designId} className="position-relative w-50 m-2 wr_img_thumbnail_canva">
               <img className={`img-thumbnail rounded imgTab`} alt={exportUrl} src={exportUrl} />
             </div>
           </div>
