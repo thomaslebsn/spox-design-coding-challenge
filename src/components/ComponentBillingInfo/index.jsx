@@ -7,15 +7,17 @@ function ComponentBillingInfo(props) {
   let countCMSChannel = props.countCMSConnected;
   let countEmailMarketingChannel = props.countEmailMarketingConnected;
   let uploadHistoryQuotas = props.uploadHistoryQuotas;
-  let lastPaymentDay =
-    (props.subscriptionDetail && props.subscriptionDetail.last_payment.date) ||
-    (uploadHistoryQuotas && uploadHistoryQuotas.user_created_at);
+  let lastPaymentDay = props.subscriptionDetail && props.subscriptionDetail.last_payment.date
+  if (!lastPaymentDay) {
+    lastPaymentDay = uploadHistoryQuotas && uploadHistoryQuotas.user_created_at;
+  }
   let dayLefts = null;
   let maxChannel = cmsFeaturesMasterData && cmsFeaturesMasterData[0].option;
+
   if (
     lastPaymentDay &&
-    ((props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase() === 'free') ||
-      !props.subscriptionDetail)
+    ((props.planName == 'free') ||
+      props.subscriptionDetail == null)
   ) {
     let arr = lastPaymentDay.split('/');
     let now = new Date();
@@ -56,8 +58,7 @@ function ComponentBillingInfo(props) {
                   <span>{maxChannel}</span>
                 </div>
               </div>
-              {props.subscriptionDetail &&
-              props.subscriptionDetail.plan_name.toLowerCase() !== 'free' ? (
+              {props.planName != 'free' ? (
                 <div className="row py-3 border-bottom-1 item_project">
                   <div className="col-4">
                     <div className="d-flex align-items-center">
