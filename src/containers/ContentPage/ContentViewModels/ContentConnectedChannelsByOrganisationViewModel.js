@@ -26,6 +26,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   isDeselectAllSocial = false;
 
+  isBackSaveData = false;
+
   dataContentDescriptionSingle = {
     advance_mode: false,
     list_channels: {
@@ -350,6 +352,7 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   resetObservableProperties() {
     this.connectedChannels = null;
+    this.isBackSaveData = false;
   }
 
   disableConnectSoMePage = (name, id) => {

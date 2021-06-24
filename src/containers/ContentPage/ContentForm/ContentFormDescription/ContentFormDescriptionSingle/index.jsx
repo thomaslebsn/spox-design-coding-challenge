@@ -12,10 +12,11 @@ class ContentFormDescriptionSingle extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlVideo: "",
-      getUrlImage: "",
+      getUrlVideo: this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets,
+      getUrlImage: Object.values(this.field.dataContentDescriptionSingle.list_channels)[0].assets.damAssets,
       checkTypeVideo: false,
-      checkTypeImage: false
+      checkTypeImage: false,
+      description: Object.values(this.field.dataContentDescriptionSingle.list_channels)[0].description
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +26,10 @@ class ContentFormDescriptionSingle extends Component {
   }
 
   handleChange(event) {
-    //this.field.dataContentDescriptionSingle.data = event.target.value;
+    this.setState({
+      description: event.target.value
+    })
+
     let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
 
     dataContentDescriptionSingleArray.map((value) => value.description = event.target.value)
@@ -75,7 +79,7 @@ class ContentFormDescriptionSingle extends Component {
   }
 
   render() {
-    let { getUrlVideo, getUrlImage, checkTypeVideo, checkTypeImage } = this.state;
+    let { getUrlVideo, getUrlImage, checkTypeVideo, checkTypeImage, description } = this.state;
     let { checkConnectYoutube } = this.props;
     let { dataContentDescriptionSingle } = this.field;
     
@@ -83,8 +87,8 @@ class ContentFormDescriptionSingle extends Component {
       <>
         <Form.Control
           as="textarea"
-          defaultValue={Object.values(dataContentDescriptionSingle.list_channels)[0].description}
-          // value={this.field.dataContentDescriptionSingle.data}
+          defaultValue={description}
+          //value={description}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}
@@ -95,7 +99,7 @@ class ContentFormDescriptionSingle extends Component {
         <div className="px-3 py-2 bg-blue-3 wr_description_image_asset">
           <div className="d-flex">
             <CanvaButton
-              //data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.canvaAssets}
+              data={Object.values(dataContentDescriptionSingle.list_channels)[0].assets.canvaAssets}
               changed={this.handleCanva}
             />
             <DamButton 

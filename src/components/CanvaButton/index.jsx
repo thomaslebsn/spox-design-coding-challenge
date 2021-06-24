@@ -7,8 +7,8 @@ class CanvaButton extends React.Component {
     super(props);
 
     this.state = {
-      exportUrl: "",
-      designId: "",
+      exportUrl: this.props.data.exportUrl,
+      designId: this.props.data.designId
     };
   }
 

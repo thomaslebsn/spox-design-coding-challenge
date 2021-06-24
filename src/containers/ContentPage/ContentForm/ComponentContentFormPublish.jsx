@@ -41,6 +41,8 @@ class ComponentContentFormPublish extends Component {
 
     this.validator = new SimpleReactValidator();
     this.viewModel = this.props.viewModel;
+
+    this.handleBackGeneral = this.handleBackGeneral.bind(this);
   }
 
   schedule = () => {
@@ -89,6 +91,11 @@ class ComponentContentFormPublish extends Component {
       nextStep2Ads: true,
     });
   };
+
+  handleBackGeneral = () => {
+    this.props.previousStep();
+    this.props.contentConnectedChannelsByOrganisationViewModel.isBackSaveData = true;
+  }
 
   render() {
 
@@ -277,7 +284,8 @@ class ComponentContentFormPublish extends Component {
 
         <div className="px-3 bg-white pb-3">
           <div className="border-top-1 pt-3 d-flex justify-content-between">
-            <Button className="btn btn-light border-success" onClick={this.props.previousStep}>
+            {/* <Button className="btn btn-light border-success" onClick={this.props.previousStep}> */}
+            <Button className="btn btn-light border-success" onClick={this.handleBackGeneral}>
               Back
             </Button>
             <div>
