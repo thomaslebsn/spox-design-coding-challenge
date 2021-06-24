@@ -8,6 +8,8 @@ class UpdatePasswordViewModel {
   profileStore = null;
   formStatus = PAGE_STATUS.READY;
   updatePasswordViewModel = null;
+  updateGeneralViewModel = null;
+
   successResponse = {
     state: true,
     content_id: ''
@@ -17,6 +19,10 @@ class UpdatePasswordViewModel {
     makeAutoObservable(this);
     this.profileStore = profileStore;
   }
+
+  setUpdateGeneralViewModel = (updateGeneralViewModelInstance) => {
+    this.updateGeneralViewModel = updateGeneralViewModelInstance;
+  };
 
   setAllValue = (updatePasswordViewModel) => {
     this.updatePasswordViewModel = updatePasswordViewModel;
