@@ -47,6 +47,7 @@ class UpdateGeneralViewModel {
   };
 
   callbackOnErrorInitializeHandler = () => {
+    notify('Something went wrong from server, please re-login', 'error');
     logout();
   };
 
