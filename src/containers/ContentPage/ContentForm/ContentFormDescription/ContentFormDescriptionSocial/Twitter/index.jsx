@@ -11,7 +11,8 @@ class TwitterSocial extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlImage: ""
+      getUrlImage: this.field.dataContentDescriptionSocial.list_channels.social.twitter.assets.damAssets,
+      description: this.field.dataContentDescriptionSocial.list_channels.social.twitter.description
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,10 @@ class TwitterSocial extends Component {
   }
 
   handleChange(event) {
+    this.setState({
+      description: event.target.value
+    })
+
     this.field.dataContentDescriptionSocial.list_channels.social.twitter.description = event.target.value;
     this.props.changed(event.target.value);
   }
@@ -52,14 +57,14 @@ class TwitterSocial extends Component {
 
   render() {
     console.log('[Social] render...');
-    let { getUrlImage } = this.state;
+    let { getUrlImage, description } = this.state;
 
     return (
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.twitter.description}
-          // value={this.field.dataContentDescriptionSocial.social.instagram.data}
+          //defaultValue={this.field.dataContentDescriptionSocial.list_channels.social.twitter.description}
+          value={description}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}

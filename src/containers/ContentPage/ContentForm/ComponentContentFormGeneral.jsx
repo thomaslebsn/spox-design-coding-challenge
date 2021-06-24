@@ -94,6 +94,48 @@ class ComponentContentFormGeneral extends Component {
   componentDidMount = () => {
     this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
     Object.values(this.props.dataContentDescriptionSingle.list_channels)[0].description = "";
+
+    
+    if(!this.contentConnectedChannelsByOrganisationViewModel.isBackSaveData) {
+      this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode = false;
+      
+        let getListChannels = this.props.dataContentDescriptionSocial.list_channels;
+
+        Object.values(getListChannels.social).map((value) => {
+          return (
+            value.description = "",
+            value.assets.canvaAssets = [],
+            value.assets.damAssets = []
+          )
+        })
+
+        Object.values(getListChannels.cms).map((value) => {
+          return (
+            value.description = "",
+            value.assets.canvaAssets = [],
+            value.assets.damAssets = []
+          )
+        })
+
+        Object.values(getListChannels.mail).map((value) => {
+          return (
+            value.description = "",
+            value.assets.canvaAssets = [],
+            value.assets.damAssets = []
+          )
+        })
+
+        getListChannels.social.youtube.assets.videoAssets = []
+      
+        Object.values(this.props.dataContentDescriptionSingle.list_channels).map((value) => {
+          return (
+            value.assets.canvaAssets = [],
+            value.assets.damAssets = []
+          )
+        })
+        this.props.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets = []
+     
+    }
   };
 
   generateFormSetting = () => {

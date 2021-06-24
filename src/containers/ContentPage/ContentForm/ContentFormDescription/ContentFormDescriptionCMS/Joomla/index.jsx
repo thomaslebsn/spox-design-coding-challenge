@@ -11,7 +11,8 @@ class JoomlaSocial extends Component {
     this.field = this.props.field;
 
     this.state = {
-      getUrlImage: ""
+      getUrlImage: this.field.dataContentDescriptionSocial.list_channels.cms.joomla.assets.damAssets,
+      description: this.field.dataContentDescriptionSocial.list_channels.cms.joomla.description
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,10 @@ class JoomlaSocial extends Component {
   }
 
   handleChange(event) {
+    this.setState({
+      description: event.target.value
+    })
+
     this.field.dataContentDescriptionSocial.list_channels.cms.joomla.description = event.target.value;
     this.props.changed(event.target.value);
   }
@@ -45,14 +50,14 @@ class JoomlaSocial extends Component {
 
   render() {
     console.log('[Social] render...');
-    let { getUrlImage } = this.state;
+    let { getUrlImage, description } = this.state;
 
     return (
       <>
         <Form.Control
           as="textarea"
-          defaultValue={this.field.dataContentDescriptionSocial.list_channels.cms.joomla.description}
-          // value={this.field.dataContentDescriptionSocial.cms.joomla.data}
+          //defaultValue={this.field.dataContentDescriptionSocial.list_channels.cms.joomla.description}
+          value={description}
           required={this.field.required ?? false}
           id={this.field.key}
           onChange={this.handleChange}
