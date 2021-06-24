@@ -94,17 +94,17 @@ class VideoButton extends React.Component {
             <span className="text-white ms-2">Video</span>
           </button>
           {dataVideo && (
-            <>
+            <div>
               {
                 dataVideo.map((value, key) => {
                   return (
-                    <video key={key} width="100%" controls className="mt-3">
+                    <video key={key} width="300" controls className="mt-3">
                       <source src={value.url} type="video/mp4"/>
                     </video>
                   )
                 })
               }
-            </>
+            </div>
           )}
           {
             checkTypeVideo && (
