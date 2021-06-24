@@ -120,7 +120,7 @@ class ContentFormDescription extends Component {
           isActiveCms = 2
         break;
         case "drupal":
-          isActiveCms = 2
+          isActiveCms = 3
         break;
       }
     })
