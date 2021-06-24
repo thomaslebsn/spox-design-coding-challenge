@@ -28,31 +28,35 @@ class BillingPlanListViewModel {
     this.show = false;
   };
 
-  initializeData = () => {
-    //get init member subscription detail
+  initializeDataMemberSubscriptionDetail(callback) {
     this.billingPlanStore.getMemberSubscriptionDetail(
       (response) => {
-        console.log('paddle - initializeData');
+        console.log('paddle - initializeData',response);
         console.log(response);
-        this.subscriptionDetail = response.subscription;
-        console.log(this.subscriptionDetail);
+        this.subscriptionDetail = response.subscription && Object.assign({}, response.subscription);
+        console.log('setup - get member detail', this.subscriptionDetail);
         this.paddleData = response.paddleData;
-        if (this.subscriptionDetail === null || this.subscriptionDetail === undefined) {
+        if (this.subscriptionDetail == null) {
           this.hideChangePlanTable = false;
         }
+        callback && callback()
         this.setupPaddle();
       },
       (error) => {}
     );
+  }
 
+  initializeDataMemberInvoices() {
     //get member invoices
     this.billingPlanStore.getMemberInvoices(
       (response) => {
-        this.invoices = response.list;
+        this.invoices = response.list && response.list.slice();
       },
       (error) => {}
     );
+  }
 
+  initializeDataMemberUploadHistoryQuotas() {
     //get upload history response
     this.billingPlanStore.getMemberUploadHistoryQuotas(
       (response) => {
@@ -62,12 +66,49 @@ class BillingPlanListViewModel {
         console.log(error);
       }
     )
-  };
+  }
+
+  // initializeData = (callback) => {
+  //   //get init member subscription detail
+  //   this.billingPlanStore.getMemberSubscriptionDetail(
+  //     (response) => {
+  //       console.log('paddle - initializeData',response);
+  //       console.log(response);
+  //       this.subscriptionDetail = response.subscription && Object.assign({}, response.subscription);
+  //       console.log('setup - get member detail', this.subscriptionDetail);
+  //       this.paddleData = response.paddleData;
+  //       if (this.subscriptionDetail == null) {
+  //         this.hideChangePlanTable = false;
+  //       }
+  //       callback && callback()
+  //       this.setupPaddle();
+  //     },
+  //     (error) => {}
+  //   );
+
+  //   //get member invoices
+  //   this.billingPlanStore.getMemberInvoices(
+  //     (response) => {
+  //       this.invoices = response.list && response.list.slice();
+  //     },
+  //     (error) => {}
+  //   );
+
+  //   //get upload history response
+  //   this.billingPlanStore.getMemberUploadHistoryQuotas(
+  //     (response) => {
+  //       this.uploadHistoryQuotas = response.data;
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   )
+  // };
 
   setupPaddle() {
     //init Paddle
-    console.log('setupPaddle');
-    console.log(this.paddleData.vendorId);
+    // console.log('setupPaddle');
+    // console.log(this.paddleData.vendorId);
     this.Paddle = window.Paddle;
     this.Paddle.Setup({
       vendor: parseInt(this.paddleData.vendorId), // paddle vendor id
@@ -186,7 +227,7 @@ class BillingPlanListViewModel {
         if (response == true) {
           notify('Cancel subscription success');
           this.hideChangePlanTable = false;
-          this.subscriptionDetail = null;
+          this.subscriptionDetail.paddle_status = "deleted"
         } else {
           notify(response, 'error');
         }

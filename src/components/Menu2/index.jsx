@@ -32,6 +32,18 @@ class Menu2 extends React.Component {
               link: "/billing-plan",
               icons: faFileAlt,
             },
+            {
+              name: "quotas",
+              text: "Quotas",
+              link: "/billing-plan-quotas",
+              icons: faFileAlt,
+            },
+            {
+              name: "invoices",
+              text: "Invoices",
+              link: "/billing-plan-invoices",
+              icons: faFileAlt,
+            },
           ],
         },
         // {
