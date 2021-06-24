@@ -2,6 +2,10 @@ import React, { Component } from "react";
 
 import history from "../../../routes/history";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
+
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 
@@ -52,6 +56,9 @@ const ContentsList = observer(
     //   });
     // };
 
+    handleExpanded = (e, row) => {
+    };
+
     handerSelectContent = (data) => {
       this.contentListViewModel.contentIdsSelected = data
         .map((item) => {
@@ -94,10 +101,25 @@ const ContentsList = observer(
       const dataFormFilter = this.getDataFormFilter();
       const tableRowHeader = [
         {
+          Header: "",
+          accessor: CONTENT_FIELD_KEY.NAME,
+          id: "expander",
+          Cell: ({ row }) => (
+            <div {...row.getToggleRowExpandedProps()} className="d-flex">
+              <i
+                className="text-green icon_expander"
+                onClick={(e) => this.handleExpanded(e, row.original)}
+              >
+                <FontAwesomeIcon icon={row.isExpanded ? faMinus : faPlus} />
+              </i>
+            </div>
+          ),
+        },
+        {
           Header: "Title",
           accessor: CONTENT_FIELD_KEY.NAME,
           Cell: ({ row }) => (
-            console.log("row.original", row),
+            console.log("row.original title", row),
             (
               <div className="d-flex">
                 <span
@@ -108,6 +130,10 @@ const ContentsList = observer(
                 </span>
               </div>
             )
+          ),
+          SubCell: ({ row }) => (
+            console.log("row.original subtile", row),
+            <span>{row.original[CONTENT_FIELD_KEY.NAME]}</span>
           ),
         },
 
@@ -136,6 +162,9 @@ const ContentsList = observer(
                 </div>
               ))}
             </div>
+          ),
+          SubCell: ({ row }) => (
+            console.log(console.log("row.original Channels", row))
           ),
         },
         {
