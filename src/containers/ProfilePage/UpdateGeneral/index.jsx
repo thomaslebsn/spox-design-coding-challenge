@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import { observer } from 'mobx-react';
 import Dropzone from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,8 @@ import { notify } from '../../../components/Toast';
 import Spinner from '../../../components/Spinner';
 import 'react-datepicker/dist/react-datepicker.css';
 import CustomizedDatePicker from '../../../components/DatePicker';
+
+const DamButton = lazy(() => import('../../../components/DamButton'));
 
 const UpdateGeneral = observer(
   class UpdateGeneral extends Component {
@@ -34,6 +36,7 @@ const UpdateGeneral = observer(
       super(props);
       this.state = {
         loading: false,
+        getUrlImage: ""
       };
       this.validator = new SimpleReactValidator();
       const { viewModel } = props;
@@ -43,10 +46,19 @@ const UpdateGeneral = observer(
       this.updateGeneralViewModel.setAllValue(this);
       this.handleInputChange = this.handleInputChange.bind(this);
       this.validateInfoBeforeSending = this.validateInfoBeforeSending.bind(this);
+      this.handleDamAssets = this.handleDamAssets.bind(this);
     }
 
     componentDidMount() {
       this.updateGeneralViewModel.initializeData();
+    }
+
+    handleDamAssets(data) {
+      if(data[0].extension != "mp4") {
+        this.setState({
+          getUrlImage: data
+        })
+      }
     }
 
     resetValue(content_id) {
@@ -97,6 +109,7 @@ const UpdateGeneral = observer(
     };
 
     render() {
+      let { getUrlImage } = this.state;
       const { memberInfo } = this.updateGeneralViewModel;
       return (
         <>
@@ -112,6 +125,27 @@ const UpdateGeneral = observer(
                         <span className='text-black opacity-75'>Avatar</span>
                       </label>
                       <div className='border-da-1 mb-3'>
+                        <div className={`position-relative cursor-pointer wr_upload_images ${getUrlImage.length > 0 ? "active_img" : ""}`}>
+                          <div className="d-flex align-items-center p-3 wr_icon_upload justify-content-center">
+                            <i className="fs-1 text-blue-0 opacity-25">
+                              <FontAwesomeIcon icon={faCloudUploadAlt} />
+                            </i>
+                            <div className="text-center ms-1">
+                              <p className="mb-0">Drag and drop a file here </p>
+                              <p className="mb-0">
+                                or <strong>Choose file</strong>
+                              </p>
+                            </div>
+                          </div>
+                          <div className="main_upload_images">
+                            <DamButton 
+                              data={getUrlImage}
+                              changed={(data) => this.handleDamAssets(data)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className='border-da-1 mb-3'>
                         <Dropzone onDrop={this.onDrop}>
                           {({ getRootProps, getInputProps }) => (
                             <div className='position-relative  cursor-pointer'>
@@ -133,7 +167,7 @@ const UpdateGeneral = observer(
                             </div>
                           )}
                         </Dropzone>
-                      </div>
+                      </div> */}
                     </div>
                     <div className='col-6'>
                       <div>
