@@ -2,8 +2,6 @@ import history from '../../../routes/history';
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { SIGNUP_FIELD_KEY } from '../../../constants/SignUpModule';
-import { logout } from '../../../auth';
 
 class SignUpFormViewModel {
   signupStore = null;

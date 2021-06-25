@@ -1,9 +1,8 @@
-import React from "react";
-import { withTranslation } from "react-i18next";
-
-import BannerLeft from "../../components/BannerLeft";
-import TitleAccount from "../../components/TitlePageAccount";
-import ButtonNormal from "../../components/ButtonNormal";
+import React from 'react';
+import { withTranslation } from 'react-i18next';
+import BannerLeft from '../../components/BannerLeft';
+import TitleAccount from '../../components/TitlePageAccount';
+import ButtonNormal from '../../components/ButtonNormal';
 import history from '../../routes/history';
 
 const dataSlider = [
