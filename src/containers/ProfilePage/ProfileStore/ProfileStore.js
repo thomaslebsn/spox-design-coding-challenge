@@ -1,7 +1,6 @@
-import { EasiiMemberApiService, EasiiProjectApiService } from 'easii-io-web-service-library';
+import { EasiiMemberApiService } from 'easii-io-web-service-library';
 import { runInAction } from 'mobx';
 import ProfileModel from '../ProfileModel/ProfileModel';
-import ProjectUtils from '../../ProjectsPage/ProjectUtils/ProjectUtils';
 
 export default class ProfileStore {
   async updatePassword(updatePasswordData, callbackOnSuccess, callbackOnError) {
@@ -60,9 +59,6 @@ export default class ProfileStore {
         );
       }
 
-      console.log('-----------resulrt on save -------------------');
-      console.log(resultOnSave);
-
       if (resultOnSave.result.success) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -79,8 +75,8 @@ export default class ProfileStore {
     }
   }
 
-  async getMember(id, callbackOnSuccess, callbackOnError) {
-    if (!id) return false;
+  async getMember(userSession, callbackOnSuccess, callbackOnError) {
+    if (!userSession) return false;
 
     try {
       const results = true;
@@ -88,10 +84,8 @@ export default class ProfileStore {
       if (results) {
         const getMemberInfoAPIService = new EasiiMemberApiService();
         const respondedData = await getMemberInfoAPIService.getMemberInfo(
-          id
+          userSession
         );
-        console.log('------------response-----------------------------------')
-        console.log(respondedData)
         if (respondedData) {
           runInAction(() => {
             callbackOnSuccess(respondedData);
@@ -103,11 +97,9 @@ export default class ProfileStore {
         }
       }
     } catch (error) {
-      console.log(error);
       runInAction(() => {
         callbackOnError(error);
       });
     }
   }
-
 }
