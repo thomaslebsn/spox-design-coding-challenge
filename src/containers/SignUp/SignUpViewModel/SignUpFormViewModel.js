@@ -3,6 +3,7 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { SIGNUP_FIELD_KEY } from '../../../constants/SignUpModule';
+import { logout } from '../../../auth';
 
 class SignUpFormViewModel {
   signupStore = null;
@@ -23,7 +24,6 @@ class SignUpFormViewModel {
   };
 
   saveMemberOnPage = () => {
-    console.log(this.signupFormComponent.formPropsData)
     this.signupStore.saveMember(
       this.signupFormComponent.formPropsData,
       this.callbackOnSuccessHandler,
@@ -38,8 +38,16 @@ class SignUpFormViewModel {
     this.successResponse.content_id = error.result.content_id;
   };
 
-  callbackOnSuccessHandler = () => {
-    history.push('/verify');
+  callbackOnSuccessHandler = (result) => {
+    if (result.result.email && result.result.id) {
+      history.push({
+        pathname: '/verify',
+        state: { id: result.result.id, email: result.result.email },
+      });
+    } else {
+      notify('Something went wrong from server, please re-login', 'error');
+      history.push('/signup');
+    }
   };
 }
 

@@ -4,6 +4,7 @@ import { withTranslation } from "react-i18next";
 import BannerLeft from "../../components/BannerLeft";
 import TitleAccount from "../../components/TitlePageAccount";
 import ButtonNormal from "../../components/ButtonNormal";
+import history from '../../routes/history';
 
 const dataSlider = [
   {
@@ -26,6 +27,7 @@ const dataSlider = [
 class VerifyEmail extends React.Component {
   render() {
     const { t, i18n } = this.props;
+    const memberInfo = history.location.state;
 
     return (
       <div className="row">
@@ -38,7 +40,7 @@ class VerifyEmail extends React.Component {
 
             <div className="mb-4">
               {t("txt_a_verification_email_has_been_sent_to_your_email")}
-              <a className="d-block">your_account@gmail.com</a>
+              <a className="d-block">{memberInfo ? memberInfo.email : 'your_account@gmail.com'}</a>
             </div>
 
             <div className="mb-4">{t("txt_please_check_your_email")}</div>
