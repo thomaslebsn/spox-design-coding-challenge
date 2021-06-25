@@ -9,8 +9,6 @@ class ProfileViewModel {
     if (profileStore) {
       this.updatePasswordViewModel = new UpdatePasswordViewModel(profileStore);
       this.updateGeneralViewModel = new UpdateGeneralViewModel(profileStore);
-      this.updatePasswordViewModel.setUpdateGeneralViewModel(
-        this.updateGeneralViewModel);
     }
   }
 
