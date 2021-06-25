@@ -99,41 +99,41 @@ class ComponentContentFormGeneral extends Component {
     if(!this.contentConnectedChannelsByOrganisationViewModel.isBackSaveData) {
       this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode = false;
       
-        let getListChannels = this.props.dataContentDescriptionSocial.list_channels;
+      let getListChannels = this.props.dataContentDescriptionSocial.list_channels;
 
-        Object.values(getListChannels.social).map((value) => {
-          return (
-            value.description = "",
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
+      Object.values(getListChannels.social).map((value) => {
+        return (
+          value.description = "",
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
 
-        Object.values(getListChannels.cms).map((value) => {
-          return (
-            value.description = "",
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
+      Object.values(getListChannels.cms).map((value) => {
+        return (
+          value.description = "",
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
 
-        Object.values(getListChannels.mail).map((value) => {
-          return (
-            value.description = "",
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
+      Object.values(getListChannels.mail).map((value) => {
+        return (
+          value.description = "",
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
 
-        getListChannels.social.youtube.assets.videoAssets = []
-      
-        Object.values(this.props.dataContentDescriptionSingle.list_channels).map((value) => {
-          return (
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
-        this.props.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets = []
+      getListChannels.social.youtube.assets.videoAssets = []
+    
+      Object.values(this.props.dataContentDescriptionSingle.list_channels).map((value) => {
+        return (
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
+      this.props.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets = []
      
     }
   };
@@ -295,6 +295,7 @@ class ComponentContentFormGeneral extends Component {
   };
 
   next = () => {
+    this.contentConnectedChannelsByOrganisationViewModel.getDataWhenBackGeneral()
     if (this.isFormValid()) {
       this.props.nextStep();
       this.viewModel.contentEditdata = this.formPropsData;
@@ -353,6 +354,8 @@ class ComponentContentFormGeneral extends Component {
                       viewModel={this.contentConnectedChannelsByOrganisationViewModel}
                       showModalChannels={this.props.showModalChannels}
                       arrayConnectedChannelsFinal={this.props.arrayConnectedChannelsFinal}
+                      isBackSaveData={this.contentConnectedChannelsByOrganisationViewModel.isBackSaveData}
+                      isDeleteConnectChannel={this.contentConnectedChannelsByOrganisationViewModel.isDeleteConnectChannel}
                     />
                   </div>
                 </div>

@@ -24,6 +24,7 @@ class ListConnectedChannelModal extends React.Component {
   }
 
   handleSlectChannels = (des, img) => {
+
     let { getArrayConnectChannels } = this.state;
     document.getElementById(des).classList.toggle('active');
 
@@ -33,6 +34,7 @@ class ListConnectedChannelModal extends React.Component {
     };
 
     getArrayConnectChannels.push(getObjectAConnectChannel);
+    
   };
 
   handleSaveConectChannels = () => {
@@ -40,9 +42,21 @@ class ListConnectedChannelModal extends React.Component {
     let arrayConnectedChannelsFinal = this.viewModel
       ? this.viewModel.arrayConnectedChannelsFinal
       : null;
+    
+    let arrayConnectedChannelsFinalDelete = this.viewModel
+      ? this.viewModel.arrayConnectedChannelsFinalDelete
+      : null;
+    
+    let getArrayConnectedChannelsFinal = null;
+
+    if(this.props.isBackSaveData && this.props.isDeleteConnectChannel) {
+      getArrayConnectedChannelsFinal = arrayConnectedChannelsFinalDelete
+    } else {
+      getArrayConnectedChannelsFinal = arrayConnectedChannelsFinal
+    }
 
     let newArrayConnectedChannelsFinal = [
-      ...arrayConnectedChannelsFinal,
+      ...getArrayConnectedChannelsFinal,
       ...getArrayConnectChannels,
     ];
 
@@ -53,7 +67,11 @@ class ListConnectedChannelModal extends React.Component {
       )
     );
 
-    this.viewModel.arrayConnectedChannelsFinal = newArrayConnectedChannelsFinal;
+    if(this.props.isBackSaveData && this.props.isDeleteConnectChannel) {
+      this.viewModel.arrayConnectedChannelsFinalDelete = newArrayConnectedChannelsFinal 
+    } else {
+      this.viewModel.arrayConnectedChannelsFinal = newArrayConnectedChannelsFinal;
+    }
 
     this.viewModel.closeModal();
   };
@@ -73,8 +91,14 @@ class ListConnectedChannelModal extends React.Component {
       ? this.props.arrayConnectedChannelsFinal
       : '';
 
-    console.log('arrayConnectedChannelsFinalrender123');
-    console.log(arrayConnectedChannelsFinal);
+    if(this.props.isBackSaveData && this.props.isDeleteConnectChannel) {
+      console.log('this.viewModel.arrayConnectedChannelsFinalDelete.length');
+      console.log(this.viewModel.arrayConnectedChannelsFinalDelete.length);
+      if(this.viewModel.arrayConnectedChannelsFinalDelete.length >= 1) {
+        arrayConnectedChannelsFinal = this.viewModel.arrayConnectedChannelsFinalDelete
+      }
+      
+    }
 
     return (
       <>

@@ -94,16 +94,16 @@ class ComponentContentFormPublish extends Component {
 
   handleBackGeneral = () => {
     this.props.previousStep();
-    this.props.contentConnectedChannelsByOrganisationViewModel.isBackSaveData = true;
+    this.props.contentConnectedChannelsByOrganisationViewModel.handleBackSaveData();
+    //this.props.contentConnectedChannelsByOrganisationViewModel.isBackSaveData = true;
   }
 
   render() {
 
-    let { formStatus, arrayConnectedChannelsFinal } = this.props;
+    let { formStatus, arrayConnectedChannelsFinal, contentConnectedChannelsByOrganisationViewModel } = this.props;
     let { schedule, nextStep2Ads } = this.state;
 
-    let labelsConnectedChannels =
-      arrayConnectedChannelsFinal && arrayConnectedChannelsFinal.map((e) => e.des);
+    let labelsConnectedChannels = arrayConnectedChannelsFinal && arrayConnectedChannelsFinal.map((e) => e.des);
 
     let checkSetupAds =
       labelsConnectedChannels &&
