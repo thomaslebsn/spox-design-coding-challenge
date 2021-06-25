@@ -32,6 +32,8 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   isDeleteConnectChannel = false;
 
+  getValueHeadline = "";
+
   dataContentDescriptionSingle = {
     advance_mode: false,
     list_channels: {
