@@ -2,7 +2,6 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
-import { logout } from '../../../auth';
 
 class UpdateGeneralViewModel {
   profileStore = null;
@@ -10,7 +9,8 @@ class UpdateGeneralViewModel {
   updateGeneralViewModel = null;
   memberInfo = null;
   successResponse = {
-    state: true, content_id: '',
+    state: true,
+    content_id: '',
   };
 
   constructor(profileStore) {
@@ -23,42 +23,34 @@ class UpdateGeneralViewModel {
   };
 
   initializeData = () => {
-    const userSession = localStorage.getItem('user_session');
-
-    if (!userSession) {
-      notify('Something went wrong from server, please re-login', 'error');
-      logout();
-    }
-
-    this.profileStore.getMember(userSession, this.callbackOnSuccessHandler,
-      this.callbackOnErrorInitializeHandler);
+    this.profileStore.getMember(
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ID],
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler,
+    );
   };
 
   saveGeneralInformationOnPage = () => {
-    this.profileStore.updateGeneral(this.updateGeneralViewModel.formPropsData,
-      this.callbackOnSuccessHandler, this.callbackOnErrorHandler);
+    this.profileStore.updateGeneral(
+      this.updateGeneralViewModel.formPropsData,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler,
+    );
   };
 
   callbackOnErrorHandler = (error) => {
+    notify('Update unsuccessfully', 'error');
     console.log('error');
     console.log(error);
     this.successResponse.state = false;
     this.successResponse.content_id = error.result.content_id;
   };
 
-  callbackOnErrorInitializeHandler = () => {
-    notify('Something went wrong from server, please re-login', 'error');
-    logout();
-  };
-
   callbackOnSuccessHandler = (result) => {
     if (result.id) { // get member info
       this.memberInfo = result;
-      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME] = result.full_name;
-      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ID] = result.id;
-      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY] = result.birthday
-        ? result.birthday.substr(0, 10) + ' 00:00:00'
-        : null;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME] = result.full_name
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY] = result.birthday ? result.birthday.substr(0, 10) + " 00:00:00" : null;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE] = result.phone;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS] = result.address;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2] = result.address_2;
@@ -66,7 +58,8 @@ class UpdateGeneralViewModel {
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY] = result.city;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE] = result.state;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY] = result.country;
-    } else {
+    }
+    else {
       notify('Update successfully', 'success');
     }
   };
