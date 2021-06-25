@@ -13,10 +13,10 @@ class ContentFormDescriptionSingle extends Component {
 
     this.state = {
       getUrlVideo: this.field.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets,
-      getUrlImage: Object.values(this.field.dataContentDescriptionSingle.list_channels)[0].assets.damAssets,
+      getUrlImage: this.field.dataContentDescriptionSingle.list_channels.facebook.assets.damAssets,
       checkTypeVideo: false,
       checkTypeImage: false,
-      description: Object.values(this.field.dataContentDescriptionSingle.list_channels)[0].description
+      description: this.field.dataContentDescriptionSingle.list_channels.facebook.description
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +29,8 @@ class ContentFormDescriptionSingle extends Component {
     this.setState({
       description: event.target.value
     })
+
+    //this.field.dataContentDescriptionSingle.list_channels.instagram.description = event.target.value;
 
     let dataContentDescriptionSingleArray = Object.values(this.field.dataContentDescriptionSingle.list_channels);
 

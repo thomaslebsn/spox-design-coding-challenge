@@ -60,13 +60,18 @@ class ContentFormDescription extends Component {
 
   render() {
     const { t } = this.props;
-    const arrayConnectedChannelsFinal = this.viewModel ? this.viewModel.arrayConnectedChannelsFinal : null;
+    let arrayConnectedChannelsFinal = this.viewModel ? this.viewModel.arrayConnectedChannelsFinal : null;
+
+    if(this.viewModel.isBackSaveData && this.viewModel.isDeleteConnectChannel) {
+      console.log('this.viewModel.arrayConnectedChannelsFinalDelete.length');
+      console.log(this.viewModel.arrayConnectedChannelsFinalDelete.length);
+      if(this.viewModel.arrayConnectedChannelsFinalDelete.length >= 1) {
+        arrayConnectedChannelsFinal = this.viewModel.arrayConnectedChannelsFinalDelete
+      }
+    }
 
     let labelsConnectedChannels =
     arrayConnectedChannelsFinal && arrayConnectedChannelsFinal.map((e) => e.des);
-
-    console.log('labelsConnectedChannelslabelsConnectedChannels123');
-    console.log(labelsConnectedChannels);
 
     let checkConnectFacebook = labelsConnectedChannels && labelsConnectedChannels.includes("facebook")
     let checkConnectInstagram = labelsConnectedChannels && labelsConnectedChannels.includes("instagram")

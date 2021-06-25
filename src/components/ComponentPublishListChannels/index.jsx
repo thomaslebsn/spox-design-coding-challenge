@@ -35,18 +35,38 @@ class ComponentPublishListChannels extends Component {
     console.log('getListConnectPagePublisd123');
     console.log(getListConnectFacebookPagePublisd);
 
+    console.log('labelsConnectedChannels12345');
+    console.log(labelsConnectedChannels);
+
+    let checkLabelFacebook = labelsConnectedChannels.includes("facebook");
+    let checkLabelLinkedin = labelsConnectedChannels.includes("linkedin");
+
     if(isDeselectAllSocial === true) {
-      contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.facebook.selectedPage = [];
-      contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.linkedin.selectedPage = [];
-      contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage = [];
-      contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.linkedin.selectedPage = [];
+      
+      if(checkLabelFacebook) {
+        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.facebook.selectedPage = [];
+        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage = [];
+      }
+      
+      if(checkLabelLinkedin) {
+        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.linkedin.selectedPage = [];
+        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.linkedin.selectedPage = [];
+      }
     } else {
       if(isAdvanceMode === true) {
-        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.facebook.selectedPage = listFacebookFanpageConnected;
-        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.linkedin.selectedPage = listLinkedinFanpageConnected;
+        if(checkLabelFacebook) {
+          contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.facebook.selectedPage = listFacebookFanpageConnected;
+        }
+        if(checkLabelLinkedin) {
+          contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial.list_channels.social.linkedin.selectedPage = listLinkedinFanpageConnected;
+        }
       } else {
-        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage = listFacebookFanpageConnected;
-        contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.linkedin.selectedPage = listLinkedinFanpageConnected;
+        if(checkLabelFacebook) {
+          contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.selectedPage = listFacebookFanpageConnected;
+        }
+        if(checkLabelLinkedin) {
+          contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.linkedin.selectedPage = listLinkedinFanpageConnected;
+        }
       }
     }
 
@@ -77,46 +97,59 @@ class ComponentPublishListChannels extends Component {
         </div>
         <div>
           <ul className={`list-unstyled d-flex align-items-center mb-0 flex-wrap ${isDeselectAllSocial ? 'opacity-50' : ''}`}>
-            {getListConnectFacebookPagePublisd && getListConnectFacebookPagePublisd.map((i) => {
-              let isDisabled = getArrayPageFacebook.some(
-                (value) => i == value
+            {
+              checkLabelFacebook && (
+                <>
+                  {getListConnectFacebookPagePublisd && getListConnectFacebookPagePublisd.map((i) => {
+                    let isDisabled = getArrayPageFacebook.some(
+                      (value) => i == value
+                    )
+                    return (
+                      <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('facebook', i)}>
+                        <a href={void 0} className="d-block cursor-pointer" >
+                          <span className="position-relative d-block">
+                            <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
+                            <img
+                              src={'/assets/images/facebook.png'}
+                              alt=""
+                              width={20}
+                              className="position-absolute bottom-0 end-0"
+                            />
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </>
               )
-              return (
-                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('facebook', i)}>
-                  <a href={void 0} className="d-block cursor-pointer" >
-                    <span className="position-relative d-block">
-                      <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
-                      <img
-                        src={'/assets/images/facebook.png'}
-                        alt=""
-                        width={20}
-                        className="position-absolute bottom-0 end-0"
-                      />
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-            {getListConnectLinkedinPagePublisd && getListConnectLinkedinPagePublisd.map((i) => {
-              let isDisabled = getArrayPageLinkedin.some(
-                (value) => i == value
+            }
+            {
+              checkLabelLinkedin && (
+                <>
+                  {getListConnectLinkedinPagePublisd && getListConnectLinkedinPagePublisd.map((i) => {
+                    let isDisabled = getArrayPageLinkedin.some(
+                      (value) => i == value
+                    )
+                    return (
+                      <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('linkedin', i)}>
+                        <a href={void 0} className="d-block cursor-pointer">
+                          <span className="position-relative d-block ">
+                            <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
+                            <img
+                              src={'/assets/images/linkedin.png'}
+                              alt=""
+                              width={20}
+                              className="position-absolute bottom-0 end-0"
+                            />
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </>
               )
-              return (
-                <li key={i} className={`me-2 mb-2 ${isDisabled ? "opacity-50" : ""}`} onClick={() => handleDeSelectConnectSomePage('linkedin', i)}>
-                  <a href={void 0} className="d-block cursor-pointer">
-                    <span className="position-relative d-block ">
-                      <img className="img-avatar" src={"/assets/images/avatar-1.png"} alt="" />
-                      <img
-                        src={'/assets/images/linkedin.png'}
-                        alt=""
-                        width={20}
-                        className="position-absolute bottom-0 end-0"
-                      />
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
+            }
+            
             {
               labelsConnectedChannels.includes("instagram") && (
                 <li className={`me-2 mb-2`}>
