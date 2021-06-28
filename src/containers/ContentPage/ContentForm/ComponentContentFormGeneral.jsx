@@ -20,13 +20,15 @@ import ListConnectedChannelModal from '../../../components/ListConnectedChannelM
 
 class ComponentContentFormGeneral extends Component {
   formPropsData = {
-    [CONTENT_FIELD_KEY.NAME]: '',
+    [CONTENT_FIELD_KEY.NAME]: this.props.contentConnectedChannelsByOrganisationViewModel.isBackSaveData 
+      ? this.props.contentConnectedChannelsByOrganisationViewModel.getValueHeadline : "",
     [CONTENT_FIELD_KEY.PROJECT]: '',
     [CONTENT_FIELD_KEY.CAMPAIGN]: '',
     [CONTENT_FIELD_KEY.PERSONA]: '',
-    [CONTENT_FIELD_KEY.DESCRIPTION]: null,
+    [CONTENT_FIELD_KEY.DESCRIPTION]: this.props.contentConnectedChannelsByOrganisationViewModel.isBackSaveData 
+      ? this.props.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle : "", 
     [CONTENT_FIELD_KEY.CANVA_DESIGN_ID]: '',
-    [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: '',
+    [CONTENT_FIELD_KEY.CANVA_EXPORTED_URL]: '', 
     [CONTENT_FIELD_KEY.DAM]: '',
   };
   validator = null;
@@ -93,47 +95,47 @@ class ComponentContentFormGeneral extends Component {
 
   componentDidMount = () => {
     this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
-    Object.values(this.props.dataContentDescriptionSingle.list_channels)[0].description = "";
-
     
     if(!this.contentConnectedChannelsByOrganisationViewModel.isBackSaveData) {
       this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode = false;
+      this.contentConnectedChannelsByOrganisationViewModel.getValueHeadline = "";
+      this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle.list_channels.facebook.description = "";
       
-        let getListChannels = this.props.dataContentDescriptionSocial.list_channels;
+      let getListChannels = this.props.dataContentDescriptionSocial.list_channels;
 
-        Object.values(getListChannels.social).map((value) => {
-          return (
-            value.description = "",
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
+      Object.values(getListChannels.social).map((value) => {
+        return (
+          value.description = "",
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
 
-        Object.values(getListChannels.cms).map((value) => {
-          return (
-            value.description = "",
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
+      Object.values(getListChannels.cms).map((value) => {
+        return (
+          value.description = "",
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
 
-        Object.values(getListChannels.mail).map((value) => {
-          return (
-            value.description = "",
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
+      Object.values(getListChannels.mail).map((value) => {
+        return (
+          value.description = "",
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
 
-        getListChannels.social.youtube.assets.videoAssets = []
-      
-        Object.values(this.props.dataContentDescriptionSingle.list_channels).map((value) => {
-          return (
-            value.assets.canvaAssets = [],
-            value.assets.damAssets = []
-          )
-        })
-        this.props.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets = []
+      getListChannels.social.youtube.assets.videoAssets = []
+    
+      Object.values(this.props.dataContentDescriptionSingle.list_channels).map((value) => {
+        return (
+          value.assets.canvaAssets = [],
+          value.assets.damAssets = []
+        )
+      })
+      this.props.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets = []
      
     }
   };
@@ -231,6 +233,7 @@ class ComponentContentFormGeneral extends Component {
             validation: 'required',
             changed: (event) => {
               this.formPropsData[CONTENT_FIELD_KEY.NAME] = event.target.value;
+              this.contentConnectedChannelsByOrganisationViewModel.getValueHeadline = event.target.value;
             },
             blurred: this.blurringFieldHandler,
           },
@@ -295,6 +298,7 @@ class ComponentContentFormGeneral extends Component {
   };
 
   next = () => {
+    this.contentConnectedChannelsByOrganisationViewModel.getDataWhenBackGeneral()
     if (this.isFormValid()) {
       this.props.nextStep();
       this.viewModel.contentEditdata = this.formPropsData;
@@ -353,6 +357,8 @@ class ComponentContentFormGeneral extends Component {
                       viewModel={this.contentConnectedChannelsByOrganisationViewModel}
                       showModalChannels={this.props.showModalChannels}
                       arrayConnectedChannelsFinal={this.props.arrayConnectedChannelsFinal}
+                      isBackSaveData={this.contentConnectedChannelsByOrganisationViewModel.isBackSaveData}
+                      isDeleteConnectChannel={this.contentConnectedChannelsByOrganisationViewModel.isDeleteConnectChannel}
                     />
                   </div>
                 </div>

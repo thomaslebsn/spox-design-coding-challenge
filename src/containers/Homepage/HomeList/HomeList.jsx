@@ -137,7 +137,8 @@ const HomeList = observer(
           </a>
           {isFull ? (
             <div className="d-flex">
-              <div className="py-4 px-3 pe-400 w-100">
+              {/* <div className="py-4 px-3 pe-400 w-100"> */}
+              <div className="py-4 px-3 w-100">
                 <h2 className="mb-3 fw-normal text-blue-0">
                   Good morning, <strong className="fw-bold">{localStorage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}</strong>
                 </h2>
@@ -160,7 +161,7 @@ const HomeList = observer(
                   />
                 </div>
               </div>
-              <div
+              {/* <div
                 className={`sdbar_right h-100 position-fixed end-0 top-0 bottom-0 pd-t-80 w-400`}
               >
                 <a
@@ -183,14 +184,14 @@ const HomeList = observer(
                   <FontAwesomeIcon icon={faChevronLeft} />
                 </a>
                 <div className=" w-100 bg-white h-100 overflow-hidden overflow-y-auto">
-                  {/* <BigCalendar /> */}
+                  <BigCalendar />
                   <UpcomingPosts contents={contents} CONTENT_FIELD_KEY={CONTENT_FIELD_KEY} />
                 </div>
-              </div>
+              </div> */}
             </div>
           ) : (
             <div className="position-relative d-flex bg-white h-100">
-              <a
+              {/* <a
                 href={void 0}
                 className={`
                     item_collap
@@ -211,7 +212,7 @@ const HomeList = observer(
                 onClick={this.handleCollapFull}
               >
                 <FontAwesomeIcon icon={faChevronRight} />
-              </a>
+              </a> */}
               <div className={`py-4 px-3 ${isFullcalendar ? '' : 'pe-400'} w-100`}>
                 <div className="wrapper_calendar wrapper_calendar_full h-100">
                   <div className="mb-3 d-flex align-items-center justify-content-between">

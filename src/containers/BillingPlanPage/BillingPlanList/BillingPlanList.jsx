@@ -6,10 +6,6 @@ import { withBillingPlanViewModel } from '../BillingPlanViewModel/BillingPlanVie
 import Spinner from '../../../components/Spinner';
 import ComponentBillingPlan from '../../../components/ComponentBillingPlan';
 import ComponentPlanPayment from '../../../components/ComponentPlanPayment';
-import ComponentInvoices from '../../../components/ComponentInvoices';
-import ComponentBillingInfo from '../../../components/ComponentBillingInfo'
-import { CHANNEL_ADS_GOOGLE } from '../../../constants/ChannelModule';
-import './index.scss';
 
 const ModalComponent = lazy(() => import('../../../components/Modal'));
 
@@ -23,24 +19,6 @@ const BillingPlanList = observer(
       console.log(viewModel);
 
       this.billingPlanListViewModel = viewModel ? viewModel.getBillingPlanListViewModel() : null;
-      this.channelsListViewModel = viewModel ? viewModel.getChannelsListViewModel() : null;
-      this.channelsListViewModel.checkConnectedChannels([
-        'linkedin',
-        'youtube',
-        'twitter',
-        'instagram',
-        'facebook',
-        'mailchimp',
-        'wordpress',
-        'tumblr',
-        'drupal',
-        'medium',
-        'joomla',
-        'fbad',
-        CHANNEL_ADS_GOOGLE,
-        'google_my_business',
-      ]);
-      console.log('lala',this.channelsListViewModel.countCMSConnected)
     }
 
     componentDidMount() {
@@ -49,11 +27,12 @@ const BillingPlanList = observer(
       script.src = 'https://cdn.paddle.com/paddle/paddle.js';
       script.async = true;
       document.body.appendChild(script);
-
+      let that = this;
       //get subscription detail
-      this.billingPlanListViewModel.initializeData();
-      this.channelsListViewModel.resetObservableProperties();
-      this.channelsListViewModel.initMemberFeaturesMasterData();
+      this.billingPlanListViewModel.initializeDataMemberSubscriptionDetail(() => {
+        console.log('setup - forceUpdate');
+        that.forceUpdate();
+      });
     }
 
     handleSelectSubscriptionPlan = (planName) => {
@@ -69,30 +48,18 @@ const BillingPlanList = observer(
     };
 
     render() {
-      const {
-        tableStatus,
-        isDisable,
-        show,
-        hideChangePlanTable,
-        subscriptionDetail,
-        invoices,
-        uploadHistoryQuotas
-      } = this.billingPlanListViewModel;
-      const {
-        cmsFeaturesMasterData,
-        countCMSConnected,
-        countAdvertisingConnected,
-        countEmailMarketingConnected,
-        countSocialMediaConnected,
-      } = this.channelsListViewModel;
-      console.log('data', cmsFeaturesMasterData)
-      console.log('================ subscriptionDetail');
-      console.log(invoices);
+      const { tableStatus, isDisable, show, subscriptionDetail } = this.billingPlanListViewModel;
+
+      let planName =
+        (subscriptionDetail &&
+          subscriptionDetail.valid &&
+          subscriptionDetail.plan_name.toLowerCase()) ||
+        'free';
       return tableStatus === PAGE_STATUS.LOADING ? (
         <Spinner />
       ) : (
         <div>
-          {hideChangePlanTable && subscriptionDetail !== null && (
+          {subscriptionDetail != null && subscriptionDetail.paddle_status == 'active' && (
             <div className="mb-4">
               <div className="py-3 bg-white d-inline-block">
                 <ComponentPlanPayment
@@ -104,35 +71,16 @@ const BillingPlanList = observer(
             </div>
           )}
 
-          {!hideChangePlanTable && (
+          {(subscriptionDetail == null ||
+            (subscriptionDetail != null && subscriptionDetail.paddle_status == 'deleted')) && (
             <div className="mb-4">
               <ComponentBillingPlan
                 handleSelectSubscriptionPlan={this.handleSelectSubscriptionPlan}
                 isDisable={isDisable ? isDisable : null}
-                subscriptionDetail={subscriptionDetail}
+                planName={planName}
               />
             </div>
           )}
-          <div>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <h2 className="text-blue-0 mb-0">Quotas</h2>
-            </div>
-            {uploadHistoryQuotas && <ComponentBillingInfo
-              subscriptionDetail={subscriptionDetail}
-              uploadHistoryQuotas={uploadHistoryQuotas}
-              countSocialMediaConnected={countSocialMediaConnected}
-              countAdvertisingConnected={countAdvertisingConnected}
-              countCMSConnected={countCMSConnected}
-              countEmailMarketingConnected={countEmailMarketingConnected}
-              cmsFeaturesMasterData={cmsFeaturesMasterData}
-            />}
-          </div>
-          <div>
-            <div className="d-flex align-items-center justify-content-between mb-4">
-              <h2 className="text-blue-0 mb-0">Invoices</h2>
-            </div>
-            {invoices && <ComponentInvoices data={invoices} />}
-          </div>
           <ModalComponent
             show={show}
             onHide={this.billingPlanListViewModel.closeModal}
@@ -141,7 +89,7 @@ const BillingPlanList = observer(
               <ComponentBillingPlan
                 handleSelectSubscriptionPlan={this.handleSelectSubscriptionPlan}
                 isDisable={isDisable ? isDisable : null}
-                subscriptionDetail={subscriptionDetail}
+                planName={planName}
               />
             }
             key={Math.random(40, 200)}

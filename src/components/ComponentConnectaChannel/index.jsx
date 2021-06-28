@@ -12,10 +12,8 @@ import ButtonConnect from '../ButtonConnect';
 import ButtonUpgrade from '../ButtonUpgrade';
 import ButtonConnectGoogle from '../ButtonConnectGoogle';
 import ButtonConnectFacebook from '../ButtonConnectFacebook';
-import {
-  CHANNEL_TYPE,
-} from '../../constants/ChannelModule';
-import { EASII_CONFIGS } from 'easii-io-web-service-library';
+import { CHANNEL_TYPE } from '../../constants/ChannelModule';
+import { EASII_CONFIGS, AXIOS_CONFIGS } from 'easii-io-web-service-library';
 import ButtonConnectInstagram from '../ButtonConnectInstagram';
 import { notify } from '../Toast';
 const ModalComponent = lazy(() => import('../../components/Modal'));
@@ -249,9 +247,23 @@ class ComponentConnectaChannel extends Component {
           this.props.handleModalCms(name, isConnected);
           break;
         case CHANNEL_TYPE.FACEBOOK_ADS.NAME:
+          accepted = this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.OTHERNAME);
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
           this.handleConnectChannel(name, isConnected);
           break;
         case CHANNEL_TYPE.GOOGLE_ADS.NAME:
+          accepted = this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.OTHERNAME);
+          if (!accepted && isConnected == true) {
+            this.setState({
+              showModalUpgrade: true,
+            });
+            return;
+          }
           this.handleConnectChannel(name, isConnected);
           break;
         case CHANNEL_TYPE.WORDPRESS.NAME:
@@ -307,13 +319,13 @@ class ComponentConnectaChannel extends Component {
           this.handleConnectChannel(name, isConnected);
           break;
       }
-  }
+  };
 
   closeModalUpgrade = () => {
     // this.props.channelsListViewModel.mustUpgrade = false;
     this.setState({
       showModalUpgrade: false,
-    })
+    });
   };
 
   render() {
@@ -382,12 +394,16 @@ class ComponentConnectaChannel extends Component {
                     appId="831779357771114"
                   /> */}
                   <button
-                    className={`cursor-pointer btn ${facebookConnected ? "btn-danger" : "btn-success"}`}
+                    className={`cursor-pointer btn ${
+                      facebookConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
                       this.handleNotifyChannel(CHANNEL_TYPE.FACEBOOK.NAME, !facebookConnected);
                     }}
                   >
-                    <span className="ms-2 text-white">{facebookConnected ? 'Disconnect' : 'Connect'}</span>
+                    <span className="ms-2 text-white">
+                      {facebookConnected ? 'Disconnect' : 'Connect'}
+                    </span>
                   </button>
                 </div>
                 {listFaceBookFanpageView && (
@@ -412,18 +428,24 @@ class ComponentConnectaChannel extends Component {
                               <div className="col-6 text-end">
                                 <button
                                   type="button"
-                                  className={`cursor-pointer btn ct_btn_connect ${listFacebookFanpageConnected &&
+                                  className={`cursor-pointer btn ct_btn_connect ${
+                                    listFacebookFanpageConnected &&
                                     listFacebookFanpageConnected.indexOf(value.id) > -1
-                                    ? 'btn-danger'
-                                    : 'btn-success'}`}
+                                      ? 'btn-danger'
+                                      : 'btn-success'
+                                  }`}
                                   onClick={(e) => {
-                                    this.handleNotifyChannel(CHANNEL_TYPE.FACEBOOK_PAGE.NAME, listFacebookFanpageConnected &&
-                                      listFacebookFanpageConnected.indexOf(value.id) > -1, value.id)
+                                    this.handleNotifyChannel(
+                                      CHANNEL_TYPE.FACEBOOK_PAGE.NAME,
+                                      listFacebookFanpageConnected &&
+                                        listFacebookFanpageConnected.indexOf(value.id) > -1,
+                                      value.id
+                                    );
                                   }}
                                 >
                                   <span className="text-white">
                                     {listFacebookFanpageConnected &&
-                                      listFacebookFanpageConnected.indexOf(value.id) > -1
+                                    listFacebookFanpageConnected.indexOf(value.id) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
                                   </span>
@@ -477,16 +499,18 @@ class ComponentConnectaChannel extends Component {
                     <ButtonUpgrade />
                   )} */}
 
-
                   <button
-                    className={`cursor-pointer btn ${youtubeConnected ? 'btn-danger' : 'btn-success'}`}
+                    className={`cursor-pointer btn ${
+                      youtubeConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
                       this.handleNotifyChannel(CHANNEL_TYPE.YOUTUBE.NAME, !youtubeConnected);
                     }}
                   >
-                    <span className="ms-2 text-white">{youtubeConnected ? 'Disconnect' : 'Connect'}</span>
+                    <span className="ms-2 text-white">
+                      {youtubeConnected ? 'Disconnect' : 'Connect'}
+                    </span>
                   </button>
-
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -497,14 +521,17 @@ class ComponentConnectaChannel extends Component {
                   </div>
 
                   <button
-                    className={`cursor-pointer btn ${twitterConnected ? 'btn-danger' : 'btn-success'}`}
+                    className={`cursor-pointer btn ${
+                      twitterConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
                       this.handleNotifyChannel(CHANNEL_TYPE.TWITTER.NAME, !twitterConnected);
                     }}
                   >
-                    <span className="ms-2 text-white">{twitterConnected ? 'Disconnect' : 'Connect'}</span>
+                    <span className="ms-2 text-white">
+                      {twitterConnected ? 'Disconnect' : 'Connect'}
+                    </span>
                   </button>
-
                 </div>
               </div>
               {/* <div className="bg-white rounded-3 mb-4">
@@ -543,14 +570,17 @@ class ComponentConnectaChannel extends Component {
                   </div>
 
                   <button
-                    className={`cursor-pointer btn ${linkedinConnected ? 'btn-danger' : 'btn-success'}`}
+                    className={`cursor-pointer btn ${
+                      linkedinConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
                       this.handleNotifyChannel(CHANNEL_TYPE.LINKEDIN.NAME, !linkedinConnected);
                     }}
                   >
-                    <span className="ms-2 text-white">{linkedinConnected ? 'Disconnect' : 'Connect'}</span>
+                    <span className="ms-2 text-white">
+                      {linkedinConnected ? 'Disconnect' : 'Connect'}
+                    </span>
                   </button>
-
                 </div>
                 {listLinkedinFanpageView && (
                   <div className="p-3">
@@ -574,18 +604,25 @@ class ComponentConnectaChannel extends Component {
                               <div className="col-6 text-end">
                                 <button
                                   type="button"
-                                  className={`cursor-pointer btn ct_btn_connect ${listLinkedinFanpageConnected &&
+                                  className={`cursor-pointer btn ct_btn_connect ${
+                                    listLinkedinFanpageConnected &&
                                     listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
-                                    ? 'btn-danger'
-                                    : 'btn-success'}`}
+                                      ? 'btn-danger'
+                                      : 'btn-success'
+                                  }`}
                                   onClick={(e) => {
-                                    this.handleNotifyChannel(CHANNEL_TYPE.LINKEDIN_PAGE.NAME, listLinkedinFanpageConnected &&
-                                      listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1, value.id.toString())
+                                    this.handleNotifyChannel(
+                                      CHANNEL_TYPE.LINKEDIN_PAGE.NAME,
+                                      listLinkedinFanpageConnected &&
+                                        listLinkedinFanpageConnected.indexOf(value.id.toString()) >
+                                          -1,
+                                      value.id.toString()
+                                    );
                                   }}
                                 >
                                   <span className="text-white">
                                     {listLinkedinFanpageConnected &&
-                                      listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
+                                    listLinkedinFanpageConnected.indexOf(value.id.toString()) > -1
                                       ? 'Disconnect'
                                       : 'Connect'}
                                   </span>
@@ -607,14 +644,17 @@ class ComponentConnectaChannel extends Component {
                   </div>
 
                   <button
-                    className={`cursor-pointer btn ${tumblrConnected ? 'btn-danger' : 'btn-success'}`}
+                    className={`cursor-pointer btn ${
+                      tumblrConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
                       this.handleNotifyChannel(CHANNEL_TYPE.TUMBLR.NAME, !tumblrConnected);
                     }}
                   >
-                    <span className="ms-2 text-white">{tumblrConnected ? 'Disconnect' : 'Connect'}</span>
+                    <span className="ms-2 text-white">
+                      {tumblrConnected ? 'Disconnect' : 'Connect'}
+                    </span>
                   </button>
-
                 </div>
               </div>
               <div className="bg-white rounded-3 mb-4">
@@ -629,14 +669,14 @@ class ComponentConnectaChannel extends Component {
                       this.handleNotifyChannel(CHANNEL_TYPE.MEDIUM.NAME, !mediumConnected);
                     }}
                     isConnected={mediumConnected}
-                    className={mediumConnected ? "btn-danger" : "btn-success"}
+                    className={mediumConnected ? 'btn-danger' : 'btn-success'}
                   />
                 </div>
               </div>
             </div>
           </Tab>
-          {this.isAllowedConnectAdvertising(CHANNEL_TYPE.GOOGLE_ADS.OTHERNAME) ?
-          (<Tab eventKey={2} title={'Advertising'}>
+
+          <Tab eventKey={2} title={'Advertising'}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
                 <div className="d-flex align-items-center justify-content-between p-3">
@@ -646,16 +686,20 @@ class ComponentConnectaChannel extends Component {
                   </div>
 
                   <button
-                    className={`cursor-pointer btn  ${facebookAdsConnected ? 'btn-danger' : 'btn-success'}`}
+                    className={`cursor-pointer btn  ${
+                      facebookAdsConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
-                      this.handleNotifyChannel(CHANNEL_TYPE.FACEBOOK_ADS.NAME, !facebookAdsConnected);
+                      this.handleNotifyChannel(
+                        CHANNEL_TYPE.FACEBOOK_ADS.NAME,
+                        !facebookAdsConnected
+                      );
                     }}
                   >
                     <span className="ms-2 text-white">
                       {facebookAdsConnected ? 'Disconnect' : 'Connect'}
                     </span>
                   </button>
-
                 </div>
                 {listFacebookAdsAccountView && (
                   <div className="p-3">
@@ -708,18 +752,21 @@ class ComponentConnectaChannel extends Component {
                   )} */}
 
                   <button
-                    className={`cursor-pointer btn ${googleadsConnected ? 'btn-danger' : 'btn-success'}`}
+                    className={`cursor-pointer btn ${
+                      googleadsConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
                       this.handleNotifyChannel(CHANNEL_TYPE.GOOGLE_ADS.NAME, !googleadsConnected);
                     }}
                   >
-                    <span className="ms-2 text-white">{googleadsConnected ? 'Disconnect' : 'Connect'}</span>
+                    <span className="ms-2 text-white">
+                      {googleadsConnected ? 'Disconnect' : 'Connect'}
+                    </span>
                   </button>
-
                 </div>
               </div>
             </div>
-          </Tab>) : null}
+          </Tab>
           <Tab eventKey={3} title={'CMS'}>
             <div className="mt-4">
               <div className="bg-white rounded-3 mb-4">
@@ -735,9 +782,8 @@ class ComponentConnectaChannel extends Component {
                       this.handleNotifyChannel(CHANNEL_TYPE.WORDPRESS.NAME, !wordpressConnected);
                     }}
                     isConnected={wordpressConnected}
-                    className={wordpressConnected ? "btn-danger" : "btn-success"}
+                    className={wordpressConnected ? 'btn-danger' : 'btn-success'}
                   />
-
                 </div>
                 {/* <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
@@ -766,9 +812,8 @@ class ComponentConnectaChannel extends Component {
                       this.handleNotifyChannel(CHANNEL_TYPE.DRUPAL.NAME, !drupalConnected);
                     }}
                     isConnected={drupalConnected}
-                    className={drupalConnected ? "btn-danger" : "btn-success"}
+                    className={drupalConnected ? 'btn-danger' : 'btn-success'}
                   />
-
                 </div>
                 {/* <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
@@ -792,16 +837,15 @@ class ComponentConnectaChannel extends Component {
 
                   <ButtonConnect
                     onClick={(e) => {
-                      this.handleNotifyChannel(CHANNEL_TYPE.JOOMLA.NAME, !joomlaConnected)
+                      this.handleNotifyChannel(CHANNEL_TYPE.JOOMLA.NAME, !joomlaConnected);
                     }}
                     isConnected={joomlaConnected}
-                    className={joomlaConnected ? "btn-danger" : "btn-success"}
+                    className={joomlaConnected ? 'btn-danger' : 'btn-success'}
                   />
-
                 </div>
-                {/* <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
+                <div className="text-end d-flex justify-content-end w-100 pb-3 pe-3 mt-3">
                   <a
-                    href="https://downloads.joomla.org/cms/joomla3/3-9-27/Joomla_3-9-27-Stable-Full_Package.zip?format=zip"
+                    href={AXIOS_CONFIGS.BASE_ENDPOINT_URL + '/extensions/redjwttoken.zip'}
                     download
                     className="py-1 px-3 bg-green d-flex"
                   >
@@ -810,7 +854,7 @@ class ComponentConnectaChannel extends Component {
                     </i>
                     <span className="text-white ps-2">Download Joomla</span>
                   </a>
-                </div> */}
+                </div>
               </div>
             </div>
           </Tab>
@@ -824,14 +868,17 @@ class ComponentConnectaChannel extends Component {
                   </div>
 
                   <button
-                    className={`cursor-pointer btn ${mailchimpConnected ? 'btn-danger' : 'btn-success'}`}
+                    className={`cursor-pointer btn ${
+                      mailchimpConnected ? 'btn-danger' : 'btn-success'
+                    }`}
                     onClick={(e) => {
                       this.handleNotifyChannel(CHANNEL_TYPE.MAILCHIMP.NAME, !mailchimpConnected);
                     }}
                   >
-                    <span className="ms-2 text-white">{mailchimpConnected ? 'Disconnect' : 'Connect'}</span>
+                    <span className="ms-2 text-white">
+                      {mailchimpConnected ? 'Disconnect' : 'Connect'}
+                    </span>
                   </button>
-
                 </div>
               </div>
             </div>

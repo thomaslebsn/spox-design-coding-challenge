@@ -10,7 +10,6 @@ class ComponentBillingPlan extends React.Component {
     this.state = {
       intervalMode: 'month',
     };
-    this.currentPlan = (props.subscriptionDetail && props.subscriptionDetail.plan_name.toLowerCase()) || "free";
   }
 
   onChangeIntervalMode() {
@@ -98,13 +97,13 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
 
-                {this.currentPlan === 'free' ? <div className="activated">Activated</div> : null}
+                {this.props.planName === 'free' ? <div className="activated">Activated</div> : null}
                 {/* <div>
                   <button
-                    className={`btn btn-success getstarts ${this.currentPlan === 'free'? 'selected' : ''}`}
+                    className={`btn btn-success getstarts ${this.props.planName === 'free'? 'selected' : ''}`}
                     data-itemname="Free"
                     onClick={(e) => {
-                      if (this.currentPlan === 'free') { 
+                      if (this.props.planName === 'free') { 
                         notify("Please Choose A Different Plan", "warning");
                         return
                       }
@@ -148,9 +147,9 @@ class ComponentBillingPlan extends React.Component {
                     </div>
                   </div>
                   <div>
-                  {this.currentPlan === 'small' ? <div className="activated">Activated</div> :              
+                  {this.props.planName === 'small' ? <div className="activated">Activated</div> :              
                     <button
-                      className={`btn btn-success getstarts ${this.currentPlan === 'small'? 'selected' : ''} ${this.currentPlan === 'medium' || this.currentPlan === 'pro' || this.currentPlan === 'enterprise' ? 'hidden' : ''}`}
+                      className={`btn btn-success getstarts ${this.props.planName === 'small'? 'selected' : ''} ${this.props.planName === 'medium' || this.props.planName === 'pro' || this.props.planName === 'enterprise' ? 'hidden' : ''}`}
                       onClick={(e) => {
                         this.props.handleSelectSubscriptionPlan('small');
                       }}
@@ -192,9 +191,9 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
                 <div>
-                {this.currentPlan === 'medium' ? <div className="activated">Activated</div> :  
+                {this.props.planName === 'medium' ? <div className="activated">Activated</div> :  
                   <button
-                    className={`btn btn-success getstarts ${this.currentPlan === 'medium'? 'selected' : ''} ${this.currentPlan === 'pro' || this.currentPlan === 'enterprise'? 'hidden' : ''}`}
+                    className={`btn btn-success getstarts ${this.props.planName === 'medium'? 'selected' : ''} ${this.props.planName === 'pro' || this.props.planName === 'enterprise'? 'hidden' : ''}`}
                     onClick={(e) => {
                       this.props.handleSelectSubscriptionPlan('medium');
                     }}
@@ -234,9 +233,9 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
                 <div>
-                  {this.currentPlan === 'pro' ? <div className="activated">Activated</div> : 
+                  {this.props.planName === 'pro' ? <div className="activated">Activated</div> : 
                   <button
-                    className={`btn btn-success getstarts ${this.currentPlan === 'pro'? 'selected' : ''} ${this.currentPlan === 'enterprise'? 'hidden' : ''}`}
+                    className={`btn btn-success getstarts ${this.props.planName === 'pro'? 'selected' : ''} ${this.props.planName === 'enterprise'? 'hidden' : ''}`}
                     onClick={(e) => {
                       this.props.handleSelectSubscriptionPlan('pro');
                     }}
@@ -276,9 +275,9 @@ class ComponentBillingPlan extends React.Component {
                   </div>
                 </div>
                 <div>
-                  {this.currentPlan === 'enterprise' ? <div className="activated">Activated</div> :
+                  {this.props.planName === 'enterprise' ? <div className="activated">Activated</div> :
                   <button
-                    className={`btn btn-success getstarts ${this.currentPlan === 'enterprise'? 'selected' : ''}`}
+                    className={`btn btn-success getstarts ${this.props.planName === 'enterprise'? 'selected' : ''}`}
                     onClick={(e) => {
                       this.props.handleSelectSubscriptionPlan('enterprise');
                     }}

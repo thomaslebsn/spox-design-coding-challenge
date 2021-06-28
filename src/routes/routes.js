@@ -19,6 +19,8 @@ const ContentPage = lazy(() => import("../containers/ContentPage"));
 const WizardPage = lazy(() => import("../containers/WizardPage"));
 const AnalyticsPage = lazy(() => import("../containers/AnalyticsPage"));
 const BillingPlanPage = lazy(() => import("../containers/BillingPlanPage"));
+const BillingPlanQuotas = lazy(() => import("../containers/BillingPlanQuotasPage"));
+const BillingPlanInvoices = lazy(() => import("../containers/BillingPlanInvoicesPage"));
 const ChannelsPage = lazy(() => import("../containers/ChannelsPage"));
 const ProfilePage = lazy(() => import("../containers/ProfilePage"));
 const DigitalAssetsPage = lazy(() => import("../containers/DigitalAssetsPage"));
@@ -150,6 +152,20 @@ const settingRoutes = [
     exact: false,
     main: ({ match, location }) => (
       <BillingPlanPage match={match} location={location} />
+    ),
+  },
+  {
+    path: "/billing-plan-quotas",
+    exact: false,
+    main: ({ match, location }) => (
+      <BillingPlanQuotas match={match} location={location} />
+    ),
+  },
+  {
+    path: "/billing-plan-invoices",
+    exact: false,
+    main: ({ match, location }) => (
+      <BillingPlanInvoices match={match} location={location} />
     ),
   },
   {

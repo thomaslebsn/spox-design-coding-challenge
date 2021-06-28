@@ -24,9 +24,15 @@ class ContentConnectedChannelsByOrganisationViewModel {
 
   arrayConnectedChannelsFinal = [];
 
+  arrayConnectedChannelsFinalDelete = [];
+
   isDeselectAllSocial = false;
 
   isBackSaveData = false;
+
+  isDeleteConnectChannel = false;
+
+  getValueHeadline = "";
 
   dataContentDescriptionSingle = {
     advance_mode: false,
@@ -440,13 +446,40 @@ class ContentConnectedChannelsByOrganisationViewModel {
     );
   };
 
+  handleBackSaveData = () => {
+    this.isBackSaveData = true;
+  }
+
   handleDeleteConnectChannel = (index) => {
-    let arrayConnectedChannelsFinal = this.arrayConnectedChannelsFinal;
-
-    arrayConnectedChannelsFinal.splice(index, 1);
-
-    this.arrayConnectedChannelsFinal = [...arrayConnectedChannelsFinal];
+    this.isDeleteConnectChannel = true;
+  
+    if(this.isBackSaveData) {
+      if(this.isDeleteConnectChannel) {
+        if(this.arrayConnectedChannelsFinalDelete.length >= 1) {
+          this.arrayConnectedChannelsFinal = this.arrayConnectedChannelsFinalDelete;
+          this.arrayConnectedChannelsFinal.splice(index, 1);
+          this.arrayConnectedChannelsFinal = [...this.arrayConnectedChannelsFinal];
+        } else {
+          this.arrayConnectedChannelsFinal = this.arrayConnectedChannelsFinal;
+          this.arrayConnectedChannelsFinal.splice(index, 1);
+          this.arrayConnectedChannelsFinal = [...this.arrayConnectedChannelsFinal];
+          this.arrayConnectedChannelsFinalDelete = [...this.arrayConnectedChannelsFinal];
+        }
+      }
+    } else {
+      if(this.isDeleteConnectChannel) {
+        this.arrayConnectedChannelsFinal.splice(index, 1);
+        this.arrayConnectedChannelsFinal = [...this.arrayConnectedChannelsFinal];
+        this.arrayConnectedChannelsFinalDelete = [...this.arrayConnectedChannelsFinal];
+      }
+    }
   };
+
+  getDataWhenBackGeneral = () => {
+    if(this.isBackSaveData && this.isDeleteConnectChannel) {
+      this.arrayConnectedChannelsFinal =  this.arrayConnectedChannelsFinalDelete
+    }
+  }
 
   callbackOnErrorHander = (error) => {
     console.log('callbackOnErrorHander - content');

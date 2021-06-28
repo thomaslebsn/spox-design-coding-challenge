@@ -138,7 +138,7 @@ const UpdateGeneral = observer(
                             </div>
                           </div>
                           <div className="main_upload_images">
-                            <DamButton 
+                            <DamButton
                               data={getUrlImage}
                               changed={(data) => this.handleDamAssets(data)}
                             />
