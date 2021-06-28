@@ -57,6 +57,10 @@ const ContentsList = observer(
     // };
 
     handleExpanded = (e, row) => {
+      console.log("rowrowrowrowrowrowrowrowrow", row);
+      this.contentListViewModel.getContentByIdExpanded(
+        row[CONTENT_FIELD_KEY.ID]
+      );
     };
 
     handerSelectContent = (data) => {
@@ -114,6 +118,10 @@ const ContentsList = observer(
               </i>
             </div>
           ),
+          SubCell: ({ row }) => (
+            console.log("row.original subtile", row),
+            <span>{row.original[CONTENT_FIELD_KEY.NAME]} 234sfds</span>
+          ),
         },
         {
           Header: "Title",
@@ -133,7 +141,7 @@ const ContentsList = observer(
           ),
           SubCell: ({ row }) => (
             console.log("row.original subtile", row),
-            <span>{row.original[CONTENT_FIELD_KEY.NAME]}</span>
+            <span>234sfds</span>
           ),
         },
 

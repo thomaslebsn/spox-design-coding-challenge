@@ -298,6 +298,7 @@ export default class ContentStore {
   async getContentsByCampaignIDs(CampaignIDs, limit, callbackOnSuccess, callbackOnError) {
     try {
       console.log('Content Store - Fetch Content CampaignIDs');
+      console.log(CampaignIDs);
       const contentAPIService = new EasiiContentApiService();
 
       const repondedDataFromLibrary = await contentAPIService.getContentsByCampaignIDs(
