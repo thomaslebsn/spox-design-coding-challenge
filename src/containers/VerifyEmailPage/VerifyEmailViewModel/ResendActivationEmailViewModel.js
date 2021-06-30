@@ -19,12 +19,13 @@ class ResendActivationEmailViewModel {
 
   callbackOnErrorHandler = (error) => {
     console.log('error');
+    notify('Resend activation email unsuccessfully', 'error');
     console.log(error);
   };
 
   callbackOnSuccessHandler = (result) => {
     console.log(result);
-    notify('Resend Activation Email Successfully', 'success');
+    notify('Resend activation email successfully', 'success');
     this.loadingStatus = false
   };
 }
