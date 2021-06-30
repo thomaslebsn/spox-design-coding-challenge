@@ -4,7 +4,7 @@ import React, { lazy } from "react";
 const ActivateMember = lazy(() => import("../containers/ActivateMember"));
 const Signuppage = lazy(() => import("../containers/SignUp"));
 const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
-const VerifyEmailPage = lazy(() => import("../pages/VerifyEmailPage"));
+const VerifyEmailPage = lazy(() => import("../containers/VerifyEmailPage"));
 
 const SocialMediaPage = lazy(() => import("../pages/SocialMediaPage"));
 

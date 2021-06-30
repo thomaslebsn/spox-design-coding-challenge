@@ -7,7 +7,7 @@ import "./index.scss";
 
 class ButtonNormal extends React.Component {
   render() {
-    let { iconStart, text, onClick, className } = this.props;
+    let { iconStart, text, onClick, className, disabled } = this.props;
 
     if (className == undefined) {
       className = "btn-success";
@@ -15,7 +15,7 @@ class ButtonNormal extends React.Component {
 
     return (
       <>
-        <button type="button" className={`btn ${className}`} onClick={onClick}>
+        <button type="button" className={`btn ${className}`} onClick={onClick} disabled={disabled}>
           {iconStart && (
             <i className="me-1">
               <FontAwesomeIcon icon={faPlus} />
