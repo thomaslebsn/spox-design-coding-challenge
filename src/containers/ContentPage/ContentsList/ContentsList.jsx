@@ -50,6 +50,7 @@ const ContentsList = observer(
     }
 
     // handerEditContent = (e, row) => {
+    //   console.log('234234234234234234sdf');
     //   history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
     //     form: true,
     //     id: row[CONTENT_FIELD_KEY.ID],
@@ -132,7 +133,7 @@ const ContentsList = observer(
               <div className="d-flex">
                 <span
                   className="text-black opacity-75"
-                  //onClick={(e) => this.handerEditContent(e, row.original)}
+                  // onClick={(e) => this.handerEditContent(e, row.original)}
                 >
                   {row.original[CONTENT_FIELD_KEY.NAME]}
                 </span>
@@ -159,7 +160,7 @@ const ContentsList = observer(
                 console.log(value),
                 console.log(row)
               }
-              {value.map((item) => (
+              {value && value.map((item) => (
                 <div className="position-relative me-2">
                   <Image
                     src={item.icon}
@@ -188,6 +189,9 @@ const ContentsList = observer(
               </span>
             );
           },
+          SubCell: ({ row }) => (
+            console.log(console.log("row.original Channels", row))
+          ),
         },
       ];
 

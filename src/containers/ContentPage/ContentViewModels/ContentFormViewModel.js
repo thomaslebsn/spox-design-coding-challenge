@@ -59,6 +59,13 @@ class ContentFormViewModel {
     this.contentStore.getContent(id, this.setEditContent, this.callbackOnErrorHander);
   };
 
+  getContentChannelItem = (id) => {
+    console.log('ididididididid123456');
+    console.log(id);
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.contentStore.getListContentChannelItem(id, this.setEditContent, this.callbackOnErrorHander);
+  }
+
   post = (data, arrayConnectedChannelsFinal) => {
     console.log('arrayConnectedChannelsFinal post post');
     console.log(data);

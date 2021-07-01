@@ -19,9 +19,12 @@ import PersonaStore from '../../PersonasPage/PersonaStore/PersonaStore';
 import ContentThemeStore from '../ContentStore/ContentThemeStore';
 
 class ContentModel {
-  constructor(data) {
+  constructor(data, subContent) {
     console.log('data data content post ');
     console.log(data);
+    console.log(subContent);
+    // console.log(JSON.parse(data));
+    
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
     this.name = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? '';
     this.channelsData = this.status = 'published' ?? '';

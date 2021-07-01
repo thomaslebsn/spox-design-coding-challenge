@@ -1,6 +1,7 @@
 import { runInAction } from 'mobx';
 
 import ContentUtils from '../ContentUtils/ContentUtils';
+import ContentChannelsUtils from '../ContentUtils/ContentChannelsUtils';
 import ContentModel from '../ContentModel/ContentModel';
 import ContentPostTemplateModel from '../ContentModel/ContentPostTemplateModel';
 
@@ -162,6 +163,55 @@ export default class ContentStore {
         const contentDataModels = ContentUtils.transformContentResponseIntoModel([
           repondedDataFromLibrary,
         ]);
+
+        if (contentDataModels) {
+          runInAction(() => {
+            callbackOnSuccess(contentDataModels);
+          });
+        } else {
+          callbackOnError({
+            message: 'Something went wrong from Server response',
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getListContentChannelItem(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const contentService = new EasiiContentApiService();
+      const repondedDataFromLibrary = await contentService.getContentChannelItem(id);
+
+      console.log('Content Store - getContent getContentChannelItem');
+      console.log(repondedDataFromLibrary);
+
+      let getItemRepondedDataFromLibrary = null;
+
+      repondedDataFromLibrary.map((item) => {
+        console.log('Content Store - itemitemitemitem');
+        console.log(item);
+        getItemRepondedDataFromLibrary = item
+        return item
+      })
+
+      console.log('Content Store - getItemRepondedDataFromLibrary');
+      console.log(getItemRepondedDataFromLibrary);
+      
+
+      if (getItemRepondedDataFromLibrary) {
+        const contentDataModels = ContentChannelsUtils.transformContentResponseIntoModel([
+          getItemRepondedDataFromLibrary,
+        ]);
+
+        console.log('contentDataModels123456');
+        console.log(contentDataModels);
 
         if (contentDataModels) {
           runInAction(() => {

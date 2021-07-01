@@ -94,6 +94,8 @@ class ComponentContentFormGeneral extends Component {
   }
 
   componentDidMount = () => {
+    const { match } = this.props;
+
     this.contentConnectedChannelsByOrganisationViewModel.renderChannelByOrganizationID();
     
     if(!this.contentConnectedChannelsByOrganisationViewModel.isBackSaveData) {
@@ -138,6 +140,12 @@ class ComponentContentFormGeneral extends Component {
       this.props.dataContentDescriptionSingle.list_channels.youtube.assets.videoAssets = []
      
     }
+
+    // if (match.params.id !== undefined) {
+    //   console.log('matchmatch123123123787878');
+    //   console.log(match)
+    //   this.viewModel.getContentChannelItem(match.params.id);
+    // }
   };
 
   generateFormSetting = () => {

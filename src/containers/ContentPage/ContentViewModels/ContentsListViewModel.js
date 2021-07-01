@@ -48,12 +48,11 @@ class ContentsListViewModel {
 
   getContentByIdExpanded = (contentId) => {
     console.log("contentIdcontentIdcontentId", contentId);
-    this.contentStore.getContentsByCampaignIDs(
+    this.contentStore.getListContentChannelItem(
       contentId,
-      5,
       (result) => {
         console.log('resultresultresultresult', result)
-        // this.subRowDataTable = result;
+        this.subRowDataTable = result;
       },
       (error) => {}
     );
