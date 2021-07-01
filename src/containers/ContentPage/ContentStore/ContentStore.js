@@ -192,23 +192,10 @@ export default class ContentStore {
       console.log('Content Store - getContent getContentChannelItem');
       console.log(repondedDataFromLibrary);
 
-      let getItemRepondedDataFromLibrary = null;
-
-      repondedDataFromLibrary.map((item) => {
-        console.log('Content Store - itemitemitemitem');
-        console.log(item);
-        getItemRepondedDataFromLibrary = item
-        return item
-      })
-
-      console.log('Content Store - getItemRepondedDataFromLibrary');
-      console.log(getItemRepondedDataFromLibrary);
-      
-
-      if (getItemRepondedDataFromLibrary) {
-        const contentDataModels = ContentChannelsUtils.transformContentResponseIntoModel([
-          getItemRepondedDataFromLibrary,
-        ]);
+      if (repondedDataFromLibrary) {
+        const contentDataModels = ContentChannelsUtils.transformContentResponseIntoModel(
+          repondedDataFromLibrary
+        );
 
         console.log('contentDataModels123456');
         console.log(contentDataModels);

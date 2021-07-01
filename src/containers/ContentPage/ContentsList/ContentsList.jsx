@@ -18,6 +18,8 @@ import Spinner from "../../../components/Spinner";
 import { Image } from "react-bootstrap";
 import ComponentNoData from "../../../components/ComponentNoData";
 
+import getStatus from '../../../utils/status';
+
 const ContentsList = observer(
   class ContentsList extends Component {
     contentListViewModel = null;
@@ -119,10 +121,7 @@ const ContentsList = observer(
               </i>
             </div>
           ),
-          SubCell: ({ row }) => (
-            console.log("row.original subtile", row),
-            <span>{row.original[CONTENT_FIELD_KEY.NAME]} 234sfds</span>
-          ),
+          SubCell: () => null
         },
         {
           Header: "Title",
@@ -140,10 +139,9 @@ const ContentsList = observer(
               </div>
             )
           ),
-          SubCell: ({ row }) => (
-            console.log("row.original subtile", row),
-            <span>234sfds</span>
-          ),
+          SubCell: (row) => (
+            <>{row.row.values[CONTENT_FIELD_KEY.NAME]}</>
+          )
         },
 
         // {
@@ -172,9 +170,18 @@ const ContentsList = observer(
               ))}
             </div>
           ),
-          SubCell: ({ row }) => (
-            console.log(console.log("row.original Channels", row))
-          ),
+          SubCell: (row) => (
+            <div className="d-flex">
+              <div className="position-relative me-2">
+                <Image
+                  src={`/assets/images/${row.row.original.channel}.png`}
+                  width="20"
+                  className="position-absolute bottom-0 end-0"
+                />
+                <Image src={`/assets/images/${row.row.original.channel}.png`} rounded width="40" />
+              </div>
+            </div>
+          )
         },
         {
           Header: "Status",
@@ -182,16 +189,18 @@ const ContentsList = observer(
           className: "status",
           Cell: ({ value }) => {
             return (
-              <span
-                className={`badge ${value.className} mw-100 h-35 d-table-cell align-middle`}
-              >
-                {value.text}
-              </span>
+              <span></span>
             );
           },
-          SubCell: ({ row }) => (
-            console.log(console.log("row.original Channels", row))
-          ),
+          SubCell: (row) => (
+            <>
+              <span
+                className={`badge bg-${row.row.original.status} mw-100 h-35 d-table-cell align-middle`}
+              >
+                {row.row.original.status}
+              </span>
+            </>
+          )
         },
       ];
 
