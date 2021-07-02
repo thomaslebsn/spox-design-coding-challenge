@@ -51,13 +51,12 @@ const ContentsList = observer(
       this.contentsFilterFormViewModel.initData();
     }
 
-    // handerEditContent = (e, row) => {
-    //   console.log('234234234234234234sdf');
-    //   history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
-    //     form: true,
-    //     id: row[CONTENT_FIELD_KEY.ID],
-    //   });
-    // };
+    handerEditContent = (e, row) => {
+      history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
+        form: true,
+        id: row[CONTENT_FIELD_KEY.ID],
+      });
+    };
 
     handleExpanded = (e, row) => {
       console.log("rowrowrowrowrowrowrowrowrow", row);
@@ -112,14 +111,21 @@ const ContentsList = observer(
           accessor: CONTENT_FIELD_KEY.NAME,
           id: "expander",
           Cell: ({ row }) => (
-            <div {...row.getToggleRowExpandedProps()} className="d-flex">
-              <i
-                className="text-green icon_expander"
-                onClick={(e) => this.handleExpanded(e, row.original)}
-              >
-                <FontAwesomeIcon icon={row.isExpanded ? faMinus : faPlus} />
-              </i>
-            </div>
+            <>
+              {
+                !(row.original[CONTENT_FIELD_KEY.STATUS] === 'save_as_draft') && (
+                  <div {...row.getToggleRowExpandedProps()} className="d-flex">
+                    <i
+                      className="text-green icon_expander"
+                      onClick={(e) => this.handleExpanded(e, row.original)}
+                    >
+                      <FontAwesomeIcon icon={row.isExpanded ? faMinus : faPlus} />
+                    </i>
+                  </div>
+                )
+              }
+            </>
+            
           ),
           SubCell: () => null
         },
@@ -187,9 +193,21 @@ const ContentsList = observer(
           Header: "Status",
           accessor: CONTENT_FIELD_KEY.STATUS,
           className: "status",
-          Cell: ({ value }) => {
+          Cell: ({ row }) => {
+            console.log('valuevalue123status', row.original[CONTENT_FIELD_KEY.STATUS])
             return (
-              <span></span>
+              <>
+                {
+                  (row.original[CONTENT_FIELD_KEY.STATUS] === 'save_as_draft') && (
+                    <span
+                      className={`badge bg-${row.original[CONTENT_FIELD_KEY.STATUS]} mw-100 h-35 d-table-cell align-middle`}
+                    >
+                      Save as draft
+                    </span>
+                  )
+                }
+                
+              </>
             );
           },
           SubCell: (row) => (
@@ -201,6 +219,27 @@ const ContentsList = observer(
               </span>
             </>
           )
+        },
+        {
+          Header: "Edit",
+          accessor: CONTENT_FIELD_KEY.EDIT,
+          Cell: ({ row }) => (
+            console.log('rowrowEditEditEditEdit', row),
+            <>
+              {
+                (row.original[CONTENT_FIELD_KEY.STATUS] === 'save_as_draft') && (
+                  <span
+                    className={`badge mw-100 h-35 d-table-cell align-middle btn btn-secondary border-0`}
+                    onClick={(e) => this.handerEditContent(e, row.original)}
+                  >
+                    Edit
+                  </span>
+                ) 
+              }
+            </>
+            
+          ),
+          SubCell: () => null
         },
       ];
 

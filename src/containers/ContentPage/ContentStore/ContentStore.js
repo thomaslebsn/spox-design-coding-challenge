@@ -76,7 +76,7 @@ export default class ContentStore {
     }
   }
 
-  async saveContent(contentData, arrayConnectedChannelsFinal, callbackOnSuccess, callbackOnError) {
+  async saveContent(contentData, postType, arrayConnectedChannelsFinal, callbackOnSuccess, callbackOnError) {
     try {
       console.log('Saving Content via call web service lib function');
       console.log(contentData);
@@ -90,10 +90,11 @@ export default class ContentStore {
 
       console.log('convertedContentData1234');
       console.log(convertedContentData);
+      console.log(postType);
       // Save Content
       const contentService = new EasiiContentApiService();
 
-      let resultContent = await contentService.createPost(convertedContentData);
+      let resultContent = await contentService.createPost(convertedContentData, postType);
 
       console.log('resultContentresultContent123');
       console.log(resultContent);
