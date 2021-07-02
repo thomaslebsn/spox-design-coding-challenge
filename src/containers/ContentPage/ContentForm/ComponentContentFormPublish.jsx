@@ -312,7 +312,7 @@ class ComponentContentFormPublish extends Component {
               ) : (
                 <div>
                   <ButtonNormal
-                    className="btn btn-success me-2"
+                    className="btn btn-secondary me-3"
                     text="Save as draft"
                     onClick={() => this.post('save_as_draft')}
                   ></ButtonNormal>
