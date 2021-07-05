@@ -19,6 +19,8 @@ class ContentsListViewModel {
 
   pageSize = 5;
 
+  subRowDataTable = null;
+
   constructor(contentStore) {
     makeAutoObservable(this);
     this.contentStore = contentStore;
@@ -43,6 +45,18 @@ class ContentsListViewModel {
       this.pageSize
     );
   };
+
+  getContentByIdExpanded = (contentId) => {
+    console.log("contentIdcontentIdcontentId", contentId);
+    this.contentStore.getListContentChannelItem(
+      contentId,
+      (result) => {
+        console.log('resultresultresultresult', result)
+        this.subRowDataTable = result;
+      },
+      (error) => {}
+    );
+  }
 
   deleteContents = () => {
     let getArrayId = this.contentIdsSelected;

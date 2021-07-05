@@ -55,13 +55,13 @@ class ComponentContentFormPublish extends Component {
     });
   };
 
-  post = () => {
+  post = (postType) => {
     if (this.isFormValid()) {
       console.log('this.viewModel.contentEditdata123');
       console.log(this.viewModel.contentEditdata);
-      this.viewModel.post(this.viewModel.contentEditdata, this.props.arrayConnectedChannelsFinal);
+      this.viewModel.post(this.viewModel.contentEditdata, postType, this.props.arrayConnectedChannelsFinal);
     }
-  };
+  }
 
   isFormValid = () => {
     console.log('isFormValid');
@@ -310,11 +310,18 @@ class ComponentContentFormPublish extends Component {
                   )}
                 </>
               ) : (
-                <ButtonNormal
-                  className="btn btn-success"
-                  text="Post"
-                  onClick={this.post}
-                ></ButtonNormal>
+                <div>
+                  <ButtonNormal
+                    className="btn btn-secondary me-3"
+                    text="Save as draft"
+                    onClick={() => this.post('save_as_draft')}
+                  ></ButtonNormal>
+                  <ButtonNormal
+                    className="btn btn-success"
+                    text="Post"
+                    onClick={() => this.post('post')}
+                  ></ButtonNormal>
+                </div>
               )}
             </div>
           </div>

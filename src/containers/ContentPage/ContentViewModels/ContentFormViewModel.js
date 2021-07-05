@@ -59,12 +59,19 @@ class ContentFormViewModel {
     this.contentStore.getContent(id, this.setEditContent, this.callbackOnErrorHander);
   };
 
-  post = (data, arrayConnectedChannelsFinal) => {
+  getContentChannelItem = (id) => {
+    console.log('ididididididid123456');
+    console.log(id);
+    this.formStatus = PAGE_STATUS.LOADING;
+    this.contentStore.getListContentChannelItem(id, this.setEditContent, this.callbackOnErrorHander);
+  }
+
+  post = (data, postType, arrayConnectedChannelsFinal) => {
     console.log('arrayConnectedChannelsFinal post post');
     console.log(data);
     console.log(arrayConnectedChannelsFinal);
     this.formStatus = PAGE_STATUS.LOADING;
-    this.contentStore.saveContent(data, arrayConnectedChannelsFinal, this.callbackOnSuccessHandler, this.callbackOnErrorHander);
+    this.contentStore.saveContent(data, postType, arrayConnectedChannelsFinal, this.callbackOnSuccessHandler, this.callbackOnErrorHander);
   };
 
   callbackOnErrorHander = (error) => {

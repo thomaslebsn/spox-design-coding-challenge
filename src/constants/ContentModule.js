@@ -23,6 +23,7 @@ const CONTENT_FIELD_KEY = {
   CANVA_EXPORTED_URL: "canva-exported-url",
   CANVA_DESIGN_ID: "canva-design-id",
   DAM: "dam",
+  EDIT: "content-edit",
 };
 
 const ESI_CONTENT_API_RESPONSE_FIELD_KEY = {

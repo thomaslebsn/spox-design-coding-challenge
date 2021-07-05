@@ -180,7 +180,7 @@ class EmailMarketing extends Component {
             />
           )}
         </div>
-        <div className="d-flex mb-2">
+        {/* <div className="d-flex mb-2">
           <div className="form-check">
             <input
               className="form-check-input"
@@ -194,7 +194,7 @@ class EmailMarketing extends Component {
               Save as draft
             </label>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
