@@ -58,6 +58,7 @@ const ContentFormGeneral = observer(
     }
 
     render() {
+
       return (
         <ComponentContentFormGeneral
           {...this.props}
@@ -103,9 +104,7 @@ const ContentFormGeneral = observer(
             this.contentDisplayProjectNameInWizardStep3ViewModel
           }
           showModalChannels={this.contentConnectedChannelsByOrganisationViewModel.show}
-          arrayConnectedChannelsFinal={
-            this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal
-          }
+          arrayConnectedChannelsFinal={this.contentConnectedChannelsByOrganisationViewModel.arrayConnectedChannelsFinal}
           dataContentDescriptionSingle={
             this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSingle
           }
@@ -113,6 +112,7 @@ const ContentFormGeneral = observer(
             this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial
           }
           isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
+          match={this.props.match}
         />
       );
     }

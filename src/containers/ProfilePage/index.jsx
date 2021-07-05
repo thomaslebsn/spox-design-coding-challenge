@@ -13,7 +13,7 @@ class ProfilePage extends React.Component {
     return (
       <ProfileViewModelContextProvider viewModel={profileViewModel}>
         <div className='py-4 px-3'>
-          <div className='w-75'>
+          <div className='w-80-percent'>
             <h2 className='text-blue-0 mb-3'>General Information</h2>
             <UpdateGeneral />
 

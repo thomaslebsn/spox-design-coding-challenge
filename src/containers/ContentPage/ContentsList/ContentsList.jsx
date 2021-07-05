@@ -2,6 +2,10 @@ import React, { Component } from "react";
 
 import history from "../../../routes/history";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
+
 import PAGE_STATUS from "../../../constants/PageStatus";
 import { CONTENT_FIELD_KEY } from "../../../constants/ContentModule";
 
@@ -13,6 +17,8 @@ import { withContentViewModel } from "../ContentViewModels/ContentViewModelConte
 import Spinner from "../../../components/Spinner";
 import { Image } from "react-bootstrap";
 import ComponentNoData from "../../../components/ComponentNoData";
+
+import getStatus from '../../../utils/status';
 
 const ContentsList = observer(
   class ContentsList extends Component {
@@ -45,12 +51,19 @@ const ContentsList = observer(
       this.contentsFilterFormViewModel.initData();
     }
 
-    // handerEditContent = (e, row) => {
-    //   history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
-    //     form: true,
-    //     id: row[CONTENT_FIELD_KEY.ID],
-    //   });
-    // };
+    handerEditContent = (e, row) => {
+      history.push(`/content/edit/${row[CONTENT_FIELD_KEY.ID]}`, {
+        form: true,
+        id: row[CONTENT_FIELD_KEY.ID],
+      });
+    };
+
+    handleExpanded = (e, row) => {
+      console.log("rowrowrowrowrowrowrowrowrow", row);
+      this.contentListViewModel.getContentByIdExpanded(
+        row[CONTENT_FIELD_KEY.ID]
+      );
+    };
 
     handerSelectContent = (data) => {
       this.contentListViewModel.contentIdsSelected = data
@@ -94,21 +107,47 @@ const ContentsList = observer(
       const dataFormFilter = this.getDataFormFilter();
       const tableRowHeader = [
         {
+          Header: "",
+          accessor: CONTENT_FIELD_KEY.NAME,
+          id: "expander",
+          Cell: ({ row }) => (
+            <>
+              {
+                !(row.original[CONTENT_FIELD_KEY.STATUS] === 'save_as_draft') && (
+                  <div {...row.getToggleRowExpandedProps()} className="d-flex">
+                    <i
+                      className="text-green icon_expander"
+                      onClick={(e) => this.handleExpanded(e, row.original)}
+                    >
+                      <FontAwesomeIcon icon={row.isExpanded ? faMinus : faPlus} />
+                    </i>
+                  </div>
+                )
+              }
+            </>
+            
+          ),
+          SubCell: () => null
+        },
+        {
           Header: "Title",
           accessor: CONTENT_FIELD_KEY.NAME,
           Cell: ({ row }) => (
-            console.log("row.original", row),
+            console.log("row.original title", row),
             (
               <div className="d-flex">
                 <span
                   className="text-black opacity-75"
-                  //onClick={(e) => this.handerEditContent(e, row.original)}
+                  // onClick={(e) => this.handerEditContent(e, row.original)}
                 >
                   {row.original[CONTENT_FIELD_KEY.NAME]}
                 </span>
               </div>
             )
           ),
+          SubCell: (row) => (
+            <>{row.row.values[CONTENT_FIELD_KEY.NAME]}</>
+          )
         },
 
         // {
@@ -125,7 +164,7 @@ const ContentsList = observer(
                 console.log(value),
                 console.log(row)
               }
-              {value.map((item) => (
+              {value && value.map((item) => (
                 <div className="position-relative me-2">
                   <Image
                     src={item.icon}
@@ -137,20 +176,71 @@ const ContentsList = observer(
               ))}
             </div>
           ),
+          SubCell: (row) => (
+            <div className="d-flex">
+              <div className="position-relative me-2">
+                <Image
+                  src={`/assets/images/${row.row.original.channel}.png`}
+                  width="20"
+                  className="position-absolute bottom-0 end-0"
+                />
+                <Image src={`/assets/images/${row.row.original.channel}.png`} rounded width="40" />
+              </div>
+            </div>
+          )
         },
         {
           Header: "Status",
           accessor: CONTENT_FIELD_KEY.STATUS,
           className: "status",
-          Cell: ({ value }) => {
+          Cell: ({ row }) => {
+            console.log('valuevalue123status', row.original[CONTENT_FIELD_KEY.STATUS])
             return (
-              <span
-                className={`badge ${value.className} mw-100 h-35 d-table-cell align-middle`}
-              >
-                {value.text}
-              </span>
+              <>
+                {
+                  (row.original[CONTENT_FIELD_KEY.STATUS] === 'save_as_draft') && (
+                    <span
+                      className={`badge bg-${row.original[CONTENT_FIELD_KEY.STATUS]} mw-100 h-35 d-table-cell align-middle`}
+                    >
+                      Save as draft
+                    </span>
+                  )
+                }
+                
+              </>
             );
           },
+          SubCell: (row) => (
+            <>
+              <span
+                className={`badge bg-${row.row.original.status} mw-100 h-35 d-table-cell align-middle`}
+              >
+                {row.row.original.status}
+              </span>
+            </>
+          )
+        },
+        {
+          Header: "Edit",
+          accessor: CONTENT_FIELD_KEY.EDIT,
+          Cell: ({ row }) => (
+            console.log('rowrowEditEditEditEdit', row),
+            <>
+              {
+                (row.original[CONTENT_FIELD_KEY.STATUS] === 'save_as_draft') && (
+                  <button
+                    className={`badge mw-100 h-35 d-table-cell align-middle btn btn-secondary border-0`}
+                    onClick={(e) => this.handerEditContent(e, row.original)}
+                    disabled={true}
+                  >
+                    Edit
+                  </button>
+                ) 
+              }
+            </>
+            
+          ),
+          SubCell: () => null
         },
       ];
 

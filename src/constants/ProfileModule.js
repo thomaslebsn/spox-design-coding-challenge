@@ -2,6 +2,7 @@ const UPDATE_GENERAL_FIELD_KEY = {
   ID: 'id',
   USERNAME: 'username',
   FULLNAME: 'fullname',
+  AVATAR_DAM: 'avatar_dam',
   EMAIL: 'email',
   BIRTHDAY: 'birthday',
   PHONE: 'phone',

@@ -22,10 +22,16 @@ class ContentModel {
   constructor(data) {
     console.log('data data content post ');
     console.log(data);
+
+    let getPublishingType = data.publishing_type ? JSON.parse(data.publishing_type) : null;
+
+    console.log('getPublishingType123');
+    console.log(getPublishingType);
+    
     this.id = data[ESI_CONTENT_API_RESPONSE_FIELD_KEY.ID] ?? 0;
     this.name = data.data.general[ESI_CONTENT_API_RESPONSE_FIELD_KEY.HEADLINE] ?? '';
-    this.channelsData = this.status = 'published' ?? '';
-    // this.channelsData = this.status = data.status ?? '';
+    this.status = getPublishingType ?? '';
+    this.edit = getPublishingType ?? '';
 
     // this.descriptions = data.data.channels[ESI_CONTENT_API_RESPONSE_FIELD_KEY.CHANNEL_DESCRIPTIONS] ?? [];
 
@@ -185,10 +191,19 @@ class ContentModel {
 
   getStatus = () => {
     return {
-      value: getStatus(this.status),
+      value: this.status,
       type: FIELD_TYPE.TEXT,
       columnName: CONTENT_FIELD_KEY.STATUS,
       columnText: 'Status',
+    };
+  };
+
+  getEdit = () => {
+    return {
+      value: this.edit,
+      type: FIELD_TYPE.TEXT,
+      columnName: CONTENT_FIELD_KEY.EDIT,
+      columnText: 'Edit',
     };
   };
 
@@ -199,6 +214,7 @@ class ContentModel {
     // const description = this.getDescription();
     const status = this.getStatus();
     const channels = this.getChannels();
+    const edit = this.getEdit();
 
     return {
       [id.columnName]: id.value,
@@ -206,6 +222,7 @@ class ContentModel {
       // [description.columnName]: description.value,
       [status.columnName]: status.value,
       [channels.columnName]: channels.value,
+      [edit.columnName]: edit.value,
     };
   };
 

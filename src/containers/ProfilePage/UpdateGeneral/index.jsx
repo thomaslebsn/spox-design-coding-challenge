@@ -1,9 +1,9 @@
 import React, { Component, lazy } from 'react';
 import { observer } from 'mobx-react';
-import Dropzone from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons/faCloudUploadAlt';
 import { faUserCog } from '@fortawesome/free-solid-svg-icons/faUserCog';
+import {faTimesCircle} from '@fortawesome/free-solid-svg-icons/faTimesCircle';
 import SimpleReactValidator from 'simple-react-validator';
 import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
 import { witheProfileViewModel } from '../ProfileViewModel/ProfileViewModelContextProvider';
@@ -11,6 +11,7 @@ import { notify } from '../../../components/Toast';
 import Spinner from '../../../components/Spinner';
 import 'react-datepicker/dist/react-datepicker.css';
 import CustomizedDatePicker from '../../../components/DatePicker';
+import '../index.scss'
 
 const DamButton = lazy(() => import('../../../components/DamButton'));
 
@@ -20,6 +21,7 @@ const UpdateGeneral = observer(
     formPropsData = {
       [UPDATE_GENERAL_FIELD_KEY.ID]: localStorage.getItem('member_id'),
       [UPDATE_GENERAL_FIELD_KEY.USERNAME]: '',
+      [UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM]: '',
       [UPDATE_GENERAL_FIELD_KEY.FULLNAME]: '',
       [UPDATE_GENERAL_FIELD_KEY.EMAIL]: '',
       [UPDATE_GENERAL_FIELD_KEY.BIRTHDAY]: '',
@@ -58,6 +60,7 @@ const UpdateGeneral = observer(
         this.setState({
           getUrlImage: data
         })
+        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] = data[0].url;
       }
     }
 
@@ -87,12 +90,6 @@ const UpdateGeneral = observer(
       this.updateGeneralViewModel.saveGeneralInformationOnPage();
     };
 
-    onKeyPress = (e) => {
-      if (e.which === 13) {
-        this.validateInfoBeforeSending();
-      }
-    };
-
     blurringFieldHandler = () => {
       this.validator.hideMessageFor('password');
     };
@@ -106,6 +103,13 @@ const UpdateGeneral = observer(
         this.forceUpdate();
         return false;
       }
+    };
+
+    clearImage = () => {
+      this.setState({
+        getUrlImage: '',
+      });
+      this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] = '';
     };
 
     render() {
@@ -130,44 +134,19 @@ const UpdateGeneral = observer(
                             <i className="fs-1 text-blue-0 opacity-25">
                               <FontAwesomeIcon icon={faCloudUploadAlt} />
                             </i>
-                            <div className="text-center ms-1">
-                              <p className="mb-0">Drag and drop a file here </p>
-                              <p className="mb-0">
-                                or <strong>Choose file</strong>
-                              </p>
+                            <div className="text-center">
+                              <p className="ps-2 mb-0">Click to open Digital Asset Management</p>
                             </div>
                           </div>
-                          <div className="main_upload_images">
+                          <div className="main_upload_images w-50">
                             <DamButton
                               data={getUrlImage}
                               changed={(data) => this.handleDamAssets(data)}
                             />
                           </div>
+                          {getUrlImage ? <div onClick={this.clearImage} className={'clear_image_button'}><FontAwesomeIcon icon={faTimesCircle}/></div> : null}
                         </div>
                       </div>
-                      {/* <div className='border-da-1 mb-3'>
-                        <Dropzone onDrop={this.onDrop}>
-                          {({ getRootProps, getInputProps }) => (
-                            <div className='position-relative  cursor-pointer'>
-                              <div
-                                {...getRootProps()}
-                                className='d-flex align-items-center justify-content-center p-3 pb-4'
-                              >
-                                <div className='d-flex align-items-center p-4'>
-                                  <i className='fs-1 text-blue-0 opacity-25'>
-                                    <FontAwesomeIcon icon={faCloudUploadAlt} />
-                                  </i>
-                                  <div className='text-center ms-1'>
-                                    <p className='mb-0 fs-6'>
-                                      Currently, disabled to integrate DAM Button
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </Dropzone>
-                      </div> */}
                     </div>
                     <div className='col-6'>
                       <div>
