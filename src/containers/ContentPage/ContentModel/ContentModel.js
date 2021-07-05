@@ -23,7 +23,7 @@ class ContentModel {
     console.log('data data content post ');
     console.log(data);
 
-    let getPublishingType = JSON.parse(data.publishing_type);
+    let getPublishingType = data.publishing_type ? JSON.parse(data.publishing_type) : null;
 
     console.log('getPublishingType123');
     console.log(getPublishingType);

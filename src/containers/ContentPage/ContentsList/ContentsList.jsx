@@ -228,12 +228,13 @@ const ContentsList = observer(
             <>
               {
                 (row.original[CONTENT_FIELD_KEY.STATUS] === 'save_as_draft') && (
-                  <span
+                  <button
                     className={`badge mw-100 h-35 d-table-cell align-middle btn btn-secondary border-0`}
                     onClick={(e) => this.handerEditContent(e, row.original)}
+                    disabled={true}
                   >
                     Edit
-                  </span>
+                  </button>
                 ) 
               }
             </>
