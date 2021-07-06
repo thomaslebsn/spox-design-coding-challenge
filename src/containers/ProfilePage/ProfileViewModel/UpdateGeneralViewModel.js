@@ -22,6 +22,10 @@ class UpdateGeneralViewModel {
     this.updateGeneralViewModel = updateGeneralViewModel;
   };
 
+  setForm = (updateGeneralViewModel) => {
+    this.updateGeneralViewModel = updateGeneralViewModel;
+  };
+
   initializeData = () => {
     this.profileStore.getMember(
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ID],
@@ -50,6 +54,8 @@ class UpdateGeneralViewModel {
     if (result.id) { // get member info
       this.memberInfo = result;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME] = result.full_name
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME] = result.username
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.EMAIL] = result.email
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY] = result.birthday ? result.birthday.substr(0, 10) + " 00:00:00" : null;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE] = result.phone;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS] = result.address;

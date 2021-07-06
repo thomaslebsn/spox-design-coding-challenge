@@ -16,7 +16,8 @@ const FORM_FIELD_TYPE = {
   LABELBTN: 15,
   SELECTIONPERSONA: 16,
   DESCRIPTION: 17,
-  DAM: 18
+  DAM: 18,
+  BIRTHDAY: 19
 };
 
 const FORMAT_DATE = 'dd/MM/yyyy';

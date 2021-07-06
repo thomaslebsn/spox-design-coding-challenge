@@ -1,342 +1,255 @@
 import React, { Component, lazy } from 'react';
 import { observer } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons/faCloudUploadAlt';
-import { faUserCog } from '@fortawesome/free-solid-svg-icons/faUserCog';
-import {faTimesCircle} from '@fortawesome/free-solid-svg-icons/faTimesCircle';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons/faTimesCircle';
 import SimpleReactValidator from 'simple-react-validator';
 import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
 import { witheProfileViewModel } from '../ProfileViewModel/ProfileViewModelContextProvider';
-import { notify } from '../../../components/Toast';
 import Spinner from '../../../components/Spinner';
 import 'react-datepicker/dist/react-datepicker.css';
-import CustomizedDatePicker from '../../../components/DatePicker';
-import '../index.scss'
+import '../index.scss';
+import { FORM_FIELD_TYPE } from '../../../constants/FormFieldType';
+import FormComponent from '../../../components/Form';
+import AvatarDAM from '../Layout/AvatarDAM';
+import SubmitButton from '../Layout/SubmitButton';
 
 const DamButton = lazy(() => import('../../../components/DamButton'));
 
-const UpdateGeneral = observer(
-  class UpdateGeneral extends Component {
-    updateGeneralViewModel = null;
-    formPropsData = {
-      [UPDATE_GENERAL_FIELD_KEY.ID]: localStorage.getItem('member_id'),
-      [UPDATE_GENERAL_FIELD_KEY.USERNAME]: '',
-      [UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM]: '',
-      [UPDATE_GENERAL_FIELD_KEY.FULLNAME]: '',
-      [UPDATE_GENERAL_FIELD_KEY.EMAIL]: '',
-      [UPDATE_GENERAL_FIELD_KEY.BIRTHDAY]: '',
-      [UPDATE_GENERAL_FIELD_KEY.PHONE]: '',
-      [UPDATE_GENERAL_FIELD_KEY.ADDRESS]: '',
-      [UPDATE_GENERAL_FIELD_KEY.ADDRESS_2]: '',
-      [UPDATE_GENERAL_FIELD_KEY.ZIPCODE]: '',
-      [UPDATE_GENERAL_FIELD_KEY.CITY]: '',
-      [UPDATE_GENERAL_FIELD_KEY.STATE]: '',
-      [UPDATE_GENERAL_FIELD_KEY.COUNTRY]: '',
+const UpdateGeneral = observer(class UpdateGeneral extends Component {
+  updateGeneralViewModel = null;
+  formPropsData = {
+    [UPDATE_GENERAL_FIELD_KEY.ID]: localStorage.getItem('member_id'),
+    [UPDATE_GENERAL_FIELD_KEY.USERNAME]: '',
+    [UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM]: '',
+    [UPDATE_GENERAL_FIELD_KEY.FULLNAME]: '',
+    [UPDATE_GENERAL_FIELD_KEY.EMAIL]: '',
+    [UPDATE_GENERAL_FIELD_KEY.BIRTHDAY]: '',
+    [UPDATE_GENERAL_FIELD_KEY.PHONE]: '',
+    [UPDATE_GENERAL_FIELD_KEY.ADDRESS]: '',
+    [UPDATE_GENERAL_FIELD_KEY.ADDRESS_2]: '',
+    [UPDATE_GENERAL_FIELD_KEY.ZIPCODE]: '',
+    [UPDATE_GENERAL_FIELD_KEY.CITY]: '',
+    [UPDATE_GENERAL_FIELD_KEY.STATE]: '',
+    [UPDATE_GENERAL_FIELD_KEY.COUNTRY]: '',
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false, getUrlImage: '',
     };
+    this.validator = new SimpleReactValidator();
+    const { viewModel } = props;
+    this.updateGeneralViewModel = viewModel
+      ? viewModel.getUpdateGeneralViewModel()
+      : null;
+    this.updateGeneralViewModel.setAllValue(this);
+    this.validateInfoBeforeSending = this.validateInfoBeforeSending.bind(this);
+    this.handleDamAssets = this.handleDamAssets.bind(this);
+    this.updateGeneralViewModel.setForm(this);
+  }
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        loading: false,
-        getUrlImage: ""
-      };
-      this.validator = new SimpleReactValidator();
-      const { viewModel } = props;
-      this.updateGeneralViewModel = viewModel
-        ? viewModel.getUpdateGeneralViewModel()
-        : null;
-      this.updateGeneralViewModel.setAllValue(this);
-      this.handleInputChange = this.handleInputChange.bind(this);
-      this.validateInfoBeforeSending = this.validateInfoBeforeSending.bind(this);
-      this.handleDamAssets = this.handleDamAssets.bind(this);
-    }
+  componentDidMount() {
+    this.updateGeneralViewModel.initializeData();
+  }
 
-    componentDidMount() {
-      this.updateGeneralViewModel.initializeData();
-    }
-
-    handleDamAssets(data) {
-      if(data[0].extension != "mp4") {
-        this.setState({
-          getUrlImage: data
-        })
-        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] = data[0].url;
-      }
-    }
-
-    resetValue(content_id) {
-      if (content_id === 'wrong_current_password') {
-        notify('The current password is wrong', 'error');
-
-        this.currentPassword.current.value = '';
-
-        this.setState({ loading: false });
-      }
-      this.updateGeneralViewModel.successResponse.state = true;
-    }
-
-    handleInputChange(type, value) {
-      if (type === 'birthday') {
-        this.formPropsData[type] = value.getFullYear() + '-' + (parseInt(value.getMonth()) + 1) + '-' + value.getDate() + ' 00:00:00';
-        console.log(this.formPropsData);
-      } else {
-        this.formPropsData[type] = value;
-        console.log(this.formPropsData);
-      }
-      this.forceUpdate();
-    }
-
-    saveGeneralHandler = () => {
-      this.updateGeneralViewModel.saveGeneralInformationOnPage();
-    };
-
-    blurringFieldHandler = () => {
-      this.validator.hideMessageFor('password');
-    };
-
-    validateInfoBeforeSending = () => {
-      if (this.validator.allValid()) {
-        this.setState({ loading: true });
-        this.saveGeneralHandler();
-      } else {
-        this.validator.showMessages();
-        this.forceUpdate();
-        return false;
-      }
-    };
-
-    clearImage = () => {
+  handleDamAssets(data) {
+    if (data[0].extension != 'mp4') {
       this.setState({
-        getUrlImage: '',
+        getUrlImage: data,
       });
-      this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] = '';
-    };
-
-    render() {
-      let { getUrlImage } = this.state;
-      const { memberInfo } = this.updateGeneralViewModel;
-      return (
-        <>
-          {
-            !memberInfo ? (
-                <Spinner />
-              ) :
-              <form>
-                <div className='bg-white p-3'>
-                  <div className='row'>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='name'>
-                        <span className='text-black opacity-75'>Avatar</span>
-                      </label>
-                      <div className='border-da-1 mb-3'>
-                        <div className={`position-relative cursor-pointer wr_upload_images ${getUrlImage.length > 0 ? "active_img" : ""}`}>
-                          <div className="d-flex align-items-center p-3 wr_icon_upload justify-content-center">
-                            <i className="fs-1 text-blue-0 opacity-25">
-                              <FontAwesomeIcon icon={faCloudUploadAlt} />
-                            </i>
-                            <div className="text-center">
-                              <p className="ps-2 mb-0">Click to open Digital Asset Management</p>
-                            </div>
-                          </div>
-                          <div className="main_upload_images w-50">
-                            <DamButton
-                              data={getUrlImage}
-                              changed={(data) => this.handleDamAssets(data)}
-                            />
-                          </div>
-                          {getUrlImage ? <div onClick={this.clearImage} className={'clear_image_button'}><FontAwesomeIcon icon={faTimesCircle}/></div> : null}
-                        </div>
-                      </div>
-                    </div>
-                    <div className='col-6'>
-                      <div>
-                        <label className='form-label mb-3' htmlFor='status'>
-                          <span className='text-black opacity-75'>Username</span>
-                        </label>
-                        <input
-                          type='text'
-                          className='form-control'
-                          id='username'
-                          name='username'
-                          value={memberInfo.username}
-                          disabled
-                        />
-                      </div>
-                      <div>
-                        <label className='form-label mt-3 mb-2' htmlFor='status'>
-                          <span className='text-black opacity-75'>Status</span>
-                        </label>
-                        <input
-                          type='text'
-                          className='form-control mb-3 '
-                          style={{ color: 'green' }}
-                          id='status'
-                          name='status'
-                          value='Active'
-                          disabled
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className='d-flex align-items-center row'>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='fullname'>
-                        <span className='text-black opacity-75'>Full name</span>
-                      </label>
-                      <input
-                        type='text'
-                        className='form-control mb-3'
-                        id='fullname'
-                        name='fullname'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.FULLNAME], event.target.value)}
-                      />
-                    </div>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='email'>
-                        <span className='text-black opacity-75'>Email</span>
-                      </label>
-                      <input
-                        type='email'
-                        className='form-control mb-3'
-                        id='email'
-                        name='email'
-                        value={memberInfo.email}
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div className='d-flex align-items-center row'>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='phone'>
-                        <span className='text-black opacity-75'>Phone</span>
-                      </label>
-                      <input
-                        type='tel'
-                        className='form-control mb-3'
-                        id='phone'
-                        name='phone'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.PHONE], event.target.value)}
-                      />
-                    </div>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='birthday'>
-                        <span className='text-black opacity-75'>Birthday</span>
-                      </label>
-                      <div className='form-control mb-3'>
-                        <CustomizedDatePicker
-                          handleOnChange={(date) => this.handleInputChange(UPDATE_GENERAL_FIELD_KEY.BIRTHDAY, date)}
-                          defaultDate={memberInfo.birthday ? memberInfo.birthday.substr(0, 10) : null} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className='d-flex align-items-center row'>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='address'>
-                        <span className='text-black opacity-75'>Address 1</span>
-                      </label>
-                      <input
-                        type='text'
-                        className='form-control mb-3'
-                        id='address'
-                        name='address'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.ADDRESS], event.target.value)}
-                      />
-                    </div>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='address_2'>
-                        <span className='text-black opacity-75'>Address 2</span>
-                      </label>
-                      <input
-                        type='text'
-                        className='form-control mb-3'
-                        id='address_2'
-                        name='address_2'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.ADDRESS_2], event.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className='d-flex align-items-center row'>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='city'>
-                        <span className='text-black opacity-75'>City</span>
-                      </label>
-                      <input
-                        type='text'
-                        className='form-control mb-3'
-                        id='city'
-                        name='city'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.CITY], event.target.value)}
-                      />
-                    </div>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='state'>
-                        <span className='text-black opacity-75'>State</span>
-                      </label>
-                      <input
-                        type='text'
-                        className='form-control mb-3'
-                        id='state'
-                        name='state'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.STATE], event.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className='d-flex align-items-center row'>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='country'>
-                        <span className='text-black opacity-75'>Country</span>
-                      </label>
-                      <input
-                        type='text'
-                        className='form-control mb-3'
-                        id='country'
-                        name='country'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.COUNTRY], event.target.value)}
-                      />
-                    </div>
-                    <div className='col-6'>
-                      <label className='form-label mb-3' htmlFor='zipcode'>
-                        <span className='text-black opacity-75'>Zipcode</span>
-                      </label>
-                      <input
-                        type='text'
-                        className='form-control mb-3'
-                        id='zipcode'
-                        name='zipcode'
-                        value={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ZIPCODE]}
-                        onChange={event => this.handleInputChange([UPDATE_GENERAL_FIELD_KEY.ZIPCODE], event.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className='d-flex align-items-center row'>
-                    <div>
-                      <button onClick={(e) => {
-                        e.preventDefault();
-                        this.validateInfoBeforeSending();
-                      }}
-                              className='btn d-flex align-items-center border-1 border-green bg-green rounded-2 ps-3 pe-2'>
-                        <i className='text-white'>
-                          <FontAwesomeIcon icon={faUserCog} />
-                        </i>
-                        <span className='flex-1 ps-2 text-white'>Update</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-          }
-        </>
-      );
+      this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] = data[0].url;
     }
-  },
-);
+  }
+
+  saveGeneralHandler = () => {
+    this.updateGeneralViewModel.saveGeneralInformationOnPage();
+  };
+
+  blurringFieldHandler = () => {
+    this.validator.hideMessageFor('password');
+  };
+
+  validateInfoBeforeSending = () => {
+    if (this.validator.allValid()) {
+      this.setState({ loading: true });
+      this.saveGeneralHandler();
+    } else {
+      this.validator.showMessages();
+      this.forceUpdate();
+      return false;
+    }
+  };
+
+  clearImage = (defaultImage) => {
+    this.setState({
+      getUrlImage: '',
+    });
+    this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] = defaultImage;
+  };
+
+  generateFormSetting = () => {
+    console.log('re generate Form Setting', this.formPropsData);
+    return [
+      {
+        fields: [
+          {
+            label: 'Username',
+            key: UPDATE_GENERAL_FIELD_KEY.USERNAME,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME],
+            className: 'col-6',
+            readOnly: true,
+          }, {
+            label: 'Email',
+            key: UPDATE_GENERAL_FIELD_KEY.EMAIL,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.EMAIL],
+            className: 'col-6',
+            readOnly: true,
+          }, {
+            label: 'Status',
+            key: UPDATE_GENERAL_FIELD_KEY.EMAIL,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: 'Active',
+            classNameInput: 'text-success',
+            className: 'col-6',
+            readOnly: true,
+          }, {
+            label: 'Full name',
+            key: UPDATE_GENERAL_FIELD_KEY.FULLNAME,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME] = event.target.value;
+            },
+          }, {
+            label: 'Phone',
+            key: UPDATE_GENERAL_FIELD_KEY.PHONE,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE] = event.target.value;
+            },
+          }, {
+            label: 'Birthday',
+            key: UPDATE_GENERAL_FIELD_KEY.BIRTHDAY,
+            type: FORM_FIELD_TYPE.BIRTHDAY,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY],
+            defaultDate: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY],
+            className: 'col-6',
+            changed: (date) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.BIRTHDAY] = date.getFullYear() +
+                '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() +
+                ' 00:00:00';
+            },
+          }, {
+            label: 'Address 1',
+            key: UPDATE_GENERAL_FIELD_KEY.ADDRESS,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2] = event.target.value;
+            },
+          }, {
+            label: 'Address 2',
+            key: UPDATE_GENERAL_FIELD_KEY.ADDRESS_2,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2] = event.target.value;
+            },
+          }, {
+            label: 'City',
+            key: UPDATE_GENERAL_FIELD_KEY.CITY,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.CITY] = event.target.value;
+            },
+          }, {
+            label: 'State',
+            key: UPDATE_GENERAL_FIELD_KEY.STATE,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.STATE] = event.target.value;
+            },
+          }, {
+            label: 'Country',
+            key: UPDATE_GENERAL_FIELD_KEY.COUNTRY,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY] = event.target.value;
+            },
+          }, {
+            label: 'Zipcode',
+            key: UPDATE_GENERAL_FIELD_KEY.ZIPCODE,
+            type: FORM_FIELD_TYPE.INPUT,
+            value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ZIPCODE],
+            className: 'col-6',
+            changed: (event) => {
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ZIPCODE] = event.target.value;
+            },
+          },
+
+        ],
+      },
+    ];
+  };
+
+  render() {
+    let { getUrlImage } = this.state;
+    const { memberInfo } = this.updateGeneralViewModel;
+
+    return (<>
+      {!memberInfo ? (<Spinner />) : <div className='bg-white p-3 row'>
+        <FormComponent
+          formClassName={'col-9 row'}
+          generateFormSetting={() => this.generateFormSetting()}
+          formPropsData={this.formPropsData}
+          viewModel={this.updateGeneralViewModel}
+          key={Math.random(40, 200)}
+        />
+
+        <AvatarDAM>
+          <div
+            className={`position-relative cursor-pointer wr_upload_images ${getUrlImage.length >
+            0 ? 'active_img' : ''}`}>
+            {!getUrlImage ? <div
+              className='wr_img_thumbnail_dam position-relative m-2'>
+              <img
+                className={`img-thumbnail rounded imgTab`}
+                src={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM]}
+                alt={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME]} />
+            </div> : null}
+            <div className='main_upload_images'>
+              <DamButton
+                data={getUrlImage}
+                changed={(data) => this.handleDamAssets(data)}
+              />
+            </div>
+            {getUrlImage ? <div
+              onClick={() => this.clearImage(memberInfo.avatar_dam)}
+              className={'clear_image_button'}>
+              <FontAwesomeIcon icon={faTimesCircle} className='text-white' />
+            </div> : null}
+          </div>
+        </AvatarDAM>
+        <SubmitButton
+          validateInfoBeforeSending={this.validateInfoBeforeSending} />
+      </div>}
+    </>);
+  }
+
+});
 
 export default witheProfileViewModel(UpdateGeneral);
