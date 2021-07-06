@@ -145,6 +145,16 @@ textarea {
   color: $red !important;
 }
 
+.bg-status-4 {
+  background-color: rgba($color: $color-blue-7, $alpha: 0.4);
+  color: $color-blue-7 !important;
+}
+
+.bg-processing {
+  background-color: rgba($color: $color-blue-7, $alpha: 0.4);
+  color: $color-blue-7 !important;
+}
+
 .pe-400 {
   padding-right: 400px !important;
 }

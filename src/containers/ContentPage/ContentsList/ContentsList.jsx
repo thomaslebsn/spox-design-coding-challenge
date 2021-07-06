@@ -211,6 +211,7 @@ const ContentsList = observer(
             );
           },
           SubCell: (row) => (
+            console.log('rowrowEditEditEditEditsubstate', row),
             <>
               <span
                 className={`badge bg-${row.row.original.status} mw-100 h-35 d-table-cell align-middle text-capitalize`}
