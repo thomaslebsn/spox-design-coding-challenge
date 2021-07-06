@@ -10,6 +10,7 @@ import { ContentViewModelContextProvider } from "./ContentViewModels/ContentView
 
 const ContentFormPage = lazy(() => import("./ContentForm/ContentFormPage"));
 const ContentsList = lazy(() => import("./ContentsList/ContentsList"));
+const ContentItemDetail = lazy(() => import("./ContentItemDetail"));
 
 const channelsStore = new ChannelsStore();
 
@@ -46,6 +47,9 @@ class Contents extends Component {
   
           <Route exact path={["/content/create", "/content/edit/:id"]}>
             <ContentFormPage match={match} />
+          </Route>
+          <Route exact path={["/content/:id/:channelItemId"]}>
+            <ContentItemDetail match={match}/>
           </Route>
         </div>
       </ContentViewModelContextProvider>

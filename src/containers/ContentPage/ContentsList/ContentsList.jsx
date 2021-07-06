@@ -213,7 +213,7 @@ const ContentsList = observer(
           SubCell: (row) => (
             <>
               <span
-                className={`badge bg-${row.row.original.status} mw-100 h-35 d-table-cell align-middle`}
+                className={`badge bg-${row.row.original.status} mw-100 h-35 d-table-cell align-middle text-capitalize`}
               >
                 {row.row.original.status}
               </span>
