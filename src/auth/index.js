@@ -1,6 +1,7 @@
 import history from "../routes/history";
 import {notify} from "../components/Toast";
 import {EasiiAuthenticationApiService, AUTHORIZATION_KEY} from "easii-io-web-service-library";
+import ContentPublishingNotificationWSClient from "../websocket/ContentPublishingNotificationWSClient";
 
 // LOGIN
 const login = async ({username, password, remember}) => {
@@ -10,6 +11,14 @@ const login = async ({username, password, remember}) => {
   console.log(result);
   if (result) {
     localStorage.setItem("auth", true);
+    const memberID = localStorage.getItem(AUTHORIZATION_KEY.MEMBER_ID, null);
+    const userName = username ? username : null;
+    console.log('ContentPublishingNotificationWSClient - USERID', memberID);
+      console.log('ContentPublishingNotificationWSClient - USERNAME', userName);
+    if(memberID && userName){
+      
+      ContentPublishingNotificationWSClient.__init(memberID,userName);
+    }
     history.push("/");
     return true;
   } else {
