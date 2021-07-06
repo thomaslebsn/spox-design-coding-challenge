@@ -19,6 +19,10 @@ class ContentsListViewModel {
 
   pageSize = 5;
 
+  subRowDataTable = null;
+
+  getDataContentItemChannel = null;
+
   constructor(contentStore) {
     makeAutoObservable(this);
     this.contentStore = contentStore;
@@ -43,6 +47,18 @@ class ContentsListViewModel {
       this.pageSize
     );
   };
+
+  getContentByIdExpanded = (contentId) => {
+    console.log("contentIdcontentIdcontentId", contentId);
+    this.contentStore.getListContentChannelItem(
+      contentId,
+      (result) => {
+        console.log('resultresultresultresult', result)
+        this.subRowDataTable = result;
+      },
+      (error) => {}
+    );
+  }
 
   deleteContents = () => {
     let getArrayId = this.contentIdsSelected;
@@ -83,6 +99,20 @@ class ContentsListViewModel {
       this.pageSize
     );
   };
+
+  getContentItemDetail = (contentId) => {
+    console.log('ididididid1233ItemDetail');
+    console.log(contentId);
+
+    this.contentStore.getContentItemDetailChannel(
+      contentId,
+      (result) => {
+        console.log('getContentItemDetailChannel', result)
+        this.getDataContentItemChannel = result
+      },
+      (error) => {}
+    );
+  }
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");

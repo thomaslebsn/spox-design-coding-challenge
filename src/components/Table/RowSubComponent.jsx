@@ -10,6 +10,10 @@ function SubRows({ row, rowProps, visibleColumns, data, loading }) {
     );
   }
 
+  console.log('datadatadata1234561111111111');
+  console.log(data);
+  console.log(row);
+
   return (
     <>
       {data && (
@@ -47,6 +51,10 @@ const SubRowAsync = ({ row, rowProps, visibleColumns, subRowData }) => {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
+
+    console.log('datadatadata123456999');
+    console.log(subRowData);
+
     const timer = setTimeout(() => {
       setData(subRowData.subRowDataTable);
       setLoading(false);

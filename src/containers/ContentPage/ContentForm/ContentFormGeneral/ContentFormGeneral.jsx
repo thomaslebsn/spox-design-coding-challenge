@@ -112,6 +112,7 @@ const ContentFormGeneral = observer(
             this.contentConnectedChannelsByOrganisationViewModel.dataContentDescriptionSocial
           }
           isAdvanceMode={this.contentConnectedChannelsByOrganisationViewModel.isAdvanceMode}
+          match={this.props.match}
         />
       );
     }

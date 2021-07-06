@@ -120,12 +120,27 @@ textarea {
   color: $green !important;
 }
 
+.bg-posted {
+  background-color: $color-green-2;
+  color: $green !important;
+}
+
 .bg-status-2 {
   background-color: rgba($color: $yellow, $alpha: 0.4);
   color: $yellow !important;
 }
 
+.bg-schedule {
+  background-color: rgba($color: $yellow, $alpha: 0.4);
+  color: $yellow !important;
+}
+
 .bg-status-3 {
+  background-color: $color-red-2;
+  color: $red !important;
+}
+
+.bg-save_as_draft {
   background-color: $color-red-2;
   color: $red !important;
 }

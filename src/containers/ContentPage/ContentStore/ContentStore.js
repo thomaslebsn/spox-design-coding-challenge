@@ -1,6 +1,7 @@
 import { runInAction } from 'mobx';
 
 import ContentUtils from '../ContentUtils/ContentUtils';
+import ContentChannelsUtils from '../ContentUtils/ContentChannelsUtils';
 import ContentModel from '../ContentModel/ContentModel';
 import ContentPostTemplateModel from '../ContentModel/ContentPostTemplateModel';
 
@@ -75,7 +76,7 @@ export default class ContentStore {
     }
   }
 
-  async saveContent(contentData, arrayConnectedChannelsFinal, callbackOnSuccess, callbackOnError) {
+  async saveContent(contentData, postType, arrayConnectedChannelsFinal, callbackOnSuccess, callbackOnError) {
     try {
       console.log('Saving Content via call web service lib function');
       console.log(contentData);
@@ -89,10 +90,11 @@ export default class ContentStore {
 
       console.log('convertedContentData1234');
       console.log(convertedContentData);
+      console.log(postType);
       // Save Content
       const contentService = new EasiiContentApiService();
 
-      let resultContent = await contentService.createPost(convertedContentData);
+      let resultContent = await contentService.createPost(convertedContentData, postType);
 
       console.log('resultContentresultContent123');
       console.log(resultContent);
@@ -173,6 +175,75 @@ export default class ContentStore {
           });
         }
       }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getListContentChannelItem(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const contentService = new EasiiContentApiService();
+      const repondedDataFromLibrary = await contentService.getContentChannelItem(id);
+
+      console.log('Content Store - getContent getContentChannelItem');
+      console.log(repondedDataFromLibrary);
+
+      if (repondedDataFromLibrary) {
+        const contentDataModels = ContentChannelsUtils.transformContentResponseIntoModel(
+          repondedDataFromLibrary
+        );
+
+        console.log('contentDataModels123456');
+        console.log(contentDataModels);
+
+        if (contentDataModels) {
+          runInAction(() => {
+            callbackOnSuccess(contentDataModels);
+          });
+        } else {
+          callbackOnError({
+            message: 'Something went wrong from Server response',
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getContentItemDetailChannel(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const contentService = new EasiiContentApiService();
+      const repondedDataFromLibrary = await contentService.getPostItem(id);
+
+      console.log('Content Store - getContent getContentChannelItem');
+      console.log(repondedDataFromLibrary);
+
+      // if (repondedDataFromLibrary) {
+        // const contentDataModels = ContentChannelsUtils.transformContentResponseIntoModel(
+        //   repondedDataFromLibrary
+        // );
+
+        if (repondedDataFromLibrary) {
+          runInAction(() => {
+            callbackOnSuccess(repondedDataFromLibrary);
+          });
+        } else {
+          callbackOnError({
+            message: 'Something went wrong from Server response',
+          });
+        }
+      // }
     } catch (error) {
       console.log(error);
       runInAction(() => {
@@ -298,6 +369,7 @@ export default class ContentStore {
   async getContentsByCampaignIDs(CampaignIDs, limit, callbackOnSuccess, callbackOnError) {
     try {
       console.log('Content Store - Fetch Content CampaignIDs');
+      console.log(CampaignIDs);
       const contentAPIService = new EasiiContentApiService();
 
       const repondedDataFromLibrary = await contentAPIService.getContentsByCampaignIDs(

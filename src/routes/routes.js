@@ -124,7 +124,7 @@ const mainRoutes = [
     ),
   },
   {
-    path: ["/content", "/content/create", "/content/edit/:id"],
+    path: ["/content", "/content/create", "/content/edit/:id", "/content/:id/:channelItemId"],
     exact: true,
     main: ({ match, location }) => (
       <ContentPage match={match} location={location} />
