@@ -17,6 +17,12 @@ const STATUS = {
     text: "Draft",
     className: "bg-status-3",
   },
+  PROCESSING: {
+    id: 4,
+    slug: 'processing',
+    text: "Processing",
+    className: "bg-status-4",
+  },
 };
 
 const getStatus = (status) => {
