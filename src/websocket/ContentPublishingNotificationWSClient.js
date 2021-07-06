@@ -2,7 +2,7 @@ import { io } from 'socket.io-client';
 import { GENERAL_CONFIG } from 'easii-io-web-service-library';
 import { WEBSOCKET_EVENT_SIGNATURES } from '../constants/WebSocketClient';
 import history from '../routes/history';
-import { notify } from '../components/Toast';
+import { notify, notifyHTML } from '../components/Toast';
 
 class ContentPublishingNotificationWSClient {
   constructor(userID = null, userName = null) {
@@ -36,7 +36,35 @@ class ContentPublishingNotificationWSClient {
     console.log('ContentPublishingNotificationWSClient.onReceivingAForwardedMessageFromServer');
     console.log('RoomID: ', roomID);
     console.log('MessageObject: ', messageObject);
-    notify('Your content item AAA has been posted to the Channel successfully!. Please click the following link to see its more detail'.concat(JSON.stringify(messageObject)),'success');
+    const dataPost = JSON.parse(messageObject.dataPost);
+    console.log(dataPost.general.headline);
+    // notify('fsfds', 'success');
+    const link = ''
+      .concat(window.location.origin)
+      .concat('/content/')
+      .concat(messageObject.contentID)
+      .concat('/')
+      .concat(messageObject.contentChannelID);
+
+    notifyHTML(
+      'Your content item '
+        .concat(dataPost.general.headline)
+        .concat(' has been posted to the Channel successfully!. Please click the following')
+        .concat(' <a href="' + link + '/">link</a> ')
+        .concat('to see its more detail')
+    );
+    // notify(
+    //   'Your content item AAA has been posted to the Channel successfully!. Please click the following link to see its more detail'.concat(
+    //     JSON.stringify(messageObject)
+    //       .concat(' link ')
+    //       .concat(window.location.origin)
+    //       .concat('/content/')
+    //       .concat(messageObject.contentID)
+    //       .concat('/')
+    //       .concat(messageObject.contentChannelID)
+    //   ),
+    //   'notification'
+    // );
     // if (this.roomID === roomID) {
     //     notify('Your content item AAA has been posted to the Channel successfully!. Please click the following link to see its more detail'.concat(JSON.stringify(messageObject)),'success');
     // }

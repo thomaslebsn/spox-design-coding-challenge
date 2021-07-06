@@ -15,7 +15,8 @@ $rt-color-success: $green !default;
 @import "~react-toastify/scss/animations/flip.scss";
 @import "~react-toastify/scss/animations/slide.scss";
 
-#wr_custom_notify {
+#wr_custom_notify { 
   background-color: $green !important;
   padding-left: 15px !important;
+  padding-right: 15px !important;
 }

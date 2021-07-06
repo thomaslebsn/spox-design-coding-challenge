@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 
-import "./index.scss";
+import './index.scss';
 
 const Toast = () => {
   return <ToastContainer />;
 };
 
-const notify = (msg, type = "success") => {
+const notify = (msg, type = 'success') => {
   switch (type) {
-    case "error":
+    case 'error':
       toast.error(msg);
       break;
-    case "warn":
+    case 'warn':
       toast.warn(msg);
       break;
-    case "success":
+    case 'success':
       toast.success(msg);
       break;
 
@@ -26,17 +26,11 @@ const notify = (msg, type = "success") => {
   }
 };
 
-const notifyHTML = (link, text) => {
-  return (
-    toast(
-      <div>
-        <a href={link} className="text-white">{text}</a>
-      </div>
-    , {
-      autoClose: false,
-      toastId: 'wr_custom_notify'
-    })
-  );
+const notifyHTML = (text) => {
+  return toast(<div className="text-white" dangerouslySetInnerHTML={{ __html: text }} />, {
+    toastId: 'wr_custom_notify',
+    autoClose: false,
+  });
 };
 
 export { Toast, notify, notifyHTML };
