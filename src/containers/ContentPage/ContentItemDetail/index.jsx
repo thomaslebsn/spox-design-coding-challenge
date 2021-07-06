@@ -4,6 +4,7 @@ import { Image } from "react-bootstrap";
 import { withContentViewModel } from "../ContentViewModels/ContentViewModelContextProvider";
 
 import './index.scss';
+import { notifyHTML } from '../../../components/Toast';
 
 const ContentItemDetail = observer(
   class ContentItemDetail extends Component {
@@ -28,9 +29,11 @@ const ContentItemDetail = observer(
       if(match) {
         this.contentListViewModel.getContentItemDetail(match.params.id);
         this.contentListViewModel.getContentByIdExpanded(match.params.id);
+
+        notifyHTML("https://redweb.vn/", "Hùng kute đẹp trai hai mái")
       }
-      
     }
+
 
     render() {
 
