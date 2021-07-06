@@ -141,11 +141,11 @@ class ComponentContentFormGeneral extends Component {
      
     }
 
-    if (match.params.id !== undefined) {
-      console.log('matchmatch123123123787878');
-      console.log(match)
-      // this.viewModel.getContent(match.params.id);
-    }
+    // if (match.params.id !== undefined) {
+    //   console.log('matchmatch123123123787878');
+    //   console.log(match)
+    //   // this.viewModel.getContent(match.params.id);
+    // }
   };
 
   generateFormSetting = () => {
