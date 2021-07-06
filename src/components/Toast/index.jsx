@@ -26,4 +26,17 @@ const notify = (msg, type = "success") => {
   }
 };
 
-export { Toast, notify };
+const notifyHTML = (link, text) => {
+  return (
+    toast(
+      <div>
+        <a href={link} className="text-white">{text}</a>
+      </div>
+    , {
+      autoClose: false,
+      toastId: 'wr_custom_notify'
+    })
+  );
+};
+
+export { Toast, notify, notifyHTML };
