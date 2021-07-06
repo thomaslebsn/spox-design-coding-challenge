@@ -21,6 +21,8 @@ class ContentsListViewModel {
 
   subRowDataTable = null;
 
+  getDataContentItemChannel = null;
+
   constructor(contentStore) {
     makeAutoObservable(this);
     this.contentStore = contentStore;
@@ -97,6 +99,20 @@ class ContentsListViewModel {
       this.pageSize
     );
   };
+
+  getContentItemDetail = (contentId) => {
+    console.log('ididididid1233ItemDetail');
+    console.log(contentId);
+
+    this.contentStore.getContentItemDetailChannel(
+      contentId,
+      (result) => {
+        console.log('getContentItemDetailChannel', result)
+        this.getDataContentItemChannel = result
+      },
+      (error) => {}
+    );
+  }
 
   callbackOnErrorHander = (error) => {
     console.log("callbackOnErrorHander");

@@ -219,6 +219,39 @@ export default class ContentStore {
     }
   }
 
+  async getContentItemDetailChannel(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const contentService = new EasiiContentApiService();
+      const repondedDataFromLibrary = await contentService.getPostItem(id);
+
+      console.log('Content Store - getContent getContentChannelItem');
+      console.log(repondedDataFromLibrary);
+
+      // if (repondedDataFromLibrary) {
+        // const contentDataModels = ContentChannelsUtils.transformContentResponseIntoModel(
+        //   repondedDataFromLibrary
+        // );
+
+        if (repondedDataFromLibrary) {
+          runInAction(() => {
+            callbackOnSuccess(repondedDataFromLibrary);
+          });
+        } else {
+          callbackOnError({
+            message: 'Something went wrong from Server response',
+          });
+        }
+      // }
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
   async searchContents(
     callbackOnSuccess,
     callbackOnError,
