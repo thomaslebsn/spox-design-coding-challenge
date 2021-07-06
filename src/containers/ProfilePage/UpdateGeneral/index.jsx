@@ -152,7 +152,7 @@ const UpdateGeneral = observer(class UpdateGeneral extends Component {
             value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS],
             className: 'col-6',
             changed: (event) => {
-              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS_2] = event.target.value;
+              this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ADDRESS] = event.target.value;
             },
           }, {
             label: 'Address 2',
