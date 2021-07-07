@@ -1,30 +1,49 @@
 import { io } from 'socket.io-client';
-import { GENERAL_CONFIG } from 'easii-io-web-service-library';
+import { GENERAL_CONFIG, AUTHORIZATION_KEY } from 'easii-io-web-service-library';
 import { WEBSOCKET_EVENT_SIGNATURES } from '../constants/WebSocketClient';
 import history from '../routes/history';
 import { notify, notifyHTML } from '../components/Toast';
 
 class ContentPublishingNotificationWSClient {
-  constructor(userID = null, userName = null) {
-    console.log('ContentPublishingNotificationWSClient is INITIALIZED !!!');
-    this.userID = userID ? userID : null;
-    this.userName = userName ? userName : null;
+  constructor() {
+    console.log('ContentPublishingNotificationWSClient.INITIALIZED !!!');
+    this.isAuthenticated = localStorage.getItem('auth', false);
+    this.userID = localStorage.getItem(AUTHORIZATION_KEY.MEMBER_ID, null);
+    this.userName = localStorage.getItem(AUTHORIZATION_KEY.MEMBER_EMAIL, null);
     this.contentID = null;
     this.notifiedMessage = null;
     this.contentChannelID = null;
     this.roomID = null;
     this.messageObject = null;
+    this.socket = null;
+    this.classBindingHandler();
+    this.isValidWSClient = this.isAuthenticated && this.userID && this.userName;
+    if (this.isValidWSClient) {
+      this.socketInitializationHandler();
+    }
+  }
+
+  socketInitializationHandler() {
+    console.log('ContentPublishingNotificationWSClient.socketInitializationHandler !!!');
     this.socket = io(GENERAL_CONFIG.WEBSOCKET_ENDPOINT, {
       autoConnect: false,
     });
-    this.socket.on('connect_error', (err) => {
-      this.errorHandler(err);
-      this.closeWebSocketClientInstance();
-    });
+    this.socket.on(WEBSOCKET_EVENT_SIGNATURES.CPN_ON_WEBSOCKET_ERROR, this.onSocketErrorHandler);
+    if (!window.ContentPublishingNotificationWSClient) {
+      window.ContentPublishingNotificationWSClient = this;
+    }
+  }
 
+  classBindingHandler() {
     this.up.bind(this);
     this.onReceivingAForwardedMessageFromServer.bind(this);
     this.closeWebSocketClientInstance.bind(this);
+    this.onSocketErrorHandler.bind(this);
+  }
+
+  onSocketErrorHandler(error) {
+    this.errorHandler(error);
+    this.closeWebSocketClientInstance();
   }
 
   errorHandler(message) {
@@ -36,38 +55,31 @@ class ContentPublishingNotificationWSClient {
     console.log('ContentPublishingNotificationWSClient.onReceivingAForwardedMessageFromServer');
     console.log('RoomID: ', roomID);
     console.log('MessageObject: ', messageObject);
-    const dataPost = JSON.parse(messageObject.dataPost);
-    console.log(dataPost.general.headline);
-    // notify('fsfds', 'success');
+    let dataPost = messageObject.dataPost ? messageObject.dataPost : null;
+    dataPost = dataPost && typeof dataPost === 'string' ? JSON.parse(dataPost) : dataPost;
+    const contentID = messageObject.contentID ? messageObject.contentID : 'undefinedContentID';
+    const contentChannelID = messageObject.contentChannelID
+      ? messageObject.contentChannelID
+      : 'undefinedcontentChannelID';
+    const contentHeadline =
+      dataPost && typeof dataPost === 'object' && dataPost.general && dataPost.general.headline
+        ? dataPost.general.headline
+        : 'Undefined Headline';
+    const currentBaseURL = window.location ? window.location.origin : '/';
     const link = ''
-      .concat(window.location.origin)
+      .concat(currentBaseURL)
       .concat('/content/')
-      .concat(messageObject.contentID)
+      .concat(contentID)
       .concat('/')
-      .concat(messageObject.contentChannelID);
+      .concat(contentChannelID);
 
     notifyHTML(
       'Your content item '
-        .concat(dataPost.general.headline)
-        .concat(' has been posted to the Channel successfully!. Please click the following')
-        .concat(' <a href="' + link + '/">link</a> ')
-        .concat('to see its more detail')
+        .concat('"' + contentHeadline + '"')
+        .concat(' has been posted successfully!. Please click the following')
+        .concat(' <a href="' + link + '/">LINK</a> ')
+        .concat('to check the detail.')
     );
-    // notify(
-    //   'Your content item AAA has been posted to the Channel successfully!. Please click the following link to see its more detail'.concat(
-    //     JSON.stringify(messageObject)
-    //       .concat(' link ')
-    //       .concat(window.location.origin)
-    //       .concat('/content/')
-    //       .concat(messageObject.contentID)
-    //       .concat('/')
-    //       .concat(messageObject.contentChannelID)
-    //   ),
-    //   'notification'
-    // );
-    // if (this.roomID === roomID) {
-    //     notify('Your content item AAA has been posted to the Channel successfully!. Please click the following link to see its more detail'.concat(JSON.stringify(messageObject)),'success');
-    // }
   }
 
   closeWebSocketClientInstance() {
@@ -79,6 +91,7 @@ class ContentPublishingNotificationWSClient {
 
   up() {
     try {
+      console.log('ContentPublishingNotificationWSClient.UP');
       this.roomID = ''
         .concat('AsyncPost_Notify_')
         .concat('UserID=')
@@ -113,8 +126,8 @@ class ContentPublishingNotificationWSClient {
     return this;
   }
 
-  static __init(userID, userName) {
-    return new ContentPublishingNotificationWSClient(userID, userName).up();
+  static __init() {
+    return new ContentPublishingNotificationWSClient().up();
   }
 }
 
