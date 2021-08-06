@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx';
 import PAGE_STATUS from '../../../constants/PageStatus';
-import ProjectUtils from '../ProjectUtils/ProjectUtils';
-import { PROJECT_COLUMN_INDICATOR } from '../../../constants/ProjectModule';
+import NewsUtils from '../NewsUtils/NewsUtils';
+import { PROJECT_COLUMN_INDICATOR } from '../../../constants/NewsModule';
 import { notify } from '../../../components/Toast';
-class ProjectsListViewModel {
+class NewsListViewModel {
   projectStore = null;
 
   projects = null;
@@ -57,7 +57,7 @@ class ProjectsListViewModel {
 
   initializeData = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.projectStore.fetchProjects(
+    this.projectStore.fetchNews(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       0,
@@ -65,9 +65,9 @@ class ProjectsListViewModel {
     );
   };
 
-  refreshTableProjectList = () => {
+  refreshTableNewsList = () => {
     this.tableStatus = PAGE_STATUS.LOADING;
-    this.projectStore.fetchProjects(
+    this.projectStore.fetchNews(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       0,
@@ -75,7 +75,7 @@ class ProjectsListViewModel {
     );
   };
 
-  deleteProjects = () => {
+  deleteNews = () => {
     let getArrayId = this.projectIdsSelected;
 
     if (getArrayId === null) {
@@ -83,9 +83,9 @@ class ProjectsListViewModel {
     } else {
       this.tableStatus = PAGE_STATUS.LOADING;
 
-      this.projectStore.deleteProjects(
+      this.projectStore.deleteNews(
         this.projectIdsSelected,
-        this.refreshTableProjectList,
+        this.refreshTableNewsList,
         this.callbackOnErrorHander
       );
     }
@@ -95,7 +95,7 @@ class ProjectsListViewModel {
     console.log('paginationStep', paginationStep);
     this.tableStatus = PAGE_STATUS.LOADING;
     this.isList = isList;
-    this.projectStore.fetchProjects(
+    this.projectStore.fetchNews(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       paginationStep,
@@ -103,10 +103,10 @@ class ProjectsListViewModel {
     );
   };
 
-  searchProjects = (dataFilter) => {
+  searchNews = (dataFilter) => {
     this.dataFilter = dataFilter;
 
-    this.projectStore.searchProjects(
+    this.projectStore.searchNews(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHander,
       dataFilter
@@ -125,7 +125,7 @@ class ProjectsListViewModel {
     if (projectModelData) {
       this.tableStatus = PAGE_STATUS.READY;
 
-      const rowDataTransformed = ProjectUtils.transformProjectModelIntoTableDataRow(
+      const rowDataTransformed = NewsUtils.transformNewsModelIntoTableDataRow(
         projectModelData.list
       );
 
@@ -140,4 +140,4 @@ class ProjectsListViewModel {
   };
 }
 
-export default ProjectsListViewModel;
+export default NewsListViewModel;

@@ -5,43 +5,43 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import Table from '../../../components/Table';
 
 import { observer } from 'mobx-react';
-import { withProjectViewModel } from '../ProjectViewModels/ProjectViewModelContextProvider';
-import { PROJECT_COLUMN_INDICATOR } from '../../../constants/ProjectModule';
+import { withNewsViewModel } from '../NewsViewModels/NewsViewModelContextProvider';
+import { PROJECT_COLUMN_INDICATOR } from '../../../constants/NewsModule';
 
 import Spinner from '../../../components/Spinner';
 import ComponentNoData from '../../../components/ComponentNoData';
 
-const ProjectsList = observer(
-  class ProjectsList extends Component {
+const NewsList = observer(
+  class NewsList extends Component {
     projectListViewModel = null;
     constructor(props) {
       super(props);
       const { viewModel } = props;
-      console.log('ProjectList - Debug View Model');
+      console.log('NewsList - Debug View Model');
       console.log(viewModel);
-      this.projectListViewModel = viewModel ? viewModel.getProjectListViewModel() : null;
+      this.projectListViewModel = viewModel ? viewModel.getNewsListViewModel() : null;
 
       console.log('After binding class');
       console.log(this.projectListViewModel);
 
-      this.projectFormModalViewModel = viewModel ? viewModel.getProjectFormModalViewModel() : null;
+      this.projectFormModalViewModel = viewModel ? viewModel.getNewsFormModalViewModel() : null;
     }
 
     componentDidMount() {
       this.projectListViewModel.initializeData();
     }
 
-    handerEditProjectThumb = (row) => {
-      this.projectFormModalViewModel.getProject(row.id);
+    handerEditNewsThumb = (row) => {
+      this.projectFormModalViewModel.getNews(row.id);
       this.projectFormModalViewModel.openModal();
     };
 
-    handerEditProject = (e, row) => {
-      this.projectFormModalViewModel.getProject(row.id);
+    handerEditNews = (e, row) => {
+      this.projectFormModalViewModel.getNews(row.id);
       this.projectFormModalViewModel.openModal();
     };
 
-    handerSelectProject = (data) => {
+    handerSelectNews = (data) => {
       this.projectListViewModel.projectIdsSelected = data
         .map((item) => {
           console.log('Debug An Item');
@@ -66,13 +66,13 @@ const ProjectsList = observer(
 
       const tableRowHeader = [
         {
-          Header: 'Project Name',
+          Header: 'News Name',
           accessor: PROJECT_COLUMN_INDICATOR.NAME, // accessor is the "key" in the data
           Cell: ({ row }) => (
             <div {...row.getToggleRowExpandedProps()} className="d-flex">
               <span
                 className="text-black opacity-75"
-                onClick={(e) => this.handerEditProject(e, row.original)}
+                onClick={(e) => this.handerEditNews(e, row.original)}
               >
                 {row.original.name}
               </span>
@@ -119,8 +119,8 @@ const ProjectsList = observer(
                 <Table
                   rowData={projects}
                   tableRowHeader={tableRowHeader}
-                  onEdit={this.handerEditProjectThumb}
-                  onSelect={this.handerSelectProject}
+                  onEdit={this.handerEditNewsThumb}
+                  onSelect={this.handerSelectNews}
                   isThumb={true}
                   isList={this.projectListViewModel.isList}
                   pageSize={this.projectListViewModel.pageSize}
@@ -135,7 +135,7 @@ const ProjectsList = observer(
                   ]}
                   pagination={pagination}
                   listViewModel={this.projectListViewModel}
-                  searchFunction={this.projectListViewModel.searchProjects}
+                  searchFunction={this.projectListViewModel.searchNews}
                   searchText="Search your project"
                   hasSubRow={false}
                   _handleList={this._handleList}
@@ -151,4 +151,4 @@ const ProjectsList = observer(
   }
 );
 
-export default withProjectViewModel(ProjectsList);
+export default withNewsViewModel(NewsList);

@@ -1,18 +1,18 @@
-import { ProjectLeadModel } from './ProjectLeadModel';
-import { ProjectNameModel } from './ProjectNameModel';
+import { NewsLeadModel } from './NewsLeadModel';
+import { NewsNameModel } from './NewsNameModel';
 import { ProgressModel } from './ProgressModel';
 import FIELD_TYPE from '../../../constants/FieldType';
 import { FORMAT_DATE } from '../../../constants/FormFieldType';
 import {
   PROJECT_COLUMN_INDICATOR,
   ESI_PROJECT_COLUMN_INDICATOR,
-} from '../../../constants/ProjectModule';
+} from '../../../constants/NewsModule';
 
 import { format } from 'date-fns';
 
-class ProjectModel {
+class NewsModel {
   constructor(data) {
-    console.log('-- data input for construct Project Model --', data);
+    console.log('-- data input for construct News Model --', data);
     console.log('data input for project model');
     console.log(data);
     this.id = data[ESI_PROJECT_COLUMN_INDICATOR.ID] ?? 0;
@@ -23,9 +23,9 @@ class ProjectModel {
     this.enddate = data[ESI_PROJECT_COLUMN_INDICATOR.END_DATE] ?? '';
     this.shortDescription = data[ESI_PROJECT_COLUMN_INDICATOR.SHORT_DESCRIPTION] ?? '';
 
-    this.projectName = new ProjectNameModel(this.name, this.logoUrl);
+    this.projectName = new NewsNameModel(this.name, this.logoUrl);
 
-    this.projectLead = data.project_lead ? new ProjectLeadModel(data.project_lead) : null;
+    this.projectLead = data.project_lead ? new NewsLeadModel(data.project_lead) : null;
 
     this.progress = new ProgressModel(data);
 
@@ -142,7 +142,7 @@ class ProjectModel {
 
     return {
       [id.columnName]: id.value,
-      [name.columnName]: this.projectName.getProjectName(),
+      [name.columnName]: this.projectName.getNewsName(),
       [shortDescription.columnName]: shortDescription.value,
       [startdate.columnName]: startdate.value,
       [enddate.columnName]: enddate.value,
@@ -171,4 +171,4 @@ class ProjectModel {
   }
 }
 
-export default ProjectModel;
+export default NewsModel;

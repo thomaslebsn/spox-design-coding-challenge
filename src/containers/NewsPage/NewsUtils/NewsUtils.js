@@ -1,12 +1,12 @@
-import ProjectModel from "../ProjectModel/ProjectModel";
-import { ProjectLeadModel } from "../ProjectModel/ProjectLeadModel";
+import NewsModel from "../NewsModel/NewsModel";
+import { NewsLeadModel } from "../NewsModel/NewsLeadModel";
 
-class ProjectUtils {
-  transformProjectResponseIntoModel = (response) => {
+class NewsUtils {
+  transformNewsResponseIntoModel = (response) => {
     return Object.keys(response)
       .map((index) => {
         return [...Array(response[index])].map((item) => {
-          return new ProjectModel(item);
+          return new NewsModel(item);
         });
       })
       .reduce((arr, el) => {
@@ -14,7 +14,7 @@ class ProjectUtils {
       }, []);
   };
 
-  transformProjectModelIntoTableDataRow = (projectModels) => {
+  transformNewsModelIntoTableDataRow = (projectModels) => {
     return projectModels
       .map((item) => {
         console.log("Debug An Item");
@@ -26,11 +26,11 @@ class ProjectUtils {
       }, []);
   };
 
-  transformProjectLeadResponseIntoModel = (response) => {
-    return new ProjectLeadModel(response);
+  transformNewsLeadResponseIntoModel = (response) => {
+    return new NewsLeadModel(response);
   };
 }
 
-const utils = new ProjectUtils();
+const utils = new NewsUtils();
 
 export default utils;
