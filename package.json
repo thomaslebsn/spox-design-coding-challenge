@@ -32,7 +32,6 @@
     "date-fns": "^2.16.1",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
-    "easii-io-web-service-library": "git+ssh://git@gitlab.redweb.dk:easii.io/react/libraries/web-service.git#1.3.0",
     "emoji-mart": "^3.0.0",
     "eslint": "^7.11.0",
     "eslint-config-react-app": "^6.0.0",
